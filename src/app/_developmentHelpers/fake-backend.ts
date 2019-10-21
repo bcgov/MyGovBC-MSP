@@ -12,6 +12,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { Injectable } from '@angular/core';
 import { FakeBackendService } from './fake-backend.service';
 import { AclApiPayLoad } from '../modules/request-acl/model/acl-api.model';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor  {
@@ -28,9 +29,21 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
       if ( 'POST' === request.method ) {
         let payload = null;
 
-        if (request.url.includes('/accLetterIntegration')) {
+        console.log( 'Post method' );
+
+        if (request.url.includes( environment.appConstants.aclContextPath )) {
           console.log( 'Fake-backend for accLetterIntegration' );
-          payload = this.getAclResponse( request );
+          payload = this.fakebackendService.getAclResponse( request );
+        }
+
+        if (request.url.includes( environment.appConstants.attachment )) {
+          console.log( 'Fake-backend for attachements' );
+          payload = this.fakebackendService.getAttachementResponse( request );
+        }
+
+        if (request.url.includes( environment.appConstants.suppBenefitAPIUrl )) {
+          console.log( 'Fake-backend for submit application' );
+          payload = this.fakebackendService.getSubmitApplicationResponse( request );
         }
 
         if ( payload ) {
@@ -42,17 +55,6 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
       // Pass through to actual service
       return next.handle( request );
     }));
-  }
-
-  private getAclResponse( request: HttpRequest<any> ): AclApiPayLoad {
-
-    return {
-      aclTransactionId: request.body.aclTransactionId,
-      referenceNumber: '1535785',
-      dberrorMessage: null,
-      rapidResponse: 'Y',
-      dberrorCode: 'Y'
-    };
   }
 }
 

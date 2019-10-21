@@ -3,7 +3,8 @@ import BasePersonDto, { BasePerson } from '../../../models/base-person';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
 import { Address, SimpleDate, CommonImage } from 'moh-common-lib';
-import { SupportDocuments } from '../../msp-core/models/support-documents.model';
+import SupportDocumentsDto, { SupportDocuments } from '../../msp-core/models/support-documents.model';
+import AddressDto from '../../../models/address.dto';
 
 export class Enrollee extends BasePerson implements ICanadianStatus {
 
@@ -40,7 +41,6 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   set arrivalToCanadaDate( dt: SimpleDate ) {
     this.arrivalToCanadaDt = this.convertToDate( dt );
   }
-
 
   // Out of Province within last 12 months for more than 30 days
   declarationForOutsideOver30Days: boolean;
@@ -79,7 +79,7 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   }
 
   // School information for full-time students
-  fullTimeStudent: boolean = false;
+  fullTimeStudent: boolean;
   inBCafterStudies: boolean;
 
    // For children 19-24, we need the school name and address
@@ -120,8 +120,7 @@ export default class EnrolleeDto extends BasePersonDto {
   hasNameChange: boolean;
 
   // SupportDocuments
-  nameChangeDocType: string;
-  nameChangeDocImages: CommonImage[];
+  nameChangeDocs: SupportDocumentsDto;
 
   // Moving information
   madePermanentMoveToBC: boolean;
@@ -147,4 +146,14 @@ export default class EnrolleeDto extends BasePersonDto {
   // Armed Forces
   hasBeenReleasedFromArmedForces: boolean;
   dischargeDt: Date;
+
+  // School information for full-time students
+  fullTimeStudent: boolean;
+  inBCafterStudies: boolean;
+
+  // For children 19-24, we need the school name and address
+  schoolName: string;
+  schoolAddress: AddressDto;
+  schoolCompletionDt: Date;
+  departureDtForSchool: Date;
 }

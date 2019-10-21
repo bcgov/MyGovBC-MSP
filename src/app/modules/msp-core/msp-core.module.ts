@@ -12,7 +12,6 @@ import { MspImageErrorModalComponent } from './components/image-error-modal/imag
 import { TransmissionErrorView } from '../../components/msp/common/transmission-error-view/transmission-error-view.component';
 import { MspConsentModalComponent } from './components/consent-modal/consent-modal.component';
 import { MspCancelComponent } from '../../components/msp/common/cancel/cancel.component';
-import { MspToggleComponent } from '../../components/msp/common/toggle/toggle.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalModule, AccordionModule, TypeaheadModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -42,6 +41,7 @@ const componentList = [
   ConfirmationComponent,
   CoreContactInfoComponent,
   MspPersonCardComponent,
+  ReviewCardWrapperComponent,
 
   // New components
   CanadianStatusComponent,
@@ -49,7 +49,7 @@ const componentList = [
   PersonalInformationComponent,
 
   // Directives
-  ReviewCardWrapperComponent,
+
 ];
 
 // TODO: Review to determine whether these should be replace with moh-common-lib
@@ -60,7 +60,6 @@ const templistCore = [
   TransmissionErrorView,
   MspConsentModalComponent,
   MspCancelComponent,
-  MspToggleComponent,
   MspContactCardComponent,
 ];
 @NgModule({

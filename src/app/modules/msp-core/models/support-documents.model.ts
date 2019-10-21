@@ -21,3 +21,8 @@ export class SupportDocuments {
     this._images = imgs;
   }
 }
+
+export default class SupportDocumentsDto {
+  documentType: string;
+  images: CommonImage[];
+}

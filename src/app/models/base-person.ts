@@ -1,7 +1,7 @@
 import { Person, CommonImage, SimpleDate } from 'moh-common-lib';
 import { UUID } from 'angular2-uuid';
 import { Gender } from './gender.enum';
-import { SupportDocuments } from '../modules/msp-core/models/support-documents.model';
+import SupportDocumentsDto, { SupportDocuments } from '../modules/msp-core/models/support-documents.model';
 import * as moment from 'moment';
 
 export class BasePerson extends Person {
@@ -60,8 +60,7 @@ export default class BasePersonDto {
   gender: Gender;
 
   // SupportDocuments
-  documentType: string;
-  documentImages: CommonImage[] = [];
+  documents: SupportDocumentsDto;
 
   // Personal information component requires PHN
   phn: string;

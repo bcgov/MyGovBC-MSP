@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 import BasePersonDto, { BasePerson } from '../models/base-person';
 import BaseApplicationDto, { BaseApplication } from '../models/base-application';
-import { SupportDocuments } from '../modules/msp-core/models/support-documents.model';
+import SupportDocumentsDto, { SupportDocuments } from '../modules/msp-core/models/support-documents.model';
+import AddressDto from '../models/address.dto';
+import { Address } from 'moh-common-lib';
 
 export default class MspPagesDto {
   // page status - complete/ incomplete
@@ -64,11 +66,9 @@ export abstract class BaseMspDataService {
 
     output.gender = dto.gender;
 
-    output.documents = new SupportDocuments();
-    output.documents.documentType = dto.documentType;
-    output.documents.images = dto.documentImages;
+    output.documents = this.fromSupportDocumentTransferObject( dto.documents );
 
-    output.dateOfBirth = output.convertToSimpleDt( dto.dateOfBirth  );
+    output.dateOfBirth = output.convertToSimpleDt( dto.dateOfBirth );
 
     return output;
   }
@@ -89,8 +89,7 @@ export abstract class BaseMspDataService {
     dto.gender = input.gender;
 
     // SupportDocuments
-    dto.documentType = input.documents.documentType;
-    dto.documentImages = input.documents.images;
+    dto.documents = this.toSupportDocumentTransferObject( input.documents );
 
     dto.dateOfBirth = input.convertToDate( input.dateOfBirth );
 
@@ -120,6 +119,52 @@ export abstract class BaseMspDataService {
     output.authorizedBySpouse = dto.authorizedBySpouse;
     output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
 
+    return output;
+  }
+
+  protected toAddressTransferObject( input: Address ): AddressDto {
+    const dto = new AddressDto();
+
+    dto.addressLine1 = input.addressLine1;
+    dto.addressLine2 = input.addressLine2;
+    dto.addressLine3 = input.addressLine3;
+
+    dto.city = input.city;
+    dto.province = input.province;
+    dto.country = input.country;
+    dto.postal = input.postal;
+
+    return dto;
+  }
+
+  protected fromAddressTransferObject( dto: AddressDto ): Address {
+    const output = new Address();
+
+    output.addressLine1 = dto.addressLine1;
+    output.addressLine2 = dto.addressLine2;
+    output.addressLine3 = dto.addressLine3;
+
+    output.city = dto.city;
+    output.province = dto.province;
+    output.country = dto.country;
+    output.postal = dto.postal;
+
+    return output;
+  }
+
+  protected toSupportDocumentTransferObject( input: SupportDocuments ): SupportDocumentsDto {
+    const dto = new SupportDocumentsDto();
+
+    dto.documentType = input.documentType;
+    dto.images = input.images;
+    return dto;
+  }
+
+  protected fromSupportDocumentTransferObject( dto: SupportDocumentsDto ): SupportDocuments {
+    const output = new SupportDocuments();
+
+    output.documentType = dto.documentType;
+    output.images = dto.images;
     return output;
   }
 }

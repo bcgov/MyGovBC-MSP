@@ -4,6 +4,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import EnrolApplicationDto, { EnrolApplication } from '../models/enrol-application';
 import EnrolleeDto, { Enrollee } from '../models/enrollee';
 import { SupportDocuments } from '../../msp-core/models/support-documents.model';
+import AddressDto from '../../../models/address.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,6 @@ export class EnrolDataService extends BaseMspDataService {
 
   // Saving Enrolment data into local storage
   saveApplication(): void {
-    console.log( 'saveApplication (enrolment)' );
     const dto: EnrolApplicationDto = this.toTransferObject( this.application );
     this.localStorageService.set( this._storageKey, dto );
     this.savePageStatus( this.pageStatus );
@@ -35,7 +35,6 @@ export class EnrolDataService extends BaseMspDataService {
 
   // Remove Enrolment data from local storage
   removeApplication(): void {
-    console.log( 'removeApplication (enrolment)' );
     this.destroyAll();
     this.application = new EnrolApplication();
   }
@@ -70,7 +69,6 @@ export class EnrolDataService extends BaseMspDataService {
     output.plannedAbsence = dto.plannedAbsence;
     output.unUsualCircumstance = dto.unUsualCircumstance;
 
-
     output.applicant = this.fromEnrolleeTranferObject( dto.applicant );
     if ( dto.spouse ) {
       output.spouse = this.fromEnrolleeTranferObject( dto.spouse );
@@ -89,7 +87,6 @@ export class EnrolDataService extends BaseMspDataService {
   private fetchApplication(): EnrolApplication {
 
     const dto: EnrolApplicationDto = this.localStorageService.get<EnrolApplicationDto>( this._storageKey );
-    console.log( 'fetchApplication (enrolment)', dto );
     if (dto) {
       return this.fromTransferObject( dto );
     }
@@ -100,7 +97,6 @@ export class EnrolDataService extends BaseMspDataService {
   private fromEnrolleeTranferObject( dto: EnrolleeDto ): Enrollee {
 
     const output: Enrollee = this.fromBasePersonTransferObject<Enrollee>( dto, Enrollee );
-    console.log( 'fromEnrolleeTranferObject: ', output );
 
     output.relationship = dto.relationship;
     output.status = dto.status;
@@ -109,14 +105,24 @@ export class EnrolDataService extends BaseMspDataService {
     output.hasNameChange = dto.hasNameChange;
 
     // SupportDocument
-    output.nameChangeDocs = new SupportDocuments();
-    output.nameChangeDocs.documentType = dto.nameChangeDocType;
-    output.nameChangeDocs.images = dto.nameChangeDocImages;
-
+    output.nameChangeDocs = this.fromSupportDocumentTransferObject( dto.nameChangeDocs );
 
     // Moving information
     output.madePermanentMoveToBC = dto.madePermanentMoveToBC;
     output.livedInBCSinceBirth = dto.livedInBCSinceBirth;
+
+    // School information for full-time students
+    output.fullTimeStudent = dto.fullTimeStudent;
+    output.inBCafterStudies = dto.inBCafterStudies;
+
+    // For children 19-24, we need the school name and address
+    output.schoolName = dto.schoolName;
+
+    output.schoolAddress = this.fromAddressTransferObject( dto.schoolAddress );
+    output.schoolCompletionDt = dto.schoolCompletionDt;
+    output.departureDtForSchool = dto.departureDtForSchool;
+
+    console.log( 'fromEnrolleeTranferObject: ', output );
 
     return output;
   }
@@ -124,7 +130,6 @@ export class EnrolDataService extends BaseMspDataService {
   private toEnrolleeTranferObject( input: Enrollee ): EnrolleeDto {
 
     const dto: EnrolleeDto = this.toBasePersonTransferObject<EnrolleeDto>( input, EnrolleeDto );
-    console.log( 'toEnrolleeTranferObject: ', dto );
 
     dto.relationship = input.relationship;
     dto.status = input.status;
@@ -133,12 +138,45 @@ export class EnrolDataService extends BaseMspDataService {
     dto.hasNameChange = input.hasNameChange;
 
     // SupportDocuments
-    dto.nameChangeDocType = input.nameChangeDocs.documentType;
-    dto.nameChangeDocImages = input.nameChangeDocs.images;
+    dto.nameChangeDocs = this.toSupportDocumentTransferObject( input.nameChangeDocs );
 
     // Moving information
     dto.madePermanentMoveToBC = input.madePermanentMoveToBC;
     dto.livedInBCSinceBirth = input.livedInBCSinceBirth;
+    dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
+
+    // Arrival in dates (BC/Canaada)
+    dto.arrivalToBCDt = input.arrivalToBCDt;
+    dto.arrivalToCanadaDt = input.arrivalToCanadaDt;
+
+    // Health numbers
+    dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
+    dto.hasPreviousBCPhn = input.hasPreviousBCPhn;
+    dto.previousBCPhn = input.previousBCPhn;
+
+    // Out of Province within last 12 months for more than 30 days
+    dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
+    dto.departureReason = input.departureReason;
+    dto.departureDestination = input.departureDestination;
+    dto.oopDepartureDt = input.oopDepartureDt;
+    dto.oopReturnDt = input.oopReturnDt;
+
+    // Armed Forces
+    dto.hasBeenReleasedFromArmedForces = input.hasBeenReleasedFromArmedForces;
+    dto.dischargeDt = input.dischargeDt;
+
+    // School information for full-time students
+    dto.fullTimeStudent = input.fullTimeStudent;
+    dto.inBCafterStudies = input.inBCafterStudies;
+
+    // For children 19-24, we need the school name and address
+    dto.schoolName = input.schoolName;
+
+    dto.schoolAddress = this.toAddressTransferObject( input.schoolAddress );
+    dto.schoolCompletionDt = input.schoolCompletionDt;
+    dto.departureDtForSchool = input.departureDtForSchool;
+
+    console.log( 'toEnrolleeTranferObject: ', dto );
 
     return dto;
   }
