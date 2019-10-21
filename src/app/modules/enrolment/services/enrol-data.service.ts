@@ -3,8 +3,6 @@ import { BaseMspDataService } from '../../../services/base-msp-data.service';
 import { LocalStorageService } from 'angular-2-local-storage';
 import EnrolApplicationDto, { EnrolApplication } from '../models/enrol-application';
 import EnrolleeDto, { Enrollee } from '../models/enrollee';
-import { SupportDocuments } from '../../msp-core/models/support-documents.model';
-import AddressDto from '../../../models/address.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -39,14 +37,19 @@ export class EnrolDataService extends BaseMspDataService {
     this.application = new EnrolApplication();
   }
 
-
-  // TODO: Build
+  // Methods for transferring data between class and storage object
   private toTransferObject( input: EnrolApplication ): EnrolApplicationDto {
 
     const dto: EnrolApplicationDto = this.toBaseApplicationTransferObject<EnrolApplicationDto>( input, EnrolApplicationDto );
     dto.liveInBC = input.liveInBC;
     dto.plannedAbsence = input.plannedAbsence;
     dto.unUsualCircumstance = input.unUsualCircumstance;
+
+    // contact information
+    dto.residentialAddress = this.toAddressTransferObject( input.residentialAddress );
+    dto.mailingSameAsResidentialAddress = input.mailingSameAsResidentialAddress;
+    dto.mailingAddress = this.toAddressTransferObject( input.mailingAddress );
+    dto.phoneNumber = input.phoneNumber;
 
     dto.applicant = this.toEnrolleeTranferObject( input.applicant );
     if ( input.spouse ) {
@@ -69,6 +72,12 @@ export class EnrolDataService extends BaseMspDataService {
     output.plannedAbsence = dto.plannedAbsence;
     output.unUsualCircumstance = dto.unUsualCircumstance;
 
+    // contact information
+    output.residentialAddress = this.fromAddressTransferObject( dto.residentialAddress );
+    output.mailingSameAsResidentialAddress = dto.mailingSameAsResidentialAddress;
+    output.mailingAddress = this.fromAddressTransferObject( dto.mailingAddress );
+    output.phoneNumber = dto.phoneNumber;
+
     output.applicant = this.fromEnrolleeTranferObject( dto.applicant );
     if ( dto.spouse ) {
       output.spouse = this.fromEnrolleeTranferObject( dto.spouse );
@@ -82,17 +91,6 @@ export class EnrolDataService extends BaseMspDataService {
 
     return output;
   }
-
-  /** Retrieve data from storage */
-  private fetchApplication(): EnrolApplication {
-
-    const dto: EnrolApplicationDto = this.localStorageService.get<EnrolApplicationDto>( this._storageKey );
-    if (dto) {
-      return this.fromTransferObject( dto );
-    }
-    return new EnrolApplication();
-  }
-
 
   private fromEnrolleeTranferObject( dto: EnrolleeDto ): Enrollee {
 
@@ -110,6 +108,27 @@ export class EnrolDataService extends BaseMspDataService {
     // Moving information
     output.madePermanentMoveToBC = dto.madePermanentMoveToBC;
     output.livedInBCSinceBirth = dto.livedInBCSinceBirth;
+    output.movedFromProvinceOrCountry = dto.movedFromProvinceOrCountry;
+
+    // Arrival in dates (BC/Canaada)
+    output.arrivalToBCDate = dto.arrivalToBCDate;
+    output.arrivalToCanadaDate = dto.arrivalToCanadaDate;
+
+    // Health numbers
+    output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
+    output.hasPreviousBCPhn = dto.hasPreviousBCPhn;
+    output.previousBCPhn = dto.previousBCPhn;
+
+    // Out of Province within last 12 months for more than 30 days
+    output.declarationForOutsideOver30Days = dto.declarationForOutsideOver30Days;
+    output.departureReason = dto.departureReason;
+    output.departureDestination = dto.departureDestination;
+    output.oopDepartureDate = dto.oopDepartureDate;
+    output.oopReturnDate = dto.oopReturnDate;
+
+    // Armed Forces
+    output.hasBeenReleasedFromArmedForces = dto.hasBeenReleasedFromArmedForces;
+    output.dischargeDate = dto.dischargeDate;
 
     // School information for full-time students
     output.fullTimeStudent = dto.fullTimeStudent;
@@ -117,10 +136,9 @@ export class EnrolDataService extends BaseMspDataService {
 
     // For children 19-24, we need the school name and address
     output.schoolName = dto.schoolName;
-
     output.schoolAddress = this.fromAddressTransferObject( dto.schoolAddress );
-    output.schoolCompletionDt = dto.schoolCompletionDt;
-    output.departureDtForSchool = dto.departureDtForSchool;
+    output.schoolCompletionDate = dto.schoolCompletionDate;
+    output.departureDateForSchool = dto.departureDateForSchool;
 
     console.log( 'fromEnrolleeTranferObject: ', output );
 
@@ -146,8 +164,8 @@ export class EnrolDataService extends BaseMspDataService {
     dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
 
     // Arrival in dates (BC/Canaada)
-    dto.arrivalToBCDt = input.arrivalToBCDt;
-    dto.arrivalToCanadaDt = input.arrivalToCanadaDt;
+    dto.arrivalToBCDate = input.arrivalToBCDate;
+    dto.arrivalToCanadaDate = input.arrivalToCanadaDate;
 
     // Health numbers
     dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
@@ -158,12 +176,12 @@ export class EnrolDataService extends BaseMspDataService {
     dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
     dto.departureReason = input.departureReason;
     dto.departureDestination = input.departureDestination;
-    dto.oopDepartureDt = input.oopDepartureDt;
-    dto.oopReturnDt = input.oopReturnDt;
+    dto.oopDepartureDate = input.oopDepartureDate;
+    dto.oopReturnDate = input.oopReturnDate;
 
     // Armed Forces
     dto.hasBeenReleasedFromArmedForces = input.hasBeenReleasedFromArmedForces;
-    dto.dischargeDt = input.dischargeDt;
+    dto.dischargeDate = input.dischargeDate;
 
     // School information for full-time students
     dto.fullTimeStudent = input.fullTimeStudent;
@@ -171,13 +189,22 @@ export class EnrolDataService extends BaseMspDataService {
 
     // For children 19-24, we need the school name and address
     dto.schoolName = input.schoolName;
-
     dto.schoolAddress = this.toAddressTransferObject( input.schoolAddress );
-    dto.schoolCompletionDt = input.schoolCompletionDt;
-    dto.departureDtForSchool = input.departureDtForSchool;
+    dto.schoolCompletionDate = input.schoolCompletionDate;
+    dto.departureDateForSchool = input.departureDateForSchool;
 
     console.log( 'toEnrolleeTranferObject: ', dto );
 
     return dto;
+  }
+
+  /** Retrieve data from storage */
+  private fetchApplication(): EnrolApplication {
+
+    const dto: EnrolApplicationDto = this.localStorageService.get<EnrolApplicationDto>( this._storageKey );
+    if (dto) {
+      return this.fromTransferObject( dto );
+    }
+    return new EnrolApplication();
   }
 }

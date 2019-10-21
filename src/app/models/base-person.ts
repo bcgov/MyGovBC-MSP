@@ -1,10 +1,10 @@
-import { Person, CommonImage, SimpleDate } from 'moh-common-lib';
+import { Person, SimpleDate } from 'moh-common-lib';
 import { UUID } from 'angular2-uuid';
 import { Gender } from './gender.enum';
 import SupportDocumentsDto, { SupportDocuments } from '../modules/msp-core/models/support-documents.model';
-import * as moment from 'moment';
+import { IPersonalInformation } from '../modules/msp-core/components/personal-information/personal-information.component';
 
-export class BasePerson extends Person {
+export class BasePerson extends Person implements IPersonalInformation{
 
   // Person has name, dob, and dob format
 
@@ -12,41 +12,17 @@ export class BasePerson extends Person {
   gender: Gender;
   documents: SupportDocuments = new SupportDocuments();
 
-  // Personal information component requires PHN
-  phn: string;
-
   constructor() {
     super();
     this.dobFormat = 'MMMM D, YYYY';
   }
 
-  convertToDate( dt: SimpleDate ): Date {
-    const hasSimpleDt = Object.keys(dt).map( x => dt[x] === null || dt[x] === undefined )
-                        .filter( itm => itm === true )
-                        .length === 0;
-    if ( hasSimpleDt ) {
-      return moment({
-        year: dt.year,
-        month: dt.month - 1,
-        day: dt.day
-      }).toDate();
-    }
-    return undefined;
-  }
-
-  convertToSimpleDt( dt: Date ) {
-    if ( dt ) {
-      const obj = moment( dt ).toObject();
-      return {
-        year: obj.years,
-        month: obj.months + 1,
-        day: obj.date
-      };
-    }
-    return { year: null, month: null, day: null };
+  dateExists( dt: SimpleDate ): boolean {
+    return Object.keys(dt).map( x => dt[x] === undefined || dt[x] === null )
+            .filter( itm => itm === true )
+            .length === 0;
   }
 }
-
 
 export default class BasePersonDto {
 
@@ -55,13 +31,10 @@ export default class BasePersonDto {
   middleName: string;
   lastName: string;
 
-  dateOfBirth: Date;
+  dateOfBirth: SimpleDate;
 
   gender: Gender;
 
   // SupportDocuments
   documents: SupportDocumentsDto;
-
-  // Personal information component requires PHN
-  phn: string;
 }

@@ -15,7 +15,6 @@ export class BaseApplication extends Base {
   // Reference number returned by call to back-end
   referenceNumber: string;
 
-
   // Authorization
   authorizedByApplicant: boolean;
   authorizedBySpouse: boolean;

@@ -80,7 +80,7 @@ export interface ICanadianStatus {
   status: StatusInCanada;
   currentActivity: CanadianStatusReason;
   relationship: Relationship;
-  clearData?: (x: any) => {};
+  clearData?(x: any): void;
 }
 
 @Component({

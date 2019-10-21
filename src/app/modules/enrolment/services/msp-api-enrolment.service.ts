@@ -19,7 +19,6 @@ import {
  EnrolmentApplicantType
 } from '../../../modules/msp-core/interfaces/i-api';
 import * as moment from 'moment';
-import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
 import { SchemaService } from '../../../services/schema.service';
@@ -35,7 +34,6 @@ import { BasePerson } from '../../../models/base-person';
   providedIn: 'root'
 })
 export class MspApiEnrolmentService extends BaseMspApiService {
-
 
   constructor( protected http: HttpClient,
                protected logService: MspLogService,
@@ -94,43 +92,31 @@ export class MspApiEnrolmentService extends BaseMspApiService {
         app.getAllImages()
       )
       .then(attachmentResponse => {
-      console.log('sendAttachments response', attachmentResponse);
+        console.log('sendAttachments response', attachmentResponse);
 
-      return this.sendEnrolmentApplication(
-        enrolmentRequest,
-        app.authorizationToken
-      ).subscribe(response => {
-        // Add reference number
-        if (response && response.referenceNumber) {
-        app.referenceNumber = response.referenceNumber.toString();
-        }
-        // Let our caller know were done passing back the application
-        return resolve(response);
-      });
-      })
-      .catch((err: Response | any) => {
-      // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-      console.log('sent all attachments rejected: ', err);
-      this.logService.log(
-        {
-        text: 'Attachment - Send All Rejected ',
-        response: err
-        },
-        'Attachment - Send All Rejected '
-      );
-      return resolve(err);
-      });
-
+        return this.sendApplication<EnrolApplication>( enrolmentRequest, app.authorizationToken )
+          .subscribe(response => {
+            // Add reference number
+            if (response && response.referenceNumber) {
+              app.referenceNumber = response.referenceNumber.toString();
+            }
+            // Let our caller know were done passing back the application
+            return resolve(response);
+          });
+        })
+        .catch((err: Response | any) => {
+          // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
+          console.log('sent all attachments rejected: ', err);
+          this.logService.log(
+            {
+            text: 'Attachment - Send All Rejected ',
+            response: err
+            },
+            'Attachment - Send All Rejected '
+          );
+          return resolve(err);
+        });
     });
-  }
-
-  sendEnrolmentApplication(app: MSPApplicationSchema, authToken: string): Observable<any> {
-    const _url = environment.appConstants['apiBaseUrl'] + '/submit-application/' + app.uuid;
-
-    // Setup headers
-    this.setHeaders( authToken );
-
-    return this.post<MspApplication>(_url, app);
   }
 
   private prepareEnrolmentApplication(from: EnrolApplication): MSPApplicationSchema {
@@ -216,15 +202,15 @@ export class MspApiEnrolmentService extends BaseMspApiService {
       to.livedInBC.prevHealthNumber = from.previousBCPhn;
     }
 
-    if (from.movedFromProvinceOrCountry) {
+    if ( from.movedFromProvinceOrCountry ) {
         to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
     }
 
     // Arrival dates
-    if (from.arrivalToBCDt) {
+    if ( from.dateExists( from.arrivalToBCDate ) ) {
         to.livedInBC.recentBCMoveDate = this.formatDate( from.arrivalToBCDate );
     }
-    if (from.arrivalToCanadaDt) {
+    if ( from.dateExists( from.arrivalToCanadaDate ) ) {
         to.livedInBC.recentCanadaMoveDate = this.formatDate( from.arrivalToCanadaDate );
     }
 
@@ -236,11 +222,11 @@ export class MspApiEnrolmentService extends BaseMspApiService {
       to.outsideBC.destination = from.departureDestination;
     }
 
-    if (from.inBCafterStudies !== undefined ) {
+    if ( from.inBCafterStudies ) {
       to.willBeAway.isInBCafterStudies = from.inBCafterStudies ? 'Y' : 'N';
     }
 
-    if (from.dischargeDt) {
+    if (from.hasBeenReleasedFromArmedForces) {
       to.willBeAway.armedDischargeDate = this.formatDate( from.dischargeDate );
     }
 

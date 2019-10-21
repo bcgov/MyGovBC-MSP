@@ -28,8 +28,9 @@
                   required
                   commonValidateName></common-name>
   </div>
-
-  <div *ngIf="showPhn" class="form-group col-sm-6 p-sm-2">
+  
+  <!--Display phn if defined in person object-->
+  <div *ngIf="person?.phn" class="form-group col-sm-6 p-sm-2">
       <common-phn name="phn_{{objectId}}"
                   [(ngModel)]="person.phn"
                   required

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Address, AbstractHttpService, CommonImage, SimpleDate } from 'moh-common-lib';
-import { AddressType } from '../modules/msp-core/interfaces/i-api';
+import { AddressType, MSPApplicationSchema } from '../modules/msp-core/interfaces/i-api';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { MspLogService } from './log.service';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { ApiResponse } from '../models/api-response.interface';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
@@ -52,10 +52,21 @@ export class BaseMspApiService extends AbstractHttpService  {
     });
   }
 
+  // For all applications within MSP project
+  sendApplication<T>( app: MSPApplicationSchema, authToken: string ): Observable<any> {
+    const _url = environment.appConstants.apiBaseUrl +
+                 environment.appConstants.suppBenefitAPIUrl +
+                 app.uuid;
 
-  public sendAttachments( token: string,
-                          applicationUUID: string,
-                          attachments: CommonImage[] ): Promise<string[]> {
+    // Setup headers
+    this.setHeaders( authToken );
+
+    return this.post<T>( _url, app );
+  }
+
+  sendAttachments( token: string,
+                   applicationUUID: string,
+                   attachments: CommonImage[] ): Promise<string[]> {
 
     return new Promise<string[]>((resolve, reject) => {
       // Instantly resolve if no attachments
@@ -172,13 +183,16 @@ export class BaseMspApiService extends AbstractHttpService  {
   }
 
   private sendAttachment( token: string,
-                            applicationUUID: string,
-                            attachment: CommonImage ): Promise<string> {
+                          applicationUUID: string,
+                          attachment: CommonImage ): Promise<string> {
     return new Promise<string>((resolve, reject) => {
 
       /* Create URL /{applicationUUID}/attachment/{attachmentUUID */
-      let _url = environment.appConstants['apiBaseUrl'] + environment.appConstants['attachment'] +
-                 applicationUUID + '/attachments/' + attachment.uuid;
+      let _url = environment.appConstants.apiBaseUrl +
+                 environment.appConstants.attachment +
+                 applicationUUID +
+                 '/attachments/' +
+                 attachment.uuid;
 
       // programArea
       _url += `?programArea=${this._programArea}`;

@@ -315,6 +315,17 @@ export class MspPerson implements ICanadianStatus {
      * BC Personal Health Number
      */
     previous_phn: string;
+
+    /* TEMPORARY fix until able to refactor all code - personal information component in core
+     *variable name changed from previous_phn to phn - change occurred during refactoring
+     * of enrolment
+     */
+    get phn() {
+        return this.previous_phn;
+    }
+    set phn( phn: string ) {
+        this.previous_phn = phn;
+    }
     specificMember_phn: string;
 
     private _hasPreviousBCPhn: boolean;

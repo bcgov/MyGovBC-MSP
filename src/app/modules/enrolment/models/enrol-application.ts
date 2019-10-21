@@ -2,6 +2,7 @@ import BaseApplicationDto, { BaseApplication } from '../../../models/base-applic
 import EnrolleeDto, { Enrollee } from './enrollee';
 import { Relationship } from '../../../models/relationship.enum';
 import { CommonImage, Address } from 'moh-common-lib';
+import AddressDto from '../../../models/address.dto';
 
 export class EnrolApplication extends BaseApplication {
 
@@ -95,4 +96,11 @@ export default class EnrolApplicationDto extends BaseApplicationDto {
   liveInBC: boolean; // Currently live in BC
   plannedAbsence: boolean; // Planned absence from BC
   unUsualCircumstance: boolean;
+
+
+  // Contact information
+  residentialAddress: AddressDto;
+  mailingSameAsResidentialAddress: boolean;
+  mailingAddress: AddressDto;
+  phoneNumber: string;
 }

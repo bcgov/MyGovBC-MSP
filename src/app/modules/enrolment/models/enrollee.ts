@@ -12,11 +12,12 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   status: StatusInCanada;
   currentActivity: CanadianStatusReason;
   relationship: Relationship;
-  //clearData?: (x: any) => {};
+  clearData(x: any): void {
+    console.log('clearData: ', x);
+  }
 
   hasNameChange: boolean;
   nameChangeDocs: SupportDocuments = new SupportDocuments();
-
 
   // Moving information
   madePermanentMoveToBC: boolean;
@@ -24,44 +25,15 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   movedFromProvinceOrCountry: string;
 
   // Arrival in dates (BC/Canaada)
-  arrivalToBCDt: Date; // TODO: Rename to arrivalToBCDate
-  // TODO: Remove move once DateComponent if fixed
-  get arrivalToBCDate() {
-    return this.convertToSimpleDt( this.arrivalToBCDt );
-  }
-  set arrivalToBCDate( dt: SimpleDate ) {
-    this.arrivalToBCDt = this.convertToDate( dt );
-  }
-
-  arrivalToCanadaDt: Date; // TODO: Rename to arrivalToCanadaDate
-  // TODO: Remove move once DateComponent if fixed
-  get arrivalToCanadaDate() {
-    return this.convertToSimpleDt( this.arrivalToCanadaDt );
-  }
-  set arrivalToCanadaDate( dt: SimpleDate ) {
-    this.arrivalToCanadaDt = this.convertToDate( dt );
-  }
+  arrivalToBCDate: SimpleDate;
+  arrivalToCanadaDate: SimpleDate;
 
   // Out of Province within last 12 months for more than 30 days
   declarationForOutsideOver30Days: boolean;
   departureReason: string;
   departureDestination: string;
-
-  oopDepartureDt: Date;
-  get oopDepartureDate() {
-    return this.convertToSimpleDt( this.oopDepartureDt );
-  }
-  set oopDepartureDate( dt: SimpleDate ) {
-    this.oopDepartureDt = this.convertToDate( dt );
-  }
-
-  oopReturnDt: Date;
-  get oopReturnDate() {
-    return this.convertToSimpleDt( this.oopReturnDt );
-  }
-  set oopReturnDate( dt: SimpleDate ) {
-    this.oopReturnDt = this.convertToDate( dt );
-  }
+  oopDepartureDate: SimpleDate;
+  oopReturnDate: SimpleDate;
 
   // health numbers
   healthNumberFromOtherProvince: string;
@@ -70,13 +42,7 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
 
   // Armed Forces
   hasBeenReleasedFromArmedForces: boolean;
-  dischargeDt: Date;
-  get dischargeDate() {
-    return this.convertToSimpleDt( this.dischargeDt );
-  }
-  set dischargeDate( dt: SimpleDate ) {
-    this.dischargeDt = this.convertToDate( dt );
-  }
+  dischargeDate: SimpleDate;
 
   // School information for full-time students
   fullTimeStudent: boolean;
@@ -85,23 +51,10 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
    // For children 19-24, we need the school name and address
   schoolName: string;
   schoolAddress: Address = new Address();
-  schoolCompletionDt: Date;
-  get schoolCompletionDate() {
-    return this.convertToSimpleDt( this.schoolCompletionDt );
-  }
-  set schoolCompletionDate( dt: SimpleDate ) {
-    this.schoolCompletionDt = this.convertToDate( dt );
-  }
+  schoolCompletionDate: SimpleDate;
 
   // If school out BC, require departure date
-  departureDtForSchool: Date;
-  get departureDateForSchool() {
-    return this.convertToSimpleDt( this.departureDtForSchool );
-  }
-  set departureDateForSchool( dt: SimpleDate ) {
-    this.departureDtForSchool = this.convertToDate( dt );
-  }
-
+  departureDateForSchool: SimpleDate;
 
   constructor( rel: Relationship = null ) {
     super();
@@ -128,8 +81,8 @@ export default class EnrolleeDto extends BasePersonDto {
   movedFromProvinceOrCountry: string;
 
    // Arrival in dates (BC/Canaada)
-   arrivalToBCDt: Date;
-   arrivalToCanadaDt: Date;
+   arrivalToBCDate: SimpleDate;
+   arrivalToCanadaDate: SimpleDate;
 
    // Health numbers
    healthNumberFromOtherProvince: string;
@@ -140,12 +93,12 @@ export default class EnrolleeDto extends BasePersonDto {
   declarationForOutsideOver30Days: boolean;
   departureReason: string;
   departureDestination: string;
-  oopDepartureDt: Date;
-  oopReturnDt: Date;
+  oopDepartureDate: SimpleDate;
+  oopReturnDate: SimpleDate;
 
   // Armed Forces
   hasBeenReleasedFromArmedForces: boolean;
-  dischargeDt: Date;
+  dischargeDate: SimpleDate;
 
   // School information for full-time students
   fullTimeStudent: boolean;
@@ -154,6 +107,6 @@ export default class EnrolleeDto extends BasePersonDto {
   // For children 19-24, we need the school name and address
   schoolName: string;
   schoolAddress: AddressDto;
-  schoolCompletionDt: Date;
-  departureDtForSchool: Date;
+  schoolCompletionDate: SimpleDate;
+  departureDateForSchool: SimpleDate;
 }

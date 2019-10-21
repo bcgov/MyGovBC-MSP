@@ -1,9 +1,16 @@
 import { Component, forwardRef, Input, Output, EventEmitter } from '@angular/core';
 import { Base, SimpleDate } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Gender } from '../../../../models/gender.enum';
-import { BasePerson } from '../../../../models/base-person';
+
+export interface IPersonalInformation {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  dateOfBirth: SimpleDate;
+  gender: Gender;
+  phn?: string;
+}
 
 @Component({
   selector: 'msp-personal-information',
@@ -17,10 +24,9 @@ import { BasePerson } from '../../../../models/base-person';
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class PersonalInformationComponent<T extends BasePerson> extends Base {
+export class PersonalInformationComponent<T extends IPersonalInformation> extends Base {
 
   @Input() disabled: boolean = false;
-  @Input() showPhn: boolean = false;
 
   @Input() person: T;
   @Output() personChange: EventEmitter<T> = new EventEmitter<T>();

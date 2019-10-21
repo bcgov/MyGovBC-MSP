@@ -4,7 +4,7 @@ import BasePersonDto, { BasePerson } from '../models/base-person';
 import BaseApplicationDto, { BaseApplication } from '../models/base-application';
 import SupportDocumentsDto, { SupportDocuments } from '../modules/msp-core/models/support-documents.model';
 import AddressDto from '../models/address.dto';
-import { Address } from 'moh-common-lib';
+import { Address, SimpleDate } from 'moh-common-lib';
 
 export default class MspPagesDto {
   // page status - complete/ incomplete
@@ -65,10 +65,9 @@ export abstract class BaseMspDataService {
     output.lastName = dto.lastName;
 
     output.gender = dto.gender;
+    output.dateOfBirth = dto.dateOfBirth;
 
     output.documents = this.fromSupportDocumentTransferObject( dto.documents );
-
-    output.dateOfBirth = output.convertToSimpleDt( dto.dateOfBirth );
 
     return output;
   }
@@ -87,11 +86,10 @@ export abstract class BaseMspDataService {
     dto.lastName = input.lastName;
 
     dto.gender = input.gender;
+    dto.dateOfBirth = input.dateOfBirth;
 
     // SupportDocuments
     dto.documents = this.toSupportDocumentTransferObject( input.documents );
-
-    dto.dateOfBirth = input.convertToDate( input.dateOfBirth );
 
     return dto;
   }
