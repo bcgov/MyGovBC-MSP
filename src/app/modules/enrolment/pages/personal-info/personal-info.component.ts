@@ -74,18 +74,13 @@ export class PersonalInfoComponent extends EnrolForm {
              ( this.applicant.hasNameChange && this.hasNameDocuments ))); // name change requires documentation
   }
 
-  get isTemporaryResident(): boolean  {
-    return this.applicant.status === StatusInCanada.TemporaryResident;
-  }
-
   get requestSchoolInfo() {
-    if ( this.applicant.status === StatusInCanada.CitizenAdult &&
-         this.applicant.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP) {
+    if ( this.applicant.isCanadianResident && this.applicant.isLivingWithoutMSP) {
       return this.applicant.livedInBCSinceBirth !== undefined &&
              this.applicant.livedInBCSinceBirth !== null &&
              this.applicant.madePermanentMoveToBC;
     }
-    return this.applicant.madePermanentMoveToBC || this.isTemporaryResident;
+    return this.applicant.madePermanentMoveToBC || this.applicant.isTemporaryResident;
   }
 
   canContinue(): boolean {
@@ -93,7 +88,7 @@ export class PersonalInfoComponent extends EnrolForm {
     let valid = super.canContinue() && this.hasStatusDocuments;
 
     // If not temporary resident needs to have moved permenently to BC
-    if ( !this.isTemporaryResident ) {
+    if ( !this.applicant.isTemporaryResident ) {
       valid = valid && this.applicant.madePermanentMoveToBC;
     }
 

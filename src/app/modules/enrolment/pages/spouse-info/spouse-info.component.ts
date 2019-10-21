@@ -85,10 +85,6 @@ export class SpouseInfoComponent extends EnrolForm {
              ( this.spouse.hasNameChange && this.hasNameDocuments ))); // name change requires documentation
   }
 
-  get isTemporaryResident() {
-    return this.spouse.status === StatusInCanada.TemporaryResident;
-  }
-
   continue() {
     this._nextUrl = ROUTES_ENROL.CHILD_INFO.fullpath;
     this._canContinue = this.canContinue();
@@ -103,7 +99,7 @@ export class SpouseInfoComponent extends EnrolForm {
       valid = super.canContinue() && this.hasStatusDocuments;
 
       // If not temporary resident needs to have moved permenently to BC
-      if ( !this.isTemporaryResident ) {
+      if ( !this.spouse.isTemporaryResident ) {
         valid = valid && this.spouse.madePermanentMoveToBC;
       }
 

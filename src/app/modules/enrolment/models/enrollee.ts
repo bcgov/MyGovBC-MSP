@@ -62,6 +62,39 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
       this.relationship = rel;
     }
   }
+
+  // Helper methods
+  get isApplicant() {
+    return this.relationship === Relationship.Applicant;
+  }
+
+  get isOveragedChild() {
+    return this.relationship === Relationship.Child19To24;
+  }
+
+  get isProvinceMove() {
+    return this.currentActivity === CanadianStatusReason.MovingFromProvince;
+  }
+
+  get isCountryMove() {
+    return this.currentActivity === CanadianStatusReason.MovingFromCountry;
+  }
+
+  get isLivingWithoutMSP() {
+    return this.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
+  }
+
+  get isCanadianResident() {
+    return this.status === StatusInCanada.CitizenAdult;
+  }
+
+  get isPermanentResident() {
+    return this.status === StatusInCanada.PermanentResident;
+  }
+
+  get isTemporaryResident() {
+    return this.status === StatusInCanada.TemporaryResident;
+  }
 }
 
 export default class EnrolleeDto extends BasePersonDto {

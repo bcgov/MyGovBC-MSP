@@ -147,6 +147,8 @@ export class EnrolDataService extends BaseMspDataService {
 
   private toEnrolleeTranferObject( input: Enrollee ): EnrolleeDto {
 
+  console.log( 'toEnrolleeTranferObject: input-', input );
+
     const dto: EnrolleeDto = this.toBasePersonTransferObject<EnrolleeDto>( input, EnrolleeDto );
 
     dto.relationship = input.relationship;

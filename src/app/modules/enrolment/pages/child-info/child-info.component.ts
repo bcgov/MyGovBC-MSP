@@ -95,10 +95,6 @@ export class ChildInfoComponent extends EnrolForm {
            this.hasStatusDocuments( idx );
   }
 
-  isOveragedChild( idx: number ) {
-    return this.children[idx].relationship === Relationship.Child19To24;
-  }
-
   isRequired(child: MspPerson ) {
     return child.schoolAddress.province !== BRITISH_COLUMBIA ? true : false;
   }

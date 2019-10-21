@@ -47,7 +47,6 @@ export class MovingInformationComponent extends Base implements OnInit {
   departureDateLabel = 'Departure date';
   returnDateLabel = 'Return date';
 
-
   private _oopDepartureDateError: OopDateValidationCodes = OopDateValidationCodes.VALID;
   private _oopReturnDateError: OopDateValidationCodes = OopDateValidationCodes.VALID;
 
@@ -64,36 +63,23 @@ export class MovingInformationComponent extends Base implements OnInit {
     }
   }
 
+  // Used in HTML - wrapper so when changes happen there is no impact to Automated tests for TEST Team
   get isApplicant() {
-    return this.person.relationship === Relationship.Applicant;
+    return this.person.isApplicant;
   }
 
-  get isProvinceMove() {
-    return this.person.currentActivity === CanadianStatusReason.MovingFromProvince;
-  }
-
-  get isCountryMove() {
-    return this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
-  }
-
+  // Used in HTML - wrapper so when changes happen there is no impact to Automated tests for TEST Team
   get isLivingWithoutMSP() {
-    return this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
+    return this.person.isLivingWithoutMSP;
   }
 
-  get isCanadianResident() {
-    return this.person.status === StatusInCanada.CitizenAdult;
-  }
-
-  get isPermanentResident() {
-    return this.person.status === StatusInCanada.PermanentResident;
-  }
-
+  // Used in HTML - wrapper so when changes happen there is no impact to Automated tests for TEST Team
   get isTemporaryResident() {
-    return this.person.status === StatusInCanada.TemporaryResident;
+    return this.person.isTemporaryResident;
   }
 
   get requestLivedInBC() {
-    return this.isCanadianResident && this.isLivingWithoutMSP;
+    return this.person.isCanadianResident && this.isLivingWithoutMSP;
   }
 
   get requestPermMoveInfo() {
@@ -102,7 +88,7 @@ export class MovingInformationComponent extends Base implements OnInit {
       // Convert to boolean
       return this.person.livedInBCSinceBirth !== undefined && this.person.livedInBCSinceBirth !== null;
     }
-    return this.isCanadianResident || this.isPermanentResident || this.isTemporaryResident;
+    return this.person.isCanadianResident || this.person.isPermanentResident || this.isTemporaryResident;
   }
 
   get canContinueProcess() {
@@ -122,33 +108,35 @@ export class MovingInformationComponent extends Base implements OnInit {
   }
 
   get requestProvinceMoveInfo() {
-    return (this.isCanadianResident && (this.isProvinceMove ||
+    return (this.person.isCanadianResident && (this.person.isProvinceMove ||
            (this.isLivingWithoutMSP && this.person.livedInBCSinceBirth === false))) ||
-           (this.isPermanentResident && this.isProvinceMove);
+           (this.person.isPermanentResident && this.person.isProvinceMove);
   }
 
   get requestCountryMoveInfo() {
-    return (this.isCanadianResident || this.isPermanentResident) && this.isCountryMove;
+    return (this.person.isCanadianResident || this.person.isPermanentResident) &&
+            this.person.isCountryMove;
   }
 
   get requestArrivalInBCInfo() {
-    return ((this.isCanadianResident || this.isPermanentResident) &&
-           (this.isProvinceMove || this.isCountryMove)) || this.isTemporaryResident;
+    return ((this.person.isCanadianResident || this.person.isPermanentResident) &&
+           (this.person.isProvinceMove || this.person.isCountryMove)) || this.isTemporaryResident;
   }
 
   get arrivalDateRequired() {
-    return (this.isCountryMove &&
-           (this.isCanadianResident || this.isPermanentResident)) ||
+    return (this.person.isCountryMove &&
+           (this.person.isCanadianResident || this.person.isPermanentResident)) ||
            this.isTemporaryResident;
   }
 
   get requestProvHealthNumber() {
-    return this.isProvinceMove && (this.isCanadianResident || this.isPermanentResident);
+    return this.person.isProvinceMove &&
+           (this.person.isCanadianResident || this.person.isPermanentResident);
   }
 
   get requestArmForceInfo() {
-    return this.isCanadianResident ||
-          (this.isApplicant && this.isPermanentResident);
+    return this.person.isCanadianResident ||
+          (this.isApplicant && this.person.isPermanentResident);
   }
 
   get requestRecentMoveToBC() {

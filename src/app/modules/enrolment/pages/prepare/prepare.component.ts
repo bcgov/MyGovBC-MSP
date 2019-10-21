@@ -24,11 +24,11 @@ export class PrepareComponent extends EnrolForm implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    super.ngAfterViewInit();
 
     if (!this.mspApplication.infoCollectionAgreement) {
-      this.mspConsentModal.showFullSizeView();
+     // this.mspConsentModal.showFullSizeView();
     }
-    super.ngAfterViewInit();
   }
 
   get application(): EnrolApplication  {
