@@ -74,13 +74,13 @@
     
     <div class="form-group">
       <common-radio name="outsideOver30Days_{{objectId}}"
-                    [(ngModel)]="person.declarationForOutsideOver30Days"  
+                    [(ngModel)]="person.outsideBCFor30Days"  
                     label="Have {{relationship}} been outside B.C. for more than 30 days in total in the past 12 months?" 
                     required>
       </common-radio>
     </div>
 
-    <div *ngIf="person.declarationForOutsideOver30Days" class="ml-4 border-left">
+    <div *ngIf="person.outsideBCFor30Days" class="ml-4 border-left">
        <div class="form-group col-sm-6">
           <label for="departureReason_{{objectId}}" class="control-label">
             Reason for departure

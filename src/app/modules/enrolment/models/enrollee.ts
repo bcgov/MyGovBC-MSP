@@ -2,7 +2,7 @@ import { ICanadianStatus } from '../../msp-core/components/canadian-status/canad
 import BasePersonDto, { BasePerson } from '../../../models/base-person';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
-import { Address, SimpleDate, CommonImage } from 'moh-common-lib';
+import { Address, SimpleDate } from 'moh-common-lib';
 import SupportDocumentsDto, { SupportDocuments } from '../../msp-core/models/support-documents.model';
 import AddressDto from '../../../models/address.dto';
 
@@ -29,7 +29,7 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   arrivalToCanadaDate: SimpleDate;
 
   // Out of Province within last 12 months for more than 30 days
-  declarationForOutsideOver30Days: boolean;
+  outsideBCFor30Days: boolean;
   departureReason: string;
   departureDestination: string;
   oopDepartureDate: SimpleDate;
@@ -56,9 +56,9 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   // If school out BC, require departure date
   departureDateForSchool: SimpleDate;
 
-  constructor( rel: Relationship = null ) {
+  constructor( rel?: Relationship) {
     super();
-    if ( rel ) {
+    if ( rel !== null ) {
       this.relationship = rel;
     }
   }
@@ -90,7 +90,7 @@ export default class EnrolleeDto extends BasePersonDto {
    previousBCPhn: string;
 
   // Out of Province within last 12 months for more than 30 days
-  declarationForOutsideOver30Days: boolean;
+  outsideBCFor30Days: boolean;
   departureReason: string;
   departureDestination: string;
   oopDepartureDate: SimpleDate;

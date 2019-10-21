@@ -12,7 +12,6 @@ export class EnrolApplication extends BaseApplication {
   spouse: Enrollee;
   children: Enrollee[] = [];
 
-
   // Determine whether individual can apply for MSP
   liveInBC: boolean; // Currently live in BC
   plannedAbsence: boolean; // Planned absence from BC
@@ -23,6 +22,10 @@ export class EnrolApplication extends BaseApplication {
   mailingSameAsResidentialAddress: boolean = true;
   mailingAddress: Address = new Address();
   phoneNumber: string;
+
+  constructor() {
+    super();
+  }
 
   hasSpouse() {
     return this.spouse ? true : false;
@@ -96,7 +99,6 @@ export default class EnrolApplicationDto extends BaseApplicationDto {
   liveInBC: boolean; // Currently live in BC
   plannedAbsence: boolean; // Planned absence from BC
   unUsualCircumstance: boolean;
-
 
   // Contact information
   residentialAddress: AddressDto;

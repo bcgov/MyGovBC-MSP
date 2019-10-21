@@ -138,35 +138,8 @@ export class MspApiEnrolmentService extends BaseMspApiService {
 
   private convertResidency( from: Enrollee ): ResidencyType {
 
-    let citizenType;
     // citizenship
-    switch (from.status) {
-      case StatusInCanada.CitizenAdult:
-        citizenType = CitizenshipType.CanadianCitizen;
-        break;
-      case StatusInCanada.PermanentResident:
-        citizenType = CitizenshipType.PermanentResident;
-      break;
-      case StatusInCanada.TemporaryResident:
-        switch (from.currentActivity) {
-          case CanadianStatusReason.WorkingInBC:
-            citizenType = CitizenshipType.WorkPermit;
-          break;
-        case CanadianStatusReason.StudyingInBC:
-          citizenType = CitizenshipType.StudyPermit;
-          break;
-        case CanadianStatusReason.Diplomat:
-          citizenType = CitizenshipType.Diplomat;
-          break;
-        case CanadianStatusReason.ReligiousWorker:
-          citizenType = CitizenshipType.ReligiousWorker;
-          break;
-        case CanadianStatusReason.Visiting:
-        default:
-          citizenType = CitizenshipType.VisitorPermit;
-          break;
-      }
-    }
+    const citizenType = this.getCitizenType( from.status, from.currentActivity );
 
     const attachmentUuids = new Array<string>();
     for (const image of from.documents.images) {
@@ -182,7 +155,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
         hasLivedInBC: from.livedInBCSinceBirth === true ? 'Y' : 'N',
       },
       outsideBC: {
-        beenOutsideBCMoreThan: from.declarationForOutsideOver30Days ? 'Y' : 'N'
+        beenOutsideBCMoreThan: from.outsideBCFor30Days ? 'Y' : 'N'
       },
       previousCoverage: {
         hasPreviousCoverage: from.hasPreviousBCPhn ? 'Y' : 'N'
@@ -215,7 +188,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     }
 
     // Outside BC - optional fields
-    if ( from.declarationForOutsideOver30Days ) {
+    if ( from.outsideBCFor30Days ) {
       to.outsideBC.departureDate = this.formatDate(from.oopDepartureDate);
       to.outsideBC.returnDate = this.formatDate(from.oopReturnDate);
       to.outsideBC.familyMemeberReason = from.departureReason;
@@ -291,15 +264,6 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     }
 
     return application;
-  }
-
-
-  private convertName( person: BasePerson ): NameType {
-    return {
-      firstName: person.firstName,
-      lastName: person.lastName,
-      secondName: person.middleName
-    };
   }
 
   private convertPersonType( person: Enrollee ): PersonType {

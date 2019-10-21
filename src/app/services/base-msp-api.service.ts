@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Address, AbstractHttpService, CommonImage, SimpleDate } from 'moh-common-lib';
-import { AddressType, MSPApplicationSchema } from '../modules/msp-core/interfaces/i-api';
+import { AddressType, MSPApplicationSchema, CitizenshipType, NameType } from '../modules/msp-core/interfaces/i-api';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { MspLogService } from './log.service';
 import { of, Observable } from 'rxjs';
 import { ApiResponse } from '../models/api-response.interface';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
+import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
+import { BasePerson } from '../models/base-person';
 
 interface AttachmentRequestPartial {
   contentType: 'IMAGE_JPEG';
@@ -140,6 +142,13 @@ export class BaseMspApiService extends AbstractHttpService  {
     return output;
   }
 
+  protected convertName( person: BasePerson ): NameType {
+    return {
+      firstName: person.firstName,
+      lastName: person.lastName,
+      secondName: person.middleName
+    };
+  }
 
   // Convert address to JSON AddressType
   protected convertAddress( from: Address ): AddressType {
@@ -159,6 +168,41 @@ export class BaseMspApiService extends AbstractHttpService  {
       addr.addressLine3 = from.addressLine3;
     }
     return addr;
+  }
+
+  protected getCitizenType( status: StatusInCanada,
+                            reason: CanadianStatusReason ): CitizenshipType {
+    let citizenType;
+
+    // citizenship
+    switch (status) {
+      case StatusInCanada.CitizenAdult:
+        citizenType = CitizenshipType.CanadianCitizen;
+        break;
+      case StatusInCanada.PermanentResident:
+        citizenType = CitizenshipType.PermanentResident;
+      break;
+      case StatusInCanada.TemporaryResident:
+        switch (reason) {
+          case CanadianStatusReason.WorkingInBC:
+            citizenType = CitizenshipType.WorkPermit;
+          break;
+        case CanadianStatusReason.StudyingInBC:
+          citizenType = CitizenshipType.StudyPermit;
+          break;
+        case CanadianStatusReason.Diplomat:
+          citizenType = CitizenshipType.Diplomat;
+          break;
+        case CanadianStatusReason.ReligiousWorker:
+          citizenType = CitizenshipType.ReligiousWorker;
+          break;
+        case CanadianStatusReason.Visiting:
+        default:
+          citizenType = CitizenshipType.VisitorPermit;
+          break;
+      }
+      return citizenType;
+    }
   }
 
 

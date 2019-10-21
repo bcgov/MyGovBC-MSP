@@ -120,7 +120,7 @@ export class EnrolDataService extends BaseMspDataService {
     output.previousBCPhn = dto.previousBCPhn;
 
     // Out of Province within last 12 months for more than 30 days
-    output.declarationForOutsideOver30Days = dto.declarationForOutsideOver30Days;
+    output.outsideBCFor30Days = dto.outsideBCFor30Days;
     output.departureReason = dto.departureReason;
     output.departureDestination = dto.departureDestination;
     output.oopDepartureDate = dto.oopDepartureDate;
@@ -173,7 +173,7 @@ export class EnrolDataService extends BaseMspDataService {
     dto.previousBCPhn = input.previousBCPhn;
 
     // Out of Province within last 12 months for more than 30 days
-    dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
+    dto.outsideBCFor30Days = input.outsideBCFor30Days;
     dto.departureReason = input.departureReason;
     dto.departureDestination = input.departureDestination;
     dto.oopDepartureDate = input.oopDepartureDate;
