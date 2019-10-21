@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { MspDataService } from '../../../../services/msp-data.service';
 import { Router } from '@angular/router';
-
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { EnrolForm } from '../../models/enrol-form';

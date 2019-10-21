@@ -2,7 +2,6 @@ import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
-import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../../models/relationship.enum';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
@@ -95,23 +94,21 @@ export class ChildInfoComponent extends EnrolForm {
            this.hasStatusDocuments( idx );
   }
 
-  isRequired(child: MspPerson ) {
+  isRequired(child: Enrollee ) {
     return child.schoolAddress.province !== BRITISH_COLUMBIA ? true : false;
   }
 
-  isCompletionDateValid( child: MspPerson ) {
-    const completionDt = Object.keys(child.studiesFinishedSimple).filter( x => child.studiesFinishedSimple[x] );
-    const departureDt = Object.keys(child.studiesDepartureSimple).filter( x => child.studiesDepartureSimple[x] );
-
-    if ( completionDt.length === 3 && departureDt.length === 3 ) {
+  isCompletionDateValid( child: Enrollee ) {
+    if ( child.dateExists( child.schoolCompletionDate ) &&
+         child.dateExists( child.departureDateForSchool ) ) {
       const diff =  moment( {
-        year: child.studiesFinishedSimple.year,
-        month: child.studiesFinishedSimple.month - 1,
-        day: child.studiesFinishedSimple.day
+        year: child.schoolCompletionDate.year,
+        month: child.schoolCompletionDate.month - 1,
+        day: child.schoolCompletionDate.day
       }).diff( moment({
-        year: child.studiesDepartureSimple.year,
-        month: child.studiesDepartureSimple.month - 1,
-        day: child.studiesDepartureSimple.day
+        year: child.departureDateForSchool.year,
+        month: child.departureDateForSchool.month - 1,
+        day: child.departureDateForSchool.day
       }), 'days', true );
       return diff >= -1;
     }

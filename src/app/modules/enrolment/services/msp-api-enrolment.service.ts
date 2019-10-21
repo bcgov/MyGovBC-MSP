@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
 import { MspLogService } from '../../../services/log.service';
 import { HttpClient } from '@angular/common/http';
-import { MspApplication } from '../../../modules/enrolment/models/application.model';
 import { _ApplicationTypeNameSpace } from '../../../modules/msp-core/api-model/applicationTypes';
-import { environment } from '../../../../environments/environment';
 import { CommonImage } from 'moh-common-lib';
-import { Observable } from 'rxjs';
 import { Response } from '@angular/http';
 import { ApiResponse } from '../../../models/api-response.interface';
 import {
  MSPApplicationSchema,
  EnrolmentApplicationType,
  ResidencyType,
- CitizenshipType,
  PersonType,
  DependentType,
- NameType,
  EnrolmentApplicantType
 } from '../../../modules/msp-core/interfaces/i-api';
 import * as moment from 'moment';
-import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
 import { SchemaService } from '../../../services/schema.service';
 import { BaseMspApiService } from '../../../services/base-msp-api.service';

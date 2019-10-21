@@ -2,11 +2,9 @@ import { AbstractForm } from 'moh-common-lib';
 import { OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Subscription } from 'rxjs';
-import { MspDataService } from '../../../services/msp-data.service';
 import { PageStateService } from '../../../services/page-state.service';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
-import { MspApplication } from './application.model';
 import { EnrolDataService } from '../services/enrol-data.service';
 import { EnrolApplication } from './enrol-application';
 

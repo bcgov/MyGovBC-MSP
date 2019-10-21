@@ -5,7 +5,6 @@ import { PageStateService } from '../../../../services/page-state.service';
 import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';
-import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { EnrolDataService } from '../../services/enrol-data.service';
 import { Enrollee } from '../../models/enrollee';
 
