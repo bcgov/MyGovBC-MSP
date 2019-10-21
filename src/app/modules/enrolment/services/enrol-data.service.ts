@@ -3,6 +3,7 @@ import { BaseMspDataService } from '../../../services/base-msp-data.service';
 import { LocalStorageService } from 'angular-2-local-storage';
 import EnrolApplicationDto, { EnrolApplication } from '../models/enrol-application';
 import EnrolleeDto, { Enrollee } from '../models/enrollee';
+import { SupportDocuments } from '../../msp-core/models/support-documents.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class EnrolDataService extends BaseMspDataService {
   // TODO: Build
   private toTransferObject( input: EnrolApplication ): EnrolApplicationDto {
 
-    const dto: EnrolApplicationDto = this.toBaseApplicationTransferObject( input, EnrolApplicationDto );
+    const dto: EnrolApplicationDto = this.toBaseApplicationTransferObject<EnrolApplicationDto>( input, EnrolApplicationDto );
     dto.liveInBC = input.liveInBC;
     dto.plannedAbsence = input.plannedAbsence;
     dto.unUsualCircumstance = input.unUsualCircumstance;
@@ -64,7 +65,7 @@ export class EnrolDataService extends BaseMspDataService {
 
   private fromTransferObject( dto: EnrolApplicationDto ): EnrolApplication {
 
-    const output: EnrolApplication = this.fromBaseApplicationTransferObject( dto, EnrolApplication );
+    const output: EnrolApplication = this.fromBaseApplicationTransferObject<EnrolApplication>( dto, EnrolApplication );
     output.liveInBC = dto.liveInBC;
     output.plannedAbsence = dto.plannedAbsence;
     output.unUsualCircumstance = dto.unUsualCircumstance;
@@ -106,7 +107,12 @@ export class EnrolDataService extends BaseMspDataService {
     output.currentActivity = dto.currentActivity;
 
     output.hasNameChange = dto.hasNameChange;
-    this.copyDocuments( dto.nameChangeDocs, output.nameChangeDocs );
+
+    // SupportDocument
+    output.nameChangeDocs = new SupportDocuments();
+    output.nameChangeDocs.documentType = dto.nameChangeDocType;
+    output.nameChangeDocs.images = dto.nameChangeDocImages;
+
 
     // Moving information
     output.madePermanentMoveToBC = dto.madePermanentMoveToBC;
@@ -125,7 +131,10 @@ export class EnrolDataService extends BaseMspDataService {
     dto.currentActivity = input.currentActivity;
 
     dto.hasNameChange = input.hasNameChange;
-    this.copyDocuments( input.nameChangeDocs, dto.nameChangeDocs );
+
+    // SupportDocuments
+    dto.nameChangeDocType = input.nameChangeDocs.documentType;
+    dto.nameChangeDocImages = input.nameChangeDocs.images;
 
     // Moving information
     dto.madePermanentMoveToBC = input.madePermanentMoveToBC;

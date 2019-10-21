@@ -2,7 +2,7 @@ import { ICanadianStatus } from '../../msp-core/components/canadian-status/canad
 import BasePersonDto, { BasePerson } from '../../../models/base-person';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
-import { Address, SimpleDate } from 'moh-common-lib';
+import { Address, SimpleDate, CommonImage } from 'moh-common-lib';
 import { SupportDocuments } from '../../msp-core/models/support-documents.model';
 
 export class Enrollee extends BasePerson implements ICanadianStatus {
@@ -118,7 +118,10 @@ export default class EnrolleeDto extends BasePersonDto {
   relationship: Relationship;
 
   hasNameChange: boolean;
-  nameChangeDocs: SupportDocuments = new SupportDocuments();
+
+  // SupportDocuments
+  nameChangeDocType: string;
+  nameChangeDocImages: CommonImage[];
 
   // Moving information
   madePermanentMoveToBC: boolean;

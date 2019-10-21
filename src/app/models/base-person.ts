@@ -59,8 +59,9 @@ export default class BasePersonDto {
 
   gender: Gender;
 
-  // documents
-  documents: SupportDocuments = new SupportDocuments();
+  // SupportDocuments
+  documentType: string;
+  documentImages: CommonImage[] = [];
 
   // Personal information component requires PHN
   phn: string;

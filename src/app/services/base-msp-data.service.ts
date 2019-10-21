@@ -64,7 +64,9 @@ export abstract class BaseMspDataService {
 
     output.gender = dto.gender;
 
-    this.copyDocuments( dto.documents, output.documents );
+    output.documents = new SupportDocuments();
+    output.documents.documentType = dto.documentType;
+    output.documents.images = dto.documentImages;
 
     output.dateOfBirth = output.convertToSimpleDt( dto.dateOfBirth  );
 
@@ -86,8 +88,9 @@ export abstract class BaseMspDataService {
 
     dto.gender = input.gender;
 
-    this.copyDocuments( input.documents, dto.documents );
-    console.log( 'toBasePersonTransferObject copy: ', dto.documents );
+    // SupportDocuments
+    dto.documentType = input.documents.documentType;
+    dto.documentImages = input.documents.images;
 
     dto.dateOfBirth = input.convertToDate( input.dateOfBirth );
 
@@ -118,13 +121,6 @@ export abstract class BaseMspDataService {
     output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
 
     return output;
-  }
-
-  protected copyDocuments( from: SupportDocuments, to: SupportDocuments ) {
-    console.log( '1 copyDocuments ', to, from );
-    to.documentType = from.documentType;
-    to.images = from.images;
-    console.log( '2 copyDocuments ', to, from );
   }
 }
 
