@@ -45,7 +45,8 @@ export class AssistanceSendingComponent implements AfterContentInit   {
         this.application = application;
 
         this.logService.log({name: 'PA - received refNo ',
-          confirmationNumber: this.application.referenceNumber}, 'PA - Submission Response Success ');
+          confirmationNumber: this.application.referenceNumber},
+          'PA - Submission Response Success ');
 
         //delete the premium assistance application content from local storage
         this.dataService.removeFinAssistApplication();

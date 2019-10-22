@@ -6,12 +6,16 @@ import { throwError } from 'rxjs';
 import * as moment from 'moment';
 import {MspDataService} from './msp-data.service';
 import { Router } from '@angular/router';
+import { MspBenefitDataService } from '../modules/benefit/services/msp-benefit-data.service';
+import { EnrolDataService } from '../modules/enrolment/services/enrol-data.service';
+import { APP_ROUTES } from '../models/route-constants';
 
 
 @Injectable({
     providedIn: 'root'
 })
 
+// TODO: Replace with logService from common-lib
 export class MspLog2Service extends AbstractHttpService {
     /**
      * The headers that are consistent across all requests (i.e. they do not
@@ -24,8 +28,11 @@ export class MspLog2Service extends AbstractHttpService {
      */
     protected _headers: HttpHeaders = new HttpHeaders({
         applicationId: this.getApplicationId(),
-        referenceNumber: this.dataService.mspApplication.referenceNumber ||
-            this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber || 'n/a',
+        referenceNumber: this.enrolDataService.application.referenceNumber ||
+                         this.benefitDataService.benefitApp.referenceNumber ||
+                         this.dataService.finAssistApp.referenceNumber ||
+                         this.dataService.getMspAccountApp().referenceNumber ||
+                         'n/a',
         logsource: window.location.hostname,
         http_x_forwarded_host: window.location.hostname,
         timestamp: moment().toISOString(),
@@ -39,7 +46,11 @@ export class MspLog2Service extends AbstractHttpService {
      * @param {MspDataService} dataService
      * @param {Router} router
      */
-    constructor(protected http: HttpClient, private dataService: MspDataService, private router: Router) {
+    constructor(protected http: HttpClient,
+                private dataService: MspDataService,
+                private router: Router,
+                private benefitDataService: MspBenefitDataService,
+                private enrolDataService: EnrolDataService) {
         super(http);
     }
 
@@ -158,14 +169,17 @@ export class MspLog2Service extends AbstractHttpService {
      */
     getApplicationId(): string {
         console.log(this.router.url);
-        if (this.router.url.indexOf('/application/') !== -1){
-            return  this.dataService.mspApplication.uuid;
+        if (this.router.url.indexOf('/' + APP_ROUTES.ENROLMENT + '/') !== -1){
+            return  this.enrolDataService.application.uuid;
         }
-        if (this.router.url.indexOf('/assistance/') !== -1){
+        if (this.router.url.indexOf('/' + APP_ROUTES.ASSISTANCE + '/') !== -1){
             return  this.dataService.finAssistApp.uuid ;
         }
-        if (this.router.url.indexOf('/account/') !== -1){
+        if (this.router.url.indexOf('/' + APP_ROUTES.ACCOUNT + '/') !== -1){
             return  this.dataService.getMspAccountApp().uuid;
+        }
+        if (this.router.url.indexOf('/' + APP_ROUTES.BENEFIT + '/') !== -1){
+          return  this.benefitDataService.benefitApp.uuid ;
         }
     }
 }

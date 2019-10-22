@@ -19,9 +19,6 @@ import { SchemaService } from '../../../services/schema.service';
 import { BaseMspApiService } from '../../../services/base-msp-api.service';
 import { EnrolApplication } from '../models/enrol-application';
 import { Enrollee } from '../models/enrollee';
-import { BasePerson } from '../../../models/base-person';
-
-
 
 
 @Injectable({

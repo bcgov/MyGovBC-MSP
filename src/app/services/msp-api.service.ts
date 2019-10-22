@@ -10,7 +10,7 @@ import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, Enr
 import { ResponseType } from '../modules/msp-core/api-model/responseTypes';
 import { MspAccountApp } from '../modules/account/models/account.model';
 import { ApplicationBase } from '../models/application-base.model';
-import { MspApplication } from '../modules/enrolment/models/application.model';
+// import { MspApplication } from '../modules/enrolment/models/application.model';
 import { AssistanceApplicationType, FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
 import { SimpleDate, Address, CommonImage } from 'moh-common-lib';
@@ -34,6 +34,7 @@ export class MspApiService {
     constructor(private http: HttpClient, private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
     }
 
+   /*
     sendRequest(app: MspApplication): Promise<any> {
 		const suppBenefitRequest = this.prepareEnrolmentApplication(app);
 		console.log(suppBenefitRequest);
@@ -76,8 +77,8 @@ export class MspApiService {
 
 		});
     }
-
-
+*/
+/*
     sendEnrolmentApplication(
         app: MSPApplicationSchema,
         authToken: string
@@ -94,6 +95,7 @@ export class MspApiService {
         });
         return this.http.post<MspApplication>(url, app);
       }
+      */
 
     /**
      * Sends the Application and returns an MspApplication if successful with referenceNumber populated
@@ -112,11 +114,12 @@ export class MspApiService {
 
                         console.log('Start sending...');
                         let documentModel: document;
-                        if (app instanceof MspApplication) {
+                      /*  if (app instanceof MspApplication) {
                             console.log(app);
                             documentModel = this.convertMspApplication(app);
                             //documentModel = this.prepareEnrolmentApplication(app);
-                        } else if (app instanceof FinancialAssistApplication) {
+                        } else*/
+                        if (app instanceof FinancialAssistApplication) {
                             documentModel = this.convertAssistance(app);
                         } else if (app instanceof MspAccountApp) {
                             documentModel = this.convertMspAccountApp(app);
@@ -351,7 +354,7 @@ export class MspApiService {
      * @param from
      * @returns {applicationTypes.ApplicationType}
      */
-    convertMspApplication(from: MspApplication): document {
+/*    convertMspApplication(from: MspApplication): document {
         // Instantiate new object from interface
         const to = DocumentFactory.make();
         to.application = ApplicationTypeFactory.make();
@@ -365,12 +368,12 @@ export class MspApiService {
         // Applicant section
         to.application.enrolmentApplication.applicant = EnrolmentApplicantTypeFactory.make();
         to.application.enrolmentApplication.applicant.name = this.convertName(from.applicant);
-
+*/
         /*
          birthDate: Date;
          gender: GenderType;
          */
-        to.application.enrolmentApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.applicant.documents.images);
+/*        to.application.enrolmentApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.applicant.documents.images);
 
         if (from.applicant.hasDob) {
             to.application.enrolmentApplication.applicant.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
@@ -378,27 +381,27 @@ export class MspApiService {
         if (from.applicant.gender != null) {
             to.application.enrolmentApplication.applicant.gender = <GenderType>{};
             to.application.enrolmentApplication.applicant.gender = <GenderType> from.applicant.gender.toString();
-        }
+        }*/
         /*
          authorizedByApplicant: ct.YesOrNoType;
          authorizedByApplicantDate: Date;
          authorizedBySpouse: ct.YesOrNoType;
          */
-        if (from.authorizedByApplicant != null) {
+/*        if (from.authorizedByApplicant != null) {
             to.application.enrolmentApplication.applicant.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
             to.application.enrolmentApplication.applicant.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
                 .format(this.ISO8601DateFormat);
         }
         if (from.authorizedBySpouse != null) {
             to.application.enrolmentApplication.applicant.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
-        }
+        }*/
         /*
          mailingAddress?: ct.AddressType;
          residenceAddress: ct.AddressType;
          residency: ResidencyType;
          telephone: number;
          */
-        if (!from.mailingSameAsResidentialAddress) {
+   /*     if (!from.mailingSameAsResidentialAddress) {
             to.application.enrolmentApplication.applicant.mailingAddress = this.convertAddress(from.mailingAddress);
         }
         to.application.enrolmentApplication.applicant.residenceAddress = this.convertAddress(from.residentialAddress);
@@ -449,7 +452,7 @@ export class MspApiService {
 
         return to;
     }
-
+*/
     convertMspAccountApp(from: MspAccountApp): document {
         const to = DocumentFactory.make();
         to.application = ApplicationTypeFactory.make();
@@ -696,7 +699,7 @@ export class MspApiService {
      * @param from
      * @returns {AttachmentsType}
      */
-    private convertAttachmentsForEnrolment(from: MspApplication): AttachmentsType {
+   /* private convertAttachmentsForEnrolment(from: MspApplication): AttachmentsType {
 
         const to = AttachmentsTypeFactory.make();
         to.attachment = new Array<AttachmentType>();
@@ -730,7 +733,7 @@ export class MspApiService {
         }
 
         return to;
-    }
+    }*/
 
     /**
      * Creates the array of attachments from applicant, spouse and all children
@@ -1443,7 +1446,7 @@ export class MspApiService {
     }
 
 
-
+/*
   private prepareEnrolmentApplication(from: MspApplication): any {
     console.log('prepareBenefitApplicatoin', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
     const output = {
@@ -1517,6 +1520,7 @@ export class MspApiService {
       console.log(output);
       return output;
     }
+    */
 
     // trim in the XML the leading <xx:application xmlns="xx"> and trailing </xx:application>
     // note that xx: might be missing

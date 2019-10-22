@@ -90,12 +90,12 @@ export class AuthorizeComponent extends EnrolForm {
           return;
         }
 
-        const refNumber = response.op_reference_number;
+        this.enrolDataService.application.referenceNumber = response.op_reference_number;
         const statusCode = (response.op_return_code === 'SUCCESS' ? ApiStatusCodes.SUCCESS : ApiStatusCodes.ERROR);
 
         this.logService.log({
           name: 'Enrolment - Received refNo ',
-          confirmationNumber: refNumber
+          confirmationNumber: this.enrolDataService.application.referenceNumber
         }, 'Enrolment - Submission Response Success');
 
         //delete the application from storage
@@ -104,7 +104,7 @@ export class AuthorizeComponent extends EnrolForm {
         //  go to confirmation
         this.router.navigate([ROUTES_ENROL.CONFIRMATION.fullpath],
                 { queryParams: {
-                    confirmationNum: refNumber,
+                    confirmationNum: this.enrolDataService.application.referenceNumber,
                     status: statusCode}
                 });
       })
@@ -138,6 +138,6 @@ export class AuthorizeComponent extends EnrolForm {
               message: message
             }
           });
-      });
+    });
   }
 }

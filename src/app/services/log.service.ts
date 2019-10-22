@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router, ROUTES } from '@angular/router';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
-//import { Observable, Subscription } from 'rxjs/Rx';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription} from 'rxjs/internal/Subscription';
 import { LogEntry } from '../models/log-entry.model';
@@ -11,6 +10,7 @@ import { MspBenefitDataService } from '../modules/benefit/services/msp-benefit-d
 import { environment } from '../../environments/environment';
 import { AclDataService } from '../modules/request-acl/services/acl-data.service';
 import { APP_ROUTES } from '../models/route-constants';
+import { EnrolDataService } from '../modules/enrolment/services/enrol-data.service';
 
 
 
@@ -21,6 +21,7 @@ export class MspLogService  {
               private dataService: MspDataService ,
               private router: Router,
               private benefitDataService: MspBenefitDataService,
+              private enrolDataService: EnrolDataService,
               private aclDataService: AclDataService) {
     this.appConstants = environment.appConstants;
   }
@@ -44,8 +45,11 @@ export class MspLogService  {
     const baseUrl = this.appConstants['logBaseUrl'];
     // With Angular 5 we can't pass in undefined to the headers without runtime
     // errors, so now we default to 'n/a'.
-    const refNumber = this.dataService.mspApplication.referenceNumber ||
-      this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber || 'n/a';
+    const refNumber = this.enrolDataService.application.referenceNumber ||
+                      this.benefitDataService.benefitApp.referenceNumber ||
+                      this.dataService.finAssistApp.referenceNumber ||
+                      this.dataService.getMspAccountApp().referenceNumber ||
+                      'n/a';
 
     const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -80,8 +84,11 @@ export class MspLogService  {
     const baseUrl = this.appConstants['logBaseUrl'];
     // With Angular 5 we can't pass in undefined to the headers without runtime
     // errors, so now we default to 'n/a'.
-    const refNumber = this.dataService.mspApplication.referenceNumber ||
-      this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber || 'n/a';
+    const refNumber = this.enrolDataService.application.referenceNumber ||
+                      this.benefitDataService.benefitApp.referenceNumber ||
+                      this.dataService.finAssistApp.referenceNumber ||
+                      this.dataService.getMspAccountApp().referenceNumber ||
+                      'n/a';
 
     const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -100,7 +107,7 @@ export class MspLogService  {
     const log: LogEntry = new LogEntry();
     log.applicationId = this.getApplicationId();
     log.mspTimestamp = moment().toISOString();
-    log.refNumberEnrollment = this.dataService.mspApplication.referenceNumber;
+    log.refNumberEnrollment = this.enrolDataService.application.referenceNumber;
     log.refNumberPremiumAssistance = this.dataService.finAssistApp.referenceNumber;
     log.refNumberAccountChange = this.dataService.getMspAccountApp().referenceNumber;
 
@@ -111,7 +118,7 @@ export class MspLogService  {
 
         console.log(this.router.url);
         if (this.router.url.indexOf('/' + APP_ROUTES.ENROLMENT + '/') !== -1){
-            return  this.dataService.mspApplication.uuid;
+            return  this.enrolDataService.application.uuid;
         }
         if (this.router.url.indexOf('/' + APP_ROUTES.ASSISTANCE + '/') !== -1){
             return  this.dataService.finAssistApp.uuid ;

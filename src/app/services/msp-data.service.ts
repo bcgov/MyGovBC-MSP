@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
-import { MspApplication } from '../modules/enrolment/models/application.model';
+// import { MspApplication } from '../modules/enrolment/models/application.model';
 import { FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import {
   MspAccountApp,
 } from '../modules/account/models/account.model';
 import { Process } from './process.service';
 import MspAccountDto from '../modules/account/models/account.dto';
-import MspApplicationDto from '../modules/enrolment/models/application.dto';
+//import MspApplicationDto from '../modules/enrolment/models/application.dto';
 import FinancialAssistApplicationDto from '../modules/assistance/models/financial-assist-application.dto';
 import {
   OperationActionType,
@@ -22,7 +22,7 @@ import { Gender } from '../models/gender.enum';
 
 @Injectable()
 export class MspDataService {
-  private _mspApplication: MspApplication;
+  //private _mspApplication: MspApplication;
   private _finAssistApp: FinancialAssistApplication;
 
   private _mspAccountApp: MspAccountApp;
@@ -30,13 +30,12 @@ export class MspDataService {
   // private finAssistMailingAddressStorageKey:string = 'financial-assist-mailing-address';
   private mspAppStorageKey: string = 'msp-application';
   private mspProcessKey: string = 'msp-process';
-  private mspProgressBarKey: string = 'msp-progressbar'; //Progress bar has to be saved since its dynamic .Storing to avoid extra calls in all the getter invocations
 
   private mspAccountStorageKey: string = 'msp-account';
 
   constructor(public localStorageService: LocalStorageService) {
     this._finAssistApp = this.fetchFinAssistApplication();
-    this._mspApplication = this.fetchMspApplication();
+    //this._mspApplication = this.fetchMspApplication();
     this._mspAccountApp = this.fetchMspAccountApplication();
   }
 
@@ -53,23 +52,10 @@ export class MspDataService {
   }
 
   /*
-  getMspProgressBar(): Array<MspProgressBarItem> {
-    return this.localStorageService.get<Array<MspProgressBarItem>>(
-      this.mspProgressBarKey
-    );
-  }
-
-  seMspProgressBar(progressBar: Array<MspProgressBarItem>) {
-    this.localStorageService.set(this.mspProgressBarKey, progressBar);
-  }
-
-  emptyMspProgressBar() {
-    this.localStorageService.remove(this.mspProgressBarKey);
-  }
-*/
   get mspApplication(): MspApplication {
     return this._mspApplication;
   }
+  */
 
   getMspAccountApp(): MspAccountApp {
     return this._mspAccountApp;
@@ -83,8 +69,9 @@ export class MspDataService {
   // return the application or assistance uuid  - do not appear to be used
   getMspUuid(): string {
     let uuid = '';
-    if (this._mspApplication) uuid = this._mspApplication.uuid;
-    else if (this._finAssistApp) uuid = this._finAssistApp.uuid;
+    //if (this._mspApplication) uuid = this._mspApplication.uuid;
+    //else
+    if (this._finAssistApp) uuid = this._finAssistApp.uuid;
     return uuid;
   }
 
@@ -96,6 +83,7 @@ export class MspDataService {
     this.localStorageService.set(this.mspAccountStorageKey, dto);
   }
 
+  /*
   saveMspApplication(): void {
     const dto: MspApplicationDto = this.toMspApplicationTransferObject(
       this._mspApplication
@@ -116,6 +104,7 @@ export class MspDataService {
       return new MspApplication();
     }
   }
+  */
 
   private fetchMspAccountApplication(): MspAccountApp {
     const dto: MspAccountDto = this.localStorageService.get<MspAccountDto>(
@@ -204,10 +193,11 @@ export class MspDataService {
     this._finAssistApp = new FinancialAssistApplication();
   }
 
+  /*
   removeMspApplication(): void {
     this.destroyAll();
     this._mspApplication = new MspApplication();
-  }
+  }*/
 
   removeMspAccountApp(): void {
     this.destroyAll();
@@ -597,6 +587,7 @@ export class MspDataService {
     return dto;
   }
 
+  /*
   toMspApplicationTransferObject(input: MspApplication): MspApplicationDto {
     const dto: MspApplicationDto = new MspApplicationDto();
 
@@ -648,6 +639,7 @@ export class MspDataService {
 
     return dto;
   }
+  */
 
   private toOutofBCRecordDto(outofBCRecord: OutofBCRecord) {
     if (outofBCRecord == null) return null;
@@ -773,6 +765,7 @@ export class MspDataService {
     return output;
   }
 
+  /*
   private fromMspApplicationTransferObject(
     dto: MspApplicationDto
   ): MspApplication {
@@ -826,6 +819,7 @@ export class MspDataService {
 
     return output;
   }
+  */
 
 
   //TODO rewrite and make it proper
