@@ -36,7 +36,11 @@ export class AclDataService extends BaseMspDataService {
 
     dto.infoCollectionAgreement = input.infoCollectionAgreement;
     dto.accountHolderPhn = input.accountHolderPhn;
-    dto.accountHolderDob = input.accountHolderDob;
+
+    // Date exists convert date to milliseconds since January 1, 1970, 00:00:00 UTC
+
+    dto.accountHolderDob = input.accountHolderDob ? Date.parse( input.accountHolderDob.toString() ) : undefined;
+
     dto.postalCode = input.postalCode;
     dto.enrolmentMembership = input.enrolmentMembership;
 
@@ -52,7 +56,9 @@ export class AclDataService extends BaseMspDataService {
 
     output.infoCollectionAgreement = dto.infoCollectionAgreement;
     output.accountHolderPhn = dto.accountHolderPhn;
-    output.accountHolderDob = dto.accountHolderDob;
+
+    output.accountHolderDob = isNaN( dto.accountHolderDob ) ? undefined : new Date( dto.accountHolderDob );
+  
     output.postalCode = dto.postalCode;
     output.enrolmentMembership = dto.enrolmentMembership;
     output.specificMemberPhn = dto.specificMemberPhn;

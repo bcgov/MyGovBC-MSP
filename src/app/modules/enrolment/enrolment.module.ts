@@ -17,18 +17,7 @@ import { RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
 import { GuardEnrolService } from './services/guard-enrol.service';
 import { MspApiEnrolmentService } from '../enrolment/services/msp-api-enrolment.service';
 import { MovingInformationComponent } from './components/moving-information/moving-information.component';
-import { environment } from '../../../environments/environment';
-import { fakeBackendProvider } from '../../_developmentHelpers/fake-backend';
 
-const providerList: any = [
-  { provide: AbstractPgCheckService, useClass: GuardEnrolService },
-  RouteGuardService,
-  MspApiEnrolmentService
-];
-if ( environment.useMockBackend ) {
-  // provider used to create fake backend - development of registration modules
-  providerList.push( fakeBackendProvider );
-}
 
 @NgModule({
   imports: [
@@ -51,7 +40,9 @@ if ( environment.useMockBackend ) {
     MovingInformationComponent
   ],
   providers: [
-    providerList
+    { provide: AbstractPgCheckService, useClass: GuardEnrolService },
+    RouteGuardService,
+    MspApiEnrolmentService
   ]
 })
 export class EnrolmentModule { }

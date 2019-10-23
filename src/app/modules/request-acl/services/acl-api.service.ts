@@ -16,7 +16,7 @@ export class AclApiService extends AbstractHttpService {
 
   protected _headers: HttpHeaders = new HttpHeaders();
 
-  private readonly ISO8601DateFormat = 'yyyy-mm-dd';
+  private readonly ISO8601DateFormat = 'yyyy-MM-dd';
 
   constructor( protected http: HttpClient ) {
     super( http );

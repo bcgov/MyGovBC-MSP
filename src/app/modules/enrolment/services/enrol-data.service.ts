@@ -111,8 +111,8 @@ export class EnrolDataService extends BaseMspDataService {
     output.movedFromProvinceOrCountry = dto.movedFromProvinceOrCountry;
 
     // Arrival in dates (BC/Canaada)
-    output.arrivalToBCDate = dto.arrivalToBCDate;
-    output.arrivalToCanadaDate = dto.arrivalToCanadaDate;
+    output.arrivalToBCDate = this.convertNumberToDate( dto.arrivalToBCDate );
+    output.arrivalToCanadaDate = this.convertNumberToDate( dto.arrivalToCanadaDate );
 
     // Health numbers
     output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
@@ -123,12 +123,12 @@ export class EnrolDataService extends BaseMspDataService {
     output.outsideBCFor30Days = dto.outsideBCFor30Days;
     output.departureReason = dto.departureReason;
     output.departureDestination = dto.departureDestination;
-    output.oopDepartureDate = dto.oopDepartureDate;
-    output.oopReturnDate = dto.oopReturnDate;
+    output.oopDepartureDate = this.convertNumberToDate( dto.oopDepartureDate );
+    output.oopReturnDate = this.convertNumberToDate( dto.oopReturnDate );
 
     // Armed Forces
     output.hasBeenReleasedFromArmedForces = dto.hasBeenReleasedFromArmedForces;
-    output.dischargeDate = dto.dischargeDate;
+    output.dischargeDate = this.convertNumberToDate( dto.dischargeDate );
 
     // School information for full-time students
     output.fullTimeStudent = dto.fullTimeStudent;
@@ -137,8 +137,8 @@ export class EnrolDataService extends BaseMspDataService {
     // For children 19-24, we need the school name and address
     output.schoolName = dto.schoolName;
     output.schoolAddress = this.fromAddressTransferObject( dto.schoolAddress );
-    output.schoolCompletionDate = dto.schoolCompletionDate;
-    output.departureDateForSchool = dto.departureDateForSchool;
+    output.schoolCompletionDate = this.convertNumberToDate( dto.schoolCompletionDate );
+    output.departureDateForSchool = this.convertNumberToDate( dto.departureDateForSchool );
 
     console.log( 'fromEnrolleeTranferObject: ', output );
 
@@ -166,8 +166,8 @@ export class EnrolDataService extends BaseMspDataService {
     dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
 
     // Arrival in dates (BC/Canaada)
-    dto.arrivalToBCDate = input.arrivalToBCDate;
-    dto.arrivalToCanadaDate = input.arrivalToCanadaDate;
+    dto.arrivalToBCDate =  this.convertDateToNumber( input.arrivalToBCDate );
+    dto.arrivalToCanadaDate = this.convertDateToNumber( input.arrivalToCanadaDate );
 
     // Health numbers
     dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
@@ -178,12 +178,12 @@ export class EnrolDataService extends BaseMspDataService {
     dto.outsideBCFor30Days = input.outsideBCFor30Days;
     dto.departureReason = input.departureReason;
     dto.departureDestination = input.departureDestination;
-    dto.oopDepartureDate = input.oopDepartureDate;
-    dto.oopReturnDate = input.oopReturnDate;
+    dto.oopDepartureDate = this.convertDateToNumber( input.oopDepartureDate );
+    dto.oopReturnDate = this.convertDateToNumber( input.oopReturnDate );
 
     // Armed Forces
     dto.hasBeenReleasedFromArmedForces = input.hasBeenReleasedFromArmedForces;
-    dto.dischargeDate = input.dischargeDate;
+    dto.dischargeDate = this.convertDateToNumber( input.dischargeDate );
 
     // School information for full-time students
     dto.fullTimeStudent = input.fullTimeStudent;
@@ -192,8 +192,8 @@ export class EnrolDataService extends BaseMspDataService {
     // For children 19-24, we need the school name and address
     dto.schoolName = input.schoolName;
     dto.schoolAddress = this.toAddressTransferObject( input.schoolAddress );
-    dto.schoolCompletionDate = input.schoolCompletionDate;
-    dto.departureDateForSchool = input.departureDateForSchool;
+    dto.schoolCompletionDate = this.convertDateToNumber( input.schoolCompletionDate );
+    dto.departureDateForSchool = this.convertDateToNumber( input.departureDateForSchool );
 
     console.log( 'toEnrolleeTranferObject: ', dto );
 

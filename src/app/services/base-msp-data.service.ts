@@ -65,7 +65,7 @@ export abstract class BaseMspDataService {
     output.lastName = dto.lastName;
 
     output.gender = dto.gender;
-    output.dateOfBirth = dto.dateOfBirth;
+    output.dateOfBirth = this.convertNumberToDate( dto.dateOfBirth );
 
     output.documents = this.fromSupportDocumentTransferObject( dto.documents );
 
@@ -86,7 +86,7 @@ export abstract class BaseMspDataService {
     dto.lastName = input.lastName;
 
     dto.gender = input.gender;
-    dto.dateOfBirth = input.dateOfBirth;
+    dto.dateOfBirth = this.convertDateToNumber( input.dateOfBirth );
 
     // SupportDocuments
     dto.documents = this.toSupportDocumentTransferObject( input.documents );
@@ -164,6 +164,26 @@ export abstract class BaseMspDataService {
     output.documentType = dto.documentType;
     output.images = dto.images;
     return output;
+  }
+
+  /**
+   * Converts date object to number
+   * @param dt Date
+   */
+  protected convertDateToNumber( dt: Date ): number {
+    // Date exists convert date to milliseconds since January 1, 1970, 00:00:00 UTC
+    if ( dt ) {
+      return Date.parse( dt.toString() );
+    }
+    return undefined;
+  }
+
+  /**
+   * Converts number to Date object
+   * @param dtInMsec Time in milliseconds since January 1, 1970, 00:00:00 UTC
+   */
+  protected convertNumberToDate( dtInMsec: number ): Date {
+    return isNaN( dtInMsec ) ? undefined : new Date( dtInMsec );
   }
 }
 

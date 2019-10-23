@@ -132,7 +132,8 @@
   
               <!--TODO: dateRangeEnd - today or completion date -->
               <div class="form-group col-sm-6 pl-0">
-                <common-date label="Original departure date from B.C. (if school is outside B.C.)"
+                <common-date name="schoolDepartureDate__{{objectId}}"
+                             label="Original departure date from B.C. (if school is outside B.C.)"
                              [(ngModel)]="child.studiesDepartureDate"
                              [required]="isRequired(child)"
                              [errorMessages]="schoolDepartureErrMsg">
@@ -141,7 +142,8 @@
           
               <!--TODO: dateRangeStart - today or departure date -->
               <div class="form-group col-sm-6 pl-0">
-                <common-date label="Expected school completion date"
+                <common-date name="completionDate__{{objectId}}"
+                             label="Expected school completion date"
                              [(ngModel)]="child.studiesFinishedDate"
                              [restrictDate]="'future'"
                              [errorMessages]="schoolCompletionErrMsg">      

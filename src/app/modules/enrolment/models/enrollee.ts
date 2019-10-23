@@ -114,8 +114,8 @@ export class EnrolleeDto extends BasePersonDto {
   movedFromProvinceOrCountry: string;
 
    // Arrival in dates (BC/Canaada)
-   arrivalToBCDate: Date;
-   arrivalToCanadaDate: Date;
+   arrivalToBCDate: number;
+   arrivalToCanadaDate: number;
 
    // Health numbers
    healthNumberFromOtherProvince: string;
@@ -126,12 +126,12 @@ export class EnrolleeDto extends BasePersonDto {
   outsideBCFor30Days: boolean;
   departureReason: string;
   departureDestination: string;
-  oopDepartureDate: Date;
-  oopReturnDate: Date;
+  oopDepartureDate: number;
+  oopReturnDate: number;
 
   // Armed Forces
   hasBeenReleasedFromArmedForces: boolean;
-  dischargeDate: Date;
+  dischargeDate: number;
 
   // School information for full-time students
   fullTimeStudent: boolean;
@@ -140,6 +140,6 @@ export class EnrolleeDto extends BasePersonDto {
   // For children 19-24, we need the school name and address
   schoolName: string;
   schoolAddress: AddressDto;
-  schoolCompletionDate: Date;
-  departureDateForSchool: Date;
+  schoolCompletionDate: number;
+  departureDateForSchool: number;
 }

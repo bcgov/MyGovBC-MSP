@@ -28,7 +28,7 @@ export class BasePersonDto {
   middleName: string;
   lastName: string;
 
-  dateOfBirth: Date;
+  dateOfBirth: number;
 
   gender: Gender;
 

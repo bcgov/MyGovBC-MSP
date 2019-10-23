@@ -47,17 +47,19 @@
 
     <div *ngIf="requestArrivalInBCInfo; else NewToBC"
         class="form-group col-sm-6 pl-0">
-        <common-date label="Arrival date in B.C."
-                    [restrictDate]="'past'" 
-                    [(ngModel)]="person.arrivalToBCDate">
+        <common-date name="arrivalDateToBC__{{objectId}}"
+                     label="Arrival date in B.C."
+                     [restrictDate]="'past'" 
+                     [(ngModel)]="person.arrivalToBCDate">
         </common-date>
     </div>
 
     <div *ngIf="requestArrivalToCanada" class="form-group col-sm-6 pl-0">
-      <common-date label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
-                  [restrictDate]="'past'" 
-                  [(ngModel)]="person.arrivalToCanadaDate"
-                  [required]="arrivalDateRequired">
+      <common-date name="arrivalDateToCanada__{{objectId}}"
+                   label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
+                   [restrictDate]="'past'" 
+                   [(ngModel)]="person.arrivalToCanadaDate"
+                   [required]="arrivalDateRequired">
       </common-date>
     </div>
 
@@ -116,14 +118,16 @@
        </div>
 
        <div class="form-group col-sm-6">
-        <common-date label="{{departureDateLabel}}"
+        <common-date name="departureDate__{{objectId}}"
+                     label="{{departureDateLabel}}"
                      [restrictDate]="'past'" 
                      [(ngModel)]="person.oopDepartureDate">
         </common-date>
       </div>
 
       <div class="form-group col-sm-6">
-          <common-date label="{{returnDateLabel}}"
+          <common-date name="returnDate_{{objectId}}"
+                       label="{{returnDateLabel}}"
                        [restrictDate]="'past'" 
                        [(ngModel)]="person.oopReturnDate">
           </common-date>
@@ -157,10 +161,11 @@
 
     <div *ngIf="person.hasBeenReleasedFromArmedForces" class="form-group p-sm-2 ml-4 border-left">
       <div class="form-group col-sm-6">
-        <common-date label="Discharge date"
-                      [restrictDate]="'past'" 
-                      [(ngModel)]="person.dischargeDate"
-                      required>
+        <common-date name="dischargeDate__{{objectId}}"
+                     label="Discharge date"
+                     [restrictDate]="'past'" 
+                     [(ngModel)]="person.dischargeDate"
+                     required>
         </common-date>
       </div>
     </div>
@@ -182,7 +187,8 @@
 
 <ng-template #NewToBC>
   <div *ngIf="requestRecentMoveToBC" class="form-group col-sm-6 pl-0">
-    <common-date label="Most recent move to B.C."
+    <common-date name="recentMoveToBC__{{objectId}}"
+                 label="Most recent move to B.C."
                  [restrictDate]="'past'" 
                  [(ngModel)]="person.arrivalToBCDate">
     </common-date>
