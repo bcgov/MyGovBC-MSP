@@ -1,8 +1,8 @@
-import PersonDto from '../../../components/msp/model/msp-person.dto';
-import AddressDto from '../../../models/address.dto';
+import { PersonDto } from '../../../components/msp/model/msp-person.dto';
+import { AddressDto } from '../../../models/address.dto';
 import { CommonImage } from 'moh-common-lib';
 
-export default class MspAccountDto {
+export class MspAccountDto {
     infoCollectionAgreement: boolean;
     applicant: PersonDto = new PersonDto();
     mailingSameAsResidentialAddress: boolean;

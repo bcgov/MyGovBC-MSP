@@ -2,10 +2,10 @@ import {Component, Input} from '@angular/core';
 import {MspPerson} from '../../../../components/msp/model/msp-person.model';
 import { Router } from '@angular/router';
 import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
-import { getCountryDescription, getProvinceDescription, SimpleDate } from 'moh-common-lib';
+import { getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import { getStatusStrings, getStatusReasonStrings } from '../canadian-status/canadian-status.component';
-import * as moment from 'moment';
 import { Relationship } from '../../../../models/relationship.enum';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'msp-person-card',
@@ -14,7 +14,7 @@ import { Relationship } from '../../../../models/relationship.enum';
 })
 export class MspPersonCardComponent {
 
-  public dateFormat = 'MMMM D, YYYY';
+  public dateFormat = 'MMMM d, yyyy';
 
   lang = require('./i18n');
 
@@ -69,12 +69,8 @@ export class MspPersonCardComponent {
     return getProvinceDescription( this.person.movedFromProvinceOrCountry );
   }
 
-  formatDateField( dt: SimpleDate ) {
-    return moment( {
-      year: dt.year,
-      month: dt.month - 1,
-      day: dt.day
-    }).format( this.dateFormat );
+  formatDateField( dt: Date ) {
+    return format( dt, this.dateFormat );
   }
 
   get hasMarriageDate(): boolean {

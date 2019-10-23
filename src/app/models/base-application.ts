@@ -36,7 +36,7 @@ export class BaseApplication extends Base {
   }
 }
 
-export default class BaseApplicationDto {
+export class BaseApplicationDto {
 
   // Flag to indicate whether individual has read the collection agreement
   infoCollectionAgreement: boolean;

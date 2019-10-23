@@ -1,30 +1,25 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
 import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../modules/msp-core/api-model/accountChangeTypes';
 import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from '../modules/msp-core/api-model/applicationTypes';
 import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from '../modules/msp-core/api-model/assistanceTypes';
 import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../modules/msp-core/api-model/commonTypes';
-import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../modules/msp-core/api-model/enrolmentTypes';
+import { DependentType, DependentTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../modules/msp-core/api-model/enrolmentTypes';
 import { ResponseType } from '../modules/msp-core/api-model/responseTypes';
 import { MspAccountApp } from '../modules/account/models/account.model';
 import { ApplicationBase } from '../models/application-base.model';
-// import { MspApplication } from '../modules/enrolment/models/application.model';
 import { AssistanceApplicationType, FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
-import { SimpleDate, Address, CommonImage } from 'moh-common-lib';
+import { Address, CommonImage } from 'moh-common-lib';
 import { MspLogService } from './log.service';
 import { MspMaintenanceService } from './msp-maintenance.service';
 import { Response } from '@angular/http';
 import {ISpaEnvResponse} from '../components/msp/model/spa-env-response.interface';
 import { environment } from '../../environments/environment';
-import { ApiResponse } from '../models/api-response.interface';
-import {
-    MSPApplicationSchema
-  } from 'app/modules/msp-core/interfaces/i-api';
 import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
 import { Relationship } from '../models/relationship.enum';
+import { format } from 'date-fns';
 
 const jxon = require('jxon/jxon');
 
@@ -525,7 +520,7 @@ export class MspApiService {
         to.application.assistanceApplication.applicant.name = this.convertName(from.applicant);
 
         if (from.applicant.hasDob) {
-            to.application.assistanceApplication.applicant.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
+            to.application.assistanceApplication.applicant.birthDate = format(from.applicant.dob, this.ISO8601DateFormat);
         }
         if (from.applicant.gender != null) {
             to.application.assistanceApplication.applicant.gender = <GenderType> from.applicant.gender.toString();
@@ -597,7 +592,7 @@ export class MspApiService {
              */
             to.application.assistanceApplication.spouse.name = this.convertName(from.spouse);
             if (from.spouse.hasDob) {
-                to.application.assistanceApplication.spouse.birthDate = from.spouse.dob.format(this.ISO8601DateFormat);
+                to.application.assistanceApplication.spouse.birthDate = format(from.spouse.dob, this.ISO8601DateFormat);
             }
             if (from.spouse.previous_phn) {
                 to.application.assistanceApplication.spouse.phn = Number(from.spouse.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
@@ -794,7 +789,7 @@ export class MspApiService {
 
         to.name = this.convertName(from);
         if (from.hasDob) {
-            to.birthDate = from.dob.format(this.ISO8601DateFormat);
+            to.birthDate = format(from.dob, this.ISO8601DateFormat);
         }
         if (from.gender != null) {
             to.gender = <GenderType> from.gender.toString();
@@ -824,15 +819,15 @@ export class MspApiService {
 
 
             if (from.hasStudiesDeparture) {
-                to.departDateSchoolOutside = from.studiesDepartureDate.format(this.ISO8601DateFormat);
+                to.departDateSchoolOutside = format(from.studiesDepartureDate, this.ISO8601DateFormat);
             }
 
             if (from.hasStudiesFinished) {
-                to.dateStudiesFinish = from.studiesFinishedDate.format(this.ISO8601DateFormat);
+                to.dateStudiesFinish = format(from.studiesFinishedDate, this.ISO8601DateFormat);
             }
 
             if (from.hasStudiesBegin) {
-                to.dateStudiesBegin = from.studiesBeginDate.format(this.ISO8601DateFormat);
+                to.dateStudiesBegin = format(from.studiesBeginDate, this.ISO8601DateFormat);
             }
 
             //  Departure date if school is outszide BC //TODO
@@ -847,7 +842,7 @@ export class MspApiService {
         if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect') {
             to.cancellationReason = from.reasonForCancellation;
             if (from.cancellationDate) {
-                to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+                to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat);
             }
         }
 
@@ -889,14 +884,14 @@ export class MspApiService {
 
                 // Arrival dates
                 if (from.hasArrivalToBC) {
-                    to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+                    to.livedInBC.recentBCMoveDate = format(from.arrivalToBCDate, this.ISO8601DateFormat);
                 }
             }
 
         }
         //Is this child newly adopted?
         if (from.newlyAdopted) {
-            to.adoptionDate = this.parseDate(from.adoptedDate).format(this.ISO8601DateFormat);
+            to.adoptionDate = format( from.adoptedDate, this.ISO8601DateFormat);
         }
 
 
@@ -906,10 +901,10 @@ export class MspApiService {
             to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? 'Y' : 'N';
             if (from.declarationForOutsideOver30Days) {
                 if (from.outOfBCRecord.hasDeparture) {
-                    to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                    to.outsideBC.departureDate = format(from.outOfBCRecord.departureDate, this.ISO8601DateFormat);
                 }
                 if (from.outOfBCRecord.hasReturn) {
-                    to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                    to.outsideBC.returnDate = format(from.outOfBCRecord.returnDate, this.ISO8601DateFormat);
                 }
                 to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
                 to.outsideBC.destination = from.outOfBCRecord.location;
@@ -923,10 +918,10 @@ export class MspApiService {
             to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? 'Y' : 'N';
             if (from.plannedAbsence) {
                 if (from.planOnBeingOutOfBCRecord.hasDeparture) {
-                    to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                    to.outsideBCinFuture.departureDate = format(from.planOnBeingOutOfBCRecord.departureDate, this.ISO8601DateFormat);
                 }
                 if (from.planOnBeingOutOfBCRecord.hasReturn) {
-                    to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                    to.outsideBCinFuture.returnDate = format(from.planOnBeingOutOfBCRecord.returnDate, this.ISO8601DateFormat);
                 }
                 to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
                 to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
@@ -937,7 +932,7 @@ export class MspApiService {
         // Have they been released from the Canadian Armed Forces or an Institution?
         if (from.hasDischarge) {
             to.willBeAway = WillBeAwayTypeFactory.make();
-            to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+            to.willBeAway.armedDischargeDate = format(from.dischargeDate, this.ISO8601DateFormat);
             to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
             to.willBeAway.isFullTimeStudent = 'N';
         }
@@ -967,7 +962,7 @@ export class MspApiService {
 
                 // Arrival dates
                 if (from.hasArrivalToBC) {
-                    to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+                    to.livedInBC.recentBCMoveDate = format(from.arrivalToBCDate, this.ISO8601DateFormat);
                 }
             }
 
@@ -980,10 +975,10 @@ export class MspApiService {
             to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? 'Y' : 'N';
             if (from.declarationForOutsideOver30Days) {
                 if (from.outOfBCRecord.hasDeparture) {
-                    to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                    to.outsideBC.departureDate = format(from.outOfBCRecord.departureDate, this.ISO8601DateFormat);
                 }
                 if (from.outOfBCRecord.hasReturn) {
-                    to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                    to.outsideBC.returnDate = format(from.outOfBCRecord.returnDate, this.ISO8601DateFormat);
                 }
                 to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
                 to.outsideBC.destination = from.outOfBCRecord.location;
@@ -997,10 +992,10 @@ export class MspApiService {
             to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? 'Y' : 'N';
             if (from.plannedAbsence) {
                 if (from.planOnBeingOutOfBCRecord.hasDeparture) {
-                    to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                    to.outsideBCinFuture.departureDate = format(from.planOnBeingOutOfBCRecord.departureDate, this.ISO8601DateFormat);
                 }
                 if (from.planOnBeingOutOfBCRecord.hasReturn) {
-                    to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                    to.outsideBCinFuture.returnDate = format(from.planOnBeingOutOfBCRecord.returnDate, this.ISO8601DateFormat);
                 }
                 to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
                 to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
@@ -1011,7 +1006,7 @@ export class MspApiService {
         // Have they been released from the Canadian Armed Forces or an Institution?
         if (from.hasDischarge) {
             to.willBeAway = WillBeAwayTypeFactory.make();
-            to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+            to.willBeAway.armedDischargeDate = format(from.dischargeDate, this.ISO8601DateFormat);
             to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
             to.willBeAway.isFullTimeStudent = 'N';
         }
@@ -1065,7 +1060,7 @@ export class MspApiService {
 
 
         if (from.applicant.hasDob) {
-            accountHolder.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
+            accountHolder.birthDate = format(from.applicant.dob, this.ISO8601DateFormat);
         }
         if (from.applicant.gender != null) {
             accountHolder.gender = <GenderType>{};
@@ -1113,7 +1108,7 @@ export class MspApiService {
         to.name = this.convertName(from);
 
         if (from.hasDob) {
-            to.birthDate = from.dob.format(this.ISO8601DateFormat);
+            to.birthDate = format(from.dob, this.ISO8601DateFormat);
         }
         if (from.gender != null) {
             to.gender = <GenderType> from.gender.toString();
@@ -1135,7 +1130,7 @@ export class MspApiService {
         }
 
         if (from.marriageDate) {
-            to.marriageDate = this.parseDate(from.marriageDate).format(this.ISO8601DateFormat);
+            to.marriageDate = format(from.marriageDate, this.ISO8601DateFormat);
         }
         if (from.isExistingBeneficiary != null) {
             to.isExistingBeneficiary = from.isExistingBeneficiary === true ? 'Y' : 'N';
@@ -1151,7 +1146,7 @@ export class MspApiService {
         if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect' ) {
             to.cancellationReason = from.reasonForCancellation;
             if (from.cancellationDate) {
-            to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+            to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat );
             }
         }
         if (from.knownMailingAddress === true ) {
@@ -1172,7 +1167,7 @@ export class MspApiService {
         to.attachmentUuids = this.convertAttachmentUuids(from.documents.images);
 
         if (from.hasDob) {
-            to.birthDate = from.dob.format(this.ISO8601DateFormat);
+            to.birthDate = format(from.dob, this.ISO8601DateFormat);
         }
         if (from.gender != null) {
             to.gender = <GenderType> from.gender.toString();
@@ -1182,26 +1177,6 @@ export class MspApiService {
         return to;
     }
 
-    private convertDependantFromEnrollment(from: MspPerson): DependentType {
-        // Do base type first
-        const to = <DependentType>this.convertPersonFromEnrollment(from);
-
-        // Copy sequence over
-        to._sequence = DependentTypeFactory.make()._sequence;
-
-        to.schoolName = from.schoolName;
-        if (from.hasStudiesDeparture) {
-            to.departDateSchoolOutside = from.studiesDepartureDate.format(this.ISO8601DateFormat);
-        }
-        if (from.hasStudiesFinished) {
-            to.dateStudiesFinish = from.studiesFinishedDate.format(this.ISO8601DateFormat);
-        }
-
-        // Assemble address string
-        to.schoolAddress = this.convertAddress(from.schoolAddress);
-
-        return to;
-    }
 
     private convertName(from: MspPerson): NameType {
         const to = NameTypeFactory.make();
@@ -1309,10 +1284,10 @@ export class MspApiService {
 
         // Arrival dates
         if (from.hasArrivalToBC) {
-            to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+            to.livedInBC.recentBCMoveDate = format(from.arrivalToBCDate, this.ISO8601DateFormat);
         }
         if (from.hasArrivalToCanada) {
-            to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
+            to.livedInBC.recentCanadaMoveDate = format(from.arrivalToCanadaDate, this.ISO8601DateFormat);
         }
 
         // Outside BC
@@ -1320,10 +1295,10 @@ export class MspApiService {
         if (from.outOfBCRecord) {
             to.outsideBC.beenOutsideBCMoreThan = 'Y';
             if (from.outOfBCRecord.hasDeparture) {
-                to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                to.outsideBC.departureDate = format(from.outOfBCRecord.departureDate, this.ISO8601DateFormat);
             }
             if (from.outOfBCRecord.hasReturn) {
-                to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                to.outsideBC.returnDate = format(from.outOfBCRecord.returnDate, this.ISO8601DateFormat);
             }
             to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
             to.outsideBC.destination = from.outOfBCRecord.location;
@@ -1352,7 +1327,7 @@ export class MspApiService {
         }
 
         if (from.hasDischarge) {
-            to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+            to.willBeAway.armedDischargeDate = format(from.dischargeDate, this.ISO8601DateFormat);
         }
         /*
          hasPreviousCoverage: ct.YesOrNoType;
@@ -1436,15 +1411,6 @@ export class MspApiService {
     stringToXml(from: string) {
         return jxon.stringToXml(from);
     }
-
-    private parseDate(date: SimpleDate) {
-        return moment.utc({
-            year: date.year,
-            month: date.month - 1, // moment use 0 index for month :(
-            day: date.day,
-        }); // use UTC mode to prevent browser timezone shifting
-    }
-
 
 /*
   private prepareEnrolmentApplication(from: MspApplication): any {
@@ -1583,5 +1549,5 @@ export class MspApiService {
         }
     }
 
-    readonly ISO8601DateFormat = 'YYYY-MM-DD';
+    readonly ISO8601DateFormat = 'yyyy-MM-dd';
 }

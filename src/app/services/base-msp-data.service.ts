@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
-import BasePersonDto, { BasePerson } from '../models/base-person';
-import BaseApplicationDto, { BaseApplication } from '../models/base-application';
-import SupportDocumentsDto, { SupportDocuments } from '../modules/msp-core/models/support-documents.model';
-import AddressDto from '../models/address.dto';
-import { Address, SimpleDate } from 'moh-common-lib';
+import { BasePersonDto, BasePerson } from '../models/base-person';
+import { BaseApplicationDto, BaseApplication } from '../models/base-application';
+import { SupportDocumentsDto, SupportDocuments } from '../modules/msp-core/models/support-documents.model';
+import { AddressDto } from '../models/address.dto';
+import { Address } from 'moh-common-lib';
 
-export default class MspPagesDto {
+export class MspPagesDto {
   // page status - complete/ incomplete
   pageStatus: any[] = [];
 }

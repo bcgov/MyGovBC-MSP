@@ -31,9 +31,10 @@
           </common-phn>
         </div>
         <div class="form-group">
-            <common-date label="Birthdate"
+            <common-date name="AccountHolderDob"
+                         label="Birthdate"
                          [restrictDate]="'past'" 
-                         [(date)]="accountHolderDob"
+                         [(ngModel)]="accountHolderDob"
                          [required]="true">
             </common-date>
         </div>

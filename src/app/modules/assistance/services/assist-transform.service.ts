@@ -11,13 +11,14 @@ import {
   AssistanceApplicationType,
   MSPApplicationSchema
 } from 'app/modules/msp-core/interfaces/i-api';
+import { format } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssistTransformService {
   private app: FinancialAssistApplication = this.dataSvc.finAssistApp;
-  readonly ISO8601DateFormat = 'YYYY-MM-DD';
+  readonly ISO8601DateFormat = 'yyyy-MM-dd';
   listKeys(obj: Object) {
     return Object.keys(obj);
   }
@@ -65,7 +66,7 @@ export class AssistTransformService {
   get assistanceApplicant(): AssistanceApplicantType {
     const app = this.app.applicant;
     const attachmentUuids = this.attachmentUuids as any;
-    const birthDate =  String(this.app.applicant.dob.format(this.ISO8601DateFormat)); //`${app.dobSimple.year.toString()}-${birthMonth}-${app.dobSimple.day.toString()}`;
+    const birthDate =  format(this.app.applicant.dob, this.ISO8601DateFormat); //`${app.dobSimple.year.toString()}-${birthMonth}-${app.dobSimple.day.toString()}`;
     const financials = this.financials;
     const mailingAddress = this.mailingAddress;
     const name = this.name;

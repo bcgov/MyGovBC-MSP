@@ -1,13 +1,15 @@
 import { EnrolmentMembership } from './enrolment-membership.enum';
-import { SimpleDate } from 'moh-common-lib';
 
-export default class AclDto {
+/**
+ * Storage definition
+ */
+export class AclDto {
 
   // Agreement to collection notice
   infoCollectionAgreement: boolean;
 
   accountHolderPhn: string;
-  accountHolderDob: SimpleDate;
+  accountHolderDob: Date;
 
   // Postal code for account holder
   postalCode: string;

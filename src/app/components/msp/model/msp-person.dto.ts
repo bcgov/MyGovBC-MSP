@@ -1,26 +1,23 @@
-import AddressDto from '../../../models/address.dto';
-import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
+import { AddressDto } from '../../../models/address.dto';
+import { OutofBCRecordDto } from '../../../models/outof-bc-record.model';
 import { CancellationReasons} from '../../../models/status-activities-documents';
 import { PersonStatusChange } from './person-status-change';
-import { SimpleDate, CommonImage } from 'moh-common-lib';
+import { CommonImage } from 'moh-common-lib';
 import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
 import { Gender } from '../../../models/gender.enum';
 
 
+
 // TODO: Class makes reference to self within definition - This should be reviewed
-export default class PersonDto {
+export class PersonDto {
     relationship: number;
     firstName: string;
     middleName: string;
     lastName: string;
 
-
-
     previouslastName: string;
 
-    dob_day: number;
-    dob_month: number;
-    dob_year: number;
+    dob: Date;
     immigrationStatusChange: boolean;
 
     updatingPersonalInfo: boolean;
@@ -29,41 +26,24 @@ export default class PersonDto {
 
     hasActiveMedicalServicePlan: boolean;
 
-    dateOfBirth: SimpleDate;
+    dateOfBirth: Date;
 
     sin: string;
     assistYearDocs: CommonImage[]; //= [];
 
-    arrivalToCanadaYear: number;
-    arrivalToCanadaMonth: number;
-    arrivalToCanadaDay: number;
-    arrivalToBCYear: number;
-    arrivalToBCMonth: number;
-    arrivalToBCDay: number;
 
-    departureDateDuring12MonthsDay: number;
-    departureDateDuring12MonthsMonth: number ;
-    departureDateDuring12MonthsYear: number;
-
-    departureDateDuring6MonthsDay: number;
-    departureDateDuring6MonthsMonth: number;
-    departureDateDuring6MonthsYear: number;
-
-    returnDate12MonthsDay: number;
-    returnDate12MonthsMonth: number;
-    returnDate12MonthsYear: number;
-
-    returnDate6MonthsDay: number;
-    returnDate6MonthsMonth: number;
-    returnDate6MonthsYear: number;
+    arrivalToCanadaDate: Date;
+    arrivalToBCDate: Date;
+    departureDateDuring12MonthsDate: Date;
+    departureDateDuring6MonthsDate: Date;
+    returnDate12MonthsDate: Date;
+    returnDate6MonthsDate: Date;
 
     hasBeenReleasedFromArmedForces: boolean;
     movedFromProvinceOrCountry: string;
     institutionWorkHistory: string;
     nameOfInstitute: string;
-    dischargeYear: number;
-    dischargeMonth: number;
-    dischargeDay: number;
+    dischargeDate: Date;
 
     status: number;
     docType: number;
@@ -103,11 +83,8 @@ export default class PersonDto {
     updatedChildren: PersonDto[] = [];
 
     reasonForCancellation: string;
-    cancellationDate: SimpleDate;
-    marriageDate: SimpleDate = { day: null, month: null, year: null };
-    marriageDateDay: number ;
-    marriageDateMonth: number;
-    marriageDateYear: number;
+    cancellationDate: Date;
+    marriageDate: Date;
 
     prevLastName: string;
     phoneNumber: string;
@@ -127,17 +104,9 @@ export default class PersonDto {
 
     schoolAddress: AddressDto = new AddressDto();
 
-    studiesFinishedYear: number;
-    studiesFinishedMonth: number;
-    studiesFinishedDay: number;
-
-    studiesBeginYear: number;
-    studiesBeginMonth: number;
-    studiesBeginDay: number;
-
-    studiesDepartureYear: number;
-    studiesDepartureMonth: number;
-    studiesDepartureDay: number;
+    studiesFinishedDate: Date;
+    studiesBeginDate: Date;
+    studiesDepartureDate: Date;
 
     declarationForOutsideOver30Days: boolean;
     declarationForOutsideOver60Days: boolean;
@@ -145,15 +114,14 @@ export default class PersonDto {
     departureReason12Months: string;
     departureDestination: string;
     departureDestination12Months: string;
-    departureDate: SimpleDate = { day: null, month: null, year: null };
-    returnDate: SimpleDate = { day: null, month: null, year: null };
+    departureDate: Date;
+    returnDate: Date;
 
     newlyAdopted: boolean;
-    adoptedDate: SimpleDate;
+    adoptedDate: Date;
 
     outOfBCRecord: OutofBCRecordDto;
     planOnBeingOutOfBCRecord: OutofBCRecordDto;
-
 
     schoolOutsideOfBC: boolean;
 

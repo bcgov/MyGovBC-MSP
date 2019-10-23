@@ -1,7 +1,7 @@
 import PersonDto from '../../../components/msp/model/msp-person.dto';
 import AddressDto from '../../../models/address.dto';
 
-export default class MspApplicationDto {
+export class MspApplicationDto {
   infoCollectionAgreement: boolean;
   applicant: PersonDto = new PersonDto();
   mailingSameAsResidentialAddress: boolean;

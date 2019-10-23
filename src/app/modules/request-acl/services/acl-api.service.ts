@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AbstractHttpService } from 'moh-common-lib';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
 import { AclApplication } from '../model/acl-application.model';
 import { environment } from '../../../../environments/environment';
 import { AclApiPayLoad } from '../model/acl-api.model';
 import { EnrolmentMembership } from '../model/enrolment-membership.enum';
-import * as moment from 'moment';
+import { format } from 'date-fns';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -16,7 +16,7 @@ export class AclApiService extends AbstractHttpService {
 
   protected _headers: HttpHeaders = new HttpHeaders();
 
-  private readonly ISO8601DateFormat = 'YYYY-MM-DD';
+  private readonly ISO8601DateFormat = 'yyyy-mm-dd';
 
   constructor( protected http: HttpClient ) {
     super( http );
@@ -35,16 +35,10 @@ export class AclApiService extends AbstractHttpService {
       'X-Authorization': 'Bearer ' + application.authorizationToken,
     });
 
-    const dob = moment( {
-      year: application.accountHolderDob.year,
-      month: application.accountHolderDob.month - 1, // Months are zero based
-      day: application.accountHolderDob.day
-      } );
-
     return this.post<AclApiPayLoad>( url,
       {
         requesterPHN: application.accountHolderPhn.replace(/ /g, ''),
-        requesterBirthdate: dob.format( this.ISO8601DateFormat ),
+        requesterBirthdate: format( application.accountHolderDob, this.ISO8601DateFormat ),
         requesterPostalCode: application.postalCode.toUpperCase().replace(/ /g, ''),
         letterSelection: application.enrolmentMembership,
         specificPHN: (application.enrolmentMembership !== EnrolmentMembership.SpecificMember) ?
@@ -58,7 +52,7 @@ export class AclApiService extends AbstractHttpService {
     this._headers = new HttpHeaders({
         'SPA_ENV_NAME': rapidResponseCode
     });
-    const url = environment.appConstants['envServerBaseUrl'];
+    const url = environment.appConstants.envServerBaseUrl;
     return this.post<any>(url, null);
   }
 

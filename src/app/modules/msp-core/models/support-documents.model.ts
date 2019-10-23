@@ -22,7 +22,10 @@ export class SupportDocuments {
   }
 }
 
-export default class SupportDocumentsDto {
+/**
+ * Storage definition
+ */
+export class SupportDocumentsDto {
   documentType: string;
   images: CommonImage[];
 }

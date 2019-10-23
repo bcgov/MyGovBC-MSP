@@ -1,4 +1,4 @@
-export default class AddressDto {
+export class AddressDto {
   // Street number, name and suffix
   addressLine1: string;
   addressLine2: string;

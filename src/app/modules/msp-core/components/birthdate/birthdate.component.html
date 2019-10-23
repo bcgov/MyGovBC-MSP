@@ -1,4 +1,4 @@
 <form #formRef='ngForm'>
-  <common-date [label]="dateLabel" [restrictDate]="'past'" [(date)]="person.dateOfBirth"
-    (dateChange)="onChange.emit($event)"></common-date>
+  <common-date [label]="dateLabel" [restrictDate]="'past'" [(ngModel)]="person.dateOfBirth"
+    (ngModelChange)="onChange.emit($event)"></common-date>
 </form>

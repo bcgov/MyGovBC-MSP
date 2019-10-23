@@ -1,8 +1,8 @@
-import BaseApplicationDto, { BaseApplication } from '../../../models/base-application';
-import EnrolleeDto, { Enrollee } from './enrollee';
+import { BaseApplicationDto, BaseApplication } from '../../../models/base-application';
+import { EnrolleeDto, Enrollee } from './enrollee';
 import { Relationship } from '../../../models/relationship.enum';
 import { CommonImage, Address } from 'moh-common-lib';
-import AddressDto from '../../../models/address.dto';
+import { AddressDto } from '../../../models/address.dto';
 
 export class EnrolApplication extends BaseApplication {
 
@@ -88,8 +88,10 @@ export class EnrolApplication extends BaseApplication {
     return allImages;
   }
 }
-
-export default class EnrolApplicationDto extends BaseApplicationDto {
+/**
+ * Storage definition
+ */
+export class EnrolApplicationDto extends BaseApplicationDto {
 
   applicant: EnrolleeDto;
   spouse: EnrolleeDto;

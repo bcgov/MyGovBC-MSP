@@ -4,6 +4,7 @@ import { Subscription} from 'rxjs';
 import * as moment from 'moment';
 import { environment } from '../../../../../environments/environment';
 import { ApiStatusCodes } from 'moh-common-lib';
+import { format } from 'date-fns';
 @Component({
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.scss']
@@ -46,7 +47,7 @@ export class ConfirmationComponent implements OnInit {
    * @returns {string}
    */
   get dateStamp(): string {
-    return moment().format('MMMM DD, YYYY');
+    return format(new Date(), 'MMMM dd, yyyy');
   }
 
 }

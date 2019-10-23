@@ -31,8 +31,8 @@
 
 <div class="form-group"  style="width: 300px;" *ngIf="spouse.isRemovedAtTheEndOfCurrentMonth == false" >
   <common-date label="Requested cancellation date" [restrictDate]="'past'" 
-    [(date)]="spouse.cancellationDate"
-    (dateChange)="this.dataService.saveMspAccountApp();">
+    [(ngModel)]="spouse.cancellationDate"
+    (ngModelChange)="this.dataService.saveMspAccountApp();">
   </common-date>
 </div>
 

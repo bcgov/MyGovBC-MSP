@@ -1,10 +1,10 @@
 import { ICanadianStatus } from '../../msp-core/components/canadian-status/canadian-status.component';
-import BasePersonDto, { BasePerson } from '../../../models/base-person';
+import { BasePersonDto, BasePerson } from '../../../models/base-person';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
-import { Address, SimpleDate } from 'moh-common-lib';
-import SupportDocumentsDto, { SupportDocuments } from '../../msp-core/models/support-documents.model';
-import AddressDto from '../../../models/address.dto';
+import { Address } from 'moh-common-lib';
+import { SupportDocumentsDto, SupportDocuments } from '../../msp-core/models/support-documents.model';
+import { AddressDto } from '../../../models/address.dto';
 
 export class Enrollee extends BasePerson implements ICanadianStatus {
 
@@ -25,15 +25,15 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   movedFromProvinceOrCountry: string;
 
   // Arrival in dates (BC/Canaada)
-  arrivalToBCDate: SimpleDate;
-  arrivalToCanadaDate: SimpleDate;
+  arrivalToBCDate: Date;
+  arrivalToCanadaDate: Date;
 
   // Out of Province within last 12 months for more than 30 days
   outsideBCFor30Days: boolean;
   departureReason: string;
   departureDestination: string;
-  oopDepartureDate: SimpleDate;
-  oopReturnDate: SimpleDate;
+  oopDepartureDate: Date;
+  oopReturnDate: Date;
 
   // health numbers
   healthNumberFromOtherProvince: string;
@@ -42,7 +42,7 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
 
   // Armed Forces
   hasBeenReleasedFromArmedForces: boolean;
-  dischargeDate: SimpleDate;
+  dischargeDate: Date;
 
   // School information for full-time students
   fullTimeStudent: boolean;
@@ -51,10 +51,10 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
    // For children 19-24, we need the school name and address
   schoolName: string;
   schoolAddress: Address = new Address();
-  schoolCompletionDate: SimpleDate;
+  schoolCompletionDate: Date;
 
   // If school out BC, require departure date
-  departureDateForSchool: SimpleDate;
+  departureDateForSchool: Date;
 
   constructor( rel?: Relationship) {
     super();
@@ -97,7 +97,7 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   }
 }
 
-export default class EnrolleeDto extends BasePersonDto {
+export class EnrolleeDto extends BasePersonDto {
 
   status: StatusInCanada;
   currentActivity: CanadianStatusReason;
@@ -114,8 +114,8 @@ export default class EnrolleeDto extends BasePersonDto {
   movedFromProvinceOrCountry: string;
 
    // Arrival in dates (BC/Canaada)
-   arrivalToBCDate: SimpleDate;
-   arrivalToCanadaDate: SimpleDate;
+   arrivalToBCDate: Date;
+   arrivalToCanadaDate: Date;
 
    // Health numbers
    healthNumberFromOtherProvince: string;
@@ -126,12 +126,12 @@ export default class EnrolleeDto extends BasePersonDto {
   outsideBCFor30Days: boolean;
   departureReason: string;
   departureDestination: string;
-  oopDepartureDate: SimpleDate;
-  oopReturnDate: SimpleDate;
+  oopDepartureDate: Date;
+  oopReturnDate: Date;
 
   // Armed Forces
   hasBeenReleasedFromArmedForces: boolean;
-  dischargeDate: SimpleDate;
+  dischargeDate: Date;
 
   // School information for full-time students
   fullTimeStudent: boolean;
@@ -140,6 +140,6 @@ export default class EnrolleeDto extends BasePersonDto {
   // For children 19-24, we need the school name and address
   schoolName: string;
   schoolAddress: AddressDto;
-  schoolCompletionDate: SimpleDate;
-  departureDateForSchool: SimpleDate;
+  schoolCompletionDate: Date;
+  departureDateForSchool: Date;
 }

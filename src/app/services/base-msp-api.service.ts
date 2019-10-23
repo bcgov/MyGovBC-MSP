@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Address, AbstractHttpService, CommonImage, SimpleDate } from 'moh-common-lib';
+import { Address, AbstractHttpService, CommonImage } from 'moh-common-lib';
 import { AddressType, MSPApplicationSchema, CitizenshipType, NameType } from '../modules/msp-core/interfaces/i-api';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { MspLogService } from './log.service';
 import { of, Observable } from 'rxjs';
 import { ApiResponse } from '../models/api-response.interface';
-import * as moment from 'moment';
 import { environment } from '../../environments/environment';
 import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
 import { BasePerson } from '../models/base-person';
+import { format } from 'date-fns';
 
 interface AttachmentRequestPartial {
   contentType: 'IMAGE_JPEG';
@@ -31,7 +31,7 @@ export class BaseMspApiService extends AbstractHttpService  {
 
   suppBenefitResponse: ApiResponse;
 
-  readonly ISO8601DateFormat = 'YYYY-MM-DD';
+  readonly ISO8601DateFormat = 'yyyy-MM-dd';
 
   /**
    * User does NOT specify document type therefore we always say its a supporting document
@@ -118,12 +118,8 @@ export class BaseMspApiService extends AbstractHttpService  {
   }
 
 
-  protected formatDate( dt: SimpleDate ) {
-    const hasDt = Object.keys(dt)
-                    .map( x => dt[x] === null || dt[x] === undefined )
-                    .filter( itm => itm === true )
-                    .length === 0;
-    return hasDt ? moment.utc( {year: dt.year, month: dt.month - 1, day: dt.day} ).format( this.ISO8601DateFormat ) : '';
+  protected formatDate( dt: Date ) {
+    return dt ? format( dt, this.ISO8601DateFormat ) : '' ;
   }
 
   protected convertToAttachment( images: CommonImage[] ): AttachmentRequestPartial[] {

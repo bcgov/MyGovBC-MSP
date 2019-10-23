@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input, Output, EventEmitter } from '@angular/core';
-import { Base, SimpleDate } from 'moh-common-lib';
+import { Base } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { Gender } from '../../../../models/gender.enum';
 
@@ -7,7 +7,7 @@ export interface IPersonalInformation {
   firstName: string;
   middleName: string;
   lastName: string;
-  dateOfBirth: SimpleDate;
+  dateOfBirth: Date;
   gender: Gender;
   phn?: string;
 }
@@ -82,7 +82,7 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     return this.person.dateOfBirth;
   }
 
-  set dateOfBirth( dob: SimpleDate ) {
+  set dateOfBirth( dob: Date ) {
     this.person.dateOfBirth = dob;
     this.personChange.emit(this.person);
   }

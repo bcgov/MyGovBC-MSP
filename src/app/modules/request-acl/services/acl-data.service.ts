@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseMspDataService } from '../../../services/base-msp-data.service';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { AclApplication } from '../model/acl-application.model';
-import AclDto from '../model/acl.dto';
+import { AclDto } from '../model/acl.dto';
 import { EnrolmentMembership } from '../model/enrolment-membership.enum';
 
 @Injectable({

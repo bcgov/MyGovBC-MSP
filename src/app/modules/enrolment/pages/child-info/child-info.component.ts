@@ -98,23 +98,6 @@ export class ChildInfoComponent extends EnrolForm {
     return child.schoolAddress.province !== BRITISH_COLUMBIA ? true : false;
   }
 
-  isCompletionDateValid( child: Enrollee ) {
-    if ( child.dateExists( child.schoolCompletionDate ) &&
-         child.dateExists( child.departureDateForSchool ) ) {
-      const diff =  moment( {
-        year: child.schoolCompletionDate.year,
-        month: child.schoolCompletionDate.month - 1,
-        day: child.schoolCompletionDate.day
-      }).diff( moment({
-        year: child.departureDateForSchool.year,
-        month: child.departureDateForSchool.month - 1,
-        day: child.departureDateForSchool.day
-      }), 'days', true );
-      return diff >= -1;
-    }
-    return true;
-  }
-
   continue() {
     this._nextUrl = ROUTES_ENROL.CONTACT.fullpath;
     this._canContinue = this.canContinue();

@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
-// import { MspApplication } from '../modules/enrolment/models/application.model';
 import { FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import {
   MspAccountApp,
 } from '../modules/account/models/account.model';
 import { Process } from './process.service';
-import MspAccountDto from '../modules/account/models/account.dto';
-//import MspApplicationDto from '../modules/enrolment/models/application.dto';
-import FinancialAssistApplicationDto from '../modules/assistance/models/financial-assist-application.dto';
+import { MspAccountDto } from '../modules/account/models/account.dto';
+import { FinancialAssistApplicationDto } from '../modules/assistance/models/financial-assist-application.dto';
 import {
   OperationActionType,
   MspPerson
 } from '../components/msp/model/msp-person.model';
 import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
-import PersonDto from '../components/msp/model/msp-person.dto';
-import { OutofBCRecord } from '../models/outof-bc-record.model';
-import { OutofBCRecordDto } from '../models/outof-bc-record.dto';
-import AddressDto from '../models/address.dto';
+import { PersonDto } from '../components/msp/model/msp-person.dto';
+import { OutofBCRecordDto, OutofBCRecord } from '../models/outof-bc-record.model';
+import { AddressDto } from '../models/address.dto';
 import { Gender } from '../models/gender.enum';
 
 @Injectable()
@@ -152,9 +149,7 @@ export class MspDataService {
     mspAccountApp.applicant.firstName = 'NA';
     mspAccountApp.applicant.lastName = 'NA';
     mspAccountApp.applicant.gender = Gender.Male;
-    mspAccountApp.applicant.dob_day = 1;
-    mspAccountApp.applicant.dob_month = 1;
-    mspAccountApp.applicant.dob_year = 2000;
+    mspAccountApp.applicant.dob = new Date( 2000, 1, 1 );
     mspAccountApp.applicant.previous_phn = '1234567890';
     mspAccountApp.phoneNumber = '2501234567';
     const dumyAddress: Address = new Address();
@@ -219,42 +214,26 @@ export class MspDataService {
     dto.firstName = input.firstName;
     dto.middleName = input.middleName;
     dto.lastName = input.lastName;
-    dto.dob_day = input.dob_day;
-    dto.dob_month = input.dob_month;
-    dto.dob_year = input.dob_year;
+    dto.dob = input.dob;
     dto.middleName = input.middleName;
     dto.previous_phn = input.previous_phn;
     dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
 
-    dto.arrivalToCanadaDay = input.arrivalToCanadaDay;
-    dto.arrivalToCanadaMonth = input.arrivalToCanadaMonth;
-    dto.arrivalToCanadaYear = input.arrivalToCanadaYear;
-    dto.arrivalToBCDay = input.arrivalToBCDay;
-    dto.arrivalToBCMonth = input.arrivalToBCMonth;
-    dto.arrivalToBCYear = input.arrivalToBCYear;
+    dto.arrivalToCanadaDate = input.arrivalToCanadaDate;
+    dto.arrivalToBCDate = input.arrivalToBCDate;
     dto.hasBeenReleasedFromArmedForces = input.hasBeenReleasedFromArmedForces;
     dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
     dto.institutionWorkHistory = input.institutionWorkHistory;
-    dto.dischargeYear = input.dischargeYear;
-    dto.dischargeMonth = input.dischargeMonth;
-    dto.dischargeDay = input.dischargeDay;
+    dto.dischargeDate = input.dischargeDate;
 
     dto.fullTimeStudent = input.fullTimeStudent;
     dto.inBCafterStudies = input.inBCafterStudies;
 
     dto.schoolName = input.schoolName;
 
-    dto.studiesDepartureYear = input.studiesDepartureYear;
-    dto.studiesDepartureMonth = input.studiesDepartureMonth;
-    dto.studiesDepartureDay = input.studiesDepartureDay;
-
-    dto.studiesFinishedYear = input.studiesFinishedYear;
-    dto.studiesFinishedMonth = input.studiesFinishedMonth;
-    dto.studiesFinishedDay = input.studiesFinishedDay;
-
-    dto.studiesBeginYear = input.studiesBeginYear;
-    dto.studiesBeginMonth = input.studiesBeginMonth;
-    dto.studiesBeginDay = input.studiesBeginDay;
+    dto.studiesDepartureDate = input.studiesDepartureDate;
+    dto.studiesFinishedDate = input.studiesFinishedDate;
+    dto.studiesBeginDate = input.studiesBeginDate;
 
     dto.schoolOutsideOfBC = input.schoolOutsideOfBC;
 
@@ -302,43 +281,27 @@ export class MspDataService {
     output.firstName = dto.firstName;
     output.middleName = dto.middleName;
     output.lastName = dto.lastName;
-    output.dob_day = dto.dob_day;
-    output.dob_month = dto.dob_month;
-    output.dob_year = dto.dob_year;
+    output.dob = dto.dob;
     output.middleName = dto.middleName;
     output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
     output.previous_phn = dto.previous_phn;
 
-    output.arrivalToCanadaDay = dto.arrivalToCanadaDay;
-    output.arrivalToCanadaMonth = dto.arrivalToCanadaMonth;
-    output.arrivalToCanadaYear = dto.arrivalToCanadaYear;
-    output.arrivalToBCDay = dto.arrivalToBCDay;
-    output.arrivalToBCMonth = dto.arrivalToBCMonth;
-    output.arrivalToBCYear = dto.arrivalToBCYear;
+    output.arrivalToCanadaDate = dto.arrivalToCanadaDate;
+    output.arrivalToBCDate = dto.arrivalToBCDate;
 
     output.movedFromProvinceOrCountry = dto.movedFromProvinceOrCountry;
     output.hasBeenReleasedFromArmedForces = dto.hasBeenReleasedFromArmedForces;
     output.institutionWorkHistory = dto.institutionWorkHistory;
-    output.dischargeYear = dto.dischargeYear;
-    output.dischargeMonth = dto.dischargeMonth;
-    output.dischargeDay = dto.dischargeDay;
+    output.dischargeDate = dto.dischargeDate;
 
     output.fullTimeStudent = dto.fullTimeStudent;
     output.inBCafterStudies = dto.inBCafterStudies;
 
     output.schoolName = dto.schoolName;
 
-    output.studiesDepartureYear = dto.studiesDepartureYear;
-    output.studiesDepartureMonth = dto.studiesDepartureMonth;
-    output.studiesDepartureDay = dto.studiesDepartureDay;
-
-    output.studiesFinishedYear = dto.studiesFinishedYear;
-    output.studiesFinishedMonth = dto.studiesFinishedMonth;
-    output.studiesFinishedDay = dto.studiesFinishedDay;
-
-    output.studiesBeginYear = dto.studiesBeginYear;
-    output.studiesBeginMonth = dto.studiesBeginMonth;
-    output.studiesBeginDay = dto.studiesBeginDay;
+    output.studiesDepartureDate = dto.studiesDepartureDate;
+    output.studiesFinishedDate = dto.studiesFinishedDate;
+    output.studiesBeginDate = dto.studiesBeginDate;
 
     output.schoolOutsideOfBC = dto.schoolOutsideOfBC;
 
@@ -387,14 +350,10 @@ export class MspDataService {
 
     dto.livedInBCSinceBirth = input.livedInBCSinceBirth;
     dto.hasPreviousBCPhn = input.hasPreviousBCPhn;
-
-    // TODO: Remove replace with simple date
     dto.firstName = input.firstName;
     dto.middleName = input.middleName;
     dto.lastName = input.lastName;
-    dto.dob_day = input.dob_day;
-    dto.dob_month = input.dob_month;
-    dto.dob_year = input.dob_year;
+    dto.dob = input.dob;
     dto.dateOfBirth = input.dateOfBirth;
     dto.previous_phn = input.previous_phn;
 
@@ -402,31 +361,19 @@ export class MspDataService {
 
     dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
 
-    dto.arrivalToCanadaDay = input.arrivalToCanadaDay;
-    dto.arrivalToCanadaMonth = input.arrivalToCanadaMonth;
-    dto.arrivalToCanadaYear = input.arrivalToCanadaYear;
-    dto.arrivalToBCDay = input.arrivalToBCDay;
-    dto.arrivalToBCMonth = input.arrivalToBCMonth;
-    dto.arrivalToBCYear = input.arrivalToBCYear;
+    dto.arrivalToCanadaDate = input.arrivalToCanadaDate;
+    dto.arrivalToBCDate = input.arrivalToBCDate;
 
     dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
     dto.institutionWorkHistory = input.institutionWorkHistory;
-    dto.dischargeYear = input.dischargeYear;
-    dto.dischargeMonth = input.dischargeMonth;
-    dto.dischargeDay = input.dischargeDay;
+    dto.dischargeDate = input.dischargeDate;
 
     dto.fullTimeStudent = input.fullTimeStudent;
     dto.inBCafterStudies = input.inBCafterStudies;
 
     dto.schoolName = input.schoolName;
-
-    dto.studiesDepartureYear = input.studiesDepartureYear;
-    dto.studiesDepartureMonth = input.studiesDepartureMonth;
-    dto.studiesDepartureDay = input.studiesDepartureDay;
-
-    dto.studiesFinishedYear = input.studiesFinishedYear;
-    dto.studiesFinishedMonth = input.studiesFinishedMonth;
-    dto.studiesFinishedDay = input.studiesFinishedDay;
+    dto.studiesDepartureDate = input.studiesDepartureDate;
+    dto.studiesFinishedDate = input.studiesFinishedDate;
 
     dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
     dto.departureReason = input.departureReason;
@@ -466,41 +413,26 @@ export class MspDataService {
     output.middleName = dto.middleName;
     output.lastName = dto.lastName;
 
-    // TODO: Remove and replace with SimpleDte
-    output.dob_day = dto.dob_day;
-    output.dob_month = dto.dob_month;
-    output.dob_year = dto.dob_year;
     output.dateOfBirth = dto.dateOfBirth;
     output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
     output.previous_phn = dto.previous_phn;
     output.specificMember_phn = dto.specificMember_phn;
 
-    output.arrivalToCanadaDay = dto.arrivalToCanadaDay;
-    output.arrivalToCanadaMonth = dto.arrivalToCanadaMonth;
-    output.arrivalToCanadaYear = dto.arrivalToCanadaYear;
-    output.arrivalToBCDay = dto.arrivalToBCDay;
-    output.arrivalToBCMonth = dto.arrivalToBCMonth;
-    output.arrivalToBCYear = dto.arrivalToBCYear;
+    output.arrivalToCanadaDate = dto.arrivalToCanadaDate;
+    output.arrivalToBCDate = dto.arrivalToBCDate;
 
     output.movedFromProvinceOrCountry = dto.movedFromProvinceOrCountry;
     output.hasBeenReleasedFromArmedForces = dto.hasBeenReleasedFromArmedForces;
     output.institutionWorkHistory = dto.institutionWorkHistory;
-    output.dischargeYear = dto.dischargeYear;
-    output.dischargeMonth = dto.dischargeMonth;
-    output.dischargeDay = dto.dischargeDay;
+    output.dischargeDate = dto.dischargeDate;
 
     output.fullTimeStudent = dto.fullTimeStudent;
     output.inBCafterStudies = dto.inBCafterStudies;
 
     output.schoolName = dto.schoolName;
+    output.studiesDepartureDate = dto.studiesDepartureDate;
 
-    output.studiesDepartureYear = dto.studiesDepartureYear;
-    output.studiesDepartureMonth = dto.studiesDepartureMonth;
-    output.studiesDepartureDay = dto.studiesDepartureDay;
-
-    output.studiesFinishedYear = dto.studiesFinishedYear;
-    output.studiesFinishedMonth = dto.studiesFinishedMonth;
-    output.studiesFinishedDay = dto.studiesFinishedDay;
+    output.studiesFinishedDate = dto.studiesFinishedDate;
 
     output.declarationForOutsideOver30Days =
       dto.declarationForOutsideOver30Days;
@@ -647,13 +579,8 @@ export class MspDataService {
     const dto: OutofBCRecordDto = new OutofBCRecordDto();
     dto.reason = outofBCRecord.reason;
     dto.location = outofBCRecord.location;
-    dto.departureDay = outofBCRecord.departureDay;
-    dto.departureMonth = outofBCRecord.departureMonth;
-    dto.departureYear = outofBCRecord.departureYear;
-    dto.returnDay = outofBCRecord.returnDay;
-    dto.returnMonth = outofBCRecord.returnMonth;
-    dto.returnYear = outofBCRecord.returnYear;
-
+    dto.departureDate = outofBCRecord.departureDate;
+    dto.returnDate = outofBCRecord.returnDate;
     return dto;
   }
 
@@ -663,13 +590,8 @@ export class MspDataService {
     const rec: OutofBCRecord = new OutofBCRecord();
     rec.reason = dto.reason;
     rec.location = dto.location;
-    rec.departureDay = dto.departureDay;
-    rec.departureMonth = dto.departureMonth;
-    rec.departureYear = dto.departureYear;
-    rec.returnDay = dto.returnDay;
-    rec.returnMonth = dto.returnMonth;
-    rec.returnYear = dto.returnYear;
-
+    rec.departureDate = dto.departureDate;
+    rec.returnDate = dto.returnDate;
     return rec;
   }
 
@@ -956,11 +878,6 @@ export class MspDataService {
 
   convertToPersonDto(input: MspPerson, output: PersonDto) {
 
-    // TODO: Remove once verify where being used - replace with SimpleDate
-    output.dob_day = input.dob_day;
-    output.dob_month = input.dob_month;
-    output.dob_year = input.dob_year;
-
     output.dateOfBirth = input.dateOfBirth;
 
     output.firstName = input.firstName;
@@ -976,9 +893,7 @@ export class MspDataService {
   }
 
   convertToPerson(input: PersonDto, output: MspPerson) {
-    output.dob_day = input.dob_day;
-    output.dob_month = input.dob_month;
-    output.dob_year = input.dob_year;
+    output.dob = input.dob;
 
     output.firstName = input.firstName;
     output.middleName = input.middleName;

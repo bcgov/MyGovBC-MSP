@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseMspDataService } from '../../../services/base-msp-data.service';
 import { LocalStorageService } from 'angular-2-local-storage';
-import EnrolApplicationDto, { EnrolApplication } from '../models/enrol-application';
-import EnrolleeDto, { Enrollee } from '../models/enrollee';
+import { EnrolApplicationDto, EnrolApplication } from '../models/enrol-application';
+import { EnrolleeDto, Enrollee } from '../models/enrollee';
 
 @Injectable({
   providedIn: 'root'

@@ -171,10 +171,10 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     }
 
     // Arrival dates
-    if ( from.dateExists( from.arrivalToBCDate ) ) {
+    if ( from.arrivalToBCDate ) {
         to.livedInBC.recentBCMoveDate = this.formatDate( from.arrivalToBCDate );
     }
-    if ( from.dateExists( from.arrivalToCanadaDate ) ) {
+    if ( from.arrivalToCanadaDate ) {
         to.livedInBC.recentCanadaMoveDate = this.formatDate( from.arrivalToCanadaDate );
     }
 
@@ -204,7 +204,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     return {
       name: this.convertName( person ),
       gender: person.gender.toString(),
-      birthDate: String( this.formatDate( person.dateOfBirth ) ),
+      birthDate: this.formatDate( person.dateOfBirth ),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person ),
       schoolName: person.schoolName,
@@ -261,7 +261,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
    return {
       name: this.convertName( person ),
       gender: person.gender,
-      birthDate: String( this.formatDate(person.dateOfBirth) ),
+      birthDate: this.formatDate(person.dateOfBirth),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person )
     };
@@ -273,7 +273,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     const enrolee: EnrolmentApplicantType =  {
       name: this.convertName( applicant ),
       gender: applicant.gender.toString(),
-      birthDate: String( this.formatDate( applicant.dateOfBirth ) ),
+      birthDate: this.formatDate( applicant.dateOfBirth ),
       attachmentUuids: this.getAttachementUuids( applicant.documents.images, applicant.nameChangeDocs.images ),
       residency: this.convertResidency( applicant ),
       residenceAddress: this.convertAddress( application.residentialAddress ),

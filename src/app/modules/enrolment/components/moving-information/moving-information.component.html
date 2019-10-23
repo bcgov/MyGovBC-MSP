@@ -49,14 +49,14 @@
         class="form-group col-sm-6 pl-0">
         <common-date label="Arrival date in B.C."
                     [restrictDate]="'past'" 
-                    [(date)]="person.arrivalToBCDate">
+                    [(ngModel)]="person.arrivalToBCDate">
         </common-date>
     </div>
 
     <div *ngIf="requestArrivalToCanada" class="form-group col-sm-6 pl-0">
       <common-date label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
                   [restrictDate]="'past'" 
-                  [(date)]="person.arrivalToCanadaDate"
+                  [(ngModel)]="person.arrivalToCanadaDate"
                   [required]="arrivalDateRequired">
       </common-date>
     </div>
@@ -118,23 +118,15 @@
        <div class="form-group col-sm-6">
         <common-date label="{{departureDateLabel}}"
                      [restrictDate]="'past'" 
-                     [date]="person.oopDepartureDate"
-                     (dateChange)="validateDepartureDate($event)">
+                     [(ngModel)]="person.oopDepartureDate">
         </common-date>
-        <common-error-container [displayError]="!isValidDepartureDate">
-          {{departureDateError}}
-        </common-error-container>
       </div>
 
       <div class="form-group col-sm-6">
           <common-date label="{{returnDateLabel}}"
                        [restrictDate]="'past'" 
-                       [date]="person.oopReturnDate"
-                       (dateChange)="validateReturnDate($event)">
+                       [(ngModel)]="person.oopReturnDate">
           </common-date>
-          <common-error-container [displayError]="!isValidReturnDate">
-            {{returnDateError}}
-          </common-error-container>
         </div>
     </div>
 
@@ -167,7 +159,7 @@
       <div class="form-group col-sm-6">
         <common-date label="Discharge date"
                       [restrictDate]="'past'" 
-                      [(date)]="person.dischargeDate"
+                      [(ngModel)]="person.dischargeDate"
                       required>
         </common-date>
       </div>
@@ -192,7 +184,7 @@
   <div *ngIf="requestRecentMoveToBC" class="form-group col-sm-6 pl-0">
     <common-date label="Most recent move to B.C."
                  [restrictDate]="'past'" 
-                 [(date)]="person.arrivalToBCDate">
+                 [(ngModel)]="person.arrivalToBCDate">
     </common-date>
   </div>
 </ng-template>

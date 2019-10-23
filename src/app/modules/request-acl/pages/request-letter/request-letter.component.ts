@@ -70,10 +70,10 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
     this.application.postalCode = val;
   }
 
-  get accountHolderDob(): SimpleDate {
+  get accountHolderDob(): Date {
     return this.application.accountHolderDob;
   }
-  set accountHolderDob( dt: SimpleDate ) {
+  set accountHolderDob( dt: Date ) {
     this.application.accountHolderDob = dt;
   }
 
