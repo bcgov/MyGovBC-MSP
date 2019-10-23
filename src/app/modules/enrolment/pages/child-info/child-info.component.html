@@ -146,7 +146,8 @@
                              label="Expected school completion date"
                              [(ngModel)]="child.studiesFinishedDate"
                              [restrictDate]="'future'"
-                             [errorMessages]="schoolCompletionErrMsg">      
+                             [errorMessages]="schoolCompletionErrMsg"
+                             required>      
                 </common-date>
               </div>  
         

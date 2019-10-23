@@ -64,6 +64,7 @@ export abstract class BaseMspDataService {
     output.middleName = dto.middleName;
     output.lastName = dto.lastName;
 
+    output.relationship = dto.relationship;
     output.gender = dto.gender;
     output.dateOfBirth = this.convertNumberToDate( dto.dateOfBirth );
 
@@ -85,6 +86,7 @@ export abstract class BaseMspDataService {
     dto.middleName = input.middleName;
     dto.lastName = input.lastName;
 
+    dto.relationship = input.relationship;
     dto.gender = input.gender;
     dto.dateOfBirth = this.convertDateToNumber( input.dateOfBirth );
 

@@ -40,12 +40,12 @@
   <div class="form-group col-sm-6 pl-0">
     <common-date name="dob_{{objectId}}"
                  label="Birthdate"
-                 [restrictDate]="'past'" 
+                 [dateRangeStart]="dobStartRange"
+                 [dateRangeEnd]="dobEndRange"
+                 [errorMessages]="dobErrorMsg"
                  [disabled]="disabled"
-                 [(ngModel)]="dateOfBirth"></common-date>
-  <!--  <common-error-container [displayError]="dobError">
-        An applicant must be 16 years or older.
-    </common-error-container> -->
+                 [(ngModel)]="dateOfBirth"
+                 required></common-date>
   </div>
 
   <div class="form-group col-sm-6 pl-0">

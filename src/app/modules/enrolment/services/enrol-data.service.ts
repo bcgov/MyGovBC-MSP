@@ -96,7 +96,6 @@ export class EnrolDataService extends BaseMspDataService {
 
     const output: Enrollee = this.fromBasePersonTransferObject<Enrollee>( dto, Enrollee );
 
-    output.relationship = dto.relationship;
     output.status = dto.status;
     output.currentActivity = dto.currentActivity;
 
@@ -151,7 +150,6 @@ export class EnrolDataService extends BaseMspDataService {
 
     const dto: EnrolleeDto = this.toBasePersonTransferObject<EnrolleeDto>( input, EnrolleeDto );
 
-    dto.relationship = input.relationship;
     dto.status = input.status;
     dto.currentActivity = input.currentActivity;
 

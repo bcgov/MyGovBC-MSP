@@ -50,7 +50,8 @@
         <common-date name="arrivalDateToBC__{{objectId}}"
                      label="Arrival date in B.C."
                      [restrictDate]="'past'" 
-                     [(ngModel)]="person.arrivalToBCDate">
+                     [(ngModel)]="person.arrivalToBCDate"
+                     required>
         </common-date>
     </div>
 
@@ -121,7 +122,8 @@
         <common-date name="departureDate__{{objectId}}"
                      label="{{departureDateLabel}}"
                      [restrictDate]="'past'" 
-                     [(ngModel)]="person.oopDepartureDate">
+                     [(ngModel)]="person.oopDepartureDate"
+                     required>
         </common-date>
       </div>
 
@@ -129,7 +131,8 @@
           <common-date name="returnDate_{{objectId}}"
                        label="{{returnDateLabel}}"
                        [restrictDate]="'past'" 
-                       [(ngModel)]="person.oopReturnDate">
+                       [(ngModel)]="person.oopReturnDate"
+                       required>
           </common-date>
         </div>
     </div>
@@ -190,7 +193,8 @@
     <common-date name="recentMoveToBC__{{objectId}}"
                  label="Most recent move to B.C."
                  [restrictDate]="'past'" 
-                 [(ngModel)]="person.arrivalToBCDate">
+                 [(ngModel)]="person.arrivalToBCDate"
+                 required>
     </common-date>
   </div>
 </ng-template>

@@ -20,6 +20,7 @@ import { BaseComponent } from '../../../../models/base.component';
         [restrictDate]="'past'"
         [(ngModel)]="person.dateOfBirth"
         (dateChange)="handleChanges($event)"
+        required
       ></common-date>
   `,
   styleUrls: ['./birthdate.component.scss']

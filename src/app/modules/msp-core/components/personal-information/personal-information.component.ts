@@ -1,7 +1,9 @@
 import { Component, forwardRef, Input, Output, EventEmitter } from '@angular/core';
-import { Base } from 'moh-common-lib';
+import { Base, ErrorMessage } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { Gender } from '../../../../models/gender.enum';
+import { Relationship } from '../../../../models/relationship.enum';
+import { subYears, startOfToday } from 'date-fns';
 
 export interface IPersonalInformation {
   firstName: string;
@@ -9,6 +11,7 @@ export interface IPersonalInformation {
   lastName: string;
   dateOfBirth: Date;
   gender: Gender;
+  //relationship: Relationship;
   phn?: string;
 }
 
@@ -38,8 +41,29 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
      {'label': 'Female', 'value': Gender.Female}
     ];
 
+  dobErrorMsg: ErrorMessage = null;
+  dobStartRange: Date = null;
+  dobEndRange: Date = null;
+
   constructor() {
     super();
+    const today = startOfToday();
+    console.log( 'person: ', this.person );
+
+    // Set up parmeters for dob ranges
+/*    if ( this.person.relationship === Relationship.Applicant ) {
+      this.dobErrorMsg = { invalidRange: 'An applicant must be 16 years or older.' };
+      this.dobEndRange = subYears( today, 16 );
+    } else if ( this.person.relationship === Relationship.Child19To24 ) {
+      this.dobErrorMsg = { invalidRange: 'A post-secondary student must be between 19 and 24 years.' };
+      this.dobStartRange = subYears( today, 19 );
+      this.dobEndRange = subYears( today, 24 );
+    } else if ( this.person.relationship === Relationship.ChildUnder19 ) {
+      this.dobErrorMsg = { invalidRange: 'A post-secondary student must be between 19 and 24 years.' };
+      this.dobEndRange = subYears( today, 19 );
+    } else {
+      this.dobEndRange = today;
+    }*/
   }
 
   get firstName() {

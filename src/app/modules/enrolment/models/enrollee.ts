@@ -8,10 +8,9 @@ import { AddressDto } from '../../../models/address.dto';
 
 export class Enrollee extends BasePerson implements ICanadianStatus {
 
-  // Canadian status component
+  // Canadian status component - relationship is part of the base person
   status: StatusInCanada;
   currentActivity: CanadianStatusReason;
-  relationship: Relationship;
   clearData(x: any): void {
     console.log('clearData: ', x);
   }
@@ -57,10 +56,7 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   departureDateForSchool: Date;
 
   constructor( rel?: Relationship) {
-    super();
-    if ( rel !== null ) {
-      this.relationship = rel;
-    }
+    super( rel );
   }
 
   // Helper methods
@@ -101,7 +97,6 @@ export class EnrolleeDto extends BasePersonDto {
 
   status: StatusInCanada;
   currentActivity: CanadianStatusReason;
-  relationship: Relationship;
 
   hasNameChange: boolean;
 

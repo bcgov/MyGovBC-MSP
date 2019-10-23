@@ -26,10 +26,12 @@ export class PersonalInfoComponent extends EnrolForm {
   }
 
   get applicant(): Enrollee {
+    console.log( 'get applicant: ', this.mspApplication.applicant );
     return this.mspApplication.applicant;
   }
 
   set applicant( applicant: Enrollee ) {
+    console.log( 'set applicant: ', applicant );
     this.mspApplication.applicant = applicant;
   }
 
