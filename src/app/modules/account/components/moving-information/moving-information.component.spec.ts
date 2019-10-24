@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MovingInformationComponent } from '../../../enrolment/components/moving-information/moving-information.component';
+import { MovingInformationComponent } from '../../../msp-core/components/moving-information/moving-information.component';
+import { Enrollee } from '../../../enrolment/models/enrollee';
 
 describe('MovingInformationComponent', () => {
-  let component: MovingInformationComponent;
-  let fixture: ComponentFixture<MovingInformationComponent>;
+  let component: MovingInformationComponent<Enrollee>;
+  let fixture: ComponentFixture<MovingInformationComponent<Enrollee>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

@@ -4,7 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { SharedCoreModule } from 'moh-common-lib';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../../models/relationship.enum';
-import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 

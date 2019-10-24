@@ -2,15 +2,41 @@ import { Component, OnInit, forwardRef, EventEmitter, Input, Output } from '@ang
 import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST, ErrorMessage, LabelReplacementTag } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { environment } from '../../../../../environments/environment';
-import { Enrollee } from '../../models/enrollee';
 import { startOfToday, subMonths } from 'date-fns';
 
-enum OopDateValidationCodes {
-  VALID,  // Valid
-  OUT_OF_RANGE, // Not within last 12 months
-  DEPARTURE_INVALID // departure date must be prior to return date
+
+export interface IMovingInfo {
+
+  isApplicant: boolean;
+  isCanadianResident: boolean;
+  isPermanentResident: boolean;
+  isTemporaryResident: boolean;
+  isLivingWithoutMSP: boolean;
+
+  isProvinceMove: boolean;
+  isCountryMove: boolean;
+  livedInBCSinceBirth: boolean;
+  madePermanentMoveToBC: boolean;
+
+  arrivalToBCDate: Date;
+  arrivalToCanadaDate: Date;
+  movedFromProvinceOrCountry: string;
+  healthNumberFromOtherProvince: string;
+  hasPreviousBCPhn: boolean;
+  previousBCPhn: string;
+
+  outsideBCFor30Days: boolean;
+  departureReason: string;
+  departureDestination: string;
+  oopDepartureDate: Date;
+  oopReturnDate: Date;
+
+  hasBeenReleasedFromArmedForces: boolean;
+  dischargeDate: Date;
 }
 
+// TODO: Setup as generic so that account application can use it, add variables as optional
+// do questions are display when variables are present
 @Component({
   selector: 'msp-moving-information',
   templateUrl: './moving-information.component.html',
@@ -23,10 +49,10 @@ enum OopDateValidationCodes {
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class MovingInformationComponent extends Base implements OnInit {
+export class MovingInformationComponent<T extends IMovingInfo> extends Base implements OnInit {
 
-  @Input() person: Enrollee;
-  @Output() personChange: EventEmitter<Enrollee> = new EventEmitter<Enrollee>();
+  @Input() person: T;
+  @Output() personChange: EventEmitter<T> = new EventEmitter<T>();
 
   // Web links
   links = environment.links;
@@ -52,7 +78,6 @@ export class MovingInformationComponent extends Base implements OnInit {
   oopReturnErrorMsg: ErrorMessage = {
     invalidRange: LabelReplacementTag + 'must be within the last 12 months and prior to departure date.'
   };
-
 
   constructor() {
     super();

@@ -28,6 +28,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { CanadianStatusComponent } from './components/canadian-status/canadian-status.component';
 import { SupportDocumentsComponent } from './components/support-documents/support-documents.component';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
+import { MovingInformationComponent } from './components/moving-information/moving-information.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -46,6 +47,7 @@ const componentList = [
   CanadianStatusComponent,
   SupportDocumentsComponent,
   PersonalInformationComponent,
+  MovingInformationComponent
 
   // Directives
 
