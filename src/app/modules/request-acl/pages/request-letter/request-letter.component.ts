@@ -1,5 +1,5 @@
-import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit, SimpleChange } from '@angular/core';
-import { AbstractForm, ApiStatusCodes, SimpleDate } from 'moh-common-lib';
+import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
+import { AbstractForm, ApiStatusCodes } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { HeaderService } from '../../../../services/header.service';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';

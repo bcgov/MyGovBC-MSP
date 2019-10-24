@@ -18,7 +18,6 @@ export class BasePerson extends Person implements IPersonalInformation {
     super();
     this.dobFormat = 'MMMM d, yyyy';
 
-    console.log( 'base person constructor: relationship = ', rel );
     if ( rel !== null || rel !== undefined ) {
       this.relationship = rel;
     }
