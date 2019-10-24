@@ -13,12 +13,40 @@ export class EnrolAddressComponent extends EnrolForm {
   constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
-  super( enrolDataService, pageStateService, router );
+    super( enrolDataService, pageStateService, router );
+  }
+
+  get application() {
+    return this.enrolDataService.application;
+  }
+
+  get residentialAddress() {
+    return this.application.residentialAddress;
+  }
+
+  get mailingAddress() {
+    return this.application.mailingAddress;
+  }
+
+  get mailingSameAsResidentialAddress() {
+    return this.application.mailingSameAsResidentialAddress;
+  }
+
+  get phoneNumber() {
+    return this.application.phoneNumber;
+  }
+
+  set phoneNumber( val: string ) {
+    this.application.phoneNumber = val;
   }
 
   continue() {
     this._canContinue = super.canContinue();
     this._nextUrl = ROUTES_ENROL.REVIEW.fullpath;
     super.continue();
+  }
+
+  toggleCheckBox(){
+    this.application.mailingSameAsResidentialAddress = !this.application.mailingSameAsResidentialAddress;
   }
 }

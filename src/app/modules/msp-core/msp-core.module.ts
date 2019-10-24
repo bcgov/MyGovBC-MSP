@@ -23,8 +23,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
 import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { CoreContactInfoComponent } from './components/core-contact-info/core-contact-info.component';
-
 
 // New components - use common library
 import { CanadianStatusComponent } from './components/canadian-status/canadian-status.component';
@@ -39,9 +37,10 @@ const componentList = [
   MspAddressCardPartComponent,
   ReviewPartComponent,
   ConfirmationComponent,
-  CoreContactInfoComponent,
   MspPersonCardComponent,
   ReviewCardWrapperComponent,
+  MspConsentModalComponent,
+  MspContactCardComponent,
 
   // New components
   CanadianStatusComponent,
@@ -58,9 +57,7 @@ const componentList = [
 const templistCore = [
   // General
   TransmissionErrorView,
-  MspConsentModalComponent,
-  MspCancelComponent,
-  MspContactCardComponent,
+  MspCancelComponent
 ];
 @NgModule({
   imports: [
