@@ -26,8 +26,7 @@
     </common-xicon-button>
   </h2>
   <common-page-section layout="tips">
-    <common-file-uploader [images]="supportDoc?.images" 
-                          (imagesChange)="documentChange($event)"
+    <common-file-uploader [(images)]="documents"
                           id="docUploader_{{objectId}}" 
                           [required]="true" 
                           instructionText="{{uploadInstructions}}">
@@ -38,10 +37,10 @@
         <a role="button"
             aria-haspopup="true"
             href="javascript:void(0)"
-            (click)="docSample.openModal()">{{supportDoc.documentType}} samples</a>
+            (click)="docSample.openModal()">{{documentType}} samples</a>
 
         <common-sample-modal #docSample
-            [title]="supportDoc.documentType"
+            [title]="documentType"
             [images]="docSampleImages"> 
         </common-sample-modal>
       </div>

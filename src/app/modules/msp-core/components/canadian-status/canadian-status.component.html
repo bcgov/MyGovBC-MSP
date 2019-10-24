@@ -8,8 +8,7 @@
                      [items]="statusOpts"
                      placeholder="Select your status"
                      [clearable]="false"
-                     [ngModel]="getStatusInCanada()"
-                     (ngModelChange)="setStatusInCanada($event)"
+                     [(ngModel)]="statusInCanada"
                      required>
     </common-dropdown>
   </div>
@@ -17,8 +16,7 @@
     <common-radio name="statausReason_{{objectId}}"
                   id="statausReason_{{objectId}}"
                   [radioLabels]="availableStatusReasons"
-                  [ngModel]="person.currentActivity"
-                  (ngModelChange)="setReason($event)" 
+                  [(ngModel)]="statusReason"
                   display="table-row-group"
                   required>
     </common-radio>

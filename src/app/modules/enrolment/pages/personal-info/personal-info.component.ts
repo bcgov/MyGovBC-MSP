@@ -1,13 +1,10 @@
-import { Component, Injectable, ViewChild } from '@angular/core';
-import { MspDataService } from '../../../../services/msp-data.service';
+import { Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
-import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';
-import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { EnrolDataService } from '../../services/enrol-data.service';
 import { Enrollee } from '../../models/enrollee';
 
@@ -26,12 +23,10 @@ export class PersonalInfoComponent extends EnrolForm {
   }
 
   get applicant(): Enrollee {
-    console.log( 'get applicant: ', this.mspApplication.applicant );
     return this.mspApplication.applicant;
   }
 
   set applicant( applicant: Enrollee ) {
-    console.log( 'set applicant: ', applicant );
     this.mspApplication.applicant = applicant;
   }
 

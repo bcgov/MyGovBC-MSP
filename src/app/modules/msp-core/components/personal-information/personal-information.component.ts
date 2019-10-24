@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, forwardRef, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Base, ErrorMessage } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { Gender } from '../../../../models/gender.enum';
@@ -11,7 +11,7 @@ export interface IPersonalInformation {
   lastName: string;
   dateOfBirth: Date;
   gender: Gender;
-  //relationship: Relationship;
+  relationship: Relationship;
   phn?: string;
 }
 
@@ -27,7 +27,7 @@ export interface IPersonalInformation {
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class PersonalInformationComponent<T extends IPersonalInformation> extends Base {
+export class PersonalInformationComponent<T extends IPersonalInformation> extends Base implements OnInit {
 
   @Input() disabled: boolean = false;
 
@@ -47,23 +47,25 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
 
   constructor() {
     super();
+  }
+
+  ngOnInit() {
     const today = startOfToday();
-    console.log( 'person: ', this.person );
 
     // Set up parmeters for dob ranges
-/*    if ( this.person.relationship === Relationship.Applicant ) {
+    if ( this.person.relationship === Relationship.Applicant ) {
       this.dobErrorMsg = { invalidRange: 'An applicant must be 16 years or older.' };
       this.dobEndRange = subYears( today, 16 );
     } else if ( this.person.relationship === Relationship.Child19To24 ) {
       this.dobErrorMsg = { invalidRange: 'A post-secondary student must be between 19 and 24 years.' };
-      this.dobStartRange = subYears( today, 19 );
-      this.dobEndRange = subYears( today, 24 );
+      this.dobStartRange = subYears( today, 24 );
+      this.dobEndRange = subYears( today, 19 );
     } else if ( this.person.relationship === Relationship.ChildUnder19 ) {
       this.dobErrorMsg = { invalidRange: 'A post-secondary student must be between 19 and 24 years.' };
       this.dobEndRange = subYears( today, 19 );
     } else {
       this.dobEndRange = today;
-    }*/
+    }
   }
 
   get firstName() {

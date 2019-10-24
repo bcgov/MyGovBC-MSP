@@ -123,6 +123,9 @@
                      label="{{departureDateLabel}}"
                      [restrictDate]="'past'" 
                      [(ngModel)]="person.oopDepartureDate"
+                     [errorMessages]="oopDepartureErrorMsg"
+                     [dateRangeStart]="oopDepartureStartRange"
+                     [dateRangeEnd]="today"
                      required>
         </common-date>
       </div>
@@ -132,6 +135,9 @@
                        label="{{returnDateLabel}}"
                        [restrictDate]="'past'" 
                        [(ngModel)]="person.oopReturnDate"
+                       [errorMessages]="oopReturnErrorMsg"
+                       [dateRangeStart]="oopReturnStartRange"
+                       [dateRangeEnd]="today"
                        required>
           </common-date>
         </div>

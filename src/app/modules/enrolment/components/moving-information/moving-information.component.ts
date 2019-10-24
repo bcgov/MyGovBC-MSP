@@ -1,8 +1,9 @@
 import { Component, OnInit, forwardRef, EventEmitter, Input, Output } from '@angular/core';
-import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST } from 'moh-common-lib';
+import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST, ErrorMessage, LabelReplacementTag } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { environment } from '../../../../../environments/environment';
 import { Enrollee } from '../../models/enrollee';
+import { startOfToday, subMonths } from 'date-fns';
 
 enum OopDateValidationCodes {
   VALID,  // Valid
@@ -41,9 +42,17 @@ export class MovingInformationComponent extends Base implements OnInit {
 
   departureDateLabel = 'Departure date';
   returnDateLabel = 'Return date';
+  today: Date = startOfToday();
+  TwelveMonthsAgo: Date = subMonths( this.today, 12 );
 
-  private _oopDepartureDateError: OopDateValidationCodes = OopDateValidationCodes.VALID;
-  private _oopReturnDateError: OopDateValidationCodes = OopDateValidationCodes.VALID;
+  oopDepartureErrorMsg: ErrorMessage = {
+    invalidRange: LabelReplacementTag + 'must be within the last 12 months and prior to return date.'
+  };
+
+  oopReturnErrorMsg: ErrorMessage = {
+    invalidRange: LabelReplacementTag + 'must be within the last 12 months and prior to departure date.'
+  };
+
 
   constructor() {
     super();
@@ -147,41 +156,11 @@ export class MovingInformationComponent extends Base implements OnInit {
     return true;
   }
 
-  get isValidDepartureDate() {
-    return this._oopDepartureDateError === OopDateValidationCodes.VALID;
+  get  oopDepartureStartRange() {
+    return this.person.oopReturnDate ? this.person.oopReturnDate : this.TwelveMonthsAgo;
   }
 
-  get isValidReturnDate() {
-    return this._oopReturnDateError === OopDateValidationCodes.VALID;
-  }
-
-  get departureDateError() {
-    let message = this.departureDateLabel;
-
-    switch ( this._oopDepartureDateError ) {
-      case OopDateValidationCodes.OUT_OF_RANGE:
-        message = message.concat( ' must be within the last 12 months.' );
-        break;
-      case OopDateValidationCodes.DEPARTURE_INVALID:
-        message = message.concat( ' must be prior to the return date.' );
-        break;
-      default:
-    }
-    return message;
-  }
-
-  get returnDateError() {
-    let message = this.returnDateLabel;
-
-    switch ( this._oopReturnDateError ) {
-      case OopDateValidationCodes.OUT_OF_RANGE:
-        message = message.concat( ' must be within the last 12 months.' );
-        break;
-      case OopDateValidationCodes.DEPARTURE_INVALID:
-          message = message.concat( ' must be after the departure date.' );
-          break;
-    default:
-    }
-    return message;
+  get  oopReturnStartRange() {
+    return this.person.oopDepartureDate ? this.person.oopDepartureDate : this.TwelveMonthsAgo;
   }
 }

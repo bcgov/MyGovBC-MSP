@@ -204,11 +204,6 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
     this.supportDocChange.emit(this.supportDoc);
   }
 
-  documentChange(images: CommonImage[]) {
-    this.supportDoc.images = images;
-    this.supportDocChange.emit(this.supportDoc);
-  }
-
   get documentList() {
     // Get the status reason list available for the selected status
     if ( !this.supportDocList ) {
@@ -222,8 +217,6 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   }
 
   set documentType( doc: string ) {
-
-    console.log( 'set document type: ', doc, this.btnEnabled );
 
     if ( this.btnEnabled ) {
 
@@ -249,5 +242,14 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
       this.docSampleImages = [];
     }
     return false;
+  }
+
+  get documents() {
+    return this.supportDoc.images ? this.supportDoc.images : [];
+  }
+
+  set documents( images: CommonImage[] ) {
+    this.supportDoc.images = images;
+    this.supportDocChange.emit(this.supportDoc);
   }
 }

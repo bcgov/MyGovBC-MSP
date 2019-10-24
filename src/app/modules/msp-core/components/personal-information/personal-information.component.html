@@ -30,9 +30,9 @@
   </div>
   
   <!--Display phn if defined in person object-->
-  <div *ngIf="person?.phn" class="form-group col-sm-6 p-sm-2">
+  <div *ngIf="phn" class="form-group col-sm-6 p-sm-2">
       <common-phn name="phn_{{objectId}}"
-                  [(ngModel)]="person.phn"
+                  [(ngModel)]="phn"
                   required
                   commonValidatePhn></common-phn> 
   </div>

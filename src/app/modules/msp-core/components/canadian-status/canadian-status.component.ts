@@ -118,13 +118,13 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
   /**
    * Gets status available to the current person
    */
-  getStatusInCanada() {
+  get statusInCanada(): string {
     return this.person.status !== undefined ? this.statusOpts[this.person.status] : undefined;
   }
 
-  setStatusInCanada($event) {
+  set statusInCanada( val: string ) {
 
-    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === $event );
+    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === val );
 
     this.person.status = StatusInCanada[status];
 
@@ -134,26 +134,12 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
   }
 
   get displayStatusReasons() {
-    let show = (this.getStatusInCanada() !== undefined);
+    let show = (this.statusInCanada !== undefined);
     if ( show && this.hideStatusReasons.length > 0 ) {
       const tmp = this.hideStatusReasons.find( x => x === this.person.status );
       show = tmp === undefined ? true : false;
     }
     return show;
-  }
-
-  /**
-   * Set the reason for the Status in Canada
-   * @param value
-   */
-  setReason(value: CanadianStatusReason) {
-
-    this.person.currentActivity = value;
-    if ( this.person.clearData ) {
-      // Clear data
-      this.person.clearData( this.person );
-    }
-    this.personChange.emit(this.person);
   }
 
   /**
@@ -176,5 +162,19 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
         return statusReasonRules( this.person.relationship, this.person.status );
       }
       return this.statusReasonList;
+  }
+
+  get statusReason() {
+    return this.person.currentActivity;
+  }
+
+  set statusReason( reason: CanadianStatusReason ) {
+    this.person.currentActivity = reason;
+
+    if ( this.person.clearData ) {
+      // Clear data
+      this.person.clearData( this.person );
+    }
+    this.personChange.emit(this.person);
   }
 }

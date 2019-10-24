@@ -7,10 +7,9 @@ import { nameChangeSupportDocuments } from '../../../msp-core/components/support
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { EnrolForm } from '../../models/enrol-form';
 import { BRITISH_COLUMBIA, ErrorMessage } from 'moh-common-lib';
-import * as moment_ from 'moment';
 import { EnrolDataService } from '../../services/enrol-data.service';
 import { Enrollee } from '../../models/enrollee';
-const moment = moment_;
+import { startOfToday } from 'date-fns';
 
 @Component({
   selector: 'msp-child-info',
@@ -32,7 +31,8 @@ export class ChildInfoComponent extends EnrolForm {
     dayOutOfRange: 'This does not appear to be a valid date.',
     noFutureDatesAllowed: 'This does not appear to be a valid date.',
     yearDistantFuture: 'This does not appear to be a valid date.',
-    yearDistantPast: 'This does not appear to be a valid date.'
+    yearDistantPast: 'This does not appear to be a valid date.',
+    invalidRange: 'This does not appear to be a valid date, Expected school completion cannot be in the past'
   };
 
   schoolDepartureErrMsg: ErrorMessage = {
@@ -45,6 +45,8 @@ export class ChildInfoComponent extends EnrolForm {
   };
 
   nameChangeDocList = nameChangeSupportDocuments();
+
+  private _today = startOfToday();
 
   constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
@@ -64,34 +66,38 @@ export class ChildInfoComponent extends EnrolForm {
     this.mspApplication.removeChild(idx);
   }
 
-  displayStatusOpt(idx: number): boolean {
-    return this.children[idx].relationship !== Relationship.Unknown;
+  displayStatusOpt(child: Enrollee): boolean {
+    return child.relationship !== Relationship.Unknown;
   }
 
-  statusDocUpdate($event, idx: number) {
-    this.children[idx].documents = $event;
+  statusDocUpdate($event, child: Enrollee ) {
+    child.documents = $event;
 
-    if ( this.children[idx].documents && this.children[idx].documents.images.length === 0 ) {
+    if ( child.documents && child.documents.images.length === 0 ) {
       // no status documents remove any name documents
-      this.children[idx].nameChangeDocs.documentType = null;
-      this.children[idx].nameChangeDocs.images = [];
+      child.nameChangeDocs.documentType = null;
+      child.nameChangeDocs.images = [];
     }
   }
 
-  hasStatus( idx: number ) {
+  hasStatus( child: Enrollee) {
     // Has to have values
-    return this.children[idx].status !== undefined &&
-           this.children[idx].currentActivity !== undefined;
+    return child.status !== undefined && child.currentActivity !== undefined;
   }
 
-  hasStatusDocuments( idx: number ): boolean {
-    return this.children[idx].documents.images && this.children[idx].documents.images.length > 0;
+  hasStatusDocuments( child: Enrollee ): boolean {
+    return child.documents.images && child.documents.images.length > 0;
   }
 
-  requestNameChangeInfo( idx: number ) {
-    return this.hasStatus( idx ) &&
-           this.children[idx].hasNameChange &&
-           this.hasStatusDocuments( idx );
+  requestNameChangeInfo( child: Enrollee ) {
+    return this.hasStatus( child ) &&
+           child.hasNameChange &&
+           this.hasStatusDocuments( child );
+  }
+
+  relationship( $event, child: Enrollee ) {
+    child.relationship = $event;
+    child.fullTimeStudent = ( child.relationship === Relationship.Child19To24 ) ? true : false;
   }
 
   isRequired(child: Enrollee ) {
@@ -133,24 +139,21 @@ export class ChildInfoComponent extends EnrolForm {
     return valid;
   }
 
-  setRelationship( $event, idx: number ) {
-    this.children[idx].relationship = Number($event);
-    if ( this.children[idx].relationship === Relationship.Child19To24 ) {
-      this.children[idx].fullTimeStudent = true;
-    }
+  hasNameDocuments( child: Enrollee  ): boolean {
+    return child.nameChangeDocs.images && child.nameChangeDocs.images.length > 0;
   }
 
-  hasNameDocuments( idx: number ): boolean {
-    return this.children[idx].nameChangeDocs.images && this.children[idx].nameChangeDocs.images.length > 0;
+  requestPersonalInfo( child: Enrollee ): boolean {
+    return !!( this.hasStatus( child ) && this.hasStatusDocuments( child ) &&
+             ( child.hasNameChange === false || // No name change
+             ( child.hasNameChange && this.hasNameDocuments( child ) ))); // name change requires documentation
   }
 
-  requestPersonalInfo( idx: number ): boolean {
-    return !!( this.hasStatus( idx ) && this.hasStatusDocuments( idx ) &&
-             ( this.children[idx].hasNameChange === false || // No name change
-             ( this.children[idx].hasNameChange && this.hasNameDocuments( idx ) ))); // name change requires documentation
+  isTemporaryResident( child: Enrollee ) {
+    return child.status === StatusInCanada.TemporaryResident;
   }
 
-  isTemporaryResident(idx: number) {
-    return this.children[idx].status === StatusInCanada.TemporaryResident;
+  completionDateRange( child: Enrollee ){
+    return child.departureDateForSchool ? child.departureDateForSchool : this._today;
   }
 }
