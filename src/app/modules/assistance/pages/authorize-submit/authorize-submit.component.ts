@@ -39,9 +39,7 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
   }
 
   get questionForAttorney() {
-    return `Do you have Power of Attorney or another legal representation agreement to apply on behalf of ${
-      this.applicantName
-      }?`;
+    return `Note: If you have Power of Attorney document (or another legal representation document) to apply on behalf of ${this.applicantName}, please upload it.`;
   }
   get applicantName() {
     return (

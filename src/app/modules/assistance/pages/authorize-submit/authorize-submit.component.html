@@ -11,7 +11,7 @@
         </common-page-section>
         <form #form="ngForm">
          <div>
-            <p>{{ questionApplicant }}</p>
+            <div class='strong'>{{ questionApplicant }}</div>
             <div class=" mb-3">
               <common-checkbox class="form-check-inline" label="{{agreeLabel}}"
                                [(data)]="application.authorizedByApplicant"
@@ -22,7 +22,7 @@
             </div>
           </div>
           <div>
-            <p>{{ questionForAttorney }}</p>
+            <div>{{ questionForAttorney }}</div>
             <div class="form-check form-check-inline mb-3">
               <common-checkbox label="{{poaAgreeLabel}}"
                                [(data)]="application.authorizedByAttorney"></common-checkbox>
