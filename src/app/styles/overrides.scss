@@ -14,7 +14,7 @@
  
     &.disabled, &:disabled, &[disabled] {
         color: #777;
-        background-color: #eee;
+        background-color: #eee !important;
         border-color: #eee;
         &:hover { border-color: $color-secondary; }
     }
