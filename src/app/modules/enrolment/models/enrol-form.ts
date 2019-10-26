@@ -41,7 +41,6 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
         this.form.valueChanges.pipe(
           debounceTime( 100 )
         ).subscribe(() => {
-          console.log( 'enrol-form: saving data' );
           this.enrolDataService.saveApplication();
         })
       ];
@@ -61,7 +60,6 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
       this.markAllInputsTouched();
       return;
     }
-
     this.pageStateService.setPageComplete( this.router.url, this.enrolDataService.pageStatus);
     this.navigate( this._nextUrl );
   }

@@ -16,6 +16,8 @@ import { CaptchaModule } from 'moh-common-lib/captcha';
 import { RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
 import { GuardEnrolService } from './services/guard-enrol.service';
 import { MspApiEnrolmentService } from '../enrolment/services/msp-api-enrolment.service';
+import { PersonReviewCardComponent } from './components/person-review-card/person-review-card.component';
+
 
 @NgModule({
   imports: [
@@ -34,7 +36,8 @@ import { MspApiEnrolmentService } from '../enrolment/services/msp-api-enrolment.
     PersonalInfoComponent,
     PrepareComponent,
     ReviewComponent,
-    SpouseInfoComponent
+    SpouseInfoComponent,
+    PersonReviewCardComponent
   ],
   providers: [
     { provide: AbstractPgCheckService, useClass: GuardEnrolService },

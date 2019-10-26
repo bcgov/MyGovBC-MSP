@@ -91,6 +91,18 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   get isTemporaryResident() {
     return this.status === StatusInCanada.TemporaryResident;
   }
+
+  get documentCount() {
+    let count = 0;
+    if ( this.documents.images ) {
+      count += this.documents.images.length;
+    }
+
+    if ( this.nameChangeDocs.images ) {
+      count += this.nameChangeDocs.images.length;
+    }
+    return count;
+  }
 }
 
 export class EnrolleeDto extends BasePersonDto {

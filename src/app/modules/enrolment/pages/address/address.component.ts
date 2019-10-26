@@ -41,8 +41,9 @@ export class EnrolAddressComponent extends EnrolForm {
   }
 
   continue() {
-    this._canContinue = super.canContinue();
     this._nextUrl = ROUTES_ENROL.REVIEW.fullpath;
+    this._canContinue = super.canContinue();
+    console.log( 'form :', this.form , this._canContinue);
     super.continue();
   }
 

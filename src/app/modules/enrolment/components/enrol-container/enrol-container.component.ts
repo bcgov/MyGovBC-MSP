@@ -24,7 +24,7 @@ export class EnrolContainerComponent extends Container implements OnInit {
     super();
 
     // Set service name for application
-    this.header.setTitle('Apply For Medical Services Plan');
+    this.header.setTitle('Application for Enrolment');
     this.setProgressSteps( enrolPages );
     this.enrolDataService.pageStatus = this.pageStateService.setPages( enrolPages,
                                                                        ROUTES_ENROL,

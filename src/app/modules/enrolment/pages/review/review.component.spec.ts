@@ -5,7 +5,7 @@ import { ReviewComponent } from './review.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { MspPersonCardComponent } from '../../../msp-core/components/person-card/person-card.component';
-import { MspContactCardComponent } from '../../../msp-core/components/contact-card/contact-card.component';
+import { ContactCardComponent } from '../../../msp-core/components/contact-card/contact-card.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MspCancelComponent  } from '../../../../components/msp/common/cancel/cancel.component';
@@ -24,7 +24,7 @@ describe('ReviewComponent', () => {
         ReviewComponent,
         MspPersonCardComponent,
         MspAddressCardPartComponent,
-        MspContactCardComponent,
+        ContactCardComponent,
         MspCancelComponent
       ],
       imports: [

@@ -4,3 +4,7 @@ export enum Gender {
   Male = 'M'
 }
 
+export const GenderStrings = {
+  F: 'Female',
+  M: 'Male'
+};

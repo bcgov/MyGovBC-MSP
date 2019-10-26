@@ -1,0 +1,148 @@
+<msp-review-card [title]="title" [editRouterLink]="editRouterLink">
+  <msp-review-part *ngIf="person?.fullname"
+                    label="Name"
+                    [value]="person?.fullname"
+                    [columnClass]="{label: 'col-sm-4 label', value: 'col-sm-8 font-weight-bold'}">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="person?.gender"
+                    label="Gender"
+                    [value]="gender"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="person?.dateOfBirth"
+                    label="Birthdate"
+                    [value]="dateOfBirth"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+  
+  <msp-review-part *ngIf="hasStatus"
+                    label="Status in Canada"
+                    [value]="status"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="hasLivedInBCSinceBirth"
+                    label="Lived in B.C. since birth"
+                    [value]="livedInBCSinceBirth"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="person.healthNumberFromOtherProvince"
+                    label="Previous Health Number"
+                    [value]="person.healthNumberFromOtherProvince"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="person.hasPreviousBCPhn"
+                    label="Personal Health Number"
+                    [value]="person.previousBCPhn"
+                    [columnClass]="columnClass">
+  </msp-review-part>    
+
+  <msp-review-part *ngIf="person?.arrivalToBCDate"
+                    label="Date arrived in B.C."
+                    [value]="arrivalToBCDate"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <msp-review-part *ngIf="person?.arrivalToCanadaDate"
+                    label="Date arrived in Canada"
+                    [value]="arrivedInCanadaDate"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <msp-review-part *ngIf="person?.movedFromProvinceOrCountry"
+                    label="{{movedFromLabel}}"
+                    [value]="movedFromProvinceOrCountry"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <!-- Out of province in last 12 months -->
+  <msp-review-part *ngIf="hasBeenOutsideBCFor30Days"
+                    label="Outside BC for more than 30 days"
+                    [value]="outsideBCFor30Days"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <msp-review-part *ngIf="person?.departureReason"
+                    label="Reason for leaving"
+                    [value]="person?.departureReason"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="person?.departureDestination"
+                    label="Location"
+                    [value]="person?.departureDestination"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <msp-review-part *ngIf="person?.oopDepartureDate"
+                    label="Departure date"
+                    [value]="oopDepartureDate"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="person?.oopReturnDate"
+                    label="Return date"
+                    [value]="oopReturnDate"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <!-- Armed Forces -->
+  <msp-review-part *ngIf="hasBeenReleasedFromArmedForces"
+                    label="Released from Canadian Forces"
+                    [value]="releasedFromArmedForces"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="person?.dischargeDate"
+                    label="Date discharged"
+                    [value]="dischargeDate"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <!-- School information -->
+  <msp-review-part *ngIf="hasFullTimeStudent"
+                    label="Full-time student"
+                    [value]="fullTimeStudent"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="hasInBCafterStudies"
+                    label="Will you reside in BC upon completion of your studies"
+                    [value]="inBCafterStudies"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <msp-review-part *ngIf="person?.schoolName"
+                    label="School name"
+                    [value]="person?.schoolName"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="person?.schoolCompletionDate"
+                    label="Date of expected school completion"
+                    [value]="schoolCompletionDate"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <msp-review-part *ngIf="person?.departureDateForSchool"
+                    label="Date of expected school completion"
+                    [value]="departureDateForSchool"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <msp-address-card-part *ngIf="person?.schoolAddress"
+                          label="School address"
+                          [address]="person?.schoolAddress">
+  </msp-address-card-part>
+
+  <!-- Document count -->
+  <msp-review-part *ngIf="person?.documentCount"
+                    label="Documents"
+                    [value]="documentCount"
+                    [columnClass]="columnClass">
+  </msp-review-part> 
+</msp-review-card>
