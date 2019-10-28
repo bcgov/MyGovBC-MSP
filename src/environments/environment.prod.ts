@@ -5,7 +5,7 @@ export const environment = {
     logHTTPRequestsToConsole: true,
     appConstants: {
         coreApiBaseUrl: 'http://localhost:9000/api',
-        serviceName: 'Medical Services Plan (MSP)',
+        serviceName: 'Medical Services Plan',
         enableLogging: true,
         logBaseUrl: '/msp/api/logging',
         apiBaseUrl: '/msp/api',

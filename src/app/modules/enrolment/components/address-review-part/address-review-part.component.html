@@ -1,0 +1,37 @@
+
+<!--Add padding to bottom of section -->
+<div *ngIf="hasAddress" class="pb-2">
+  <div class="col-sm-4 pl-0" style="text-decoration: underline" >{{label}}</div>
+
+  <msp-review-part *ngIf="address?.addressLine1"
+                    label="Street Address"
+                    [columnClass]="columnClass">
+    <span>{{address.addressLine1}}<br></span>
+    <span *ngIf="address.addressLine2 != null">{{address.addressLine2}}<br></span>
+    <span *ngIf="address.addressLine3 != null">{{address.addressLine3}}<br></span>
+  </msp-review-part> 
+
+  <msp-review-part *ngIf="address?.city"
+                   label="City"
+                   [value]="address?.city"
+                   [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <msp-review-part *ngIf="address?.province"
+                   label="Province"
+                   [value]="province"
+                   [columnClass]="columnClass">
+  </msp-review-part>
+
+  <msp-review-part *ngIf="address?.postal"
+                   label="Postal Code"
+                   [value]="address?.postal"
+                   [columnClass]="columnClass">
+  </msp-review-part> 
+
+  <msp-review-part *ngIf="address?.country"
+                   label="Country"
+                   [value]="country"
+                   [columnClass]="columnClass">
+  </msp-review-part> 
+</div>

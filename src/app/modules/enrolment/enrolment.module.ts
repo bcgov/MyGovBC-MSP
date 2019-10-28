@@ -17,7 +17,8 @@ import { RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
 import { GuardEnrolService } from './services/guard-enrol.service';
 import { MspApiEnrolmentService } from '../enrolment/services/msp-api-enrolment.service';
 import { PersonReviewCardComponent } from './components/person-review-card/person-review-card.component';
-
+import { AddressReviewPartComponent } from './components/address-review-part/address-review-part.component';
+import { ContactReviewCardComponent } from './components/contact-review-card/contact-review-card.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,9 @@ import { PersonReviewCardComponent } from './components/person-review-card/perso
     PrepareComponent,
     ReviewComponent,
     SpouseInfoComponent,
-    PersonReviewCardComponent
+    PersonReviewCardComponent,
+    AddressReviewPartComponent,
+    ContactReviewCardComponent
   ],
   providers: [
     { provide: AbstractPgCheckService, useClass: GuardEnrolService },

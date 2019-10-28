@@ -48,7 +48,7 @@ export class AclApiService extends AbstractHttpService {
   }
 
   // Api callout to get the message from the Rapid code
-  sendSpaEnvServer(rapidResponseCode: string): Observable<any> {
+  sendSpaEnvServer(rapidResponseCode: string) {
     this._headers = new HttpHeaders({
         'SPA_ENV_NAME': rapidResponseCode
     });

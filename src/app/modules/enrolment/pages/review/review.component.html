@@ -24,11 +24,10 @@
 
     <div class="row">
       <div class="col-lg-6">
-        <msp-contact-card [residentialAddress]="mspApplication.residentialAddress"
-                          [mailingAddress]="mspApplication.mailingAddress"
-                          [phone]="mspApplication.phoneNumber"
-                          [displayMailingAddress]="!mspApplication.mailingSameAsResidentialAddress"
-                          [editRouterLink]="address_info"></msp-contact-card>
+        <msp-contact-review-card [residentialAddress]="mspApplication.residentialAddress"
+                                 [mailingAddress]="mspApplication.mailingAddress"
+                                 [phoneNumber]="mspApplication.phoneNumber"
+                                 [editRouterLink]="address_info"></msp-contact-review-card>
       </div>
     </div>
     

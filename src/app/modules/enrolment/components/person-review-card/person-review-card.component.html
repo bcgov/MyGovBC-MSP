@@ -134,10 +134,10 @@
                     [columnClass]="columnClass">
   </msp-review-part> 
 
-  <msp-address-card-part *ngIf="person?.schoolAddress"
-                          label="School address"
-                          [address]="person?.schoolAddress">
-  </msp-address-card-part>
+  <msp-address-review-part *ngIf="person?.schoolAddress"
+                           label="School address"
+                           [address]="person?.schoolAddress">
+  </msp-address-review-part>
 
   <!-- Document count -->
   <msp-review-part *ngIf="person?.documentCount"
