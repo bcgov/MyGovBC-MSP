@@ -3,6 +3,7 @@ import { EnrolleeDto, Enrollee } from './enrollee';
 import { Relationship } from '../../../models/relationship.enum';
 import { CommonImage, Address } from 'moh-common-lib';
 import { AddressDto } from '../../../models/address.dto';
+import { UUID } from 'angular2-uuid';
 
 export class EnrolApplication extends BaseApplication {
 
@@ -86,6 +87,21 @@ export class EnrolApplication extends BaseApplication {
     }
 
     return allImages;
+  }
+
+  // method specific to application - overrride base application regenUUID funcation
+  regenUUID() {
+    super.regenUUID();
+
+    /**
+     * Each image will have a uuid that starts with application uuid
+     * followed by [index]-of-[total]
+     */
+    const all = this.getAllImages();
+
+    all.forEach( image => {
+      image.uuid = UUID.UUID();
+    });
   }
 }
 /**

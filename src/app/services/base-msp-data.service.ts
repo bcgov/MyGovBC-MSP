@@ -37,14 +37,12 @@ export abstract class BaseMspDataService {
   protected savePageStatus( pageStatus: any[] ): void {
     const dto: MspPagesDto = new MspPagesDto();
     dto.pageStatus = pageStatus;
-    console.log( 'savePageStatus: ', this._pageStorageKey, dto );
     this.localStorageService.set( this._pageStorageKey, dto );
   }
 
   protected fetchPageStatus(): any[] {
     let pageStatus: any[] = [];
     const dto: MspPagesDto = this.localStorageService.get<MspPagesDto>( this._pageStorageKey );
-    console.log( 'fetchPageStatus: ', this._pageStorageKey, dto );
     if ( dto ) {
       pageStatus = dto.pageStatus;
     }

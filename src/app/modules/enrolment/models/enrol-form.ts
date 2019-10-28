@@ -54,7 +54,6 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
    // abstract function must be defined
   continue() {
 
-    console.log( '(super.continue) : this._canContinue: ', this._canContinue );
     if ( !this._canContinue ) {
       console.log('Please fill in all required fields on the form.');
       this.markAllInputsTouched();

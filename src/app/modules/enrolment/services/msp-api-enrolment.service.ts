@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MspLogService } from '../../../services/log.service';
 import { HttpClient } from '@angular/common/http';
-import { _ApplicationTypeNameSpace } from '../../../modules/msp-core/api-model/applicationTypes';
 import { CommonImage } from 'moh-common-lib';
 import { Response } from '@angular/http';
 import { ApiResponse } from '../../../models/api-response.interface';
@@ -13,13 +12,11 @@ import {
  DependentType,
  EnrolmentApplicantType
 } from '../../../modules/msp-core/interfaces/i-api';
-import * as moment from 'moment';
 import { Relationship } from '../../../models/relationship.enum';
 import { SchemaService } from '../../../services/schema.service';
 import { BaseMspApiService } from '../../../services/base-msp-api.service';
 import { EnrolApplication } from '../models/enrol-application';
 import { Enrollee } from '../models/enrollee';
-
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +33,6 @@ export class MspApiEnrolmentService extends BaseMspApiService {
   }
 
   sendRequest(app: EnrolApplication): Promise<any> {
-    console.log(app.uuid);
     const enrolmentRequest = this.prepareEnrolmentApplication( app );
     console.log(enrolmentRequest);
 
@@ -85,11 +81,11 @@ export class MspApiEnrolmentService extends BaseMspApiService {
       .then(attachmentResponse => {
         console.log('sendAttachments response', attachmentResponse);
 
-        return this.sendApplication<EnrolApplication>( enrolmentRequest, app.authorizationToken )
+        return this.sendApplication( enrolmentRequest, app.authorizationToken )
           .subscribe(response => {
             // Add reference number
-            if (response && response.referenceNumber) {
-              app.referenceNumber = response.referenceNumber.toString();
+            if (response && response.op_reference_number) {
+              app.referenceNumber = response.op_reference_number.toString();
             }
             // Let our caller know were done passing back the application
             return resolve(response);
@@ -146,18 +142,17 @@ export class MspApiEnrolmentService extends BaseMspApiService {
         hasLivedInBC: from.livedInBCSinceBirth === true ? 'Y' : 'N',
       },
       outsideBC: {
-        beenOutsideBCMoreThan: from.outsideBCFor30Days ? 'Y' : 'N'
+        beenOutsideBCMoreThan: from.outsideBCFor30Days === true ? 'Y' : 'N'
       },
       previousCoverage: {
-        hasPreviousCoverage: from.hasPreviousBCPhn ? 'Y' : 'N'
+        hasPreviousCoverage: from.hasPreviousBCPhn === true ? 'Y' : 'N'
       },
       willBeAway: {
-        isFullTimeStudent: from.fullTimeStudent ? 'Y' : 'N'
+        isFullTimeStudent: from.fullTimeStudent === true ? 'Y' : 'N'
       }
     };
 
    // outsideBCinFuture?: OutsideBCType;  - Not sure this is used
-
     if ( from.madePermanentMoveToBC !== undefined  ) {
       to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? 'Y' : 'N';
     }
@@ -203,7 +198,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
   private convertDependentType( person: Enrollee ): DependentType {
     return {
       name: this.convertName( person ),
-      gender: person.gender.toString(),
+      gender: person.gender ? person.gender.toString() : null,
       birthDate: this.formatDate( person.dateOfBirth ),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person ),
@@ -260,7 +255,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
   private convertPersonType( person: Enrollee ): PersonType {
    return {
       name: this.convertName( person ),
-      gender: person.gender,
+      gender: person.gender ? person.gender.toString() : null,
       birthDate: this.formatDate(person.dateOfBirth),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person )
@@ -269,16 +264,15 @@ export class MspApiEnrolmentService extends BaseMspApiService {
 
   private convertEnrolmentApplicantType( application: EnrolApplication): EnrolmentApplicantType {
     const applicant: Enrollee = application.applicant;
-    console.log( 'applicant gender: ', applicant.gender );
     const enrolee: EnrolmentApplicantType =  {
       name: this.convertName( applicant ),
-      gender: applicant.gender.toString(),
+      gender: applicant.gender ? applicant.gender.toString() : null,
       birthDate: this.formatDate( applicant.dateOfBirth ),
       attachmentUuids: this.getAttachementUuids( applicant.documents.images, applicant.nameChangeDocs.images ),
       residency: this.convertResidency( applicant ),
       residenceAddress: this.convertAddress( application.residentialAddress ),
       authorizedByApplicant: application.authorizedByApplicant ? 'Y' : 'N',
-      authorizedByApplicantDate: moment(application.authorizedByApplicantDate).format(this.ISO8601DateFormat),
+      authorizedByApplicantDate: this.formatDate( application.authorizedByApplicantDate ),
       authorizedBySpouse: application.authorizedBySpouse ? 'Y' : 'N'
     };
 

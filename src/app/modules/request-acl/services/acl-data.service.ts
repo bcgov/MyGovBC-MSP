@@ -58,7 +58,7 @@ export class AclDataService extends BaseMspDataService {
     output.accountHolderPhn = dto.accountHolderPhn;
 
     output.accountHolderDob = isNaN( dto.accountHolderDob ) ? undefined : new Date( dto.accountHolderDob );
-  
+
     output.postalCode = dto.postalCode;
     output.enrolmentMembership = dto.enrolmentMembership;
     output.specificMemberPhn = dto.specificMemberPhn;

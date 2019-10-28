@@ -55,7 +55,7 @@ export class BaseMspApiService extends AbstractHttpService  {
   }
 
   // For all applications within MSP project
-  sendApplication<T>( app: MSPApplicationSchema, authToken: string ): Observable<any> {
+  sendApplication( app: MSPApplicationSchema, authToken: string ) {
     const _url = environment.appConstants.apiBaseUrl +
                  environment.appConstants.suppBenefitAPIUrl +
                  app.uuid;
@@ -63,7 +63,7 @@ export class BaseMspApiService extends AbstractHttpService  {
     // Setup headers
     this.setHeaders( authToken );
 
-    return this.post<T>( _url, app );
+    return this.post<ApiResponse>( _url, app );
   }
 
   sendAttachments( token: string,
@@ -153,7 +153,7 @@ export class BaseMspApiService extends AbstractHttpService  {
       city: from.city,
       provinceOrState: from.province,
       country: from.country,
-      postalCode: from.postal.toUpperCase().replace(' ', '')
+      postalCode: from.postal ? from.postal.toUpperCase().replace(' ', '') : null
     };
 
     if ( from.addressLine2 ) {
@@ -197,8 +197,8 @@ export class BaseMspApiService extends AbstractHttpService  {
           citizenType = CitizenshipType.VisitorPermit;
           break;
       }
-      return citizenType;
     }
+    return citizenType;
   }
 
 

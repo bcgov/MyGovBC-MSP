@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
@@ -16,20 +16,30 @@ import { EnrolDataService } from '../../services/enrol-data.service';
   templateUrl: './authorize.component.html',
   styleUrls: ['./authorize.component.scss']
 })
-export class AuthorizeComponent extends EnrolForm {
+export class AuthorizeComponent extends EnrolForm implements OnInit {
 
   captchaApiBaseUrl: string = environment.appConstants.captchaApiBaseUrl;
+  private _hasNextSteps: boolean = true;
 
   constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router,
                private logService: MspLogService,
                private apiService: MspApiEnrolmentService ) {
-  super( enrolDataService, pageStateService, router );
+    super( enrolDataService, pageStateService, router );
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
+
+    if ( this.mspApplication.applicant.isTemporaryResident ||
+         ( this.mspApplication.hasSpouse && this.mspApplication.applicant.isTemporaryResident &&
+           this.mspApplication.spouse.isTemporaryResident ) ) {
+      this._hasNextSteps = false;
+    }
   }
 
   applicantAuthorizeOnChange(event: boolean) {
-    // console.log('applicant authorization: ', event);
     this.mspApplication.authorizedByApplicant = event;
 
     if (this.mspApplication.authorizedByApplicant) {
@@ -58,8 +68,6 @@ export class AuthorizeComponent extends EnrolForm {
 
   // Override continue function
   continue() {
-
-    console.log( this.form );
 
     if ( !this.canContinue() ) {
       this.markAllInputsTouched();
@@ -90,14 +98,8 @@ export class AuthorizeComponent extends EnrolForm {
           return;
         }
 
-        this.enrolDataService.application.referenceNumber = response.op_reference_number;
+        this.mspApplication.referenceNumber = response.op_reference_number;
         const statusCode = (response.op_return_code === 'SUCCESS' ? ApiStatusCodes.SUCCESS : ApiStatusCodes.ERROR);
-        // Display next steps if applicant is not Temporary Resident
-        let displayNextSteps = !this.enrolDataService.application.applicant.isTemporaryResident;
-
-        if ( this.enrolDataService.application.hasSpouse ) {
-          displayNextSteps = displayNextSteps || !this.enrolDataService.application.spouse.isTemporaryResident;
-        }
 
         this.logService.log({
           name: 'Enrolment - Received refNo ',
@@ -113,7 +115,7 @@ export class AuthorizeComponent extends EnrolForm {
                 { queryParams: {
                     confirmationNum: this.enrolDataService.application.referenceNumber,
                     status: statusCode,
-                    nextSteps: (displayNextSteps ? 1 : 0 ) }
+                    nextSteps: (this._hasNextSteps ? 1 : null ) }
                 });
       })
       .catch(error => {
