@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription} from 'rxjs';
-import * as moment from 'moment';
 import { environment } from '../../../../../environments/environment';
 import { ApiStatusCodes } from 'moh-common-lib';
 import { format } from 'date-fns';
@@ -13,6 +12,7 @@ export class ConfirmationComponent implements OnInit {
 
   confirmationNum: string;
   status: ApiStatusCodes = ApiStatusCodes.ERROR;
+  nextSteps: any;
   subscription: Subscription;
 
   links = environment.links;
@@ -28,6 +28,8 @@ export class ConfirmationComponent implements OnInit {
         }
 
         this.confirmationNum = params['confirmationNum'];
+
+        this.nextSteps = params['nextSteps'];
 
         console.log( 'params: ', params );
       }

@@ -64,6 +64,10 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
     return this.relationship === Relationship.Applicant;
   }
 
+  get isSpouse() {
+    return this.relationship === Relationship.Spouse;
+  }
+
   get isOveragedChild() {
     return this.relationship === Relationship.Child19To24;
   }

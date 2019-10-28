@@ -92,11 +92,18 @@ export class AuthorizeComponent extends EnrolForm {
 
         this.enrolDataService.application.referenceNumber = response.op_reference_number;
         const statusCode = (response.op_return_code === 'SUCCESS' ? ApiStatusCodes.SUCCESS : ApiStatusCodes.ERROR);
+        // Display next steps if applicant is not Temporary Resident
+        let displayNextSteps = !this.enrolDataService.application.applicant.isTemporaryResident;
+
+        if ( this.enrolDataService.application.hasSpouse ) {
+          displayNextSteps = displayNextSteps || !this.enrolDataService.application.spouse.isTemporaryResident;
+        }
 
         this.logService.log({
           name: 'Enrolment - Received refNo ',
           confirmationNumber: this.enrolDataService.application.referenceNumber
         }, 'Enrolment - Submission Response Success');
+
 
         //delete the application from storage
         this.enrolDataService.removeApplication();
@@ -105,7 +112,8 @@ export class AuthorizeComponent extends EnrolForm {
         this.router.navigate([ROUTES_ENROL.CONFIRMATION.fullpath],
                 { queryParams: {
                     confirmationNum: this.enrolDataService.application.referenceNumber,
-                    status: statusCode}
+                    status: statusCode,
+                    nextSteps: (displayNextSteps ? 1 : 0 ) }
                 });
       })
       .catch(error => {

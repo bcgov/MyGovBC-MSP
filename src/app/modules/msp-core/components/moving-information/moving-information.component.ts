@@ -7,7 +7,10 @@ import { startOfToday, subMonths } from 'date-fns';
 
 export interface IMovingInfo {
 
+  dateOfBirth: Date; // Used to set date ranges
+
   isApplicant: boolean;
+  isSpouse: boolean;
   isCanadianResident: boolean;
   isPermanentResident: boolean;
   isTemporaryResident: boolean;
@@ -72,11 +75,21 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   TwelveMonthsAgo: Date = subMonths( this.today, 12 );
 
   oopDepartureErrorMsg: ErrorMessage = {
-    invalidRange: LabelReplacementTag + 'must be within the last 12 months and prior to return date.'
+    invalidRange: LabelReplacementTag + ' must be within the last 12 months and prior to return date.'
   };
 
   oopReturnErrorMsg: ErrorMessage = {
-    invalidRange: LabelReplacementTag + 'must be within the last 12 months and prior to departure date.'
+    invalidRange: LabelReplacementTag + ' must be within the last 12 months and prior to departure date.'
+  };
+
+  private _relationshipLabel = '{RelationshipLabel}';
+  recentMoveBCErrorMsg: ErrorMessage = {
+    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to BC cannot be before the ' + this._relationshipLabel + ' date of birth.'
+
+  };
+  recentMoveCanadaErrorMsg: ErrorMessage = {
+    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to Canada cannot be before the ' + this._relationshipLabel + ' date of birth.'
+
   };
 
   constructor() {
@@ -84,9 +97,23 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   }
 
   ngOnInit() {
+    let relationType = 'applicant\'s';
+
     if ( !this.isApplicant ) {
       this.relationship = 'they';
+
+      if ( this.person.isSpouse ) {
+        relationType = 'spouse\'s';
+      } else {
+        relationType = 'child\'s';
+      }
     }
+    const regExp = new RegExp( this._relationshipLabel, 'g' );
+
+    // Update messages to display correct relationship (appliant, spouse, child )
+    this.recentMoveBCErrorMsg.invalidRange = this.recentMoveBCErrorMsg.invalidRange.replace( regExp, relationType );
+    this.recentMoveCanadaErrorMsg.invalidRange = this.recentMoveCanadaErrorMsg.invalidRange.replace( regExp, relationType );
+
   }
 
   // Used in HTML - wrapper so when changes happen there is no impact to Automated tests for TEST Team
@@ -181,11 +208,15 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
     return true;
   }
 
-  get  oopDepartureStartRange() {
+  get oopDepartureStartRange() {
     return this.person.oopReturnDate ? this.person.oopReturnDate : this.TwelveMonthsAgo;
   }
 
-  get  oopReturnStartRange() {
+  get oopReturnStartRange() {
     return this.person.oopDepartureDate ? this.person.oopDepartureDate : this.TwelveMonthsAgo;
+  }
+
+  get startDateRange() {
+    return this.person.dateOfBirth ? this.person.dateOfBirth : null;
   }
 }

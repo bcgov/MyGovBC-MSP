@@ -44,5 +44,5 @@ export class BaseApplicationDto {
   // Authorization
   authorizedByApplicant: boolean;
   authorizedBySpouse: boolean;
-  authorizedByApplicantDate: Date;
+  authorizedByApplicantDate: number;
 }

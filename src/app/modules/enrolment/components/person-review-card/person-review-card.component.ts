@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Base, Address, getCountryDescription, getProvinceDescription } from 'moh-common-lib';
-import { Router } from '@angular/router';
+import { Address, getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import { ColumnClass } from '../../../msp-core/components/review-part/review-part.component';
 import { Gender, GenderStrings } from '../../../../models/gender.enum';
 import { format } from 'date-fns';
@@ -166,7 +165,7 @@ export class PersonReviewCardComponent<T extends IPersonReviewCard> {
   get hasInBCafterStudies() {
     return this._isDefined( this.person.inBCafterStudies );
   }
-  
+
   get inBCafterStudies() {
     return this._convertBooleanToString( this.person.inBCafterStudies );
   }

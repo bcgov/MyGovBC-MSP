@@ -32,7 +32,6 @@
     </common-error-container>
   </div>
 
-
   <!--Cannot continue if individual has not move to BC permanently, unless he/she is temporary resident-->
   <div *ngIf="canContinueProcess">
     <div *ngIf="requestProvinceMoveInfo; else SelectCountry"
@@ -49,8 +48,10 @@
         class="form-group col-sm-6 pl-0">
         <common-date name="arrivalDateToBC__{{objectId}}"
                      label="Arrival date in B.C."
-                     [restrictDate]="'past'" 
+                     [dateRangeStart]="startDateRange"
+                     [dateRangeEnd]="today"
                      [(ngModel)]="person.arrivalToBCDate"
+                     [errorMessages]="recentMoveBCErrorMsg"
                      required>
         </common-date>
     </div>
@@ -58,9 +59,11 @@
     <div *ngIf="requestArrivalToCanada" class="form-group col-sm-6 pl-0">
       <common-date name="arrivalDateToCanada__{{objectId}}"
                    label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
-                   [restrictDate]="'past'" 
+                   [dateRangeStart]="startDateRange"
+                   [dateRangeEnd]="today"
                    [(ngModel)]="person.arrivalToCanadaDate"
-                   [required]="arrivalDateRequired">
+                   [required]="arrivalDateRequired"
+                   [errorMessages]="recentMoveCanadaErrorMsg">
       </common-date>
     </div>
 
@@ -121,7 +124,6 @@
        <div class="form-group col-sm-6">
         <common-date name="departureDate__{{objectId}}"
                      label="{{departureDateLabel}}"
-                     [restrictDate]="'past'" 
                      [(ngModel)]="person.oopDepartureDate"
                      [errorMessages]="oopDepartureErrorMsg"
                      [dateRangeStart]="oopDepartureStartRange"
@@ -133,7 +135,6 @@
       <div class="form-group col-sm-6">
           <common-date name="returnDate_{{objectId}}"
                        label="{{returnDateLabel}}"
-                       [restrictDate]="'past'" 
                        [(ngModel)]="person.oopReturnDate"
                        [errorMessages]="oopReturnErrorMsg"
                        [dateRangeStart]="oopReturnStartRange"
@@ -172,7 +173,8 @@
       <div class="form-group col-sm-6">
         <common-date name="dischargeDate__{{objectId}}"
                      label="Discharge date"
-                     [restrictDate]="'past'" 
+                     [dateRangeStart]="startDateRange"
+                     [dateRangeEnd]="today"
                      [(ngModel)]="person.dischargeDate"
                      required>
         </common-date>
@@ -198,8 +200,10 @@
   <div *ngIf="requestRecentMoveToBC" class="form-group col-sm-6 pl-0">
     <common-date name="recentMoveToBC__{{objectId}}"
                  label="Most recent move to B.C."
-                 [restrictDate]="'past'" 
+                 [dateRangeStart]="startDateRange"
+                 [dateRangeEnd]="today"
                  [(ngModel)]="person.arrivalToBCDate"
+                 [errorMessages]="recentMoveBCErrorMsg"
                  required>
     </common-date>
   </div>

@@ -104,7 +104,7 @@ export abstract class BaseMspDataService {
     // Authorization
     dto.authorizedByApplicant = input.authorizedByApplicant;
     dto.authorizedBySpouse = input.authorizedBySpouse;
-    dto.authorizedByApplicantDate = input.authorizedByApplicantDate;
+    dto.authorizedByApplicantDate = this.convertDateToNumber( input.authorizedByApplicantDate );
 
     return dto;
   }
@@ -117,7 +117,7 @@ export abstract class BaseMspDataService {
     // Authorization
     output.authorizedByApplicant = dto.authorizedByApplicant;
     output.authorizedBySpouse = dto.authorizedBySpouse;
-    output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
+    output.authorizedByApplicantDate = this.convertNumberToDate( dto.authorizedByApplicantDate );
 
     return output;
   }
