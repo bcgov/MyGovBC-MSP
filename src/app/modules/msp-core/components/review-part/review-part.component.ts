@@ -9,7 +9,7 @@ export interface ColumnClass {
   selector: 'msp-review-part',
   template: `
     <div class="row">
-      <div class="{{_defaultColumnClass.label}}">
+      <div class="{{_defaultColumnClass.label}} {{underlineLabel ? 'underline' : ''}}">
         <span>{{ label }}</span>
       </div>
       <div class="{{_defaultColumnClass.value}}">
@@ -27,6 +27,7 @@ export class ReviewPartComponent implements OnInit {
   @Input() label: string;
   @Input() value: string;
   @Input() columnClass: ColumnClass;
+  @Input() underlineLabel: boolean = false;
 
   _defaultColumnClass: ColumnClass = {label: 'col-6', value: 'col-6'};
 
