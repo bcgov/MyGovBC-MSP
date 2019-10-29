@@ -17,7 +17,7 @@ export interface ColumnClass {
       </div>
     </div>
 
-    <ng-template #ValueHtml>>
+    <ng-template #ValueHtml>
       <ng-content></ng-content>
     </ng-template>
   `,
