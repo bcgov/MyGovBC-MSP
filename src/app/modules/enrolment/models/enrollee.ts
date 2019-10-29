@@ -12,7 +12,12 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   status: StatusInCanada;
   currentActivity: CanadianStatusReason;
   clearData(x: any): void {
-    console.log('clearData: ', x);
+
+    // Clear documents already set when Canadian Status changes
+    // fixes the error of value changes after initView
+    this.documents = new SupportDocuments();
+    this.hasNameChange = undefined;
+    this.nameChangeDocs = new SupportDocuments();
   }
 
   hasNameChange: boolean;
