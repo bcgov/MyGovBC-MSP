@@ -178,7 +178,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     if ( from.outsideBCFor30Days ) {
       to.outsideBC.departureDate = this.formatDate(from.oopDepartureDate);
       to.outsideBC.returnDate = this.formatDate(from.oopReturnDate);
-      to.outsideBC.familyMemeberReason = from.departureReason;
+      to.outsideBC.familyMemberReason = from.departureReason;
       to.outsideBC.destination = from.departureDestination;
     }
 

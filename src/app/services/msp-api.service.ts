@@ -4,8 +4,8 @@ import * as moment from 'moment';
 import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../modules/msp-core/api-model/accountChangeTypes';
 import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from '../modules/msp-core/api-model/applicationTypes';
 import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from '../modules/msp-core/api-model/assistanceTypes';
-import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../modules/msp-core/api-model/commonTypes';
-import { DependentType, DependentTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../modules/msp-core/api-model/enrolmentTypes';
+import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../modules/msp-core/api-model/commonTypes';
+import { LivedInBCTypeFactory, OutsideBCTypeFactory, WillBeAwayTypeFactory } from '../modules/msp-core/api-model/enrolmentTypes';
 import { ResponseType } from '../modules/msp-core/api-model/responseTypes';
 import { MspAccountApp } from '../modules/account/models/account.model';
 import { ApplicationBase } from '../models/application-base.model';
@@ -1160,22 +1160,6 @@ export class MspApiService {
     }
 
 
-    private convertPersonFromEnrollment(from: MspPerson): PersonType {
-        const to = PersonTypeFactory.make();
-
-        to.name = this.convertName(from);
-        to.attachmentUuids = this.convertAttachmentUuids(from.documents.images);
-
-        if (from.hasDob) {
-            to.birthDate = format(from.dob, this.ISO8601DateFormat);
-        }
-        if (from.gender != null) {
-            to.gender = <GenderType> from.gender.toString();
-        }
-        to.residency = this.convertResidency(from);
-
-        return to;
-    }
 
 
     private convertName(from: MspPerson): NameType {
@@ -1204,147 +1188,6 @@ export class MspApiService {
         return to;
     }
 
-    private convertResidency(from: MspPerson): ResidencyType {
-        const to = ResidencyTypeFactory.make();
-
-        /*
-         citizenshipStatus: ct.BasicCitizenshipType;
-         livedInBC: LivedInBCType;
-         outsideBC: OutsideBCType;
-         previousCoverage: PreviousCoverageType;
-         willBeAway: WillBeAwayType;
-         */
-
-        //("Citizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "ReligiousWorker" | "VisitorPermit");
-        to.citizenshipStatus = BasicCitizenshipTypeFactory.make();
-        switch (from.status) {
-            case StatusInCanada.CitizenAdult:
-                to.citizenshipStatus.citizenshipType = 'CanadianCitizen';
-                break;
-            case StatusInCanada.PermanentResident:
-                to.citizenshipStatus.citizenshipType = 'PermanentResident';
-                break;
-            case StatusInCanada.TemporaryResident:
-                switch (from.currentActivity) {
-                    case CanadianStatusReason.WorkingInBC:
-                        to.citizenshipStatus.citizenshipType = 'WorkPermit';
-                        break;
-                    case CanadianStatusReason.StudyingInBC:
-                        to.citizenshipStatus.citizenshipType = 'StudyPermit';
-                        break;
-                    case CanadianStatusReason.Diplomat:
-                        to.citizenshipStatus.citizenshipType = 'Diplomat';
-                        break;
-                    case CanadianStatusReason.ReligiousWorker:
-                        to.citizenshipStatus.citizenshipType = 'ReligiousWorker';
-                        break;
-                    case CanadianStatusReason.Visiting:
-                    default:
-                        to.citizenshipStatus.citizenshipType = 'VisitorPermit';
-                        break;
-                }
-        }
-        to.citizenshipStatus.attachmentUuids = AttachmentUuidsTypeFactory.make();
-        to.citizenshipStatus.attachmentUuids.attachmentUuid = new Array<string>();
-        for (const image of from.documents.images) {
-            to.citizenshipStatus.attachmentUuids.attachmentUuid.push(image.uuid);
-        }
-
-        /*
-         hasLivedInBC: ct.YesOrNoType;
-         isPermanentMove?: ct.YesOrNoType;
-         prevHealthNumber?: string;
-         prevProvinceOrCountry?: string;
-         recentBCMoveDate?: Date;
-         recentCanadaMoveDate?: Date;
-
-         beenOutsideBCMoreThan: ct.YesOrNoType;
-         departureDate?: Date;
-         familyMemberReason?: string;
-         returnDate?: Date;
-         */
-        // Init and set defaults
-        to.livedInBC = LivedInBCTypeFactory.make();
-
-        if (from.livedInBCSinceBirth === true) {
-            to.livedInBC.hasLivedInBC = 'Y';
-        }
-        else {
-            to.livedInBC.hasLivedInBC = 'N';
-        }
-        to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? 'Y' : 'N';
-
-        if (from.healthNumberFromOtherProvince) {
-            to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
-        }
-        if (from.movedFromProvinceOrCountry) {
-            to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
-        }
-
-
-        // Arrival dates
-        if (from.hasArrivalToBC) {
-            to.livedInBC.recentBCMoveDate = format(from.arrivalToBCDate, this.ISO8601DateFormat);
-        }
-        if (from.hasArrivalToCanada) {
-            to.livedInBC.recentCanadaMoveDate = format(from.arrivalToCanadaDate, this.ISO8601DateFormat);
-        }
-
-        // Outside BC
-        to.outsideBC = OutsideBCTypeFactory.make();
-        if (from.outOfBCRecord) {
-            to.outsideBC.beenOutsideBCMoreThan = 'Y';
-            if (from.outOfBCRecord.hasDeparture) {
-                to.outsideBC.departureDate = format(from.outOfBCRecord.departureDate, this.ISO8601DateFormat);
-            }
-            if (from.outOfBCRecord.hasReturn) {
-                to.outsideBC.returnDate = format(from.outOfBCRecord.returnDate, this.ISO8601DateFormat);
-            }
-            to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
-            to.outsideBC.destination = from.outOfBCRecord.location;
-        }
-        else {
-            to.outsideBC.beenOutsideBCMoreThan = 'N';
-        }
-
-        /*
-         armedDischageDate?: Date;
-         isFullTimeStudent: ct.YesOrNoType;
-         isInBCafterStudies?: ct.YesOrNoType;
-         */
-        to.willBeAway = WillBeAwayTypeFactory.make();
-        if (from.fullTimeStudent) {
-            to.willBeAway.isFullTimeStudent = 'Y';
-        }
-        else {
-            to.willBeAway.isFullTimeStudent = 'N';
-        }
-        if (from.inBCafterStudies) {
-            to.willBeAway.isInBCafterStudies = 'Y';
-        }
-        else {
-            to.willBeAway.isInBCafterStudies = 'N';
-        }
-
-        if (from.hasDischarge) {
-            to.willBeAway.armedDischargeDate = format(from.dischargeDate, this.ISO8601DateFormat);
-        }
-        /*
-         hasPreviousCoverage: ct.YesOrNoType;
-         prevPHN?: number;  // BC only
-         */
-        to.previousCoverage = PreviousCoverageTypeFactory.make();
-        to.previousCoverage.hasPreviousCoverage = 'N';  // default N
-        if (from.hasPreviousBCPhn) {
-            to.previousCoverage.hasPreviousCoverage = 'Y';
-
-            if (from.previous_phn) {
-                to.previousCoverage.prevPHN = Number(from.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
-            }
-        }
-
-        return to;
-    }
 
     private unknownAddress(): AddressType {
         const to = AddressTypeFactory.make();
@@ -1457,7 +1300,7 @@ export class MspApiService {
             'beenOutsideBCMoreThan': 'Y',
             'departureDate': '03-18-1986',
             'returnDate': '03-18-1987',
-            'familyMemeberReason': 'ABCDEFGHIJKLMNOPQ',
+            'familyMemberReason': 'ABCDEFGHIJKLMNOPQ',
             'destination': 'ABCDEFGHIJKLMN'
           },
           'willBeAway': {
