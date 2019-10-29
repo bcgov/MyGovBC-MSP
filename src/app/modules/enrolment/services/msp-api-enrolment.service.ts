@@ -83,7 +83,8 @@ export class MspApiEnrolmentService extends BaseMspApiService {
 
         return this.sendApplication( enrolmentRequest, app.authorizationToken )
           .subscribe(response => {
-            // Add reference number
+            console.log( 'msp-api-enrol services response: ', response );
+            // Add reference number TODO: Why do we need this clause here? Does not save in service
             if (response && response.op_reference_number) {
               app.referenceNumber = response.op_reference_number.toString();
             }

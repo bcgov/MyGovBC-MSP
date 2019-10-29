@@ -63,7 +63,7 @@ export class BaseMspApiService extends AbstractHttpService  {
     // Setup headers
     this.setHeaders( authToken );
 
-    return this.post<ApiResponse>( _url, app );
+    return this.post<any>( _url, app );
   }
 
   sendAttachments( token: string,

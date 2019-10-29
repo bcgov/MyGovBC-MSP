@@ -84,6 +84,7 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
     this.apiService.sendRequest( this.mspApplication )
       .then((response: ApiResponse) => {
         this.loading = false;
+        console.log( 'authorize response: ', response, (response instanceof HttpErrorResponse) );
 
         if (response instanceof HttpErrorResponse) {
           this.logService.log({
@@ -98,12 +99,11 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
           return;
         }
 
-        this.mspApplication.referenceNumber = response.op_reference_number;
         const statusCode = (response.op_return_code === 'SUCCESS' ? ApiStatusCodes.SUCCESS : ApiStatusCodes.ERROR);
 
         this.logService.log({
           name: 'Enrolment - Received refNo ',
-          confirmationNumber: this.enrolDataService.application.referenceNumber
+          confirmationNumber: response.op_reference_number
         }, 'Enrolment - Submission Response Success');
 
 
@@ -113,7 +113,7 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
         //  go to confirmation
         this.router.navigate([ROUTES_ENROL.CONFIRMATION.fullpath],
                 { queryParams: {
-                    confirmationNum: this.enrolDataService.application.referenceNumber,
+                    confirmationNum: response.op_reference_number,
                     status: statusCode,
                     nextSteps: (this._hasNextSteps ? 1 : null ) }
                 });
@@ -121,6 +121,7 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
       .catch(error => {
 
         this.loading = false;
+        console.log( 'autorization errror clause: ', error );
 
         let message = 'This error occurred because the system encountered an unanticipated situation ' +
         'which forced it to stop.';
