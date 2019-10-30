@@ -19,6 +19,7 @@ export class PageStateService {
   constructor() { }
 
   setPages(arr: Route[], routeListConst: any, pageList: PageList[] ): PageList[] {
+
     if ( !pageList.length ) {
       const routeConst = Object.keys( routeListConst ).map( x => routeListConst[x] );
 
@@ -76,5 +77,11 @@ export class PageStateService {
       complete = (prevIdx === 0 ? obj.isComplete : pageStatus[prevIdx - 1].isComplete );
     }
     return complete;
+  }
+
+  clearCompletePages( pageStatus: PageList[] ) {
+    pageStatus.map( x => {
+        x.isComplete = false;
+    });
   }
 }
