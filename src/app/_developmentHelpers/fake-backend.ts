@@ -47,6 +47,8 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
         }
 
         if ( payload ) {
+
+          console.log( 'Sending reponse from fake-backend' );
           return of(new HttpResponse({ status: 200, body: payload }))
             .pipe(delay(1000));
         }

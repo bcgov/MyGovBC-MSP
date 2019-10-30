@@ -109,6 +109,7 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
 
         //delete the application from storage
         this.enrolDataService.removeApplication();
+        this.pageStateService.clearCompletePages( this.enrolDataService.pageStatus );
 
         //  go to confirmation
         this.router.navigate([ROUTES_ENROL.CONFIRMATION.fullpath],

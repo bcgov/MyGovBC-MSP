@@ -1,36 +1,36 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MovingInformationComponent } from './moving-information.component';
+import { MovingInformationComponent, IMovingInfo } from './moving-information.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { SharedCoreModule } from 'moh-common-lib';
-import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../../models/relationship.enum';
 import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { Enrollee } from '../../../enrolment/models/enrollee';
 
 /**
  * Class used to setup data for testing
  */
 class Applicant {
 
-  person: MspPerson;
+  person: Enrollee;
   radioBtnLabels: string[] = [];
 
   constructor( relationship: Relationship,
                status: StatusInCanada,
                statusReason: CanadianStatusReason ) {
-    this.person = new MspPerson( relationship );
+    this.person = new Enrollee( relationship );
     this.person.status = status;
     this.person.currentActivity = statusReason;
     this.radioBtnLabels = this._initRadioBtns();
   }
 
-  permanentMoveBC( permanent: boolean = true ): MspPerson {
+  permanentMoveBC( permanent: boolean = true ): Enrollee {
     this.person.madePermanentMoveToBC = permanent;
     return this.person;
   }
 
-  livedBCSinceBirth( livedIn: boolean = true ): MspPerson {
+  livedBCSinceBirth( livedIn: boolean = true ): Enrollee {
     this.person.livedInBCSinceBirth = livedIn;
     return this.person;
   }
@@ -56,8 +56,8 @@ class Applicant {
 }
 
 fdescribe('MovingInformationComponent', () => {
-  let component: MovingInformationComponent;
-  let fixture: ComponentFixture<MovingInformationComponent>;
+  let component: MovingInformationComponent<IMovingInfo>;
+  let fixture: ComponentFixture<MovingInformationComponent<IMovingInfo>>;
   let person: Applicant;
   let err: DebugElement;
   let elmts: DebugElement[];
@@ -85,7 +85,7 @@ fdescribe('MovingInformationComponent', () => {
   });
 
   it('should create', () => {
-    component.person = new MspPerson(Relationship.Unknown);
+    component.person = new Enrollee(Relationship.Unknown);
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });

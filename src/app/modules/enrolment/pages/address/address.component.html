@@ -13,13 +13,14 @@
                       [isRequired]="true"
                       [disabled]="{province: true, country: true}"
                       [allowExtralines]="true"
-                      [disableGeocoder]="true">
+                      [disableGeocoder]="true"
+                      [bcOnly]="true">
       </common-address>
       <div class="custom-control custom-checkbox">
         <common-checkbox name="isMailingAddress"
-          label="This is my mailing address." 
-          (ngModelChange)="toggleCheckBox()" 
-          [ngModel]="mailingSameAsResidentialAddress">
+                         label="This is my mailing address." 
+                         (ngModelChange)="toggleCheckBox()" 
+                         [ngModel]="mailingSameAsResidentialAddress">
         </common-checkbox>
       </div>
       <aside>
@@ -41,8 +42,7 @@
       <div class="form-group col-md-3 pl-0">
         <common-phone-number name="phone_number" 
                              [label]="'Phone number (optional)'" 
-                             [(ngModel)]="phoneNumber"
-                             commonValidatePhone>
+                             [(ngModel)]="phoneNumber">
         </common-phone-number>
       </div>
       <aside>

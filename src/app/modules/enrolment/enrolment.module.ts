@@ -19,6 +19,19 @@ import { MspApiEnrolmentService } from '../enrolment/services/msp-api-enrolment.
 import { PersonReviewCardComponent } from './components/person-review-card/person-review-card.component';
 import { AddressReviewPartComponent } from './components/address-review-part/address-review-part.component';
 import { ContactReviewCardComponent } from './components/contact-review-card/contact-review-card.component';
+import { environment } from '../../../environments/environment';
+import { fakeBackendProvider } from '../../_developmentHelpers/fake-backend';
+
+const providerList: any = [
+  { provide: AbstractPgCheckService, useClass: GuardEnrolService },
+  RouteGuardService,
+  MspApiEnrolmentService,
+];
+
+if ( environment.useMockBackend ) {
+  // provider used to create fake backend - development of registration modules
+  providerList.push( fakeBackendProvider );
+}
 
 @NgModule({
   imports: [
@@ -43,9 +56,7 @@ import { ContactReviewCardComponent } from './components/contact-review-card/con
     ContactReviewCardComponent
   ],
   providers: [
-    { provide: AbstractPgCheckService, useClass: GuardEnrolService },
-    RouteGuardService,
-    MspApiEnrolmentService
+    providerList
   ]
 })
 export class EnrolmentModule { }

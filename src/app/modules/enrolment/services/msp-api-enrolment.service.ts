@@ -36,17 +36,20 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     const enrolmentRequest = this.prepareEnrolmentApplication( app );
     console.log(enrolmentRequest);
 
-    return new Promise<ApiResponse>((resolve, reject) => {
+    return new Promise<ApiResponse>( (resolve, reject) => {
 
       //Validating the response against the schema
       this.schemaSvc.validate(enrolmentRequest).then(res => {
+
         console.log(res.errors);
+
         if (res.errors) {
           let errorField;
           let errorMessage;
 
           // Getting the error field
           for (const err of res.errors) {
+            console.log( 'errors in schema' );
             errorField = err.dataPath.substr(34);
             errorMessage = err.message;
           }
@@ -67,43 +70,45 @@ export class MspApiEnrolmentService extends BaseMspApiService {
             //const index = mapper.findStep(errorField);
             //const urls = this.dataSvc.getMspProcess().processSteps;
             //this.router.navigate([urls[index].route]);
+
+            console.log( 'Reject message ' );
             return reject(errorMessage);
           }
         }
-      });
 
-      // if no errors, then we'll sendApplication all attachments
-      return this.sendAttachments(
-        app.authorizationToken,
-        app.uuid,
-        app.getAllImages()
-      )
-      .then(attachmentResponse => {
-        console.log('sendAttachments response', attachmentResponse);
+        console.log( 'Send Attachments ' );
+        // if no errors, then we'll sendApplication all attachments
+        return this.sendAttachments(
+          app.authorizationToken,
+          app.uuid,
+          app.getAllImages()
+        )
+        .then(attachmentResponse => {
+          console.log('sendAttachments response', attachmentResponse);
 
-        return this.sendApplication( enrolmentRequest, app.authorizationToken )
-          .subscribe(response => {
-            console.log( 'msp-api-enrol services response: ', response );
-            // Add reference number TODO: Why do we need this clause here? Does not save in service
-            if (response && response.op_reference_number) {
-              app.referenceNumber = response.op_reference_number.toString();
-            }
-            // Let our caller know were done passing back the application
-            return resolve(response);
+          return this.sendApplication( enrolmentRequest, app.authorizationToken )
+            .subscribe(response => {
+              console.log( 'msp-api-enrol services response: ', response );
+              // Add reference number TODO: Why do we need this clause here? Does not save in service
+              if (response && response.op_reference_number) {
+                app.referenceNumber = response.op_reference_number.toString();
+              }
+              // Let our caller know were done passing back the application
+              return resolve(response);
+            });
+          })
+          .catch((err: Response | any) => {
+            // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
+            console.log('sent all attachments rejected: ', err);
+              this.logService.log({
+              text: 'Attachment - Send All Rejected ',
+              response: err
+              },
+              'Attachment - Send All Rejected '
+            );
+            return resolve(err);
           });
-        })
-        .catch((err: Response | any) => {
-          // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-          console.log('sent all attachments rejected: ', err);
-          this.logService.log(
-            {
-            text: 'Attachment - Send All Rejected ',
-            response: err
-            },
-            'Attachment - Send All Rejected '
-          );
-          return resolve(err);
-        });
+      });
     });
   }
 
