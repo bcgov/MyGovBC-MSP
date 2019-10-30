@@ -23,27 +23,26 @@ export class FakeBackendService {
   }
 
 
-  getAttachementResponse( request: HttpRequest<any> ): ApiResponse {
-
-    return {
+  getAttachementResponse( request: HttpRequest<any> ): any {
+    const obj = {
       op_return_code: 'SUCCESS',
       op_technical_error: null,
       dbErrorMessage: null,
       op_reference_number: '',
-      req_num: ''
+      req_num: request.body.uuid
     };
+    return JSON.stringify(obj);
   }
 
   getSubmitApplicationResponse( request: HttpRequest<any> ): ApiResponse {
-    const referenceNo = String( Math.random() * 9999999 );
-    const size = 7 - referenceNo.length;
+    const referenceNo = String( Math.round( Math.random() * 9999999 ) );
 
     return {
       op_return_code: 'SUCCESS',
       op_technical_error: null,
       dbErrorMessage: null,
-      op_reference_number: '',
-      req_num: String('0').repeat( size ) + referenceNo
+      op_reference_number: referenceNo,
+      req_num: request.body.uuid
     };
   }
 }

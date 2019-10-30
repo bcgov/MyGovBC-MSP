@@ -13,7 +13,9 @@ export class ConfirmationComponent implements OnInit {
   confirmationNum: string;
   status: ApiStatusCodes = ApiStatusCodes.ERROR;
   nextSteps: any;
-  subscription: Subscription;
+  message: string;
+
+  private subscription: Subscription;
 
   links = environment.links;
 
@@ -30,6 +32,7 @@ export class ConfirmationComponent implements OnInit {
         this.confirmationNum = params['confirmationNum'];
 
         this.nextSteps = params['nextSteps'];
+        this.message = params['message'];
 
         console.log( 'params: ', params );
       }
