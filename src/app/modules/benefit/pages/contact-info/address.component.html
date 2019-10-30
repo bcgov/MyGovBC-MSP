@@ -19,8 +19,8 @@
                     [displayMask]="true"
                     
                     [label]="'Phone number (optional)'" 
-                    [phoneNumber]="mspApplication.phoneNumber" 
-                    (onChange)="handlePhoneNumberChange($event)">
+                    [(ngModel)]="mspApplication.phoneNumber" 
+                    (valueChange)="handlePhoneNumberChange($event)">
                 </common-phone-number>
             </div>
             <div class="col-9">           
