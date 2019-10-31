@@ -42,6 +42,7 @@
               (onDeleteDocument)="deleteDocument($event)"
               (imagesChange)="updateFiles($event)"
               instructionText="Click add, or drag and drop file into this box"
+              [required]='true'
             >
               <span id="uploadInstruction" #uploadInstruction>
                 Click add, or drag and drop file into this box
