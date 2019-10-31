@@ -128,7 +128,7 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
       this.dobEndRange = subYears( this._today, 19 );
     } else if ( this.person.relationship === Relationship.ChildUnder19 ) {
       this.dobErrorMsg = { invalidRange: 'A child must be less than 19 years old.' };
-      this.dobEndRange = subYears( this._today, 19 );
+      this.dobStartRange = subYears( this._today, 19 );
     } else {
       this.dobEndRange = this._today;
     }
