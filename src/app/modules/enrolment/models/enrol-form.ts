@@ -2,11 +2,11 @@ import { AbstractForm } from 'moh-common-lib';
 import { OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Subscription } from 'rxjs';
-import { MspDataService } from '../../../services/msp-data.service';
 import { PageStateService } from '../../../services/page-state.service';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
-import { MspApplication } from './application.model';
+import { EnrolDataService } from '../services/enrol-data.service';
+import { EnrolApplication } from './enrol-application';
 
 export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
@@ -18,32 +18,32 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
   protected _canContinue: boolean;
 
 
-  constructor( protected dataService: MspDataService,
+  constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
 
-      super(router);
+    super(router);
   }
 
 
-  get mspApplication(): MspApplication {
-    return this.dataService.mspApplication;
+  get mspApplication(): EnrolApplication {
+    return this.enrolDataService.application;
   }
 
   ngOnInit(){
-    this.pageStateService.setPageIncomplete(this.router.url, this.dataService.mspApplication.pageStatus);
+    this.pageStateService.setPageIncomplete(this.router.url, this.enrolDataService.pageStatus);
   }
 
   ngAfterViewInit() {
 
-    if (this.form) {
+    if ( this.form ) {
       this.subscriptions = [
         this.form.valueChanges.pipe(
           debounceTime( 100 )
         ).subscribe(() => {
-          this.dataService.saveMspApplication();
+          this.enrolDataService.saveApplication();
         })
-        ];
+      ];
     }
   }
 
@@ -54,14 +54,12 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
    // abstract function must be defined
   continue() {
 
-    console.log( '(super.continue) : this._canContinue: ', this._canContinue );
     if ( !this._canContinue ) {
       console.log('Please fill in all required fields on the form.');
       this.markAllInputsTouched();
       return;
     }
-
-    this.pageStateService.setPageComplete( this.router.url, this.mspApplication.pageStatus);
+    this.pageStateService.setPageComplete( this.router.url, this.enrolDataService.pageStatus);
     this.navigate( this._nextUrl );
   }
 }

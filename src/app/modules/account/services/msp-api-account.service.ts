@@ -16,12 +16,10 @@ import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
 import { AccountMaintenanceApiResponse } from '../models/account-response.interface';
 import { SchemaService } from 'app/services/schema.service';
-import { Router } from '@angular/router';
-import { MspAccountMaintenanceDataService } from './msp-account-data.service';
 import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../../../modules/msp-core/api-model/accountChangeTypes';
 import { AccountChangeApplicationType } from '../../msp-core/interfaces/i-api';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../../../components/msp/model/msp-person.model';
-import { SimpleDate, Address } from 'moh-common-lib';
+import { Address } from 'moh-common-lib';
 import { AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory } from '../../../modules/msp-core/api-model/applicationTypes';
 import { AddressType, AddressTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../../../modules/msp-core/api-model/commonTypes';
 import { LivedInBCTypeFactory, OutsideBCTypeFactory, WillBeAwayTypeFactory } from '../../../modules/msp-core/api-model/enrolmentTypes';
@@ -31,6 +29,7 @@ import {
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
 import { ApiResponse } from 'app/models/api-response.interface';
+import { format } from 'date-fns';
 
 
 @Injectable({
@@ -42,7 +41,7 @@ import { ApiResponse } from 'app/models/api-response.interface';
 export class MspApiAccountService extends AbstractHttpService {
 
   protected _headers: HttpHeaders = new HttpHeaders();
-  readonly ISO8601DateFormat = 'YYYY-MM-DD';
+  readonly ISO8601DateFormat = 'yyyy-MM-dd';
   accountMaintenanceApiResponse: AccountMaintenanceApiResponse;
 
 
@@ -338,7 +337,7 @@ export class MspApiAccountService extends AbstractHttpService {
     // return of([]);
   }
 
-  convertSampleResponse(from: MspAccountApp): AccountChangeApplicationType {
+  convertSampleResponse(): AccountChangeApplicationType {
     const toa: any = {
       'accountHolder': {
         'name': {
@@ -568,7 +567,7 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
   to.name = this.convertName(from);
 
   if (from.hasDob) {
-      to.birthDate = from.dob.format(this.ISO8601DateFormat);
+      to.birthDate = format( from.dob, this.ISO8601DateFormat);
   }
   if (from.gender != null) {
       to.gender = <GenderType> from.gender.toString();
@@ -590,7 +589,7 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
   }
 
   if (from.marriageDate) {
-      to.marriageDate = this.parseDate(from.marriageDate).format(this.ISO8601DateFormat);
+      to.marriageDate = format( from.marriageDate, this.ISO8601DateFormat );
   }
   if (from.isExistingBeneficiary != null) {
       to.isExistingBeneficiary = from.isExistingBeneficiary === true ? 'Y' : 'N';
@@ -606,7 +605,7 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
   if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect' ) {
       to.cancellationReason = from.reasonForCancellation;
       if (from.cancellationDate) {
-      to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+      to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat);
       }
   }
   if (from.knownMailingAddress === true ) {
@@ -629,14 +628,6 @@ private unknownAddress(): AddressType {
   to.postalCode = '';
 
   return to;
-}
-
-private parseDate(date: SimpleDate) {
-  return moment.utc({
-      year: date.year,
-      month: date.month - 1, // moment use 0 index for month :(
-      day: date.day,
-  }); // use UTC mode to prevent browser timezone shifting
 }
 
 private convertAddress(from: Address): AddressType {
@@ -673,7 +664,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
   to.name = this.convertName(from);
   if (from.hasDob) {
-      to.birthDate = from.dob.format(this.ISO8601DateFormat);
+      to.birthDate = format( from.dob, this.ISO8601DateFormat);
   }
   if (from.gender != null) {
       to.gender = <GenderType> from.gender.toString();
@@ -703,15 +694,15 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
 
       if (from.hasStudiesDeparture) {
-          to.departDateSchoolOutside = from.studiesDepartureDate.format(this.ISO8601DateFormat);
+          to.departDateSchoolOutside =  format( from.studiesDepartureDate, this.ISO8601DateFormat);
       }
 
       if (from.hasStudiesFinished) {
-          to.dateStudiesFinish = from.studiesFinishedDate.format(this.ISO8601DateFormat);
+          to.dateStudiesFinish = format( from.studiesFinishedDate, this.ISO8601DateFormat);
       }
 
       if (from.hasStudiesBegin) {
-          to.dateStudiesBegin = from.studiesBeginDate.format(this.ISO8601DateFormat);
+          to.dateStudiesBegin = format( from.studiesBeginDate, this.ISO8601DateFormat);
       }
 
       //  Departure date if school is outszide BC //TODO
@@ -726,7 +717,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
   if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect') {
       to.cancellationReason = from.reasonForCancellation;
       if (from.cancellationDate) {
-          to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+          to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat);
       }
   }
 
@@ -795,7 +786,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
     from: MspAccountApp
   ): MSPApplicationSchema {
     const object = {
-      accountChangeApplication: this.convertSampleResponse(from),
+      accountChangeApplication: this.convertSampleResponse(),
       attachments: this.convertToAttachment(from.getAllImages()),
       uuid: from.uuid
     };
@@ -829,14 +820,14 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
               // Arrival dates
               if (from.hasArrivalToBC) {
-                  to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+                  to.livedInBC.recentBCMoveDate = format( from.arrivalToBCDate, this.ISO8601DateFormat);
               }
           }
 
       }
       //Is this child newly adopted?
       if (from.newlyAdopted) {
-          to.adoptionDate = this.parseDate(from.adoptedDate).format(this.ISO8601DateFormat);
+          to.adoptionDate = format(from.adoptedDate, this.ISO8601DateFormat);
       }
 
 
@@ -846,10 +837,10 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
           to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? 'Y' : 'N';
           if (from.declarationForOutsideOver30Days) {
               if (from.outOfBCRecord.hasDeparture) {
-                  to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                  to.outsideBC.departureDate = format( from.outOfBCRecord.departureDate, this.ISO8601DateFormat);
               }
               if (from.outOfBCRecord.hasReturn) {
-                  to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                  to.outsideBC.returnDate = format(from.outOfBCRecord.returnDate, this.ISO8601DateFormat);
               }
               to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
               to.outsideBC.destination = from.outOfBCRecord.location;
@@ -863,10 +854,10 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
           to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? 'Y' : 'N';
           if (from.plannedAbsence) {
               if (from.planOnBeingOutOfBCRecord.hasDeparture) {
-                  to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                  to.outsideBCinFuture.departureDate = format( from.planOnBeingOutOfBCRecord.departureDate, this.ISO8601DateFormat);
               }
               if (from.planOnBeingOutOfBCRecord.hasReturn) {
-                  to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                  to.outsideBCinFuture.returnDate = format(from.planOnBeingOutOfBCRecord.returnDate, this.ISO8601DateFormat);
               }
               to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
               to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
@@ -877,7 +868,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
       // Have they been released from the Canadian Armed Forces or an Institution?
       if (from.hasDischarge) {
           to.willBeAway = WillBeAwayTypeFactory.make();
-          to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+          to.willBeAway.armedDischargeDate = format(from.dischargeDate, this.ISO8601DateFormat);
           to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
           to.willBeAway.isFullTimeStudent = 'N';
       }
@@ -907,7 +898,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
             // Arrival dates
             if (from.hasArrivalToBC) {
-                to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+                to.livedInBC.recentBCMoveDate = format( from.arrivalToBCDate, this.ISO8601DateFormat);
             }
         }
 
@@ -920,10 +911,10 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? 'Y' : 'N';
         if (from.declarationForOutsideOver30Days) {
             if (from.outOfBCRecord.hasDeparture) {
-                to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                to.outsideBC.departureDate = format( from.outOfBCRecord.departureDate, this.ISO8601DateFormat);
             }
             if (from.outOfBCRecord.hasReturn) {
-                to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                to.outsideBC.returnDate = format( from.outOfBCRecord.returnDate, this.ISO8601DateFormat);
             }
             to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
             to.outsideBC.destination = from.outOfBCRecord.location;
@@ -937,10 +928,10 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? 'Y' : 'N';
         if (from.plannedAbsence) {
             if (from.planOnBeingOutOfBCRecord.hasDeparture) {
-                to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                to.outsideBCinFuture.departureDate = format(from.planOnBeingOutOfBCRecord.departureDate, this.ISO8601DateFormat);
             }
             if (from.planOnBeingOutOfBCRecord.hasReturn) {
-                to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                to.outsideBCinFuture.returnDate = format(from.planOnBeingOutOfBCRecord.returnDate, this.ISO8601DateFormat);
             }
             to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
             to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
@@ -951,7 +942,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
     // Have they been released from the Canadian Armed Forces or an Institution?
     if (from.hasDischarge) {
         to.willBeAway = WillBeAwayTypeFactory.make();
-        to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+        to.willBeAway.armedDischargeDate = format(from.dischargeDate, this.ISO8601DateFormat);
         to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
         to.willBeAway.isFullTimeStudent = 'N';
     }
@@ -1036,7 +1027,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
 
         if (from.applicant.hasDob) {
-            accountHolder.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
+            accountHolder.birthDate = format(from.applicant.dob, this.ISO8601DateFormat);
         }
         if (from.applicant.gender != null) {
             accountHolder.gender = <GenderType>{};

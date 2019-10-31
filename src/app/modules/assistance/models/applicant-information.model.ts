@@ -1,9 +1,9 @@
 
 import { FinancialAssistApplication } from './financial-assist-application.model';
-import { SimpleDate } from 'moh-common-lib';
 import { AssistanceYear } from './assistance-year.model';
 import { deepFlatten } from './assist-review-helpers';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
+import { format } from 'date-fns';
 
 export interface IApplicantInformation {
   years: number[];
@@ -42,11 +42,7 @@ export class ApplicantInformation implements IApplicantInformation {
 
     this.years = this.makeYears(app.assistYears);
     this.name = this.makeName(app.applicant);
-    this.birthDate = app.applicant.dobSimple.year
-      ? this.makeDate(app.applicant.dobSimple)
-      : `${app.applicant.dob_day}/${app.applicant.dob_month}/${
-          app.applicant.dob_year
-        }`;
+    this.birthDate = format( app.applicant.dateOfBirth, 'dd/MM/yyyy');
 
     this.phn = app.applicant.previous_phn;
     this.sin = app.applicant.sin;
@@ -65,9 +61,6 @@ export class ApplicantInformation implements IApplicantInformation {
     this.pageStatus = app.pageStatus;
   }
 
-  makeDate(date: SimpleDate) {
-    return `${date.day}/${date.month}/${date.year}`;
-  }
 
   makeYears(years: AssistanceYear[]) {
     return years.filter(year => year.apply).map(year => year.year);

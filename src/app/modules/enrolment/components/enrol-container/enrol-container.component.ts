@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Container, CheckCompleteBaseService } from 'moh-common-lib';
+import { Container } from 'moh-common-lib';
 import { enrolPages } from '../../enrol-page-routing.module';
-import { environment } from '../../../../../environments/environment';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
-import { MspDataService } from '../../../../services/msp-data.service';
 import { HeaderService } from '../../../../services/header.service';
+import { EnrolDataService } from '../../services/enrol-data.service';
 
 @Component({
   selector: 'msp-enrol-container',
@@ -15,19 +14,21 @@ import { HeaderService } from '../../../../services/header.service';
 })
 export class EnrolContainerComponent extends Container implements OnInit {
 
+  // Spinner to show that application is processing
+  isLoading = false;
+
   constructor( public router: Router,
                private pageStateService: PageStateService,
-               private dataService: MspDataService,
+               private enrolDataService: EnrolDataService,
                private header: HeaderService ) {
     super();
 
     // Set service name for application
-    this.header.setTitle('Apply For Medical Services Plan');
+    this.header.setTitle('Application for Enrolment');
     this.setProgressSteps( enrolPages );
-    this.dataService.mspApplication.pageStatus =
-      this.pageStateService.setPages( enrolPages,
-                                      ROUTES_ENROL,
-                                      this.dataService.mspApplication.pageStatus );
+    this.enrolDataService.pageStatus = this.pageStateService.setPages( enrolPages,
+                                                                       ROUTES_ENROL,
+                                                                       this.enrolDataService.pageStatus );
   }
 
   ngOnInit() {

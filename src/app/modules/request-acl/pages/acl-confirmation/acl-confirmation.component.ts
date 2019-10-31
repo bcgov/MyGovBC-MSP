@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'msp-acl-confirmation',
@@ -57,7 +58,7 @@ export class AclConfirmationComponent implements OnInit {
    * @returns {string}
    */
   get dateStamp(): string {
-    return moment().format('MMMM DD, YYYY');
+    return format(new Date(), 'MMMM dd, yyyy');
   }
 
 }

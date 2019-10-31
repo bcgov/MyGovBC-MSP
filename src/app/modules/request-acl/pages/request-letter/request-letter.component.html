@@ -1,5 +1,4 @@
 <msp-consent-modal #mspConsentModal 
-                   [isMaintenanceMode]="true" 
                    (onClose)="AccountHolder_Phn.focus()"
                    [consentProcessName]="'MSP'" 
                    (accept)="acceptAgreement($event)">
@@ -32,11 +31,12 @@
           </common-phn>
         </div>
         <div class="form-group">
-            <common-date label="Birthdate"
-                         [restrictDate]="'past'" 
-                         [(date)]="accountHolderDob"
-                         [required]="true">
-            </common-date>
+          <common-date name="AccountHolderDob"
+                        label="Birthdate"
+                        [restrictDate]="'past'" 
+                        [(ngModel)]="accountHolderDob"
+                        required>
+          </common-date>
         </div>
         <div class="form-group">
           <common-postal-code name="AccountHolderPC"

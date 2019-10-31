@@ -9,7 +9,7 @@
 
   <!-- EXISTING SPOUSE Section 1 New Spouse When the Active coverage is YES -->
   <div *ngIf="spouse.immigrationStatusChange">
-      <msp-personal-information [person]="spouse" [showPhn]="true" >
+      <msp-personal-information [person]="spouse">
           <div sectionTitleInfo>
               <h2>Spouse's Personal Information</h2>
               <p class="border-bottom"> 
@@ -19,10 +19,10 @@
       </msp-personal-information>
 
       <div class="form-group" style="width: 300px;">
-        <common-date  
-          label="Marriage date (optional)" 
-          [restrictDate]="'past'" 
-          [(date)]="spouse.marriageDate">
+        <common-date name="MarriageDate"
+                     label="Marriage date (optional)" 
+                     [restrictDate]="'past'" 
+                     [(ngModel)]="spouse.marriageDate">
         </common-date>
       </div>
 
@@ -94,7 +94,7 @@
       
       <div *ngIf="spouse.hasNameChange !== undefined">
 
-        <msp-personal-information [person]="spouse" [showPhn]="true">
+        <msp-personal-information [person]="spouse">
             <div sectionTitleInfo>
                 <h2>Spouse's Personal Information</h2>
                 <p class="border-bottom"> 

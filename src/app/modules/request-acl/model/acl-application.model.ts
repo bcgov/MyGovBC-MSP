@@ -1,6 +1,5 @@
 import { BaseApplication } from '../../../models/base-application';
 import { EnrolmentMembership } from './enrolment-membership.enum';
-import { SimpleDate } from 'moh-common-lib';
 
 
 export class AclApplication  extends BaseApplication {
@@ -9,7 +8,7 @@ export class AclApplication  extends BaseApplication {
   infoCollectionAgreement: boolean;
 
   accountHolderPhn: string;
-  accountHolderDob: SimpleDate = { year: null, month: null, day: null };
+  accountHolderDob: Date;
 
   // Postal code for account holder
   postalCode: string;

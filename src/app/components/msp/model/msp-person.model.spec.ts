@@ -23,7 +23,7 @@ describe('Person Model', () => {
     it('should clear adoption date when newlyAdopted is set to false', () => {
         expect(applicant).toBeTruthy();
         applicant.newlyAdopted = true;
-        applicant.adoptedDate = { year: 2012, month: 1, day: 1 };
+        applicant.adoptedDate = new Date(2012, 1, 1 );
         expect(applicant.adoptedDate).toBeTruthy();
         applicant.newlyAdopted = false;
         expect(applicant.adoptedDate).toBe(null);

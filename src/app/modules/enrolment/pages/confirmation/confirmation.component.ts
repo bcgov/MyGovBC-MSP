@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription} from 'rxjs';
-import * as moment from 'moment';
 import { environment } from '../../../../../environments/environment';
 import { ApiStatusCodes } from 'moh-common-lib';
+import { format } from 'date-fns';
 @Component({
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.scss']
@@ -12,7 +12,10 @@ export class ConfirmationComponent implements OnInit {
 
   confirmationNum: string;
   status: ApiStatusCodes = ApiStatusCodes.ERROR;
-  subscription: Subscription;
+  nextSteps: any;
+  message: string;
+
+  private subscription: Subscription;
 
   links = environment.links;
 
@@ -27,6 +30,9 @@ export class ConfirmationComponent implements OnInit {
         }
 
         this.confirmationNum = params['confirmationNum'];
+
+        this.nextSteps = params['nextSteps'];
+        this.message = params['message'];
 
         console.log( 'params: ', params );
       }
@@ -46,7 +52,7 @@ export class ConfirmationComponent implements OnInit {
    * @returns {string}
    */
   get dateStamp(): string {
-    return moment().format('MMMM DD, YYYY');
+    return format(new Date(), 'MMMM dd, yyyy');
   }
 
 }

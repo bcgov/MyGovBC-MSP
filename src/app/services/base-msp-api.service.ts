@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Address, AbstractHttpService, CommonImage, SimpleDate } from 'moh-common-lib';
-import { AddressType } from '../modules/msp-core/interfaces/i-api';
+import { Address, AbstractHttpService, CommonImage } from 'moh-common-lib';
+import { AddressType, MSPApplicationSchema, CitizenshipType, NameType } from '../modules/msp-core/interfaces/i-api';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { MspLogService } from './log.service';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { ApiResponse } from '../models/api-response.interface';
-import * as moment from 'moment';
 import { environment } from '../../environments/environment';
+import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
+import { BasePerson } from '../models/base-person';
+import { format } from 'date-fns';
 
 interface AttachmentRequestPartial {
   contentType: 'IMAGE_JPEG';
@@ -29,7 +31,7 @@ export class BaseMspApiService extends AbstractHttpService  {
 
   suppBenefitResponse: ApiResponse;
 
-  readonly ISO8601DateFormat = 'YYYY-MM-DD';
+  readonly ISO8601DateFormat = 'yyyy-MM-dd';
 
   /**
    * User does NOT specify document type therefore we always say its a supporting document
@@ -52,10 +54,21 @@ export class BaseMspApiService extends AbstractHttpService  {
     });
   }
 
+  // For all applications within MSP project
+  sendApplication( app: MSPApplicationSchema, authToken: string ) {
+    const _url = environment.appConstants.apiBaseUrl +
+                 environment.appConstants.suppBenefitAPIUrl +
+                 app.uuid;
 
-  public sendAttachments( token: string,
-                          applicationUUID: string,
-                          attachments: CommonImage[] ): Promise<string[]> {
+    // Setup headers
+    this.setHeaders( authToken );
+
+    return this.post<any>( _url, app );
+  }
+
+  sendAttachments( token: string,
+                   applicationUUID: string,
+                   attachments: CommonImage[] ): Promise<string[]> {
 
     return new Promise<string[]>((resolve, reject) => {
       // Instantly resolve if no attachments
@@ -104,20 +117,9 @@ export class BaseMspApiService extends AbstractHttpService  {
     });
   }
 
-  protected convertSimpleDate( dt: SimpleDate ): string {
 
-    const dtFields = Object.keys(dt).filter( x => dt[x] );
-    console.log( 'convertSimpleDate: dtFields ', dtFields );
-
-    if ( dtFields.length === 3 ) {
-        const date = moment.utc({
-          year: dt.year,
-          month: dt.month - 1, // moment use 0 index for month :(
-          day: dt.day,
-      }); // use UTC mode to prevent browser timezone shifting
-      return  String( date.format(this.ISO8601DateFormat ) );
-    }
-    return '';
+  protected formatDate( dt: Date ) {
+    return dt ? format( dt, this.ISO8601DateFormat ) : '' ;
   }
 
   protected convertToAttachment( images: CommonImage[] ): AttachmentRequestPartial[] {
@@ -136,6 +138,13 @@ export class BaseMspApiService extends AbstractHttpService  {
     return output;
   }
 
+  protected convertName( person: BasePerson ): NameType {
+    return {
+      firstName: person.firstName,
+      lastName: person.lastName,
+      secondName: person.middleName
+    };
+  }
 
   // Convert address to JSON AddressType
   protected convertAddress( from: Address ): AddressType {
@@ -144,7 +153,7 @@ export class BaseMspApiService extends AbstractHttpService  {
       city: from.city,
       provinceOrState: from.province,
       country: from.country,
-      postalCode: from.postal.toUpperCase().replace(' ', '')
+      postalCode: from.postal ? from.postal.toUpperCase().replace(' ', '') : null
     };
 
     if ( from.addressLine2 ) {
@@ -155,6 +164,41 @@ export class BaseMspApiService extends AbstractHttpService  {
       addr.addressLine3 = from.addressLine3;
     }
     return addr;
+  }
+
+  protected getCitizenType( status: StatusInCanada,
+                            reason: CanadianStatusReason ): CitizenshipType {
+    let citizenType;
+
+    // citizenship
+    switch (status) {
+      case StatusInCanada.CitizenAdult:
+        citizenType = CitizenshipType.CanadianCitizen;
+        break;
+      case StatusInCanada.PermanentResident:
+        citizenType = CitizenshipType.PermanentResident;
+      break;
+      case StatusInCanada.TemporaryResident:
+        switch (reason) {
+          case CanadianStatusReason.WorkingInBC:
+            citizenType = CitizenshipType.WorkPermit;
+          break;
+        case CanadianStatusReason.StudyingInBC:
+          citizenType = CitizenshipType.StudyPermit;
+          break;
+        case CanadianStatusReason.Diplomat:
+          citizenType = CitizenshipType.Diplomat;
+          break;
+        case CanadianStatusReason.ReligiousWorker:
+          citizenType = CitizenshipType.ReligiousWorker;
+          break;
+        case CanadianStatusReason.Visiting:
+        default:
+          citizenType = CitizenshipType.VisitorPermit;
+          break;
+      }
+    }
+    return citizenType;
   }
 
 
@@ -179,13 +223,16 @@ export class BaseMspApiService extends AbstractHttpService  {
   }
 
   private sendAttachment( token: string,
-                            applicationUUID: string,
-                            attachment: CommonImage ): Promise<string> {
+                          applicationUUID: string,
+                          attachment: CommonImage ): Promise<string> {
     return new Promise<string>((resolve, reject) => {
 
       /* Create URL /{applicationUUID}/attachment/{attachmentUUID */
-      let _url = environment.appConstants['apiBaseUrl'] + environment.appConstants['attachment'] +
-                 applicationUUID + '/attachments/' + attachment.uuid;
+      let _url = environment.appConstants.apiBaseUrl +
+                 environment.appConstants.attachment +
+                 applicationUUID +
+                 '/attachments/' +
+                 attachment.uuid;
 
       // programArea
       _url += `?programArea=${this._programArea}`;

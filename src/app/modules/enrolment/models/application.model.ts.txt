@@ -1,7 +1,6 @@
 import { Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { UUID } from 'angular2-uuid';
-import { ApplicationBase } from '../../../models/application-base.model';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';
 import { Relationship } from '../../../models/relationship.enum';
 import { BaseApplication } from '../../../models/base-application';
@@ -51,6 +50,7 @@ export class MspApplication extends BaseApplication {
   set applicant(apt: MspPerson) {
     this._applicant = apt;
   }
+
   get spouse(): MspPerson {
     return this._spouse;
   }

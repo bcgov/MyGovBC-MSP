@@ -67,14 +67,11 @@ export class CompletenessCheckService {
     let basics =
       !_.isEmpty(this.finApp.applicant.firstName) &&
       !_.isEmpty(this.finApp.applicant.lastName) &&
-      _.isNumber(this.finApp.applicant.dob_day) &&
-      !_.isEmpty(this.finApp.applicant.dob_month) &&
-      _.isNumber(this.finApp.applicant.dob_year) &&
+      !!this.finApp.applicant.dob &&
       !_.isEmpty(this.finApp.applicant.previous_phn) &&
       !_.isEmpty(this.finApp.applicant.sin) &&
       this.finApp.mailingAddress.isValid &&
-      this.finApp.phoneNumberIsValid &&
-      !(this.finApp.applicant.dob_month === 0);
+      this.finApp.phoneNumberIsValid;
 
     // Check applicant name regexs
     const regEx = new RegExp(MspPerson.NameRegEx);

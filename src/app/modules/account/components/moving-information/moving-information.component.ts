@@ -5,6 +5,8 @@ import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/c
 import { environment } from '../../../../../environments/environment';
 import { Relationship } from 'app/models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+
+// TO BE removed - differenece need to be added to msp-core moving-info so that it will work with account
 @Component({
   selector: 'msp-child-moving-information',
   templateUrl: './moving-information.component.html',

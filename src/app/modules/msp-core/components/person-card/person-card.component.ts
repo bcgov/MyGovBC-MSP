@@ -2,11 +2,16 @@ import {Component, Input} from '@angular/core';
 import {MspPerson} from '../../../../components/msp/model/msp-person.model';
 import { Router } from '@angular/router';
 import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
-import { getCountryDescription, getProvinceDescription, SimpleDate } from 'moh-common-lib';
+import { getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import { getStatusStrings, getStatusReasonStrings } from '../canadian-status/canadian-status.component';
-import * as moment from 'moment';
 import { Relationship } from '../../../../models/relationship.enum';
+import { format } from 'date-fns';
 
+
+/* TO BE REPLACED when remaining apps are refactored to have own application  model definitions
+ * built off the base classes ( base-person.model, base-application.model, base-msp-data.service,
+ * base-msp-api.service)
+ */
 @Component({
   selector: 'msp-person-card',
   templateUrl: './person-card.component.html',
@@ -14,7 +19,7 @@ import { Relationship } from '../../../../models/relationship.enum';
 })
 export class MspPersonCardComponent {
 
-  public dateFormat = 'MMMM D, YYYY';
+  public dateFormat = 'MMMM d, yyyy';
 
   lang = require('./i18n');
 
@@ -69,17 +74,11 @@ export class MspPersonCardComponent {
     return getProvinceDescription( this.person.movedFromProvinceOrCountry );
   }
 
-  formatDateField( dt: SimpleDate ) {
-    return moment( {
-      year: dt.year,
-      month: dt.month - 1,
-      day: dt.day
-    }).format( this.dateFormat );
+  formatDateField( dt: Date ) {
+    return format( dt, this.dateFormat );
   }
 
   get hasMarriageDate(): boolean {
-
-    const hasDate = Object.keys(this.person.marriageDate).filter( x => this.person.marriageDate[x] );
-    return hasDate.length === 3 && this.person.relationship === Relationship.Spouse;
+    return !!this.person.marriageDate && this.person.relationship === Relationship.Spouse;
   }
 }

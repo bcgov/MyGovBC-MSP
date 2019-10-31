@@ -10,16 +10,18 @@
 
 <div *ngIf="person.livedInBCSinceBirth" class="border-left">
   <div *ngIf="isCanadianFromProv || isCanadianFromCountry; else NewToBC" class="form-group col-sm-6 p-sm-2">
-    <common-date label="Most recent move to B.C."
+    <common-date name="MostRecentMoveBC" 
+                label="Most recent move to B.C."
                 [restrictDate]="'past'" 
-                [(date)]="person.arrivalToBCSimple">
+                [(ngModel)]="person.arrivalToBCDate">
     </common-date>
   </div>
 
   <div class="form-group col-sm-6 p-sm-2">
-    <common-date label="Arrival date in Canada{{!isCanadianFromCountry ? ' (optional)' : ''}}"
+    <common-date  name="ArrivalInCanada"
+                  label="Arrival date in Canada{{!isCanadianFromCountry ? ' (optional)' : ''}}"
                   [restrictDate]="'past'" 
-                  [(date)]="person.arrivalToCanadaDate"
+                  [(ngModel)]="person.arrivalToCanadaDate"
                   [required]="arrivalDateRequired">
     </common-date>
   </div>
@@ -101,16 +103,18 @@
     </div>
 
     <div class="form-group col-sm-6 p-sm-2">
-     <common-date label="Departure date"
+     <common-date name="DepartureDate"
+                  label="Departure date"
                   [restrictDate]="'past'" 
-                  [(date)]="person.departureDateDuring12Months">
+                  [(ngModel)]="person.departureDateDuring12MonthsDate">
      </common-date>
    </div>
 
    <div class="form-group col-sm-6 p-sm-2">
-       <common-date label="Return date"
+       <common-date name="ReturnDate"
+                    label="Return date"
                     [restrictDate]="'past'" 
-                    [(date)]="person.returnDateDuring12Months">
+                    [(ngModel)]="person.returnDateDuring12MonthsDate">
        </common-date>
 
 <!--TODO: Need to do checks to ensure return date is greater than departure date
@@ -163,14 +167,14 @@ and check departure was within last 12 months - need to find error messages for 
     <div class="form-group col-sm-6 p-sm-2">
      <common-date label="Departure date"
                   [restrictDate]="'past'" 
-                  [(date)]="person.departureDateDuring6Months">
+                  [(ngModel)]="person.departureDateDuring6MonthsDate">
      </common-date>
    </div>
 
    <div class="form-group col-sm-6 p-sm-2">
        <common-date label="Return date"
                     [restrictDate]="'past'" 
-                    [(date)]="person.returnDateDuring6Months">
+                    [(ngModel)]="person.returnDateDuring6MonthsDate">
        </common-date>
 
 <!--TODO: Need to do checks to ensure return date is greater than departure date
@@ -192,7 +196,7 @@ and check departure was within last 12 months - need to find error messages for 
   <div class="form-group col-sm-6 p-sm-2">
     <common-date label="Discharge date"
                   [restrictDate]="'past'" 
-                  [(date)]="person.dischargeDateSimple"
+                  [(ngModel)]="person.dischargeDate"
                   required>
     </common-date>
   </div>
@@ -254,7 +258,7 @@ and check departure was within last 12 months - need to find error messages for 
           <div class="form-group col-sm-6 p-sm-2">
               <common-date label="Departure date from B.C."
                           [restrictDate]="'past'" 
-                          [(date)]="person.departureDate">
+                          [(ngModel)]="person.departureDate">
               </common-date>
           </div>
       </div>
@@ -272,13 +276,13 @@ and check departure was within last 12 months - need to find error messages for 
   
       <div class="form-group">
         <common-date label="Date studies will begin"
-                      [(date)]="person.studiesDepartureSimple">
+                      [(ngModel)]="person.studiesDepartureDate">
         </common-date>
       </div>    
   
       <div class="form-group">
         <common-date label="Date studies will finish"
-                      [(date)]="person.studiesFinishedSimple">
+                      [(ngModel)]="person.studiesFinishedDate">
         </common-date>
       </div>  
   
@@ -315,7 +319,7 @@ and check departure was within last 12 months - need to find error messages for 
   <div class="form-group col-sm-6 p-sm-2">
     <common-date label="Most recent move to B.C."
                  [restrictDate]="'past'" 
-                 [(date)]="person.arrivalToBCSimple">
+                 [(ngModel)]="person.arrivalToBCDate">
     </common-date>
   </div>
 </ng-template>

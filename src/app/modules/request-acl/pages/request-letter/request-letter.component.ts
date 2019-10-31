@@ -1,5 +1,5 @@
-import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit, SimpleChange } from '@angular/core';
-import { AbstractForm, ApiStatusCodes, SimpleDate } from 'moh-common-lib';
+import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
+import { AbstractForm, ApiStatusCodes } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { HeaderService } from '../../../../services/header.service';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
@@ -70,10 +70,10 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
     this.application.postalCode = val;
   }
 
-  get accountHolderDob(): SimpleDate {
+  get accountHolderDob(): Date {
     return this.application.accountHolderDob;
   }
-  set accountHolderDob( dt: SimpleDate ) {
+  set accountHolderDob( dt: Date ) {
     this.application.accountHolderDob = dt;
   }
 

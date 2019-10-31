@@ -224,7 +224,7 @@ export const defaultSchema = {
         returnDate: {
           $ref: '#/definitions/MMDDYYDateType'
         },
-        familyMemeberReason: {
+        familyMemberReason: {
           type: 'string'
         },
         destination: {

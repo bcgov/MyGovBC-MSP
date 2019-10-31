@@ -1,30 +1,25 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
 import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../modules/msp-core/api-model/accountChangeTypes';
 import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from '../modules/msp-core/api-model/applicationTypes';
 import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from '../modules/msp-core/api-model/assistanceTypes';
-import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../modules/msp-core/api-model/commonTypes';
-import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../modules/msp-core/api-model/enrolmentTypes';
+import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../modules/msp-core/api-model/commonTypes';
+import { LivedInBCTypeFactory, OutsideBCTypeFactory, WillBeAwayTypeFactory } from '../modules/msp-core/api-model/enrolmentTypes';
 import { ResponseType } from '../modules/msp-core/api-model/responseTypes';
 import { MspAccountApp } from '../modules/account/models/account.model';
 import { ApplicationBase } from '../models/application-base.model';
-import { MspApplication } from '../modules/enrolment/models/application.model';
 import { AssistanceApplicationType, FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
-import { SimpleDate, Address, CommonImage } from 'moh-common-lib';
+import { Address, CommonImage } from 'moh-common-lib';
 import { MspLogService } from './log.service';
 import { MspMaintenanceService } from './msp-maintenance.service';
 import { Response } from '@angular/http';
 import {ISpaEnvResponse} from '../components/msp/model/spa-env-response.interface';
 import { environment } from '../../environments/environment';
-import { ApiResponse } from '../models/api-response.interface';
-import {
-    MSPApplicationSchema
-  } from 'app/modules/msp-core/interfaces/i-api';
 import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
 import { Relationship } from '../models/relationship.enum';
+import { format } from 'date-fns';
 
 const jxon = require('jxon/jxon');
 
@@ -34,6 +29,7 @@ export class MspApiService {
     constructor(private http: HttpClient, private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
     }
 
+   /*
     sendRequest(app: MspApplication): Promise<any> {
 		const suppBenefitRequest = this.prepareEnrolmentApplication(app);
 		console.log(suppBenefitRequest);
@@ -76,8 +72,8 @@ export class MspApiService {
 
 		});
     }
-
-
+*/
+/*
     sendEnrolmentApplication(
         app: MSPApplicationSchema,
         authToken: string
@@ -94,6 +90,7 @@ export class MspApiService {
         });
         return this.http.post<MspApplication>(url, app);
       }
+      */
 
     /**
      * Sends the Application and returns an MspApplication if successful with referenceNumber populated
@@ -112,11 +109,12 @@ export class MspApiService {
 
                         console.log('Start sending...');
                         let documentModel: document;
-                        if (app instanceof MspApplication) {
+                      /*  if (app instanceof MspApplication) {
                             console.log(app);
                             documentModel = this.convertMspApplication(app);
                             //documentModel = this.prepareEnrolmentApplication(app);
-                        } else if (app instanceof FinancialAssistApplication) {
+                        } else*/
+                        if (app instanceof FinancialAssistApplication) {
                             documentModel = this.convertAssistance(app);
                         } else if (app instanceof MspAccountApp) {
                             documentModel = this.convertMspAccountApp(app);
@@ -351,7 +349,7 @@ export class MspApiService {
      * @param from
      * @returns {applicationTypes.ApplicationType}
      */
-    convertMspApplication(from: MspApplication): document {
+/*    convertMspApplication(from: MspApplication): document {
         // Instantiate new object from interface
         const to = DocumentFactory.make();
         to.application = ApplicationTypeFactory.make();
@@ -365,12 +363,12 @@ export class MspApiService {
         // Applicant section
         to.application.enrolmentApplication.applicant = EnrolmentApplicantTypeFactory.make();
         to.application.enrolmentApplication.applicant.name = this.convertName(from.applicant);
-
+*/
         /*
          birthDate: Date;
          gender: GenderType;
          */
-        to.application.enrolmentApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.applicant.documents.images);
+/*        to.application.enrolmentApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.applicant.documents.images);
 
         if (from.applicant.hasDob) {
             to.application.enrolmentApplication.applicant.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
@@ -378,27 +376,27 @@ export class MspApiService {
         if (from.applicant.gender != null) {
             to.application.enrolmentApplication.applicant.gender = <GenderType>{};
             to.application.enrolmentApplication.applicant.gender = <GenderType> from.applicant.gender.toString();
-        }
+        }*/
         /*
          authorizedByApplicant: ct.YesOrNoType;
          authorizedByApplicantDate: Date;
          authorizedBySpouse: ct.YesOrNoType;
          */
-        if (from.authorizedByApplicant != null) {
+/*        if (from.authorizedByApplicant != null) {
             to.application.enrolmentApplication.applicant.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
             to.application.enrolmentApplication.applicant.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
                 .format(this.ISO8601DateFormat);
         }
         if (from.authorizedBySpouse != null) {
             to.application.enrolmentApplication.applicant.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
-        }
+        }*/
         /*
          mailingAddress?: ct.AddressType;
          residenceAddress: ct.AddressType;
          residency: ResidencyType;
          telephone: number;
          */
-        if (!from.mailingSameAsResidentialAddress) {
+   /*     if (!from.mailingSameAsResidentialAddress) {
             to.application.enrolmentApplication.applicant.mailingAddress = this.convertAddress(from.mailingAddress);
         }
         to.application.enrolmentApplication.applicant.residenceAddress = this.convertAddress(from.residentialAddress);
@@ -449,7 +447,7 @@ export class MspApiService {
 
         return to;
     }
-
+*/
     convertMspAccountApp(from: MspAccountApp): document {
         const to = DocumentFactory.make();
         to.application = ApplicationTypeFactory.make();
@@ -522,7 +520,7 @@ export class MspApiService {
         to.application.assistanceApplication.applicant.name = this.convertName(from.applicant);
 
         if (from.applicant.hasDob) {
-            to.application.assistanceApplication.applicant.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
+            to.application.assistanceApplication.applicant.birthDate = format(from.applicant.dob, this.ISO8601DateFormat);
         }
         if (from.applicant.gender != null) {
             to.application.assistanceApplication.applicant.gender = <GenderType> from.applicant.gender.toString();
@@ -594,7 +592,7 @@ export class MspApiService {
              */
             to.application.assistanceApplication.spouse.name = this.convertName(from.spouse);
             if (from.spouse.hasDob) {
-                to.application.assistanceApplication.spouse.birthDate = from.spouse.dob.format(this.ISO8601DateFormat);
+                to.application.assistanceApplication.spouse.birthDate = format(from.spouse.dob, this.ISO8601DateFormat);
             }
             if (from.spouse.previous_phn) {
                 to.application.assistanceApplication.spouse.phn = Number(from.spouse.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
@@ -696,7 +694,7 @@ export class MspApiService {
      * @param from
      * @returns {AttachmentsType}
      */
-    private convertAttachmentsForEnrolment(from: MspApplication): AttachmentsType {
+   /* private convertAttachmentsForEnrolment(from: MspApplication): AttachmentsType {
 
         const to = AttachmentsTypeFactory.make();
         to.attachment = new Array<AttachmentType>();
@@ -730,7 +728,7 @@ export class MspApiService {
         }
 
         return to;
-    }
+    }*/
 
     /**
      * Creates the array of attachments from applicant, spouse and all children
@@ -791,7 +789,7 @@ export class MspApiService {
 
         to.name = this.convertName(from);
         if (from.hasDob) {
-            to.birthDate = from.dob.format(this.ISO8601DateFormat);
+            to.birthDate = format(from.dob, this.ISO8601DateFormat);
         }
         if (from.gender != null) {
             to.gender = <GenderType> from.gender.toString();
@@ -821,15 +819,15 @@ export class MspApiService {
 
 
             if (from.hasStudiesDeparture) {
-                to.departDateSchoolOutside = from.studiesDepartureDate.format(this.ISO8601DateFormat);
+                to.departDateSchoolOutside = format(from.studiesDepartureDate, this.ISO8601DateFormat);
             }
 
             if (from.hasStudiesFinished) {
-                to.dateStudiesFinish = from.studiesFinishedDate.format(this.ISO8601DateFormat);
+                to.dateStudiesFinish = format(from.studiesFinishedDate, this.ISO8601DateFormat);
             }
 
             if (from.hasStudiesBegin) {
-                to.dateStudiesBegin = from.studiesBeginDate.format(this.ISO8601DateFormat);
+                to.dateStudiesBegin = format(from.studiesBeginDate, this.ISO8601DateFormat);
             }
 
             //  Departure date if school is outszide BC //TODO
@@ -844,7 +842,7 @@ export class MspApiService {
         if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect') {
             to.cancellationReason = from.reasonForCancellation;
             if (from.cancellationDate) {
-                to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+                to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat);
             }
         }
 
@@ -886,14 +884,14 @@ export class MspApiService {
 
                 // Arrival dates
                 if (from.hasArrivalToBC) {
-                    to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+                    to.livedInBC.recentBCMoveDate = format(from.arrivalToBCDate, this.ISO8601DateFormat);
                 }
             }
 
         }
         //Is this child newly adopted?
         if (from.newlyAdopted) {
-            to.adoptionDate = this.parseDate(from.adoptedDate).format(this.ISO8601DateFormat);
+            to.adoptionDate = format( from.adoptedDate, this.ISO8601DateFormat);
         }
 
 
@@ -903,10 +901,10 @@ export class MspApiService {
             to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? 'Y' : 'N';
             if (from.declarationForOutsideOver30Days) {
                 if (from.outOfBCRecord.hasDeparture) {
-                    to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                    to.outsideBC.departureDate = format(from.outOfBCRecord.departureDate, this.ISO8601DateFormat);
                 }
                 if (from.outOfBCRecord.hasReturn) {
-                    to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                    to.outsideBC.returnDate = format(from.outOfBCRecord.returnDate, this.ISO8601DateFormat);
                 }
                 to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
                 to.outsideBC.destination = from.outOfBCRecord.location;
@@ -920,10 +918,10 @@ export class MspApiService {
             to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? 'Y' : 'N';
             if (from.plannedAbsence) {
                 if (from.planOnBeingOutOfBCRecord.hasDeparture) {
-                    to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                    to.outsideBCinFuture.departureDate = format(from.planOnBeingOutOfBCRecord.departureDate, this.ISO8601DateFormat);
                 }
                 if (from.planOnBeingOutOfBCRecord.hasReturn) {
-                    to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                    to.outsideBCinFuture.returnDate = format(from.planOnBeingOutOfBCRecord.returnDate, this.ISO8601DateFormat);
                 }
                 to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
                 to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
@@ -934,7 +932,7 @@ export class MspApiService {
         // Have they been released from the Canadian Armed Forces or an Institution?
         if (from.hasDischarge) {
             to.willBeAway = WillBeAwayTypeFactory.make();
-            to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+            to.willBeAway.armedDischargeDate = format(from.dischargeDate, this.ISO8601DateFormat);
             to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
             to.willBeAway.isFullTimeStudent = 'N';
         }
@@ -964,7 +962,7 @@ export class MspApiService {
 
                 // Arrival dates
                 if (from.hasArrivalToBC) {
-                    to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+                    to.livedInBC.recentBCMoveDate = format(from.arrivalToBCDate, this.ISO8601DateFormat);
                 }
             }
 
@@ -977,10 +975,10 @@ export class MspApiService {
             to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? 'Y' : 'N';
             if (from.declarationForOutsideOver30Days) {
                 if (from.outOfBCRecord.hasDeparture) {
-                    to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                    to.outsideBC.departureDate = format(from.outOfBCRecord.departureDate, this.ISO8601DateFormat);
                 }
                 if (from.outOfBCRecord.hasReturn) {
-                    to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                    to.outsideBC.returnDate = format(from.outOfBCRecord.returnDate, this.ISO8601DateFormat);
                 }
                 to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
                 to.outsideBC.destination = from.outOfBCRecord.location;
@@ -994,10 +992,10 @@ export class MspApiService {
             to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? 'Y' : 'N';
             if (from.plannedAbsence) {
                 if (from.planOnBeingOutOfBCRecord.hasDeparture) {
-                    to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                    to.outsideBCinFuture.departureDate = format(from.planOnBeingOutOfBCRecord.departureDate, this.ISO8601DateFormat);
                 }
                 if (from.planOnBeingOutOfBCRecord.hasReturn) {
-                    to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                    to.outsideBCinFuture.returnDate = format(from.planOnBeingOutOfBCRecord.returnDate, this.ISO8601DateFormat);
                 }
                 to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
                 to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
@@ -1008,7 +1006,7 @@ export class MspApiService {
         // Have they been released from the Canadian Armed Forces or an Institution?
         if (from.hasDischarge) {
             to.willBeAway = WillBeAwayTypeFactory.make();
-            to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+            to.willBeAway.armedDischargeDate = format(from.dischargeDate, this.ISO8601DateFormat);
             to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
             to.willBeAway.isFullTimeStudent = 'N';
         }
@@ -1062,7 +1060,7 @@ export class MspApiService {
 
 
         if (from.applicant.hasDob) {
-            accountHolder.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
+            accountHolder.birthDate = format(from.applicant.dob, this.ISO8601DateFormat);
         }
         if (from.applicant.gender != null) {
             accountHolder.gender = <GenderType>{};
@@ -1110,7 +1108,7 @@ export class MspApiService {
         to.name = this.convertName(from);
 
         if (from.hasDob) {
-            to.birthDate = from.dob.format(this.ISO8601DateFormat);
+            to.birthDate = format(from.dob, this.ISO8601DateFormat);
         }
         if (from.gender != null) {
             to.gender = <GenderType> from.gender.toString();
@@ -1132,7 +1130,7 @@ export class MspApiService {
         }
 
         if (from.marriageDate) {
-            to.marriageDate = this.parseDate(from.marriageDate).format(this.ISO8601DateFormat);
+            to.marriageDate = format(from.marriageDate, this.ISO8601DateFormat);
         }
         if (from.isExistingBeneficiary != null) {
             to.isExistingBeneficiary = from.isExistingBeneficiary === true ? 'Y' : 'N';
@@ -1148,7 +1146,7 @@ export class MspApiService {
         if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect' ) {
             to.cancellationReason = from.reasonForCancellation;
             if (from.cancellationDate) {
-            to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+            to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat );
             }
         }
         if (from.knownMailingAddress === true ) {
@@ -1162,43 +1160,7 @@ export class MspApiService {
     }
 
 
-    private convertPersonFromEnrollment(from: MspPerson): PersonType {
-        const to = PersonTypeFactory.make();
 
-        to.name = this.convertName(from);
-        to.attachmentUuids = this.convertAttachmentUuids(from.documents.images);
-
-        if (from.hasDob) {
-            to.birthDate = from.dob.format(this.ISO8601DateFormat);
-        }
-        if (from.gender != null) {
-            to.gender = <GenderType> from.gender.toString();
-        }
-        to.residency = this.convertResidency(from);
-
-        return to;
-    }
-
-    private convertDependantFromEnrollment(from: MspPerson): DependentType {
-        // Do base type first
-        const to = <DependentType>this.convertPersonFromEnrollment(from);
-
-        // Copy sequence over
-        to._sequence = DependentTypeFactory.make()._sequence;
-
-        to.schoolName = from.schoolName;
-        if (from.hasStudiesDeparture) {
-            to.departDateSchoolOutside = from.studiesDepartureDate.format(this.ISO8601DateFormat);
-        }
-        if (from.hasStudiesFinished) {
-            to.dateStudiesFinish = from.studiesFinishedDate.format(this.ISO8601DateFormat);
-        }
-
-        // Assemble address string
-        to.schoolAddress = this.convertAddress(from.schoolAddress);
-
-        return to;
-    }
 
     private convertName(from: MspPerson): NameType {
         const to = NameTypeFactory.make();
@@ -1226,147 +1188,6 @@ export class MspApiService {
         return to;
     }
 
-    private convertResidency(from: MspPerson): ResidencyType {
-        const to = ResidencyTypeFactory.make();
-
-        /*
-         citizenshipStatus: ct.BasicCitizenshipType;
-         livedInBC: LivedInBCType;
-         outsideBC: OutsideBCType;
-         previousCoverage: PreviousCoverageType;
-         willBeAway: WillBeAwayType;
-         */
-
-        //("Citizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "ReligiousWorker" | "VisitorPermit");
-        to.citizenshipStatus = BasicCitizenshipTypeFactory.make();
-        switch (from.status) {
-            case StatusInCanada.CitizenAdult:
-                to.citizenshipStatus.citizenshipType = 'CanadianCitizen';
-                break;
-            case StatusInCanada.PermanentResident:
-                to.citizenshipStatus.citizenshipType = 'PermanentResident';
-                break;
-            case StatusInCanada.TemporaryResident:
-                switch (from.currentActivity) {
-                    case CanadianStatusReason.WorkingInBC:
-                        to.citizenshipStatus.citizenshipType = 'WorkPermit';
-                        break;
-                    case CanadianStatusReason.StudyingInBC:
-                        to.citizenshipStatus.citizenshipType = 'StudyPermit';
-                        break;
-                    case CanadianStatusReason.Diplomat:
-                        to.citizenshipStatus.citizenshipType = 'Diplomat';
-                        break;
-                    case CanadianStatusReason.ReligiousWorker:
-                        to.citizenshipStatus.citizenshipType = 'ReligiousWorker';
-                        break;
-                    case CanadianStatusReason.Visiting:
-                    default:
-                        to.citizenshipStatus.citizenshipType = 'VisitorPermit';
-                        break;
-                }
-        }
-        to.citizenshipStatus.attachmentUuids = AttachmentUuidsTypeFactory.make();
-        to.citizenshipStatus.attachmentUuids.attachmentUuid = new Array<string>();
-        for (const image of from.documents.images) {
-            to.citizenshipStatus.attachmentUuids.attachmentUuid.push(image.uuid);
-        }
-
-        /*
-         hasLivedInBC: ct.YesOrNoType;
-         isPermanentMove?: ct.YesOrNoType;
-         prevHealthNumber?: string;
-         prevProvinceOrCountry?: string;
-         recentBCMoveDate?: Date;
-         recentCanadaMoveDate?: Date;
-
-         beenOutsideBCMoreThan: ct.YesOrNoType;
-         departureDate?: Date;
-         familyMemberReason?: string;
-         returnDate?: Date;
-         */
-        // Init and set defaults
-        to.livedInBC = LivedInBCTypeFactory.make();
-
-        if (from.livedInBCSinceBirth === true) {
-            to.livedInBC.hasLivedInBC = 'Y';
-        }
-        else {
-            to.livedInBC.hasLivedInBC = 'N';
-        }
-        to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? 'Y' : 'N';
-
-        if (from.healthNumberFromOtherProvince) {
-            to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
-        }
-        if (from.movedFromProvinceOrCountry) {
-            to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
-        }
-
-
-        // Arrival dates
-        if (from.hasArrivalToBC) {
-            to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
-        }
-        if (from.hasArrivalToCanada) {
-            to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
-        }
-
-        // Outside BC
-        to.outsideBC = OutsideBCTypeFactory.make();
-        if (from.outOfBCRecord) {
-            to.outsideBC.beenOutsideBCMoreThan = 'Y';
-            if (from.outOfBCRecord.hasDeparture) {
-                to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
-            }
-            if (from.outOfBCRecord.hasReturn) {
-                to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
-            }
-            to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
-            to.outsideBC.destination = from.outOfBCRecord.location;
-        }
-        else {
-            to.outsideBC.beenOutsideBCMoreThan = 'N';
-        }
-
-        /*
-         armedDischageDate?: Date;
-         isFullTimeStudent: ct.YesOrNoType;
-         isInBCafterStudies?: ct.YesOrNoType;
-         */
-        to.willBeAway = WillBeAwayTypeFactory.make();
-        if (from.fullTimeStudent) {
-            to.willBeAway.isFullTimeStudent = 'Y';
-        }
-        else {
-            to.willBeAway.isFullTimeStudent = 'N';
-        }
-        if (from.inBCafterStudies) {
-            to.willBeAway.isInBCafterStudies = 'Y';
-        }
-        else {
-            to.willBeAway.isInBCafterStudies = 'N';
-        }
-
-        if (from.hasDischarge) {
-            to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
-        }
-        /*
-         hasPreviousCoverage: ct.YesOrNoType;
-         prevPHN?: number;  // BC only
-         */
-        to.previousCoverage = PreviousCoverageTypeFactory.make();
-        to.previousCoverage.hasPreviousCoverage = 'N';  // default N
-        if (from.hasPreviousBCPhn) {
-            to.previousCoverage.hasPreviousCoverage = 'Y';
-
-            if (from.previous_phn) {
-                to.previousCoverage.prevPHN = Number(from.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
-            }
-        }
-
-        return to;
-    }
 
     private unknownAddress(): AddressType {
         const to = AddressTypeFactory.make();
@@ -1434,16 +1255,7 @@ export class MspApiService {
         return jxon.stringToXml(from);
     }
 
-    private parseDate(date: SimpleDate) {
-        return moment.utc({
-            year: date.year,
-            month: date.month - 1, // moment use 0 index for month :(
-            day: date.day,
-        }); // use UTC mode to prevent browser timezone shifting
-    }
-
-
-
+/*
   private prepareEnrolmentApplication(from: MspApplication): any {
     console.log('prepareBenefitApplicatoin', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
     const output = {
@@ -1488,7 +1300,7 @@ export class MspApiService {
             'beenOutsideBCMoreThan': 'Y',
             'departureDate': '03-18-1986',
             'returnDate': '03-18-1987',
-            'familyMemeberReason': 'ABCDEFGHIJKLMNOPQ',
+            'familyMemberReason': 'ABCDEFGHIJKLMNOPQ',
             'destination': 'ABCDEFGHIJKLMN'
           },
           'willBeAway': {
@@ -1517,6 +1329,7 @@ export class MspApiService {
       console.log(output);
       return output;
     }
+    */
 
     // trim in the XML the leading <xx:application xmlns="xx"> and trailing </xx:application>
     // note that xx: might be missing
@@ -1579,5 +1392,5 @@ export class MspApiService {
         }
     }
 
-    readonly ISO8601DateFormat = 'YYYY-MM-DD';
+    readonly ISO8601DateFormat = 'yyyy-MM-dd';
 }

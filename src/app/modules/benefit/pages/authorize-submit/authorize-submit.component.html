@@ -28,14 +28,16 @@
     </div>
   </div>
   <div style="margin-top: 20px;">
-    <div class="strong" [innerHTML]="questionForAttorney"></div>
+    <div>{{ questionForAttorney }} </div>
     <div class="form-check form-check-inline">
       <input class="input-lg form-check-input"
              name="authorizedByAttorney"
              [(ngModel)] = "application.authorizedByAttorney"
              (ngModelChange) = "handleAuthorizedByAttorney($event)"
              id="authByAttorney" type="checkbox">
-      <label class="form-check-label" for="authByAttorney" [innerHTML]="'Yes, I have Power of Attorney or another legal representation agreement'"></label>
+      <!-- <label class="form-check-label" for="authByAttorney" [innerHTML]="'Yes, I have Power of Attorney or another legal representation agreement'"></label> -->
+      <label class="form-check-label" for="authByAttorney">I have Power of Attorney or another legal representation agreement</label>
+
     </div>
   </div>
   <div *ngIf="application.authorizedByAttorney">

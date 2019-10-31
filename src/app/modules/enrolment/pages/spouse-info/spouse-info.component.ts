@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
-import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { PageStateService } from '../../../../services/page-state.service';
-import { Relationship } from '../../../../models/relationship.enum';
 import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';
-import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+import { EnrolDataService } from '../../services/enrol-data.service';
+import { Enrollee } from '../../models/enrollee';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -20,21 +18,20 @@ export class SpouseInfoComponent extends EnrolForm {
   nameChangeDocList = nameChangeSupportDocuments();
 
   constructor( protected router: Router,
-               protected dataService: MspDataService,
+               protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService ) {
-    super( dataService, pageStateService, router );
+    super( enrolDataService, pageStateService, router );
   }
 
   /**
    * Check if applicant has a spouse, used to enable/disable "add spouse" button
    */
   get hasSpouse(): boolean{
-    return this.spouse ? true : false;
+    return this.mspApplication.hasSpouse();
   }
 
   addSpouse() {
-    const sp: MspPerson = new MspPerson(Relationship.Spouse);
-    this.mspApplication.addSpouse(sp);
+    this.mspApplication.addSpouse();
   }
 
   /**
@@ -44,7 +41,7 @@ export class SpouseInfoComponent extends EnrolForm {
     this.mspApplication.removeSpouse();
   }
 
-  get spouse(): MspPerson {
+  get spouse(): Enrollee {
     return this.mspApplication.spouse;
   }
 
@@ -87,10 +84,6 @@ export class SpouseInfoComponent extends EnrolForm {
              ( this.spouse.hasNameChange && this.hasNameDocuments ))); // name change requires documentation
   }
 
-  get isTemporaryResident() {
-    return this.spouse.status === StatusInCanada.TemporaryResident;
-  }
-
   continue() {
     this._nextUrl = ROUTES_ENROL.CHILD_INFO.fullpath;
     this._canContinue = this.canContinue();
@@ -105,7 +98,7 @@ export class SpouseInfoComponent extends EnrolForm {
       valid = super.canContinue() && this.hasStatusDocuments;
 
       // If not temporary resident needs to have moved permenently to BC
-      if ( !this.isTemporaryResident ) {
+      if ( !this.spouse.isTemporaryResident ) {
         valid = valid && this.spouse.madePermanentMoveToBC;
       }
 

@@ -9,14 +9,18 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 import { BaseComponent } from '../../../../models/base.component';
 
+
+// TODO: Should be replaced by common-date
 @Component({
   selector: 'msp-birthdate',
   template: `
       <common-date
+        name="dob_{{objectId}}"
         [label]="dateLabel"
         [restrictDate]="'past'"
-        [(date)]="person.dateOfBirth"
+        [(ngModel)]="person.dateOfBirth"
         (dateChange)="handleChanges($event)"
+        required
       ></common-date>
   `,
   styleUrls: ['./birthdate.component.scss']
@@ -39,27 +43,7 @@ export class MspBirthDateComponent extends BaseComponent {
   }
 
     handleChanges(date) {
-        if (this.person.dateOfBirth) {
-            if (this.person.dateOfBirth.month) {
-                this.person.dob_month = this.person.dateOfBirth.month;
-            }
-            if (this.person.dateOfBirth.day) {
-                this.person.dob_day = this.person.dateOfBirth.day;
-            }
-            if (this.person.dateOfBirth.year) {
-                this.person.dob_year = this.person.dateOfBirth.year;
-            }
-        }
-
 
         this.onChange.emit(date);
     }
-
-  ngAfterViewInit(): void {
-    this.person.dateOfBirth = {
-      year: this.person.dob_year,
-      month: this.person.dob_month,
-      day: this.person.dob_day
-    };
-  }
 }

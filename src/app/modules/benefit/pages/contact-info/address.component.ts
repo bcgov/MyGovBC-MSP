@@ -75,7 +75,7 @@ export class BenefitAddressComponent extends BaseComponent {
   canContinue(){
     const phonepattern =  '^[2-9]([0-9]{9})$';
     const regEx = new RegExp(phonepattern);
-    console.log(regEx.test(this.mspApplication.phoneNumber));
+    console.log({test: regEx.test(this.mspApplication.phoneNumber), phone: this.mspApplication.phoneNumber});
     return this.isAllValid();
   }
 

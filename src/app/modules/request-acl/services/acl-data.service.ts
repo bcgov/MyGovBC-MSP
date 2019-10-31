@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseMspDataService } from '../../../services/base-msp-data.service';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { AclApplication } from '../model/acl-application.model';
-import AclDto from '../model/acl.dto';
+import { AclDto } from '../model/acl.dto';
 import { EnrolmentMembership } from '../model/enrolment-membership.enum';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { EnrolmentMembership } from '../model/enrolment-membership.enum';
 })
 export class AclDataService extends BaseMspDataService {
 
-  private _storageKey: string = 'acl-app'; // TODO: set back to account-letter when original files removed
+  protected _storageKey: string = 'acl-app'; // TODO: set back to account-letter when original files removed
 
   application: AclApplication;
 
@@ -36,7 +36,11 @@ export class AclDataService extends BaseMspDataService {
 
     dto.infoCollectionAgreement = input.infoCollectionAgreement;
     dto.accountHolderPhn = input.accountHolderPhn;
-    dto.accountHolderDob = input.accountHolderDob;
+
+    // Date exists convert date to milliseconds since January 1, 1970, 00:00:00 UTC
+
+    dto.accountHolderDob = input.accountHolderDob ? Date.parse( input.accountHolderDob.toString() ) : undefined;
+
     dto.postalCode = input.postalCode;
     dto.enrolmentMembership = input.enrolmentMembership;
 
@@ -52,7 +56,9 @@ export class AclDataService extends BaseMspDataService {
 
     output.infoCollectionAgreement = dto.infoCollectionAgreement;
     output.accountHolderPhn = dto.accountHolderPhn;
-    output.accountHolderDob = dto.accountHolderDob;
+
+    output.accountHolderDob = isNaN( dto.accountHolderDob ) ? undefined : new Date( dto.accountHolderDob );
+
     output.postalCode = dto.postalCode;
     output.enrolmentMembership = dto.enrolmentMembership;
     output.specificMemberPhn = dto.specificMemberPhn;

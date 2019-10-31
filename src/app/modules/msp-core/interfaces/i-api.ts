@@ -98,7 +98,7 @@ export interface OutsideBCType {
   beenOutsideBCMoreThan: string;
   departureDate?: string;
   destination?: string;
-  familyMemeberReason?: string;
+  familyMemberReason?: string;
   returnDate?: string;
 }
 

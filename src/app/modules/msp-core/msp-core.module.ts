@@ -12,25 +12,24 @@ import { MspImageErrorModalComponent } from './components/image-error-modal/imag
 import { TransmissionErrorView } from '../../components/msp/common/transmission-error-view/transmission-error-view.component';
 import { MspConsentModalComponent } from './components/consent-modal/consent-modal.component';
 import { MspCancelComponent } from '../../components/msp/common/cancel/cancel.component';
-import { MspToggleComponent } from '../../components/msp/common/toggle/toggle.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalModule, AccordionModule, TypeaheadModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { MspPersonCardComponent } from './components/person-card/person-card.component';
-import { MspContactCardComponent } from './components/contact-card/contact-card.component';
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
 import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { CoreContactInfoComponent } from './components/core-contact-info/core-contact-info.component';
-
+import { ReviewCardComponent } from './components/review-card/review-card.component';
+import { MspContactCardComponent } from './components/contact-card/contact-card.component';
 
 // New components - use common library
 import { CanadianStatusComponent } from './components/canadian-status/canadian-status.component';
 import { SupportDocumentsComponent } from './components/support-documents/support-documents.component';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
+import { MovingInformationComponent } from './components/moving-information/moving-information.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -40,16 +39,20 @@ const componentList = [
   MspAddressCardPartComponent,
   ReviewPartComponent,
   ConfirmationComponent,
-  CoreContactInfoComponent,
   MspPersonCardComponent,
+  ReviewCardWrapperComponent,
+  MspConsentModalComponent,
+  ReviewCardComponent,
+  MspContactCardComponent,
 
   // New components
   CanadianStatusComponent,
   SupportDocumentsComponent,
   PersonalInformationComponent,
+  MovingInformationComponent
 
   // Directives
-  ReviewCardWrapperComponent,
+
 ];
 
 // TODO: Review to determine whether these should be replace with moh-common-lib
@@ -58,10 +61,7 @@ const componentList = [
 const templistCore = [
   // General
   TransmissionErrorView,
-  MspConsentModalComponent,
-  MspCancelComponent,
-  MspToggleComponent,
-  MspContactCardComponent,
+  MspCancelComponent
 ];
 @NgModule({
   imports: [

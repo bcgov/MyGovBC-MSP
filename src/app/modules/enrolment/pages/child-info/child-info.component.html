@@ -21,7 +21,7 @@
       <div *ngFor="let child of children; let idx = index">
         <msp-canadian-status [person]="child"
                              label="{{statusLabel}}"
-                             [displayStatusInCanada]="displayStatusOpt(idx)">
+                             [displayStatusInCanada]="displayStatusOpt(child)">
           <div sectionTitleInfo>
             <h2>Child #{{idx + 1}}</h2>
             <p class="border-bottom">
@@ -33,7 +33,8 @@
               <div class="form-group p-sm-2">
                 <common-radio name="AgeCategory_{{idx}}"
                               id="AgeCategory_{{idx}}"
-                              [(ngModel)]="child.relationship" 
+                              [ngModel]="child.relationship"
+                              (ngModelChange)="relationship($event, child)" 
                               label="How old is your child?" 
                               [radioLabels]="childAgeCategory"
                               required>
@@ -43,7 +44,7 @@
           </div>
         </msp-canadian-status>
   
-        <msp-support-documents *ngIf="hasStatus(idx)"
+        <msp-support-documents *ngIf="hasStatus(child)"
                                [canadianStatus]="child.status"
                                [statusReason]="child.currentActivity"
                                [supportDoc]="child.documents"
@@ -68,7 +69,7 @@
           </div>
         </msp-support-documents>
   
-        <msp-support-documents *ngIf="requestNameChangeInfo(idx)"
+        <msp-support-documents *ngIf="requestNameChangeInfo(child)"
                               [supportDocList]="nameChangeDocList"
                               [(supportDoc)]="child.nameChangeDocs">
           <div sectionTitleInfo> 
@@ -79,7 +80,7 @@
           </div>
         </msp-support-documents>
   
-        <div *ngIf="requestPersonalInfo(idx)">
+        <div *ngIf="requestPersonalInfo(child)">
           <msp-personal-information [person]="child">
             <div sectionTitleInfo>
               <h3>Child's Information</h3>
@@ -98,7 +99,7 @@
             </div>         
           </msp-moving-information>
   
-          <div *ngIf="isOveragedChild(idx)">
+          <div *ngIf="child.isOveragedChild">
             <h2>School Information</h2>
             <p class="border-bottom">
               Enter information of the school that this child is attending (must be in full-time attendance)
@@ -130,23 +131,25 @@
                 </common-address>
               </div>
   
+              <!--TODO: dateRangeEnd - today or completion date -->
               <div class="form-group col-sm-6 pl-0">
-                <common-date label="Original departure date from B.C. (if school is outside B.C.)"
-                             [(date)]="child.studiesDepartureSimple"
+                <common-date name="schoolDepartureDate__{{objectId}}"
+                             label="Original departure date from B.C. (if school is outside B.C.)"
+                             [(ngModel)]="child.studiesDepartureDate"
                              [required]="isRequired(child)"
+                             [restrictDate]="'past'"
                              [errorMessages]="schoolDepartureErrMsg">
                 </common-date>
               </div>    
           
               <div class="form-group col-sm-6 pl-0">
-                <common-date label="Expected school completion date"
-                             [(date)]="child.studiesFinishedSimple"
-                             [restrictDate]="'future'"
-                             [errorMessages]="schoolCompletionErrMsg">      
+                <common-date name="completionDate__{{objectId}}"
+                             label="Expected school completion date"
+                             [(ngModel)]="child.studiesFinishedDate"
+                             [dateRangeStart]="completionDateRange(child)"
+                             [errorMessages]="schoolCompletionErrMsg"
+                             required>      
                 </common-date>
-                <common-error-container [displayError]="!isCompletionDateValid(child)">
-                  {{schoolCompletionErrMsg.noPastDatesAllowed}}
-                </common-error-container>
               </div>  
         
               <div class="form-group col-sm-8 pl-0">
@@ -155,7 +158,7 @@
                               label="Will this child reside in B.C. after completing study in this school?" 
                               required>
                 </common-radio>
-                <common-error-container [displayError]="child.inBCafterStudies == false && !isTemporaryResident(idx)">
+                <common-error-container [displayError]="child.inBCafterStudies == false && !isTemporaryResident(child)">
                   To qualify for provincial health care benefits a person must be a resident of 
                   B.C.  As you intend to leave B.C. when your studies are completed, you are not 
                   eligible for Medical Services Plan coverage.  Please contact the health care plan 

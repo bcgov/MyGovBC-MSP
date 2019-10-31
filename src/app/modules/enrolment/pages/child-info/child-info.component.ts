@@ -1,16 +1,15 @@
 import { Router } from '@angular/router';
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { MspDataService } from '../../../../services/msp-data.service';
+import { Component } from '@angular/core';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
-import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../../models/relationship.enum';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { EnrolForm } from '../../models/enrol-form';
 import { BRITISH_COLUMBIA, ErrorMessage } from 'moh-common-lib';
-import * as moment_ from 'moment';
-const moment = moment_;
+import { EnrolDataService } from '../../services/enrol-data.service';
+import { Enrollee } from '../../models/enrollee';
+import { startOfToday } from 'date-fns';
 
 @Component({
   selector: 'msp-child-info',
@@ -32,7 +31,8 @@ export class ChildInfoComponent extends EnrolForm {
     dayOutOfRange: 'This does not appear to be a valid date.',
     noFutureDatesAllowed: 'This does not appear to be a valid date.',
     yearDistantFuture: 'This does not appear to be a valid date.',
-    yearDistantPast: 'This does not appear to be a valid date.'
+    yearDistantPast: 'This does not appear to be a valid date.',
+    invalidRange: 'This does not appear to be a valid date, Expected school completion cannot be in the past'
   };
 
   schoolDepartureErrMsg: ErrorMessage = {
@@ -46,17 +46,19 @@ export class ChildInfoComponent extends EnrolForm {
 
   nameChangeDocList = nameChangeSupportDocuments();
 
-  constructor( protected dataService: MspDataService,
+  private _today = startOfToday();
+
+  constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
-    super( dataService, pageStateService, router );
+    super( enrolDataService, pageStateService, router );
   }
 
   addChild(): void {
     this.mspApplication.addChild(Relationship.Unknown);
   }
 
-  get children(): MspPerson[] {
+  get children(): Enrollee[] {
     return this.mspApplication.children;
   }
 
@@ -64,67 +66,47 @@ export class ChildInfoComponent extends EnrolForm {
     this.mspApplication.removeChild(idx);
   }
 
-  displayStatusOpt(idx: number): boolean {
-    return this.children[idx].relationship !== Relationship.Unknown;
+  displayStatusOpt(child: Enrollee): boolean {
+    return child.relationship !== Relationship.Unknown;
   }
 
-  statusDocUpdate($event, idx: number) {
-    this.children[idx].documents = $event;
+  statusDocUpdate($event, child: Enrollee ) {
+    child.documents = $event;
 
-    if ( this.children[idx].documents && this.children[idx].documents.images.length === 0 ) {
+    if ( child.documents && child.documents.images.length === 0 ) {
       // no status documents remove any name documents
-      this.children[idx].nameChangeDocs.documentType = null;
-      this.children[idx].nameChangeDocs.images = [];
+      child.nameChangeDocs.documentType = null;
+      child.nameChangeDocs.images = [];
     }
   }
 
-  hasStatus( idx: number ) {
+  hasStatus( child: Enrollee) {
     // Has to have values
-    return this.children[idx].status !== undefined &&
-           this.children[idx].currentActivity !== undefined;
+    return child.status !== undefined && child.currentActivity !== undefined;
   }
 
-  hasStatusDocuments( idx: number ): boolean {
-    return this.children[idx].documents.images && this.children[idx].documents.images.length > 0;
+  hasStatusDocuments( child: Enrollee ): boolean {
+    return child.documents.images && child.documents.images.length > 0;
   }
 
-  requestNameChangeInfo( idx: number ) {
-    return this.hasStatus( idx ) &&
-           this.children[idx].hasNameChange &&
-           this.hasStatusDocuments( idx );
+  requestNameChangeInfo( child: Enrollee ) {
+    return this.hasStatus( child ) &&
+           child.hasNameChange &&
+           this.hasStatusDocuments( child );
   }
 
-  isOveragedChild( idx: number ) {
-    return this.children[idx].relationship === Relationship.Child19To24;
+  relationship( $event, child: Enrollee ) {
+    child.relationship = $event;
+    child.fullTimeStudent = ( child.relationship === Relationship.Child19To24 ) ? true : false;
   }
 
-  isRequired(child: MspPerson ) {
+  isRequired(child: Enrollee ) {
     return child.schoolAddress.province !== BRITISH_COLUMBIA ? true : false;
-  }
-
-  isCompletionDateValid( child: MspPerson ) {
-    const completionDt = Object.keys(child.studiesFinishedSimple).filter( x => child.studiesFinishedSimple[x] );
-    const departureDt = Object.keys(child.studiesDepartureSimple).filter( x => child.studiesDepartureSimple[x] );
-
-    if ( completionDt.length === 3 && departureDt.length === 3 ) {
-      const diff =  moment( {
-        year: child.studiesFinishedSimple.year,
-        month: child.studiesFinishedSimple.month - 1,
-        day: child.studiesFinishedSimple.day
-      }).diff( moment({
-        year: child.studiesDepartureSimple.year,
-        month: child.studiesDepartureSimple.month - 1,
-        day: child.studiesDepartureSimple.day
-      }), 'days', true );
-      return diff >= -1;
-    }
-    return true;
   }
 
   continue() {
     this._nextUrl = ROUTES_ENROL.CONTACT.fullpath;
     this._canContinue = this.canContinue();
-    console.log( 'form: ', this.form );
     super.continue();
   }
 
@@ -156,40 +138,21 @@ export class ChildInfoComponent extends EnrolForm {
     return valid;
   }
 
-  setRelationship( $event, idx: number ) {
-    this.children[idx].relationship = Number($event);
-    if ( this.children[idx].relationship === Relationship.Child19To24 ) {
-      this.children[idx].fullTimeStudent = true;
-    }
+  hasNameDocuments( child: Enrollee  ): boolean {
+    return child.nameChangeDocs.images && child.nameChangeDocs.images.length > 0;
   }
 
-  hasNameDocuments( idx: number ): boolean {
-    return this.children[idx].nameChangeDocs.images && this.children[idx].nameChangeDocs.images.length > 0;
+  requestPersonalInfo( child: Enrollee ): boolean {
+    return !!( this.hasStatus( child ) && this.hasStatusDocuments( child ) &&
+             ( child.hasNameChange === false || // No name change
+             ( child.hasNameChange && this.hasNameDocuments( child ) ))); // name change requires documentation
   }
 
-  requestPersonalInfo( idx: number ): boolean {
-    return !!( this.hasStatus( idx ) && this.hasStatusDocuments( idx ) &&
-             ( this.children[idx].hasNameChange === false || // No name change
-             ( this.children[idx].hasNameChange && this.hasNameDocuments( idx ) ))); // name change requires documentation
+  isTemporaryResident( child: Enrollee ) {
+    return child.status === StatusInCanada.TemporaryResident;
   }
 
-  isTemporaryResident(idx: number) {
-    return this.children[idx].status === StatusInCanada.TemporaryResident;
+  completionDateRange( child: Enrollee ){
+    return child.departureDateForSchool ? child.departureDateForSchool : this._today;
   }
-
-
-
-
-
-
-  checkAnyDependentsIneligible(): boolean {
-    const target = [...this.dataService.mspApplication.children];
-    return target.filter(x => x)
-        .filter(x => x.ineligibleForMSP).length >= 1;
-  }
-
-  documentsReady(): boolean {
-    return this.dataService.mspApplication.childDocumentsReady;
-  }
-
 }

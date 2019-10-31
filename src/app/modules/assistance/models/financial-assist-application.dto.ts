@@ -1,9 +1,9 @@
-import AddressDto from '../../../models/address.dto';
-import PersonDto from '../../../components/msp/model/msp-person.dto';
-import {AssistanceYear} from './assistance-year.model';
+import { AddressDto } from '../../../models/address.dto';
+import { PersonDto } from '../../../components/msp/model/msp-person.dto';
+import { AssistanceYear } from './assistance-year.model';
 import { CommonImage } from 'moh-common-lib';
 
-export default class FinancialAssistApplicationDto {
+export class FinancialAssistApplicationDto {
   infoCollectionAgreement: boolean;
   incomeLine236: number;
   ageOver65: boolean;

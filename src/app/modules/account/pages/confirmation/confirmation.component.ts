@@ -60,6 +60,6 @@ export class AccountConfirmationComponent implements OnDestroy {
      * @returns {string}
      */
     get dateStamp(): string {
-        return moment().format('MMMM DD, YYYY');
+        return moment().format('MMMM dd, yyyy');
     }
 }

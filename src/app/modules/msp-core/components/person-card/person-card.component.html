@@ -1,417 +1,405 @@
+<h2 *ngIf="!customTitle">{{lang('./en/index.js').relationshipLabel[person.relationship]}}
+  {{lang('./en/index.js').cardSuffix}}
+  <i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editPersonalInfo()"></i>
 
-
-<!-- <h2 *ngIf="!customTitle" [innerHtml]="((person.operationActionType !=null ||person.operationActionType !=undefined)  ? lang('./en/index.js').actionTypeLabel[person.operationActionType]:'') + lang('./en/index.js').relationshipLabel[person.relationship] +
-    ' ' + lang('./en/index.js').cardSuffix"><i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editPersonalInfo()"></i>
-    
-</h2>-->
-<h2 *ngIf="!customTitle" >{{lang('./en/index.js').relationshipLabel[person.relationship]}}  {{lang('./en/index.js').cardSuffix}} 
-    <i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editPersonalInfo()"></i>
-    
 </h2>
 
 <h2 *ngIf="customTitle">{{customTitle}} </h2>
 
-              
+
 <div class="card panel-default">
-    
-    <div class="card-body">
-        
-        <div class="row" *ngIf="person.hasFullName">
 
-            <div class="col-sm-4">
-                <label for="">{{lang('./en/index.js').nameLabel}}
-                       
-                </label>
-            </div>
-            <div class="col-sm-8">
-                <span id="{{person.uuid}}-{{person.relationship}}-fullname"><strong>{{person.fullName}}</strong></span>
-            </div>
-        </div>
+  <div class="card-body">
 
-        <div class="row" *ngIf="person.gender">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').genderLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{lang('./en/index.js').genderValues[person.gender]}}</strong>
-            </div>
-        </div>
+    <div class="row" *ngIf="person.hasFullName">
 
-        <div class="row" *ngIf="person.hasDob">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').dobLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.dob.format(dateFormat)}}</strong>
-            </div>
-        </div>
+      <div class="col-sm-4">
+        <label for="">{{lang('./en/index.js').nameLabel}}
 
+        </label>
+      </div>
+      <div class="col-sm-8">
+        <span id="{{person.uuid}}-{{person.relationship}}-fullname"><strong>{{person.fullName}}</strong></span>
+      </div>
+    </div>
 
-      <div class="row" *ngIf="person.status!=null">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').statusLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>
-                    {{status[person.status]}}
-                    <span *ngIf="person.currentActivity">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        {{statusReason[person.currentActivity]}}
-                    </span>
-                </strong>
-            </div>
-        </div>
+    <div class="row" *ngIf="person.gender">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').genderLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{lang('./en/index.js').genderValues[person.gender]}}</strong>
+      </div>
+    </div>
 
-        <div class="row" *ngIf="person.livedInBCSinceBirth">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').livedInBCSinceBirth}}
-            </div>
-            <div class="col-sm-8">
-                <strong *ngIf="person.livedInBCSinceBirth">Yes</strong>
-                <strong *ngIf="!person.livedInBCSinceBirth">No</strong>
-            </div>
-        </div>
-
-        <div class="row" *ngIf="person.healthNumberFromOtherProvince">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').previousHealthNumberLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.healthNumberFromOtherProvince}}</strong>
-            </div>
-        </div>
-
-        <div class="row" *ngIf="person.previous_phn">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').personalHealthNumberLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.previous_phn}}</strong>
-            </div>
-        </div>
-
-        <div class="row" *ngIf="person.sin">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').sinNumberLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.sin}}</strong>
-            </div>
-        </div>
-
-        <!-- Only for spouse-->
-        <div class="row" *ngIf="person.prevLastName && person.relationship==1">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').prevLastNameLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.prevLastName}}</strong>
-            </div>
-        </div>
-
-        <div class="row" *ngIf="hasMarriageDate">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').marriageDateLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{formatDateField(person.marriageDate)}}</strong>
-            </div>
-        </div>
+    <div class="row" *ngIf="person.hasDob">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').dobLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{formatDateField( this.person.dob )}}</strong>
+      </div>
+    </div>
 
 
-        <!-- DEAM has address for every person..Account holder has address..Cancellation comes with Address -->
-        <msp-address-card-part [address]="person.residentialAddress" *ngIf="accountCard"
-                               [label]="lang('./en/index.js').residentialAddressLabel"></msp-address-card-part>
+    <div class="row" *ngIf="person.status!=null">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').statusLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>
+          {{status[person.status]}}
+          <span *ngIf="person.currentActivity">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+            {{statusReason[person.currentActivity]}}
+          </span>
+        </strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.livedInBCSinceBirth">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').livedInBCSinceBirth}}
+      </div>
+      <div class="col-sm-8">
+        <strong *ngIf="person.livedInBCSinceBirth">Yes</strong>
+        <strong *ngIf="!person.livedInBCSinceBirth">No</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.healthNumberFromOtherProvince">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').previousHealthNumberLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.healthNumberFromOtherProvince}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.previous_phn">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').personalHealthNumberLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.previous_phn}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.sin">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').sinNumberLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.sin}}</strong>
+      </div>
+    </div>
+
+    <!-- Only for spouse-->
+    <div class="row" *ngIf="person.prevLastName && person.relationship==1">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').prevLastNameLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.prevLastName}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="hasMarriageDate">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').marriageDateLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{formatDateField(person.marriageDate)}}</strong>
+      </div>
+    </div>
 
 
-        <msp-address-card-part [address]="person.mailingAddress" *ngIf="accountCard"
-                               [label]="lang('./en/index.js').mailingAddressLabel"></msp-address-card-part>
+    <!-- DEAM has address for every person..Account holder has address..Cancellation comes with Address -->
+    <msp-address-card-part [address]="person.residentialAddress" *ngIf="accountCard"
+      [label]="lang('./en/index.js').residentialAddressLabel"></msp-address-card-part>
 
 
-        <div class="row" *ngIf="person.phoneNumber && accountCard" >
+    <msp-address-card-part [address]="person.mailingAddress" *ngIf="accountCard"
+      [label]="lang('./en/index.js').mailingAddressLabel"></msp-address-card-part>
+
+
+    <div class="row" *ngIf="person.phoneNumber && accountCard">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').phoneLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.phoneNumber}}</strong>
+      </div>
+
+    </div>
+
+    <!-- Only for removals -->
+    <div class="row" *ngIf="person.reasonForCancellation && person.operationActionType == 1 ">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').reasonForCancellationLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.reasonForCancellation}}</strong>
+      </div>
+    </div>
+    <div class="row" *ngIf="person.cancellationDate && person.operationActionType == 1">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').cancellationDateLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.getCancellationDateInMoment().format(dateFormat)}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.newlyAdopted">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').newlyAdoptedLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.newlyAdopted ? "Yes": "No"}}</strong>
+      </div>
+    </div>
+
+
+    <div class="row" *ngIf="person.newlyAdopted">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').dateAdoptedLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.getAdoptedDateInMoment().format(dateFormat)}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.hasArrivalToBC">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').arrivedToBCLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.arrivalToBC.format(dateFormat)}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.hasArrivalToCanada">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').arrivedToCanadaLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.arrivalToCanada.format(dateFormat)}}</strong>
+      </div>
+    </div>
+    <div class="row" *ngIf="person.declarationForOutsideOver30Days">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').outsideBCLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.declarationForOutsideOver30Days ? "Yes": "No"}}</strong>
+      </div>
+    </div>
+    <div *ngIf="person.departureReason">
+      <div class="row">
         <div class="col-sm-4">
-                {{lang('./en/index.js').phoneLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.phoneNumber}}</strong>
-            </div>
-
+          {{lang('./en/index.js').outsideBCReasonLabel}}
         </div>
-
-        <!-- Only for removals -->
-        <div class="row" *ngIf="person.reasonForCancellation && person.operationActionType == 1 " >
-            <div class="col-sm-4">
-                {{lang('./en/index.js').reasonForCancellationLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.reasonForCancellation}}</strong>
-            </div>
+        <div class="col-sm-8">
+          <strong>{{person.departureReason}}</strong>
         </div>
-        <div class="row" *ngIf="person.cancellationDate && person.operationActionType == 1">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').cancellationDateLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.getCancellationDateInMoment().format(dateFormat)}}</strong>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          {{lang('./en/index.js').outsideBCLocationLabel}}
         </div>
-
-        <div class="row" *ngIf="person.newlyAdopted">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').newlyAdoptedLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.newlyAdopted ? "Yes": "No"}}</strong>
-            </div>
+        <div class="col-sm-8">
+          <strong>{{person.departureDestination}}</strong>
         </div>
-
-
-        <div class="row" *ngIf="person.newlyAdopted">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').dateAdoptedLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.getAdoptedDateInMoment().format(dateFormat)}}</strong>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          {{lang('./en/index.js').outsideBCDepartureDateLabel}}
         </div>
-
-        <div class="row" *ngIf="person.hasArrivalToBC">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').arrivedToBCLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.arrivalToBC.format(dateFormat)}}</strong>
-            </div>
+        <div class="col-sm-8">
+          <strong>{{formatDateField(person.departureDate)}}</strong>
         </div>
-
-        <div class="row" *ngIf="person.hasArrivalToCanada">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').arrivedToCanadaLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.arrivalToCanada.format(dateFormat)}}</strong>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          {{lang('./en/index.js').outsideBCReturnDateLabel}}
         </div>
-        <div class="row" *ngIf="person.declarationForOutsideOver30Days">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').outsideBCLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.declarationForOutsideOver30Days ? "Yes": "No"}}</strong>
-            </div>
+        <div class="col-sm-8">
+          <strong>{{formatDateField(person.returnDate)}}</strong>
         </div>
-        <div *ngIf="person.departureReason">
-            <div class="row">
-                <div class="col-sm-4">
-                    {{lang('./en/index.js').outsideBCReasonLabel}}
-                </div>
-                <div class="col-sm-8">
-                    <strong>{{person.departureReason}}</strong>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    {{lang('./en/index.js').outsideBCLocationLabel}}
-                </div>
-                <div class="col-sm-8">
-                    <strong>{{person.departureDestination}}</strong>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    {{lang('./en/index.js').outsideBCDepartureDateLabel}}
-                </div>
-                <div class="col-sm-8">
-                    <strong>{{formatDateField(person.departureDate)}}</strong>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    {{lang('./en/index.js').outsideBCReturnDateLabel}}
-                </div>
-                <div class="col-sm-8">
-                    <strong>{{formatDateField(person.returnDate)}}</strong>
-                </div>
-            </div>
+      </div>
+    </div>
+
+    <!-- DEAM has extra question for future absense for next 6 months -->
+
+
+    <div class="row" *ngIf="person.plannedAbsence">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').outsideBCFutureLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.plannedAbsence ? "Yes": "No"}}</strong>
+      </div>
+    </div>
+    <div *ngIf="person.planOnBeingOutOfBCRecord">
+      <div class="row">
+        <div class="col-sm-4">
+          {{lang('./en/index.js').outsideBCReasonLabel}}
         </div>
-
-        <!-- DEAM has extra question for future absense for next 6 months -->
-
-
-        <div class="row" *ngIf="person.plannedAbsence">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').outsideBCFutureLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.plannedAbsence ? "Yes": "No"}}</strong>
-            </div>
+        <div class="col-sm-8">
+          <strong>{{person.planOnBeingOutOfBCRecord.reason}}</strong>
         </div>
-        <div *ngIf="person.planOnBeingOutOfBCRecord">
-            <div class="row">
-                <div class="col-sm-4">
-                    {{lang('./en/index.js').outsideBCReasonLabel}}
-                </div>
-                <div class="col-sm-8">
-                    <strong>{{person.planOnBeingOutOfBCRecord.reason}}</strong>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    {{lang('./en/index.js').outsideBCLocationLabel}}
-                </div>
-                <div class="col-sm-8">
-                    <strong>{{person.planOnBeingOutOfBCRecord.location}}</strong>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    {{lang('./en/index.js').outsideBCDepartureDateLabel}}
-                </div>
-                <div class="col-sm-8">
-                    <strong>{{person.planOnBeingOutOfBCRecord.departureDate.format(dateFormat)}}</strong>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    {{lang('./en/index.js').outsideBCReturnDateLabel}}
-                </div>
-                <div class="col-sm-8">
-                    <strong>{{person.planOnBeingOutOfBCRecord.returnDate.format(dateFormat)}}</strong>
-                </div>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          {{lang('./en/index.js').outsideBCLocationLabel}}
         </div>
-
-
-
-        <div class="row" *ngIf="person.movedFromProvinceOrCountry">
-            <div class="col-sm-4">
-                {{movedFromLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{movedFromProvinceOrCountry}}</strong>
-            </div>
+        <div class="col-sm-8">
+          <strong>{{person.planOnBeingOutOfBCRecord.location}}</strong>
         </div>
-
-        <div class="row" *ngIf="person.fullTimeStudent">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').fullTimeStudentLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.fullTimeStudent ? "Yes": "No"}}</strong>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          {{lang('./en/index.js').outsideBCDepartureDateLabel}}
         </div>
-
-        <div class="row" *ngIf="person.inBCafterStudies">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').inBCafterStudiesLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.inBCafterStudies ? "Yes": "No"}}</strong>
-            </div>
+        <div class="col-sm-8">
+          <strong>{{person.planOnBeingOutOfBCRecord.departureDate.format(dateFormat)}}</strong>
         </div>
-        <!-- DEAM uses a boolean to store Armed forced questions Answer. -->
-               <div class="row" *ngIf="person.hasBeenReleasedFromArmedForces">
-                   <div class="col-sm-4">
-                       {{lang('./en/index.js').institutionWorkHistoryLabel}}
-                   </div>
-                   <div class="col-sm-8">
-                       <strong>{{person.hasBeenReleasedFromArmedForces ? "Yes": "No"}}</strong>
-                   </div>
-               </div>
-
-               <div class="row" *ngIf="person.institutionWorkHistory" >
-                   <div class="col-sm-4">
-                       {{lang('./en/index.js').institutionWorkHistoryLabel}}
-                   </div>
-                   <div class="col-sm-8">
-                       <strong>{{lang('./en/index.js').institutionWorkHistoryValues[person.institutionWorkHistory]}}</strong>
-                   </div>
-               </div>
-
-              <div class="row" *ngIf="person.nameOfInstitute">
-                   <div class="col-sm-4">
-                       {{lang('./en/index.js').nameOfInstituteLabel}}
-                   </div>
-                   <div class="col-sm-8">
-                       <strong>{{person.nameOfInstitute}}</strong>
-                   </div>
-               </div>
-               <div class="row" *ngIf="person.hasDischarge">
-                   <div class="col-sm-4">
-                       {{lang('./en/index.js').dischargeDateLabel}}
-                   </div>
-                   <div class="col-sm-8">
-                       <strong>{{person.dischargeDate.format(dateFormat)}}</strong>
-                   </div>
-               </div>
-
-
-
-               <div class="row" *ngIf="person.schoolName">
-                   <div class="col-sm-4">
-                       {{lang('./en/index.js').schoolNameLabel}}
-                   </div>
-                   <div class="col-sm-8">
-                       <strong>{{person.schoolName}}</strong>
-                   </div>
-               </div>
-
-        <div class="row" *ngIf="person.hasStudiesBegin">
-            <div class="col-sm-4">
-                {{lang('./en/index.js').dateStuduesBeginLabel}}
-            </div>
-            <div class="col-sm-8">
-                <strong>{{person.studiesBeginDate.format(dateFormat)}}</strong>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          {{lang('./en/index.js').outsideBCReturnDateLabel}}
         </div>
+        <div class="col-sm-8">
+          <strong>{{person.planOnBeingOutOfBCRecord.returnDate.format(dateFormat)}}</strong>
+        </div>
+      </div>
+    </div>
 
-               <div class="row" *ngIf="person.hasStudiesFinished">
-                   <div class="col-sm-4">
-                       {{lang('./en/index.js').studiesFinishedLabel}}
-                   </div>
-                   <div class="col-sm-8">
-                       <strong>{{person.studiesFinishedDate.format(dateFormat)}}</strong>
-                   </div>
-               </div>
-               <div class="row" *ngIf="person.hasStudiesDeparture">
-                   <div class="col-sm-4">
-                       {{lang('./en/index.js').studiesDepartureLabel}}
-                   </div>
-                   <div class="col-sm-8">
-                       <strong>{{person.studiesDepartureDate.format(dateFormat)}}</strong>
-                   </div>
-               </div>
-               <div class="row" *ngIf="person.assistYearDocs.length > 0">
-                    <div class="col-sm-4">
-                        Documents
-                    </div>
-                    <div class="col-sm-8">
-                        <strong>{{person.assistYearDocs.length}} {{fileLabel}}</strong>
-                    </div>
-                </div>
-                <div class="row" *ngIf="person.documents.images.length > 0">
-                    <div class="col-sm-4">
-                        Documents
-                    </div>
-                    <div class="col-sm-8" *ngIf="person.documents.images.length == 1">
-                        <strong>{{person.documents.images.length}} file</strong>
-                    </div>
-                    <div class="col-sm-8" *ngIf="person.documents.images.length > 1">
-                        <strong>{{person.documents.images.length}} files</strong>
-                    </div>
-                </div>
-                <!--<div *ngIf= "person.assistYearDocs.length < 2">File</div><div *ngIf= "person.assistYearDocs.length > 1">Files</div> -->
-               <msp-address-card-part [address]="person.schoolAddress"
-                                      [label]="lang('./en/index.js').schoolAddressLabel"></msp-address-card-part>
-               <div class="person-card-preview-zone">
-                   <div *ngFor="let mspImage of person.documents.images" class="preview-item">
-                       <common-thumbnail [imageObject]="mspImage" [reviewMode]="true">
-                       </common-thumbnail>
-                   </div>
-               </div> 
-            <!--              <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
-                       [innerHTML]="customLinkTitle?customLinkTitle:lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])"
-                       tabindex="0"> 
-               </button> -->
-           </div>
-       </div>
+
+
+    <div class="row" *ngIf="person.movedFromProvinceOrCountry">
+      <div class="col-sm-4">
+        {{movedFromLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{movedFromProvinceOrCountry}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.fullTimeStudent">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').fullTimeStudentLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.fullTimeStudent ? "Yes": "No"}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.inBCafterStudies">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').inBCafterStudiesLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.inBCafterStudies ? "Yes": "No"}}</strong>
+      </div>
+    </div>
+    <!-- DEAM uses a boolean to store Armed forced questions Answer. -->
+    <div class="row" *ngIf="person.hasBeenReleasedFromArmedForces">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').institutionWorkHistoryLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.hasBeenReleasedFromArmedForces ? "Yes": "No"}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.institutionWorkHistory">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').institutionWorkHistoryLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{lang('./en/index.js').institutionWorkHistoryValues[person.institutionWorkHistory]}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.nameOfInstitute">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').nameOfInstituteLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.nameOfInstitute}}</strong>
+      </div>
+    </div>
+    <div class="row" *ngIf="person.hasDischarge">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').dischargeDateLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.dischargeDate.format(dateFormat)}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.schoolName">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').schoolNameLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.schoolName}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.hasStudiesBegin">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').dateStuduesBeginLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.studiesBeginDate.format(dateFormat)}}</strong>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="person.hasStudiesFinished">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').studiesFinishedLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.studiesFinishedDate.format(dateFormat)}}</strong>
+      </div>
+    </div>
+    <div class="row" *ngIf="person.hasStudiesDeparture">
+      <div class="col-sm-4">
+        {{lang('./en/index.js').studiesDepartureLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.studiesDepartureDate.format(dateFormat)}}</strong>
+      </div>
+    </div>
+    <div class="row" *ngIf="person.assistYearDocs.length > 0">
+      <div class="col-sm-4">
+        Documents
+      </div>
+      <div class="col-sm-8">
+        <strong>{{person.assistYearDocs.length}} {{fileLabel}}</strong>
+      </div>
+    </div>
+    <div class="row" *ngIf="person.documents.images.length > 0">
+      <div class="col-sm-4">
+        Documents
+      </div>
+      <div class="col-sm-8" *ngIf="person.documents.images.length == 1">
+        <strong>{{person.documents.images.length}} file</strong>
+      </div>
+      <div class="col-sm-8" *ngIf="person.documents.images.length > 1">
+        <strong>{{person.documents.images.length}} files</strong>
+      </div>
+    </div>
+    <msp-address-card-part [address]="person.schoolAddress" [label]="lang('./en/index.js').schoolAddressLabel">
+    </msp-address-card-part>
+    <div class="person-card-preview-zone">
+      <div *ngFor="let mspImage of person.documents.images" class="preview-item">
+        <common-thumbnail [imageObject]="mspImage" [reviewMode]="true">
+        </common-thumbnail>
+      </div>
+    </div>
+  </div>
+</div>

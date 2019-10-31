@@ -32,7 +32,6 @@
     </common-error-container>
   </div>
 
-
   <!--Cannot continue if individual has not move to BC permanently, unless he/she is temporary resident-->
   <div *ngIf="canContinueProcess">
     <div *ngIf="requestProvinceMoveInfo; else SelectCountry"
@@ -47,17 +46,24 @@
 
     <div *ngIf="requestArrivalInBCInfo; else NewToBC"
         class="form-group col-sm-6 pl-0">
-        <common-date label="Arrival date in B.C."
-                    [restrictDate]="'past'" 
-                    [(date)]="person.arrivalToBCSimple">
+        <common-date name="arrivalDateToBC__{{objectId}}"
+                     label="Arrival date in B.C."
+                     [dateRangeStart]="startDateRange"
+                     [dateRangeEnd]="today"
+                     [(ngModel)]="person.arrivalToBCDate"
+                     [errorMessages]="recentMoveBCErrorMsg"
+                     required>
         </common-date>
     </div>
 
     <div *ngIf="requestArrivalToCanada" class="form-group col-sm-6 pl-0">
-      <common-date label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
-                  [restrictDate]="'past'" 
-                  [(date)]="person.arrivalToCanadaDate"
-                  [required]="arrivalDateRequired">
+      <common-date name="arrivalDateToCanada__{{objectId}}"
+                   label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
+                   [dateRangeStart]="startDateRange"
+                   [dateRangeEnd]="today"
+                   [(ngModel)]="person.arrivalToCanadaDate"
+                   [required]="arrivalDateRequired"
+                   [errorMessages]="recentMoveCanadaErrorMsg">
       </common-date>
     </div>
 
@@ -74,13 +80,13 @@
     
     <div class="form-group">
       <common-radio name="outsideOver30Days_{{objectId}}"
-                    [(ngModel)]="person.declarationForOutsideOver30Days"  
+                    [(ngModel)]="person.outsideBCFor30Days"  
                     label="Have {{relationship}} been outside B.C. for more than 30 days in total in the past 12 months?" 
                     required>
       </common-radio>
     </div>
 
-    <div *ngIf="person.declarationForOutsideOver30Days" class="ml-4 border-left">
+    <div *ngIf="person.outsideBCFor30Days" class="ml-4 border-left">
        <div class="form-group col-sm-6">
           <label for="departureReason_{{objectId}}" class="control-label">
             Reason for departure
@@ -116,25 +122,25 @@
        </div>
 
        <div class="form-group col-sm-6">
-        <common-date label="{{departureDateLabel}}"
-                     [restrictDate]="'past'" 
-                     [date]="person.departureDate"
-                     (dateChange)="validateDepartureDate($event)">
+        <common-date name="departureDate__{{objectId}}"
+                     label="{{departureDateLabel}}"
+                     [(ngModel)]="person.oopDepartureDate"
+                     [errorMessages]="oopDepartureErrorMsg"
+                     [dateRangeStart]="oopDepartureStartRange"
+                     [dateRangeEnd]="today"
+                     required>
         </common-date>
-        <common-error-container [displayError]="!isValidDepartureDate">
-          {{departureDateError}}
-        </common-error-container>
       </div>
 
       <div class="form-group col-sm-6">
-          <common-date label="{{returnDateLabel}}"
-                       [restrictDate]="'past'" 
-                       [date]="person.returnDate"
-                       (dateChange)="validateReturnDate($event)">
+          <common-date name="returnDate_{{objectId}}"
+                       label="{{returnDateLabel}}"
+                       [(ngModel)]="person.oopReturnDate"
+                       [errorMessages]="oopReturnErrorMsg"
+                       [dateRangeStart]="oopReturnStartRange"
+                       [dateRangeEnd]="today"
+                       required>
           </common-date>
-          <common-error-container [displayError]="!isValidReturnDate">
-            {{returnDateError}}
-          </common-error-container>
         </div>
     </div>
 
@@ -149,7 +155,7 @@
     <div *ngIf="person.hasPreviousBCPhn" class="form-group col-sm-6 ml-4 border-left">
       <common-phn name="previousPhn_{{objectId}}"
                   label="{{isApplicant? 'Your' : 'Their'}} previous B.C. Personal Health Number (optional)"
-                  [(ngModel)]="person.previous_phn"
+                  [(ngModel)]="person.previousBCPhn"
                   commonValidatePhn
                   [allowEmptyValue]="true">
       </common-phn>
@@ -165,10 +171,12 @@
 
     <div *ngIf="person.hasBeenReleasedFromArmedForces" class="form-group p-sm-2 ml-4 border-left">
       <div class="form-group col-sm-6">
-        <common-date label="Discharge date"
-                      [restrictDate]="'past'" 
-                      [(date)]="person.dischargeDateSimple"
-                      required>
+        <common-date name="dischargeDate__{{objectId}}"
+                     label="Discharge date"
+                     [dateRangeStart]="startDateRange"
+                     [dateRangeEnd]="today"
+                     [(ngModel)]="person.dischargeDate"
+                     required>
         </common-date>
       </div>
     </div>
@@ -190,9 +198,13 @@
 
 <ng-template #NewToBC>
   <div *ngIf="requestRecentMoveToBC" class="form-group col-sm-6 pl-0">
-    <common-date label="Most recent move to B.C."
-                 [restrictDate]="'past'" 
-                 [(date)]="person.arrivalToBCSimple">
+    <common-date name="recentMoveToBC__{{objectId}}"
+                 label="Most recent move to B.C."
+                 [dateRangeStart]="startDateRange"
+                 [dateRangeEnd]="today"
+                 [(ngModel)]="person.arrivalToBCDate"
+                 [errorMessages]="recentMoveBCErrorMsg"
+                 required>
     </common-date>
   </div>
 </ng-template>

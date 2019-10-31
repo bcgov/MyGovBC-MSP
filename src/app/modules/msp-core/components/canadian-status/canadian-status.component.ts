@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../models/canadian-status.enum';
 import { Relationship } from '../../../../models/relationship.enum';
 import { Base } from 'moh-common-lib';
@@ -72,6 +71,16 @@ export function getStatusReasonStrings(): string[] {
   return Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
 }
 
+/**
+ * Component requires these fields.
+ * Component Generic as each application could have different requirements for a person
+ */
+export interface ICanadianStatus {
+  status: StatusInCanada;
+  currentActivity: CanadianStatusReason;
+  relationship: Relationship;
+  clearData?(x: any): void;
+}
 
 @Component({
   selector: 'msp-canadian-status',
@@ -85,7 +94,7 @@ export function getStatusReasonStrings(): string[] {
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class CanadianStatusComponent extends Base {
+export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
 
   //List of statuses to be displayed, if not provided, the default uses statusReasonRules().
   @Input() statusReasonList: CanadianStatusReason[];
@@ -95,8 +104,8 @@ export class CanadianStatusComponent extends Base {
   // List of statuses where the status reasons show not be shown
   @Input() hideStatusReasons: StatusInCanada[] = [];
 
-  @Input() person: MspPerson;
-  @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+  @Input() person: T;
+  @Output() personChange: EventEmitter<T> = new EventEmitter<T>();
 
   statusOpts: string[] = getStatusStrings();
 
@@ -109,13 +118,13 @@ export class CanadianStatusComponent extends Base {
   /**
    * Gets status available to the current person
    */
-  getStatusInCanada() {
+  get statusInCanada(): string {
     return this.person.status !== undefined ? this.statusOpts[this.person.status] : undefined;
   }
 
-  setStatusInCanada($event) {
+  set statusInCanada( val: string ) {
 
-    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === $event );
+    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === val );
 
     this.person.status = StatusInCanada[status];
 
@@ -125,23 +134,12 @@ export class CanadianStatusComponent extends Base {
   }
 
   get displayStatusReasons() {
-    let show = (this.getStatusInCanada() !== undefined);
+    let show = (this.statusInCanada !== undefined);
     if ( show && this.hideStatusReasons.length > 0 ) {
       const tmp = this.hideStatusReasons.find( x => x === this.person.status );
       show = tmp === undefined ? true : false;
     }
     return show;
-  }
-
-  /**
-   * Set the reason for the Status in Canada
-   * @param value
-   */
-  setReason(value: CanadianStatusReason) {
-
-    this.person.currentActivity = value;
-    this.person.movedFromProvinceOrCountry = '';
-    this.personChange.emit(this.person);
   }
 
   /**
@@ -164,5 +162,19 @@ export class CanadianStatusComponent extends Base {
         return statusReasonRules( this.person.relationship, this.person.status );
       }
       return this.statusReasonList;
+  }
+
+  get statusReason() {
+    return this.person.currentActivity;
+  }
+
+  set statusReason( reason: CanadianStatusReason ) {
+    this.person.currentActivity = reason;
+
+    if ( this.person.clearData ) {
+      // Clear data
+      this.person.clearData( this.person );
+    }
+    this.personChange.emit(this.person);
   }
 }

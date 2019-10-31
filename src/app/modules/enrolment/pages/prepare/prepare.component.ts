@@ -1,12 +1,13 @@
 import {Component, Injectable, ViewChild, AfterViewInit} from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
-import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
-import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { EnrolForm } from '../../models/enrol-form';
+import { EnrolDataService } from '../../services/enrol-data.service';
+import { Enrollee } from '../../models/enrollee';
+import { EnrolApplication } from '../../models/enrol-application';
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -16,57 +17,61 @@ export class PrepareComponent extends EnrolForm implements AfterViewInit {
 
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
-  constructor( protected dataService: MspDataService,
+  constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
-    super( dataService, pageStateService, router );
+    super( enrolDataService, pageStateService, router );
   }
 
   ngAfterViewInit() {
+    super.ngAfterViewInit();
 
     if (!this.mspApplication.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }
-    super.ngAfterViewInit();
   }
 
-  get applicant(): MspPerson {
-    return this.mspApplication.applicant;
+  get application(): EnrolApplication  {
+    return this.enrolDataService.application;
+  }
+
+  get applicant(): Enrollee {
+    return this.application.applicant;
   }
 
   get liveInBC() {
-    return this.applicant.liveInBC;
+    return this.application.liveInBC;
   }
 
   set liveInBC(live: boolean) {
-    this.applicant.liveInBC = live;
+    this.application.liveInBC = live;
   }
 
   get plannedAbsence() {
-    return this.applicant.plannedAbsence;
+    return this.application.plannedAbsence;
   }
 
   set plannedAbsence(live: boolean) {
-    this.applicant.plannedAbsence = live;
+    this.application.plannedAbsence = live;
   }
 
   get unUsualCircumstance() {
-    return this.dataService.mspApplication.unUsualCircumstance;
+    return this.application.unUsualCircumstance;
   }
 
   set unUsualCircumstance(live: boolean) {
-    this.dataService.mspApplication.unUsualCircumstance = live;
+    this.application.unUsualCircumstance = live;
   }
 
   acceptAgreement($event) {
-    this.dataService.mspApplication.infoCollectionAgreement = $event;
-    this.dataService.saveMspApplication();
+    this.application.infoCollectionAgreement = $event;
+    this.enrolDataService.saveApplication();
   }
 
   continue() {
     this._canContinue = super.canContinue() &&
-                        this.applicant.plannedAbsence === false &&
-                        this.applicant.liveInBC === true &&
+                        this.plannedAbsence === false &&
+                        this.liveInBC === true &&
                         this.unUsualCircumstance === false;
 
     this._nextUrl = ROUTES_ENROL.PERSONAL_INFO.fullpath;

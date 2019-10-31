@@ -31,9 +31,8 @@ import { AssistStateService } from '../../services/assist-state.service';
         <common-phone-number
           name="phoneNumber"
           [label]="phoneLabel"
-          [phoneNumber]="phone"
           [(ngModel)]="phone"
-          (onChange)="savePhone($event)"
+          (valueChange)="savePhone($event)"
           maxlen="25"
           required="false"
         ></common-phone-number>

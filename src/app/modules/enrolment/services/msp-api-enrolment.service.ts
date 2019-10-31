@@ -1,38 +1,27 @@
 import { Injectable } from '@angular/core';
 import { MspLogService } from '../../../services/log.service';
 import { HttpClient } from '@angular/common/http';
-import { MspApplication } from '../../../modules/enrolment/models/application.model';
-import { _ApplicationTypeNameSpace } from '../../../modules/msp-core/api-model/applicationTypes';
-import { environment } from '../../../../environments/environment';
 import { CommonImage } from 'moh-common-lib';
-import { Observable } from 'rxjs';
 import { Response } from '@angular/http';
 import { ApiResponse } from '../../../models/api-response.interface';
 import {
  MSPApplicationSchema,
  EnrolmentApplicationType,
  ResidencyType,
- CitizenshipType,
  PersonType,
  DependentType,
- NameType,
  EnrolmentApplicantType
 } from '../../../modules/msp-core/interfaces/i-api';
-import * as moment from 'moment';
-import { MspPerson } from '../../../components/msp/model/msp-person.model';
-import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
 import { SchemaService } from '../../../services/schema.service';
 import { BaseMspApiService } from '../../../services/base-msp-api.service';
-
-
-
+import { EnrolApplication } from '../models/enrol-application';
+import { Enrollee } from '../models/enrollee';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MspApiEnrolmentService extends BaseMspApiService {
-
 
   constructor( protected http: HttpClient,
                protected logService: MspLogService,
@@ -43,22 +32,24 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     this._application = 'Enrolment';
   }
 
-  sendRequest(app: MspApplication): Promise<any> {
-    console.log(app.uuid);
-    const enrolmentRequest = this.prepareEnrolmentApplication(app);
+  sendRequest(app: EnrolApplication): Promise<any> {
+    const enrolmentRequest = this.prepareEnrolmentApplication( app );
     console.log(enrolmentRequest);
 
-    return new Promise<ApiResponse>((resolve, reject) => {
+    return new Promise<ApiResponse>( (resolve, reject) => {
 
       //Validating the response against the schema
       this.schemaSvc.validate(enrolmentRequest).then(res => {
+
         console.log(res.errors);
+
         if (res.errors) {
           let errorField;
           let errorMessage;
 
           // Getting the error field
           for (const err of res.errors) {
+            console.log( 'errors in schema' );
             errorField = err.dataPath.substr(34);
             errorMessage = err.message;
           }
@@ -79,58 +70,49 @@ export class MspApiEnrolmentService extends BaseMspApiService {
             //const index = mapper.findStep(errorField);
             //const urls = this.dataSvc.getMspProcess().processSteps;
             //this.router.navigate([urls[index].route]);
+
+            console.log( 'Reject message ' );
             return reject(errorMessage);
           }
         }
-      });
 
-      // if no errors, then we'll sendApplication all attachments
-      return this.sendAttachments(
-        app.authorizationToken,
-        app.uuid,
-        app.getAllImages()
-      )
-      .then(attachmentResponse => {
-      console.log('sendAttachments response', attachmentResponse);
+        console.log( 'Send Attachments ' );
+        // if no errors, then we'll sendApplication all attachments
+        return this.sendAttachments(
+          app.authorizationToken,
+          app.uuid,
+          app.getAllImages()
+        )
+        .then(attachmentResponse => {
+          console.log('sendAttachments response', attachmentResponse);
 
-      return this.sendEnrolmentApplication(
-        enrolmentRequest,
-        app.authorizationToken
-      ).subscribe(response => {
-        // Add reference number
-        if (response && response.referenceNumber) {
-        app.referenceNumber = response.referenceNumber.toString();
-        }
-        // Let our caller know were done passing back the application
-        return resolve(response);
+          return this.sendApplication( enrolmentRequest, app.authorizationToken )
+            .subscribe(response => {
+              console.log( 'msp-api-enrol services response: ', response );
+              // Add reference number TODO: Why do we need this clause here? Does not save in service
+              if (response && response.op_reference_number) {
+                app.referenceNumber = response.op_reference_number.toString();
+              }
+              // Let our caller know were done passing back the application
+              return resolve(response);
+            });
+          })
+          .catch((err: Response | any) => {
+            // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
+            console.log('sent all attachments rejected: ', err);
+              this.logService.log({
+              text: 'Attachment - Send All Rejected ',
+              response: err
+              },
+              'Attachment - Send All Rejected '
+            );
+            return resolve(err);
+          });
       });
-      })
-      .catch((err: Response | any) => {
-      // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-      console.log('sent all attachments rejected: ', err);
-      this.logService.log(
-        {
-        text: 'Attachment - Send All Rejected ',
-        response: err
-        },
-        'Attachment - Send All Rejected '
-      );
-      return resolve(err);
-      });
-
     });
   }
 
-  sendEnrolmentApplication(app: MSPApplicationSchema, authToken: string): Observable<any> {
-    const _url = environment.appConstants['apiBaseUrl'] + '/submit-application/' + app.uuid;
-
-    // Setup headers
-    this.setHeaders( authToken );
-
-    return this.post<MspApplication>(_url, app);
-  }
-
-  private prepareEnrolmentApplication(from: MspApplication): MSPApplicationSchema {
+  private prepareEnrolmentApplication(from: EnrolApplication): MSPApplicationSchema {
     const object = {
       enrolmentApplication: this.convertMspApplication(from),
       attachments: this.convertToAttachment(from.getAllImages()),
@@ -147,37 +129,10 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     return [...suppDocUuids, ...nameChangeDocUuids];
   }
 
-  private convertResidency( from: MspPerson ): ResidencyType {
+  private convertResidency( from: Enrollee ): ResidencyType {
 
-    let citizenType;
     // citizenship
-    switch (from.status) {
-      case StatusInCanada.CitizenAdult:
-        citizenType = CitizenshipType.CanadianCitizen;
-        break;
-      case StatusInCanada.PermanentResident:
-        citizenType = CitizenshipType.PermanentResident;
-      break;
-      case StatusInCanada.TemporaryResident:
-        switch (from.currentActivity) {
-          case CanadianStatusReason.WorkingInBC:
-            citizenType = CitizenshipType.WorkPermit;
-          break;
-        case CanadianStatusReason.StudyingInBC:
-          citizenType = CitizenshipType.StudyPermit;
-          break;
-        case CanadianStatusReason.Diplomat:
-          citizenType = CitizenshipType.Diplomat;
-          break;
-        case CanadianStatusReason.ReligiousWorker:
-          citizenType = CitizenshipType.ReligiousWorker;
-          break;
-        case CanadianStatusReason.Visiting:
-        default:
-          citizenType = CitizenshipType.VisitorPermit;
-          break;
-      }
-    }
+    const citizenType = this.getCitizenType( from.status, from.currentActivity );
 
     const attachmentUuids = new Array<string>();
     for (const image of from.documents.images) {
@@ -193,76 +148,75 @@ export class MspApiEnrolmentService extends BaseMspApiService {
         hasLivedInBC: from.livedInBCSinceBirth === true ? 'Y' : 'N',
       },
       outsideBC: {
-        beenOutsideBCMoreThan: from.beenOutSideOver30Days ? 'Y' : 'N'
+        beenOutsideBCMoreThan: from.outsideBCFor30Days === true ? 'Y' : 'N'
       },
       previousCoverage: {
-        hasPreviousCoverage: from.hasPreviousBCPhn ? 'Y' : 'N'
+        hasPreviousCoverage: from.hasPreviousBCPhn === true ? 'Y' : 'N'
       },
       willBeAway: {
-        isFullTimeStudent: from.fullTimeStudent ? 'Y' : 'N'
+        isFullTimeStudent: from.fullTimeStudent === true ? 'Y' : 'N'
       }
     };
 
    // outsideBCinFuture?: OutsideBCType;  - Not sure this is used
-
     if ( from.madePermanentMoveToBC !== undefined  ) {
       to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? 'Y' : 'N';
     }
 
     if ( from.hasPreviousBCPhn ) {
-      to.livedInBC.prevHealthNumber = from.previous_phn;
+      to.livedInBC.prevHealthNumber = from.previousBCPhn;
     }
 
-    if (from.movedFromProvinceOrCountry) {
+    if ( from.movedFromProvinceOrCountry ) {
         to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
     }
 
     // Arrival dates
-    if (from.hasArrivalToBC) {
-        to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+    if ( from.arrivalToBCDate ) {
+        to.livedInBC.recentBCMoveDate = this.formatDate( from.arrivalToBCDate );
     }
-    if (from.hasArrivalToCanada) {
-        to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
+    if ( from.arrivalToCanadaDate ) {
+        to.livedInBC.recentCanadaMoveDate = this.formatDate( from.arrivalToCanadaDate );
     }
 
     // Outside BC - optional fields
-    if (from.beenOutSideOver30Days) {
-      to.outsideBC.departureDate = this.convertSimpleDate(from.departureDate);
-      to.outsideBC.returnDate = this.convertSimpleDate(from.returnDate);
-      to.outsideBC.familyMemeberReason = from.departureReason;
+    if ( from.outsideBCFor30Days ) {
+      to.outsideBC.departureDate = this.formatDate(from.oopDepartureDate);
+      to.outsideBC.returnDate = this.formatDate(from.oopReturnDate);
+      to.outsideBC.familyMemberReason = from.departureReason;
       to.outsideBC.destination = from.departureDestination;
     }
 
-    if (from.inBCafterStudies !== undefined ) {
+    if ( from.inBCafterStudies ) {
       to.willBeAway.isInBCafterStudies = from.inBCafterStudies ? 'Y' : 'N';
     }
 
-    if (from.hasDischarge) {
-      to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+    if (from.hasBeenReleasedFromArmedForces) {
+      to.willBeAway.armedDischargeDate = this.formatDate( from.dischargeDate );
     }
 
-    if (from.hasPreviousBCPhn && from.previous_phn) {
-      to.previousCoverage.prevPHN = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
+    if (from.hasPreviousBCPhn && from.previousBCPhn) {
+      to.previousCoverage.prevPHN = from.previousBCPhn.replace(new RegExp('[^0-9]', 'g'), '');
     }
     return to;
   }
 
-  private convertDependentType( person: MspPerson ): DependentType {
+  private convertDependentType( person: Enrollee ): DependentType {
     return {
       name: this.convertName( person ),
-      gender: person.gender.toString(),
-      birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
+      gender: person.gender ? person.gender.toString() : null,
+      birthDate: this.formatDate( person.dateOfBirth ),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person ),
       schoolName: person.schoolName,
       schoolAddress: this.convertAddress( person.schoolAddress ),
-      dateStudiesFinish: this.convertSimpleDate( person.studiesFinishedSimple ),
-      departDateSchoolOutside: this.convertSimpleDate( person.studiesDepartureSimple ),
+      dateStudiesFinish: this.formatDate( person.schoolCompletionDate ),
+      departDateSchoolOutside: this.formatDate( person.departureDateForSchool ),
     };
   }
 
   // This method is used to convert the response from user into a JSON object
-  private convertMspApplication(from: MspApplication): EnrolmentApplicationType {
+  private convertMspApplication(from: EnrolApplication): EnrolmentApplicationType {
     const application: EnrolmentApplicationType = {
       applicant: this.convertEnrolmentApplicantType( from )
     };
@@ -277,10 +231,10 @@ export class MspApiEnrolmentService extends BaseMspApiService {
         from.children.length > 0) {
 
       // Filter out children vs dependants
-      const children = from.children.filter((child: MspPerson) => {
+      const children = from.children.filter((child: Enrollee) => {
           return child.relationship === Relationship.ChildUnder19;
       });
-      const dependants = from.children.filter((child: MspPerson) => {
+      const dependants = from.children.filter((child: Enrollee) => {
           return child.relationship === Relationship.Child19To24;
       });
 
@@ -304,37 +258,27 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     return application;
   }
 
-
-  private convertName( person: MspPerson ): NameType {
-    return {
-      firstName: person.firstName,
-      lastName: person.lastName,
-      secondName: person.middleName
-    };
-  }
-
-  private convertPersonType( person: MspPerson ): PersonType {
+  private convertPersonType( person: Enrollee ): PersonType {
    return {
       name: this.convertName( person ),
-      gender: person.gender.toString(),
-      birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
+      gender: person.gender ? person.gender.toString() : null,
+      birthDate: this.formatDate(person.dateOfBirth),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person )
     };
   }
 
-  private convertEnrolmentApplicantType( application: MspApplication): EnrolmentApplicantType {
-    const applicant: MspPerson = application.applicant;
-    console.log( 'applicant gender: ', applicant.gender );
+  private convertEnrolmentApplicantType( application: EnrolApplication): EnrolmentApplicantType {
+    const applicant: Enrollee = application.applicant;
     const enrolee: EnrolmentApplicantType =  {
       name: this.convertName( applicant ),
-      gender: applicant.gender.toString(),
-      birthDate: String( applicant.dob.format( this.ISO8601DateFormat ) ),
+      gender: applicant.gender ? applicant.gender.toString() : null,
+      birthDate: this.formatDate( applicant.dateOfBirth ),
       attachmentUuids: this.getAttachementUuids( applicant.documents.images, applicant.nameChangeDocs.images ),
       residency: this.convertResidency( applicant ),
       residenceAddress: this.convertAddress( application.residentialAddress ),
       authorizedByApplicant: application.authorizedByApplicant ? 'Y' : 'N',
-      authorizedByApplicantDate: moment(application.authorizedByApplicantDate).format(this.ISO8601DateFormat),
+      authorizedByApplicantDate: this.formatDate( application.authorizedByApplicantDate ),
       authorizedBySpouse: application.authorizedBySpouse ? 'Y' : 'N'
     };
 

@@ -1,4 +1,4 @@
-<msp-personal-information [person]="child" [showPhn]="true" >
+<msp-personal-information [person]="child">
     <div sectionTitleInfo>
       <h2>Child's Information</h2>
       <p class="border-bottom"> 
@@ -17,9 +17,11 @@
 </div>
 
 <div class="form-group"  style="width: 300px;" *ngIf="child.isRemovedAtTheEndOfCurrentMonth == false">
-  <common-date label="Requested cancellation date" [restrictDate]="'past'" 
-    [(date)]="child.cancellationDate"
-    (dateChange)="this.dataService.saveMspAccountApp();">
+  <common-date name="CancelDate"
+               label="Requested cancellation date" 
+               [restrictDate]="'past'" 
+               [(ngModel)]="child.cancellationDate"
+               (ngModelChange)="this.dataService.saveMspAccountApp();">
   </common-date>
 </div>
 

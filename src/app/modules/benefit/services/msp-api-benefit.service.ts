@@ -23,6 +23,7 @@ import {
 } from 'app/modules/msp-core/interfaces/i-api';
 import { FieldPageMap } from '../models/field-page-map';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import { format } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 // This service should handle the hitting of the middleware
 export class MspApiBenefitService extends AbstractHttpService {
   protected _headers: HttpHeaders = new HttpHeaders();
-  readonly ISO8601DateFormat = 'YYYY-MM-DD';
+  readonly ISO8601DateFormat = 'yyyy-MM-dd';
   suppBenefitResponse: ApiResponse;
 
 
@@ -346,7 +347,7 @@ export class MspApiBenefitService extends AbstractHttpService {
 
             const birthDate = `${birthMonth}-${day}-${from.applicant.dobSimple.year.toString()}`;*/
       to.applicantBirthdate = String(
-        from.applicant.dob.format(this.ISO8601DateFormat)
+        format(from.applicant.dob, this.ISO8601DateFormat)
       );
     }
     to.applicantPHN = from.applicant.previous_phn
@@ -369,7 +370,7 @@ export class MspApiBenefitService extends AbstractHttpService {
 
                 const spouseBirthDate = `${spouseBirthMonth}-${from.spouse.dobSimple.day.toString()}-${from.spouse.dobSimple.year.toString()}`;*/
         to.spouseBirthdate = String(
-          from.spouse.dob.format(this.ISO8601DateFormat)
+          format( from.spouse.dob, this.ISO8601DateFormat)
         );
       }
       to.spousePHN = from.spouse.previous_phn
@@ -461,16 +462,7 @@ export class MspApiBenefitService extends AbstractHttpService {
     }
 
     // Capturing Authorization page response
-    const date = from.authorizedByApplicantDate;
-    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-    const month =
-      date.getMonth() < 9 // off by 1 error
-        ? `0${(date.getMonth() + 1).toString()}`
-        : (date.getMonth() + 1).toString();
-    const year = date.getFullYear();
-    const authorizedByApplicantDate = `${year}-${month}-${day}`;
-
-    to.authorizedByApplicantDate = moment(from.authorizedByApplicantDate).format(this.ISO8601DateFormat);
+    to.authorizedByApplicantDate = format( from.authorizedByApplicantDate, this.ISO8601DateFormat );
 
     to.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
     to.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';

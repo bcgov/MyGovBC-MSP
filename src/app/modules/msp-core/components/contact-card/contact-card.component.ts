@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Address} from 'moh-common-lib';
 import { Router } from '@angular/router';
 
+// TODO: replace with msp-address-review-card uses the msp-review-part & msp-address-review-part
 @Component({
   selector: 'msp-contact-card',
   templateUrl: './contact-card.component.html'

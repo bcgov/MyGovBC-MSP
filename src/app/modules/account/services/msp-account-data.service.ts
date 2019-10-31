@@ -2,16 +2,15 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { MspAccountApp } from '../../../modules/account/models/account.model';
 import { Process } from '../../../services/process.service';
-import MspAccountDto from '../../../modules/account/models/account.dto';
+import { MspAccountDto } from '../../../modules/account/models/account.dto';
 import {
   OperationActionType,
   MspPerson
 } from '../../../components/msp/model/msp-person.model';
 import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
-import PersonDto from '../../../components/msp/model/msp-person.dto';
-import { OutofBCRecord } from '../../../models/outof-bc-record.model';
-import { OutofBCRecordDto } from '../../../models/outof-bc-record.dto';
-import AddressDto from '../../../models/address.dto';
+import { PersonDto } from '../../../components/msp/model/msp-person.dto';
+import { OutofBCRecordDto, OutofBCRecord } from '../../../models/outof-bc-record.model';
+import { AddressDto } from '../../../models/address.dto';
 import { Gender } from '../../../models/gender.enum';
 
 @Injectable()
@@ -70,9 +69,7 @@ export class MspAccountMaintenanceDataService {
     mspAccountApp.applicant.firstName = 'NA';
     mspAccountApp.applicant.lastName = 'NA';
     mspAccountApp.applicant.gender = Gender.Male;
-    mspAccountApp.applicant.dob_day = 1;
-    mspAccountApp.applicant.dob_month = 1;
-    mspAccountApp.applicant.dob_year = 2000;
+    mspAccountApp.applicant.dob = new Date( 2000, 1, 1);
     mspAccountApp.applicant.previous_phn = '1234567890';
     mspAccountApp.phoneNumber = '2501234567';
     const dumyAddress: Address = new Address();
@@ -126,9 +123,7 @@ export class MspAccountMaintenanceDataService {
     dto.firstName = input.firstName;
     dto.middleName = input.middleName;
     dto.lastName = input.lastName;
-    dto.dob_day = input.dob_day;
-    dto.dob_month = input.dob_month;
-    dto.dob_year = input.dob_year;
+    dto.dob = input.dob;
     dto.middleName = input.middleName;
     dto.previous_phn = input.previous_phn;
 
@@ -140,35 +135,20 @@ export class MspAccountMaintenanceDataService {
     //= input.updateNameDueDoc;
 
 
-    dto.arrivalToCanadaDay = input.arrivalToCanadaDay;
-    dto.arrivalToCanadaMonth = input.arrivalToCanadaMonth;
-    dto.arrivalToCanadaYear = input.arrivalToCanadaYear;
-    dto.arrivalToBCDay = input.arrivalToBCDay;
-    dto.arrivalToBCMonth = input.arrivalToBCMonth;
-    dto.arrivalToBCYear = input.arrivalToBCYear;
+    dto.arrivalToCanadaDate = input.arrivalToCanadaDate;
+    dto.arrivalToBCDate = input.arrivalToBCDate;
     dto.hasBeenReleasedFromArmedForces = input.hasBeenReleasedFromArmedForces;
     dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
     dto.institutionWorkHistory = input.institutionWorkHistory;
-    dto.dischargeYear = input.dischargeYear;
-    dto.dischargeMonth = input.dischargeMonth;
-    dto.dischargeDay = input.dischargeDay;
+    dto.dischargeDate = input.dischargeDate;
 
     dto.fullTimeStudent = input.fullTimeStudent;
     dto.inBCafterStudies = input.inBCafterStudies;
 
     dto.schoolName = input.schoolName;
-
-    dto.studiesDepartureYear = input.studiesDepartureYear;
-    dto.studiesDepartureMonth = input.studiesDepartureMonth;
-    dto.studiesDepartureDay = input.studiesDepartureDay;
-
-    dto.studiesFinishedYear = input.studiesFinishedYear;
-    dto.studiesFinishedMonth = input.studiesFinishedMonth;
-    dto.studiesFinishedDay = input.studiesFinishedDay;
-
-    dto.studiesBeginYear = input.studiesBeginYear;
-    dto.studiesBeginMonth = input.studiesBeginMonth;
-    dto.studiesBeginDay = input.studiesBeginDay;
+    dto.studiesDepartureDate = input.studiesDepartureDate;
+    dto.studiesFinishedDate = input.studiesFinishedDate;
+    dto.studiesBeginDate = input.studiesBeginDate;
 
     dto.schoolOutsideOfBC = input.schoolOutsideOfBC;
 
@@ -185,14 +165,9 @@ export class MspAccountMaintenanceDataService {
     dto.prevLastName = input.prevLastName;
     dto.newlyAdopted = input.newlyAdopted;
     dto.adoptedDate = input.adoptedDate;
-    dto.marriageDate = input.marriageDate;
 
-    dto.marriageDateDay  = input.marriageDateDay;
-    dto.marriageDateMonth  = input.marriageDateMonth;
-    dto.marriageDateYear  = input.marriageDateYear;
+    dto.marriageDate  = input.marriageDate;
    // dto.relationship = input.relationship;
-
-
 
 
     dto.phoneNumber = input.phoneNumber;
@@ -237,24 +212,10 @@ export class MspAccountMaintenanceDataService {
     dto.departureReason = input.departureReason;
     dto.departureDestination = input.departureDestination;
 
-    dto.departureDateDuring12MonthsDay =  input.departureDateDuring12MonthsDay;
-    dto.departureDateDuring12MonthsMonth = input.departureDateDuring12MonthsMonth;
-    dto.departureDateDuring12MonthsYear = input.departureDateDuring12MonthsYear;
-
-    dto.departureDateDuring6MonthsDay = input.departureDateDuring6MonthsDay ;
-    dto.departureDateDuring6MonthsMonth = input.departureDateDuring6MonthsMonth ;
-    dto.departureDateDuring6MonthsYear = input.departureDateDuring6MonthsYear ;
-
-    dto.returnDate12MonthsDay = input.returnDate12MonthsDay ;
-    dto.returnDate12MonthsMonth = input.returnDate12MonthsMonth ;
-    dto.returnDate12MonthsYear = input.returnDate12MonthsYear ;
-
-    dto.returnDate6MonthsDay = input.returnDate6MonthsDay ;
-    dto.returnDate6MonthsMonth = input.returnDate6MonthsMonth ;
-    dto.returnDate6MonthsYear = input.returnDate6MonthsYear ;
-
-
-
+    dto.departureDateDuring12MonthsDate =  input.departureDateDuring12MonthsDate;
+    dto.departureDateDuring6MonthsDate = input.departureDateDuring6MonthsDate;
+    dto.returnDate12MonthsDate = input.returnDate12MonthsDate ;
+    dto.returnDate6MonthsDate = input.returnDate6MonthsDate ;
 
     dto.immigrationStatusChange = input.immigrationStatusChange;
    // dto.spouseRemoved = input.spouseRemoved;
@@ -292,9 +253,7 @@ export class MspAccountMaintenanceDataService {
     output.firstName = dto.firstName;
     output.middleName = dto.middleName;
     output.lastName = dto.lastName;
-    output.dob_day = dto.dob_day;
-    output.dob_month = dto.dob_month;
-    output.dob_year = dto.dob_year;
+    output.dob = dto.dob;
     output.middleName = dto.middleName;
     output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
     output.previous_phn = dto.previous_phn;
@@ -317,43 +276,25 @@ export class MspAccountMaintenanceDataService {
 
     output.isRemovedAtTheEndOfCurrentMonth = dto.isRemovedAtTheEndOfCurrentMonth;
 
-    output.marriageDateDay  = dto.marriageDateDay;
-    dto.marriageDateMonth  = dto.marriageDateMonth;
-    output.marriageDateYear  = dto.marriageDateYear;
-
+    output.marriageDate  = dto.marriageDate;
 
     output.hasActiveMedicalServicePlan = dto.hasActiveMedicalServicePlan;
 
-    output.arrivalToCanadaDay = dto.arrivalToCanadaDay;
-    output.arrivalToCanadaMonth = dto.arrivalToCanadaMonth;
-    output.arrivalToCanadaYear = dto.arrivalToCanadaYear;
-    output.arrivalToBCDay = dto.arrivalToBCDay;
-    output.arrivalToBCMonth = dto.arrivalToBCMonth;
-    output.arrivalToBCYear = dto.arrivalToBCYear;
+    output.arrivalToCanadaDate = dto.arrivalToCanadaDate;
+    output.arrivalToBCDate = dto.arrivalToBCDate;
 
     output.movedFromProvinceOrCountry = dto.movedFromProvinceOrCountry;
     output.hasBeenReleasedFromArmedForces = dto.hasBeenReleasedFromArmedForces;
     output.institutionWorkHistory = dto.institutionWorkHistory;
-    output.dischargeYear = dto.dischargeYear;
-    output.dischargeMonth = dto.dischargeMonth;
-    output.dischargeDay = dto.dischargeDay;
+    output.dischargeDate = dto.dischargeDate;
 
     output.fullTimeStudent = dto.fullTimeStudent;
     output.inBCafterStudies = dto.inBCafterStudies;
 
     output.schoolName = dto.schoolName;
-
-    output.studiesDepartureYear = dto.studiesDepartureYear;
-    output.studiesDepartureMonth = dto.studiesDepartureMonth;
-    output.studiesDepartureDay = dto.studiesDepartureDay;
-
-    output.studiesFinishedYear = dto.studiesFinishedYear;
-    output.studiesFinishedMonth = dto.studiesFinishedMonth;
-    output.studiesFinishedDay = dto.studiesFinishedDay;
-
-    output.studiesBeginYear = dto.studiesBeginYear;
-    output.studiesBeginMonth = dto.studiesBeginMonth;
-    output.studiesBeginDay = dto.studiesBeginDay;
+    output.studiesDepartureDate = dto.studiesDepartureDate;
+    output.studiesFinishedDate = dto.studiesFinishedDate;
+    output.studiesBeginDate = dto.studiesBeginDate;
 
     output.schoolOutsideOfBC = dto.schoolOutsideOfBC;
 
@@ -380,22 +321,12 @@ export class MspAccountMaintenanceDataService {
     output.departureReason = dto.departureReason;
     output.departureReason12Months = dto.departureReason12Months;
     output.departureDestination12Months = dto.departureDestination12Months;
+    output.departureDateDuring12MonthsDate =  dto.departureDateDuring12MonthsDate;
+    output.departureDateDuring6MonthsDate = dto.departureDateDuring6MonthsDate ;
 
-    output.departureDateDuring12MonthsDay =  dto.departureDateDuring12MonthsDay;
-    output.departureDateDuring12MonthsMonth = dto.departureDateDuring12MonthsMonth;
-    output.departureDateDuring12MonthsYear = dto.departureDateDuring12MonthsYear;
+    output.returnDate12MonthsDate = dto.returnDate12MonthsDate ;
 
-    output.departureDateDuring6MonthsDay = dto.departureDateDuring6MonthsDay ;
-    output.departureDateDuring6MonthsMonth = dto.departureDateDuring6MonthsMonth ;
-    output.departureDateDuring6MonthsYear = dto.departureDateDuring6MonthsYear ;
-
-    output.returnDate12MonthsDay = dto.returnDate12MonthsDay ;
-    output.returnDate12MonthsMonth = dto.returnDate12MonthsMonth ;
-    output.returnDate12MonthsYear = dto.returnDate12MonthsYear ;
-
-    output.returnDate6MonthsDay = dto.returnDate6MonthsDay ;
-    output.returnDate6MonthsMonth = dto.returnDate6MonthsMonth ;
-    output.returnDate6MonthsYear = dto.returnDate6MonthsYear ;
+    output.returnDate6MonthsDate = dto.returnDate6MonthsDate ;
     output.nameOfInstitute = dto.nameOfInstitute;
 
 
@@ -525,13 +456,8 @@ export class MspAccountMaintenanceDataService {
     const dto: OutofBCRecordDto = new OutofBCRecordDto();
     dto.reason = outofBCRecord.reason;
     dto.location = outofBCRecord.location;
-    dto.departureDay = outofBCRecord.departureDay;
-    dto.departureMonth = outofBCRecord.departureMonth;
-    dto.departureYear = outofBCRecord.departureYear;
-    dto.returnDay = outofBCRecord.returnDay;
-    dto.returnMonth = outofBCRecord.returnMonth;
-    dto.returnYear = outofBCRecord.returnYear;
-
+    dto.departureDate = outofBCRecord.departureDate;
+    dto.returnDate = outofBCRecord.returnDate;
     return dto;
   }
 
@@ -541,13 +467,8 @@ export class MspAccountMaintenanceDataService {
     const rec: OutofBCRecord = new OutofBCRecord();
     rec.reason = dto.reason;
     rec.location = dto.location;
-    rec.departureDay = dto.departureDay;
-    rec.departureMonth = dto.departureMonth;
-    rec.departureYear = dto.departureYear;
-    rec.returnDay = dto.returnDay;
-    rec.returnMonth = dto.returnMonth;
-    rec.returnYear = dto.returnYear;
-
+    rec.departureDate = dto.departureDate;
+    rec.returnDate = dto.returnDate;
     return rec;
   }
 
@@ -681,9 +602,7 @@ export class MspAccountMaintenanceDataService {
 
 
   convertToPersonDto(input: MspPerson, output: PersonDto) {
-    output.dob_day = input.dob_day;
-    output.dob_month = input.dob_month;
-    output.dob_year = input.dob_year;
+    output.dob = input.dob;
 
     output.firstName = input.firstName;
     output.middleName = input.middleName;
@@ -698,9 +617,7 @@ export class MspAccountMaintenanceDataService {
   }
 
   convertToPerson(input: PersonDto, output: MspPerson) {
-    output.dob_day = input.dob_day;
-    output.dob_month = input.dob_month;
-    output.dob_year = input.dob_year;
+    output.dob = input.dateOfBirth;
 
     output.firstName = input.firstName;
     output.middleName = input.middleName;

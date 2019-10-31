@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CoreContactInfoComponent } from './core-contact-info.component';
+import { ReviewCardComponent } from './review-card.component';
 
-describe('CoreContactInfoComponent', () => {
-  let component: CoreContactInfoComponent;
-  let fixture: ComponentFixture<CoreContactInfoComponent>;
+describe('ReviewCardComponent', () => {
+  let component: ReviewCardComponent;
+  let fixture: ComponentFixture<ReviewCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoreContactInfoComponent ]
+      declarations: [ ReviewCardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CoreContactInfoComponent);
+    fixture = TestBed.createComponent(ReviewCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

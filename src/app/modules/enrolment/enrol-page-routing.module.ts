@@ -16,7 +16,7 @@ export const enrolPages: Routes = [
     component: PrepareComponent,
     data: { title: ROUTES_ENROL.CHECK_ELIG.title }
   },
-  {
+ {
     path: ROUTES_ENROL.PERSONAL_INFO.path,
     canActivate: [RouteGuardService],
     component: PersonalInfoComponent,
@@ -53,6 +53,7 @@ export const enrolPages: Routes = [
   },
   {
     path: '',
-    redirectTo: ROUTES_ENROL.CHECK_ELIG.path
+    redirectTo: ROUTES_ENROL.CHECK_ELIG.path,
+    pathMatch: 'full'
   }
 ];

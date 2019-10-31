@@ -81,7 +81,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
    // this.dataService.getMspApplication().removeSpouse();
     this.showSpouse = false;
     this.dataService.benefitApp.setSpouse = false;
-    this.dataService.saveMspApplication();
+    this.dataService.saveBenefitApplication();
   }
 
   onChange(values: any) {

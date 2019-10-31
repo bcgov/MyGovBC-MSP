@@ -1,0 +1,21 @@
+<msp-review-card title="Contact Information" [editRouterLink]="editRouterLink">
+
+  <msp-address-review-part *ngIf="residentialAddress"
+                           label="Residential Address"
+                           [address]="residentialAddress">
+  </msp-address-review-part>
+
+  <msp-address-review-part *ngIf="mailingAddress"
+                           label="Mailing Address"
+                           [address]="mailingAddress">
+  </msp-address-review-part>
+
+  <!--TODO: Figure out how to underline label (May need Adam's help)-->
+  <msp-review-part *ngIf="phoneNumber"
+                    label="Phone"
+                    underlineLabel="true"
+                    [value]="phoneNumber"
+                    [columnClass]="columnClass">
+  </msp-review-part>
+
+</msp-review-card>

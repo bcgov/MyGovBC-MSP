@@ -1,10 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
-import {BaseComponent} from '../../../../models/base.component';
+import { Component, OnDestroy } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import {ActivatedRoute} from '@angular/router';
 import {BenefitApplication} from '../../models/benefit-application.model';
-import * as moment from 'moment';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'msp-confirmation',
@@ -65,7 +64,7 @@ export class BenefitConfirmationComponent implements OnDestroy {
      * @returns {string}
      */
     get dateStamp(): string {
-        return moment().format('MMMM DD, YYYY');
+        return format(new Date(), 'MMMM dd, yyyy');
     }
 
     // Logic to get the cutoff Date text

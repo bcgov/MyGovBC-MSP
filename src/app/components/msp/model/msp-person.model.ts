@@ -1,22 +1,16 @@
-import {IPerson} from './msp-person.interface';
-
-
-//import { StatusInCanada, Documents, CancellationReasons} from '../../../models/msp-core/models/canadian-status.enum';
 import {OutofBCRecord} from '../../../models/outof-bc-record.model';
-import * as moment from 'moment';
 import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
 import {PhoneNumber} from './phone.model';
-//import { MspImage } from '../../../../../models/msp-image';
 import { PersonStatusChange } from './person-status-change';
-
-
-import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
+import { Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 import { CanadianStatusReason, StatusInCanada } from '../../../modules/msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
 import { CancellationReasons } from 'app/models/status-activities-documents';
 import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
 import { Gender } from '../../../models/gender.enum';
+import { ICanadianStatus } from '../../../modules/msp-core/components/canadian-status/canadian-status.component';
+import { compareAsc, isBefore, startOfToday, isAfter, subYears } from 'date-fns';
 
 const sha1 = require('sha1');
 
@@ -27,7 +21,7 @@ export enum OperationActionType {
 }
 
 
-export class MspPerson implements IPerson {
+export class MspPerson implements ICanadianStatus {
 
     readonly uuid = UUID.UUID();
 
@@ -60,7 +54,7 @@ export class MspPerson implements IPerson {
     */
     public reasonForCancellation: string = 'pleaseSelect';
     /** NEEDS XSD. User provided date for cancellation of spouse or dependent on their plan. */
-    public cancellationDate: SimpleDate;
+    public cancellationDate: Date;
 
     /** NEEDS XSD. For child only. */
     private _newlyAdopted: boolean;
@@ -106,7 +100,7 @@ export class MspPerson implements IPerson {
         this._newlyAdopted = val;
     }
 
-    public adoptedDate: SimpleDate;
+    public adoptedDate: Date;
 
 
 
@@ -191,8 +185,10 @@ export class MspPerson implements IPerson {
     departureReason12Months: string;
     departureDestination: string;
     departureDestination12Months: string;
-    departureDate: SimpleDate = { day: null, month: null, year: null };
-    returnDate: SimpleDate = { day: null, month: null, year: null };
+    departureDate: Date;
+    returnDate: Date;
+    returnDate12MonthsDate: Date;
+    returnDate6MonthsDate: Date;
 
     /**
      * Name section
@@ -209,111 +205,36 @@ export class MspPerson implements IPerson {
      */
     gender: Gender;
 
-    /**
-     * Date of birth section
-     */
-    dob_day: number = null;
-    dob_month: number = null;
-    dob_year: number = null;
 
-    get hasDob(): boolean {
-        return (this.dob_year != null &&
-            this.dob_month != null &&
-            this.dob_day != null);
+    get hasDob() {
+        return !!this.dateOfBirth;
     }
 
-    get dob() {
-        return this.parseDate(this.dob_year, this.dob_month, this.dob_day);
-    }
+    dateOfBirth: Date;
+    get dob() { return this.dateOfBirth; }
+    set dob( dt: Date ) { this.dateOfBirth = dt; }
 
-    set dobSimple( dt: SimpleDate ) {
-        this.dob_day = dt.day;
-        this.dob_month = dt.month;
-        this.dob_year = dt.year;
-    }
+    arrivalToBCDate: Date;
+    get hasArrivalToBC() { return !!this.arrivalToBCDate; }
 
-    get dobSimple(): SimpleDate {
-        return {
-            'day': this.dob_day,
-            'month': this.dob_month,
-            'year': this.dob_year,
-        };
-    }
-
-    public dateOfBirth: SimpleDate = { year: null, month: null, day: null };
-
-    //TODO fix this..not DRY
-    getCancellationDateInMoment () {
-        return this.parseDate(this.cancellationDate.year, this.cancellationDate.month, this.cancellationDate.day);
-    }
-
-    getAdoptedDateInMoment (){
-        return this.parseDate(this.adoptedDate.year, this.adoptedDate.month, this.adoptedDate.day);
-    }
-
-
-
-    arrivalToBCDay: number = null;
-    arrivalToBCMonth: number = null;
-    arrivalToBCYear: number = null;
-
-    get hasArrivalToBC(): boolean {
-        return (this.arrivalToBCDay != null &&
-            this.arrivalToBCMonth != null &&
-            this.arrivalToBCYear != null);
-    }
-
-    get arrivalToBC() {
-        return this.parseDate(this.arrivalToBCYear, this.arrivalToBCMonth, this.arrivalToBCDay);
-    }
-
-    /** Provides the same answer as arrivalToBC but in a different format. Useful with the MspDateComponent which can take a single SimpleDate obj for configuration. */
-    get arrivalToBCSimple(): SimpleDate {
-        return {
-            day: this.arrivalToBCDay,
-            month: this.arrivalToBCMonth,
-            year: this.arrivalToBCYear,
-        };
-    }
-
-    /** Set the arrival to BC day/month/year by passing in a Simple object. Useful with the MspDateComponent for two-way data binding. */
-    set arrivalToBCSimple(date: SimpleDate){
-        this.arrivalToBCDay = date.day;
-        this.arrivalToBCMonth = date.month;
-        this.arrivalToBCYear = date.year;
-    }
-
-    arrivalToCanadaDay: number = null;
-    arrivalToCanadaMonth: number = null;
-    arrivalToCanadaYear: number = null;
-
-    get arrivalToCanada() {
-        return this.parseDate(this.arrivalToCanadaYear, this.arrivalToCanadaMonth, this.arrivalToCanadaDay);
-    }
-
-    get hasArrivalToCanada(): boolean {
-        return !!(this.arrivalToCanadaDay && this.arrivalToCanadaMonth && this.arrivalToCanadaYear) ;
-    }
-
-    get arrivalToCanadaDate() {
-        return {
-            day: this.arrivalToCanadaDay,
-            month: this.arrivalToCanadaMonth,
-            year: this.arrivalToCanadaYear,
-        };
-    }
-
-    set arrivalToCanadaDate(date: SimpleDate) {
-        this.arrivalToCanadaDay = date.day;
-        this.arrivalToCanadaMonth = date.month;
-        this.arrivalToCanadaYear = date.year;
-    }
-
+    arrivalToCanadaDate: Date;
+    get hasArrivalToCanada() { return !!this.arrivalToCanadaDate; }
 
     /**
      * BC Personal Health Number
      */
     previous_phn: string;
+
+    /* TEMPORARY fix until able to refactor all code - personal information component in core
+     *variable name changed from previous_phn to phn - change occurred during refactoring
+     * of enrolment
+     */
+    get phn() {
+        return this.previous_phn;
+    }
+    set phn( phn: string ) {
+        this.previous_phn = phn;
+    }
     specificMember_phn: string;
 
     private _hasPreviousBCPhn: boolean;
@@ -350,47 +271,27 @@ export class MspPerson implements IPerson {
     /**
      * Discharge date if worked in CDN forces
      */
-    dischargeYear: number = null;
-    dischargeMonth: number = null;
-    dischargeDay: number = null;
-
     hasActiveMedicalServicePlan: boolean;
 
     /** NEEDS XSD. Name of institute they've been discharged from. */
     nameOfInstitute: string;
 
     get hasDischarge(): boolean {
-        return (this.dischargeDay != null &&
-            this.dischargeMonth != null &&
-            this.dischargeYear != null);
+        return !!this.dischargeDate;
     }
 
-    set dischargeDateSimple(date: SimpleDate) {
-        this.dischargeDay = date.day;
-        this.dischargeMonth = date.month;
-        this.dischargeYear = date.year;
-    }
-    get dischargeDateSimple() {
-        return {
-            day: this.dischargeDay,
-            month: this.dischargeMonth,
-            year: this.dischargeYear,
-        };
-    }
+    dischargeDate: Date;
 
-    get dischargeDate() {
-        return this.parseDate(this.dischargeYear, this.dischargeMonth, this.dischargeDay);
-    }
 
     get isArrivalToBcBeforeDob(): boolean {
-        return this.dob.isSameOrAfter(this.arrivalToBC);
+        return compareAsc(this.dateOfBirth, this.arrivalToBCDate) >= 0;
     }
     get isArrivalToCanadaBeforeDob(): boolean {
-        return this.dob.isSameOrAfter(this.arrivalToCanada);
+        return compareAsc(this.dateOfBirth, this.arrivalToCanadaDate) >= 0;
     }
 
     get isStudyDatesInValid(): boolean {
-        return this.studiesBeginDate.isSameOrAfter(this.studiesFinishedDate);
+        return compareAsc( this.studiesBeginDate, this.studiesFinishedDate ) > 0 ;
     }
     /**
      * Which province the person has moved from
@@ -418,89 +319,16 @@ export class MspPerson implements IPerson {
         this._livedInBCSinceBirth = value;
         if (this._livedInBCSinceBirth === true) {
             // We erase this info if they lived in BC since birth
-            this.arrivalToCanadaYear = null;
-            this.arrivalToCanadaMonth = null;
-            this.arrivalToCanadaDay = null;
-            this.arrivalToBCYear = null;
-            this.arrivalToBCMonth = null;
-            this.arrivalToBCDay = null;
+
+            this.arrivalToCanadaDate = undefined;
+            this.arrivalToCanadaDate = undefined;
         }
     }
 
-
-    departureDateDuring12MonthsDay: number = null;
-    departureDateDuring12MonthsMonth: number = null;
-    departureDateDuring12MonthsYear: number = null;
-
-    departureDateDuring6MonthsDay: number = null;
-    departureDateDuring6MonthsMonth: number = null;
-    departureDateDuring6MonthsYear: number = null;
-
-    returnDate12MonthsDay: number = null;
-    returnDate12MonthsMonth: number = null;
-    returnDate12MonthsYear: number = null;
-
-    returnDate6MonthsDay: number = null;
-    returnDate6MonthsMonth: number = null;
-    returnDate6MonthsYear: number = null;
-
-
-    get departureDateDuring12Months(): SimpleDate {
-        return {
-            day: this.departureDateDuring12MonthsDay,
-            month: this.departureDateDuring12MonthsMonth,
-            year: this.departureDateDuring12MonthsYear,
-        };
-    }
-
-    set departureDateDuring12Months(date: SimpleDate){
-        this.departureDateDuring12MonthsDay = date.day;
-        this.departureDateDuring12MonthsMonth = date.month;
-        this.departureDateDuring12MonthsYear = date.year;
-    }
-
-    get departureDateDuring6Months(): SimpleDate {
-        return {
-            day: this.departureDateDuring6MonthsDay,
-            month: this.departureDateDuring6MonthsMonth,
-            year: this.departureDateDuring6MonthsYear,
-        };
-    }
-
-    set departureDateDuring6Months(date: SimpleDate){
-        this.departureDateDuring6MonthsDay = date.day;
-        this.departureDateDuring6MonthsMonth = date.month;
-        this.departureDateDuring6MonthsYear = date.year;
-    }
-
-    set returnDateDuring12Months(date: SimpleDate){
-        this.returnDate12MonthsDay = date.day;
-        this.returnDate12MonthsMonth = date.month;
-        this.returnDate12MonthsYear = date.year;
-    }
-
-    get returnDateDuring12Months(): SimpleDate {
-        return {
-            day: this.returnDate12MonthsDay,
-            month: this.returnDate12MonthsMonth,
-            year: this.returnDate12MonthsYear,
-        };
-    }
-
-    set returnDateDuring6Months(date: SimpleDate){
-        this.returnDate6MonthsDay = date.day;
-        this.returnDate6MonthsMonth = date.month;
-        this.returnDate6MonthsYear = date.year;
-    }
-
-    get returnDateDuring6Months(): SimpleDate {
-        return {
-            day: this.returnDate6MonthsDay,
-            month: this.returnDate6MonthsMonth,
-            year: this.returnDate6MonthsYear,
-        };
-    }
-
+    departureDateDuring12MonthsDate: Date;
+    departureDateDuring6MonthsDate: Date;
+    returnDateDuring12MonthsDate: Date;
+    returnDateDuring6MonthsDate: Date;
 
     madePermanentMoveToBC: boolean;
     private _plannedAbsence: boolean;
@@ -541,28 +369,10 @@ export class MspPerson implements IPerson {
     /** Only for spouse. Previous last name. */
     prevLastName: string;
     /** Only for spouse. Marriage date to applicant. */
-    //marriageDate: SimpleDate = { day: null, month: null, year: null };
+    //marriageDate: Date = { day: null, month: null, year: null };
 
 
-    marriageDateDay: number = null;
-    marriageDateMonth: number = null;
-    marriageDateYear: number = null;
-
-    get marriageDate(): SimpleDate {
-        return {
-            day: this.marriageDateDay,
-            month: this.marriageDateMonth,
-            year: this.marriageDateYear,
-        };
-    }
-
-    set marriageDate(date: SimpleDate){
-        this.marriageDateDay = date.day;
-        this.marriageDateMonth = date.month;
-        this.marriageDateYear = date.year;
-    }
-
-
+    marriageDate: Date;
 
 
     fullTimeStudent: boolean;
@@ -623,108 +433,19 @@ export class MspPerson implements IPerson {
     }
 
 
-    /**
-     * NEEDS XSD.
-     * When the student expects to finish.
-     */
-    studiesBeginYear: number;
-    studiesBeginMonth: number;
-    studiesBeginDay: number;
-
-    get studiesBeginDate() {
-        return this.parseDate(this.studiesBeginYear, this.studiesBeginMonth, this.studiesBeginDay);
+    studiesBeginDate: Date;
+    get hasStudiesBegin() {
+        return !!this.studiesBeginDate;
+    }
+    studiesFinishedDate: Date;
+    get hasStudiesFinished() {
+        return !!this.studiesFinishedDate;
+    }
+    studiesDepartureDate: Date;
+    get hasStudiesDeparture() {
+        return !!this.studiesDepartureDate;
     }
 
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
-    get studiesBeginSimple(): SimpleDate {
-        return {
-            'year': this.studiesBeginYear,
-            'month': this.studiesBeginMonth,
-            'day': this.studiesBeginDay,
-        };
-    }
-
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
-    set studiesBeginSimple(date: SimpleDate) {
-        this.studiesBeginYear = date.year;
-        this.studiesBeginMonth = date.month;
-        this.studiesBeginDay = date.day;
-    }
-
-
-    /**
-     * When the student expects to finish
-     */
-    studiesFinishedYear: number = null;
-    studiesFinishedMonth: number = null;
-    studiesFinishedDay: number = null;
-
-    get hasStudiesFinished(): boolean {
-        return (this.studiesFinishedDay != null &&
-            this.studiesFinishedMonth != null &&
-            this.studiesFinishedYear != null);
-    }
-
-    get hasStudiesBegin(): boolean {
-        return (this.studiesBeginDay != null &&
-            this.studiesBeginMonth != null &&
-            this.studiesBeginYear != null);
-    }
-
-
-    get studiesFinishedDate() {
-        return this.parseDate(this.studiesFinishedYear, this.studiesFinishedMonth, this.studiesFinishedDay);
-    }
-
-
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
-    get studiesFinishedSimple(): SimpleDate {
-        return {
-            'year': this.studiesFinishedYear,
-            'month': this.studiesFinishedMonth,
-            'day': this.studiesFinishedDay,
-        };
-    }
-
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
-    set studiesFinishedSimple(date: SimpleDate){
-        this.studiesFinishedYear = date.year;
-        this.studiesFinishedMonth = date.month;
-        this.studiesFinishedDay = date.day;
-    }
-
-    /**
-     * If school outside BC when did they leave
-     */
-    studiesDepartureYear: number = null;
-    studiesDepartureMonth: number = null;
-    studiesDepartureDay: number = null;
-
-    get hasStudiesDeparture(): boolean {
-        return (this.studiesDepartureDay != null &&
-            this.studiesDepartureMonth != null &&
-            this.studiesDepartureYear != null);
-    }
-
-    get studiesDepartureDate() {
-        return this.parseDate(this.studiesDepartureYear, this.studiesDepartureMonth, this.studiesDepartureDay);
-    }
-
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
-    get studiesDepartureSimple(): SimpleDate {
-        return {
-            'year': this.studiesDepartureYear,
-            'month': this.studiesDepartureMonth,
-            'day': this.studiesDepartureDay,
-        };
-    }
-
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
-    set studiesDepartureSimple(date: SimpleDate){
-        this.studiesDepartureYear = date.year;
-        this.studiesDepartureMonth = date.month;
-        this.studiesDepartureDay = date.day;
-    }
 
     get status() {
         return this._status;
@@ -799,14 +520,6 @@ export class MspPerson implements IPerson {
         this.residentialAddress.country = CANADA;
     }
 
-    private parseDate(year: number, month: number, day: number) {
-        return moment.utc({
-            year: year,
-            month: month - 1, // moment use 0 index for month :(
-            day: day,
-        }); // use UTC mode to prevent browser timezone shifting
-    }
-
     private isNotEmpty(thing: any): boolean {
         return thing !== null && thing !== undefined;
     }
@@ -824,15 +537,16 @@ export class MspPerson implements IPerson {
         // console.log('check data completeness for: ' + Relationship[this.relationship]);
 
         let basic = _.isString(this.gender)
-            && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
-            && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year) && !(this.dob_month === 0)
-            && _.isNumber(this._status) && _.isNumber(this._currentActivity) && this.documents.images.length > 0
-            && !(this.studiesDepartureMonth === 0)
-            && !(this.studiesFinishedMonth === 0)
+            && _.isString(this.firstName) && this.firstName.length > 0
+            && _.isString(this.lastName) && this.lastName.length > 0
+            && this.dateOfBirth
+            && _.isNumber(this._status) && _.isNumber(this._currentActivity)
+            && this.documents.images.length > 0
+            && this.studiesDepartureDate
+            && this.studiesFinishedDate
             && _.isBoolean(this._declarationForOutsideOver30Days)
-            && !(this.outOfBCRecord && this.outOfBCRecord.departureMonth === 0)
-            && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth === 0)
-            && !(this.dischargeDate && this.dischargeMonth === 0);
+            && (this.outOfBCRecord && this.outOfBCRecord.departureDate )
+            && !!this.dischargeDate;
         let returningToBCComplete = true;
 
         // Check name regexs
@@ -876,26 +590,26 @@ export class MspPerson implements IPerson {
         let spouseComplete: boolean = true;
         if (this.relationship === Relationship.Spouse) {
             // must be not in the future
-            spouseComplete = this.dob.isBefore(moment());
+            spouseComplete = isBefore( this.dateOfBirth, startOfToday() );
         }
 
         // applicant 16 and older
         let applicant16OrOlderComplete = true;
         if (this.relationship === Relationship.Applicant &&
             this.hasDob) {
-            applicant16OrOlderComplete = !this.dob.isAfter(moment().subtract(16, 'years'));
+            applicant16OrOlderComplete = !isAfter(this.dateOfBirth, subYears( startOfToday(), 16));
         }
 
 
         let ageOver19ChildComplete = true;
         if (this.relationship === Relationship.Child19To24) {
-            const tooYoung = this.dob.isAfter(moment().subtract(19, 'years'));
-            const tooOld = this.dob.isBefore(moment().subtract(24, 'years'));
+            const tooYoung = isAfter(this.dateOfBirth, subYears( startOfToday(), 19));
+            const tooOld = isBefore(this.dateOfBirth, subYears( startOfToday(), 24) );
             ageOver19ChildComplete = !tooOld && !tooYoung;
 
             if (this.fullTimeStudent) {
                 ageOver19ChildComplete = ageOver19ChildComplete && !!this.schoolName && _.isString(this.schoolName) && this.schoolName.length > 0
-                    && _.isNumber(this.studiesFinishedYear) && _.isString(this.studiesFinishedMonth) && _.isNumber(this.studiesFinishedDay)
+                    && !!this.studiesFinishedDate
                     && this.schoolAddress.isValid;
             } else {
                 //must be a full time student
@@ -905,7 +619,7 @@ export class MspPerson implements IPerson {
 
         let ageUnder19ChildComplete = true;
         if (this.relationship === Relationship.ChildUnder19) {
-            const lessThan19 = this.dob.isAfter(moment().subtract(19, 'years'));
+            const lessThan19 = isAfter(this.dateOfBirth, subYears( startOfToday(), 19) );
             ageUnder19ChildComplete = lessThan19;
         }
 
@@ -914,22 +628,21 @@ export class MspPerson implements IPerson {
             institutionWorkComplete = _.isString(this.institutionWorkHistory)
                 && (this.institutionWorkHistory.toLowerCase() === 'yes' || this.institutionWorkHistory.toLowerCase() === 'no');
             if (institutionWorkComplete && this.institutionWorkHistory.toLowerCase() === 'yes') {
-                institutionWorkComplete = _.isNumber(this.dischargeDay) && _.isString(this.dischargeMonth) && _.isNumber(this.dischargeYear);
+                institutionWorkComplete = !!this.dischargeDate;
             }
         }
 
 
         let arrivalToBCCompete = true;
         if (this.livedInBCSinceBirth === null || this.livedInBCSinceBirth === false) {
-            arrivalToBCCompete = this.arrivalToBCMonth > 0 && _.isNumber(this.arrivalToBCYear)
-                && _.isNumber(this.arrivalToBCDay);
+            arrivalToBCCompete = !!this.arrivalToBCDate;
         }
 
         let arrivalInCanadaComplete = true;
         if (!(this.status === StatusInCanada.CitizenAdult &&
                 (this.currentActivity === CanadianStatusReason.MovingFromProvince ||
                     this.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP))) {
-            arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
+            arrivalInCanadaComplete = !!this.arrivalToCanadaDate;
         }
         const result = basic
             && returningToBCComplete

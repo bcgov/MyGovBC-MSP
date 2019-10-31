@@ -2,48 +2,50 @@
 <common-page-section layout="tips">
   <div class="form-group col-sm-6 pl-0">
     <common-name name="firstName_{{objectId}}" 
-                  label="First name" 
-                  [disabled]="disabled" 
-                  [(ngModel)]="firstName"
-                  maxlen="30"
-                  required
-                  commonValidateName></common-name>
+                 label="First name" 
+                 [disabled]="disabled" 
+                 [(ngModel)]="firstName"
+                 maxlen="30"
+                 required
+                 commonValidateName></common-name>
   </div>
 
   <div class="form-group col-sm-6 pl-0">
     <common-name name="middleName_{{objectId}}"
-                  label="Middle name (optional)" 
-                  [disabled]="disabled" 
-                  [(ngModel)]="middleName"
-                  maxlen="30"
-                  commonValidateName></common-name>
+                 label="Middle name (optional)" 
+                 [disabled]="disabled" 
+                 [(ngModel)]="middleName"
+                 maxlen="30"
+                 commonValidateName></common-name>
   </div>
     
   <div class="form-group col-sm-6 pl-0">
     <common-name name="lastName_{{objectId}}" 
-                  label="Last name" 
-                  [disabled]="disabled" 
-                  [(ngModel)]="lastName"
-                  maxlen="30"
-                  required
-                  commonValidateName></common-name>
+                 label="Last name" 
+                 [disabled]="disabled" 
+                 [(ngModel)]="lastName"
+                 maxlen="30"
+                 required
+                 commonValidateName></common-name>
   </div>
-
-  <div *ngIf="showPhn" class="form-group col-sm-6 p-sm-2">
+  
+  <!--Display phn if defined in person object-->
+  <div *ngIf="phn" class="form-group col-sm-6 p-sm-2">
       <common-phn name="phn_{{objectId}}"
-                  [(ngModel)]="person.previous_phn"
+                  [(ngModel)]="phn"
                   required
                   commonValidatePhn></common-phn> 
   </div>
 
   <div class="form-group col-sm-6 pl-0">
-    <common-date label="Birthdate"
-                  [restrictDate]="'past'" 
-                  [disabled]="disabled"
-                  [(date)]="dateOfBirth"></common-date>
-  <!--  <common-error-container [displayError]="dobError">
-        An applicant must be 16 years or older.
-    </common-error-container> -->
+    <common-date name="dob_{{objectId}}"
+                 label="Birthdate"
+                 [dateRangeStart]="dobStartRange"
+                 [dateRangeEnd]="dobEndRange"
+                 [errorMessages]="dobErrorMsg"
+                 [disabled]="disabled"
+                 [(ngModel)]="dateOfBirth"
+                 required></common-date>
   </div>
 
   <div class="form-group col-sm-6 pl-0">
