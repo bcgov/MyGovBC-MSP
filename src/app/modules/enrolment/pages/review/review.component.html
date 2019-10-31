@@ -31,14 +31,14 @@
       </div>
     </div>
     
-    <div class="col-lg-6" *ngIf="hasChildren">
-      <ng-container *ngFor="let child of mspApplication.children; let i = index;">
-        <div class="clearfix" *ngIf="i % 2 == 0">
-          <msp-person-review-card title="Child"
+    <div class='row'>
+      <div class="col-lg-6" *ngIf="hasChildren">
+        <ng-container *ngFor="let child of mspApplication.children; let i = index;">
+          <msp-person-review-card title="Child Information"
                                   [person]="child"
                                   [editRouterLink]="child_info"></msp-person-review-card>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
   </form>                
 </common-page-framework>
