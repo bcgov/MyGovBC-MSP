@@ -13,7 +13,7 @@
     @include button-variant($color-secondary, #f8b103);
  
     &.disabled, &:disabled, &[disabled] {
-        color: #777;
+        color: #444; // passess a11y AAA
         background-color: #eee !important;
         border-color: #eee;
         &:hover { border-color: $color-secondary; }
