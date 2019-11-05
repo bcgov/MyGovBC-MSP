@@ -60,7 +60,7 @@
   
           <div requestAdditionInfo>
             <div class="form-group">
-              <common-radio name="NameChangeQuestion_{{id}}"
+              <common-radio name="NameChangeQuestion_{{idx}}"
                             [(ngModel)]="child.hasNameChange"  
                             label="Has your child's name changed since their ID was issued?"
                             required>
@@ -138,7 +138,7 @@
                              [(ngModel)]="child.studiesDepartureDate"
                              [required]="isRequired(child)"
                              [restrictDate]="'past'"
-                             [errorMessages]="schoolDepartureErrMsg">
+                             [errorMessage]="schoolDepartureErrMsg">
                 </common-date>
               </div>    
           
@@ -147,7 +147,7 @@
                              label="Expected school completion date"
                              [(ngModel)]="child.studiesFinishedDate"
                              [dateRangeStart]="completionDateRange(child)"
-                             [errorMessages]="schoolCompletionErrMsg"
+                             [errorMessage]="schoolCompletionErrMsg"
                              required>      
                 </common-date>
               </div>  

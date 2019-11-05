@@ -51,7 +51,7 @@
                      [dateRangeStart]="startDateRange"
                      [dateRangeEnd]="today"
                      [(ngModel)]="person.arrivalToBCDate"
-                     [errorMessages]="recentMoveBCErrorMsg"
+                     [errorMessage]="recentMoveBCErrorMsg"
                      required>
         </common-date>
     </div>
@@ -63,7 +63,7 @@
                    [dateRangeEnd]="today"
                    [(ngModel)]="person.arrivalToCanadaDate"
                    [required]="arrivalDateRequired"
-                   [errorMessages]="recentMoveCanadaErrorMsg">
+                   [errorMessage]="recentMoveCanadaErrorMsg">
       </common-date>
     </div>
 
@@ -122,12 +122,12 @@
        </div>
 
        <div class="form-group col-sm-6">
-        <common-date name="departureDate__{{objectId}}"
+        <common-date name="departureDate_{{objectId}}"
                      label="{{departureDateLabel}}"
                      [(ngModel)]="person.oopDepartureDate"
-                     [errorMessages]="oopDepartureErrorMsg"
-                     [dateRangeStart]="oopDepartureStartRange"
-                     [dateRangeEnd]="today"
+                     [errorMessage]="oopDepartureErrorMsg"
+                     [dateRangeStart]="twelveMonthsAgo"
+                     [dateRangeEnd]="oopDepartureEndRange"
                      required>
         </common-date>
       </div>
@@ -136,7 +136,7 @@
           <common-date name="returnDate_{{objectId}}"
                        label="{{returnDateLabel}}"
                        [(ngModel)]="person.oopReturnDate"
-                       [errorMessages]="oopReturnErrorMsg"
+                       [errorMessage]="oopReturnErrorMsg"
                        [dateRangeStart]="oopReturnStartRange"
                        [dateRangeEnd]="today"
                        required>
@@ -203,7 +203,7 @@
                  [dateRangeStart]="startDateRange"
                  [dateRangeEnd]="today"
                  [(ngModel)]="person.arrivalToBCDate"
-                 [errorMessages]="recentMoveBCErrorMsg"
+                 [errorMessage]="recentMoveBCErrorMsg"
                  required>
     </common-date>
   </div>

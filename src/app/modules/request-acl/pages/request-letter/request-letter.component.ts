@@ -31,8 +31,8 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
   // Radio button labels
   radioBtnLabels = [
     { label: 'Myself only', value: EnrolmentMembership.MyselfOnly },
-    { label: 'All members on my MSP Account', value: EnrolmentMembership.AllMembers },
-    { label: 'One specific member on my MSP Account', value: EnrolmentMembership.SpecificMember },
+    { label: 'All members on my Medical Services Plan Account', value: EnrolmentMembership.AllMembers },
+    { label: 'One specific member on my Medical Services Plan Account', value: EnrolmentMembership.SpecificMember },
   ];
 
   private _subscription: Subscription;
