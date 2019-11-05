@@ -51,7 +51,7 @@
                      [dateRangeStart]="startDateRange"
                      [dateRangeEnd]="today"
                      [(ngModel)]="person.arrivalToBCDate"
-                     [errorMessage]="recentMoveBCErrorMsg"
+                     [errorMessages]="recentMoveBCErrorMsg"
                      required>
         </common-date>
     </div>
@@ -63,7 +63,7 @@
                    [dateRangeEnd]="today"
                    [(ngModel)]="person.arrivalToCanadaDate"
                    [required]="arrivalDateRequired"
-                   [errorMessage]="recentMoveCanadaErrorMsg">
+                   [errorMessages]="recentMoveCanadaErrorMsg">
       </common-date>
     </div>
 
@@ -125,7 +125,7 @@
         <common-date name="departureDate__{{objectId}}"
                      label="{{departureDateLabel}}"
                      [(ngModel)]="person.oopDepartureDate"
-                     [errorMessage]="oopDepartureErrorMsg"
+                     [errorMessages]="oopDepartureErrorMsg"
                      [dateRangeStart]="oopDepartureStartRange"
                      [dateRangeEnd]="today"
                      required>
@@ -136,7 +136,7 @@
           <common-date name="returnDate_{{objectId}}"
                        label="{{returnDateLabel}}"
                        [(ngModel)]="person.oopReturnDate"
-                       [errorMessage]="oopReturnErrorMsg"
+                       [errorMessages]="oopReturnErrorMsg"
                        [dateRangeStart]="oopReturnStartRange"
                        [dateRangeEnd]="today"
                        required>
@@ -203,7 +203,7 @@
                  [dateRangeStart]="startDateRange"
                  [dateRangeEnd]="today"
                  [(ngModel)]="person.arrivalToBCDate"
-                 [errorMessage]="recentMoveBCErrorMsg"
+                 [errorMessages]="recentMoveBCErrorMsg"
                  required>
     </common-date>
   </div>
