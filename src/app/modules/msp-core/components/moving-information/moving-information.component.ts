@@ -2,7 +2,8 @@ import { Component, OnInit, forwardRef, EventEmitter, Input, Output } from '@ang
 import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST, ErrorMessage, LabelReplacementTag } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { environment } from '../../../../../environments/environment';
-import { startOfToday, subMonths } from 'date-fns';
+import { startOfToday, subMonths, isAfter } from 'date-fns';
+import { isBefore } from 'date-fns/esm';
 
 
 export interface IMovingInfo {
@@ -72,7 +73,7 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   departureDateLabel = 'Departure date';
   returnDateLabel = 'Return date';
   today: Date = startOfToday();
-  TwelveMonthsAgo: Date = subMonths( this.today, 12 );
+  twelveMonthsAgo: Date = subMonths( this.today, 12 );
 
   oopDepartureErrorMsg: ErrorMessage = {
     invalidRange: LabelReplacementTag + ' must be within the last 12 months and prior to return date.'
@@ -208,12 +209,28 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
     return true;
   }
 
-  get oopDepartureStartRange() {
-    return this.person.oopReturnDate ? this.person.oopReturnDate : this.TwelveMonthsAgo;
+  get oopDepartureEndRange() {
+
+    // Return date has been entered
+    if ( this.person.oopReturnDate ) {
+      if ( isAfter( this.person.oopReturnDate, this.twelveMonthsAgo ) &&
+           isBefore( this.person.oopReturnDate, this.today ) ) {
+        return this.person.oopReturnDate;
+      }
+    }
+    return this.today;
   }
 
   get oopReturnStartRange() {
-    return this.person.oopDepartureDate ? this.person.oopDepartureDate : this.TwelveMonthsAgo;
+
+    // Departure Date date has been entered
+    if ( this.person.oopDepartureDate ) {
+      if ( isAfter( this.person.oopDepartureDate, this.twelveMonthsAgo ) &&
+            isBefore( this.person.oopDepartureDate, this.today ) ) {
+        return this.person.oopDepartureDate;
+      }
+    }
+    return this.twelveMonthsAgo;
   }
 
   get startDateRange() {
