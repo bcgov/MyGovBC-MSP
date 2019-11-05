@@ -99,6 +99,7 @@ http {
 
         location /test {
             root   /tmp/app/dist/deam-interim; #TODO: Verify
+            return 201; # Debugg only, don't really want to return status code
         }
 
         location /testFile {
