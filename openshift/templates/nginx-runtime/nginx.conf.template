@@ -90,15 +90,20 @@ http {
 
 
         # TODO - Test this separately.  Should make hitting "/msp/deam-interim/" work without the "index.html"
-        location /deam-interim {
-            # root   /tmp/app/dist/; W# Orig
+        location /deam-interim/ {
             # root   /tmp/app/dist; #no slash
-            root   /tmp/app/deam-interim; #next up - no slash
+            # root   /tmp/app/dist/; W# Orig
+
+            root   /tmp/app/dist;
             index  index.html index.htm;
-            try_files $uri /index.html;
+            try_files $uri /index.html; # ORIG
+            # try_files $uri deam-interim/index.html; # TO TRY
+            
             gzip            on;
             gzip_min_length 1000;
             gzip_types      *;
+
+            autoindex on; # TODO - REMOVE
         }
 
         # location /interim {
