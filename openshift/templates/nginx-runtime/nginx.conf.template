@@ -92,13 +92,13 @@ http {
         # TODO - Test this separately.  Should make hitting "/msp/deam-interim/" work without the "index.html"
         location /deam-interim/ {
             # Potentially have to include rewrite for MSP?
-            # root   /tmp/app/dist; #no slash
-            # root   /tmp/app/dist/; W# Orig
-
-            root   /tmp/app/dist;
+            root   /tmp/app/dist/deam-interim/;
             index  index.html index.htm;
             # try_files $uri /index.html; # ORIG
-            try_files $uri /tmp/app/dist/deam-interim/index.html; # TO TRY
+
+            # doesn't work, still loads from wrong /etc/ folder
+            # try_files $uri /tmp/app/dist/deam-interim/index.html; # TO TRY
+            try_files $uri $uri/ /index.html
             
             gzip            on;
             gzip_min_length 1000;
