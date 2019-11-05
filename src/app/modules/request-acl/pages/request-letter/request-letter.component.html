@@ -7,11 +7,10 @@
 <common-page-framework layout='blank'>
   <form #formRef='ngForm' novalidate>
   
-    <h1>Request MSP Account Confirmation Letter</h1>
+    <h1>Request Medical Service Plan Account Confirmation Letter</h1>
     <p>
-        Medical Services Plan (MSP) Account Holders and Spouses can use this online form 
-        to request an MSP Account Confirmation letter that will verify MSP enrolment 
-        status for one or more individuals on an MSP account.
+      Use this online form to request a Medical Services Plan Account Confirmation letter that 
+      will verify enrolment status for one or more individuals on an account.
     </p>
     <p class="border-bottom">
         Please allow two to three weeks for delivery.
@@ -40,9 +39,9 @@
         </div>
         <div class="form-group">
           <common-postal-code name="AccountHolderPC"
-                              label="Mailing Postal Code"
                               [(ngModel)]="postalCode"
-                              required>
+                              required
+                              commonValidatePostalcode>
           </common-postal-code>
         </div>
       </div>
@@ -50,7 +49,7 @@
       <div class="form-group pt-4">
         <common-radio name="EnrolmentMembership"
                       [(ngModel)]="enrolmentMembership" 
-                      label="Whose MSP enrolment information should be included in the MSP Account Confirmation Letter?" 
+                      label="Whose Medical Services Plan enrolment information should be included in the Account Confirmation Letter?" 
                       [radioLabels]="radioBtnLabels"
                       display="table-row-group"
                       required>
