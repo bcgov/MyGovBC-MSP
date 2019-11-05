@@ -90,21 +90,21 @@ http {
 
 
         # TODO - Test this separately.  Should make hitting "/msp/deam-interim/" work without the "index.html"
+        # This current config seems to work for loading index, but unfortunately it breaks loading of files (like js/css)
         location /deam-interim/ {
             # Potentially have to include rewrite for MSP?
-            root   /tmp/app/dist/deam-interim/;
+            #root   /tmp/app/dist/deam-interim/; # working for index, not for rest?
+            root   /tmp/app/dist/deam-interim/; # working for index, not for rest?
             index  index.html index.htm;
             # try_files $uri /index.html; # ORIG
 
             # doesn't work, still loads from wrong /etc/ folder
             # try_files $uri /tmp/app/dist/deam-interim/index.html; # TO TRY
-            try_files $uri $uri/ /index.html
+            try_files $uri $uri/ /tmp/app/dist/deam-interim/$uri /index.html
             
             gzip            on;
             gzip_min_length 1000;
             gzip_types      *;
-
-            autoindex on; # TODO - REMOVE
         }
 
         # location /interim {
