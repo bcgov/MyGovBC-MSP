@@ -103,7 +103,7 @@ http {
 
         location /testFile {
             root   /tmp/app/dist/deam-interim; #TODO: Verify
-            try_files index.html
+            try_files index.html;
         }
 
         location /testMissing {
