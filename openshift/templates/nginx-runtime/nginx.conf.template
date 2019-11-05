@@ -97,20 +97,41 @@ http {
             gzip_types      *;
         }
 
+        location /interim-no-rewrite {
+            root   /tmp/app/dist/deam-interim; #TODO: Verify
+            index  index.html index.htm;
+            try_files $uri /index.html;
+            gzip            on;
+            gzip_min_length 1000;
+            gzip_types      *;
+        }
+
+        # TODO - Test this separately.  Should make hitting "/msp/deam-interim/" work without the "index.html"
+        location /deam-interim {
+            root   /tmp/app/dist/; #TODO: Verify
+            index  index.html index.htm;
+            try_files $uri /index.html;
+            gzip            on;
+            gzip_min_length 1000;
+            gzip_types      *;
+        }
+
+        
+
         location /test {
             root   /tmp/app/dist/deam-interim; #TODO: Verify
             return 201; # Debugg only, don't really want to return status code
         }
 
-        location /testFile {
-            root   /tmp/app/dist/deam-interim; #TODO: Verify
-            try_files index.html;
-        }
+        # location /testFile {
+        #     root   /tmp/app/dist/deam-interim; #TODO: Verify
+        #     try_files index.html;
+        # }
 
-        location /testMissing {
-            root   /tmp/app/dist/deam-interim; #TODO: Verify
-            try_files index.html =404;
-        }
+        # location /testMissing {
+        #     root   /tmp/app/dist/deam-interim; #TODO: Verify
+        #     try_files index.html =404;
+        # }
 
         
 
