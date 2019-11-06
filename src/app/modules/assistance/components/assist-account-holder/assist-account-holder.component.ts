@@ -50,7 +50,7 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
       <common-date
         name="birthdate"
         id="birthdate"
-        label="Date of Birth"
+        label="Birthdate"
         [(ngModel)]="person.dateOfBirth"
         [restrictDate]="'past'"
         required
