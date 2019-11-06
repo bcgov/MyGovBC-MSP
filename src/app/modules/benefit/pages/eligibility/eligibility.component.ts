@@ -19,7 +19,7 @@ export class EligibilityComponent extends BaseComponent {
 
   constructor(private _router: Router, public dataService: MspBenefitDataService , cd: ChangeDetectorRef) {
                 super(cd);
-                
+
   }
 
   ngAfterViewInit() {

@@ -4,7 +4,7 @@
 <div  style="display:inline-block;" *ngFor="let st of assistanceYears;  let i = index">
     <common-radio [value]="currentTaxYear"
         [radioLabels]='[{ "label": st.year, "value": st.year}]'
-        (statusChange)="setTaxYear(st.year)">
+        (valueChange)="setTaxYear(st.year)">
     </common-radio>
 
 </div>
@@ -26,7 +26,7 @@
     </label>
     <common-radio [value]="currentTaxYear"
         [radioLabels]='[{ "label": st.year, "value": st.year}]'
-        (statusChange)="setTaxYear(st.year)">
+        (valueChange)="setTaxYear(st.year)">
     </common-radio> 
 
 </div> -->

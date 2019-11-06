@@ -7,7 +7,7 @@
             <common-radio [value]="applicant.updatingPersonalInfo" 
                 [label]="'As the Account Holder, are you requesting an update/correction to your personal information?'" 
                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                (statusChange)="applicant.updatingPersonalInfo = $event">
+                (valueChange)="applicant.updatingPersonalInfo = $event">
             </common-radio>
         </div>
 
@@ -15,7 +15,7 @@
             <common-radio [value]="applicant.immigrationStatusChange"  
                 [label]="'Are you requesting to update or renew your immigration status in Canada?'" 
                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                (statusChange)="applicant.immigrationStatusChange = $event; ">
+                (valueChange)="applicant.immigrationStatusChange = $event; ">
             </common-radio>
         </div>
 

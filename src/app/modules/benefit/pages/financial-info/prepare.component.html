@@ -67,7 +67,7 @@
                 <div class="form-group">
                     <common-radio [value]="benefitApp.ageOver65"  [label]="lang('./en/index.js').areYou65OrOlder" 
                         [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                        (statusChange)="dataService.benefitApp.ageOver65 = $event;">
+                        (valueChange)="dataService.benefitApp.ageOver65 = $event;">
                     </common-radio> 
                     
                 </div>
@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <common-radio [value]="benefitApp.hasSpouse"  label="Do you have a spouse or common-law partner?" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="setHasSpouse($event)">
+                                (valueChange)="setHasSpouse($event)">
                             </common-radio>
                             <p>
                                 Note: Failure to notify Health Insurance BC when you marry or begin living in a marriage-like relationship may affect your eligibility for Supplementary Benefits.
@@ -94,7 +94,7 @@
                                         <!-- Spouse age 65 years   -->
                                         <common-radio [value]="benefitApp.spouseAgeOver65"  [label]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder" 
                                         [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                        (statusChange)="dataService.benefitApp.spouseAgeOver65 = $event;">
+                                        (valueChange)="dataService.benefitApp.spouseAgeOver65 = $event;">
                                         </common-radio>
                                     </div>
                                 
@@ -133,7 +133,7 @@
                         <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
                             <common-radio [value]="benefitApp.haveChildrens"  [label]="'Do you have any children on your Medical Service Plan account?'" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="updateChildren($event);">
+                                (valueChange)="updateChildren($event);">
                             </common-radio>
                         </div>
                         
@@ -193,7 +193,7 @@
                         <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
                             <common-radio [value]="benefitApp.selfDisabilityCredit"  [label]="getDisablityCreditTitle" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="updateDisabilityCredit($event)">
+                                (valueChange)="updateDisabilityCredit($event)">
                             </common-radio>
                             <p>
                                 See Line 316, 318 or 326 of your Notice of Assessment or Reassessment
@@ -273,7 +273,7 @@
                         <div class="form-group">
                             <common-radio [value]="benefitApp.hasRegisteredDisabilityPlan"  [label]="'Does anyone on your Medical Services Plan account have a Registered Disability Savings Plan?'" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="updateRegisteredDisabilityPlan($event)">
+                                (valueChange)="updateRegisteredDisabilityPlan($event)">
                             </common-radio>
                         </div>
 
@@ -311,7 +311,7 @@
                         <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
                             <common-radio [value]="benefitApp.hasClaimedAttendantCareExpenses"  [label]="didAnyoneClaimAttendantCareLastYear" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="updateNursingHomeExpense($event);"
+                                (valueChange)="updateNursingHomeExpense($event);"
                                 instructionText="See Line 215 or 330 of your Notice of Assessment or Reassessment">
                             </common-radio>
                             

@@ -12,7 +12,7 @@
         [value]="child.isRemovedAtTheEndOfCurrentMonth"  
         label="When should the child be removed from your account?" 
         [radioLabels]='[{ "label": "The end of the current month", "value": false}, {"label": "A date prior to this month", "value": true}]'
-        (statusChange)="child.isRemovedAtTheEndOfCurrentMonth = $event; this.dataService.saveMspAccountApp();">
+        (valueChange)="child.isRemovedAtTheEndOfCurrentMonth = $event; this.dataService.saveMspAccountApp();">
     </common-radio>
 </div>
 
@@ -48,7 +48,7 @@
           [value]="child.hasCurrentMailingAddress"  
           label="Do you know your child's current mailing address?" 
           [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-          (statusChange)="child.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
+          (valueChange)="child.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
       </common-radio>
   </div>
 </div>
