@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 import { state, trigger, style, } from '@angular/animations';
 import * as _ from 'lodash';
-import {MspBirthDateComponent} from '../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {BaseComponent} from '../../../../models/base.component';
 import { MspAccountApp } from '../../models/account.model';
 import { Address } from 'moh-common-lib';
@@ -61,7 +60,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
    // @ViewChild('formRef') form: NgForm;
 
     @ViewChild('gender') gender: ElementRef;
-    @ViewChild('birthDate') birthdate: MspBirthDateComponent;
+  //  @ViewChild('birthDate') birthdate: MspBirthDateComponent;
  //   @ViewChild('name') name: ElementRef;
   //  @ViewChild('phn') phn: MspPhnComponent;
    // @ViewChild('phone') phone: MspPhoneComponent;

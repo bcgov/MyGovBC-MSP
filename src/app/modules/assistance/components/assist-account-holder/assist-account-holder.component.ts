@@ -47,14 +47,14 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
       ></common-name>
     </div>
     <div class="form-group">
-      <msp-birthdate
-        [person]="person"
-        (onChange)="this.dataChange.emit(person)"
-        label="Date of Birth"
+      <common-date
         name="birthdate"
         id="birthdate"
+        label="Date of Birth"
+        [(ngModel)]="person.dateOfBirth"
+        [restrictDate]="'past'"
         required
-      ></msp-birthdate>
+      ></common-date>
     </div>
     <div class="form-group">
       <common-phn
