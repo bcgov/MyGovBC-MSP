@@ -30,7 +30,7 @@
           <common-radio name="spouseInfoUpdate__{{objectId}}"  [(ngModel)]="accountChangeOptions.spouseInfoUpdate" 
               label="Do you need to update spouse’s personal information or renew their status in Canada?" 
               [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-              (statusChange)="accountChangeOptions.spouseInfoUpdate = $event">
+              (valueChange)="accountChangeOptions.spouseInfoUpdate = $event">
           </common-radio>
       </div>
 
@@ -70,8 +70,7 @@
         <div requestAdditionInfo>
           <div class="form-group p-sm-2">
             <common-radio name="nameChangeQuestion__{{objectId}}"
-                            [(ngModel)]="spouse.hasNameChange"  
-                          (statusChange)="this.spouse.hasNameChange = $event"
+                          [(ngModel)]="spouse.hasNameChange"  
                           label="Has your spouse's name changed since their ID was issued due to marriage or a legal name change?" 
                           required>
             </common-radio>
