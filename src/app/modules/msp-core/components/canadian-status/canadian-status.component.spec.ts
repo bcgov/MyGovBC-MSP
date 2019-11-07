@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CanadianStatusComponent } from './canadian-status.component';
+import { CanadianStatusComponent, ICanadianStatus } from './canadian-status.component';
+import { SharedCoreModule } from 'moh-common-lib';
 
 describe('CanadianStatusComponent', () => {
-  let component: CanadianStatusComponent;
-  let fixture: ComponentFixture<CanadianStatusComponent>;
+  let component: CanadianStatusComponent<ICanadianStatus>;
+  let fixture: ComponentFixture<CanadianStatusComponent<ICanadianStatus>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CanadianStatusComponent ]
+      declarations: [ CanadianStatusComponent ],
+      imports: [SharedCoreModule]
     })
     .compileComponents();
   }));

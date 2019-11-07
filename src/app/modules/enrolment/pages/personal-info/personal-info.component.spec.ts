@@ -4,7 +4,6 @@ import { HttpClientModule} from '@angular/common/http';
 import { PersonalInfoComponent } from './personal-info.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import {MspBirthDateComponent} from '../../../msp-core/components/birthdate/birthdate.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {ModalModule, AccordionModule} from 'ngx-bootstrap';
 import { CompletenessCheckService } from '../../../../services/completeness-check.service';
@@ -23,7 +22,6 @@ describe('PersonalInfoComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         PersonalInfoComponent,
-        MspBirthDateComponent,
         MspCancelComponent,
         MspImageErrorModalComponent,        ],
       imports: [TextMaskModule,

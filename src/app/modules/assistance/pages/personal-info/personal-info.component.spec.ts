@@ -8,7 +8,6 @@ import {
   LocalStorageService,
   LocalStorageModule
 } from 'angular-2-local-storage';
-import { MspBirthDateComponent } from '../../../msp-core/components/birthdate/birthdate.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { MspLogService } from '../../../../services/log.service';
@@ -19,7 +18,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 describe('AssistancePersonalInfoComponent Test', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AssistancePersonalInfoComponent, , MspBirthDateComponent],
+      declarations: [AssistancePersonalInfoComponent],
       imports: [
         TextMaskModule,
         FormsModule,

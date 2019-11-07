@@ -10,9 +10,10 @@ export interface IPersonalInformation {
   middleName: string;
   lastName: string;
   dateOfBirth: Date;
-  gender: Gender;
+  gender?: Gender;
   relationship: Relationship;
   phn?: string;
+  sin?: string;
 }
 
 @Component({
@@ -113,6 +114,15 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
 
   set gender( val: Gender ) {
     this.person.gender = val;
+    this.personChange.emit(this.person);
+  }
+
+  get sin() {
+    return this.person.sin;
+  }
+
+  set sin( val: string ) {
+    this.person.sin = val;
     this.personChange.emit(this.person);
   }
 

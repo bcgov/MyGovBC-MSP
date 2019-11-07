@@ -22,11 +22,7 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
 
     @Input() removeable: boolean = false;
     @Input() person: MspPerson;
-   // @ViewChild('name') name: MspFullNameComponent;
     @ViewChild('formRef') personalDetailsForm: NgForm;
-   // @ViewChild('birthdate') birthdate: MspBirthDateComponent;
-//    @ViewChild('phn') phn: PhnComponent ;
-
     @Output() onChange = new EventEmitter<any>();
     @Output() docActionEvent = new EventEmitter<any>();
     @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
