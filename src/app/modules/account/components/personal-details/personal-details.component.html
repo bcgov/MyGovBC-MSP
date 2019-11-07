@@ -55,10 +55,14 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <msp-birthdate #birthdate
-                            [person]="person"
-                            (onChange)="onChange.emit($event)">
-                </msp-birthdate>
+                <common-date
+                    name="birthdate"
+                    id="birthdate"
+                    label="Date of Birth"
+                    [(ngModel)]="person.dateOfBirth"
+                    [restrictDate]="'past'"
+                    required>
+                </common-date>
             </div>
         </div>
     </div>
@@ -71,7 +75,7 @@
                 <common-radio [value]="person.gender" 
                     label='Gender' 
                     [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]' 
-                    (statusChange)="setGender($event)">
+                    (valueChange)="setGender($event)">
                 </common-radio> 
         </div>
     </div>

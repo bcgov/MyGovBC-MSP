@@ -2,7 +2,6 @@ import {ChangeDetectorRef, ElementRef, Component, EventEmitter, Input, OnInit, O
 import {debounceTime} from 'rxjs/operators';
 import {MspPerson} from '../../../../components/msp/model/msp-person.model';
 import {NgForm} from '@angular/forms';
-import {MspBirthDateComponent} from '../../../msp-core/components/birthdate/birthdate.component';
 import {BaseComponent} from '../../../../models/base.component';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
@@ -25,7 +24,7 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     @Input() person: MspPerson;
    // @ViewChild('name') name: MspFullNameComponent;
     @ViewChild('formRef') personalDetailsForm: NgForm;
-    @ViewChild('birthdate') birthdate: MspBirthDateComponent;
+   // @ViewChild('birthdate') birthdate: MspBirthDateComponent;
 //    @ViewChild('phn') phn: PhnComponent ;
 
     @Output() onChange = new EventEmitter<any>();

@@ -70,6 +70,9 @@ http {
         add_header X-XSS-Protection 1;
         add_header X-Frame-Options DENY;
 
+
+        # TODO - VERIFY BUILD PATHS
+
         # serve our angular app here
         location / {
 	    rewrite ^/msp(/.*)$ $1;
@@ -83,6 +86,65 @@ http {
             # Deploy-time configurable
             # %HTTP_BASIC%
         }
+
+
+
+        # TODO - Test this separately.  Should make hitting "/msp/deam-interim/" work without the "index.html"
+        # This current config seems to work for loading index, but unfortunately it breaks loading of files (like js/css)
+        location /deam-interim/ {
+            # Potentially have to include rewrite for MSP?
+            #root   /tmp/app/dist/deam-interim/; # working for index, not for rest?
+            root   /tmp/app/dist/deam-interim/; # working for index, not for rest?
+            index  index.html index.htm;
+            # try_files $uri /index.html; # ORIG
+
+            # doesn't work, still loads from wrong /etc/ folder
+            # try_files $uri /tmp/app/dist/deam-interim/index.html; # TO TRY
+            try_files $uri $uri/ /tmp/app/dist/deam-interim/$uri /index.html
+            
+            gzip            on;
+            gzip_min_length 1000;
+            gzip_types      *;
+        }
+
+        # location /interim {
+	    # rewrite ^/msp(/.*)$ $1;
+        #     root   /tmp/app/dist/deam-interim; #TODO: Verify
+        #     index  index.html index.htm;
+        #     try_files $uri /index.html;
+        #     gzip            on;
+        #     gzip_min_length 1000;
+        #     gzip_types      *;
+        # }
+
+        # location /interim-no-rewrite {
+        #     root   /tmp/app/dist/deam-interim; #TODO: Verify
+        #     index  index.html index.htm;
+        #     try_files $uri /index.html;
+        #     gzip            on;
+        #     gzip_min_length 1000;
+        #     gzip_types      *;
+        # }
+
+
+        
+
+        # location /test {
+        #     root   /tmp/app/dist/deam-interim; #TODO: Verify
+        #     return 201; # Debugg only, don't really want to return status code
+        # }
+
+        # # location /testFile {
+        # #     root   /tmp/app/dist/deam-interim; #TODO: Verify
+        # #     try_files index.html;
+        # # }
+
+        # location /testMissing {
+        #     root   /tmp/app/dist/deam-interim; #TODO: Verify
+        #     try_files index.html =404;
+        # }
+
+        
 
         location /api {
             proxy_pass http://mygovbc-msp-service:8080/;

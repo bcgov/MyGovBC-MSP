@@ -25,7 +25,7 @@
         [value]="spouse.isRemovedAtTheEndOfCurrentMonth"  
         [label]="'When should the spouse be removed from your account?'" 
         [radioLabels]='[{ "label": "The end of the current month", "value": true}, {"label": "A date prior to this month", "value": false}]'
-        (statusChange)="spouse.isRemovedAtTheEndOfCurrentMonth = $event; this.dataService.saveMspAccountApp();">
+        (valueChange)="spouse.isRemovedAtTheEndOfCurrentMonth = $event; this.dataService.saveMspAccountApp();">
     </common-radio>
 </div>
 
@@ -59,7 +59,7 @@
           [value]="spouse.hasCurrentMailingAddress"  
           label="Do you know your spouse's current mailing address?" 
           [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-          (statusChange)="spouse.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
+          (valueChange)="spouse.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
       </common-radio>
   </div>
 

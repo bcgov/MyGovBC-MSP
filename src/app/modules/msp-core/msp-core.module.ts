@@ -5,7 +5,6 @@ import { SharedCoreModule } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
 import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
-import { MspBirthDateComponent } from './components/birthdate/birthdate.component';
 import { MspImageErrorModalComponent } from './components/image-error-modal/image-error-modal.component';
 
 // TOBE REVIEWED
@@ -33,7 +32,6 @@ import { MovingInformationComponent } from './components/moving-information/movi
 
 const componentList = [
   MspFullNameComponent,
-  MspBirthDateComponent,
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,
   MspAddressCardPartComponent,
