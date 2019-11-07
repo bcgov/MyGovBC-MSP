@@ -15,6 +15,7 @@ export function tickAndDetectChanges(fixture: ComponentFixture<any>) {
 
 // Create unit test module for testing component
 export function createTestingModule<T>( cmp: Type<T>,
+                                        template: string,
                                         ...directives: Type<any>[] ): ComponentFixture<T> {
 
   TestBed.configureTestingModule({
@@ -30,7 +31,13 @@ export function createTestingModule<T>( cmp: Type<T>,
     providers: [
       { provide: ComponentFixtureAutoDetect, useValue: true }
     ]
-  }).compileComponents();
+  }).overrideComponent(cmp, {
+    set: {
+      template: template
+    }
+});
+
+TestBed.compileComponents();
 
   return TestBed.createComponent( cmp );
 }

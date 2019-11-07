@@ -10,9 +10,13 @@ export interface IPersonalInformation {
   middleName: string;
   lastName: string;
   dateOfBirth: Date;
-  gender?: Gender;
   relationship: Relationship;
+  // Read only values (properties) must be set if you want the field to display with no values.
+  readonly genderRequired?: boolean;
+  gender?: Gender;
+  readonly phnRequired?: boolean;
   phn?: string;
+  readonly sinRequired?: boolean;
   sin?: string;
 }
 
@@ -90,6 +94,10 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     this.personChange.emit(this.person);
   }
 
+  get requiresPhn() {
+    return this.person.phnRequired;
+  }
+
   get phn() {
     return this.person.phn;
   }
@@ -108,6 +116,10 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     this.personChange.emit(this.person);
   }
 
+  get requiresGender() {
+    return this.person.genderRequired;
+  }
+
   get gender() {
     return this.person.gender;
   }
@@ -117,6 +129,9 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     this.personChange.emit(this.person);
   }
 
+  get requiresSin() {
+    return this.person.sinRequired;
+  }
   get sin() {
     return this.person.sin;
   }

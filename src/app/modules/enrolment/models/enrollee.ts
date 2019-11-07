@@ -7,6 +7,8 @@ import { SupportDocumentsDto, SupportDocuments } from '../../msp-core/models/sup
 import { AddressDto } from '../../../models/address.dto';
 
 export class Enrollee extends BasePerson implements ICanadianStatus {
+  // Flag to indicate gender to be displayed in personal-information component
+  readonly genderRequired: boolean = true;
 
   // Canadian status component - relationship is part of the base person
   status: StatusInCanada;
