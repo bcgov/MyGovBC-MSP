@@ -67,7 +67,7 @@ describe('MSP Supplementary Benefits - End to End Test (Happy Path)', () => {
         fillConsentModal(ELIGIBILITY_PAGE_URL);
         eligibilityPage.fillPage();
         expect(browser.getCurrentUrl()).toContain(PREPARE_PAGE_URL, 'should navigate to the Financial Info Page');
-        preparePage.fillPage('999999.99');
+        preparePage.fillPage('49999.99');
         expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should continue to the Personal Info Page');
         personalPage.fillPage(personalInfoData);
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should continue to the Spouse Info Page');

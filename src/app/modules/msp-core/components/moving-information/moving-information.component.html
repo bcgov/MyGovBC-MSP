@@ -125,7 +125,7 @@
         <common-date name="departureDate_{{objectId}}"
                      label="{{departureDateLabel}}"
                      [(ngModel)]="person.oopDepartureDate"
-                     [errorMessage]="oopDepartureErrorMsg"
+                     [errorMessages]="oopDepartureErrorMsg"
                      [dateRangeStart]="twelveMonthsAgo"
                      [dateRangeEnd]="oopDepartureEndRange"
                      required>
