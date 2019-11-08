@@ -1,5 +1,5 @@
-import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
-import { AbstractForm, ApiStatusCodes } from 'moh-common-lib';
+import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { AbstractForm, ApiStatusCodes, ErrorMessage } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { HeaderService } from '../../../../services/header.service';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
@@ -27,6 +27,8 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
   loading: boolean = false;
   captchaApiBaseUrl: string = environment.appConstants.captchaApiBaseUrl;
   showCaptcha: boolean = false;
+  accountHolderInput: string = 'AccountHolderPhn';
+  specificMemberInput: string = 'SpecificMember';
 
   // Radio button labels
   radioBtnLabels = [
@@ -35,13 +37,18 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
     { label: 'One specific member on my Medical Services Plan Account', value: EnrolmentMembership.SpecificMember },
   ];
 
+  errorMessages: ErrorMessage = {
+    duplicate: 'This PHN was already used for another family member. Please provide the PHN that is listed on the family member\'s BC Services Card.'
+  };
+
   private _subscription: Subscription;
 
   constructor( protected router: Router,
                private header: HeaderService,
                private dataService: AclDataService,
                private logService: MspLogService,
-               private aclApiService: AclApiService ) {
+               private aclApiService: AclApiService,
+               private cd: ChangeDetectorRef ) {
     super( router );
 
     // Set service name for application
@@ -113,6 +120,7 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
           // Clear out specific member PHN
           if ( !this.isSpecificMember ) {
             this.application.specificMemberPhn = '';
+            this.triggerValidation( this.accountHolderInput );
           }
 
           if ( !this.showCaptcha && this.form.valid && this.application.infoCollectionAgreement ) {
@@ -133,9 +141,20 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
     this.dataService.saveApplication();
   }
 
+  triggerValidation( controlName: string ) {
+    const control = this.form.controls[ controlName ];
+    if ( control ) {
+      setTimeout( () => {
+        control.updateValueAndValidity();
+        this.cd.detectChanges();
+      }, 0);
+    }
+  }
+
   continue(): void {
 
     if ( !this.form.valid || !this.application.authorizationToken ) {
+
       this.markAllInputsTouched();
       return;
     }

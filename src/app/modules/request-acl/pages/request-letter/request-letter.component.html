@@ -23,8 +23,9 @@
           <common-phn #AccountHolder_Phn="ngModel"
                       name="AccountHolderPhn"
                       [(ngModel)]="accountHolderPhn"
+                      [errorMessage]="errorMessages"
+                      (blur)="triggerValidation(specificMemberInput)"
                       required
-                      commonValidatePhn
                       commonDuplicateCheck
                       [dupList]="[specificMemberPhn]">
           </common-phn>
@@ -66,8 +67,9 @@
         <div class="form-group col-sm-6 pl-0">
           <common-phn name="SpecificMember"
                       [(ngModel)]="specificMemberPhn"
+                      [errorMessage]="errorMessages"
+                      (blur)="triggerValidation(accountHolderInput)"
                       required
-                      commonValidatePhn
                       commonDuplicateCheck
                       [dupList]="[accountHolderPhn]">
           </common-phn>

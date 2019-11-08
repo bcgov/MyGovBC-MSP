@@ -45,8 +45,7 @@
                       #phnRef="ngModel"
                       name="phn"
                       [(ngModel)]="person.previous_phn"
-                      required
-                      commonValidatePhn></common-phn>
+                      required></common-phn>
               <div class="text-danger" *ngIf="!isPhnUnique()"
                 [innerHTML]="lang('./en/index.js').phnUniqueError">
               </div>

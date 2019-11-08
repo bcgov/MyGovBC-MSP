@@ -155,9 +155,7 @@
     <div *ngIf="person.hasPreviousBCPhn" class="form-group col-sm-6 ml-4 border-left">
       <common-phn name="previousPhn_{{objectId}}"
                   label="{{isApplicant? 'Your' : 'Their'}} previous B.C. Personal Health Number (optional)"
-                  [(ngModel)]="person.previousBCPhn"
-                  commonValidatePhn
-                  [allowEmptyValue]="true">
+                  [(ngModel)]="person.previousBCPhn">
       </common-phn>
     </div>
     
