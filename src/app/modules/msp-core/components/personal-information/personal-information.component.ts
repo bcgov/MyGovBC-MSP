@@ -11,6 +11,7 @@ export interface IPersonalInformation {
   lastName: string;
   dateOfBirth: Date;
   relationship: Relationship;
+
   // Read only values (properties) must be set if you want the field to display with no values.
   readonly genderRequired?: boolean;
   gender?: Gender;
@@ -37,6 +38,10 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
 
   @Input() disabled: boolean = false;
 
+  // Duplicate checking
+  @Input() phnList: string[] = [];
+  @Input() sinList: string[] = [];
+
   @Input() person: T;
   @Output() personChange: EventEmitter<T> = new EventEmitter<T>();
 
@@ -50,6 +55,14 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
   dobErrorMsg: ErrorMessage = null;
   dobStartRange: Date = null;
   dobEndRange: Date = null;
+
+  sinErrorMsg: ErrorMessage = {
+    duplicate: 'This Social Insurance Number (SIN) was already used for another family member. Please provide the SIN that is listed on the family member\'s SIN card/letter.'
+  };
+
+  phnErrorMsg: ErrorMessage = {
+    duplicate: 'This Personal Health Number (PHN) was already used for another family member. Please provide the PHN that is listed on the family member\'s PHN card/letter.'
+  };
 
   private _today = startOfToday();
 

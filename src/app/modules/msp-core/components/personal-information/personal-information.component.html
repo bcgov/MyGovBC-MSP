@@ -53,15 +53,20 @@
   <div *ngIf="requiresPhn" class="form-group col-sm-6 pl-0">
       <common-phn name="phn_{{objectId}}"
                   [(ngModel)]="phn"
-                  required></common-phn> 
+                  [errorMessage]="phnErrorMsg"
+                  required
+                  commonDuplicateCheck
+                  [dupList]="phnList"></common-phn>
   </div>
 
   <!--Display sin if defined in person object-->
   <div *ngIf="requiresSin" class="form-group col-sm-6 pl-0">
     <common-sin name="sin_{{objectId}}"
                 [(ngModel)]="sin"
+                [errorMessage]="sinErrorMsg"
                 required
-                commonValidateSin></common-sin> 
+                commonDuplicateCheck
+                [dupList]="sinList"></common-sin> 
   </div>
 
 </common-page-section>

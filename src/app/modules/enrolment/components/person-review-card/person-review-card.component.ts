@@ -5,6 +5,7 @@ import { Gender, GenderStrings } from '../../../../models/gender.enum';
 import { format } from 'date-fns';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { getStatusStrings, getStatusReasonStrings } from '../../../msp-core/components/canadian-status/canadian-status.component';
+import { Relationship } from '../../../../models/relationship.enum';
 
 export interface IPersonReviewCard {
   // Personal Information
@@ -15,6 +16,7 @@ export interface IPersonReviewCard {
   // Canadian status
   status?: StatusInCanada;
   currentActivity?: CanadianStatusReason;
+  relationship?: Relationship;
 
   // Moving Information
   livedInBCSinceBirth?: boolean;
@@ -53,6 +55,7 @@ export interface IPersonReviewCard {
   departureDateForSchool?: Date;
 
   documentCount?: number;
+
 }
 
 enum YES_NO {
@@ -126,57 +129,65 @@ export class PersonReviewCardComponent<T extends IPersonReviewCard> {
     return this._convertDateToString( this.person.arrivalToCanadaDate );
   }
 
+  /** Outside BC for 30 days - start */
   get hasBeenOutsideBCFor30Days() {
     return this._isDefined( this.person.outsideBCFor30Days );
   }
-
+  get displayOutsideBCFor30Days() {
+    return this.person.outsideBCFor30Days === true;
+  }
   get outsideBCFor30Days() {
     return this._convertBooleanToString( this.person.outsideBCFor30Days );
   }
-
   get oopDepartureDate() {
     return this._convertDateToString( this.person.oopDepartureDate );
   }
-
   get oopReturnDate() {
     return this._convertDateToString( this.person.oopReturnDate );
   }
+  /** Outside BC for 30 days - end */
 
+  /** Released Armed Forces - start */
   get hasBeenReleasedFromArmedForces() {
     return this._isDefined( this.person.hasBeenReleasedFromArmedForces );
   }
-
+  get displayReleasedDate() {
+    return this.person.hasBeenReleasedFromArmedForces === true;
+  }
   get releasedFromArmedForces() {
     return this._convertBooleanToString( this.person.hasBeenReleasedFromArmedForces );
   }
-
   get dischargeDate() {
     return this._convertDateToString( this.person.dischargeDate );
   }
+  /** Released Armed Forces - end */
 
+  /** Full-time student - start */
   get hasFullTimeStudent() {
     return this._isDefined( this.person.fullTimeStudent );
   }
-
+  get displayFullTimeStudentInfo() {
+    return this.person.fullTimeStudent === true;
+  }
   get fullTimeStudent() {
     return this._convertBooleanToString( this.person.fullTimeStudent );
   }
-
   get hasInBCafterStudies() {
     return this._isDefined( this.person.inBCafterStudies );
   }
-
   get inBCafterStudies() {
     return this._convertBooleanToString( this.person.inBCafterStudies );
   }
-
+  get displaySchoolInfo() {
+    return this.person.relationship === Relationship.Child19To24;
+  }
   get schoolCompletionDate() {
     return this._convertDateToString( this.person.schoolCompletionDate );
   }
-
   get departureDateForSchool() {
     return this._convertDateToString( this.person.departureDateForSchool );
   }
+  /** Full-time student - end */
 
   get documentCount() {
     const str = this.person.documentCount +  ' file';

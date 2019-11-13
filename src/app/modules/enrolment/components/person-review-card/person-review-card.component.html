@@ -66,29 +66,29 @@
                     [columnClass]="columnClass">
   </msp-review-part> 
 
-  <msp-review-part *ngIf="person?.departureReason"
-                    label="Reason for leaving"
-                    [value]="person?.departureReason"
-                    [columnClass]="columnClass">
-  </msp-review-part>
+  <!--Display only if out of province for more than 30 days-->
+  <div *ngIf="displayOutsideBCFor30Days">
+    <msp-review-part label="Reason for leaving"
+                      [value]="person?.departureReason"
+                      [columnClass]="columnClass">
+    </msp-review-part>
 
-  <msp-review-part *ngIf="person?.departureDestination"
-                    label="Location"
-                    [value]="person?.departureDestination"
-                    [columnClass]="columnClass">
-  </msp-review-part> 
+    <msp-review-part label="Location"
+                     [value]="person?.departureDestination"
+                     [columnClass]="columnClass">
+    </msp-review-part> 
 
-  <msp-review-part *ngIf="person?.oopDepartureDate"
-                    label="Departure date"
-                    [value]="oopDepartureDate"
-                    [columnClass]="columnClass">
-  </msp-review-part>
+    <msp-review-part label="Departure date"
+                     [value]="oopDepartureDate"
+                     [columnClass]="columnClass">
+    </msp-review-part>
 
-  <msp-review-part *ngIf="person?.oopReturnDate"
-                    label="Return date"
-                    [value]="oopReturnDate"
-                    [columnClass]="columnClass">
-  </msp-review-part> 
+    <msp-review-part label="Return date"
+                     [value]="oopReturnDate"
+                     [columnClass]="columnClass">
+    </msp-review-part> 
+
+  </div>
 
   <!-- Armed Forces -->
   <msp-review-part *ngIf="hasBeenReleasedFromArmedForces"
@@ -97,7 +97,7 @@
                     [columnClass]="columnClass">
   </msp-review-part>
 
-  <msp-review-part *ngIf="person?.dischargeDate"
+  <msp-review-part *ngIf="displayReleasedDate"
                     label="Date discharged"
                     [value]="dischargeDate"
                     [columnClass]="columnClass">
@@ -110,29 +110,33 @@
                     [columnClass]="columnClass">
   </msp-review-part>
 
-  <msp-review-part *ngIf="hasInBCafterStudies"
-                    label="Will you reside in BC upon completion of your studies"
-                    [value]="inBCafterStudies"
-                    [columnClass]="columnClass">
-  </msp-review-part> 
+  <div *ngIf="displayFullTimeStudentInfo">
+    <msp-review-part *ngIf="hasInBCafterStudies"
+                      label="Will you reside in BC upon completion of your studies"
+                      [value]="inBCafterStudies"
+                      [columnClass]="columnClass">
+    </msp-review-part> 
 
-  <msp-review-part *ngIf="person?.schoolName"
-                    label="School name"
-                    [value]="person?.schoolName"
-                    [columnClass]="columnClass">
-  </msp-review-part>
+    <!--Display information for dependents in post-secondary school-->
+    <div *ngIf="displaySchoolInfo">
+      <msp-review-part label="School name"
+                       [value]="person?.schoolName"
+                       [columnClass]="columnClass">
+      </msp-review-part>
 
-  <msp-review-part *ngIf="person?.schoolCompletionDate"
-                    label="Date of expected school completion"
-                    [value]="schoolCompletionDate"
-                    [columnClass]="columnClass">
-  </msp-review-part> 
+      <msp-review-part label="Date of expected school completion"
+                       [value]="schoolCompletionDate"
+                       [columnClass]="columnClass">
+      </msp-review-part> 
 
-  <msp-review-part *ngIf="person?.departureDateForSchool"
-                    label="Date of expected school completion"
-                    [value]="departureDateForSchool"
-                    [columnClass]="columnClass">
-  </msp-review-part> 
+      <msp-review-part *ngIf="person?.departureDateForSchool"
+                       label="Original departure date from B.C."
+                       [value]="departureDateForSchool"
+                       [columnClass]="columnClass">
+      </msp-review-part> 
+    </div>
+  </div>
+
 
   <msp-address-review-part *ngIf="person?.schoolAddress"
                            label="School address"
