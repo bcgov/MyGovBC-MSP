@@ -42,7 +42,7 @@ export enum CanadianStatusReason {
  * Dropdown selections associated with reasons for return to Canada enums
  */
 export const CanadianStatusReasonStrings = {
-  LivingInBCWithoutMSP: 'Not new to B.C. but need to apply for Medical Services Plan',
+  LivingInBCWithoutMSP: 'Not new to B.C. but need to apply for MSP',
   MovingFromProvince: 'Moved to B.C. from another province',
   MovingFromCountry: 'Moved to B.C. from another country',
   WorkingInBC: 'Working in B.C.',

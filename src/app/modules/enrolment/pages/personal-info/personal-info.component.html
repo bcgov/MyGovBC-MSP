@@ -7,7 +7,7 @@
 
     <msp-canadian-status [(person)]="applicant">
       <div sectionTitleInfo>
-        <h2>Status in Canada</h2>
+        <h2>Your Status in Canada</h2>
         <p class="border-bottom">
             Please provide your immigration status information. You will be required to upload documents to support your status in Canada.
         </p>
@@ -42,8 +42,12 @@
                            [(supportDoc)]="applicant.nameChangeDocs">
       <div sectionTitleInfo> 
         <h3>Additional Documents</h3>
-        <p class="border-bottom"> 
-            Provide <strong>one</strong> of the required documents to support your name change.
+        Please upload one of these documents as well as proof of your status in Canada:
+        <ul>
+          <li>Marriage Certificate</li> 
+          <li>Legal Name Change Certificate</li>
+        </ul>
+        <p class="border-bottom">
         </p>
       </div>
     </msp-support-documents>
@@ -51,9 +55,9 @@
     <div *ngIf="requestPersonalInfo">
       <msp-personal-information [(person)]="applicant">
         <div sectionTitleInfo>
-          <h2>Personal Information</h2>
+          <h2>Your Information</h2>
           <p class="border-bottom"> 
-            Enter your legal name and gender.
+            Enter your legal name, birthdate and gender.
           </p>
         </div>     
       </msp-personal-information>
@@ -64,7 +68,7 @@
           <p class="border-bottom"> 
               Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
           </p>
-        </div> 
+        </div>
         <div additionalQuestions *ngIf="requestSchoolInfo">
           <div class="form-group">
             <common-radio name="fullTimeStudent_{{objectId}}"

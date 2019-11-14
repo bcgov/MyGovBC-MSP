@@ -6,7 +6,7 @@
 
 <common-page-framework layout="blank">
 
-    <h1>Apply for Medical Services Plan</h1>
+    <h1>See if you qualify for public health care in B.C.</h1>
 
     <p class="pb-2 border-bottom">  
         If you already have Medical Services Plan (MSP) coverage and received a letter notifying you to renew your BC Services Card, you do not have to submit a new Application for MSP Enrolment; you only need to renew your BC Services Card. Follow the instructions on the letter to renew your card.</p>
@@ -24,7 +24,7 @@
             
                 <common-radio name="PlannedAbsence"
                               [(ngModel)]="plannedAbsence"  
-                              label="Will you or anyone included on this application be away from B.C. for more than 30 days in total over the next six months?" 
+                              label="Will you or anyone in your immediate family (included on this application) be away from B.C. for more than 30 days in total over the next six months?" 
                               required>
                 </common-radio>
 
@@ -32,9 +32,10 @@
                    *ngIf="plannedAbsence === true"
                    role="alert" 
                    aria-live="assertive">
-                    You might not qualify for public health insurance if you leave the province for more than 30 
-                    days in total during the first six months after you apply - doing this could mean you are no 
-                    longer considered a B.C. resident. Find out more by contacting 
+                   You or your family member might not qualify for public health insurance 
+                   if you leave the province for more than 30 days in total during the first 
+                   six months after you apply - doing this could mean you are no longer 
+                   considered a B.C. resident. Find out more by contacting
                     <a href="{{links.HIBC}}" target="_blank">Health Insurance BC</a>.
                 </p>
             </div>
@@ -46,12 +47,14 @@
                 <common-radio name="UnusualCircumstance"
                               [(ngModel)]="unUsualCircumstance"
                               required>
-                    Is anyone you're applying for<br>
+                    <strong>
+                    Is anyone you're applying for:<br>
                     <ul class="mb-0">
                         <li>A student returning to your home province at the end of a course or program; or</li>
                         <li>A minor (under the age of 16) who needs to have their own individual account; or</li>
                         <li>Seeking refugee status and is not approved yet</li>
                     </ul>
+                    </strong>
                 </common-radio>      
                 
                 <div class="text-danger" 

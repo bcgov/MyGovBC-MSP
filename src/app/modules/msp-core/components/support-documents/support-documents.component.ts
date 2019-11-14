@@ -124,7 +124,7 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   @Output() supportDocChange: EventEmitter<SupportDocuments> = new EventEmitter<SupportDocuments>();
 
 
-  uploadInstructions = 'Click add, or drag and drop file into this box';
+  uploadInstructions = 'Please upload required ID documents';
 
   btnEnabled: boolean  = true;
   availableSupportDocuments: string[] = [];
