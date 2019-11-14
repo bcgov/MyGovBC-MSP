@@ -61,8 +61,7 @@
                     [(ngModel)]="person.sin"
                     name="sin"
                     id="sin"
-                    required
-                    commonValidateSin>
+                    required>
                 </common-sin>
                 <div class="text-danger" *ngIf="!isSinUnique()"
                     [innerHTML]="lang('./en/index.js').sinUniqueError">

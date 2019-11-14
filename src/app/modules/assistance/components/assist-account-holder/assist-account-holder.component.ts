@@ -62,7 +62,6 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
         name="phn"
         id="phn"
         required
-        commonValidatePhn
       ></common-phn>
     </div>
     <div class="form-group">
@@ -71,7 +70,6 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
         name="sin"
         id="sin"
         required
-        commonValidateSin
       ></common-sin>
     </div>
   `,
