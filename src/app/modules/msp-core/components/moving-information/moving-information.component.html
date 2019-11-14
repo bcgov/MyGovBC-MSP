@@ -49,7 +49,7 @@
         <common-date name="arrivalDateToBC__{{objectId}}"
                      label="Arrival date in B.C."
                      [dateRangeStart]="startDateRange"
-                     [dateRangeEnd]="today"
+                     [dateRangeEnd]="yesterday"
                      [(ngModel)]="person.arrivalToBCDate"
                      [errorMessages]="recentMoveBCErrorMsg"
                      required>
@@ -60,7 +60,7 @@
       <common-date name="arrivalDateToCanada__{{objectId}}"
                    label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
                    [dateRangeStart]="startDateRange"
-                   [dateRangeEnd]="today"
+                   [dateRangeEnd]="yesterday"
                    [(ngModel)]="person.arrivalToCanadaDate"
                    [required]="arrivalDateRequired"
                    [errorMessages]="recentMoveCanadaErrorMsg">
@@ -138,7 +138,7 @@
                        [(ngModel)]="person.oopReturnDate"
                        [errorMessages]="oopReturnErrorMsg"
                        [dateRangeStart]="oopReturnStartRange"
-                       [dateRangeEnd]="today"
+                       [dateRangeEnd]="yesterday"
                        required>
           </common-date>
         </div>
@@ -155,9 +155,7 @@
     <div *ngIf="person.hasPreviousBCPhn" class="form-group col-sm-6 ml-4 border-left">
       <common-phn name="previousPhn_{{objectId}}"
                   label="{{isApplicant? 'Your' : 'Their'}} previous B.C. Personal Health Number (optional)"
-                  [(ngModel)]="person.previousBCPhn"
-                  commonValidatePhn
-                  [allowEmptyValue]="true">
+                  [(ngModel)]="person.previousBCPhn">
       </common-phn>
     </div>
     
@@ -174,7 +172,7 @@
         <common-date name="dischargeDate__{{objectId}}"
                      label="Discharge date"
                      [dateRangeStart]="startDateRange"
-                     [dateRangeEnd]="today"
+                     [dateRangeEnd]="yesterday"
                      [(ngModel)]="person.dischargeDate"
                      required>
         </common-date>
@@ -201,7 +199,7 @@
     <common-date name="recentMoveToBC__{{objectId}}"
                  label="Most recent move to B.C."
                  [dateRangeStart]="startDateRange"
-                 [dateRangeEnd]="today"
+                 [dateRangeEnd]="yesterday"
                  [(ngModel)]="person.arrivalToBCDate"
                  [errorMessages]="recentMoveBCErrorMsg"
                  required>

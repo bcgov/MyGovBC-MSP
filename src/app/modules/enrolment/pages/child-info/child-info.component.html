@@ -133,9 +133,9 @@
   
               <!--TODO: dateRangeEnd - today or completion date -->
               <div class="form-group col-sm-6 pl-0">
-                <common-date name="schoolDepartureDate__{{objectId}}"
+                <common-date name="schoolDepartureDate_{{idx}}"
                              label="Original departure date from B.C. (if school is outside B.C.)"
-                             [(ngModel)]="child.studiesDepartureDate"
+                             [(ngModel)]="child.departureDateForSchool"
                              [required]="isRequired(child)"
                              [restrictDate]="'past'"
                              [errorMessages]="schoolDepartureErrMsg">
@@ -143,9 +143,9 @@
               </div>    
           
               <div class="form-group col-sm-6 pl-0">
-                <common-date name="completionDate__{{objectId}}"
+                <common-date name="completionDate_{{idx}}"
                              label="Expected school completion date"
-                             [(ngModel)]="child.studiesFinishedDate"
+                             [(ngModel)]="child.schoolCompletionDate"
                              [dateRangeStart]="completionDateRange(child)"
                              [errorMessages]="schoolCompletionErrMsg"
                              required>      
@@ -153,7 +153,7 @@
               </div>  
         
               <div class="form-group col-sm-8 pl-0">
-                <common-radio name="inBCafterStudiesOA_{{idx}}"
+                <common-radio name="inBCafterStudies_{{idx}}"
                               [(ngModel)]="child.inBCafterStudies"  
                               label="Will this child reside in B.C. after completing study in this school?" 
                               required>

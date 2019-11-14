@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PersonReviewCardComponent } from './person-review-card.component';
+import { PersonReviewCardComponent, IPersonReviewCard } from './person-review-card.component';
+import { MspCoreModule } from '../../../msp-core/msp-core.module';
 
 describe('PersonReviewCardComponent', () => {
-  let component: PersonReviewCardComponent;
-  let fixture: ComponentFixture<PersonReviewCardComponent>;
+  let component: PersonReviewCardComponent<IPersonReviewCard>;
+  let fixture: ComponentFixture<PersonReviewCardComponent<IPersonReviewCard>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PersonReviewCardComponent ]
+      declarations: [ PersonReviewCardComponent ],
+      imports: [MspCoreModule]
     })
     .compileComponents();
   }));

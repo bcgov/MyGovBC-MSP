@@ -10,9 +10,15 @@ export interface IPersonalInformation {
   middleName: string;
   lastName: string;
   dateOfBirth: Date;
-  gender: Gender;
   relationship: Relationship;
+
+  // Read only values (properties) must be set if you want the field to display with no values.
+  readonly genderRequired?: boolean;
+  gender?: Gender;
+  readonly phnRequired?: boolean;
   phn?: string;
+  readonly sinRequired?: boolean;
+  sin?: string;
 }
 
 @Component({
@@ -32,6 +38,10 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
 
   @Input() disabled: boolean = false;
 
+  // Duplicate checking
+  @Input() phnList: string[] = [];
+  @Input() sinList: string[] = [];
+
   @Input() person: T;
   @Output() personChange: EventEmitter<T> = new EventEmitter<T>();
 
@@ -45,6 +55,14 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
   dobErrorMsg: ErrorMessage = null;
   dobStartRange: Date = null;
   dobEndRange: Date = null;
+
+  sinErrorMsg: ErrorMessage = {
+    duplicate: 'This Social Insurance Number (SIN) was already used for another family member. Please provide the SIN that is listed on the family member\'s SIN card/letter.'
+  };
+
+  phnErrorMsg: ErrorMessage = {
+    duplicate: 'This Personal Health Number (PHN) was already used for another family member. Please provide the PHN that is listed on the family member\'s PHN card/letter.'
+  };
 
   private _today = startOfToday();
 
@@ -89,6 +107,10 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     this.personChange.emit(this.person);
   }
 
+  get requiresPhn() {
+    return this.person.phnRequired;
+  }
+
   get phn() {
     return this.person.phn;
   }
@@ -107,12 +129,28 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     this.personChange.emit(this.person);
   }
 
+  get requiresGender() {
+    return this.person.genderRequired;
+  }
+
   get gender() {
     return this.person.gender;
   }
 
   set gender( val: Gender ) {
     this.person.gender = val;
+    this.personChange.emit(this.person);
+  }
+
+  get requiresSin() {
+    return this.person.sinRequired;
+  }
+  get sin() {
+    return this.person.sin;
+  }
+
+  set sin( val: string ) {
+    this.person.sin = val;
     this.personChange.emit(this.person);
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit, forwardRef, EventEmitter, Input, Output } from '@ang
 import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST, ErrorMessage, LabelReplacementTag } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { environment } from '../../../../../environments/environment';
-import { startOfToday, subMonths, isAfter } from 'date-fns';
+import { startOfToday, subMonths, isAfter, subDays } from 'date-fns';
 import { isBefore } from 'date-fns/esm';
 
 
@@ -72,8 +72,8 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
 
   departureDateLabel = 'Departure date';
   returnDateLabel = 'Return date';
-  today: Date = startOfToday();
-  twelveMonthsAgo: Date = subMonths( this.today, 12 );
+  yesterday = subDays( startOfToday() , 1);
+  twelveMonthsAgo: Date = subMonths( this.yesterday, 12 );
 
   oopDepartureErrorMsg: ErrorMessage = {
     invalidRange: LabelReplacementTag + ' must be within the last 12 months and prior to return date.'
@@ -85,12 +85,12 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
 
   private _relationshipLabel = '{RelationshipLabel}';
   recentMoveBCErrorMsg: ErrorMessage = {
-    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to BC cannot be before the ' + this._relationshipLabel + ' date of birth.'
-
+    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to BC cannot be before the ' + this._relationshipLabel + ' date of birth or in the future.',
+    noFutureDatesAllowed: 'Most recent move to BC date cannot be in the future.'
   };
   recentMoveCanadaErrorMsg: ErrorMessage = {
-    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to Canada cannot be before the ' + this._relationshipLabel + ' date of birth.'
-
+    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to Canada cannot be before the ' + this._relationshipLabel + ' date of birth or in the future.',
+    noFutureDatesAllowed: 'Most recent move to Canada date cannot be in the future.'
   };
 
   constructor() {
@@ -214,11 +214,11 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
     // Return date has been entered
     if ( this.person.oopReturnDate ) {
       if ( isAfter( this.person.oopReturnDate, this.twelveMonthsAgo ) &&
-           isBefore( this.person.oopReturnDate, this.today ) ) {
+           isBefore( this.person.oopReturnDate, this.yesterday ) ) {
         return this.person.oopReturnDate;
       }
     }
-    return this.today;
+    return this.yesterday;
   }
 
   get oopReturnStartRange() {
@@ -226,7 +226,7 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
     // Departure Date date has been entered
     if ( this.person.oopDepartureDate ) {
       if ( isAfter( this.person.oopDepartureDate, this.twelveMonthsAgo ) &&
-            isBefore( this.person.oopDepartureDate, this.today ) ) {
+            isBefore( this.person.oopDepartureDate, this.yesterday ) ) {
         return this.person.oopDepartureDate;
       }
     }

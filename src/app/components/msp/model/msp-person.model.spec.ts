@@ -30,11 +30,13 @@ describe('Person Model', () => {
     });
 
 
+    /** Simple date changed to Date
+
     it('should convert arrivalToBC date to arrivalToBCSimple', () => {
-        applicant.arrivalToBCDay = 1;
+        applicant.arri         * valToBCDay = 1;
         applicant.arrivalToBCMonth = 1;
         applicant.arrivalToBCYear = 1999;
-        expect(applicant.arrivalToBCSimple).toEqual({
+        expect(applica         * nt.arrivalToBCSimple).toEqual({
             year: 1999,
             day: 1,
             month: 1,
@@ -51,6 +53,7 @@ describe('Person Model', () => {
         expect(applicant.arrivalToBCMonth).toBe(1);
         expect(applicant.arrivalToBCYear).toBe(1999);
     });
+    */
 
     it('should clear the OutOfBC record when the decalartion for being out of BC has been set to false', () => {
         applicant.declarationForOutsideOver30Days = true;
