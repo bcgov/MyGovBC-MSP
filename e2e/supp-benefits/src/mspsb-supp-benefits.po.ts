@@ -122,12 +122,16 @@ export class PersonalInfoPage extends BaseMSPTestPage {
             this.typeName('middle_name', info.middleName);
         }
         this.typeName('last_name', info.lastName);
-        const month = info.birthDate.getMonth();
+        var month = info.birthDate.getMonth();
         const year = info.birthDate.getFullYear();
         const day = info.birthDate.getDate();
-        element.all(by.css(`select[ng-reflect-name*="month"] option`)).get(month).click();
-        this.typeText('day', day.toString());
-        this.typeText('year', year.toString());
+        browser.sleep(1000);
+        if(!month){ // If month has been assigned an invalid month, assign a valid one (1)
+            month = 1;
+        }
+        element.all(by.css(`select[id*="month"] option`)).get(month).click();
+        this.typeTextUsingID('day', day.toString());
+        this.typeTextUsingID('year', year.toString());
         this.scrollDown();
         element.all(by.css('common-phn input')).sendKeys(info.PHN.toString());
         element.all(by.css('common-sin input')).sendKeys(info.SIN.toString());
@@ -136,6 +140,10 @@ export class PersonalInfoPage extends BaseMSPTestPage {
 
     checkFileUpload() {
         return element(by.css('common-file-uploader common-thumbnail')).isDisplayed();
+    }
+
+    typeTextUsingID(idVal: string, text: string) {
+        element(by.css(`input[id*="${idVal}"]`)).sendKeys(text);
     }
 
 }

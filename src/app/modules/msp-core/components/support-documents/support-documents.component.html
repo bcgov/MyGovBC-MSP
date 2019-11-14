@@ -2,7 +2,7 @@
 <div class="d-flex flex-row align-items-stretch">
   <div class="form-group col-sm-4 pl-0">
     <common-dropdown name="DocumentType_{{objectId}}"
-                     label="Document Type"
+                     label="Document type"
                      [items]="availableSupportDocuments"
                      placeholder="Please Select"
                      [clearable]="false"
@@ -33,6 +33,7 @@
     </common-file-uploader>
     <ng-content select="[requestAdditionInfo]"></ng-content>
     <aside>
+      <div>Tip</div>
       <div *ngIf="hasSampleDoc">
         <a role="button"
             aria-haspopup="true"
@@ -45,14 +46,7 @@
         </common-sample-modal>
       </div>
       <div>
-        Scan the document, or take a photo of it. Make sure that it's:
-        <ul>
-          <li>The entire document, from corner to corner</li>
-          <li>At least 1000 pixels wide x 1500 pixels tall</li>
-          <li>Rotated correctly (not upside down or sideways)</li>
-          <li>In focus and easy to read</li>
-          <li>A JPG, PNG, GIF or BMP file (<strong>not a PDF</strong>)</li>
-        </ul>
+        Scan the document, or take a photo of it.
       </div>
     </aside>
   </common-page-section>
