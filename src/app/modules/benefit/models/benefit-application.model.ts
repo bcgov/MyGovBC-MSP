@@ -11,6 +11,7 @@ import { ISpaEnvResponse } from '../../../components/msp/model/spa-env-response.
 import { Relationship } from '../../../models/relationship.enum';
 
 export class BenefitApplication implements ApplicationBase {
+
   private _uuid = UUID.UUID();
 
   authorizationToken: string;
@@ -21,10 +22,10 @@ export class BenefitApplication implements ApplicationBase {
   taxYear: number;
   userSelectedMostRecentTaxYear: number;
   public spaEnvCutOffDate: string;
-  public spaEnvRes: ISpaEnvResponse;
+  public spaEnvRes: ISpaEnvResponse;  
   isEligible: boolean;
 
-  cutOffDate: Date;
+  cutOffDate: Date; 
 
   infoCollectionAgreement: boolean = false;
   // cutoff Date fields

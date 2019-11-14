@@ -15,11 +15,11 @@ import { AssistStateService } from '../../services/assist-state.service';
     <h2>{{ subtitle }}</h2>
     <p class="border-bottom">{{ description }}</p>
     <form #formRef="ngForm" novalidate>
-      <common-page-section layout="double">
-        <msp-assist-account-holder
+      <common-page-section layout="noTips">
+        <msp-personal-information
           [person]="financialAssistApplication.applicant"
-          (dataChange)="saveAccountHolder()"
-        ></msp-assist-account-holder>
+          (personChange)="saveAccountHolder()"
+        ></msp-personal-information>
       </common-page-section>
       <h3>{{ documentsTitle }}</h3>
       <p class="border-bottom">{{ documentsDescription }}</p>

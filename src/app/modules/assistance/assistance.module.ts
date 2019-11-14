@@ -15,7 +15,6 @@ import { AssistContactComponent } from './pages/contact/assist-contact.component
 import { AssistMailingComponent } from './components/assist-mailing/assist-mailing.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';
 import { AssistRatesHelperModalComponent } from './components/assist-rates-helper-modal/assist-rates-helper-modal.component';
-import { AssistAccountHolderComponent } from './components/assist-account-holder/assist-account-holder.component';
 import { AssistCraDocumentsComponent } from './components/assist-cra-documents/assist-cra-documents.component';
 import { SpouseComponent } from './pages/spouse/spouse.component';
 import { RouteGuardService , AbstractPgCheckService } from 'moh-common-lib';
@@ -41,7 +40,6 @@ import { AssistRatesModalComponent } from './components/assist-rates-modal/assis
     AssistMailingComponent,
     AssistanceHomeComponent,
     AssistRatesHelperModalComponent,
-    AssistAccountHolderComponent,
     AssistCraDocumentsComponent,
     SpouseComponent,
     AssistRatesModalComponent
@@ -51,6 +49,6 @@ import { AssistRatesModalComponent } from './components/assist-rates-modal/assis
     RouteGuardService,
     BsModalService
   ],
-  exports: [AssistMailingComponent, AssistAccountHolderComponent]
+  exports: [AssistMailingComponent]
 })
 export class AssistanceModule {}
