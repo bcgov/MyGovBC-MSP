@@ -59,7 +59,7 @@
     <div *ngIf="requestArrivalToCanada" class="form-group col-sm-6 pl-0">
       <common-date name="arrivalDateToCanada__{{objectId}}"
                    label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
-                   [dateRangeStart]="startDateRange"
+                   [dateRangeStart]="moveCanStartDateRange"
                    [dateRangeEnd]="yesterday"
                    [(ngModel)]="person.arrivalToCanadaDate"
                    [required]="arrivalDateRequired"

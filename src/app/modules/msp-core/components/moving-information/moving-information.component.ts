@@ -85,11 +85,13 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
 
   private _relationshipLabel = '{RelationshipLabel}';
   recentMoveBCErrorMsg: ErrorMessage = {
-    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to BC cannot be before the ' + this._relationshipLabel + ' date of birth or in the future.',
+    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to BC cannot be before the ' + 
+      this._relationshipLabel + ' date of birth.',
     noFutureDatesAllowed: 'Most recent move to BC date cannot be in the future.'
   };
   recentMoveCanadaErrorMsg: ErrorMessage = {
-    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to Canada cannot be before the ' + this._relationshipLabel + ' date of birth or in the future.',
+    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to Canada cannot be before the ' + 
+      this._relationshipLabel + ' date of birth or the move to B.C. date.',
     noFutureDatesAllowed: 'Most recent move to Canada date cannot be in the future.'
   };
 
@@ -235,5 +237,12 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
 
   get startDateRange() {
     return this.person.dateOfBirth ? this.person.dateOfBirth : null;
+  }
+
+  get moveCanStartDateRange() {
+    if ( this.person.arrivalToBCDate ) {
+      return this.person.arrivalToBCDate;
+    }
+    return this.startDateRange;
   }
 }
