@@ -3,6 +3,7 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { Subscription, Observable, of } from 'rxjs';
 
+// TODO: Remove once account has been updated
 @Component({
   selector: 'msp-full-name',
   templateUrl: './full-name.component.html',
