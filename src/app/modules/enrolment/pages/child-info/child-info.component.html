@@ -138,7 +138,7 @@
                              [(ngModel)]="child.departureDateForSchool"
                              [required]="isRequired(child)"
                              [restrictDate]="'past'"
-                             [errorMessages]="schoolDepartureErrMsg">
+                             [errorMessage]="schoolDepartureErrMsg">
                 </common-date>
               </div>    
           
@@ -147,7 +147,7 @@
                              label="Expected school completion date"
                              [(ngModel)]="child.schoolCompletionDate"
                              [dateRangeStart]="completionDateRange(child)"
-                             [errorMessages]="schoolCompletionErrMsg"
+                             [errorMessage]="schoolCompletionErrMsg"
                              required>      
                 </common-date>
               </div>  

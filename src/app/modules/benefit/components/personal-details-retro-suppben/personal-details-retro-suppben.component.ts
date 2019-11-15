@@ -16,8 +16,6 @@ import { Relationship } from '../../../../models/relationship.enum';
 })
 export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
 
-    lang = require('./i18n');
-    public dateLabel = 'BirthDate1';
     @Input() benefitApp: BenefitApplication;
 
     @Input() removeable: boolean = false;
@@ -89,4 +87,17 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
         this.onChange.emit(evt);
       }
 
+  get phnList() {
+    if ( this.person.relationship === Relationship.Spouse ) {
+      return [this.dataService.benefitApp.applicant.previous_phn];
+    }
+    return [this.dataService.benefitApp.spouse.previous_phn];
+  }
+
+  get sinList() {
+    if ( this.person.relationship === Relationship.Spouse ) {
+      return [this.dataService.benefitApp.applicant.sin];
+    }
+    return [this.dataService.benefitApp.spouse.sin];
+  }
 }

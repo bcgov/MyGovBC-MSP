@@ -51,7 +51,7 @@
                      [dateRangeStart]="startDateRange"
                      [dateRangeEnd]="yesterday"
                      [(ngModel)]="person.arrivalToBCDate"
-                     [errorMessages]="recentMoveBCErrorMsg"
+                     [errorMessage]="recentMoveBCErrorMsg"
                      required>
         </common-date>
     </div>
@@ -59,11 +59,11 @@
     <div *ngIf="requestArrivalToCanada" class="form-group col-sm-6 pl-0">
       <common-date name="arrivalDateToCanada__{{objectId}}"
                    label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
-                   [dateRangeStart]="startDateRange"
+                   [dateRangeStart]="moveCanStartDateRange"
                    [dateRangeEnd]="yesterday"
                    [(ngModel)]="person.arrivalToCanadaDate"
                    [required]="arrivalDateRequired"
-                   [errorMessages]="recentMoveCanadaErrorMsg">
+                   [errorMessage]="recentMoveCanadaErrorMsg">
       </common-date>
     </div>
 
@@ -125,7 +125,7 @@
         <common-date name="departureDate_{{objectId}}"
                      label="{{departureDateLabel}}"
                      [(ngModel)]="person.oopDepartureDate"
-                     [errorMessages]="oopDepartureErrorMsg"
+                     [errorMessage]="oopDepartureErrorMsg"
                      [dateRangeStart]="twelveMonthsAgo"
                      [dateRangeEnd]="oopDepartureEndRange"
                      required>
@@ -136,7 +136,7 @@
           <common-date name="returnDate_{{objectId}}"
                        label="{{returnDateLabel}}"
                        [(ngModel)]="person.oopReturnDate"
-                       [errorMessages]="oopReturnErrorMsg"
+                       [errorMessage]="oopReturnErrorMsg"
                        [dateRangeStart]="oopReturnStartRange"
                        [dateRangeEnd]="yesterday"
                        required>
@@ -201,7 +201,7 @@
                  [dateRangeStart]="startDateRange"
                  [dateRangeEnd]="yesterday"
                  [(ngModel)]="person.arrivalToBCDate"
-                 [errorMessages]="recentMoveBCErrorMsg"
+                 [errorMessage]="recentMoveBCErrorMsg"
                  required>
     </common-date>
   </div>

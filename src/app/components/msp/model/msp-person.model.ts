@@ -24,6 +24,8 @@ export enum OperationActionType {
 export class MspPerson implements ICanadianStatus {
 
     readonly uuid = UUID.UUID();
+    readonly phnRequired = true;
+    readonly sinRequired = true;
 
     relationship: Relationship;
     _status: StatusInCanada;
@@ -266,8 +268,7 @@ export class MspPerson implements ICanadianStatus {
         }
         this._hasPreviousBCPhn = hasPhn;
     }
-
-
+  
     /**
      * Discharge date if worked in CDN forces
      */

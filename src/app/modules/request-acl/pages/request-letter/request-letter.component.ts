@@ -37,7 +37,7 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
     { label: 'One specific member on my Medical Services Plan Account', value: EnrolmentMembership.SpecificMember },
   ];
 
-  errorMessages: ErrorMessage = {
+  errorMessage: ErrorMessage = {
     duplicate: 'This PHN was already used for another family member. Please provide the PHN that is listed on the family member\'s BC Services Card.'
   };
 
