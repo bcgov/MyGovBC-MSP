@@ -59,8 +59,8 @@
     <div *ngIf="requestArrivalToCanada" class="form-group col-sm-6 pl-0">
       <common-date name="arrivalDateToCanada__{{objectId}}"
                    label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
-                   [dateRangeStart]="moveCanStartDateRange"
-                   [dateRangeEnd]="yesterday"
+                   [dateRangeStart]="startDateRange"
+                   [dateRangeEnd]="moveCanEndDateRange"
                    [(ngModel)]="person.arrivalToCanadaDate"
                    [required]="arrivalDateRequired"
                    [errorMessage]="recentMoveCanadaErrorMsg">
@@ -173,6 +173,7 @@
                      label="Discharge date"
                      [dateRangeStart]="startDateRange"
                      [dateRangeEnd]="yesterday"
+                     [errorMessage]="dischargeDateErrorMsg"
                      [(ngModel)]="person.dischargeDate"
                      required>
         </common-date>

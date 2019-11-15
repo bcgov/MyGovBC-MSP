@@ -80,19 +80,24 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   };
 
   oopReturnErrorMsg: ErrorMessage = {
-    invalidRange: LabelReplacementTag + ' must be within the last 12 months and prior to departure date.'
+    invalidRange: LabelReplacementTag + ' must be within the last 12 months and after to departure date.'
   };
 
   private _relationshipLabel = '{RelationshipLabel}';
   recentMoveBCErrorMsg: ErrorMessage = {
-    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to BC cannot be before the ' + 
+    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to BC cannot be before the ' +
       this._relationshipLabel + ' date of birth.',
     noFutureDatesAllowed: 'Most recent move to BC date cannot be in the future.'
   };
   recentMoveCanadaErrorMsg: ErrorMessage = {
-    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to Canada cannot be before the ' + 
-      this._relationshipLabel + ' date of birth or the move to B.C. date.',
+    invalidRange: 'The ' + this._relationshipLabel + ' most recent move to Canada cannot be before the ' +
+      this._relationshipLabel + ' date of birth and cannot be after the move to B.C. date.',
     noFutureDatesAllowed: 'Most recent move to Canada date cannot be in the future.'
+  };
+
+  dischargeDateErrorMsg: ErrorMessage = {
+    invalidRange:  LabelReplacementTag + ' cannot be before the ' + this._relationshipLabel + ' date of birth.',
+    noFutureDatesAllowed: LabelReplacementTag + ' cannot be in the future.'
   };
 
   constructor() {
@@ -116,7 +121,7 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
     // Update messages to display correct relationship (appliant, spouse, child )
     this.recentMoveBCErrorMsg.invalidRange = this.recentMoveBCErrorMsg.invalidRange.replace( regExp, relationType );
     this.recentMoveCanadaErrorMsg.invalidRange = this.recentMoveCanadaErrorMsg.invalidRange.replace( regExp, relationType );
-
+    this.dischargeDateErrorMsg.invalidRange = this.dischargeDateErrorMsg.invalidRange.replace( regExp, relationType );
   }
 
   // Used in HTML - wrapper so when changes happen there is no impact to Automated tests for TEST Team
@@ -239,10 +244,7 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
     return this.person.dateOfBirth ? this.person.dateOfBirth : null;
   }
 
-  get moveCanStartDateRange() {
-    if ( this.person.arrivalToBCDate ) {
-      return this.person.arrivalToBCDate;
-    }
-    return this.startDateRange;
+  get moveCanEndDateRange() {
+    return this.person.arrivalToBCDate ? this.person.arrivalToBCDate : this.yesterday;
   }
 }
