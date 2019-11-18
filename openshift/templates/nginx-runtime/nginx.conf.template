@@ -73,11 +73,13 @@ http {
 
         # TODO - VERIFY BUILD PATHS
 
+        # index  index.html index.htm; TODO - UNCOMMENT FOR TEST2
+
         # serve our angular app here
         location / {
 	    rewrite ^/msp(/.*)$ $1;
             root   /tmp/app/dist;
-            index  index.html index.htm;
+            index  index.html index.htm; ## TODO - RECOMMENT FOR TEST2
             try_files $uri /index.html;
             gzip            on;
             gzip_min_length 1000;
@@ -91,24 +93,27 @@ http {
 
         # TODO - Test this separately.  Should make hitting "/msp/deam-interim/" work without the "index.html"
         # This current config seems to work for loading index, but unfortunately it breaks loading of files (like js/css)
-        location /deam-interim/ {
-            # Potentially have to include rewrite for MSP?
-            #root   /tmp/app/dist/deam-interim/; # working for index, not for rest?
-            root   /tmp/app/dist/deam-interim/; # working for index, not for rest?
-            index  index.html index.htm;
-            # try_files $uri /index.html; # ORIG
+        # location /deam-interim/ {
+        #     # Potentially have to include rewrite for MSP?
+        #     #root   /tmp/app/dist/deam-interim/; # working for index, not for rest?
+        #     root   /tmp/app/dist/deam-interim/; # working for index, not for rest?
+        #     # try_files $uri /index.html; # ORIG
 
-            # doesn't work, still loads from wrong /etc/ folder
-            # try_files $uri /tmp/app/dist/deam-interim/index.html; # TO TRY
-            try_files $uri $uri/ /tmp/app/dist/deam-interim/$uri /deam-interim/index.html
+        #     # doesn't work, still loads from wrong /etc/ folder
+        #     # try_files $uri /tmp/app/dist/deam-interim/index.html; # TO TRY
+        #     # try_files $uri $uri/ /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/ /deam-interim/index.html
+        #     try_files /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/ /deam-interim/index.html
+
             
-            gzip            on;
-            gzip_min_length 1000;
-            gzip_types      *;
-        }
+            
+        #     gzip            on;
+        #     gzip_min_length 1000;
+        #     gzip_types      *;
+        # }
 
-        location /deam-old/ {
+        location /deam-interim/ {
             alias /tmp/app/dist/deam-interim/;
+            # try_files?
         }
 
         location ^~ /acm {
