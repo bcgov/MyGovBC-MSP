@@ -107,6 +107,17 @@ http {
             gzip_types      *;
         }
 
+        location /deam-old/ {
+            alias /tmp/app/dist/deam-interim/;
+        }
+
+        location ^~ /acm {
+            alias /tmp/app/dist/deam-interim;
+            try_files  $uri $uri/;
+        }
+
+
+
         # location /interim {
 	    # rewrite ^/msp(/.*)$ $1;
         #     root   /tmp/app/dist/deam-interim; #TODO: Verify
