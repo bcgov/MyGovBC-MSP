@@ -100,7 +100,7 @@ http {
 
             # doesn't work, still loads from wrong /etc/ folder
             # try_files $uri /tmp/app/dist/deam-interim/index.html; # TO TRY
-            try_files $uri $uri/ /tmp/app/dist/deam-interim/$uri /index.html
+            try_files $uri $uri/ /tmp/app/dist/deam-interim/$uri /deam-interim/index.html
             
             gzip            on;
             gzip_min_length 1000;
