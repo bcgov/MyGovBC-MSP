@@ -113,10 +113,10 @@ http {
 
         location /deam-interim/ {
             alias /tmp/app/dist/deam-interim/;
-            # try_files?
+            try_files /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/
         }
 
-        location ^~ /acm {
+        location ^~ /acm/ {
             alias /tmp/app/dist/deam-interim;
             try_files  $uri $uri/;
         }
