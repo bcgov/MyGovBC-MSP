@@ -33,7 +33,8 @@
         <div class="form-group">
           <common-date name="AccountHolderDob"
                         label="Birthdate"
-                        [restrictDate]="'past'" 
+                        [dateRangeEnd]="dobEndRange" 
+                        [errorMessage]="dobErrorMsg"
                         [(ngModel)]="accountHolderDob"
                         required>
           </common-date>

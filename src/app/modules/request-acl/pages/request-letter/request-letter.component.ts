@@ -13,6 +13,7 @@ import { AclApiService } from '../../services/acl-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AclApiPayLoad } from '../../model/acl-api.model';
 import { ROUTES_ACL } from '../../request-acl-route-constants';
+import { subYears, startOfToday } from 'date-fns';
 
 @Component({
   selector: 'msp-request-letter',
@@ -40,6 +41,11 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
   errorMessage: ErrorMessage = {
     duplicate: 'This PHN was already used for another family member. Please provide the PHN that is listed on the family member\'s BC Services Card.'
   };
+
+  dobErrorMsg: ErrorMessage = {
+    invalidRange: 'An applicant must be 16 years or older.'
+  };
+  dobEndRange = subYears( startOfToday(), 16 );
 
   private _subscription: Subscription;
 
