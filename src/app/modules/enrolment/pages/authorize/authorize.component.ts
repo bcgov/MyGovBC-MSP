@@ -32,9 +32,11 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
   ngOnInit() {
     super.ngOnInit();
 
-    if ( this.mspApplication.applicant.isTemporaryResident ||
+    if ( ( this.mspApplication.applicant.isTemporaryResident  && !this.mspApplication.hasSpouse ) ||
          ( this.mspApplication.hasSpouse && this.mspApplication.applicant.isTemporaryResident &&
            this.mspApplication.spouse.isTemporaryResident ) ) {
+
+      console.log( 'next steps are not shown' );
       this._hasNextSteps = false;
     }
   }
