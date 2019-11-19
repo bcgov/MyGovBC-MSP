@@ -116,11 +116,6 @@ http {
             try_files /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/
         }
 
-        location /deam-interim/msp/account/prepare {
-            alias /tmp/app/dist/deam-interim/;
-            try_files /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/
-        }
-
         location ^~ /acm/ {
             alias /tmp/app/dist/deam-interim;
             try_files  $uri $uri/;
