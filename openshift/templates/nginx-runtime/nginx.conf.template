@@ -111,16 +111,16 @@ http {
         #     gzip_types      *;
         # }
 
-        location /deam-interim/ {
-            # TODO - As Per Jam, try to use "root" instead of Alias here!
-            alias /tmp/app/dist/deam-interim/;
-            try_files /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/
-        }
+        # location /deam-interim/ {
+        #     # TODO - As Per Jam, try to use "root" instead of Alias here!   
+        #     alias /tmp/app/dist/deam-interim/;
+        #     try_files /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/;
+        # }
 
-        location ^~ /acm/ {
-            alias /tmp/app/dist/deam-interim;
-            try_files  $uri $uri/;
-        }
+        # location ^~ /acm/ {
+        #     alias /tmp/app/dist/deam-interim;
+        #     try_files  $uri $uri/;
+        # }
 
 
 
