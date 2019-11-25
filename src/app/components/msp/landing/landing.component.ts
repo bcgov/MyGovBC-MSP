@@ -21,7 +21,11 @@ import {FileUploaderComponent} from '../common/file-uploader/file-uploader.compo
 export class LandingComponent {
     lang = require('./i18n');
 
-    constructor(private mspDataService: MspDataService, private router: Router) {}
+    constructor(private mspDataService: MspDataService, private router: Router) {
+        // DEAM Interim - Auto navigate to DEAM page.
+        this.clearSavedAccountApp();
+    }
+
 
     clearSavedFinAssisApp() {
         console.log('deleting saved fin assist app.');
