@@ -1,0 +1,40 @@
+<!doctype html>
+  <html lang="en">
+  <head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- application source SHA-1: %MSP_APP_SHA1% -->
+    <meta charset="utf-8">
+
+    <base href="/msp/">
+    <title>MSP</title>
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+  <link rel="stylesheet" href="/msp/styles.0c7f3898d930d851d946.css"></head>
+  <body>
+    <script type="text/javascript">
+
+      // No support for IE 10 or lower so show an error.  Note MSIE tokens are removed from IE 11 and up
+      var isBelowIE11 = window.navigator.userAgent.indexOf('MSIE') > 0; //ie10 and lower - we don't support
+      if (isBelowIE11) {
+          console.log('unsupported browser' );
+          document.write("<p class='ml-2 mt-2 font-weight-bold'><i class='fa fa-exclamation-circle text-danger'></i> " +
+              "You are using an old browser that is not supported. " +
+              "Please update to the latest version of Chrome, FireFox, Safari, or Edge.</p>");
+      }
+    </script>
+    <noscript>
+      <p>
+        JavaScript must be enabled to use this site. If you are unsure why you are seeing this message your browser is
+        not supported. Please update your browser to the latest version of Chrome, FireFox, Safari, or Edge.
+      </p>
+    </noscript>
+
+    <div id="loadApp">
+        <general-app><span>Loading...</span></general-app>
+    </div>
+  <script type="text/javascript" src="/msp/runtime.b3beb29242408429b728.js"></script><script type="text/javascript" src="/msp/polyfills.bb882ac0dd4d2b08ae78.js"></script><script type="text/javascript" src="/msp/main.8a5755b0d7ba7d7e74b7.js"></script></body>
+</html>
