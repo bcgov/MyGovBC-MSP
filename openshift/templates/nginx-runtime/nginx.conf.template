@@ -89,77 +89,38 @@ http {
             # %HTTP_BASIC%
         }
 
+        # ALL BELOW DEAM-INTERIM ROUTES CAN BE REMOVED ONCE DEAM RE-ALIGNMENT IS DONE (sometime in 2020_)
 
+        # Allows loading of /deam-interim/ to hit homepage
+        # User can hit <url>/deam-interim/ to hit correct page.
+        location /deam-interim/ {
+            alias /tmp/app/dist/deam-interim/;
+        }
 
-        # TODO - Test this separately.  Should make hitting "/msp/deam-interim/" work without the "index.html"
-        # This current config seems to work for loading index, but unfortunately it breaks loading of files (like js/css)
-        # location /deam-interim/ {
-        #     # Potentially have to include rewrite for MSP?
-        #     #root   /tmp/app/dist/deam-interim/; # working for index, not for rest?
-        #     root   /tmp/app/dist/deam-interim/; # working for index, not for rest?
-        #     # try_files $uri /index.html; # ORIG
+        # Allows loading of /deam-interim/ to hit homepage, more of a fallback case.
+        location /deam-interim/msp {
+            alias /tmp/app/dist/deam-interim/;
+        }
 
-        #     # doesn't work, still loads from wrong /etc/ folder
-        #     # try_files $uri /tmp/app/dist/deam-interim/index.html; # TO TRY
-        #     # try_files $uri $uri/ /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/ /deam-interim/index.html
-        #     try_files /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/ /deam-interim/index.html
+        # Fixes loading of css files/assets, but doesn't fix deep linking / direct to page.
+        location /msp/deam-interim/ {
+            alias /tmp/app/dist/deam-interim/;
+        }
 
-            
-            
-        #     gzip            on;
-        #     gzip_min_length 1000;
-        #     gzip_types      *;
-        # }
-
-        # location /deam-interim/ {
-        #     # TODO - As Per Jam, try to use "root" instead of Alias here!   
+        # Doesn't work.  Just going to hardcode for now.
+        # location ~ ^/deam-interim/msp/account/([a-z]*-?[a-z]*) {
+        #     # rewrite ^/msp(/.*)$ $1; # untested
+        #     # TODO - As Per Jam, try to use "root" instead of Alias here!
         #     alias /tmp/app/dist/deam-interim/;
         #     try_files /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/;
         # }
 
-        # location ^~ /acm/ {
-        #     alias /tmp/app/dist/deam-interim;
-        #     try_files  $uri $uri/;
-        # }
-
-
-
-        # location /interim {
-	    # rewrite ^/msp(/.*)$ $1;
-        #     root   /tmp/app/dist/deam-interim; #TODO: Verify
-        #     index  index.html index.htm;
-        #     try_files $uri /index.html;
-        #     gzip            on;
-        #     gzip_min_length 1000;
-        #     gzip_types      *;
-        # }
-
-        # location /interim-no-rewrite {
-        #     root   /tmp/app/dist/deam-interim; #TODO: Verify
-        #     index  index.html index.htm;
-        #     try_files $uri /index.html;
-        #     gzip            on;
-        #     gzip_min_length 1000;
-        #     gzip_types      *;
-        # }
-
-
-        
-
-        # location /test {
-        #     root   /tmp/app/dist/deam-interim; #TODO: Verify
-        #     return 201; # Debugg only, don't really want to return status code
-        # }
-
-        # # location /testFile {
-        # #     root   /tmp/app/dist/deam-interim; #TODO: Verify
-        # #     try_files index.html;
-        # # }
-
-        # location /testMissing {
-        #     root   /tmp/app/dist/deam-interim; #TODO: Verify
-        #     try_files index.html =404;
-        # }
+        # WORKING
+        # This location makes it possible to direct link to the page, and can refresh on that page.
+        location /deam-interim/msp/account/prepare {
+            try_files $uri $uri/ /tmp/app/dist/deam-interim/index.html;
+            alias /tmp/app/dist/deam-interim/;
+        }
 
         
 
