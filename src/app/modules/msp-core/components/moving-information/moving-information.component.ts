@@ -69,6 +69,7 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   }).filter( x => x );
 
   relationship: string = 'you';
+  relationType: string = 'applicant\'s';
 
   departureDateLabel = 'Departure date';
   returnDateLabel = 'Return date';
@@ -80,7 +81,7 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   };
 
   oopReturnErrorMsg: ErrorMessage = {
-    invalidRange: LabelReplacementTag + ' must be within the last 12 months and after to departure date.'
+    invalidRange: LabelReplacementTag + ' must be within the last 12 months and after departure date.'
   };
 
   private _relationshipLabel = '{RelationshipLabel}';
@@ -105,23 +106,23 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   }
 
   ngOnInit() {
-    let relationType = 'applicant\'s';
 
     if ( !this.isApplicant ) {
-      this.relationship = 'they';
 
       if ( this.person.isSpouse ) {
-        relationType = 'spouse\'s';
+        this.relationship = 'your spouse';
+        this.relationType = 'spouse\'s';
       } else {
-        relationType = 'child\'s';
+        this.relationship = 'the child';
+        this.relationType = 'child\'s';
       }
     }
     const regExp = new RegExp( this._relationshipLabel, 'g' );
 
     // Update messages to display correct relationship (appliant, spouse, child )
-    this.recentMoveBCErrorMsg.invalidRange = this.recentMoveBCErrorMsg.invalidRange.replace( regExp, relationType );
-    this.recentMoveCanadaErrorMsg.invalidRange = this.recentMoveCanadaErrorMsg.invalidRange.replace( regExp, relationType );
-    this.dischargeDateErrorMsg.invalidRange = this.dischargeDateErrorMsg.invalidRange.replace( regExp, relationType );
+    this.recentMoveBCErrorMsg.invalidRange = this.recentMoveBCErrorMsg.invalidRange.replace( regExp, this.relationType );
+    this.recentMoveCanadaErrorMsg.invalidRange = this.recentMoveCanadaErrorMsg.invalidRange.replace( regExp, this.relationType );
+    this.dischargeDateErrorMsg.invalidRange = this.dischargeDateErrorMsg.invalidRange.replace( regExp, this.relationType );
   }
 
   // Used in HTML - wrapper so when changes happen there is no impact to Automated tests for TEST Team
@@ -209,7 +210,6 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   }
 
   get requestArrivalToCanada() {
-    //console.log( 'requestArrivalToCanada ', this.requestLivedInBC, this.person.livedInBCSinceBirth );
     if ( this.requestLivedInBC ) {
       return this.person.livedInBCSinceBirth === false;
     }
@@ -246,5 +246,60 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
 
   get moveCanEndDateRange() {
     return this.person.arrivalToBCDate ? this.person.arrivalToBCDate : this.yesterday;
+  }
+
+  get permanentMoveLabel() {
+    const msg = this.relationship + ' moved to B.C. permanently?';
+    return (this.isApplicant ? 'Have ' : 'Has ') + msg;
+  }
+
+  get permanentMoveTip() {
+    return 'A permanent move means that you ' +
+           'intend to make B.C. your primary residence for 6 months or longer.';
+  }
+
+  get armedForceLabel() {
+    const msg = this.relationship  + ' been released from the Canadian Armed Forces or an institution?';
+    return (this.isApplicant ? 'Have ' : 'Has  ') + msg;
+  }
+
+  get previousHealthNumberLabel() {
+    const msg = this.relationship + ' have a previous B.C. Personal Health Number?';
+    return (this.isApplicant ? 'Do ' : 'Does  ') + msg;
+  }
+
+  get previousPHNLabel() {
+    const msg = ' previous B.C. Personal Health Number (optional)';
+    if ( this.person.isSpouse ) {
+      return 'Your ' + this.relationType + msg;
+    } else if ( !this.person.isApplicant ) { // children
+      return 'The ' + this.relationType + msg;
+    }
+    return 'Your' + msg;
+  }
+
+  get absentLast12MonthsLabel() {
+    const msg = ' been outside B.C. for more than 30 days in total in the past 12 months?';
+    return (this.isApplicant ? 'Have ' : 'Has ') + this.relationship + msg;
+  }
+
+  get absentLast12MonthsInstruct() {
+    let msg = 'If ';
+
+    msg = msg.concat( this.relationship,
+                      (this.isApplicant ? 'have ' : 'has '),
+                      'been living in B.C. for less than 12 months, please indicate any absences since arrival.');
+    return msg;
+  }
+
+  get countryMoveLabel() {
+    let msg = 'Which country ';
+    msg = msg.concat( (this.isApplicant ? 'are ' : 'is '), this.relationship, 'moving from ?' );
+    return msg;
+  }
+
+  get livedInBCSinceBirthLabel() {
+    const msg = 'lived in B.C. since birth?';
+    return (this.isApplicant ? 'Have ' : 'Has ') + this.relationship + msg;
   }
 }

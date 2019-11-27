@@ -61,7 +61,7 @@
 
   <!-- Out of province in last 12 months -->
   <msp-review-part *ngIf="hasBeenOutsideBCFor30Days"
-                    label="Outside BC for more than 30 days"
+                    label="Outside B.C. for more than 30 days"
                     [value]="outsideBCFor30Days"
                     [columnClass]="columnClass">
   </msp-review-part> 
@@ -112,7 +112,7 @@
 
   <div *ngIf="displayFullTimeStudentInfo">
     <msp-review-part *ngIf="hasInBCafterStudies"
-                      label="Will you reside in BC upon completion of your studies"
+                      label="Will you reside in B.C. upon completion of your studies"
                       [value]="inBCafterStudies"
                       [columnClass]="columnClass">
     </msp-review-part> 

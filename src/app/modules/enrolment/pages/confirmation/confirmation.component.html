@@ -6,10 +6,7 @@
 					<i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
 				</strong>
 			</a>
-			<h1>Confirmation Message</h1>
-			<p class="border-bottom">
-				It is important to keep your reference number - write it down, or print this page for your records.
-			</p>
+			<h1 class="border-bottom">Confirmation Message</h1>
 		</div>
 		<div message *ngIf="isSucess; else IconErrMsg">
 			<p class="icon--message">
@@ -47,15 +44,18 @@
 			<h2 class="border-bottom">Information</h2>
 			<common-page-section layout='noTips'>
 				<ul class="info--container">
+          <li>
+            <strong>Important:</strong> Keep your reference number - write it down, or print this page for your records
+          </li>
 					<li>
 						Allow 21 business days for your application to be processed.
 					</li>
 				  <li>
-						Once your application is processed, you will be sent a letter that confirms your Medical Services Plan 
+						<strong>After your application is processed,</strong> Health Insurance BC will mail a letter to confirm your Medical Services Plan 
 						enrolment status. You may have a <a href="{{links.MSP_WAIT_PERIOD}}" target="_blank">wait period</a>.
 					</li>
 					<li>
-						When you get your BC Services Card, register for the <a href="{{links.FPCARE}}" target="_blank">FairPharmacare plan</a>. It can help 
+						When you get your BC Services Card, register for the <a href="{{links.FPCARE}}" target="_blank">Fair Pharmacare plan</a>. It can help 
 						with the cost of prescription drugs and some medical supplies. Registration is free.
 					</li>
 					<li>

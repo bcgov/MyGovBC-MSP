@@ -1,12 +1,8 @@
 <common-page-framework layout="blank">
   <form #formRef="ngForm" novalidate>
-    <h1>Child Information</h1>
+    <h1>Add child information and upload documents</h1>
     <p class="border-bottom">
-        A child of the main applicant between 0-18 years of age can be added to the 
-        account. If your child is over 18 and younger than 25 years of age, they have to 
-        be a full-time student to be allowed on your account, and you will be required to 
-        provide their school information. You will be required to provide supporting documents 
-        with your application.
+        Do you have a child who also needs to enrol for MSP coverage? If so, you are required to provide child information and provide supporting documents. 
     </p>
     <div class="row">
       <div class="col-sm-8">
@@ -26,13 +22,13 @@
             <h2>Child #{{idx + 1}}</h2>
             <p class="border-bottom">
               Please provide child's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
-              <common-xicon-button label= "Remove child" (click)="removeChild(idx)">
+              <common-xicon-button label= "Remove child #{{idx + 1}}" (click)="removeChild(idx)">
               </common-xicon-button>
             </p>
             <div additionalInfo>
               <div class="form-group p-sm-2">
                 <common-radio name="AgeCategory_{{idx}}"
-                              id="AgeCategory_{{idx}}"
+
                               [ngModel]="child.relationship"
                               (ngModelChange)="relationship($event, child)" 
                               label="How old is your child?" 
@@ -85,17 +81,14 @@
             <div sectionTitleInfo>
               <h3>Child's Information</h3>
               <p class="border-bottom"> 
-                Enter child's legal name and gender.
+                Enter child's legal name, birthdate and gender.
               </p>
             </div>     
           </msp-personal-information>
   
           <msp-moving-information [person]="child">
             <div sectionTitleInfo>
-              <h3>Moving Information</h3>
-              <p class="border-bottom"> 
-                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
-              </p>
+              <h3 class="border-bottom">Moving Information</h3>
             </div>         
           </msp-moving-information>
   

@@ -1,8 +1,11 @@
 <common-page-framework layout="blank">
   <form #formRef="ngForm" novalidate>
-    <h1>Main Applicant's Personal Information</h1>
+    <h1>Add personal information and upload documents</h1>
+
+    <h2>Main Applicant</h2> 
     <p class="border-bottom">
-      Please provide the main applicant's (Account Holder) personal information and status in Canada. You will be required to provide supporting documents with your application.
+      After enrolment, the main applicant will be the Medical Services Plan Account Holder, 
+      and will be responsible for maintaining the Medical Sreivces Plan account and requesting any changes.
     </p>
 
     <msp-canadian-status [(person)]="applicant">
@@ -64,10 +67,7 @@
   
       <msp-moving-information [(person)]="applicant">
         <div sectionTitleInfo>
-          <h2>Moving Information</h2>
-          <p class="border-bottom"> 
-              Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
-          </p>
+          <h2 class="border-bottom">Moving Information</h2>
         </div>
         <div additionalQuestions *ngIf="requestSchoolInfo">
           <div class="form-group">

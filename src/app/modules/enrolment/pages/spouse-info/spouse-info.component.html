@@ -1,11 +1,10 @@
 <common-page-framework layout="blank">
   <form #formRef="ngForm" novalidate>
 
-    <h1>Spouse Information</h1>
+    <h1>Add spouse information and upload documents</h1>
     <p class="border-bottom">
-        A spouse is a resident of B.C. who is married to or is living and cohabiting in a 
-        marriage-like relationship with the applicant. You will be required to provide 
-        supporting documents with your application.
+      Do you have a spouse or common-law partner who also needs to enrol for MSP coverage? 
+      If so, you are required to provide spouse information and provide supporting documents. 
     </p>
 
     <div class="row">
@@ -71,17 +70,14 @@
           <div sectionTitleInfo>
             <h2>Spouse's Information</h2>
             <p class="border-bottom"> 
-              Enter spouse's legal name and gender.
+              Enter spouse's legal name, birthdate and gender.
             </p>
           </div>     
         </msp-personal-information>
 
         <msp-moving-information [person]="spouse">
           <div sectionTitleInfo>
-            <h2>Moving Information</h2>
-            <p class="border-bottom"> 
-                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
-            </p>
+            <h2 class="border-bottom">Moving Information</h2>
           </div>         
         </msp-moving-information>
       </div>
