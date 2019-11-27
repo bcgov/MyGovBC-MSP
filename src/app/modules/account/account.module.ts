@@ -72,4 +72,12 @@ import { ChildMovingInformationComponent } from '../account/components/moving-in
     MspApiAccountService
   ]
 })
-export class AccountModule { }
+export class AccountModule { 
+
+  // DEAM interim - any links to account pages should redirect to /deam-interim
+  constructor(){
+    console.log('Redirecting to DEAM interim');
+    window.location.href = window.location.origin + '/deam-interim/';
+  }
+
+}
