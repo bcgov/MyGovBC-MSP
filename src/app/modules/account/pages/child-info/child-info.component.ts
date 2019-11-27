@@ -29,7 +29,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
 
   showChild: boolean = false;
   operation: OperationActionType;
- 
+
   child: MspPerson ;
   showRemoveChild: boolean = false;
   showUpdateChild: boolean = false;

@@ -15,8 +15,6 @@ export class Enrollee extends BasePerson implements ICanadianStatus {
   currentActivity: CanadianStatusReason;
   clearData(x: any): void {
 
-    console.log( 'Clear data: ', x );
-
     // Clear documents already set when Canadian Status changes
     // fixes the error of value changes after initView
     x.documents = new SupportDocuments();

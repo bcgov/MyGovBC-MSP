@@ -44,6 +44,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   get isSucess() {
+    console.log( 'isSuccess: ', this.status );
     return this.status === ApiStatusCodes.SUCCESS;
   }
 
