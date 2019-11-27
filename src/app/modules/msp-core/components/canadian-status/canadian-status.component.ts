@@ -130,6 +130,7 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
 
     // not activity at this point - mark as undefined
     this.person.currentActivity = undefined;
+    this.availableStatusReasons = this._availableStatusReasons;
     this.personChange.emit(this.person);
   }
 
@@ -145,7 +146,7 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
   /**
    * Display available activities for status
    */
-  get availableStatusReasons() {
+  get _availableStatusReasons() {
     if ( this.reasonList ) {
       return this.reasonList.map(itm => {
         return {
@@ -155,6 +156,8 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
       });
     }
   }
+
+  availableStatusReasons;
 
   get reasonList() {
       // Get the status reason list available for the selected status
