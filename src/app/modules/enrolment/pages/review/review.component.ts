@@ -30,10 +30,6 @@ export class ReviewComponent extends EnrolForm {
     return this.mspApplication.children && this.mspApplication.children.length > 0;
   }
 
-  get mailingSameAsResidentialAddress(): boolean {
-    return this.mspApplication.mailingSameAsResidentialAddress;
-  }
-
   continue() {
     this._canContinue = true;
     this._nextUrl = ROUTES_ENROL.AUTHORIZE.fullpath;
