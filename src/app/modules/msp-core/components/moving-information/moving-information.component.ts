@@ -197,8 +197,7 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   }
 
   get requestArmForceInfo() {
-    return this.person.isCanadianResident ||
-          (this.isApplicant && this.person.isPermanentResident);
+    return this.person.isCanadianResident;
   }
 
   get requestRecentMoveToBC() {
