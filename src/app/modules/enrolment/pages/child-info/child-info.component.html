@@ -31,7 +31,7 @@
 
                               [ngModel]="child.relationship"
                               (ngModelChange)="relationship($event, child)" 
-                              label="How old is your child?" 
+                              label="How old is the child?" 
                               [radioLabels]="childAgeCategory"
                               required>
                 </common-radio>
@@ -48,8 +48,8 @@
           <div sectionTitleInfo>
             <h3>Documents</h3>
             <p class="border-bottom"> 
-              Provide one of the required documents to support your child's status in Canada. 
-              If your child's name has changed since their ID was issued you are also required 
+              Provide one of the required documents to support the child's status in Canada. 
+              If the child's name has changed since their ID was issued you are also required 
               to upload document to support the name change.
             </p>
           </div>
@@ -58,7 +58,7 @@
             <div class="form-group">
               <common-radio name="NameChangeQuestion_{{idx}}"
                             [(ngModel)]="child.hasNameChange"  
-                            label="Has your child's name changed since their ID was issued?"
+                            label="Has the child's name changed since their ID was issued?"
                             required>
               </common-radio>
             </div>
@@ -71,7 +71,7 @@
           <div sectionTitleInfo> 
             <h3>Additional Documents</h3>
             <p class="border-bottom"> 
-              Provide <strong>one</strong> of the required documents to support your child's name change.
+              Provide <strong>one</strong> of the required documents to support the child's name change.
             </p>
           </div>
         </msp-support-documents>
