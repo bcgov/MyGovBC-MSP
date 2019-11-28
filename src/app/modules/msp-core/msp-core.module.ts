@@ -24,24 +24,30 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
 import { MspContactCardComponent } from './components/contact-card/contact-card.component';
 
-// New components - use common library
+// New components - use common library or generics
 import { CanadianStatusComponent } from './components/canadian-status/canadian-status.component';
 import { SupportDocumentsComponent } from './components/support-documents/support-documents.component';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 import { MovingInformationComponent } from './components/moving-information/moving-information.component';
+import { ContactReviewCardComponent } from './components/contact-review-card/contact-review-card.component';
+import { AddressReviewPartComponent } from './components/address-review-part/address-review-part.component';
 
 const componentList = [
   MspFullNameComponent,
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,
-  MspAddressCardPartComponent,
-  ReviewPartComponent,
+  MspAddressCardPartComponent,  // TODO: remove
+  ReviewPartComponent, // TODO: remove
   ConfirmationComponent,
   MspPersonCardComponent,
   ReviewCardWrapperComponent,
   MspConsentModalComponent,
-  ReviewCardComponent,
   MspContactCardComponent,
+
+  // New components to replace MspContactCardComponet, MspAddressCardPartComponent
+  AddressReviewPartComponent,
+  ReviewCardComponent,
+  ContactReviewCardComponent,
 
   // New components
   CanadianStatusComponent,
