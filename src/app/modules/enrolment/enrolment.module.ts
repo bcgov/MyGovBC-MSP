@@ -17,8 +17,6 @@ import { RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
 import { GuardEnrolService } from './services/guard-enrol.service';
 import { MspApiEnrolmentService } from '../enrolment/services/msp-api-enrolment.service';
 import { PersonReviewCardComponent } from './components/person-review-card/person-review-card.component';
-import { AddressReviewPartComponent } from './components/address-review-part/address-review-part.component';
-import { ContactReviewCardComponent } from './components/contact-review-card/contact-review-card.component';
 import { environment } from '../../../environments/environment';
 import { fakeBackendProvider } from '../../_developmentHelpers/fake-backend';
 
@@ -51,9 +49,7 @@ if ( environment.useMockBackend ) {
     PrepareComponent,
     ReviewComponent,
     SpouseInfoComponent,
-    PersonReviewCardComponent,
-    AddressReviewPartComponent,
-    ContactReviewCardComponent
+    PersonReviewCardComponent
   ],
   providers: [
     providerList

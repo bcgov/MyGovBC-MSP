@@ -81,4 +81,9 @@ export class MspPersonCardComponent {
   get hasMarriageDate(): boolean {
     return !!this.person.marriageDate && this.person.relationship === Relationship.Spouse;
   }
+
+  get title() {
+    return this.customTitle ? this.customTitle :
+      this.lang('./en/index.js').relationshipLabel[this.person.relationship] + ' ' + this.lang('./en/index.js').cardSuffix;
+  }
 }
