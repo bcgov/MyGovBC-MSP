@@ -21,7 +21,6 @@ export class AddressReviewPartComponent {
 
   // Checks that we have an address
   get hasAddress() {
-    console.log( 'hasAddress: ', this.address );
     return this.address && this.address.isComplete();
   }
 

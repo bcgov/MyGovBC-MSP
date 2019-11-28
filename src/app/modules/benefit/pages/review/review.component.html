@@ -10,16 +10,12 @@
     <msp-person-card [person]="application.applicant"
                      [editRouterLink]="'/benefit/personal-info'"></msp-person-card>
     <msp-person-card [person]="application.spouse" *ngIf="application.hasSpouseOrCommonLaw"
-                     [editRouterLink]="'/benefit/spouse-info'"></msp-person-card>
+                     [editRouterLink]="'/benefit/spouse-info'"></msp-person-card> 
 
-    
-    <msp-contact-card
-            [residentialAddress]="application.residentialAddress"
-            [mailingAddress]="application.mailingAddress"
-            [displayMailingAddress]="true"
-            [phone]="application.phoneNumber"
-            [editRouterLink]="'/benefit/contact-info'"
-            wordByIcon="false"></msp-contact-card> 
+    <msp-contact-review-card [mailingAddress]="application.mailingAddress"
+                             [phoneNumber]="application.phoneNumber"
+                             [editRouterLink]="'/benefit/contact-info'">
+    </msp-contact-review-card>
 
   </div>
   <div class="col-lg-6">

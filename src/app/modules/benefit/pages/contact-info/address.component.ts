@@ -63,12 +63,7 @@ export class BenefitAddressComponent extends BaseComponent {
   }
 
   handleAddressUpdate(evt: any){
-    console.log(evt);
     console.log('address update event: %o', evt);
-    evt.addressLine1 = evt.street;
-    if (evt.addressLine1 != null) {
-      this.dataService.benefitApp.mailingAddress.hasValue = true;
-    }
     this.dataService.saveBenefitApplication();
   }
 
@@ -84,7 +79,7 @@ export class BenefitAddressComponent extends BaseComponent {
    // const phonepattern =  '^[2-9]([0-9]{9})$';
    // const phoneMatched = this.mspApplication.phoneNumber.match(phonepattern);
     //console.log(this.mspApplication.phoneNumberIsValid);
-    
+
     // console.log('personal info form itself valid: %s', this.form.valid);
     console.log('combinedValidationState on address: %s', this.isAllValid());
     if (!this.isAllValid()){
