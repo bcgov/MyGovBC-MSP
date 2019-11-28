@@ -298,7 +298,7 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   }
 
   get livedInBCSinceBirthLabel() {
-    const msg = 'lived in B.C. since birth?';
+    const msg = ' lived in B.C. since birth?';
     return (this.isApplicant ? 'Have ' : 'Has ') + this.relationship + msg;
   }
 }
