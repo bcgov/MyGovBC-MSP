@@ -1,4 +1,4 @@
-moh-common-lib@3.0.0-rc.15
+moh-common-lib@3.0.0-rc.16
 SEE LICENSE IN LICENSE
 Copyright © 2017, Province of British Columbia, Canada.
 
@@ -402,7 +402,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-date-fns@2.6.0
+date-fns@2.8.1
 MIT
 # License
 

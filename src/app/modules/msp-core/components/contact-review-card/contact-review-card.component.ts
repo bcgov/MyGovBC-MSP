@@ -13,6 +13,8 @@ export class ContactReviewCardComponent {
   @Input() mailingAddress: Address;
   @Input() phoneNumber: string;
   @Input() editRouterLink: string;
+  @Input() showMailingAddress: boolean = false;
+
 
   // Formatting for column sizes
   columnClass: ColumnClass = {label: 'col-sm-4', value: 'col-sm-8 font-weight-bold'};
