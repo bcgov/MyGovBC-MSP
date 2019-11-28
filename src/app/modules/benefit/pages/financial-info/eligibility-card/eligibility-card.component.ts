@@ -26,24 +26,21 @@ export class BenefitEligibilityCardComponent  {
     }
 
    get _applicantAttendantCareExpense(): number {
-        if(this.application.applicantClaimForAttendantCareExpense)
-            return 3000; 
+        if (this.application.applicantClaimForAttendantCareExpense)
+            return 3000;
             else {
                 return 0;
             }
    }
 
    get _spouseAttendantCareExpense(): number {
-    if(this.application.spouseClaimForAttendantCareExpense)
-         return 3000; 
+    if (this.application.spouseClaimForAttendantCareExpense)
+         return 3000;
         else {
             return 0;
         }
     }
-    
-    editLink(){
-        this._router.navigate([this.editRouterLink]);
-    }
+
 
     get childrenAmt(): number {
         const cnt: number = (!!this.application.childrenCount && this.application.childrenCount > 0) ? this.application.childrenCount : 0;
@@ -59,5 +56,5 @@ export class BenefitEligibilityCardComponent  {
         }
     }
 
-    
+
 }

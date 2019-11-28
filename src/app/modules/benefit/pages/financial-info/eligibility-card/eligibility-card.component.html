@@ -1,6 +1,5 @@
-<h2>Financial Information <i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editLink()"></i></h2>
-<div class="card panel-default">
-  <div class="card-body">
+<msp-review-card [title]="'Financial Information'" [editRouterLink]="editRouterLink">
+
     <div class="row">
         <div class="col-sm-8">
             Tax year selected
@@ -164,20 +163,4 @@
       </div>
     </div>
 
-    <!--
-    <div class="row" style="margin-top: 10px;">
-      <div class="col-sm-12">
-
-
-        <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
-                [innerHTML]="lang('./en/index.js').editEligibilityInfo">
-        </button>
-
-
-
-
-      </div>
-    </div> -->
-
-  </div>
-</div>
+</msp-review-card>
