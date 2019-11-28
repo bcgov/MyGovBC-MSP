@@ -14,7 +14,6 @@ export class ReviewCardComponent {
 
   @Input() editRouterLink: string;
   @Input() title: string;
-  @Input() wordByIcon: boolean = true;
 
   constructor( private _router: Router ) {
    }

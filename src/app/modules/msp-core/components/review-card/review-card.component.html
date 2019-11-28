@@ -1,15 +1,11 @@
 <h2>
   {{title}}
-  <span *ngIf="wordByIcon; else noWordByIcon;" class="edit--icon">Edit 
-    <i class="fa fa-pencil" aria-hidden="true" (click)="editPersonalInfo()"></i>
-  </span> 
+  <i class="fa fa-pencil edit--icon" aria-hidden="true" (click)="editPersonalInfo()">
+      <span class="edit--word">Edit</span>
+    </i>
 </h2>
 <div class="card panel-default">
   <div class="card-body">
     <ng-content></ng-content>
   </div>
 </div>
-
-<ng-template #noWordByIcon>
-  <i class="fa fa-pencil edit--icon" aria-hidden="true" (click)="editPersonalInfo()"></i>
-</ng-template>

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Address } from 'moh-common-lib';
-import { ColumnClass } from '../../../msp-core/components/review-part/review-part.component';
+import { ColumnClass } from '../review-part/review-part.component';
 
 @Component({
   selector: 'msp-contact-review-card',

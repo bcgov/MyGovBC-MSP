@@ -42,7 +42,8 @@ export class ApplicantInformation implements IApplicantInformation {
 
     this.years = this.makeYears(app.assistYears);
     this.name = this.makeName(app.applicant);
-    this.birthDate = format( app.applicant.dateOfBirth, 'dd/MM/yyyy');
+    this.birthDate =  app.applicant.dateOfBirth ?
+        format( app.applicant.dateOfBirth, 'dd/MM/yyyy') : null;
 
     this.phn = app.applicant.previous_phn;
     this.sin = app.applicant.sin;

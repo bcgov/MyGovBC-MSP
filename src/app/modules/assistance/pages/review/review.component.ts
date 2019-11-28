@@ -30,9 +30,9 @@ export interface IContactInformation {}
       </button>
     </div>
     <common-page-section layout="double">
-      <msp-review-card-wrapper
+      <msp-review-card
         [title]="applicantTitle"
-        [link]="applicantLink"
+        [editRouterLink]="applicantLink"
       >
         <msp-review-part
           label="Years Selected"
@@ -58,10 +58,10 @@ export interface IContactInformation {}
           label="Documents"
           [value]="applicantInfo.appDocuments"
         ></msp-review-part>
-      </msp-review-card-wrapper>
-      <msp-review-card-wrapper
+      </msp-review-card>
+      <msp-review-card
         [title]="contactTitle"
-        [link]="contactLink"
+        [editRouterLink]="contactLink"
       >
         <h4 class="link-text">Mailing Address</h4>
         <msp-review-part
@@ -93,11 +93,11 @@ export interface IContactInformation {}
         ></msp-review-part>
         <h4 class="mt-4 link-text">Contact</h4>
         <msp-review-part label="Phone Number" [value]="phone"></msp-review-part>
-      </msp-review-card-wrapper>
+      </msp-review-card>
       <aside>
-        <msp-review-card-wrapper
+        <msp-review-card
           [title]="spouseTitle"
-          [link]="spouseLink"
+          [editRouterLink]="spouseLink"
           *ngIf="hasSpouse"
         >
           <msp-review-part
@@ -108,7 +108,7 @@ export interface IContactInformation {}
             label="Documents"
             [value]="spouseInfo.documents"
           ></msp-review-part>
-        </msp-review-card-wrapper>
+        </msp-review-card>
       </aside>
     </common-page-section>
 

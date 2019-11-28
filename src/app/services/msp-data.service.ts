@@ -905,4 +905,37 @@ export class MspDataService {
     output.madePermanentMoveToBC = input.madePermanentMoveToBC;
     output.plannedAbsence = input.plannedAbsence;
   }
+
+  // TODO: Temporary - this is cut & paste from base-msp-data service
+  // msp-data service will be removed when all benefit, assistence & account
+  // are refactored to extend base-msp-data service similar to enrolment
+  protected toAddressTransferObject( input: Address ): AddressDto {
+    const dto = new AddressDto();
+
+    dto.addressLine1 = input.addressLine1;
+    dto.addressLine2 = input.addressLine2;
+    dto.addressLine3 = input.addressLine3;
+
+    dto.city = input.city;
+    dto.province = input.province;
+    dto.country = input.country;
+    dto.postal = input.postal;
+
+    return dto;
+  }
+
+  protected fromAddressTransferObject( dto: AddressDto ): Address {
+    const output = new Address();
+
+    output.addressLine1 = dto.addressLine1;
+    output.addressLine2 = dto.addressLine2;
+    output.addressLine3 = dto.addressLine3;
+
+    output.city = dto.city;
+    output.province = dto.province;
+    output.country = dto.country;
+    output.postal = dto.postal;
+
+    return output;
+  }
 }

@@ -3,7 +3,16 @@
   flex-wrap: wrap;
   justify-content: center;
 
-  .preview-item {
+  .preview-item {.edit--icon {
+    cursor: pointer;.edit--icon {
+      cursor: pointer;
+      float: right;
+    }
+    float: right;
+  }.edit--icon {
+  cursor: pointer;
+  float: right;
+}
     height: 110px;
     margin: 5px;
   }

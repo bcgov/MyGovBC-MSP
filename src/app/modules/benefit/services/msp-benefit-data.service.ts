@@ -98,9 +98,11 @@ export class MspBenefitDataService extends MspDataService{
         dto.taxYear = input.taxYear;
         //dto.assistYearDocs = input.assistYearDocs;
 
-        super.convertToPersonDto(input.applicant, dto.applicant);
-        super.convertToPersonDto(input.spouse, dto.spouse);
-        super.convertMailingAddress(input, dto);
+        this.convertToPersonDto(input.applicant, dto.applicant);
+        this.convertToPersonDto(input.spouse, dto.spouse);
+        //super.convertMailingAddress(input, dto);
+
+        dto.mailingAddress = this.toAddressTransferObject( input.mailingAddress );
         //super.convertResidentialAddress(input, dto);
 
         return dto;
@@ -108,12 +110,12 @@ export class MspBenefitDataService extends MspDataService{
     }
 
     fromBenefitDataTransferObject(dto: BenefitApplicationDto): BenefitApplication {
-        if (!dto.residentialAddress) {
+       /* if (!dto.residentialAddress) {
             dto.residentialAddress = new AddressDto();
         }
         if (!dto.mailingAddress) {
             dto.mailingAddress = new AddressDto();
-        }
+        }*/
         const output: BenefitApplication = new BenefitApplication();
 
         output.infoCollectionAgreement = dto.infoCollectionAgreement;
@@ -165,7 +167,8 @@ export class MspBenefitDataService extends MspDataService{
 
         this.convertToPerson(dto.applicant, output.applicant);
         this.convertToPerson(dto.spouse, output.spouse);
-        this.convertMailingAddress(dto, output);
+        output.mailingAddress = this.fromAddressTransferObject( dto.mailingAddress );
+        //this.convertMailingAddress(dto, output);
        // this.convertResidentialAddress(dto, output);
         return output;
 
