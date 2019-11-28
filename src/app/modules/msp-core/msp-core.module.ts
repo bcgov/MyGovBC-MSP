@@ -19,7 +19,6 @@ import { CommonDeductionCalculatorComponent } from './components/common-deductio
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
-import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ReviewCardComponent } from './components/review-card/review-card.component';
 import { MspContactCardComponent } from './components/contact-card/contact-card.component';
@@ -40,7 +39,6 @@ const componentList = [
   ReviewPartComponent, // TODO: remove
   ConfirmationComponent,
   MspPersonCardComponent,
-  ReviewCardWrapperComponent,
   MspConsentModalComponent,
   MspContactCardComponent,
 
