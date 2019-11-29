@@ -3,7 +3,7 @@ module.exports = {
     secondTitle: '<strong>What Happens Next</strong>',
     nextStep1: "<strong>Important:</strong> Keep your reference number – write it down, or <a>print this page</a> for your records.",
     nextStep2: "Allow 21 business days for your request to be processed.",
-    nextStep3: "Canadians and Permanent Residents enrolled in MSP may qualify for MSP supplementary benefits. <a href='http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance' target='_blank'>Learn more about supplementary benefits</a>.",
+    nextStep3: "Canadians and Permanent Residents enrolled in MSP may qualify for MSP supplementary benefits. <a href='https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/benefits/services-covered-by-msp/supplementary-benefits' target='_blank'>Learn more about supplementary benefits</a>.",
     nextStep4: "Living outside the province for more than six months could cause your MSP enrolment to be cancelled. <a href='http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/are-you-eligible' target='_blank'>Learn more about eligibility for MSP</a>.",
     nextStep5:"<strong> For Frequently Asked Questions, <a href='https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/managing-your-msp-account/msp-account-change-faqs' target='_blank'>please click here</a></strong>",
     nextStep6: "<strong> If you require additional assistance, <a href='http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us' target='_blank'>contact Health Insurance BC</a></strong>",
