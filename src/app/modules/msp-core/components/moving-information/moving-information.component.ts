@@ -301,4 +301,10 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
     const msg = ' lived in B.C. since birth?';
     return (this.isApplicant ? 'Have ' : 'Has ') + this.relationship + msg;
   }
+
+  get provinceMoveLabel() {
+    let msg = 'Which province ';
+    msg = msg.concat( (this.isApplicant ? 'are ' : 'is '), this.relationship, ' moving from?' );
+    return msg;
+  }
 }
