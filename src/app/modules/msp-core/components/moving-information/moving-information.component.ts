@@ -304,7 +304,15 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
 
   get provinceMoveLabel() {
     let msg = 'Which province ';
-    msg = msg.concat( (this.isApplicant ? 'are ' : 'is '), this.relationship, ' moving from?' );
+    if (this.isApplicant) {
+      msg = msg.concat( ' did ', this.relationship, ' move from?' );
+    } else {
+      msg = msg.concat( ' is ', this.relationship, ' moving from?' );
+    }
     return msg;
+  }
+
+  get canContinueProcessContextLabel() {
+    return this.isApplicant ? 'are' : 'is';
   }
 }
