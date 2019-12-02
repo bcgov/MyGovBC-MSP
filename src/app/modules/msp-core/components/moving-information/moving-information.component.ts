@@ -286,19 +286,33 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
     let msg = 'If ';
 
     msg = msg.concat( this.relationship,
-                      (this.isApplicant ? 'have ' : 'has '),
+                      (this.isApplicant ? ' have ' : ' has '),
                       'been living in B.C. for less than 12 months, please indicate any absences since arrival.');
     return msg;
   }
 
   get countryMoveLabel() {
     let msg = 'Which country ';
-    msg = msg.concat( (this.isApplicant ? 'are ' : 'is '), this.relationship, 'moving from ?' );
+    msg = msg.concat( (this.isApplicant ? 'are ' : 'is '), this.relationship, ' moving from ?' );
     return msg;
   }
 
   get livedInBCSinceBirthLabel() {
     const msg = ' lived in B.C. since birth?';
     return (this.isApplicant ? 'Have ' : 'Has ') + this.relationship + msg;
+  }
+
+  get provinceMoveLabel() {
+    let msg = 'Which province ';
+    if (this.isApplicant) {
+      msg = msg.concat( ' did ', this.relationship, ' move from?' );
+    } else {
+      msg = msg.concat( ' is ', this.relationship, ' moving from?' );
+    }
+    return msg;
+  }
+
+  get canContinueProcessContextLabel() {
+    return this.isApplicant ? 'are' : 'is';
   }
 }
