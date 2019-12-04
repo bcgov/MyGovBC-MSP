@@ -162,7 +162,7 @@ export class AssistTransformService {
   get attachments() {
     const attachments = [];
     const [...taxYears] = this.app.assistYears.filter(year => year.apply);
-    for (let year of taxYears) {
+    for (const year of taxYears) {
       if (year.files && year.files.length > 0) {
         attachments.push(...year.files);
       }
@@ -170,6 +170,12 @@ export class AssistTransformService {
         attachments.push(...year.spouseFiles);
       }
     }
+
+    if (this.app.powerOfAttorneyDocs.length > 0 ) {
+      attachments.push(...this.app.powerOfAttorneyDocs);
+    }
+
+    // console.log( 'attachements: ', attachments.length );
 
     return attachments.map((itm, i) => {
       return {
@@ -184,7 +190,7 @@ export class AssistTransformService {
   get fileAttachments() {
     const attachments = [];
     const [...taxYears] = this.app.assistYears.filter(year => year.apply);
-    for (let year of taxYears) {
+    for (const year of taxYears) {
       if (year.files && year.files.length > 0) {
         attachments.push(...year.files);
       }
@@ -192,6 +198,11 @@ export class AssistTransformService {
         attachments.push(...year.spouseFiles);
       }
     }
+
+    if (this.app.powerOfAttorneyDocs.length > 0 ) {
+      attachments.push(...this.app.powerOfAttorneyDocs);
+    }
+    // console.log( 'file attachements: ', attachments.length );
     return attachments;
   }
   /**
