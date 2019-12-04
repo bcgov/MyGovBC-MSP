@@ -20,7 +20,7 @@
                           required>
             </common-radio> 
 
-            <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
+            <div [hidden]="liveInBC !== true">
             
                 <common-radio name="PlannedAbsence"
                               [(ngModel)]="plannedAbsence"  
@@ -40,9 +40,7 @@
                 </p>
             </div>
 
-            <div [hidden]= "plannedAbsence !== false || !liveInBC" 
-                 role="dialog" 
-                 aria-labelledby="q3"> 
+            <div [hidden]= "plannedAbsence !== false || !liveInBC"> 
 
                 <common-radio name="UnusualCircumstance"
                               [(ngModel)]="unUsualCircumstance"
