@@ -11,15 +11,16 @@ export class FakeBackendService {
 
   constructor() {}
 
-  getAclResponse( request: HttpRequest<any> ): AclApiPayLoad {
+  getAclResponse( request: HttpRequest<any> ): AclApiPayLoad | any {
 
-    return {
+   return {
       aclTransactionId: request.body.aclTransactionId,
       referenceNumber: '1535785',
       dberrorMessage: null,
       rapidResponse: 'Y',
       dberrorCode: 'Y'
     };
+    // return '<html><body><h1>504 Gateway Time-out</h1>The sever didn\'t respond in time.</body><html>';
   }
 
 

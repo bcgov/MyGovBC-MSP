@@ -173,11 +173,35 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
     // Setup the request
     const subscription = this.aclApiService.sendAclRequest( this.dataService.application );
 
+    let message = 'This error occurred because the system encountered an unanticipated situation ' +
+                  'which forced it to stop.';
     // Trigger the HTTP request
     subscription.subscribe( response => {
 
       // business errors.. Might be either a RAPID validation failure or DB error
       const payload: AclApiPayLoad = <AclApiPayLoad> response;
+
+      // Required field in payload. - work around
+      // If not there we do not have the correct structure for response
+      if ( !payload.hasOwnProperty('referenceNumber')  ) {
+
+        this.application.regenUUID(); // Generates a new uuid
+        this.application.authorizationToken = null;
+        this.dataService.saveApplication(); // save changes
+
+        this.logService.log({
+          name: 'ACL - System Error',
+          confirmationNumber: this.application.uuid
+        }, 'ACL - Submission Response Error' + response );
+
+        this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
+        {
+          status: ApiStatusCodes.ERROR,
+          message: message
+        });
+        return;
+      }
+
       const isSuccess =  payload.referenceNumber &&
                          payload.dberrorCode === 'Y' &&
                          payload.rapidResponse === 'Y';
@@ -238,8 +262,6 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
     },
     (responseError) => {
       this.loading = false;
-      let message = 'This error occurred because the system encountered an unanticipated situation ' +
-                    'which forced it to stop.';
 
       // Network error
       if ( responseError instanceof HttpErrorResponse ) {
