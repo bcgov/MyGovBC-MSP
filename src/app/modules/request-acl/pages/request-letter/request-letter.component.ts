@@ -173,8 +173,6 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
     // Setup the request
     const subscription = this.aclApiService.sendAclRequest( this.dataService.application );
 
-    let message = 'This error occurred because the system encountered an unanticipated situation ' +
-                  'which forced it to stop.';
     // Trigger the HTTP request
     subscription.subscribe( response => {
 
@@ -197,7 +195,6 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
         this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
         {
           status: ApiStatusCodes.ERROR,
-          message: message
         });
         return;
       }
@@ -274,12 +271,10 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
           name: 'ACL - System Error',
           confirmationNumber: this.application.uuid
         }, 'ACL - Submission Response Error' + responseError.message );
-        message = 'Try to submit your MSP Account Confirmation request again.';
       }
       this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
         {
           status: ApiStatusCodes.ERROR,
-          message: message
         });
     });
   }
