@@ -60,9 +60,15 @@
 
  <ng-template #DefaultMessage>
   <p>
-    The postal code you entered does not match Medical Services Plan records for your account. 
-    Please update your address by using the 
-    <a href="{{links.BCSC_UPDATE}}" target="_blank">Change of Address Service </a> 
-    or by contacting <a href="{{links.HIBC}}" target="_blank">Health Insurance B.C.</a>
+    This error occurred because the system encountered an unanticipated situation which forced it to stop.
+  </p>
+  <ul>
+    <li>
+      Try to submit your MSP Account Confirmation request again.
+    </li>
+  </ul>
+  <p>
+    If that doesn't work, request MSP Account Confirmation Letter by contacting 
+    <a href="{{links.HIBC}}" target="_blank">Health Insurance B.C.</a>
   </p>
 </ng-template>
