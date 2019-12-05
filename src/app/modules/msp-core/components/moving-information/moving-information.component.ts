@@ -2,7 +2,7 @@ import { Component, OnInit, forwardRef, EventEmitter, Input, Output } from '@ang
 import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST, ErrorMessage, LabelReplacementTag } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { environment } from '../../../../../environments/environment';
-import { startOfToday, subMonths, isAfter, subDays } from 'date-fns';
+import { startOfToday, subMonths, isAfter, subDays, addDays } from 'date-fns';
 import { isBefore } from 'date-fns/esm';
 
 
@@ -244,7 +244,7 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   }
 
   get moveCanEndDateRange() {
-    return this.person.arrivalToBCDate ? this.person.arrivalToBCDate : this.yesterday;
+    return this.person.arrivalToBCDate ? addDays( this.person.arrivalToBCDate, 1) : this.yesterday;
   }
 
   get permanentMoveLabel() {
