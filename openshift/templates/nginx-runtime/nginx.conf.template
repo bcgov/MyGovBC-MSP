@@ -126,6 +126,7 @@ http {
 
         location /api {
             proxy_pass http://mygovbc-msp-service:8080/;
+            proxy_read_timeout 300;
 
             location /api/logging {
                 if ( $request_method !~ ^(POST|HEAD|OPTIONS)$ ) {
