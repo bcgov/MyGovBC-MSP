@@ -107,13 +107,6 @@ http {
             alias /tmp/app/dist/deam-interim/;
         }
 
-        # Doesn't work.  Just going to hardcode for now.
-        # location ~ ^/deam-interim/msp/account/([a-z]*-?[a-z]*) {
-        #     # rewrite ^/msp(/.*)$ $1; # untested
-        #     # TODO - As Per Jam, try to use "root" instead of Alias here!
-        #     alias /tmp/app/dist/deam-interim/;
-        #     try_files /tmp/app/dist/deam-interim/$uri /tmp/app/dist/deam-interim/$uri/;
-        # }
 
         # WORKING
         # This location makes it possible to direct link to the page, and can refresh on that page.
@@ -126,7 +119,7 @@ http {
 
         location /api {
             proxy_pass http://mygovbc-msp-service:8080/;
-            proxy_read_timeout 300;
+            proxy_read_timeout 5;
 
             location /api/logging {
                 if ( $request_method !~ ^(POST|HEAD|OPTIONS)$ ) {
