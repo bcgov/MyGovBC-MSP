@@ -44,11 +44,9 @@
           id="{{ option.year }}"  
           name="{{ option.year }}"
           [(ngModel)]="option.apply"
-          [label]="option.year"
+          [label]="option.year.toString()"
           (dataChange)="applyOption($event, i)"
-        ></common-checkbox>       
-        <!-- 
-           -->
+        ></common-checkbox>
       </div>
     </div>    
   </form>
