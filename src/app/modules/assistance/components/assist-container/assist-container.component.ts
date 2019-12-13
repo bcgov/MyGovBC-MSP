@@ -23,9 +23,9 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
     </common-page-framework>
     <common-form-action-bar
       (btnClick)="continue()"
-      [submitLabel]="submitLabel"
+      [submitLabel]="submitLabelRPA"
       [isLoading]="isLoading"
-      [defaultColor]="useDefaultColor"
+      [defaultColor]="useDefaultColorRPA"
     ></common-form-action-bar>
   `,
   styleUrls: ['./assist-container.component.scss']
@@ -60,12 +60,12 @@ export class AssistContainerComponent extends Container implements OnInit {
     this.stateSvc.setIndex( this.router.url );
   }
 
-  get submitLabel() {
+  get submitLabelRPA() {
     const index = this.stateSvc.findIndex( this.router.url );
     return this.stateSvc.finAssistApp.pageStatus[index ? index - 1 : 0].btnLabel;
   }
 
-  get useDefaultColor() {
+  get useDefaultColorRPA() {
     const index = this.stateSvc.findIndex( this.router.url );
     return this.stateSvc.finAssistApp.pageStatus[index ? index - 1 : 0].btnDefaultColor;
   }
@@ -87,6 +87,7 @@ export class AssistContainerComponent extends Container implements OnInit {
       }
     } else {
       this.stateSvc.touched.next( true );
+      // navigate here?
     }
   }
 
