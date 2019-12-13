@@ -163,17 +163,19 @@
         </div>
       </div>
     </div>
+
+    <div class="row" *ngIf='children?.length >= 1'>
+      <div class="col-sm-8">
+        <common-button [label]="'Add another child'" 
+                       buttonType="outline-primary"
+                       (btnClick)='addChild()'>
+        </common-button>
+      </div>
+    </div>
   </form>
 </common-page-framework>
 <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
-                        widthOption='extra-width-mobile-only'
+                        widthOption='extra-width-mobile-only' 
                         [defaultColor]='false'
                         (btnClick)="continue()">
-
-  <common-button [label]="'Add another child'"
-                 buttonType="outline-primary btn-lg"
-                 *ngIf='children?.length >= 1'
-                 class='mr-4'
-                 (btnClick)='addChild()'>
-  </common-button>
 </common-form-action-bar>
