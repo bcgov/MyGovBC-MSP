@@ -57,7 +57,7 @@ export class LandingComponent {
   clearSavedAccountApp() {
     // For DEAM interim only.  Replacing with redirect to other deam interim papplication.
     console.log('Redirecting to DEAM interim');
-    window.location.href = window.location.origin + '/deam-interim/';
+    window.location.href = window.location.origin + '/msp/deam-interim/';
     // After DEAM interim is completed and removed we can revert to old behaviour here.
     // this.mspDataService.removeMspAccountApp();
     // this.router.navigate(['/account/home']);
