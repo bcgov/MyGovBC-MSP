@@ -26,7 +26,7 @@
           <common-checkbox
             *ngFor="let year of assistanceYears"
             class="col-1 mr-5"
-            [label]="year"
+            [label]="year.toString()"
             [data]="checkYear(year)"
             (dataChange)="toggleYear($event, year)"
             id="{{year}}"
