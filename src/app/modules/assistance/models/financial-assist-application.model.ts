@@ -408,16 +408,20 @@ export class FinancialAssistApplication implements ApplicationBase {
   getAssistanceApplicationType(): AssistanceApplicationType {
     const mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
 
-    // If we only have one and it's last year
+    console.log( 'getAssistanceApplicationType: mostRecentAppliedForTaxYears',
+      mostRecentAppliedForTaxYears );
+
+    // If we only have one and it's previous year
     if (
       mostRecentAppliedForTaxYears == null ||
       (mostRecentAppliedForTaxYears.length === 1 &&
         mostRecentAppliedForTaxYears[0].year === this.MostRecentTaxYear)
     ) {
+      console.log( 'getAssistanceApplicationType: currentYear ', mostRecentAppliedForTaxYears );
       return AssistanceApplicationType.CurrentYear;
     }
 
-    // If we only have two and it's last year
+    // If we only have two and it's previous year
     if (
       mostRecentAppliedForTaxYears &&
       mostRecentAppliedForTaxYears.length === 2 &&
@@ -454,7 +458,8 @@ export class FinancialAssistApplication implements ApplicationBase {
   }
 
   get MostRecentTaxYear(): number {
-    /** If current year is 2019, then the tax year is 2018 */
+    // Dec 16, 2019: Going forward Retro PA is to be eliminated, so there will never be 
+    // years newer thatn 2018.
     return moment().year() - 1;
   }
 

@@ -108,15 +108,27 @@ export class AssistanceHomeComponent extends BaseComponent
 
     // this.ratesModal.close();
   }
-  initYearsList() {
-    const recentTaxYear = new Date().getFullYear(); // this.finAssistApp.MostRecentTaxYear; //< 2020 ? 2020 : this.finAssistApp.MostRecentTaxYear;
-    const cutOffYear = 2020;
-    const numberOfYears = 6 - (recentTaxYear - cutOffYear);
-    let i = recentTaxYear < cutOffYear ? 2 : 1;
 
-    while (i <= numberOfYears) {
-      this.pastYears.push(cutOffYear - i);
-      i++;
+
+  initYearsList() {
+
+    console.log( 'init Years list' );
+    const previousTaxYear = this.finAssistApp.MostRecentTaxYear - 1 ;
+    console.log( 'init Years list: previous tax Year - ', previousTaxYear );
+
+    // Retro PA is eliminated as of 2020, last possible tax year is 2018
+    const cutOffTaxYear = 2018;
+    let numberOfYears = 6;
+    let startTaxYear = previousTaxYear;
+
+    if ( previousTaxYear > cutOffTaxYear ) { // Previous Tax year
+      numberOfYears -= (previousTaxYear - cutOffTaxYear);
+      startTaxYear = cutOffTaxYear;
+    }
+    console.log( 'init Years list: tax Year - ', numberOfYears, startTaxYear );
+
+    for (let i = 0; i < numberOfYears; i++ ){
+      this.pastYears.push(startTaxYear - i);
     }
 
     if (
