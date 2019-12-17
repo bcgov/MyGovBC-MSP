@@ -119,14 +119,16 @@ export class AssistanceHomeComponent extends BaseComponent
     // Retro PA is eliminated as of 2020, last possible tax year is 2018
     const cutOffTaxYear = 2018;
     let numberOfYears = 6;
+    let startTaxYear = previousTaxYear;
 
     if ( previousTaxYear > cutOffTaxYear ) { // Previous Tax year
-      numberOfYears -= cutOffTaxYear;
+      numberOfYears -= (previousTaxYear - cutOffTaxYear);
+      startTaxYear = cutOffTaxYear;
     }
-    console.log( 'init Years list: tax Year - ', numberOfYears );
+    console.log( 'init Years list: tax Year - ', numberOfYears, startTaxYear );
 
     for (let i = 0; i < numberOfYears; i++ ){
-      this.pastYears.push(previousTaxYear - i);
+      this.pastYears.push(startTaxYear - i);
     }
 
     if (
