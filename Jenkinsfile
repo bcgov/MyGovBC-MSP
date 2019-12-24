@@ -1,14 +1,14 @@
 // Edit your app's name below
-def APP_NAME = 'msp-supp-benefit'
+def APP_NAME = 'msp'
 
-def CHAINED_ANGULAR_BUILD = 'angular-builder-supp-benefit'
+def CHAINED_ANGULAR_BUILD = 'angular-builder'
 
 // Edit your environment TAG names below
-def TAG_NAMES = ['dev', 'test']
-def TAG_NAMES_BACKUP = ['devbackup', 'testbackup']
+def TAG_NAMES = ['dev', 'test', 'prod']
+def TAG_NAMES_BACKUP = ['devbackup', 'testbackup', 'prodbackup']
 
 // You shouldn't have to edit these if you're following the conventions
-def NGINX_BUILD_CONFIG = 'nginx-runtime-supp-benefit'
+def NGINX_BUILD_CONFIG = 'nginx-runtime'
 def BUILD_CONFIG = APP_NAME + '-build'
 def IMAGESTREAM_NAME = APP_NAME 
 
@@ -48,4 +48,11 @@ node {
   }
 }
 
-
+node {
+  stage('deploy-'  + TAG_NAMES[2]) {
+    input "Deploy to " + TAG_NAMES[2] + "?"
+    echo "Deploy to " + TAG_NAMES[2] + " " + IMAGESTREAM_NAME + ":" + "${IMAGE_HASH}"
+    openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES_BACKUP[2], srcStream: IMAGESTREAM_NAME, srcTag: TAG_NAMES[2]
+    openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[2], srcStream: IMAGESTREAM_NAME, srcTag: "${IMAGE_HASH}"
+  }
+}
