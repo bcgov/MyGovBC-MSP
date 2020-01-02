@@ -48,7 +48,9 @@ export class TaxYearComponent extends BaseComponent {
     }
 
     getTaxYears(): number[] {
-        const currentTaxYear = this.currentYear ;
+
+        console.log( 'getTaxYears: ' );
+        const currentTaxYear = this.currentYear - 1;
         return [currentTaxYear, currentTaxYear - 1 ];
     }
 
@@ -102,8 +104,8 @@ export class TaxYearComponent extends BaseComponent {
         if (this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END && this.spaEnvResponse.SPA_ENV_NOW) {
             this.today = new Date(this.spaEnvResponse.SPA_ENV_NOW.replace(/-/g, '/'));
             this.currentYear = this.today.getFullYear();
-            let startDate = new Date (this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START.replace(/-/g, '/'));
-            let endDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END.replace(/-/g, '/'));
+            const startDate = new Date (this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START.replace(/-/g, '/'));
+            const endDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END.replace(/-/g, '/'));
             this.cutOffStartDate = new Date(this.currentYear, startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds(), startDate.getMilliseconds());
             this.cutOffEndDate  = new Date(this.currentYear, endDate.getMonth(), endDate.getDate(), endDate.getHours(), endDate.getMinutes(), endDate.getSeconds(), endDate.getMilliseconds());
             console.log('CutOff Start Date', this.cutOffStartDate);
