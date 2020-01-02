@@ -4,7 +4,7 @@
         [processName]="consentProcessName" 
         (accept)="onAccept($event)"
         (close)="onClose()"
-        [isUnderMaintenance]="true">
+        [isUnderMaintenance]="isMaintenanceMode">
   <p>
     Keep your personal information secure – especially when using a shared device like a computer 
     at a library, school or café. To delete any information that was entered, either complete 

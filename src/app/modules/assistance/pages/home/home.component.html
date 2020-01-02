@@ -72,8 +72,8 @@
 </ng-template>
 <msp-consent-modal
   #mspConsentModal
-  [isMaintenanceMode]="false"
   [consentProcessName]="consentProcessName"
+  [isMaintenanceMode]="true"
   (accept)="
     finAssistApp.infoCollectionAgreement = $event;
     this.dataSvc.saveFinAssistApplication()
