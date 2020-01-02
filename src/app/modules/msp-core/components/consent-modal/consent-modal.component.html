@@ -3,7 +3,8 @@
         agreeLabel="I have read and understand this information"
         [processName]="consentProcessName" 
         (accept)="onAccept($event)"
-        (close)="onClose()">
+        (close)="onClose()"
+        [isUnderMaintenance]="true">
   <p>
     Keep your personal information secure – especially when using a shared device like a computer 
     at a library, school or café. To delete any information that was entered, either complete 
