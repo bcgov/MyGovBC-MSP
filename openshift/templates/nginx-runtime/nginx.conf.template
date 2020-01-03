@@ -78,10 +78,14 @@ http {
         # serve our angular app here
         location / {
 
-	        rewrite ^/msp/application/prepare $1/msp/enrolment/check-eligibility redirect;
-			rewrite ^/assistance/prepare $1/msp/assistance/home redirect;
-			rewrite ^/account-letter/personal-info $1/msp/account-letter/request-acl redirect;
-			rewrite ^/msp/account/prepare $1/msp/deam-interim redirect;
+	        rewrite ^/msp/application/prepare /msp/enrolment/check-eligibility redirect;
+	        rewrite ^/msp/application/prepare/ /msp/enrolment/check-eligibility/ redirect;
+			rewrite ^/assistance/prepare /msp/assistance/home redirect;
+			rewrite ^/assistance/prepare/ /msp/assistance/home/ redirect;
+			rewrite ^/account-letter/personal-info /msp/account-letter/request-acl redirect;
+			rewrite ^/account-letter/personal-info/ /msp/account-letter/request-acl/ redirect;
+			rewrite ^/msp/account/prepare /msp/deam-interim redirect;
+			rewrite ^/msp/account/prepare/ /msp/deam-interim/ redirect;
 
 			rewrite ^/msp(/.*)$ $1;
 
