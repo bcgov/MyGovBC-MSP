@@ -107,6 +107,10 @@ http {
             alias /tmp/app/dist/deam-interim/;
         }
 
+		# redirects
+	    location /msp/application/prepare {
+			alias /msp/enrolment/check-eligibility
+		}
 
         # WORKING
         # This location makes it possible to direct link to the page, and can refresh on that page.
