@@ -77,7 +77,14 @@ http {
 
         # serve our angular app here
         location / {
-	    rewrite ^/msp(/.*)$ $1;
+
+	        rewrite ^/msp/application/prepare $1/msp/enrolment/check-eligibility redirect;
+			rewrite ^/assistance/prepare $1/msp/assistance/home redirect;
+			rewrite ^/account-letter/personal-info $1/msp/account-letter/request-acl redirect;
+			rewrite ^/msp/account/prepare $1/msp/deam-interim redirect;
+
+			rewrite ^/msp(/.*)$ $1;
+
             root   /tmp/app/dist;
             index  index.html index.htm; ## TODO - RECOMMENT FOR TEST2
             try_files $uri /index.html;
@@ -107,12 +114,6 @@ http {
             alias /tmp/app/dist/deam-interim/;
         }
 
-		# redirects
-	    location /msp/application/prepare {
-			alias /tmp/app/dist/enrolment/check-eligibility/;
-		}
-
-        # WORKING
         # This location makes it possible to direct link to the page, and can refresh on that page.
         location /deam-interim/msp/account/prepare {
             try_files $uri $uri/ /tmp/app/dist/deam-interim/index.html;
