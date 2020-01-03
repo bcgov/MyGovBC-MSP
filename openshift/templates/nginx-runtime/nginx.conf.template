@@ -109,7 +109,7 @@ http {
 
 		# redirects
 	    location /msp/application/prepare {
-			alias /tmp/app/dist/msp/enrolment/check-eligibility/;
+			alias /tmp/app/dist/enrolment/check-eligibility/;
 		}
 
         # WORKING
