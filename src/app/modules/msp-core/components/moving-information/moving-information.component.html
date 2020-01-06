@@ -49,7 +49,7 @@
         <common-date name="arrivalDateToBC__{{objectId}}"
                      label="Arrival date in B.C."
                      [dateRangeStart]="startDateRange"
-                     [dateRangeEnd]="yesterday"
+                     [dateRangeEnd]="today"
                      [(ngModel)]="person.arrivalToBCDate"
                      [errorMessage]="recentMoveBCErrorMsg"
                      required>
@@ -176,7 +176,7 @@
         <common-date name="dischargeDate__{{objectId}}"
                      label="Discharge date"
                      [dateRangeStart]="startDateRange"
-                     [dateRangeEnd]="yesterday"
+                     [dateRangeEnd]="today"
                      [errorMessage]="dischargeDateErrorMsg"
                      [(ngModel)]="person.dischargeDate"
                      required>
@@ -210,7 +210,7 @@
     <common-date name="recentMoveToBC__{{objectId}}"
                  label="Most recent move to B.C."
                  [dateRangeStart]="startDateRange"
-                 [dateRangeEnd]="yesterday"
+                 [dateRangeEnd]="today"
                  [(ngModel)]="person.arrivalToBCDate"
                  [errorMessage]="recentMoveBCErrorMsg"
                  required>
