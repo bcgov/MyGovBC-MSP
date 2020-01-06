@@ -92,16 +92,16 @@ http {
 
 		# redirects
 		location /application/prepare {
-			return 301 https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
+			return 301 https://my.gov.bc.ca/msp/enrolment/check-eligibility;
 		}
 		location /assistance/prepare {
-			return 301 https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
+			return 301 https://my.gov.bc.ca/msp/assistance/home;
 		}
 		location /account-letter/personal-info {
-			return 301 https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
+			return 301 https://my.gov.bc.ca/msp/account-letter/request-acl;
 		}
 		location /account/prepare {
-			return 301 https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
+			return 301 https://my.gov.bc.ca/msp/deam-interim/;
 		}
 
         # ALL BELOW DEAM-INTERIM ROUTES CAN BE REMOVED ONCE DEAM RE-ALIGNMENT IS DONE (sometime in 2020_)
