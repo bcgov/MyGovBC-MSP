@@ -18,18 +18,22 @@ import { EnrolDataService } from '../../modules/enrolment/services/enrol-data.se
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent {
-  // Constants for page - TODO: figure out which ones are common throughout application
-  newEnrollApp = 'New MSP enrolment application';
-  newAccountLetter = 'MSP Account Confirmation Letter Request';
-  newPaApp = 'New MSP premium assistance application';
-  continueEnrollApp = 'Continue enrolment application';
-  continuePaApp = 'Continue premium assistance application';
-  newAccountApp = 'MSP Account Change Request';
-  continueAccountApp = 'Continue MSP Account Change Request';
-  continueAccountLetter = 'Continue Account Confirmation letter application';
-  newBenefitApp = 'New Supplementary Benefits application';
-  continueBenefitApp = 'Continue Supplementary Benefits application';
 
+  // Constants for page - TODO: figure out which ones are common throughout application
+  newEnrollApp = 'New MSP Application for Enrolment';
+  continueEnrollApp = 'Continue MSP Application for Enrolment';
+
+  newPaApp = 'New MSP Application for Retroactive Premium Assistance';
+  continuePaApp = 'Continue MSP Application for Retroactive Premium Assistance';
+
+  newAccountApp = 'New MSP Account Change Request';
+  continueAccountApp = 'Continue MSP Account Change Request';
+
+  newAccountLetter = 'New MSP Account Confirmation Letter Request';
+  continueAccountLetter = 'Continue MSP Account Confirmation Letter Request';
+
+  newBenefitApp = 'New MSP Application for Supplementary Benefits';
+  continueBenefitApp = 'Continue MSP Application for Supplementary Benefits';
 
   // routes
   checkEligibility = ROUTES_ENROL.CHECK_ELIG.fullpath;
