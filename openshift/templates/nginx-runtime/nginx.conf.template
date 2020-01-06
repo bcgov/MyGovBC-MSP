@@ -79,10 +79,10 @@ http {
         location / {
 
 			rewrite ^/msp(/.*)$ $1;
-	        rewrite ^/application/prepare(/.*)$ /enrolment/check-eligibility$1;
-			rewrite ^/assistance/prepare(/.*)$ /assistance/home$1;
-			rewrite ^/account-letter/personal-info(/.*)$ /account-letter/request-acl$1;
-			rewrite ^/account/prepare(/.*)$ /deam-interim$1;
+	        rewrite ^/application/prepare(/.*)?$ /enrolment/check-eligibility permanent;
+			rewrite ^/assistance/prepare(/.*)?$ /assistance/home permanent;
+			rewrite ^/account-letter/personal-info(/.*)?$ /account-letter/request-acl permanent;
+			rewrite ^/account/prepare(/.*)?$ /deam-interim permanent;
 
             root   /tmp/app/dist;
             index  index.html index.htm; ## TODO - RECOMMENT FOR TEST2
