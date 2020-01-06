@@ -78,6 +78,11 @@ http {
         # serve our angular app here
         location / {
 
+			rewrite ^/msp/application/prepare(.*)?$ https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents permanent;
+			rewrite ^/msp/assistance/prepare(.*)?$ https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents permanent;
+			rewrite ^/msp/account-letter/personal-info(.*)?$ https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents permanent;
+			rewrite ^/msp/account/prepare(.*)?$ https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents permanent;
+
 			rewrite ^/msp(/.*)$ $1;
 
             root   /tmp/app/dist;
