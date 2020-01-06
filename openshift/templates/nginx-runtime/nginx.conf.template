@@ -79,10 +79,6 @@ http {
         location / {
 
 			rewrite ^/msp(/.*)$ $1;
-	        rewrite ^/application/prepare(/.*)?$ /enrolment/check-eligibility permanent;
-			rewrite ^/assistance/prepare(/.*)?$ /assistance/home permanent;
-			rewrite ^/account-letter/personal-info(/.*)?$ /account-letter/request-acl permanent;
-			rewrite ^/account/prepare(/.*)?$ /deam-interim permanent;
 
             root   /tmp/app/dist;
             index  index.html index.htm; ## TODO - RECOMMENT FOR TEST2
@@ -118,7 +114,6 @@ http {
             try_files $uri $uri/ /tmp/app/dist/deam-interim/index.html;
             alias /tmp/app/dist/deam-interim/;
         }
-
         
 
         location /api {
