@@ -37,7 +37,7 @@ export class AssistanceHomeComponent extends BaseComponent
   touched$ = this.stateSvc.touched.asObservable();
 
   links = environment.links;
-  consentProcessName = 'Apply for Premium Assistance';
+  consentProcessName = 'PA';
 
   options: AssistanceYear[];
   rateData: {};
