@@ -70,18 +70,12 @@ http {
         add_header X-XSS-Protection 1;
         add_header X-Frame-Options DENY;
 
-
         # TODO - VERIFY BUILD PATHS
 
         # index  index.html index.htm; TODO - UNCOMMENT FOR TEST2
 
         # serve our angular app here
         location / {
-
-			rewrite ^/msp/application/prepare(.*)?$ https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents permanent;
-			rewrite ^/msp/assistance/prepare(.*)?$ https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents permanent;
-			rewrite ^/msp/account-letter/personal-info(.*)?$ https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents permanent;
-			rewrite ^/msp/account/prepare(.*)?$ https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents permanent;
 
 			rewrite ^/msp(/.*)$ $1;
 
@@ -95,6 +89,20 @@ http {
             # Deploy-time configurable
             # %HTTP_BASIC%
         }
+
+		# redirects
+		location /application/prepare {
+			return 301 https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
+		}
+		location /assistance/prepare {
+			return 301 https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
+		}
+		location /account-letter/personal-info {
+			return 301 https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
+		}
+		location /account/prepare {
+			return 301 https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
+		}
 
         # ALL BELOW DEAM-INTERIM ROUTES CAN BE REMOVED ONCE DEAM RE-ALIGNMENT IS DONE (sometime in 2020_)
 
@@ -120,7 +128,6 @@ http {
             alias /tmp/app/dist/deam-interim/;
         }
         
-
         location /api {
             proxy_pass http://mygovbc-msp-service:8080/;
             proxy_read_timeout 300;
