@@ -131,7 +131,7 @@
                             
                         <!-- Question 4 - Have Childrens -->
                         <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
-                            <common-radio [value]="benefitApp.haveChildrens"  [label]="'Do you have any children on your Medical Service Plan account?'" 
+                            <common-radio [value]="benefitApp.haveChildrens"  [label]="'Do you have any children on your Medical Services Plan account?'" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                                 (valueChange)="updateChildren($event);">
                             </common-radio>
