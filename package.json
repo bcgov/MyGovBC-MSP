@@ -27,7 +27,7 @@
     "e2e:retro-pa": "npm run e2e-protractor -- e2e/protractor.retro-pa.conf.js"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.8.4",
+    "@angular-devkit/build-angular": "^0.900.3",
     "@angular/cli": "^6.2.4",
     "@angular/compiler-cli": "^6.1.1",
     "@types/jasmine": "2.8.9",
