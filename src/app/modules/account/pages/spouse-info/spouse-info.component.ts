@@ -37,7 +37,7 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
     }
   }
 
-  @ViewChild('formRef') form: NgForm;
+  @ViewChild('formRef', {static: true}) form: NgForm;
 
   ngOnInit() {
       this.accountApp = this.dataService.accountApp;

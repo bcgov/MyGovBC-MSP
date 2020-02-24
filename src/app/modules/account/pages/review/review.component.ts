@@ -18,7 +18,7 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
 
     mspAccountApp: MspAccountApp;
     captchaApiBaseUrl: string;
-    @ViewChild(NgForm) form: NgForm;
+    @ViewChild(NgForm, {static: true}) form: NgForm;
 
     constructor(public dataService: MspAccountMaintenanceDataService,
                     protected router: Router,  private pageStateService: PageStateService) {

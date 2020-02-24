@@ -20,7 +20,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
 
     lang = require('./i18n');
 
-    @ViewChild('formRef') personalInfoForm: NgForm;
+    @ViewChild('formRef', { static: true }) personalInfoForm: NgForm;
     //@ViewChildren(BenefitPersonalDetailComponent) personalDetailsComponent: QueryList<BenefitPersonalDetailComponent>;
     @ViewChildren(PersonalDetailsRetroSuppbenComponent) personalDetailsComponent: QueryList<PersonalDetailsRetroSuppbenComponent>;
     //@ViewChild('address') address: MspAddressComponent;

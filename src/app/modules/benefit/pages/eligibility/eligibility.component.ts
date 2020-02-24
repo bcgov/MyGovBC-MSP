@@ -15,7 +15,7 @@ export class EligibilityComponent extends BaseComponent {
 
   continue: boolean;
 
-  @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
+  @ViewChild('mspConsentModal', { static: true }) mspConsentModal: ConsentModalComponent;
 
   constructor(private _router: Router, public dataService: MspBenefitDataService , cd: ChangeDetectorRef) {
                 super(cd);

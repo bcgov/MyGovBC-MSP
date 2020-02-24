@@ -25,7 +25,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     super(router);
    }
   subscriptions: Subscription[];
-  @ViewChild('formRef') form: NgForm;
+  @ViewChild('formRef', {static: true}) form: NgForm;
 
   showChild: boolean = false;
   operation: OperationActionType;

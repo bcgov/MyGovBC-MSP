@@ -59,7 +59,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
    // @ViewChild('formRef') form: NgForm;
 
-    @ViewChild('gender') gender: ElementRef;
+    @ViewChild('gender', {static: true}) gender: ElementRef;
   //  @ViewChild('birthDate') birthdate: MspBirthDateComponent;
  //   @ViewChild('name') name: ElementRef;
   //  @ViewChild('phn') phn: MspPhnComponent;

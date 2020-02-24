@@ -22,19 +22,19 @@ import { ProcessService } from 'app/services/process.service';
 })
 export class BenefitPrepareComponent  extends BaseComponent  {
     //static ProcessStepNum = 1;
-    @ViewChild('formRef') prepForm: NgForm;
-    @ViewChild('incomeRef') incomeRef: ElementRef;
-    @ViewChild('ageOver65Btn') ageOver65Btn: ElementRef;
-    @ViewChild('ageNotOver65Btn') ageNotOver65Btn: ElementRef;
-    @ViewChild('spouseOver65Btn') spouseOver65Btn: ElementRef;
-    @ViewChild('spouseOver65NegativeBtn') spouseOver65NegativeBtn: ElementRef;
-    @ViewChild('hasSpouse') hasSpouse: ElementRef;
-    @ViewChild('negativeHasSpouse') negativeHasSpouse: ElementRef;
+    @ViewChild('formRef', {static: true}) prepForm: NgForm;
+    @ViewChild('incomeRef', {static: true}) incomeRef: ElementRef;
+    @ViewChild('ageOver65Btn', {static: true}) ageOver65Btn: ElementRef;
+    @ViewChild('ageNotOver65Btn', {static: true}) ageNotOver65Btn: ElementRef;
+    @ViewChild('spouseOver65Btn', {static: true}) spouseOver65Btn: ElementRef;
+    @ViewChild('spouseOver65NegativeBtn', {static: true}) spouseOver65NegativeBtn: ElementRef;
+    @ViewChild('hasSpouse', {static: true}) hasSpouse: ElementRef;
+    @ViewChild('negativeHasSpouse', {static: true}) negativeHasSpouse: ElementRef;
     //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
-    @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
+    @ViewChild('mspImageErrorModal', {static: true}) mspImageErrorModal: MspImageErrorModalComponent;
 
-    @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
-    @ViewChild('commonCalculator') commonCalculator: CommonDeductionCalculatorComponent;
+    @ViewChild('mspConsentModal', {static: true}) mspConsentModal: ConsentModalComponent;
+    @ViewChild('commonCalculator', {static: true}) commonCalculator: CommonDeductionCalculatorComponent;
 
     lang = require('./i18n');
     _showDisabilityInfo: boolean = false;

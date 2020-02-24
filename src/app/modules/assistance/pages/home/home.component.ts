@@ -30,9 +30,9 @@ import { environment } from '../../../../../environments/environment.prod';
 })
 export class AssistanceHomeComponent extends BaseComponent
   implements OnInit, AfterViewInit {
-  @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
-  @ViewChild('modal') ratesModal: AssistRatesModalComponent;
-  @ViewChild('formRef') prepForm: NgForm;
+  @ViewChild('mspConsentModal', {static: true}) mspConsentModal: ConsentModalComponent;
+  @ViewChild('modal', {static: true}) ratesModal: AssistRatesModalComponent;
+  @ViewChild('formRef', {static: true}) prepForm: NgForm;
 
   touched$ = this.stateSvc.touched.asObservable();
 

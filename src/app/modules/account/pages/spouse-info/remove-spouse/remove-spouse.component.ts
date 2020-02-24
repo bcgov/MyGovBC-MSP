@@ -23,7 +23,7 @@ export class RemoveSpouseComponent extends BaseComponent {
 
   //langStatus = legalStatus;
 
-  @ViewChild('formRef') form: NgForm;
+  @ViewChild('formRef', {static: true}) form: NgForm;
   @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
   public buttonstyle: string = 'btn btn-default';
   accountApp: MspAccountApp;

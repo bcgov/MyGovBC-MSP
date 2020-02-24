@@ -13,7 +13,7 @@ export class MspCancelComponent {
   lang = require('./i18n');
 
   @Input() btnBlock: boolean = false;
-  @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
+  @ViewChild('fullSizeViewModal', {static: true}) public fullSizeViewModal: ModalDirective;
   @Input() accountButton: boolean = false;
 
   constructor(private dataService: MspDataService) {

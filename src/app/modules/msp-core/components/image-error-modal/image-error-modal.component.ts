@@ -12,7 +12,7 @@ export class MspImageErrorModalComponent {
   lang = require('./i18n');
 
   @Input() imageWithError: CommonImage;
-  @ViewChild('errorModal') public errorModal: ModalDirective;
+  @ViewChild('errorModal', { static: true }) public errorModal: ModalDirective;
 
   constructor(private zone: NgZone) {}
 

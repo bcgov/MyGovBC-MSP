@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   mspAccountApp: MspAccountApp;
   captchaApiBaseUrl: string;
   addressChangeBCUrl: string;
-  @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
+  @ViewChild('mspConsentModal', {static: true}) mspConsentModal: ConsentModalComponent;
 
   constructor(private dataService: MspAccountMaintenanceDataService) { }
 

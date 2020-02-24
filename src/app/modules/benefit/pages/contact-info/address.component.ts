@@ -23,10 +23,10 @@ export class BenefitAddressComponent extends BaseComponent {
 
   static ProcessStepNum = 3;
 
-  @ViewChild('formRef') form: NgForm;
-  @ViewChild('address') address: ElementRef;
-  @ViewChild('mailingAddress') mailingAddress: ElementRef;
-  @ViewChild('phone') phone: ElementRef;
+  @ViewChild('formRef', { static: true }) form: NgForm;
+  @ViewChild('address', { static: true }) address: ElementRef;
+  @ViewChild('mailingAddress', { static: true }) mailingAddress: ElementRef;
+  @ViewChild('phone', { static: true }) phone: ElementRef;
 
   mspApplication: BenefitApplication;
 

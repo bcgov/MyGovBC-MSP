@@ -27,7 +27,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
     langStatus = CanadianStatusStrings;
 
     Activities: typeof CanadianStatusReason = CanadianStatusReason;
-    @ViewChild('formRef') form: NgForm;
+    @ViewChild('formRef', {static: true}) form: NgForm;
     @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
     public buttonstyle: string = 'btn btn-default';
     accountApp: MspAccountApp;

@@ -19,7 +19,7 @@ export class MspConsentModalComponent {
 
     @Input() isMaintenanceMode: boolean = true;
     @Input() consentProcessName: string = 'Unknown Process Name';
-    @ViewChild('mspConsentModal') public mspConsentModal: ConsentModalComponent;
+    @ViewChild('mspConsentModal', { static: true }) public mspConsentModal: ConsentModalComponent;
 
     @Output() accept: EventEmitter<any> = new EventEmitter<any>();
     @Output() close: EventEmitter<void> = new EventEmitter<void>();

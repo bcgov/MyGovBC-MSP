@@ -46,7 +46,7 @@ import { AssistStateService } from '../../services/assist-state.service';
   styleUrls: ['./assist-contact.component.scss']
 })
 export class AssistContactComponent extends BaseComponent implements OnInit {
-  @ViewChild('formRef') personalInfoForm: NgForm;
+  @ViewChild('formRef', {static: true}) personalInfoForm: NgForm;
 
   addressLine2 = false;
   addressLine3 = false;

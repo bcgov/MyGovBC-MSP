@@ -21,7 +21,7 @@ export interface SpouseYears {
 })
 export class SpouseComponent extends BaseComponent implements OnInit {
 
-  @ViewChild('formRef') spouseInfoForm: NgForm;
+  @ViewChild('formRef', {static: true}) spouseInfoForm: NgForm;
 
   touched$ = this.stateSvc.touched.asObservable();
   title = 'Add spouse information and upload documents';

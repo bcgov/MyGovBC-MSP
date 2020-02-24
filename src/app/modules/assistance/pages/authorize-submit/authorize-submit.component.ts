@@ -51,7 +51,7 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
 
   application: FinancialAssistApplication;
 
-  @ViewChild('mspImageErrorModal')
+  @ViewChild('mspImageErrorModal', {static: true})
   mspImageErrorModal: MspImageErrorModalComponent;
 
   constructor(
@@ -66,7 +66,7 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
 
-  @ViewChild('form') form: NgForm;
+  @ViewChild('form', {static: true}) form: NgForm;
 
   ngOnInit() {
     this.stateSvc.setPageIncomplete(this.route.snapshot.routeConfig.path);

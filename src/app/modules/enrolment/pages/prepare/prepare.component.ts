@@ -15,7 +15,7 @@ import { EnrolApplication } from '../../models/enrol-application';
 @Injectable()
 export class PrepareComponent extends EnrolForm implements AfterViewInit {
 
-  @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+  @ViewChild('mspConsentModal', { static: true }) mspConsentModal: MspConsentModalComponent;
 
   constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,

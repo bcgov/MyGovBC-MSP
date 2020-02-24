@@ -21,7 +21,7 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
 
     mspAccountApp: MspAccountApp;
     captchaApiBaseUrl: string;
-    @ViewChild(NgForm) form: NgForm;
+    @ViewChild(NgForm, {static: true}) form: NgForm;
 
     constructor(private dataService: MspAccountMaintenanceDataService,
                 private _router: Router,

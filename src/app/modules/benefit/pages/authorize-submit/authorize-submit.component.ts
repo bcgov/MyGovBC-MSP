@@ -23,7 +23,7 @@ export class BenefitAuthorizeSubmitComponent {
     application: BenefitApplication;
 
    // @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
-    @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
+    @ViewChild('mspImageErrorModal', {static: true}) mspImageErrorModal: MspImageErrorModalComponent;
 
     constructor(private dataService: MspBenefitDataService,
                 private completenessCheck: CompletenessCheckService,
@@ -34,7 +34,7 @@ export class BenefitAuthorizeSubmitComponent {
 
     }
 
-    @ViewChild('form') form: NgForm;
+    @ViewChild('form', { static: true }) form: NgForm;
 
     ngAfterViewInit(): void {
         this.form.valueChanges.subscribe(values => {

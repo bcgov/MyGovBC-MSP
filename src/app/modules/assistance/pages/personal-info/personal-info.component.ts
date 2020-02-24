@@ -31,7 +31,7 @@ import { AssistStateService } from '../../services/assist-state.service';
 })
 export class AssistancePersonalInfoComponent extends BaseComponent {
 
-  @ViewChild('formRef') personalInfoForm: NgForm;
+  @ViewChild('formRef', {static: true}) personalInfoForm: NgForm;
   financialAssistApplication: FinancialAssistApplication;
 
   title = 'Add personal information and upload documents';

@@ -27,7 +27,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
 
   showSpouse: boolean;
 
-  @ViewChild('formRef') personalInfoForm: NgForm;
+  @ViewChild('formRef', { static: true }) personalInfoForm: NgForm;
 
   constructor(private dataService: MspBenefitDataService,
     private _router: Router, private _processService: ProcessService,

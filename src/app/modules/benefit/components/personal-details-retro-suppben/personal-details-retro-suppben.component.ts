@@ -20,11 +20,11 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
 
     @Input() removeable: boolean = false;
     @Input() person: MspPerson;
-    @ViewChild('formRef') personalDetailsForm: NgForm;
+    @ViewChild('formRef', {static: true}) personalDetailsForm: NgForm;
     @Output() onChange = new EventEmitter<any>();
     @Output() docActionEvent = new EventEmitter<any>();
     @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
-    @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
+    @ViewChild('mspImageErrorModal', {static: true}) mspImageErrorModal: MspImageErrorModalComponent;
     subscriptions: Subscription[];
 
 

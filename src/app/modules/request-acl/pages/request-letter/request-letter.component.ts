@@ -22,7 +22,7 @@ import { subYears, startOfToday } from 'date-fns';
 })
 export class RequestLetterComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+  @ViewChild('mspConsentModal', { static: true }) mspConsentModal: MspConsentModalComponent;
 
   // Used to indicate that the system is processing the request
   loading: boolean = false;
