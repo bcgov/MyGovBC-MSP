@@ -25,8 +25,7 @@
             "assets": [
               "src/assets",
               "src/fonts",
-              "src/favicon.ico",
-              { "glob": "**/*", "input": "dist-msp-old/", "output": "deam-interim"}
+              "src/favicon.ico"
             ],
             "styles": [
               "src/styles.scss"
