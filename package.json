@@ -23,11 +23,10 @@
     "e2e:chrome": "npm run e2e -- --protractorConfig=e2e/protractor.conf.js",
     "e2e:enrolment": "npm run e2e -- --protractorConfig=e2e/protractor.enrolment.conf.js",
     "e2e:supp-benefits": "npm run e2e-protractor -- e2e/protractor.supp-benefits.conf.js",
-    "e2e:retro-pa": "npm run e2e-protractor -- e2e/protractor.retro-pa.conf.js",
-    "upgrade": "ng update @angular/cli@8 @angular/core@8"
+    "e2e:retro-pa": "npm run e2e-protractor -- e2e/protractor.retro-pa.conf.js"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.24",
+    "@angular-devkit/build-angular": "^0.803.25",
     "@angular/cli": "^8.2.14",
     "@angular/compiler-cli": "^8.2.14",
     "@types/jasmine": "2.8.9",
@@ -45,7 +44,7 @@
     "jasmine-core": "^3.3.0",
     "jasmine-reporters": "^2.3.2",
     "jasmine-spec-reporter": "~3.2.0",
-    "karma": "^3.0.0",
+    "karma": "^4.4.1",
     "karma-chrome-launcher": "~2.2.0",
     "karma-cli": "~1.0.1",
     "karma-coverage-istanbul-reporter": "^2.1.1",
@@ -68,14 +67,14 @@
     "@angular/common": "^8.2.14",
     "@angular/compiler": "^8.2.14",
     "@angular/core": "^8.2.14",
-    "@angular/forms": "^6.1.9",
+    "@angular/forms": "~8.2.14",
     "@angular/http": "^6.1.9",
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/platform-server": "^6.1.9",
-    "@angular/router": "^6.1.9",
+    "@angular/router": "^8.2.14",
     "@ng-select/ng-select": "^2.20.0",
-    "ajv": "^6.11.0",
+    "ajv": "^6.12.0",
     "angular-2-local-storage": "^2.0.0",
     "angular2-template-loader": "^0.6.2",
     "angular2-text-mask": "^9.0.0",
@@ -100,6 +99,6 @@
     "typescript": "3.4.5",
     "url": "^0.11.0",
     "zlib": "^1.0.5",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.10.2"
   }
 }
