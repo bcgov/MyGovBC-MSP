@@ -316,6 +316,6 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         return;
       }
       this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
-      this.navigate('/account/spouse-info');
+      this.navigate('/deam/spouse-info');
     }
 }

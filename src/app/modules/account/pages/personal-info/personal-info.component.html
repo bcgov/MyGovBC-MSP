@@ -3,21 +3,13 @@
         <h1><strong>Medical Services Plan Account Holder</strong></h1>
         <p class="border-bottom">Please provide information about this account. If you are requesting an update or correction to personal information (including a name change as a result of marriage, separation or divorce), birthdate or gender, provide supporting documents.</p>
 
-        <div class="form-group">
-            <common-radio [value]="applicant.updatingPersonalInfo" 
-                [label]="'As the Account Holder, are you requesting an update/correction to your personal information?'" 
-                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                (valueChange)="applicant.updatingPersonalInfo = $event">
-            </common-radio>
-        </div>
-
-        <div class="form-group">
+        <!-- <div class="form-group">
             <common-radio [value]="applicant.immigrationStatusChange"  
                 [label]="'Are you requesting to update or renew your immigration status in Canada?'" 
                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                 (valueChange)="applicant.immigrationStatusChange = $event; ">
             </common-radio>
-        </div>
+        </div> -->
 
         <msp-personal-information [person]="applicant">
             <div sectionTitleInfo>
@@ -25,16 +17,31 @@
                 <p class="border-bottom"> 
                     Please provide the Account Holder’s personal information for verification purposes.
                 </p>
-            </div>     
+            </div>   
         </msp-personal-information>
 
-        <br>
+        <div class="form-group">
+            <common-radio [value]="applicant.updatingPersonalInfo" 
+                [label]="'As the Account Holder, are you requesting an update to your personal information or renewing your status in Canada?'" 
+                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                (valueChange)="applicant.updatingPersonalInfo = $event"
+                required>
+            </common-radio>
+            <!-- <p class="text-danger" 
+                   *ngIf="applicant.updatingPersonalInfo === undefined"
+                   role="alert" 
+                   aria-live="assertive">
+                   As the Account Holder, are you requesting an update to your personal information or renewing your status in Canada? is required.
+            </p> -->
+        </div>
 
-        <msp-update-request title="What updates are you requesting for Account Holder?" 
-            subtitle = "For each update or correction selected, provide the supporting documents." 
-            [person]="person" 
-            [accountApp]="accountApp">
-        </msp-update-request>
+        <div *ngIf="applicant.updatingPersonalInfo">
+            <msp-update-request title="What updates are you requesting for Account Holder?" 
+                subtitle = "For each update or correction selected, provide the supporting documents." 
+                [person]="person" 
+                [accountApp]="accountApp">
+            </msp-update-request>
+        </div>
 
     </form>
 </common-page-framework>
