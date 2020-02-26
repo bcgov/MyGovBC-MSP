@@ -15,7 +15,7 @@ export class AccountContainerComponent extends Container implements OnInit {
     super();
     this.setProgressSteps(  accountStepperPages );
  //   this.setProgressSteps( displayedbenefitPages );
-    this.header.setTitle('Account Maintenance');
+    this.header.setTitle('Account Management');
   }
 
   ngOnInit() {
