@@ -2,18 +2,30 @@
         [title]="'Information collection notice'"  [processName]="'ACL'"
         [agreeLabel]="'I have read and understand this information'" (accept)="onAccept($event)"
         (onClose)="manageAccount.focus()">
-        <p><strong>Keep your personal information secure – especially when using a shared device like a computer at a library, school or café.</strong> To delete any information that was entered, either complete the application and submit it or, if you don’t finish, close the web browser.</p><p><strong>Need to take a break and come back later?</strong> The data you enter on this form is saved locally to the computer or device you are using until you close the web browser or submit your application.</p><p><strong>Information in this application is collected by the Ministry of Health</strong> under section 26(a), (c) and (e) of the Freedom of Information and Protection of Privacy Act and will be used to determine eligibility for provincial health care benefits in BC and administer Premium Assistance. Should you have any questions about the collection of this personal information please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">contact Health Insurance BC <i class="fa fa-external-link" aria-hidden="true"></i></a>.</p> 
+        <p><strong>Keep your personal information secure – especially when using a shared device like a computer at a library, 
+          school or café.</strong> To delete any information that was entered, either complete the application and submit it or, 
+          if you don't finish, close the web browser.</p><p><strong>Need to take a break and come back later?</strong> The data 
+          you enter on this form is saved locally to the computer or device you are using until you close the web browser or 
+          submit your application.</p><p>Personal information is collected under the authority of the <i> Medicare Protection Act
+          </i> and section 26 (a), (c) and (e) of the <i>Freedom of Information and Protection of Privacy Act</i> for the purposes 
+          of administration of the Medical Services Plan. If you have any questions about the collection and use of your personal 
+          information, please contact <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">
+            Health Insurance BC <i class="fa fa-external-link" aria-hidden="true"></i></a>.</p> 
 </common-consent-modal>
 
 <common-page-framework layout="blank">
 
-  <h1> <strong> Manage your Medical Services Plan account </strong></h1>
+  <h1> <strong> Manage your Medical Services Plan Account </strong></h1>
 
   <div class="row">
      <div class="col-8">
-        MSP Account Holders can use this web application to request Medical Services Plan account changes, corrections and submit supporting documentation to keep your MSP account information current.
-        You will be required to upload supporting documentation to verify information.
-
+        <p>
+          If you are an Account Holder with an active Medical Services Plan account, use this service to update or correct your 
+          account information.
+        </p>
+        <p>
+            If you are new to B.C. or do not have an active Medical Services Plan Account, go to Eligibility and Enrolment.
+        </p>
      </div>
      <div style="background-color : #f2f2f2; height: 130px; width: 396px;">
         <br>
@@ -24,7 +36,8 @@
                 </div>
                 <div class="col-8">
                     <p>
-                        Do not use this web application if your MSP is managed by your employer or you are a member of a group account. Please contact your Group Administrator.
+                        Do not use this web application if your employer manages your Medical Services Plan or you are a member 
+                        of a group account. Please contact your Group Administrator.
                     </p>
                 </div>
             </div>
@@ -42,37 +55,38 @@
         Manage Your Account
     </div>
     <div class="card-body">
-      <p class="card-text">
-          An Account Holder can use this service to maintain their account information up to date.
+      <!-- <p class="card-text"> -->
+      Update personal information for yourself, your spouse, or children, including:
+          <ul>
+              <li>
+                  Legal name
+              </li>
+              <li>
+                  Birthdate
+              </li>
+              <li>
+                  Gender designation
+              </li>
+            </ul>
+      Update or renew immigration status in Canada for yourself, your spouse, or children, including:
+        <ul>
+            <li>
+                Canadian citizenship
+            </li>
+            <li>
+                Permanent Resident status
+            </li>
+            <li>
+                New or updated temporary immigration permits
+            </li>
+          </ul>
+      <p>
+          Add a new spouse or remove a spouse on your account
       </p>
-      Update Personal Information:
-      <ul>
-        <li>
-            Legal Name as a result of marriage or other
-        </li>
-        <li>
-            Date of Birth
-        </li>
-        <li>
-            Gender/Gender Designation
-        </li>
-      </ul>
-      
-      Update Status in Canada: 
-      <ul>
-        <li>
-            if your immigration status in Canada changed due to becoming a citizen or renewing your work permit
-        </li>
-      </ul>
 
-      Add new members or Remove existing members on your account:
-      <ul>
-        <li>Add new spouse or Remove spouse currently on your account,
-        </li>
-        <li>
-            Add or remove children on your account.
-        </li>
-      </ul>
+      <p>
+          Add children or remove children on your account
+      </p>
       <div style="text-align: center;">
         <button #manageAccount type="button" class="btn btn-primary" routerLink="/deam/personal-info">
         <span>Manage Account</span>
@@ -87,16 +101,28 @@
           Address Change Only
       </div>
       <div class="card-body">
-        <p class="card-text">If you only need an address change due to a move within BC - redirected to Address Change BC service
+        <p class="card-text">
+          If you need to report an address change only, due to a move within B.C., 
+          the button “Report an address change in B.C.” will take you to Address Change B.C.
         </p>
-        <P>If you are leaving BC permanentaly visit gov.bc.ca/leavingbcpermanently</P>
+        <p>
+          If you are leaving B.C. for longer than six months, the button “Report a move outside B.C.” 
+          will take you to information on leaving B.C. permanently.
+        </p> 
+        <p> 
+          If you want to remove a spouse/child from your account due to a move outside of B.C., 
+          use “Report a move outside B.C.”
+        </p>
+        <!-- <p class="card-text">If you only need an address change due to a move within BC - redirected to Address Change BC service
+        </p>
+        <P>If you are leaving BC permanentaly visit gov.bc.ca/leavingbcpermanently</P> -->
         <div style="text-align: center;">
-            <button href="#" class="btn btn-primary">Moving within B.C.
+            <button href="#" class="btn btn-primary">Report an address change in B.C.
                 <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
             </button>
         
         <br/><br/>
-        <button href="#" class="btn btn-primary">Moving outside B.C.
+        <button href="#" class="btn btn-primary">Report a move outside B.C.
             <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
         </button> 
       </div>
