@@ -38,7 +38,7 @@ export const SupportDocumentList = {
   CanadianBirthCertificate: 'Canadian birth certificate',
   CanadianPassport: 'Canadian passport',
   CanadianCitizenCard: 'Canadian citizenship card or certificate',
-  DriverLicense: 'Driving License',
+  DriverLicense: 'BC Driving License',
   RecordOfLanding: 'Record of Landing',
   PermanentResidentCard: 'Permanent Resident Card',
   PermanentResidentConfirmation: 'Confirmation of Permanent Residence',

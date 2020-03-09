@@ -57,6 +57,7 @@ export class UpdateRequestComponent extends Base {
 
   nameChangeDocs = nameChangeSupportDocuments();
   nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
+  nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
   genderChangeDocs = genderDesignationChangeDocuments();
   nameChangeDuetoErrorDocs = nameChangeDueToErrorDocuments();
   genderBirthdateChangeDocs = genderBirthDateChangeDocuments();
@@ -79,6 +80,10 @@ export class UpdateRequestComponent extends Base {
     }
   }
 
+  get hasStatus() {
+    // Has to have values
+    return this.person.status !== undefined;
+  }
   get statusDocuments(): SupportDocuments {
     return this.person.updateStatusInCanadaDocType;
   }
@@ -93,8 +98,12 @@ export class UpdateRequestComponent extends Base {
       this.person.nameChangeDocs.documentType = null;
       this.person.nameChangeDocs.images = [];
 
+      this.person.updateNameDueToMarriageRequestedLastName = null;
       this.person.updateNameDueToMarriageDocType.documentType = null;
       this.person.updateNameDueToMarriageDocType.images = [];
+
+      this.person.updateNameDueToNameChangeDocType.documentType = null;
+      this.person.updateNameDueToNameChangeDocType.images = [];
 
       this.person.updateNameDueToErrorDocType.documentType = null;
       this.person.updateNameDueToErrorDocType.images = [];
@@ -109,8 +118,6 @@ export class UpdateRequestComponent extends Base {
       this.person.updateGenderDesignationDocType.images = [];
 
     }
-
-
   }
 
 
@@ -140,7 +147,7 @@ export class UpdateRequestComponent extends Base {
 
   uploadDocument(evt: Array<any>) {
     console.log(evt);
-    this.person.updateNameDueDoc = evt;
+    this.person.updateNameDueToMarriageDoc = evt;
    // this.dataService.saveMspAccountApp();
   }
 
@@ -367,7 +374,7 @@ get changeGenderDesignationDocs(){
     "value": Documents.ChangeGenderAdultApplication
   },
   {
-    "label": "Application for change of gender designation (child)",
+    "label": "Application for change of gender designation (Child)",
     "value": Documents.ChangeGenderChildApplication
   },
   {

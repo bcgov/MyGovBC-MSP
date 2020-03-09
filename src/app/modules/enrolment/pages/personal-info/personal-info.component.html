@@ -2,9 +2,9 @@
   <form #formRef="ngForm" novalidate>
     <h1>Add personal information and upload documents</h1>
 
-    <h2>Main Applicant</h2> 
+    <h2>Main Applicant</h2>
     <p class="border-bottom">
-      After enrolment, the main applicant will be the Medical Services Plan Account Holder, 
+      After enrolment, the main applicant will be the Medical Services Plan Account Holder,
       and will be responsible for maintaining the Medical Services Plan account and requesting any changes.
     </p>
 
@@ -23,8 +23,8 @@
                             [(supportDoc)]="statusDocuments">
       <div sectionTitleInfo>
         <h2>Documents</h2>
-        <p class="border-bottom"> 
-          Provide one of the required documents to support your status in Canada. 
+        <p class="border-bottom">
+          Provide one of the required documents to support your status in Canada.
           If your name has changed since your ID was issued you are also required to upload document to support the name change.
         </p>
       </div>
@@ -32,8 +32,8 @@
       <div requestAdditionInfo>
         <div class="form-group">
           <common-radio name="NameChangeQuestion"
-                        [(ngModel)]="applicant.hasNameChange"  
-                        label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
+                        [(ngModel)]="applicant.hasNameChange"
+                        label="Has your name changed since your ID was issued due to marriage or a legal name change?"
                         required>
           </common-radio>
         </div>
@@ -43,11 +43,11 @@
     <msp-support-documents *ngIf="requestNameChangeInfo"
                            [supportDocList]="nameChangeDocList"
                            [(supportDoc)]="applicant.nameChangeDocs">
-      <div sectionTitleInfo> 
+      <div sectionTitleInfo>
         <h3>Additional Documents</h3>
         Please upload one of these documents as well as proof of your status in Canada:
         <ul>
-          <li>Marriage Certificate</li> 
+          <li>Marriage Certificate</li>
           <li>Legal Name Change Certificate</li>
         </ul>
         <p class="border-bottom">
@@ -59,12 +59,12 @@
       <msp-personal-information [(person)]="applicant">
         <div sectionTitleInfo>
           <h2>Your Information</h2>
-          <p class="border-bottom"> 
+          <p class="border-bottom">
             Enter your legal name, birthdate and gender.
           </p>
-        </div>     
+        </div>
       </msp-personal-information>
-  
+
       <msp-moving-information [(person)]="applicant">
         <div sectionTitleInfo>
           <h2 class="border-bottom">Moving Information</h2>
@@ -72,28 +72,28 @@
         <div additionalQuestions *ngIf="requestSchoolInfo">
           <div class="form-group">
             <common-radio name="fullTimeStudent_{{objectId}}"
-                          [(ngModel)]="applicant.fullTimeStudent"  
-                          label="Are you full-time student in B.C.?" 
+                          [(ngModel)]="applicant.fullTimeStudent"
+                          label="Are you full-time student in B.C.?"
                           required>
             </common-radio>
           </div>
-        
+
           <div *ngIf="applicant.fullTimeStudent" class="ml-4 border-left">
             <div class="form-group">
               <common-radio name="inBCafterStudies_{{objectId}}"
-                            [(ngModel)]="applicant.inBCafterStudies"  
-                            label="Will you reside in B.C. upon completion of your studies?" 
+                            [(ngModel)]="applicant.inBCafterStudies"
+                            label="Will you reside in B.C. upon completion of your studies?"
                             required>
               </common-radio>
               <common-error-container [displayError]="applicant.inBCafterStudies == false">
-                To qualify for provincial health care benefits a person must be a resident of 
-                B.C.  As you intend to leave B.C. when your studies are completed, you are not 
-                eligible for Medical Services Plan coverage.  Please contact the health care plan 
+                To qualify for provincial health care benefits a person must be a resident of
+                B.C.  As you intend to leave B.C. when your studies are completed, you are not
+                eligible for Medical Services Plan coverage.  Please contact the health care plan
                 in your home province for information about medical coverage while studying in B.C.
               </common-error-container>
             </div>
           </div>
-        </div>        
+        </div>
       </msp-moving-information>
     </div>
   </form>

@@ -104,7 +104,6 @@ export class AddSpouseComponent extends Base implements OnInit {
   }*/
 
   isPhnUniqueInPI() {
-
     return this.dataService.accountApp.isUniquePhnsInPI;
   }
 

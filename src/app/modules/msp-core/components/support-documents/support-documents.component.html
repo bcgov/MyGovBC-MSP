@@ -2,7 +2,7 @@
 <div class="d-flex flex-row align-items-stretch">
   <div class="form-group col-sm-4 pl-0">
     <common-dropdown name="DocumentType_{{objectId}}"
-                     label="Document type"
+                     label="Document Type"
                      [items]="availableSupportDocuments"
                      placeholder="Please Select"
                      [clearable]="false"
@@ -27,8 +27,8 @@
   </h2>
   <common-page-section layout="tips">
     <common-file-uploader [(images)]="documents"
-                          id="docUploader_{{objectId}}" 
-                          [required]="true" 
+                          id="docUploader_{{objectId}}"
+                          [required]="true"
                           instructionText="{{uploadInstructions}}">
     </common-file-uploader>
     <ng-content select="[requestAdditionInfo]"></ng-content>
@@ -42,12 +42,29 @@
 
         <common-sample-modal #docSample
             [title]="documentType"
-            [images]="docSampleImages"> 
+            [images]="docSampleImages">
         </common-sample-modal>
       </div>
       <div>
         Scan the document, or take a photo of it.
       </div>
+      <div>
+        Make sure that it’s:
+      </div>
+      <ul>
+        <li>
+          The entire document, from corner to corner
+        </li>
+        <li>
+          Rotated correctly (not upside down or sideways)
+        </li>
+        <li>
+          In focus and easy to read
+        </li>
+        <li>
+          A JPG, PNG, GIF, BMP or PDF file
+        </li>
+      </ul>
     </aside>
   </common-page-section>
 </div>
