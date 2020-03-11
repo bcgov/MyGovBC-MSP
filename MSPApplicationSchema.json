@@ -493,6 +493,9 @@
         "name": {
           "$ref": "#/definitions/NameType"
         },
+        "requestedLastName": {
+          "$ref": "#/definitions/SubNameType"
+        },
         "gender": {
           "$ref": "#/definitions/GenderType"
         },
