@@ -3,10 +3,10 @@
         [agreeLabel]="'I have read and understand this information'" (accept)="onAccept($event)"
         (onClose)="manageAccount.focus()">
         <p><strong>Keep your personal information secure – especially when using a shared device like a computer at a library, 
-          school or café.</strong> To delete any information that was entered, either complete the application and submit it or, 
+          school or café.</strong> To delete any information that was entered, either complete the request and submit it or, 
           if you don't finish, close the web browser.</p><p><strong>Need to take a break and come back later?</strong> The data 
           you enter on this form is saved locally to the computer or device you are using until you close the web browser or 
-          submit your application.</p><p>Personal information is collected under the authority of the <i> Medicare Protection Act
+          submit your request.</p><p>Personal information is collected under the authority of the <i> Medicare Protection Act
           </i> and section 26 (a), (c) and (e) of the <i>Freedom of Information and Protection of Privacy Act</i> for the purposes 
           of administration of the Medical Services Plan. If you have any questions about the collection and use of your personal 
           information, please contact <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">
@@ -15,46 +15,50 @@
 
 <common-page-framework layout="blank">
 
-  <h1> <strong> Manage your Medical Services Plan Account </strong></h1>
-
+<div class="container containerHomePage">
+  <h1><strong> Manage your Medical Services Plan Account </strong></h1>
   <div class="row">
-     <div class="col-8">
-        <p>
-          If you are an Account Holder with an active Medical Services Plan account, use this service to update or correct your 
-          account information.
-        </p>
-        <p>
-            If you are new to B.C. or do not have an active Medical Services Plan Account, go to Eligibility and Enrolment.
-        </p>
-     </div>
-     <div style="background-color : #f2f2f2; height: 130px; width: 396px;">
-        <br>
-        <aside>
-            <div class="row" style="margin-bottom:15px">
-                &nbsp;&nbsp;&nbsp;  <div class="col-2">
-                    <i class="fa fa-exclamation-triangle" style="font-size: 35px;"></i>
-                </div>
-                <div class="col-8">
-                    <p>
-                        Do not use this web application if your employer manages your Medical Services Plan or you are a member 
-                        of a group account. Please contact your Group Administrator.
-                    </p>
-                </div>
-            </div>
-        </aside> 
+    <div class="col-8">
+      <p>
+        If you are an Account Holder with an active Medical Services Plan account, use this service to update or correct your 
+        account information.
+      </p>
+      <p>
+        If you (and your spouse, if applicable) do not have an active Medical Services Plan Account, apply for a new account 
+        at <a href="http://www2.gov.bc.ca/MSPS/applyforhealthcare" target="_blank">
+        gov.bc.ca/MSP/applyforhealthcare <i class="fa fa-external-link" aria-hidden="true"></i></a>.
+      </p>
     </div>
-
+    <div class="col-sm-12 col-md-4">
+      <div style="background-color : #f2f2f2; height: 200px;">
+          <br>
+          <aside>
+              <div class="row" style="margin-bottom:15px">
+                  &nbsp;&nbsp;&nbsp;  
+                  <div class="col-2">
+                      <i class="fa fa-exclamation-triangle" style="font-size: 35px;"></i>
+                  </div>
+                  <div class="col-8">
+                      <p>
+                          If you are covered on an MSP Group Plan, in which your MSP coverage is manage by your MSP coverage 
+                          is managed by your employer, union, or pension plan, please contact your MSP Group Plan Administrator
+                          to request account changes.
+                      </p>
+                  </div>
+              </div>
+          </aside> 
+        </div>
+      </div>
   </div>
 <hr>
 
 <div class="row">
-  
-  <div class="col-6">
-  <div class="card" style="border-radius: 5px 5px 5px 5px;" >
+  <div class="col-sm-12 col-md-6">
+  <div class="card mb-4 h-100">
     <div class="card-header cardHeader" >
         Manage Your Account
     </div>
-    <div class="card-body">
+    <div class="card-body d-flex flex-column">
       <!-- <p class="card-text"> -->
       Update personal information for yourself, your spouse, or children, including:
           <ul>
@@ -87,49 +91,42 @@
       <p>
           Add children or remove children on your account
       </p>
-      <div style="text-align: center;">
-        <button #manageAccount type="button" class="btn btn-primary" routerLink="/deam/personal-info">
+      <!-- <div style="text-align: center;"> -->
+        <button #manageAccount type="button" class="mt-auto btn btn-primary btn-md" routerLink="/deam/personal-info">
         <span>Manage Account</span>
         </button>
-      </div>
+      <!-- </div> -->
     </div>
   </div> 
 </div>
-<div class="col-6" >
-    <div class="card" style="border-radius: 5px 5px 5px 5px; height:400px; " >
-      <div class="card-header cardHeader" >
+
+<div class="col-sm-12 col-md-6" >
+    <div class="card h-100" >
+      <div class="card-header cardHeader">
           Address Change Only
       </div>
-      <div class="card-body">
-        <p class="card-text">
-          If you need to report an address change only, due to a move within B.C., 
-          the button “Report an address change in B.C.” will take you to Address Change B.C.
+      <div class="card-body d-flex flex-column">
+        <p>
+          To report a move within B.C. click "Report an address change in B.C.” You will be redirected to Address Change B.C.
         </p>
         <p>
-          If you are leaving B.C. for longer than six months, the button “Report a move outside B.C.” 
-          will take you to information on leaving B.C. permanently.
+          If you (or a spouse/child on your account) are leaving B.C. permanently, click “Report a move outside B.C.” 
+          You will be redirected to the "Permanent Move Outside British Columbia" form to cancel MSP coverage for the 
+          individuals who have moved out of province.
         </p> 
-        <p> 
-          If you want to remove a spouse/child from your account due to a move outside of B.C., 
-          use “Report a move outside B.C.”
-        </p>
-        <!-- <p class="card-text">If you only need an address change due to a move within BC - redirected to Address Change BC service
-        </p>
-        <P>If you are leaving BC permanentaly visit gov.bc.ca/leavingbcpermanently</P> -->
-        <div style="text-align: center;">
-            <button href="#" class="btn btn-primary"><a href="https://www.addresschange.gov.bc.ca/" target="_blank">
-              Report an address change in B.C. <i class="fa fa-external-link fa-fw" aria-hidden="true"></i></a>
-            </button>
-        
-        <br/><br/>
-        <button href="#" class="btn btn-primary">
-          <a href="http://www.health.gov.bc.ca/exforms/msp/7063.html" target="_blank"> 
+
+        <!-- <div style="text-align: center;"> -->
+          <button type="button" class="mt-auto btn btn-primary btn-md" onclick="window.open('http://www.addresschange.gov.bc.ca/', '_blank')" >
+            Report an address change in B.C. <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
+          </button>
+
+          <button type="button" class="mt-auto btn btn-primary btn-md" onclick="window.open('http://www.health.gov.bc.ca/exforms/msp/7063.html', '_blank')" class="mt-auto btn btn-primary">
             Report a move outside B.C. <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
-          </a>
-        </button> 
-      </div>
+          </button> 
+        <!-- </div> -->
       </div>
     </div>
   </div>
+</div>
 </div>
 </common-page-framework>
