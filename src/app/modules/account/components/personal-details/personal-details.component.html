@@ -25,8 +25,8 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <msp-full-name [useRows]='false' 
-                    [data]="person" 
+                <msp-full-name [useRows]='false'
+                    [data]="person"
                     (dataChange)="onChange.emit($event);">
                 </msp-full-name>
             </div>
@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-      
+
 
     <!-- BirthDate  -->
     <div class="row">
@@ -65,23 +65,23 @@
             </div>
         </div>
     </div>
-      
-      
+
+
 
     <div class="row">
         <div class="col-md-4">
 
-                <common-radio [value]="person.gender" 
-                    label='Gender' 
-                    [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]' 
+                <common-radio [value]="person.gender"
+                    label='Gender'
+                    [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]'
                     (valueChange)="setGender($event)">
-                </common-radio> 
+                </common-radio>
         </div>
     </div>
 <!--    <div class="row" *ngIf="person.relationship === 0">
         <div class="col-md-4">
 
-            <common-phone-number [label]="'Mobile/SMS'" [phoneNumber] = "person.phoneNumber" 
+            <common-phone-number [label]="'Mobile/SMS'" [phoneNumber] = "person.phoneNumber"
                 (onChange)= "handlePhoneNumberChange($event)">
             </common-phone-number>
 
@@ -101,7 +101,7 @@
                          [defaultCountry]="defaultCountry"
                          [isRequired]="true">
 
-            </common-address> 
+            </common-address>
 
             <common-address *ngIf="person.relationship === 0"
                   [address]="person?.residentialAddress"
@@ -119,11 +119,11 @@
                          (mailingSameAsResidentialAddressChange)="toggleMailingSameAsResidentialAddress($event)"
                          (onChange)="handleAddressUpdate($event)">
 
-            </msp-address> 
+            </msp-address>
         </div>
     </div> -->
 
-<!--    <msp-status-in-canada-radio (onChange)="onChange.emit($event)" 
+<!--    <msp-status-in-canada-radio (onChange)="onChange.emit($event)"
         [showError]="showError"
         *ngIf="mspAccountApp.accountChangeOptions.statusUpdate&&!embedded"
         [person]='person'>

@@ -132,7 +132,7 @@ export class MspAccountMaintenanceDataService {
     dto.hasNameChange = input.hasNameChange;
 
 
-    //= input.updateNameDueDoc;
+    //= input.updateNameDueToMarriageDoc;
 
 
     dto.arrivalToCanadaDate = input.arrivalToCanadaDate;
@@ -189,14 +189,18 @@ export class MspAccountMaintenanceDataService {
     dto.images = input.documents.images;
 
     dto.updateStatusInCanada = input.updateStatusInCanada;
+    dto.updateNameDueToMarriageRequestedLastName = input.updateNameDueToMarriageRequestedLastName;
     dto.updateNameDueToMarriage = input.updateNameDueToMarriage;
+    dto.updateNameDueToNameChange = input.updateNameDueToNameChange;
     dto.updateNameDueToError = input.updateNameDueToError;
     dto.updateBirthdate = input.updateBirthdate;
     dto.updateGender = input.updateGender;
     dto.updateGenderDesignation = input.updateGenderDesignation;
     dto.updateStatusInCanadaDocType = input.updateStatusInCanadaDocType;
     dto.updateNameDueToMarriageDocType = input.updateNameDueToMarriageDocType;
-    dto.updateNameDueDoc = input.updateNameDueDoc;
+    dto.updateNameDueToMarriageDoc = input.updateNameDueToMarriageDoc;
+    dto.updateNameDueToNameChangeDocType = input.updateNameDueToNameChangeDocType;
+    dto.updateNameDueToNameChangeDoc = input.updateNameDueToNameChangeDoc;
     dto.updateNameDueToErrorDocType = input.updateNameDueToErrorDocType;
     dto.updateNameDueToErrorDoc = input.updateNameDueToErrorDoc;
     dto.nameChangeDocs = input.nameChangeDocs;
@@ -350,15 +354,18 @@ export class MspAccountMaintenanceDataService {
     });
 
     output.updateStatusInCanada = dto.updateStatusInCanada;
+    output.updateNameDueToMarriageRequestedLastName = dto.updateNameDueToMarriageRequestedLastName;
     output.updateNameDueToMarriage = dto.updateNameDueToMarriage;
+    output.updateNameDueToNameChange = dto.updateNameDueToNameChange;
     output.updateNameDueToError = dto.updateNameDueToError;
     output.updateBirthdate = dto.updateBirthdate;
     output.updateGender = dto.updateGender;
     output.updateGenderDesignation = dto.updateGenderDesignation;
-    output.updateNameDueDoc = dto.updateNameDueDoc;
+    output.updateNameDueToMarriageDoc = dto.updateNameDueToMarriageDoc;
+    output.updateNameDueToNameChangeDoc = dto.updateNameDueToNameChangeDoc;
     output.updateStatusInCanadaDocType = dto.updateStatusInCanadaDocType;
     output.updateNameDueToMarriageDocType = dto.updateNameDueToMarriageDocType;
-    output.updateNameDueDoc = dto.updateNameDueDoc;
+    output.updateNameDueToNameChangeDocType = dto.updateNameDueToNameChangeDocType;
 
     output.updateNameDueToErrorDocType = dto.updateNameDueToErrorDocType;
     output.updateNameDueToErrorDoc = dto.updateNameDueToErrorDoc;
@@ -568,8 +575,12 @@ export class MspAccountMaintenanceDataService {
       output.updatedChildren = [...output.updatedChildren, child];
     });
 
-    dto.applicant.updateNameDueDoc.forEach(img => {
-      output.applicant.updateNameDueDoc = [img];
+    dto.applicant.updateNameDueToMarriageDoc.forEach(img => {
+      output.applicant.updateNameDueToMarriageDoc = [img];
+    });
+
+    dto.applicant.updateNameDueToNameChangeDoc.forEach(img => {
+      output.applicant.updateNameDueToNameChangeDoc = [img];
     });
 
     dto.documents.forEach(img => {

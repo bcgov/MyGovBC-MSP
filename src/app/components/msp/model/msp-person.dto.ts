@@ -129,8 +129,13 @@ export class PersonDto {
     statusChange: PersonStatusChange;
 
     updateNameDueToMarriage: boolean;
+    updateNameDueToMarriageRequestedLastName: string;
     updateNameDueToMarriageDocType: SupportDocuments = new SupportDocuments();
-    updateNameDueDoc: CommonImage[] = [];
+    updateNameDueToMarriageDoc: CommonImage[] = [];
+
+    updateNameDueToNameChange: boolean;
+    updateNameDueToNameChangeDocType: SupportDocuments = new SupportDocuments();
+    updateNameDueToNameChangeDoc: CommonImage[] = [];
 
     removedSpouseDueToDivorceDoc: SupportDocuments = new SupportDocuments();
 
