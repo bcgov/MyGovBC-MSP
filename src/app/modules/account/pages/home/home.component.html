@@ -1,4 +1,4 @@
-<common-consent-modal #mspConsentModal [isUnderMaintenance]="true"
+<common-consent-modal #mspConsentModal class="consentModal" [isUnderMaintenance]="true"
         [title]="'Information collection notice'"  [processName]="'ACL'"
         [agreeLabel]="'I have read and understand this information'" (accept)="onAccept($event)"
         (onClose)="manageAccount.focus()">
@@ -18,7 +18,7 @@
 <div class="container containerHomePage">
   <h1><strong> Manage your Medical Services Plan Account </strong></h1>
   <div class="row">
-    <div class="col-8">
+    <div class="col-sm-12 col-md-8">
       <p>
         If you are an Account Holder with an active Medical Services Plan account, use this service to update or correct your 
         account information.
@@ -30,7 +30,7 @@
       </p>
     </div>
     <div class="col-sm-12 col-md-4">
-      <div style="background-color : #f2f2f2; height: 200px;">
+      <div class="card mb-4 h-100" style="background-color : #f2f2f2;">
           <br>
           <aside>
               <div class="row" style="margin-bottom:15px">
@@ -98,7 +98,7 @@
       <!-- </div> -->
     </div>
   </div> 
-</div>
+</div> <br>
 
 <div class="col-sm-12 col-md-6" >
     <div class="card h-100" >
@@ -114,16 +114,24 @@
           You will be redirected to the "Permanent Move Outside British Columbia" form to cancel MSP coverage for the 
           individuals who have moved out of province.
         </p> 
+        <div class="btn-group-vertical mt-auto" role="group">
+            <button type="button" class="btn btn-primary btn-md btn-block" onclick="window.open('http://www.addresschange.gov.bc.ca/', '_blank')" >
+              Report an address change in B.C. <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
+            </button> <br>
+            <button type="button" class="btn btn-primary btn-md btn-block" onclick="window.open('http://www.health.gov.bc.ca/exforms/msp/7063.html', '_blank')" class="mt-auto btn btn-primary">
+              Report a move outside B.C. <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
+            </button> 
+        </div>
 
         <!-- <div style="text-align: center;"> -->
-          <button type="button" class="mt-auto btn btn-primary btn-md" onclick="window.open('http://www.addresschange.gov.bc.ca/', '_blank')" >
+        <!-- <div class="mt-auto">
+          <button class="btn btn-primary btn-md btn-block" onclick="window.open('http://www.addresschange.gov.bc.ca/', '_blank')" >
             Report an address change in B.C. <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
-          </button>
-
-          <button type="button" class="mt-auto btn btn-primary btn-md" onclick="window.open('http://www.health.gov.bc.ca/exforms/msp/7063.html', '_blank')" class="mt-auto btn btn-primary">
+          </button> <br>
+          <button class="btn btn-primary btn-md btn-block" onclick="window.open('http://www.health.gov.bc.ca/exforms/msp/7063.html', '_blank')" class="mt-auto btn btn-primary">
             Report a move outside B.C. <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
           </button> 
-        <!-- </div> -->
+        </div> -->
       </div>
     </div>
   </div>
