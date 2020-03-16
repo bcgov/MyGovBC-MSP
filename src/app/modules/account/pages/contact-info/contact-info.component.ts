@@ -115,7 +115,7 @@ export class ContactInfoComponent extends AbstractForm implements OnInit, AfterV
       return;
     }
     //this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
-    this.navigate('/account/review');
+    this.navigate('/deam/review');
   }
 
 }
