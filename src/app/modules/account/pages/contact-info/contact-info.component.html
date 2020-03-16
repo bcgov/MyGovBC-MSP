@@ -2,7 +2,8 @@
     <common-page-framework layout="blank">
 <h1> <strong> Contact Information </strong></h1>
 <p>
-    Please provide the Account Holder’s information. If you are requesting an update or correction to the address, please provide the new address here.
+    Please provide the Account Holder's information. If you are requesting an update or correction to the address, 
+    please provide the new address here.
 </p>
 
 <common-page-section layout='double'>
@@ -12,9 +13,23 @@
     <common-address #address
                     [address]="mspAccountApp?.residentialAddress"
                     (addressChange)="handleAddressUpdate($event)"
+                    [disabled]="{province: true, country: true}"
+                    [allowExtralines]="true"
+                    [disableGeocoder]="true"
+                    [bcOnly]="true"
                     [isRequired]="true">
     </common-address> 
 
+    <!-- <div class="custom-control custom-checkbox">
+        <input type="checkbox"
+            class="custom-control-input"
+            id="isMailingAddress"
+            [checked]="mspAccountApp.mailingSameAsResidentialAddress"
+            (click)="toggleCheckBox()" />
+        <label class="custom-control-label" for="isMailingAddress">
+        This is my mailing address.
+        </label>
+    </div> -->
     <div class="custom-control custom-checkbox">
         <input type="checkbox"
             class="custom-control-input"
@@ -34,6 +49,8 @@
                         (addressChange)="handleAddressUpdate($event)"
                         [defaultProvince]="defaultProvince"
                         [provinceList]="provinceList"
+                        [allowExtralines]="true"
+                        [disableGeocoder]="true"
                         [isRequired]="true"></common-address> 
         </div>
     </aside>
@@ -41,13 +58,13 @@
 
 <h2 class="border-bottom"><strong>Phone</strong></h2>
 <div class="row">
-    <div class="form-group col-3">
+    <div class="form-group col-sm-12 col-md-3">
         <common-phone-number name="phone_number"
                             [label]="'Phone Number'"
                             [value]="mspAccountApp.phoneNumber"
                             (onChange)="handlePhoneNumberChange($event)"></common-phone-number>
     </div>
-    <div class="form-group col-9">           
+    <div class="form-group col-sm-12 col-md-9">           
         <common-page-section layout="tips">
             <aside>
                 <b>Tip</b>
@@ -61,7 +78,7 @@
 
 </common-page-framework>
 <common-form-action-bar [defaultColor]="false"  [canContinue]="canContinue()"
-                        (btnClick)="continue()"
+                        (btnClick)="continue()" widthOption='extra-width-mobile-only'
                         submitLabel="Continue">
 </common-form-action-bar>
 
