@@ -1,9 +1,9 @@
 <ng-content select="[sectionTitleInfo]"></ng-content>
 <common-page-section layout="tips">
   <div class="form-group col-sm-6 pl-0">
-    <common-name name="firstName_{{objectId}}" 
-                 label="First name" 
-                 [disabled]="disabled" 
+    <common-name name="firstName_{{objectId}}"
+                 label="First name"
+                 [disabled]="disabled"
                  [(ngModel)]="firstName"
                  maxlen="30"
                  required
@@ -12,23 +12,33 @@
 
   <div class="form-group col-sm-6 pl-0">
     <common-name name="middleName_{{objectId}}"
-                 label="Middle name (optional)" 
-                 [disabled]="disabled" 
+                 label="Middle name (optional)"
+                 [disabled]="disabled"
                  [(ngModel)]="middleName"
                  maxlen="30"
                  commonValidateName></common-name>
   </div>
-    
+
   <div class="form-group col-sm-6 pl-0">
-    <common-name name="lastName_{{objectId}}" 
-                 label="Last name" 
-                 [disabled]="disabled" 
+    <common-name name="lastName_{{objectId}}"
+                 label="Last name"
+                 [disabled]="disabled"
                  [(ngModel)]="lastName"
                  maxlen="30"
                  required
                  commonValidateName></common-name>
   </div>
-  
+
+  <!--Display phn if defined in person object-->
+  <div *ngIf="requiresPhn" class="form-group col-sm-6 pl-0">
+    <common-phn name="phn_{{objectId}}"birthdate
+                [(ngModel)]="phn"
+                [errorMessage]="phnErrorMsg"
+                required
+                commonDuplicateCheck
+                [dupList]="phnList"></common-phn>
+  </div>
+
   <div class="form-group col-sm-6 pl-0">
     <common-date name="dob_{{objectId}}"
                  label="Birthdate"
@@ -38,35 +48,6 @@
                  [disabled]="disabled"
                  [(ngModel)]="dateOfBirth"
                  required></common-date>
-  </div>
-
-  <div *ngIf="requiresGender" class="form-group col-sm-6 pl-0">
-    <common-radio name="gender_{{objectId}}"
-                  [(ngModel)]="gender"
-                  label="Gender"
-                  [radioLabels]="genderLabels"
-                  [disabled]="disabled"
-                  required></common-radio>
-  </div>
- 
-  <!--Display phn if defined in person object-->
-  <div *ngIf="requiresPhn" class="form-group col-sm-6 pl-0">
-      <common-phn name="phn_{{objectId}}"birthdate 
-                  [(ngModel)]="phn"
-                  [errorMessage]="phnErrorMsg"
-                  required
-                  commonDuplicateCheck
-                  [dupList]="phnList"></common-phn>
-  </div>
-
-  <!--Display sin if defined in person object-->
-  <div *ngIf="requiresSin" class="form-group col-sm-6 pl-0">
-    <common-sin name="sin_{{objectId}}"
-                [(ngModel)]="sin"
-                [errorMessage]="sinErrorMsg"
-                required
-                commonDuplicateCheck
-                [dupList]="sinList"></common-sin> 
   </div>
 
 </common-page-section>

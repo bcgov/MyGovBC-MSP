@@ -50,7 +50,7 @@ export class AccountSendingComponent implements AfterContentInit {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = undefined;
-      
+
 
       this.service
       .sendRequest(this.mspAccountApp)
@@ -67,7 +67,7 @@ export class AccountSendingComponent implements AfterContentInit {
       }
 
       const refNumber = response.op_reference_number;
-      
+
       const statusCode = (response.op_return_code === 'SUCCESS' ? ApiStatusCodes.SUCCESS : ApiStatusCodes.ERROR);
 
 

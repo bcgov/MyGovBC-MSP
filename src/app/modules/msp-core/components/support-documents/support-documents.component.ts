@@ -11,8 +11,8 @@ export function suportDocumentRules(status: StatusInCanada, reason: CanadianStat
     case StatusInCanada.CitizenAdult:
       return [
         SupportDocumentTypes.CanadianBirthCertificate,
+        SupportDocumentTypes.CanadianPassport,
         SupportDocumentTypes.CanadianCitizenCard,
-        SupportDocumentTypes.CanadianPassport
       ];
     case StatusInCanada.PermanentResident:
       return [
@@ -124,7 +124,7 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   @Output() supportDocChange: EventEmitter<SupportDocuments> = new EventEmitter<SupportDocuments>();
 
 
-  uploadInstructions = 'Please upload required ID documents';
+  uploadInstructions = 'Click add, or drag and drop a file into this box';
 
   btnEnabled: boolean  = true;
   availableSupportDocuments: string[] = [];

@@ -68,16 +68,20 @@ export class MspPerson implements ICanadianStatus {
     _docType: SupportDocuments;
 
     public updateNameDueToMarriage: boolean;
+    public updateNameDueToMarriageRequestedLastName: string;
     public updateNameDueToMarriageDocType: SupportDocuments = new SupportDocuments();
-    public updateNameDueDoc: CommonImage[] = [];
+    public updateNameDueToMarriageDoc: CommonImage[] = [];
 
+    public updateNameDueToNameChange: boolean;
+    public updateNameDueToNameChangeDocType: SupportDocuments = new SupportDocuments();
+    public updateNameDueToNameChangeDoc: CommonImage[] = [];
 
     public updateNameDueToError: boolean;
     public updateNameDueToErrorDocType: SupportDocuments = new SupportDocuments();
     public updateNameDueToErrorDoc: CommonImage[] = [];
 
     public updateBirthdate: boolean;
-     public updateBirthdateDocType:   SupportDocuments = new SupportDocuments();
+    public updateBirthdateDocType: SupportDocuments = new SupportDocuments();
     public updateBirthdateDoc: CommonImage[] = [];
 
     public updateGender: boolean;
@@ -268,7 +272,7 @@ export class MspPerson implements ICanadianStatus {
         }
         this._hasPreviousBCPhn = hasPhn;
     }
-  
+
     /**
      * Discharge date if worked in CDN forces
      */

@@ -19,9 +19,9 @@ export enum statusInCanadaStrings {
  * Dropdown selections associated with StatusInCanada enums
  */
 export const CanadianStatusStrings = {
-  CitizenAdult: 'Canadian citizen',
-  PermanentResident: 'Permanent resident',
-  TemporaryResident: 'Temporary permit holder or diplomat'
+  CitizenAdult: 'Canadian Citizen',
+  PermanentResident: 'Permanent Resident',
+  TemporaryResident: 'Temporary Permit Holder or Diplomat'
 };
 
 /**
@@ -72,10 +72,11 @@ export class CanadianStatusRules {
         }
       case StatusInCanada.TemporaryResident:
         if (relationship === Relationship.Applicant) {
-          return [CanadianStatusReason.WorkingInBC, CanadianStatusReason.StudyingInBC, CanadianStatusReason.ReligiousWorker, CanadianStatusReason.Diplomat];
+          return [CanadianStatusReason.WorkingInBC, CanadianStatusReason.StudyingInBC, CanadianStatusReason.ReligiousWorker,
+            CanadianStatusReason.Diplomat];
         } else {
-          return [CanadianStatusReason.WorkingInBC, CanadianStatusReason.StudyingInBC, CanadianStatusReason.ReligiousWorker, CanadianStatusReason.Diplomat,
-            CanadianStatusReason.Visiting];
+          return [CanadianStatusReason.WorkingInBC, CanadianStatusReason.StudyingInBC, CanadianStatusReason.ReligiousWorker,
+            CanadianStatusReason.Diplomat, CanadianStatusReason.Visiting];
         }
     }
   }

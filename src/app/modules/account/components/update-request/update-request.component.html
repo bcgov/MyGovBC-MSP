@@ -1,124 +1,156 @@
-<div *ngIf="title"><h2><strong>{{title}}</strong></h2></div>
+<div  *ngIf="title"><h2><strong>{{title}}</strong></h2></div>
 
-<div *ngIf="subtitle"><p class="border-bottom">{{subtitle}}</p></div>
+<div  *ngIf="subtitle"><p class="border-bottom">{{subtitle}}</p></div>
 
-
+<!-- Update/renew status in Canada -->
 <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
-    <common-checkbox  [label]="'Update status in Canada'" (dataChange)="person.updateStatusInCanada = $event; " [data]="person.updateStatusInCanada"></common-checkbox>
+    <common-checkbox [label]="'Update/renew status in Canada'" (dataChange)="person.updateStatusInCanada = $event;"
+                     [data]="person.updateStatusInCanada">
+    </common-checkbox>
 </div>
 
-<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
-    <common-checkbox  [label]="'Update name - due to marriage or other'" (dataChange)="person.updateNameDueToMarriage = $event;" [data]="person.updateNameDueToMarriage"  ></common-checkbox>
-</div>
-
-<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
-    <common-checkbox [label]="'Correct name - due to error'" (dataChange)="person.updateNameDueToError = $event; " [data]="person.updateNameDueToError"  ></common-checkbox>
-</div>
-
-<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
-    <common-checkbox  [label]="'Correct birthdate'" (dataChange)="person.updateBirthdate = $event;" [data]="person.updateBirthdate"  ></common-checkbox>
-</div>
-
-<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
-    <common-checkbox  [label]="'Correct gender'" (dataChange)="person.updateGender = $event;" [data]="person.updateGender"  ></common-checkbox>
-</div>
-
-<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
-    <common-checkbox  [label]="'Change gender designation'" (dataChange)="person.updateGenderDesignation = $event;" [data]="person.updateGenderDesignation"  ></common-checkbox>
-</div>
-
-<div *ngIf="person.updateStatusInCanada">
-    <msp-canadian-status [(person)]="person" [hideStatusReasons]="hideStatus">
-    
-        <div sectionTitleInfo>
-          <h2>Account Holder's new status in Canada</h2>
-          <p class="border-bottom">
-              Please provide the spouse's current immigration information.
-            </p>
-        </div>
+<div  *ngIf="person.updateStatusInCanada">
+    <msp-canadian-status [(person)]="person">
+      <div sectionTitleInfo>
+        <h2>Account Holder's status in Canada</h2>
+        <p class="border-bottom">
+            Please provide your immigration status information. You will be required to upload documents to support your status in Canada.
+        </p>
+      </div>
     </msp-canadian-status>
 
-    <msp-support-documents *ngIf="this.person.status !== undefined"
-                    [canadianStatus]="person.status"
-                    [supportDocList]="supportDocList"
-                    [statusReason]="person.currentActivity"
-                    [(supportDoc)]="person.updateStatusInCanadaDocType">
+    <msp-support-documents  *ngIf="hasStatus"
+        [canadianStatus]="person.status"
+        [supportDocList]="supportDocList"
+        [statusReason]="person.currentActivity"
+        [(supportDoc)]="person.updateStatusInCanadaDocType">
         <div sectionTitleInfo>
-        <h2> <strong> Documents to support new status in Canada </strong> </h2>
-        <p class="border-bottom"> 
-            Provide <b>one</b> of the required documents to support your spouse's immigration status in Canada. If your spouse's name has changed since their ID was issued please provide the document to support the name change.
-        </p>
+            <h2>Documents to support new status in Canada</h2>
+            <p class="border-bottom">
+                Provide <b>one</b> of the required documents to support your immigration status in Canada.
+            </p>
         </div>
     </msp-support-documents>
 </div>
 
-<div *ngIf="person.relationship == 1 && person.updateNameDueToMarriage">
-  <h2><strong>Spouse's new last name</strong></h2>
-  <p class="border-bottom">This name will be printed on spouse's new BC Services Card.</p>
-    <div class="form-group">
-      <div class="row">
-        <div class="col-md-6"> 
-          <common-name [ngClass]="{row: useRows}" name="last_name" 
-            label="Requested Last Name" required [disabled]="disabled" 
-            [(ngModel)]="person.lastName"
-            maxlen="30" commonValidateName>
-          </common-name>
-        </div>
-      </div>
-    </div>
-</div> 
+<!-- Update name - due to marriage -->
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox [label]="'Update name - due to marriage'" (dataChange)="person.updateNameDueToMarriage = $event;"
+                     [data]="person.updateNameDueToMarriage">
+    </common-checkbox>
+</div>
 
 <msp-support-documents  *ngIf="person.updateNameDueToMarriage"
     [supportDocList]="nameChangeDueToMarriageDocs"
     [(supportDoc)]="person.updateNameDueToMarriageDocType">
     <div sectionTitleInfo>
-    <h2> <strong> Documents - Correct name </strong> </h2>
-    <p class="border-bottom"> 
-    Provide <b>one</b> of the required documents to support your spouse's immigration status in Canada. If your spouse's name has changed since their ID was issued please provide the document to support the name change.
-    </p>
+        <h2>Account Holder's new last name</h2>
+        <p class="border-bottom">
+            This name will be printed on your new BC Serives Card.
+        </p>
+
+        <div class="form-group col-sm-6 pl-0">
+            <common-name name="updateNameDueToMarriageRequestedLastName"
+                     label="Requested last name"
+                     [disabled]="disabled"
+                     [(ngModel)]="updateNameDueToMarriageRequestedLastName"
+                     maxlen="30"
+                     required
+                     commonValidateName>
+            </common-name>
+        </div>
+
+        <p class="border-bottom">
+            Provide <b>one</b> of the required documents to support your personal information update.
+        </p>
     </div>
 </msp-support-documents>
- 
+
+<!-- Update name - due to name change -->
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox [label]="'Update name - due to name change'" (dataChange)="person.updateNameDueToNameChange = $event;"
+                     [data]="person.updateNameDueToNameChange">
+    </common-checkbox>
+</div>
+
+<msp-support-documents  *ngIf="person.updateNameDueToNameChange"
+    [supportDocList]="nameChangeDueToNameChangeDocs"
+    [(supportDoc)]="person.updateNameDueToNameChangeDocType">
+    <div sectionTitleInfo>
+        <h2><strong>Documents - Update name due to name change</strong></h2>
+        <p class="border-bottom">
+            Provide <b>one</b> of the required documents to support your name change.
+        </p>
+    </div>
+</msp-support-documents>
+
+<!-- Update gender designation - due to change -->
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox [label]="'Update gender designation - due to change'" (dataChange)="person.updateGender = $event;"
+                     [data]="person.updateGender">
+    </common-checkbox>
+</div>
+
+<msp-support-documents  *ngIf="person.updateGender"
+    [supportDocList]="genderChangeDocs"
+    [(supportDoc)]="person.updateGenderDocType">
+    <div sectionTitleInfo>
+        <h2><strong>Documents - Correct gender designation - due to change</strong></h2>
+        <p class="border-bottom">
+            Provide the required document(s) to support your personal information update.
+        </p>
+    </div>
+</msp-support-documents>
+
+<!-- Correct name - due to error -->
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox [label]="'Correct name - due to error'" (dataChange)="person.updateNameDueToError = $event;"
+                     [data]="person.updateNameDueToError">
+    </common-checkbox>
+</div>
+
 <msp-support-documents  *ngIf="person.updateNameDueToError"
     [supportDocList]="nameChangeDuetoErrorDocs"
     [(supportDoc)]="person.updateNameDueToErrorDocType">
     <div sectionTitleInfo>
-    <h2> <strong> Documents - Correct name </strong> </h2>
-    <p class="border-bottom"> 
-    Provide <b>one</b> of the required documents to support your spouse's immigration status in Canada. If your spouse's name has changed since their ID was issued please provide the document to support the name change.
-    </p>
+        <h2> <strong> Documents - Correct name </strong> </h2>
+        <p class="border-bottom">
+            Provide <b>one</b> of the required documents to support your personal information update.
+        </p>
     </div>
 </msp-support-documents>
+
+<!-- Correct birthdate - due to error-->
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox [label]="'Correct birthdate - due to error'" (dataChange)="person.updateBirthdate = $event;"
+                     [data]="person.updateBirthdate"></common-checkbox>
+</div>
 
 <msp-support-documents  *ngIf="person.updateBirthdate"
     [supportDocList]="genderBirthdateChangeDocs"
     [(supportDoc)]="person.updateBirthdateDocType">
     <div sectionTitleInfo>
-    <h2> <strong> Documents - Correct birthdate </strong> </h2>
-    <p class="border-bottom"> 
-    Provide <b>one</b> of the required documents to support your spouse's immigration status in Canada. If your spouse's name has changed since their ID was issued please provide the document to support the name change.
-    </p>
+        <h2> <strong> Documents - Correct birthdate </strong> </h2>
+        <p class="border-bottom">
+            Provide <b>one</b> of the required documents to support yourpersonal information update.
+        </p>
     </div>
 </msp-support-documents>
 
-<msp-support-documents  *ngIf="person.updateGender"
-    [supportDocList]="genderBirthdateChangeDocs"
-    [(supportDoc)]="person.updateGenderDocType">
-    <div sectionTitleInfo>
-      <h2> <strong> Documents - Correct gender </strong> </h2>
-      <p class="border-bottom"> 
-      Provide <b>one</b> of the required documents to support your spouse's immigration status in Canada. If your spouse's name has changed since their ID was issued please provide the document to support the name change.
-      </p>
-    </div>
-</msp-support-documents>
+<!-- Correct gender designation - due to error -->
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox  [label]="'Correct gender designation - due to error'" (dataChange)="person.updateGenderDesignation = $event;"
+                      [data]="person.updateGenderDesignation">
+    </common-checkbox>
+</div>
 
 <msp-support-documents  *ngIf="person.updateGenderDesignation"
-      [supportDocList]="genderChangeDocs"
-      [(supportDoc)]="person.updateGenderDesignationDocType">
-  <div sectionTitleInfo>
-  <h2> <strong> Documents - Change gender designation </strong> </h2>
-  <p class="border-bottom"> 
-  Provide <b>one</b> of the required documents to support your spouse's immigration status in Canada. If your spouse's name has changed since their ID was issued please provide the document to support the name change.
-  </p>
-  </div>
+                        [supportDocList]="genderBirthdateChangeDocs"
+                        [(supportDoc)]="person.updateGenderDesignationDocType">
+    <div sectionTitleInfo>
+        <h2><strong>Documents - Correct gender</strong></h2>
+        <p class="border-bottom">
+            Provide <b>one</b> of the required documents to support your personal information update.
+        </p>
+    </div>
 </msp-support-documents>
