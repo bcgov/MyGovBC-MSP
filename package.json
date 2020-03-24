@@ -27,9 +27,9 @@
     "e2e:retro-pa": "npm run e2e-protractor -- e2e/protractor.retro-pa.conf.js"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.8.9",
-    "@angular/cli": "^6.2.4",
-    "@angular/compiler-cli": "^6.1.1",
+    "@angular-devkit/build-angular": "^0.900.7",
+    "@angular/cli": "^9.0.7",
+    "@angular/compiler-cli": "^9.0.7",
     "@types/jasmine": "2.8.9",
     "@types/lodash": "^4.14.117",
     "@types/node": "^10.11.5",
@@ -45,7 +45,7 @@
     "jasmine-core": "^3.3.0",
     "jasmine-reporters": "^2.3.2",
     "jasmine-spec-reporter": "~3.2.0",
-    "karma": "^3.0.0",
+    "karma": "^4.4.1",
     "karma-chrome-launcher": "~2.2.0",
     "karma-cli": "~1.0.1",
     "karma-coverage-istanbul-reporter": "^2.0.4",
