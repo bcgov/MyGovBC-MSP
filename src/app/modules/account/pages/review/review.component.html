@@ -58,7 +58,7 @@
                 <div class="col-lg-6">
                     <msp-person-card [person]="child" [accountCard]=true
                                     [customTitle]="lang('./en/index.js').addChildTitle"
-                                     [editRouterLink]="child.operationActionType == 2 ? accountPIUrl :accountDependentUrl"></msp-person-card>
+                                     [editRouterLink]="accountChildInfoUrl"></msp-person-card>
                 </div>
             </ng-container>
     </div>
@@ -69,7 +69,7 @@
                     <div class="col-lg-6">
                         <msp-person-card [person]="child" [accountCard]=true
                                         [customTitle]="lang('./en/index.js').removeChildTitle"
-                                         [editRouterLink]="child.operationActionType == 2 ? accountPIUrl :accountDependentUrl"></msp-person-card>
+                                         [editRouterLink]="accountChildInfoUrl"></msp-person-card>
                     </div>
             </ng-container>
     </div>
@@ -80,7 +80,7 @@
                     <div class="col-lg-6">
                         <msp-person-card [person]="child" [accountCard]=true
                                         [customTitle]="lang('./en/index.js').updateChildTitle"
-                                         [editRouterLink]="child.operationActionType == 2 ? accountPIUrl :accountDependentUrl"></msp-person-card>
+                                         [editRouterLink]="accountChildInfoUrl"></msp-person-card>
                     </div>
             </ng-container>
     </div>
@@ -90,7 +90,7 @@
               <msp-contact-review-card [residentialAddress]="mspAccountApp.residentialAddress"
                                        [mailingAddress]="mspAccountApp.mailingAddress"
                                        [phoneNumber]="mspAccountApp.phoneNumber"
-                                       [editRouterLink]="address_info"></msp-contact-review-card>
+                                       [editRouterLink]="accountContactInfoUrl"></msp-contact-review-card>
             </div>
     </div>
 
