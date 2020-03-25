@@ -1,81 +1,101 @@
 <common-page-framework layout="blank">
   <form #formRef="ngForm" novalidate>
     <h1><strong>Manage spouse information on your account</strong></h1>
-    <p>A spouse is a resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant.</p>
-      
-      <p>
-          Use this section to add a spouse to your account, remove a spouse from your account, or 
-          update the legal name of your spouse (including a name change as a result of marriage, 
-          separation or divorce), birthdate and/or gender of a spouse currently on your Medical Services Plan 
-          account.
+    <p>
+      A spouse is a resident of B.C. who is married to or is living and cohabiting in a
+      marriage-like relationship with the Account Holder.
+    </p>
+    <p>
+      Use this section to add or remove a spouse from your Medical Services Plan account.
+      If you already have a spouse on your account, use “Update Spouse” to update your
+      current spouse’s personal information or status in Canada.
+    </p>
+    <hr>
+
+    <div class="row">
+      <div class="col-2">
+        <common-button
+          [label]="'Add Spouse'"
+          [disabled]="(addNewSpouse || showUpdateSpouse)"
+          [buttonType]="'btn btn-primary'"
+          (btnClick)='addSpouse()'>
+        </common-button>
+      </div>
+
+      <div class="col-2">
+        <common-button
+          [label]="'Remove Spouse'"
+          [disabled]="(showSpouse || showUpdateSpouse)"
+          [buttonType]="'btn btn-primary'"
+          (btnClick)='removeSpouse()'>
+        </common-button>
+      </div>
+
+      <div class="col-2 ">
+        <common-button
+          [label]="'Update Spouse'"
+          [disabled]="(addNewSpouse || showUpdateSpouse || showSpouse)"
+          [buttonType]="'btn btn-primary'"
+          (btnClick)='updateSpouse()'>
+        </common-button>
+      </div>
+    </div>
+    <br>
+
+    <!-- Add Spouse Section -->
+    <div *ngIf="addNewSpouse">
+      <h2><strong>Add Spouse</strong></h2>
+      <common-xicon-button
+        label='Remove'
+        (click)="removedAddedSpouse();">
+      </common-xicon-button>
+      <p class="border-bottom">
+        Please provide your spouse's personal information.
       </p>
-      <hr>
-      <div class="row">
-        <div class="col-2">
-            <common-button [label]="'Add Spouse'" [disabled]="(addNewSpouse || showUpdateSpouse)"
-            [buttonType]="'btn btn-primary'" (btnClick)='addSpouse()'>
-          </common-button>
-        </div>
+      <msp-add-spouse
+        [accountChangeOptions]="accountChangeOptions"
+        [accountApp]="accountApp"
+        [spouse]="addedSpouse">
+      </msp-add-spouse>
+    </div>
 
-        <div class="col-2">
-          <common-button [label]="'Remove Spouse'" [disabled]="(showSpouse || showUpdateSpouse)"
-            [buttonType]="'btn btn-primary'" (btnClick)='removeSpouse()'>
-          </common-button>
-        </div>
-
-        <div class="col-2 ">
-          <common-button [label]="'Update Spouse'" [disabled]="(addNewSpouse || showUpdateSpouse || showSpouse)"
-            [buttonType]="'btn btn-primary'" (btnClick)='updateSpouse()'>
-          </common-button>
-        </div>
-      </div>
+    <!-- Remove Spouse Section -->
+    <div *ngIf="showSpouse">
+      <h2><strong>Remove Spouse</strong></h2>
+      <common-xicon-button
+        label='Remove'
+        (click)="removedDeletedSpouse();">
+      </common-xicon-button>
+      <p class="border-bottom">
+        Please provide spouse's personal information and indicate the reason for removing the spouse from your account.
+      </p>
       <br>
-      
-      <!-- Add Spouse Section -->
-      <div *ngIf="addNewSpouse">
-          <h2><strong>Add Spouse</strong></h2>
-          <common-xicon-button label='Remove' (click)="removedAddedSpouse();"></common-xicon-button>
-          <p class="border-bottom">
-              Please provide your spouse's personal information and immigration status in Canada.
-          </p>
-          <br>
-          <msp-add-spouse   
-            [accountChangeOptions]="accountChangeOptions" 
-            [accountApp]="accountApp"
-            [spouse]="addedSpouse">
-          </msp-add-spouse>
-      </div>
+      <msp-remove-spouse
+        [spouse]="removedSpouse">
+      </msp-remove-spouse>
+    </div>
 
-      <!-- Remove Spouse Section -->
-      <div *ngIf="showSpouse">
-        <h2><strong>Remove Spouse</strong></h2>
-        <common-xicon-button label='Remove' (click)="removedDeletedSpouse();"></common-xicon-button>
-        <p class="border-bottom">
-            Please provide spouse’s personal information and indicate the reason for removing the spouse from your account.
-        </p>
+    <!-- Update Spouse Section -->
+    <div *ngIf="showUpdateSpouse">
+      <h2><strong>Update Spouse's Information</strong></h2>
+      <common-xicon-button label='Remove' (click)="removedUpdatedSpouse();"></common-xicon-button>
+      <p class="border-bottom">
+        Please provide personal information of the spouse currently on your Medical Services Plan account.
+        If you are requesting an update or correction to the spouse's legal name (including a name change as a
+        result of marriage, separation or divorce), birthdate or gender, please provide the new information here.
+      </p>
+      <br>
+      <msp-update-spouse
+        [spouse]="updatedSpouse"
+        [accountApp]="accountApp">
+      </msp-update-spouse>
+    </div>
 
-        <br>
-        
-        <msp-remove-spouse  [spouse]="removedSpouse">
-        </msp-remove-spouse>
-      </div>
-
-      <!-- Update Spouse Section -->
-      <div *ngIf="showUpdateSpouse">
-          <h2><strong>Update Spouse's Information</strong></h2>
-          <common-xicon-button label='Remove' (click)="removedUpdatedSpouse();"></common-xicon-button>
-          <p class="border-bottom">
-              Please provide personal information of the spouse currently on your Medical Services Plan account. If you are requesting an update or correction to the spouse’s legal name (including a name change as a result of marriage, separation or divorce), birthdate or gender, please provide the new information here.
-          </p>
-          <br>
-          <msp-update-spouse  [spouse]="updatedSpouse"
-            [accountApp]="accountApp" >
-          </msp-update-spouse>
-      </div>
   </form>
 </common-page-framework>
-<common-form-action-bar [defaultColor]="false" 
-                        [submitLabel]="(this.accountApp.hasSpouseAdded ||  this.accountApp.hasSpouseRemoved ||   this.accountApp.hasSpouseUpdated) ? 'Continue':'No Spouse'"
-                        [canContinue]="canContinue()"
-                        (btnClick)="continue()">
+<common-form-action-bar
+  [defaultColor]="false"
+  [submitLabel]="(this.accountApp.hasSpouseAdded ||  this.accountApp.hasSpouseRemoved ||   this.accountApp.hasSpouseUpdated) ? 'Continue':'No Spouse'"
+  [canContinue]="canContinue()"
+  (btnClick)="continue()">
 </common-form-action-bar>

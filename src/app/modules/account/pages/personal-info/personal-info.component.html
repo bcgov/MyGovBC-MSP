@@ -48,8 +48,9 @@
 
 <div class="position: inherit;">
     <common-form-action-bar
-    [defaultColor]="false"
-    [submitLabel]="lang('./en/index.js').continueButton"
-    [canContinue]="!hasAnyInvalidStatus()" (btnClick)="continue()">
+        [defaultColor]="false"
+        [submitLabel]="lang('./en/index.js').continueButton"
+        [canContinue]="!hasAnyInvalidStatus()"
+        (btnClick)="continue()">
     </common-form-action-bar>
 </div>

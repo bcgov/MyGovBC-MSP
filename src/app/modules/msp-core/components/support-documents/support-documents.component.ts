@@ -42,6 +42,20 @@ export function nameChangeSupportDocuments(): SupportDocumentTypes[] {
   ];
 }
 
+export function spouseNameChangeSupportDocuments(): SupportDocumentTypes[] {
+  return [
+    SupportDocumentTypes.CanadianBirthCertificate,
+    SupportDocumentTypes.CanadianPassport,
+    SupportDocumentTypes.CanadianCitizenCard,
+    SupportDocumentTypes.PermanentResidentCard,
+    SupportDocumentTypes.PermanentResidentConfirmation,
+    SupportDocumentTypes.RecordOfLanding,
+    SupportDocumentTypes.StudyPermit,
+    SupportDocumentTypes.WorkPermit,
+    SupportDocumentTypes.VisitorVisa
+  ];
+}
+
 // Added by Abhi
 export function genderBirthDateChangeDocuments(): SupportDocumentTypes[] {
   return [

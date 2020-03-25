@@ -47,7 +47,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       this.relationship = 'child';
     }
   }
-  
+
   get isApplicant() {
     return this.person.relationship === Relationship.Applicant;
   }
@@ -86,19 +86,19 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   // Moved from another province
   get isResidentFromProv() {
     return this.person.status === StatusInCanada.PermanentResident &&
-            this.person.currentActivity === CanadianStatusReason.MovingFromProvince;
+           this.person.currentActivity === CanadianStatusReason.MovingFromProvince;
   }
 
   // Moved from another Country
   get isResidentFromCountry() {
     return this.person.status === StatusInCanada.PermanentResident &&
-            this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
+           this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
   }
 
   // Not new to BC
   get isResidentNotBC() {
     return this.person.status === StatusInCanada.PermanentResident &&
-            this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
+           this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
   }
 
   get isTemporaryResident() {

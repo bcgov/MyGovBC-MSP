@@ -5,8 +5,7 @@
   <button
     [disabled]="showTaxYears"
     class="btn btn-primary btn-md"
-    (click)="addSpouse()"
-  >
+    (click)="addSpouse()">
     Add Spouse Information
   </button>
 
@@ -22,7 +21,7 @@
     <ng-container *ngIf="showTaxYears">
       <h3>When did you have a spouse?</h3>
       <div class="row">
-         <div class="col-12"> 
+         <div class="col-12">
           <common-checkbox
             *ngFor="let year of assistanceYears"
             class="col-1 mr-5"
