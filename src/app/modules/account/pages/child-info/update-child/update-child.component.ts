@@ -26,8 +26,8 @@ export class UpdateChildComponent implements OnInit {
 
 
   get accountUpdateList(): UpdateList[] {
-
-    return [{
+    return [
+      {
         // tslint:disable-next-line: quotemark
         "label": "Update status in Canada",
         'value': this.child.updateStatusInCanada
@@ -52,7 +52,6 @@ export class UpdateChildComponent implements OnInit {
         'label': 'Change gender designation',
         'value': this.child.updateGenderDesignation
       }
-
     ];
   }
 

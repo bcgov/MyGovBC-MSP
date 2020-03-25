@@ -10,12 +10,12 @@ import { MspPerson } from '../../../../../components/msp/model/msp-person.model'
   styleUrls: ['./update-spouse.component.scss']
 })
 export class UpdateSpouseComponent extends BaseComponent implements OnInit {
-  
+
   @Input() spouse: MspPerson;
   @Input() accountApp: MspAccountApp;
   //langActivities = require('../../../../../components/msp/common/activities/i18n');
-  
-  
+
+
   constructor(public dataService: MspAccountMaintenanceDataService, cd: ChangeDetectorRef) {
 
     super(cd);
@@ -34,33 +34,33 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
   }
 
   get accountUpdateList(): UpdateList[] {
-        
-    return [{
-        "label": "Update status in Canada",
-        "value": this.spouse.updateStatusInCanada
+    return [
+      {
+        'label': 'Update status in Canada',
+        'value': this.spouse.updateStatusInCanada
       },
       {
-        "label": "Update name - due to marriage or other",
-        "value": this.spouse.updateNameDueToMarriage
+        'label': 'Update name - due to marriage or other',
+        'value': this.spouse.updateNameDueToMarriage
       },
       {
-        "label": "Correct name - due to error",
-        "value": this.spouse.updateNameDueToError
+        'label': 'Correct name - due to error',
+        'value': this.spouse.updateNameDueToError
       },
       {
-        "label": "Correct birthdate",
-        "value": this.spouse.updateBirthdate
+        'label': 'Correct birthdate',
+        'value': this.spouse.updateBirthdate
       },
       {
-        "label": "Correct gender",
-        "value": this.spouse.updateGender
+        'label': 'Correct gender',
+        'value': this.spouse.updateGender
       },
       {
-        "label": "Change gender designation",
-        "value": this.spouse.updateGenderDesignation
+        'label': 'Change gender designation',
+        'value': this.spouse.updateGenderDesignation
       }
-
-    ];}
+    ];
+  }
 
    /* get activities(): Activities[] {
       return ActivitiesRules.activitiesForAccountChange(
@@ -83,4 +83,3 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
       };
     });
   }*/
- 

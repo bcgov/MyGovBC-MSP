@@ -1,7 +1,7 @@
-import {Component, Injectable , ViewChild, ViewChildren , QueryList, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AccountPersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
+import { Component, Injectable , ViewChild, ViewChildren , QueryList, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AccountPersonalDetailsComponent } from '../../components/personal-details/personal-details.component';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
 import { Subscription } from 'rxjs';
@@ -24,43 +24,41 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
   docSelected: string ;
   //activitiesOpts: string[] = CanadianStatusReason;
 
-    langStatus = CanadianStatusStrings;
+  langStatus = CanadianStatusStrings;
 
-    Activities: typeof CanadianStatusReason = CanadianStatusReason;
-    @ViewChild('formRef') form: NgForm;
-    @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
-    public buttonstyle: string = 'btn btn-default';
-    accountApp: MspAccountApp;
-    accountChangeOptions: AccountChangeOptions;
-    accountHolderTitle: string = 'Account Holder Identification';
-    accountHolderSubtitle: string = 'Please provide the Account Holder’s personal information for verification purposes.';
-    person: MspPerson;
-    updateList: UpdateList[];
-    subscriptions: Subscription[];
+  Activities: typeof CanadianStatusReason = CanadianStatusReason;
+  @ViewChild('formRef') form: NgForm;
+  @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
+  public buttonstyle: string = 'btn btn-default';
+  accountApp: MspAccountApp;
+  accountChangeOptions: AccountChangeOptions;
+  accountHolderTitle: string = 'Account Holder Identification';
+  accountHolderSubtitle: string = 'Please provide the Account Holder’s personal information for verification purposes.';
+  person: MspPerson;
+  updateList: UpdateList[];
+  subscriptions: Subscription[];
 
+  constructor(public dataService: MspAccountMaintenanceDataService,
+                protected router: Router,  private pageStateService: PageStateService
+            //private _processService: ProcessService,
+            ) {
+      super(router);
+  }
 
-    constructor(public dataService: MspAccountMaintenanceDataService,
-                 protected router: Router,  private pageStateService: PageStateService
-              //private _processService: ProcessService,
-              ) {
+  onChange($event){
+      console.log($event);
+      console.log(this.applicant);
+      //this.dataService.saveMspAccountApp();
+  }
 
-          super(router);
-    }
-
-    onChange($event){
-        console.log($event);
-        console.log(this.applicant);
-        //this.dataService.saveMspAccountApp();
-    }
-
-    ngOnInit(){
-      this.accountApp = this.dataService.accountApp;
-      this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
-      this.person = this.dataService.accountApp.applicant;
-      console.log(this.person);
-      console.log(this.accountApp);
-      console.log(this.accountChangeOptions);
-     // this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), this._processService);
+  ngOnInit(){
+    this.accountApp = this.dataService.accountApp;
+    this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
+    this.person = this.dataService.accountApp.applicant;
+    console.log(this.person);
+    console.log(this.accountApp);
+    console.log(this.accountChangeOptions);
+    // this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), this._processService);
   }
 
   ngOnDestroy() {
@@ -76,9 +74,8 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
           this.dataService.saveMspAccountApp();
         })
         ];
+      }
     }
-  }
-
 
     get applicant(): MspPerson {
         return this.dataService.accountApp.applicant;
@@ -90,10 +87,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
 
     get children(): MspPerson[] {
         return this.dataService.getMspAccountApp().updatedChildren;
-
     }
-
-
 
     personInfoUpdateOnChange(event: boolean) {
 
@@ -107,7 +101,6 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         } else {
             this.accountHolderTitle = 'Account Holder Identification';
             this.accountHolderSubtitle = 'Please provide the Account Holder’s personal information for verification purposes.';
-
         }
 
        // this.dataService.saveMspAccountApp();
@@ -118,14 +111,10 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
       //  this.dataService.saveMspAccountApp();
     }
 
-
-
-
     addUpdateSpouse = () => {
         const sp: MspPerson = new MspPerson(Relationship.Spouse);
         this.dataService.getMspAccountApp().addUpdatedSpouse(sp);
     }
-
 
     /*
     If the application contains any Visting status , application shouldnt be sumbitted
@@ -135,10 +124,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         if (!this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate) {
             return false;
         }
-
        return this.dataService.getMspAccountApp().hasAnyVisitorInApplication();
-
-
     }
 
     isPhnUniqueInPI() {
@@ -149,8 +135,6 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         return this.isAllValid();
     }*/
 
-
-
     isValid(): boolean {
       return this.dataService.accountApp.isUniquePhnsInPI ;
 
@@ -159,7 +143,6 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
     statusLabel(): string {
         return 'You Status in Canada';
     }
-
 
    /* get activitiesTable() {
       console.log(this.activities);
@@ -186,7 +169,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
       7: 'Visiting'
     };
 
-  get activities(): Activities[] {
+    get activities(): Activities[] {
       console.log( this.person.relationship);
       console.log( this.person.status);
       return ActivitiesRules.activitiesForAccountChange(
@@ -195,7 +178,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
       );
     }
 
-  get items()   {
+    get items()   {
         return[
         {
           "label": "Canadian birth certificate",
@@ -236,8 +219,8 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
     ]; }
 
     get accountUpdateList(): UpdateList[] {
-
-        return [{
+        return [
+          {
             'label': 'Update status in Canada',
             'value': this.person.updateStatusInCanada
           },
@@ -261,13 +244,8 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
             'label': 'Change gender designation',
             'value': this.person.updateGenderDesignation
           }
-
         ];
-
     }*/
-
-
-
 
     setStatus(value: StatusInCanada, p: MspPerson) {
         if (typeof value === 'object') return;
@@ -299,11 +277,11 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
     canContinue(): boolean {
       let valid = super.canContinue();
 
-      if ( this.applicant.hasNameChange ) {
+      if (this.applicant.hasNameChange) {
         valid = valid;
       }
 
-      if ( this.applicant.fullTimeStudent ) {
+      if (this.applicant.fullTimeStudent) {
         valid = valid && this.applicant.inBCafterStudies;
       }
       return valid;
