@@ -52,6 +52,14 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
         return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
     }
 
+    get accountChildInfoUrl() {
+        return ProcessUrls.ACCOUNT_CHILD_INFO_URL;
+    }
+
+    get accountContactInfoUrl() {
+        return ProcessUrls.ACCOUNT_CONTACT_INFO_URL;
+    }
+
     get spouseForAuthorisation(): MspPerson {
         if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.addedSpouse) {
             return this.mspAccountApp.addedSpouse;

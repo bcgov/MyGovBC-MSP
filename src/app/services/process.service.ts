@@ -7,16 +7,15 @@ import { environment } from 'environments/environment';
 
 
 export class ProcessUrls {
-    public static readonly ACCOUNT_PREPARE_URL = '/account/prepare' ;
-    public static readonly ACCOUNT_FILE_UPLOADER_URL = '/account/documents' ;
-    public static readonly ACCOUNT_REVIEW_URL = '/account/review' ;
-    public static readonly ACCOUNT_PERSONAL_INFO_URL = '/account/personal-info' ;
-    public static readonly ACCOUNT_DEPENDENTS_URL = '/account/dependent-change' ;
-    public static readonly ACCOUNT_SENDING_URL = '/account/sending' ;
-    public static readonly ACCOUNT_SPOUSE_INFO_URL = '/account/spouse-info' ;
-    public static readonly ACCOUNT_CHILD_INFO_URL = '/account/child-info' ;
-
-
+    public static readonly ACCOUNT_PREPARE_URL = '/deam/prepare' ;
+    public static readonly ACCOUNT_FILE_UPLOADER_URL = '/deam/documents' ;
+    public static readonly ACCOUNT_REVIEW_URL = '/deam/review' ;
+    public static readonly ACCOUNT_PERSONAL_INFO_URL = '/deam/personal-info' ;
+    public static readonly ACCOUNT_DEPENDENTS_URL = '/deam/dependent-change' ;
+    public static readonly ACCOUNT_SENDING_URL = '/deam/sending' ;
+    public static readonly ACCOUNT_SPOUSE_INFO_URL = '/deam/spouse-info' ;
+    public static readonly ACCOUNT_CHILD_INFO_URL = '/deam/child-info' ;
+    public static readonly ACCOUNT_CONTACT_INFO_URL = '/deam/contact-info' ;
 }
 
 export class Process {
