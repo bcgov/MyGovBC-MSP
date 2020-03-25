@@ -44,4 +44,13 @@ module.exports = {
     prevLastNameLabel:'Previous Last Name',
     marriageDateLabel:'Marriage Date',
   editButton: 'Edit {label}',
+
+  updateStatusInCanadaLabel: 'Update/renew status in Canada',
+  updateNameDueToMarriageLabel: 'Update name - due to marriage',
+  updateNameDueToNameChangeLabel: 'Update name - due to name change',
+  updateGenderDesignationDueToChangeLabel: 'Update gender designation - due to change',
+  correctNameDueToErrorLabel: 'Correct name - due to error',
+  correctBirthdateDueToErrorLabel: 'Correct birthdate - due to error',
+  correctGenderDesignationDueToErrorLabel: 'Correct gender designation - due to error',
+  requestedLabel: 'Requested'
 };

@@ -331,6 +331,78 @@
       <strong>{{person.studiesDepartureDate.format(dateFormat)}}</strong>
     </div>
   </div>
+  <!-- DEAM Added Info -->
+  <!-- updateStatusInCanadaLabel: 'Update/renew status in Canada',
+  updateNameDueToMarriageLabel: 'Update name - due to marriage',
+  updateNameDueToNameChangeLabel: 'Update name - due to name change',
+  updateGenderDesignationDueToChangeLabel: 'Update gender designation - due to change',
+  correctNameDueToErrorLabel: 'Correct name - due to error',
+  correctBirthdateDueToErrorLabel: 'Correct birthdate - due to error',
+  correctGenderDesignationDueToErrorLabel: 'Correct gender designation - due to error'
+-->
+  <div class="row" *ngIf="person.updateStatusInCanada">
+      <div class="col-sm-4">
+          {{lang('./en/index.js').updateStatusInCanadaLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{lang('./en/index.js').requestedLabel}}</strong>
+      </div>
+  </div>
+
+  <div class="row" *ngIf="person.updateNameDueToMarriage">
+      <div class="col-sm-4">
+          {{lang('./en/index.js').updateNameDueToMarriageLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{lang('./en/index.js').requestedLabel}}</strong>
+      </div>
+  </div>
+
+  <div class="row" *ngIf="person.updateNameDueToNameChange">
+      <div class="col-sm-4">
+          {{lang('./en/index.js').updateNameDueToNameChangeLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{lang('./en/index.js').requestedLabel}}</strong>
+      </div>
+  </div>
+
+  <div class="row" *ngIf="person.updateGender">
+      <div class="col-sm-4">
+          {{lang('./en/index.js').updateGenderDesignationDueToChangeLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{lang('./en/index.js').requestedLabel}}</strong>
+      </div>
+  </div>
+
+  <div class="row" *ngIf="person.updateNameDueToError">
+      <div class="col-sm-4">
+          {{lang('./en/index.js').correctNameDueToErrorLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{lang('./en/index.js').requestedLabel}}</strong>
+      </div>
+  </div>
+
+  <div class="row" *ngIf="person.updateBirthdate">
+      <div class="col-sm-4">
+          {{lang('./en/index.js').correctBirthdateDueToErrorLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{lang('./en/index.js').requestedLabel}}</strong>
+      </div>
+  </div>
+
+  <div class="row" *ngIf="person.updateGenderDesignation">
+      <div class="col-sm-4">
+          {{lang('./en/index.js').correctGenderDesignationDueToErrorLabel}}
+      </div>
+      <div class="col-sm-8">
+        <strong>{{lang('./en/index.js').requestedLabel}}</strong>
+      </div>
+  </div>
+
   <div class="row" *ngIf="person.assistYearDocs.length > 0">
     <div class="col-sm-4">
       Documents
