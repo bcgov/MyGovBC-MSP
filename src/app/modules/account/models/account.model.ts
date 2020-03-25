@@ -38,8 +38,6 @@ class MspAccountApp implements ApplicationBase {
     hasChildRemoved: boolean;
     hasChildUpdated: boolean;
 
-
-  
     // Address and Contact Info
    public residentialAddress: Address = new Address();
    public mailingSameAsResidentialAddress: boolean = true;
@@ -159,7 +157,7 @@ class MspAccountApp implements ApplicationBase {
         this._removedChildren = value;
     }
 
-    private _addedSpouse: MspPerson = new MspPerson(Relationship.Spouse); ;
+    private _addedSpouse: MspPerson = new MspPerson(Relationship.Spouse);
     private _updatedSpouse: MspPerson = new MspPerson(Relationship.Spouse);
     //DEAM doesnt use chidren as such..its either updated/removed/added children
     private _children: Array<MspPerson>  = [];
@@ -184,7 +182,6 @@ class MspAccountApp implements ApplicationBase {
     get hasValidAuthToken(){
         return this.authorizationToken && this.authorizationToken.length > 1;
     }
-   
 
 
     removeUpdateChild(idx: number): void {
@@ -331,7 +328,7 @@ class MspAccountApp implements ApplicationBase {
 
   addChild(relationship: Relationship): MspPerson {
     const c = new MspPerson(relationship,  OperationActionType.Add);
-    
+
     //child between 19-24 must be a full time student to qualify for enrollment
     c.fullTimeStudent = relationship === Relationship.Child19To24 ? true : false;
     c.operationActionType = OperationActionType.Add;
@@ -339,7 +336,7 @@ class MspAccountApp implements ApplicationBase {
     if ( this._addedChildren.length < 30 ) {
         const tmp = [c, ...this._addedChildren];
         this._addedChildren = tmp;
-        
+
     } else {
         console.log('No more than 30 children can be added to one application');
     }

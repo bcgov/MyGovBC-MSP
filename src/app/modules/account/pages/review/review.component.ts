@@ -31,6 +31,10 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
         this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
     }
 
+    get hasSpouse() {
+        return this.mspAccountApp.spouse ? true : false;
+    }
+
     // unused.. logic changed
     get spousesForAuthorisation(): MspPerson[] {
         return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
@@ -40,10 +44,13 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
         return ProcessUrls.ACCOUNT_PERSONAL_INFO_URL;
     }
 
+    get accountSpouseUrl() {
+        return ProcessUrls.ACCOUNT_SPOUSE_INFO_URL;
+    }
+
     get accountDependentUrl() {
         return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
     }
-
 
     get spouseForAuthorisation(): MspPerson {
         if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.addedSpouse) {
