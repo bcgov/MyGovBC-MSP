@@ -141,7 +141,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
       return;
     }
     this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
-    this.navigate('/account/contact-info');
+    this.navigate('/deam/contact-info');
   }
 
 

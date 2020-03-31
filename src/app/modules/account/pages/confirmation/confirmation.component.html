@@ -19,7 +19,30 @@
 			<div>
 				{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
 			</div>
+
+			<br>
+			<div>
+					To remove a spouse or child from your MSP account due to a move outside B.C. 
+					use the <a href="https://www.health.gov.bc.ca/exforms/msp/7063.html" target="_blank">
+					Permanent Move Outside British Columbia</a> form.
+			</div>
 		</div>
+
+		<!-- <div *ngIf="isSucess; else ErrorMsg">
+				<div class="row">
+					<div class="col-sm-12 col-md-12">
+							<div class="card mb-4 h-100">
+									<div class="col-2">
+											<i class="fa fa-exclamation-circle" style="font-size: 35px;"></i>
+									</div>
+									<div class="col-10">
+											To remove a spouse or child from your MSP account due to a move outside B.C. 
+											use the Permanent Move Outside British Columbia form.
+									</div>
+							</div>
+					</div>
+				</div>
+		</div> -->
 
 		<div *ngIf="isSucess" AdditionalInfo>
 
@@ -27,7 +50,7 @@
 			<common-page-section layout='noTips'>
 				<ul class="info--container">
 					<li>
-						Allow 21 business days for your application to be processed.
+							Allow 21 business days for your application to be processed.
 					</li>
 				  <li>
               Living outside the province for more than six months could cause your Medical Services Plan enrolment to be cancelled. Learn more about
@@ -36,9 +59,6 @@
 					<li>
               Review <a href="{{links.FPCARE}}" target="_blank">Frequently Asked Questions.</a>.
 					</li>
-					<li>
-						Keep your personal information up to date. <a href="{{links.BCSC_UPDATE}}" target="_blank">Change your name, address or gender</a>.
-					</li>	
 					<li>
               If you require additional assistance, contact <a href="{{links.MSP_ELIGIBILITY}}" target="_blank">Health Insurance B.C.</a>
 					</li>

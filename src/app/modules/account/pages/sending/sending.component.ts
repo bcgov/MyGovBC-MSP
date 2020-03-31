@@ -105,7 +105,7 @@ export class AccountSendingComponent implements AfterContentInit {
 
         //  go to confirmation
 
-          this.router.navigate(['/account/confirmation'],
+          this.router.navigate(['/deam/confirmation'],
               {queryParams: {confirmationNum: refNumber, showDepMsg: bcServicesCardElgible, status: statusCode}});
 
 
@@ -147,6 +147,6 @@ export class AccountSendingComponent implements AfterContentInit {
   }
 
   retrySubmission(){
-    this.router.navigate(['/account/authorize']);
+    this.router.navigate(['/deam/authorize']);
   }
 }
