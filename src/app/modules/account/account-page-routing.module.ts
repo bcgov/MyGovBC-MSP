@@ -56,12 +56,12 @@ export const accountPages: Routes = [
     path: 'sending',
     component: AccountSendingComponent,
     //canActivate: [ProcessService],
-  }/*,
+  },
   {
     path: 'confirmation',
     component: AccountConfirmationComponent,
-    canActivate: [],
-  }*/
+    //canActivate: [],
+  }
 ];
 
 export const accountStepperPages = accountPages.filter(x => (x.path !== 'sending'));

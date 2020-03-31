@@ -116,7 +116,7 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
           return;
         }
         this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
-        this.navigate('/account/sending');
+        this.navigate('/deam/sending');
       }
 
 

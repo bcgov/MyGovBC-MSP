@@ -171,6 +171,6 @@ addSpouse() {
       return;
     }
     this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
-    this.navigate('/account/child-info');
+    this.navigate('/deam/child-info');
   }
 }
