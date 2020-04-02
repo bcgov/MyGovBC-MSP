@@ -6,6 +6,7 @@ import { MspAccountApp } from '../../models/account.model';
 import * as moment from 'moment';
 import { ApiStatusCodes } from 'moh-common-lib';
 import { environment } from 'environments/environment';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'msp-confirmation',
@@ -21,8 +22,9 @@ export class AccountConfirmationComponent implements OnDestroy {
     isCutOffYear: boolean;
     status: ApiStatusCodes = ApiStatusCodes.ERROR;
     links = environment.links;
-
-
+    nextSteps: any;
+    message: string;
+    
     constructor(private route: ActivatedRoute, public dataService: MspAccountMaintenanceDataService) {
 
     }
@@ -35,6 +37,8 @@ export class AccountConfirmationComponent implements OnDestroy {
                   this.status = statusCode;
                 }
                 this.confirmationNum = params['confirmationNum'];
+                this.nextSteps = params['nextSteps'];
+                this.message = params['message'];
             }
         );
     }
@@ -60,6 +64,6 @@ export class AccountConfirmationComponent implements OnDestroy {
      * @returns {string}
      */
     get dateStamp(): string {
-        return moment().format('MMMM dd, yyyy');
+        return format(new Date(), 'MMMM dd, yyyy');
     }
 }
