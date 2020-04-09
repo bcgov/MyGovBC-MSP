@@ -29,7 +29,7 @@
                             <!-- Question 2, Enter your net income -->
                             <label for="netIncome">{{this.getFinanialInfoSectionTitle}}</label>
                             <div class="text-muted">
-                                    See Line 236 of your Notice of Assessment or Reassessment
+                                    See Line 23600 of your Notice of Assessment or Reassessment
                             </div>
 
                             <div class="col-md-6 input-group">
@@ -103,7 +103,7 @@
                                     <!-- Spouse Income  -->
                                         <label for="spouseIncomeLine236" [innerHtml]="getSpouseFinanialInfoSectionTitle">
                                         </label>
-                                        <div class="muted-text">See Line 236 of your spouse's Notice of Assessment or Reassessment</div>
+                                        <div class="muted-text">See Line 23600 of your spouse's Notice of Assessment or Reassessment</div>
                                         <div class="col-md-6 input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
@@ -165,7 +165,7 @@
                                             How much did you claim for child care expenses in {{this.benefitApp.taxYear}}?
                                         </label>
                                         <div class="muted-text">
-                                                See Line 214 of your Notice of Assessment or Reassessment
+                                                See Line 21400 of your Notice of Assessment or Reassessment
                                         </div>
                                         <div class="col-md-6 input-group">
                                             <div class="input-group-prepend">
@@ -196,7 +196,7 @@
                                 (valueChange)="updateDisabilityCredit($event)">
                             </common-radio>
                             <p>
-                                See Line 316, 318 or 326 of your Notice of Assessment or Reassessment
+                                See Line 31600, 31800 or 326 of your Notice of Assessment or Reassessment
                             </p>
                         </div>
         
@@ -283,9 +283,9 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="line125">
-                                            How much was reported for a Registered Disability Savings Plan?
+                                            How much did you {{benefitApp.hasSpouse ? '(or your spouse/common-law partner)' : ''}} report for a Registered Disability Savings Plan in {{this.benefitApp.taxYear}}?
                                     </label>
-                                    <p class="muted-text" >See Line 125 of the Notice of Assessment or Reassessment</p>
+                                    <p class="muted-text" >See Line 12500 of the Notice of Assessment or Reassessment</p>
                                     <div class="col-md-6 input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">$</span>
