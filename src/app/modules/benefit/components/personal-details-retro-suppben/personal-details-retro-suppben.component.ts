@@ -50,7 +50,7 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     }
 
     get docText(): string {
-        return this.person.relationship === Relationship.Applicant ? 'account holder\'s' : 'your spouse\'s';
+        return this.person.relationship === Relationship.Applicant ? 'your' : 'your spouse\'s';
     }
 
 
