@@ -62,7 +62,6 @@ export class MspApiAccountService extends AbstractHttpService {
   sendRequest(app: MspAccountApp): Promise<any> {
 
     const suppBenefitRequest = this.prepareAccountApplication(app);
-    console.log(suppBenefitRequest);
 
     return new Promise<ApiResponse>((resolve, reject) => {
       //Validating the response against the schema

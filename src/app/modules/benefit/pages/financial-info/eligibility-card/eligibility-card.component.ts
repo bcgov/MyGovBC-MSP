@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {BenefitApplication} from '../../../models/benefit-application.model';
-import { Router } from '@angular/router';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+import { Component, Input } from '@angular/core';
+import { BenefitApplication } from '../../../models/benefit-application.model';
+import { ATTENDANT_CARE_CLAIM_AMT } from '../../../../../constants';
+
 @Component({
   selector: 'msp-benefit-eligibility-card',
   templateUrl: './eligibility-card.component.html',
@@ -12,9 +12,8 @@ export class BenefitEligibilityCardComponent  {
     lang = require('./i18n');
     @Input() application: BenefitApplication;
     @Input() editRouterLink: string;
-    constructor(private _router: Router) {
+    constructor() {}
 
-    }
     get _mainDisabilityCredit(): number {
         return this.application.applicantDisabilityCredit;
     }
@@ -25,20 +24,16 @@ export class BenefitEligibilityCardComponent  {
         return this.application.childrenDisabilityCredit;
     }
 
-   get _applicantAttendantCareExpense(): number {
-        if (this.application.applicantClaimForAttendantCareExpense)
-            return 3000;
-            else {
-                return 0;
-            }
+    get _applicantAttendantCareExpense(): number {
+        return this.application.applicantClaimForAttendantCareExpense
+            ? ATTENDANT_CARE_CLAIM_AMT
+            : 0;
    }
 
-   get _spouseAttendantCareExpense(): number {
-    if (this.application.spouseClaimForAttendantCareExpense)
-         return 3000;
-        else {
-            return 0;
-        }
+    get _spouseAttendantCareExpense(): number {
+        return this.application.spouseClaimForAttendantCareExpense
+            ? ATTENDANT_CARE_CLAIM_AMT
+            : 0;
     }
 
 
@@ -50,7 +45,7 @@ export class BenefitEligibilityCardComponent  {
 
     get childClaimForAttendantCareExpenseAmt(): number {
         if (!!this.application.childClaimForAttendantCareExpense) {
-            return this.application.childClaimForAttendantCareExpenseCount * 3000;
+            return this.application.childClaimForAttendantCareExpenseCount * ATTENDANT_CARE_CLAIM_AMT;
         } else {
             return 0;
         }

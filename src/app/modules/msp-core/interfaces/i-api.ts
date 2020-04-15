@@ -407,4 +407,16 @@ export interface SupplementaryBenefitsApplicationType {
    * Total Net Income
    */
   totalNetIncome: number;
+  /**
+   * Applicant Attendant Care Expense
+   */
+  applicantAttendantCareExpense?: number;
+  /**
+   * Spouse Attendant Care Expense
+   */
+  spouseAttendantCareExpense?: number;
+  /**
+   * Child Attendant Care Expense
+   */
+  childAttendantCareExpense?: number;
 }

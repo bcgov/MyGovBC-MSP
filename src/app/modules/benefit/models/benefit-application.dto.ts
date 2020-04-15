@@ -52,7 +52,9 @@ export class BenefitApplicationDto {
   childClaimForAttendantCareExpense: boolean = false;
   childClaimForAttendantCareExpenseCount: number = 1;
 
-  attendantCareExpense: number;
+  applicantAttendantCareExpense: number;
+  spouseAttendantCareExpense: number;
+  childAttendantCareExpense: number;
 
   assistYears: AssistanceYear[] = [];
   assistYearDocs: CommonImage[] = [];

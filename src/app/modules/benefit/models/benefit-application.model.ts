@@ -9,6 +9,7 @@ import { AssistanceApplicationType } from '../../assistance/models/financial-ass
 import { Eligibility } from '../../assistance/models/eligibility.model';
 import { ISpaEnvResponse } from '../../../components/msp/model/spa-env-response.interface';
 import { Relationship } from '../../../models/relationship.enum';
+import { ATTENDANT_CARE_CLAIM_AMT } from '../../../constants';
 
 export class BenefitApplication implements ApplicationBase {
 
@@ -22,17 +23,16 @@ export class BenefitApplication implements ApplicationBase {
   taxYear: number;
   userSelectedMostRecentTaxYear: number;
   public spaEnvCutOffDate: string;
-  public spaEnvRes: ISpaEnvResponse;  
+  public spaEnvRes: ISpaEnvResponse;
   isEligible: boolean;
 
-  cutOffDate: Date; 
+  cutOffDate: Date;
 
   infoCollectionAgreement: boolean = false;
   // cutoff Date fields
   cutoffYear: number;
   isCutoffDate: boolean;
   //numDisabled: number;
-
 
   hasClaimedAttendantCareExpenses: boolean;
   applicantClaimForAttendantCareExpense: boolean = false;
@@ -50,7 +50,9 @@ export class BenefitApplication implements ApplicationBase {
   childrenDisabilityCredit: number;
   totalDeduction: number;
 
-  _attendantCareExpense: number;
+  _applicantAttendantCareExpense: number = 0;
+  _spouseAttendantCareExpense: number = 0;
+  _childAttendantCareExpense: number = 0;
 
   private _attendantCareExpenseReceipts: CommonImage[] = new Array<CommonImage>();
 
@@ -70,12 +72,28 @@ export class BenefitApplication implements ApplicationBase {
     });
   }
 
-  get attendantCareExpense(): number {
-    if (!!this._attendantCareExpense && !isNaN(this._attendantCareExpense)) {
-      return parseFloat(this._attendantCareExpense + '');
-    } else {
-      return null;
-    }
+  get applicantAttendantCareExpense(): number {
+    return this._applicantAttendantCareExpense;
+  }
+
+  set applicantAttendantCareExpense(expense: number) {
+    this._applicantAttendantCareExpense = expense;
+  }
+
+  get spouseAttendantCareExpense(): number {
+    return this._spouseAttendantCareExpense;
+  }
+
+  set spouseAttendantCareExpense(expense: number) {
+    this._spouseAttendantCareExpense = expense;
+  }
+
+  get childAttendantCareExpense(): number {
+    return this._childAttendantCareExpense;
+  }
+
+  set childAttendantCareExpense(expense: number) {
+    this._childAttendantCareExpense = expense;
   }
 
   get isUniquePhns() {
@@ -95,9 +113,6 @@ export class BenefitApplication implements ApplicationBase {
     return new Set(allPhs).size === allPhs.length;
   }
 
-  set attendantCareExpense(n: number) {
-    this._attendantCareExpense = n || 0;
-  }
   get attendantCareExpenseReceipts(): CommonImage[] {
     return this._attendantCareExpenseReceipts;
   }
@@ -282,7 +297,7 @@ export class BenefitApplication implements ApplicationBase {
       return null;
     } else {
       const n =
-        !!this.childClaimForAttendantCareExpenseCount 
+        !!this.childClaimForAttendantCareExpenseCount
           ? this.childClaimForAttendantCareExpenseCount
           : 0;
       return n;
@@ -291,6 +306,7 @@ export class BenefitApplication implements ApplicationBase {
 
   set childWithAttendantCareCount(n: number) {
     this.childClaimForAttendantCareExpenseCount = n;
+    this.childAttendantCareExpense = n * ATTENDANT_CARE_CLAIM_AMT;
   }
 
  /// ***********************************************
@@ -303,8 +319,6 @@ export class BenefitApplication implements ApplicationBase {
 
     return arr;
   }
-
- 
 
   get claimedChildCareExpense_line214() {
     return this._claimedChildCareExpense_line214 === null ? null : this._claimedChildCareExpense_line214;
