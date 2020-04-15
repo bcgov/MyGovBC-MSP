@@ -227,12 +227,11 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
-
     toggleClaimForSpouseDisabilityCredit($event: Event): void{
         if (this.benefitApp.spouseClaimForAttendantCareExpense && !this.benefitApp.spouseEligibleForDisabilityCredit){
         //    $event.preventDefault();
         //    this.showNursingError = true;
-            this.spouseClaimDisabilityCredit();
+            this.preventSpouseDisabilityCreditClaim();
         }else{
             this.showNursingError = false;
             this.benefitApp.spouseEligibleForDisabilityCredit = !this.benefitApp.spouseEligibleForDisabilityCredit;
@@ -404,9 +403,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
      applicantClaimForAttendantCare(claimMade: boolean) {
         if (claimMade && this.dataService.benefitApp.applicantEligibleForDisabilityCredit === true) {
             this.showDisabilityError = true;
-            this.claimCategory = this.CREDIT_CLAIM_CATEGORY[1];
-            this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[0];
-            this.claimant = this.CREDIT_CLAIMANT[0];
+            this.preventApplicantDisabilityCreditClaim();
         } else {
             this.showDisabilityError = false;
             this.benefitApp.applicantClaimForAttendantCareExpense = claimMade;
@@ -420,10 +417,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     spouseClaimForAttendantCare(claimMade: boolean) {
         if (claimMade && this.benefitApp.spouseEligibleForDisabilityCredit) {
-            this.claimCategory = this.CREDIT_CLAIM_CATEGORY[1];
-            this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[0];
-            this.claimant = this.CREDIT_CLAIMANT[1];
-
+            this.preventSpouseDisabilityCreditClaim();
         } else {
             this.showDisabilityError = false;
             this.benefitApp.spouseClaimForAttendantCareExpense = claimMade;
@@ -486,10 +480,20 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     //     this.disabilityNursingHomeChoiceModal.config.backdrop = false;
     //     this.disabilityNursingHomeChoiceModal.show();
     // }
+
+    /**
+     * Prevent applicant from claiming disability credit
+     */
+    private preventApplicantDisabilityCreditClaim() {
+        this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[0];
+        this.claimCategory = this.CREDIT_CLAIM_CATEGORY[1];
+        this.claimant = this.CREDIT_CLAIMANT[0];
+    }
+
     /**
      * Prevent spouse from claiming disability credit
      */
-    private spouseClaimDisabilityCredit(){
+     private preventSpouseDisabilityCreditClaim() {
         this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[1];
         this.claimCategory = this.CREDIT_CLAIM_CATEGORY[0];
         this.claimant = this.CREDIT_CLAIMANT[1];
