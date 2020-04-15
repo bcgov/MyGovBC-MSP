@@ -1,12 +1,12 @@
-import {Component, ChangeDetectorRef, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
 import {Eligibility} from '../../../assistance/models/eligibility.model';
 import {ProcessService} from '../../../../services/process.service';
 import {MspBenefitDataService} from '../../../benefit/services/msp-benefit-data.service';
 import {BenefitApplication} from '../../../benefit/models/benefit-application.model';
+import { ATTENDANT_CARE_CLAIM_AMT } from '../../../../constants';
 import * as moment from 'moment';
-import {BaseComponent} from '../../../../models/base.component';
 
 @Component({
   selector: 'msp-common-deduction-calculator',
@@ -29,26 +29,20 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     @Output() continue: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
     @Input() qualificationThreshhold: number;
-   // lang = require('./i18n');
     total: number;
 
     constructor(private _router: Router,
                 private dataService: MspBenefitDataService,
-                private _processService: ProcessService,
-                cd: ChangeDetectorRef) {
-//                    super(cd);
-    }
+                private _processService: ProcessService
+                ) { }
 
     ngOnInit(): void {
-     // this.canContinue;
       this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, false);
     }
 
     ngDoCheck(): void {
       const valid = this.canContinue;
-      console.log("valid "+valid);
-      //this.continue.emit(valid);
-      //this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, valid);
+      console.log('valid ' + valid);
     }
 
     get ageOver65Amt(): number {
@@ -106,41 +100,30 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
     get attendantCareExpenseAmt(): number {
-        if (_.isNumber(this.application.attendantCareExpense)
-            && this.application.attendantCareExpense < 3000
-            && this.application.attendantCareExpense > 0) {
-            return this.application.attendantCareExpense;
-        } else {
-            return 0;
-        }
+        return this.application.applicantAttendantCareExpense;
     }
 
     get childClaimForAttendantCareExpenseAmt(): number {
-        if (!!this.application.childClaimForAttendantCareExpense) {
-            return this.application.childClaimForAttendantCareExpenseCount * 3000;
-        } else {
-            return 0;
-        }
+        return this.application.childClaimForAttendantCareExpense
+            ? (this.application.childClaimForAttendantCareExpenseCount * ATTENDANT_CARE_CLAIM_AMT)
+            : 0;
     }
 
     get spouseClaimForAttendantCareExpenseAmt(): number {
-        if (!!this.application.spouseClaimForAttendantCareExpense) {
-            return 3000;
-        } else {
-            return 0;
-        }
+        return this.application.spouseClaimForAttendantCareExpense
+            ? ATTENDANT_CARE_CLAIM_AMT
+            : 0;
     }
 
     get applicantClaimForAttendantCareExpenseAmt(): number {
-        if (!!this.application.applicantClaimForAttendantCareExpense) {
-            return 3000;
-        } else {
-            return 0;
-        }
+        return this.application.applicantClaimForAttendantCareExpense
+            ? ATTENDANT_CARE_CLAIM_AMT
+            : 0;
     }
 
     get familyClaimForAttendantCareExpenseAmt(): number {
-        return this.childClaimForAttendantCareExpenseAmt + this.spouseClaimForAttendantCareExpenseAmt
+        return this.childClaimForAttendantCareExpenseAmt
+            + this.spouseClaimForAttendantCareExpenseAmt
             + this.applicantClaimForAttendantCareExpenseAmt;
     }
 
@@ -154,7 +137,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
             + this.spouseDisabilityCreditAmt
             + this.childrenDisabilityCreditAmt;
 
-          let otherAmtTotal = (this.application.spouseDSPAmount_line125 * 1) + (this.applicantClaimForAttendantCareExpenseAmt * 1) + (this.spouseClaimForAttendantCareExpenseAmt * 1) + (this.childClaimForAttendantCareExpenseAmt * 1) ;
+          const otherAmtTotal = (this.application.spouseDSPAmount_line125 * 1) + (this.applicantClaimForAttendantCareExpenseAmt * 1) + (this.spouseClaimForAttendantCareExpenseAmt * 1) + (this.childClaimForAttendantCareExpenseAmt * 1) ;
 
           total += otherAmtTotal;
           this.application.totalDeduction = total;
@@ -244,17 +227,17 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
               return false;
             }
         }
-        
+
         const spouseDisabilityCreditAmt = this.application.spouseDSPAmount_line125 && this.application.spouseDSPAmount_line125.toString().match(patt);
 
         if (this.application.hasRegisteredDisabilityPlan) {
             if (!spouseDisabilityCreditAmt) {
                this.continue.emit(false);
                return false;
-            } 
+            }
         }
 
-        // If a spouse id declared then income field becomes required 
+        // If a spouse id declared then income field becomes required
         if (this.application.hasSpouse) {
           if (!this.application.spouseIncomeLine236) {
               this.continue.emit(false);
@@ -347,7 +330,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
                 return false;
             }
         }
-        // Regex pattern check for the child count 
+        // Regex pattern check for the child count
 
 
         /* console.log('Abhi DSP amount --> '+spouseDisabilityCreditAmt);
@@ -361,7 +344,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
         // added for DEAM-2 fix Invalid comma in money decimal fields
         const isSpouseIncomeValid = !spouseSpecified || !this.application || !this.application.spouseIncomeLine236 || this.application.spouseIncomeLine236.toString().match(patt);
-        
+
         if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid && isSpouseIncomeValid && applicanthaveChildrens && applicantapplicantClaimForAttendantCareExpense && applicantselfDisabilityCredit) {
             if (this.application.hasSpouse) {
                 this.continue.emit(spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided);
@@ -420,7 +403,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
     get totalHouseholdIncome(): string {
         const t: number = this.personalIncome + this.spouseIncome;
-        const total: string = new Number(t).toFixed(2);
+        const total: string = Number(t).toFixed(2);
         return total;
     }
 

@@ -1115,10 +1115,7 @@
         "childAttendantCareExpense":{
           "type":"number",
           "description":"Child Attendant Care Expense"
-        },
-        "attendantCareExpenseAttachments":{
-      		"$ref":"#/definitions/AttachmentsType"
-      	}  
+        }
       },
       "required":[
         "applicantFirstName",
