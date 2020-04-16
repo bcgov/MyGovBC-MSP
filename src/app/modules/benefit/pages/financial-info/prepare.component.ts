@@ -14,6 +14,7 @@ import * as moment from 'moment';
 import {Router} from '@angular/router';
 import { ProcessService } from 'app/services/process.service';
 import { ATTENDANT_CARE_CLAIM_AMT } from '../../../../constants';
+import { ISpaEnvResponse } from 'moh-common-lib/lib/components/consent-modal/consent-modal.component';
 
 @Component({
     selector: 'msp-prepare',
@@ -56,8 +57,14 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     showNursingError: boolean;
     showDisabilityError: boolean;
 
-    CREDIT_CLAIM_CATEGORY: string[] = ['disability credit', 'attendant or nursing home expense credit'];
-    CREDIT_CLAIMANT: string[] = ['yourself', 'spouse or common law partner'];
+    CREDIT_CLAIM_CATEGORY = {
+        DISABILITY: 'disability credit',
+        ATTENDANT_CARE: 'attendant or nursing home expense credit'
+    };
+    CREDIT_CLAIMANT = {
+        APPLICANT: 'yourself',
+        SPOUSE: 'spouse or common law partner'
+    };
 
 
     /**
@@ -65,63 +72,58 @@ export class BenefitPrepareComponent  extends BaseComponent  {
      */
     pastYears: number[] = [];
 
-    constructor(private _router: Router,
-                public dataService: MspBenefitDataService , cd: ChangeDetectorRef,
-                private _processService: ProcessService){
+    constructor(
+        private _router: Router,
+        public dataService: MspBenefitDataService , cd: ChangeDetectorRef,
+        private _processService: ProcessService
+    ) {
         super(cd);
         this.showAttendantCareInfo = this.benefitApp.applicantClaimForAttendantCareExpense
             || this.benefitApp.spouseClaimForAttendantCareExpense
             || this.benefitApp.childClaimForAttendantCareExpense;
     }
 
-    ngOnInit(){
-       // this.initProcessMembers(BenefitPrepareComponent.ProcessStepNum, this._processService);
-        //this._processService.setStep(BenefitPrepareComponent.ProcessStepNum, false);
+    ngOnInit() {
         this._showDisabilityInfo =
-            this.dataService.benefitApp.selfDisabilityCredit === true ||
-            this.dataService.benefitApp.spouseEligibleForDisabilityCredit === true ||
+            this.benefitApp.selfDisabilityCredit === true ||
+            this.benefitApp.spouseEligibleForDisabilityCredit === true ||
             !!this.benefitApp.childWithDisabilityCount ||
-            !_.isNil(this.dataService.benefitApp.spouseDSPAmount_line125);
+            !_.isNil(this.benefitApp.spouseDSPAmount_line125);
 
         this.showChildrenInfo =
-            !_.isNil(this.dataService.benefitApp.childrenCount) ||
+            !_.isNil(this.benefitApp.childrenCount) ||
             (!_.isNil(this.benefitApp.claimedChildCareExpense_line214) && this.benefitApp.claimedChildCareExpense_line214 > 0) ||
             ((!_.isNil(this.benefitApp.reportedUCCBenefit_line117) && (this.benefitApp.reportedUCCBenefit_line117 > 0)) );
         this.today = moment();
        // this.initYearsList();
     }
 
-    addReceipts(evt: any){
-       /* if(evt.length === 0 && (this.benefitApp.applicantClaimForAttendantCareExpense || this.benefitApp.spouseClaimForAttendantCareExpense || this.benefitApp.childClaimForAttendantCareExpense )) {
-            this.continue = false;
-        }*/
-        this.benefitApp.attendantCareExpenseReceipts = evt;
-        //this.fileUploader.forceRender();
+    addReceipts(receipts: CommonImage[]) {
+        this.benefitApp.attendantCareExpenseReceipts = receipts;
         this.dataService.saveBenefitApplication();
     }
 
-    spaEnvCutOffDate(evt: any){
-        this.benefitApp.spaEnvRes = evt;
+    spaEnvCutOffDate(response: ISpaEnvResponse){
+        this.benefitApp.spaEnvRes = response;
     }
 
 
-    errorReceipts(evt: CommonImage) {
-        this.mspImageErrorModal.imageWithError = evt;
+    errorReceipts(image: CommonImage) {
+        this.mspImageErrorModal.imageWithError = image;
         this.mspImageErrorModal.showFullSizeView();
         this.mspImageErrorModal.forceRender();
     }
 
-    deleteReceipts(evt: CommonImage){
+    deleteReceipts(image: CommonImage){
         this.benefitApp.attendantCareExpenseReceipts = this.benefitApp.attendantCareExpenseReceipts.filter(
-            receipt => {
-                return receipt.id !== evt.id;
-            }
+            receipt => (receipt.id !== image.id)
         );
+
         this.dataService.saveBenefitApplication();
     }
 
     ngAfterViewInit() {
-        if (!this.dataService.benefitApp.infoCollectionAgreement) {
+        if (!this.benefitApp.infoCollectionAgreement) {
             this.mspConsentModal.showFullSizeView();
         }
 
@@ -133,13 +135,13 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         /*removing subscribe wont register clicks
         const ageOver$ = fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click').pipe(
             map( () => {
-                this.dataService.benefitApp.ageOver65 = true;
+                this.benefitApp.ageOver65 = true;
             }));
 
 
         const ageUnder$ = fromEvent<MouseEvent>(this.ageNotOver65Btn.nativeElement, 'click').pipe(
             map( () => {
-                this.dataService.benefitApp.ageOver65 = false;
+                this.benefitApp.ageOver65 = false;
             }));*/
         if (this.prepForm !== undefined) {
            // console.log('Prepform?', this.prepForm, this.prepForm.valueChanges);
@@ -195,17 +197,14 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     // All the validations and required field are coming from common-deduction-calculator canContinue method
-    canContinue(evt): any {
-        if (evt !== undefined) {
-            this.continue = evt;
-        }
+    canContinue(event: boolean): boolean {
+        this.continue = event;
 
         if (this.childCountExceedError()) {
-            this.continue = false;
-            return false ;
+            return this.continue = false;
         }
 
-        return evt ;
+        return event;
     }
 
     navigateToPersonalInfo() {
@@ -227,15 +226,17 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
-    toggleClaimForSpouseDisabilityCredit($event: Event): void{
-        if (this.benefitApp.spouseClaimForAttendantCareExpense && !this.benefitApp.spouseEligibleForDisabilityCredit){
-        //    $event.preventDefault();
-        //    this.showNursingError = true;
+    toggleClaimForSpouseDisabilityCredit(): void {
+        if (
+            this.benefitApp.spouseClaimForAttendantCareExpense &&
+            !this.benefitApp.spouseEligibleForDisabilityCredit
+        ) {
             this.preventSpouseDisabilityCreditClaim();
-        }else{
+        } else {
             this.showNursingError = false;
             this.benefitApp.spouseEligibleForDisabilityCredit = !this.benefitApp.spouseEligibleForDisabilityCredit;
         }
+
         this.dataService.saveBenefitApplication();
     }
 
@@ -269,13 +270,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     updateChildDisabilityCreditCreditMultiplier(evt: number){
-        console.log(evt);
-       /* if (!evt) {
-            return null;
-        } else {
-            const n = !!evt && !isNaN(evt) ? evt  : 0;
-            return n;
-        }*/
+        console.log('updateChildDisabilityCreditCreditMultiplier', evt);
 
         if (evt) {
             this.benefitApp.childWithDisabilityCount = evt;
@@ -291,47 +286,21 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
-
     childCountExceedError(): boolean {
-        if ((this.benefitApp.childWithAttendantCareCount && this.benefitApp.numberOfChildrenWithDisability) && this.benefitApp.childrenCount) {
-            const childcount = this.benefitApp.childrenCount * 1;
-            const childDeclaredForbenefit = ((this.benefitApp.childWithAttendantCareCount * 1) + (this.benefitApp.numberOfChildrenWithDisability * 1));
+        if (
+            (this.benefitApp.childWithAttendantCareCount && this.benefitApp.numberOfChildrenWithDisability) &&
+            this.benefitApp.childrenCount
+        ) {
+            const childcount = this.benefitApp.childrenCount;
+            const childDeclaredForbenefit = (
+                (this.benefitApp.childWithAttendantCareCount) + (this.benefitApp.numberOfChildrenWithDisability)
+            );
 
-            return childDeclaredForbenefit > childcount ? true : false ;
+            return childDeclaredForbenefit > childcount ? true : false;
         } else {
             return false;
         }
     }
-
-    updateChildAttendantCareCount(evt: number){
-        console.log(evt);
-        if (!evt) {
-            return null;
-        } else {
-            const n = !!evt && !isNaN(evt) ? evt  : 0;
-            return n;
-        }
-    }
-       /* if (evt) {
-            this.benefitApp.childWithDisabilityCount = evt;
-            if (this.benefitApp.childWithDisabilityCount > this.benefitApp.childrenCount) {
-                this.chldCountExceededError = true;
-            }
-            this.dataService.saveBenefitApplication();
-        } else {
-            console.log(this.benefitApp.childWithDisabilityCount);
-            this.benefitApp.childWithDisabilityCount = null;
-        }*
-    }
-
-   /* setAgeOver65(evt: boolean) {
-        if (evt) {
-            this.dataService.benefitApp.ageOver65 = true;
-        } else {
-            this.dataService.benefitApp.ageOver65 = false;
-        }
-         this.dataService.saveBenefitApplication();
-    }*/
 
     setHasSpouse(hasSpouse: boolean) {
         this.benefitApp.hasSpouse = hasSpouse;
@@ -346,30 +315,23 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this.dataService.saveBenefitApplication();
     }
 
-   /* setchildren(evt: boolean) {
-        if (evt) {
-            this.dataService.benefitApp.haveChildrens = true;
-        } else {
-            this.dataService.benefitApp.haveChildrens = false;
-        }
-    }*/
-
     ngDoCheck(){
         this.qualifiedForAssistance = this.benefitApp.eligibility.adjustedNetIncome <= this.qualificationThreshhold;
         // fix for DEF-91
         this.requireAttendantCareReceipts = this.benefitApp.applicantClaimForAttendantCareExpense ||
-            this.benefitApp.spouseClaimForAttendantCareExpense || this.benefitApp.childClaimForAttendantCareExpense;
+            this.benefitApp.spouseClaimForAttendantCareExpense ||
+            this.benefitApp.childClaimForAttendantCareExpense;
     }
 
     checkSelfDisabilityCredit(evt: any) {
        // console.log(evt);
-        this.dataService.benefitApp.applicantEligibleForDisabilityCredit = evt;
+        this.benefitApp.applicantEligibleForDisabilityCredit = evt;
         this.dataService.saveBenefitApplication();
     }
 
     applicantClaimDataChange(evt: boolean) {
         if (evt && this.benefitApp.applicantEligibleForDisabilityCredit !== true) {
-            this.dataService.benefitApp.applicantClaimForAttendantCareExpense = evt;
+            this.benefitApp.applicantClaimForAttendantCareExpense = evt;
             this.dataService.saveBenefitApplication();
         } else {
             this.isDisabled = true;
@@ -377,37 +339,37 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     toggleClaimForSelfDisabilityCredit(evt: Event): void {
-        //console.log(evt.defaultPrevented);
+        this.benefitApp.applicantEligibleForDisabilityCredit = !this.benefitApp.applicantEligibleForDisabilityCredit;
 
-        this.dataService.benefitApp.applicantEligibleForDisabilityCredit = !this.dataService.benefitApp.applicantEligibleForDisabilityCredit;
-
-        /* if (evt) {
-             this.dataService.benefitApp.applicantEligibleForDisabilityCredit = true;
-             this.applicantClaimDisabilityCredit();
-         } else {
-             this.dataService.benefitApp.applicantEligibleForDisabilityCredit = false;
-         }*/
-
-         if (this.dataService.benefitApp.applicantEligibleForDisabilityCredit === true && this.showNursingError) {
+        if (
+            this.benefitApp.applicantEligibleForDisabilityCredit === true &&
+            this.showNursingError
+        ) {
             this.showNursingError = false;
          }
 
-         if (this.dataService.benefitApp.applicantClaimForAttendantCareExpense === true && this.dataService.benefitApp.applicantEligibleForDisabilityCredit === true) {
-             evt.preventDefault();
-             this.showNursingError = true;
-         }
+        if (
+            this.benefitApp.applicantClaimForAttendantCareExpense === true &&
+            this.benefitApp.applicantEligibleForDisabilityCredit === true
+        ) {
+            evt.preventDefault();
+            this.showNursingError = true;
+        }
 
          this.dataService.saveBenefitApplication();
      }
 
      applicantClaimForAttendantCare(claimMade: boolean) {
-        if (claimMade && this.dataService.benefitApp.applicantEligibleForDisabilityCredit === true) {
+        if (claimMade && this.benefitApp.applicantEligibleForDisabilityCredit) {
             this.showDisabilityError = true;
-            this.preventApplicantDisabilityCreditClaim();
-        } else {
+
+            this.claimCategory = this.CREDIT_CLAIM_CATEGORY.DISABILITY;
+            this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY.ATTENDANT_CARE;
+            this.claimant = this.CREDIT_CLAIMANT.APPLICANT;
+        }else{
             this.showDisabilityError = false;
             this.benefitApp.applicantClaimForAttendantCareExpense = claimMade;
-            this.dataService.benefitApp.applicantAttendantCareExpense = claimMade
+            this.benefitApp.applicantAttendantCareExpense = claimMade
                 ? ATTENDANT_CARE_CLAIM_AMT
                 : 0;
         }
@@ -415,13 +377,19 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this.dataService.saveBenefitApplication();
     }
 
-    spouseClaimForAttendantCare(claimMade: boolean) {
-        if (claimMade && this.benefitApp.spouseEligibleForDisabilityCredit) {
-            this.preventSpouseDisabilityCreditClaim();
+    spouseClaimForAttendantCare(claimMade: boolean){
+        if (
+            claimMade &&
+            this.benefitApp.spouseEligibleForDisabilityCredit
+        ) {
+            this.claimCategory = this.CREDIT_CLAIM_CATEGORY.ATTENDANT_CARE;
+            this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY.DISABILITY;
+            this.claimant = this.CREDIT_CLAIMANT.SPOUSE;
         } else {
+            this.benefitApp.spouseClaimForAttendantCareExpense = claimMade;
             this.showDisabilityError = false;
             this.benefitApp.spouseClaimForAttendantCareExpense = claimMade;
-            this.dataService.benefitApp.spouseAttendantCareExpense = claimMade
+            this.benefitApp.spouseAttendantCareExpense = claimMade
                 ? ATTENDANT_CARE_CLAIM_AMT
                 : 0;
         }
@@ -429,12 +397,12 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this.dataService.saveBenefitApplication();
     }
 
-    updateChildren(evt: boolean) {
-        this.dataService.benefitApp.haveChildrens = evt;
+    updateChildren(haveChildren: boolean) {
+        this.benefitApp.haveChildrens = haveChildren;
 
-        if (!evt) {
-            this.dataService.benefitApp.childrenCount = 0;
-            this.dataService.benefitApp.claimedChildCareExpense_line214 = null;
+        if (!haveChildren) {
+            this.benefitApp.childrenCount = 0;
+            this.benefitApp.claimedChildCareExpense_line214 = null;
             this.benefitApp.childClaimForDisabilityCredit = false;
             this.benefitApp.childClaimForAttendantCareExpense = false;
         }
@@ -485,47 +453,47 @@ export class BenefitPrepareComponent  extends BaseComponent  {
      * Prevent applicant from claiming disability credit
      */
     private preventApplicantDisabilityCreditClaim() {
-        this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[0];
-        this.claimCategory = this.CREDIT_CLAIM_CATEGORY[1];
-        this.claimant = this.CREDIT_CLAIMANT[0];
+        this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY.DISABILITY;
+        this.claimCategory = this.CREDIT_CLAIM_CATEGORY.ATTENDANT_CARE;
+        this.claimant = this.CREDIT_CLAIMANT.APPLICANT;
     }
 
     /**
      * Prevent spouse from claiming disability credit
      */
-     private preventSpouseDisabilityCreditClaim() {
-        this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[1];
-        this.claimCategory = this.CREDIT_CLAIM_CATEGORY[0];
-        this.claimant = this.CREDIT_CLAIMANT[1];
+    private preventSpouseDisabilityCreditClaim(){
+        this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY.ATTENDANT_CARE;
+        this.claimCategory = this.CREDIT_CLAIM_CATEGORY.DISABILITY;
+        this.claimant = this.CREDIT_CLAIMANT.SPOUSE;
     }
 
+    // @todo Remove this? Appears to be unused
     switchClaim(...args: string[]){
         //for self
-        if (args[0] === this.CREDIT_CLAIMANT[0]){
-            if (args[2] === this.CREDIT_CLAIM_CATEGORY[0]){
+        if (args[0] === this.CREDIT_CLAIMANT.APPLICANT) {
+            if (args[2] === this.CREDIT_CLAIM_CATEGORY.DISABILITY) {
                 // The counter claim is disability credit, now user has opted to switch to
                 // apply for nursing home expense
                 this.benefitApp.applicantClaimForAttendantCareExpense = true;
                 this.benefitApp.selfDisabilityCredit = false;
 
-            }else if (args[2] === this.CREDIT_CLAIM_CATEGORY[1]){
+            } else if (args[2] === this.CREDIT_CLAIM_CATEGORY.ATTENDANT_CARE) {
                 // apply disability credit
                 this.benefitApp.applicantClaimForAttendantCareExpense = false;
                 //this.benefitApp.selfDisabilityCredit = true;
             }
-        }else if (args[0] === this.CREDIT_CLAIMANT[1]){
+        } else if (args[0] === this.CREDIT_CLAIMANT.SPOUSE) {
             // for spouse
-            if (args[2] === this.CREDIT_CLAIM_CATEGORY[0]){
+            if (args[2] === this.CREDIT_CLAIM_CATEGORY.DISABILITY) {
                 // apply disability credit
                 this.benefitApp.spouseClaimForAttendantCareExpense = true;
                 this.benefitApp.spouseEligibleForDisabilityCredit = false;
-            }else if (args[2] === this.CREDIT_CLAIM_CATEGORY[1]){
+            } else if (args[2] === this.CREDIT_CLAIM_CATEGORY.ATTENDANT_CARE) {
                 // apply nursing home expense
                 this.benefitApp.spouseClaimForAttendantCareExpense = false;
                 this.benefitApp.spouseEligibleForDisabilityCredit = true;
             }
         }
-
     }
 
     get getFinanialInfoSectionTitle(){
@@ -537,7 +505,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
- /*   selectNursingOrDisabilityError(): boolean {
+    /*selectNursingOrDisabilityError(): boolean {
         let currentSelectedProgram;
         let otherProgram;
 
@@ -552,42 +520,52 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             currentSelectedProgram = 'disability credit';
             otherProgram = 'nursing home expense';
         }
-        return false;*/
-//        let error =  this.lang('./en/index.js').selectNursingHomeOrDisabilityError.replace('{program}', currentSelectedProgram);
-  //      error = this.lang('./en/index.js').selectNursingHomeOrDisabilityError.replace('{otherProgram}', otherProgram);
-    //    return error;
+
+        return false;
+
+        // let error =  this.lang('./en/index.js').selectNursingHomeOrDisabilityError.replace('{program}', currentSelectedProgram);
+        // error = this.lang('./en/index.js').selectNursingHomeOrDisabilityError.replace('{otherProgram}', otherProgram);
+        // return error;
+    }*/
 
     get getSpouseFinanialInfoSectionTitle(){
         if (!!this.benefitApp.taxYear){
-            return this.lang('./en/index.js').whatIsYourSpouseOrPartnerIncome.replace('{userSelectedMostRecentTaxYear}',
-                this.benefitApp.taxYear);
-        } else {
+            return this
+                .lang('./en/index.js')
+                .whatIsYourSpouseOrPartnerIncome
+                .replace(
+                    '{userSelectedMostRecentTaxYear}',
+                    this.benefitApp.taxYear
+                );
+        }else{
             return this.lang('./en/index.js').whatIsYourSpouseOrPartnerIncome;
         }
     }
 
     get getDisablityCreditTitle() {
-        return this.lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear.replace(
-            '{userSelectedMostRecentTaxYear}',
-            this.benefitApp.taxYear
-        );
+        return this
+            .lang('./en/index.js')
+            .didAnyoneClaimDisabilityTaxCreditLastYear
+            .replace(
+                '{userSelectedMostRecentTaxYear}',
+                this.benefitApp.taxYear
+            );
     }
 
     updateDisabilityCredit(evt: boolean){
-
         if (!evt) {
-            this.dataService.benefitApp.applicantEligibleForDisabilityCredit = false;
+            this.benefitApp.applicantEligibleForDisabilityCredit = false;
             this.benefitApp.spouseEligibleForDisabilityCredit = false;
             this.benefitApp.childClaimForDisabilityCredit = false;
             this.benefitApp.childWithDisabilityCount = 0;
         }
+
         this.benefitApp.selfDisabilityCredit = evt;
         this.dataService.saveBenefitApplication();
     }
-
     updateRegisteredDisabilityPlan(evt: boolean) {
         if (!evt) {
-            this.dataService.benefitApp.spouseDSPAmount_line125 = null;
+            this.benefitApp.spouseDSPAmount_line125 = null;
         }
 
         this.benefitApp.hasRegisteredDisabilityPlan = evt;
@@ -596,11 +574,11 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     updateNursingHomeExpense(evt: boolean) {
         if (!evt) {
-            this.dataService.benefitApp.applicantClaimForAttendantCareExpense = evt;
-            this.dataService.benefitApp.spouseClaimForAttendantCareExpense = evt;
-            this.dataService.benefitApp.childClaimForAttendantCareExpense = evt;
-            this.dataService.benefitApp.childClaimForAttendantCareExpenseCount = 0;
-            this.dataService.benefitApp.attendantCareExpenseReceipts = [] ;
+            this.benefitApp.applicantClaimForAttendantCareExpense = evt;
+            this.benefitApp.spouseClaimForAttendantCareExpense = evt;
+            this.benefitApp.childClaimForAttendantCareExpense = evt;
+            this.benefitApp.childClaimForAttendantCareExpenseCount = 0;
+            this.benefitApp.attendantCareExpenseReceipts = [] ;
         }
 
         this.benefitApp.hasClaimedAttendantCareExpenses = evt;
@@ -608,21 +586,32 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     get didAnyoneClaimAttendantCareLastYear() {
-        return this.lang('./en/index.js').didAnyoneClaimAttendantCareLastYear.replace('{userSelectedMostRecentTaxYear}',
-        this.benefitApp.taxYear);
-
+        return this
+            .lang('./en/index.js')
+            .didAnyoneClaimAttendantCareLastYear
+            .replace(
+                '{userSelectedMostRecentTaxYear}',
+                this.benefitApp.taxYear
+            );
     }
 
     onTaxYearUpdate(taxYear: number){
         this.benefitApp.taxYear = taxYear;
 
-        if (this.dataService.benefitApp.applicant.assistYearDocs && this.dataService.benefitApp.applicant.assistYearDocs.length > 0) {
-            this.dataService.benefitApp.applicant.assistYearDocs = [];
+        if (
+            this.benefitApp.applicant.assistYearDocs &&
+            this.benefitApp.applicant.assistYearDocs.length > 0
+        ) {
+            this.benefitApp.applicant.assistYearDocs = [];
         }
 
-        if (this.dataService.benefitApp.spouse.assistYearDocs && this.dataService.benefitApp.spouse.assistYearDocs.length > 0) {
-            this.dataService.benefitApp.spouse.assistYearDocs = [];
+        if (
+            this.benefitApp.spouse.assistYearDocs &&
+            this.benefitApp.spouse.assistYearDocs.length > 0
+        ) {
+            this.benefitApp.spouse.assistYearDocs = [];
         }
+
         this.dataService.saveBenefitApplication();
     }
 

@@ -138,27 +138,26 @@
                         </div>
                         
                         <div *ngIf="benefitApp.haveChildrens" class="sub-section">
-                            
+
                                 <div class="col-md-8">
-                                   
+
                                     <!-- Children Count-->        
                                     <div class="form-group">
                                         <label  for="childrenCount" [innerHtml]="'How many children do you have on your account?'">
                                         </label>
-                                       
-                                        <input type="text" class="form-control col-md-2" name="childrenCount"
+
+                                        <input type="number" class="form-control col-md-2" name="childrenCount"
+                                            pattern="\b([1-9]|1[0-9]|2[0-9])\b"
                                             id="childrenCount"
-                                            maxlength="2"
                                             #childCount="ngModel"
-                                            pattern="^[0-9]{0,2}?$"
                                             [(ngModel)]="benefitApp.childrenCount">
-                                    
-                                        <div  class="text-danger" *ngIf="childCount.errors?.pattern || benefitApp.childrenCount > 29"
+
+                                        <div  class="text-danger" *ngIf="childCount.errors?.pattern || benefitApp.childrenCount === null"
                                             [innerHTML]="'Children count must be numeric and in between 1-29'">
-                                        </div>              
+                                        </div>
                             
                                     </div>
-                                    
+
                                     <!-- Claim for Child Care Expense -->     
                                     <div class="form-group">
                                         <label for="line214">
