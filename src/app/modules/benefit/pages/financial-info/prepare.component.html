@@ -175,7 +175,7 @@
                                                 [required]="benefitApp.haveChildrens"
                                                 pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                                 #line214Ref="ngModel"
-												maxlength="9"
+                                                maxlength="9"
                                                 [(ngModel)]="benefitApp.claimedChildCareExpense_line214">
                                         </div>
                                         <div class="text-danger" *ngIf="(line214Ref.touched && line214Ref.errors?.required)"
@@ -207,7 +207,8 @@
                                     <div class="form-group d-flex">
                                         <div class="form-check form-check-inline">
                                                 <common-checkbox label="Myself"
-                                                    (click)="toggleClaimForSelfDisabilityCredit($event)"
+                                                    (click)="disabilityClicked($event, Claimant.APPLICANT)"
+                                                    (dataChange)="applicantClaimForDisabilityCredit($event)"
                                                     [data]="benefitApp.applicantEligibleForDisabilityCredit" >
                                                 </common-checkbox> 
                                         </div>
@@ -216,8 +217,8 @@
                                             <div><!--benefitApp.hasSpouse-->
                                                <common-checkbox label="My spouse/common-law partner"
                                                     [disabled]="!benefitApp.hasSpouse"
-                                                    (click)="spouseDisabilityClicked($event)"
-                                                    (dataChange)="toggleClaimForSpouseDisabilityCredit($event)"
+                                                    (click)="disabilityClicked($event, Claimant.SPOUSE)"
+                                                    (dataChange)="spouseClaimForDisabilityCredit($event)"
                                                     [data]="benefitApp.spouseEligibleForDisabilityCredit" >
                                                 </common-checkbox>
                                             </div>
@@ -327,6 +328,7 @@
                                     <div class="form-check form-check-inline">
                                         <common-checkbox label="Myself"
                                             (dataChange)="applicantClaimForAttendantCare($event)"
+                                            (click)="nursingClicked($event, Claimant.APPLICANT)"
                                             [data]="benefitApp.applicantClaimForAttendantCareExpense" >
                                         </common-checkbox> 
 
@@ -336,7 +338,7 @@
                                         <div class="form-check form-check-inline">
                                                 <common-checkbox label="My spouse/common-law partner"
                                                     [disabled]="!benefitApp.hasSpouse"
-                                                    (click)="spouseNursingClicked($event)"
+                                                    (click)="nursingClicked($event, Claimant.SPOUSE)"
                                                     (dataChange)="spouseClaimForAttendantCare($event)"
                                                     [data]="benefitApp.spouseClaimForAttendantCareExpense" >
                                                 </common-checkbox> 
@@ -372,15 +374,14 @@
                                 <input type="text" class="form-control" name="childClaimForAttendantCareExpenseCount"
                                         id="childClaimForAttendantCareExpenseCount"
                                         #attendantCareCount="ngModel"
-                                        pattern="^[0-9]{0,2}?$"
-                                        maxlength="2"
+                                        pattern="\b([1-9]|1[0-9]|2[0-9])\b"
                                         [(ngModel)]="benefitApp.childWithAttendantCareCount" >
                             </div>
                             <div style="margin-left:15px;"  class="text-danger" *ngIf="attendantCareCount.errors?.pattern"
                                     [innerHTML]="'Children count must be numeric and in between 1-29'">
                             </div>
                             <div style="margin-left:15px;" class="text-danger" *ngIf="childCountExceedError()"
-                                        [innerHTML]="'The total number of children for which you claimed disability credit and attendance care expense credit cannot exceed the total number of children on the account.'" tabindex="0">
+                                    [innerHTML]="'The total number of children for which you claimed disability credit and attendance care expense credit cannot exceed the total number of children on the account.'" tabindex="0">
                             </div>
 
                             <div style="margin-left:15px;" class="text-danger" *ngIf="benefitApp.childWithAttendantCareCount > benefitApp.childrenCount"
