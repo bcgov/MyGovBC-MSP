@@ -1,7 +1,7 @@
 export const defaultSchema = {
   id: 'moh-msp/MSPApplication.schema.json',
   $schema: 'http://json-schema.org/draft-07/schema#',
-  version: '1.0.1',
+  version: '1.0.2',
   definitions: {
     SubNameType: {
       type: 'string',
@@ -458,6 +458,9 @@ export const defaultSchema = {
         name: {
           $ref: '#/definitions/NameType'
         },
+        requestedLastName: {
+          $ref: '#/definitions/SubNameType'
+        },
         gender: {
           $ref: '#/definitions/GenderType'
         },
@@ -802,6 +805,18 @@ export const defaultSchema = {
     AssistanceSpouseType: {
       type: 'object',
       properties: {
+        name: {
+          $ref: '#/definitions/NameType'
+        },
+        birthDate: {
+          $ref: '#/definitions/MMDDYYDateType'
+        },
+        phn: {
+          $ref: '#/definitions/PHNType'
+        },
+        sin: {
+          $ref: '#/definitions/SINType'
+        },
         spouseDeduction: {
           type: 'number'
         },
@@ -812,6 +827,7 @@ export const defaultSchema = {
           $ref: '#/definitions/AttachmentUuidsType'
         }
       },
+      required: ['name', 'birthDate', 'phn', 'sin']
     },
     AssistanceApplicationType: {
       type: 'object',
@@ -843,19 +859,19 @@ export const defaultSchema = {
       type: 'object',
       properties: {
         applicantFirstName: {
-          type: 'string',
-          maxLength: 30,
+          $ref: '#/definitions/SubNameType',
           description: 'Applicant First Name'
         },
         applicantSecondName: {
-          type: 'string',
-          maxLength: 30,
+          $ref: '#/definitions/SubNameType',
           description: 'Applicant Middle Name'
         },
         applicantLastName: {
-          type: 'string',
-          maxLength: 30,
+          $ref: '#/definitions/SubNameType',
           description: 'Applicant Last Name'
+        },
+        applicantGender: {
+          $ref: '#/definitions/GenderType'
         },
         applicantBirthdate: {
           $ref: '#/definitions/MMDDYYDateType',
@@ -900,8 +916,7 @@ export const defaultSchema = {
           description: 'Applicant Country'
         },
         applicantPostalCode: {
-          $ref: '#/definitions/PostalCodeType',
-          description: 'PostalCode of Applicant'
+          $ref: '#/definitions/PostalCodeType'
         },
         applicantTelephone: {
           $ref: '#/definitions/TelephoneType',
@@ -1027,6 +1042,18 @@ export const defaultSchema = {
         spouseSixtyFiveDeduction: {
           type: 'number',
           description: 'Spouse 65 years old deduction'
+        },
+        applicantAttendantCareExpense: {
+          type: 'number',
+          description: 'Applicant Attendant Care Expense'
+        },
+        spouseAttendantCareExpense: {
+          type: 'number',
+          description: 'Spouse Attendant Care Expense'
+        },
+        childAttendantCareExpense: {
+          type: 'number',
+          description: 'Child Attendant Care Expense'
         }
       },
       required: [
@@ -1087,7 +1114,6 @@ export const defaultSchema = {
   },
   title: 'Application',
   type: 'object',
-
   properties: {
     enrolmentApplication: {
       $ref: '#/definitions/EnrolmentApplicationType'
