@@ -54,7 +54,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   addressLines = 0;
 
   title = 'Contact Info';
-  subtitle = 'Provide your contact information.';
+  subtitle = 'Provide the Account Holder\'s contact information.';
   mailTitle = 'Mailing Address';
   mailSubtitle = 'Enter your <strong>current</strong> mailing address';
   phoneTitle = 'Phone';
