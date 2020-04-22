@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AccountChangeOptions, MspAccountApp, UpdateList } from 'app/modules/account/models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { CanadianStatusStrings, StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
@@ -18,6 +18,7 @@ export class AddSpouseComponent extends Base implements OnInit {
   @Input() accountChangeOptions: AccountChangeOptions;
   @Input() spouse: MspPerson;
   @Input() accountApp: MspAccountApp;
+  @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
   status: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident];
   supportDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
 
@@ -34,17 +35,17 @@ export class AddSpouseComponent extends Base implements OnInit {
     this.accountApp = this.dataService.accountApp;
   }
 
-  onChange($event) {
-    console.log($event);
-    console.log(this.spouse);
-    //this.dataService.saveMspAccountApp();
-  }
+  // onChange($event) {
+  //   console.log($event);
+  //   console.log(this.spouse);
+  //   //this.dataService.saveMspAccountApp();
+  // }
 
   setGender(evt: any) {
     this.spouse.gender = evt;
     console.log(this.spouse);
     console.log(evt);
-    // this.onChange.emit(evt);
+    this.onChange.emit(evt);
   }
 
   get items() {
