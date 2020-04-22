@@ -73,7 +73,7 @@
       </div>
     </msp-support-documents>
     <msp-support-documents
-      *ngIf="spouse.additionalDoc"
+      *ngIf="spouse.hasNameChangeAdditional"
       [supportDocList]="spouseNameChangeDocList"
       [(supportDoc)]="spouse.nameChangeAdditionalDocs">
     </msp-support-documents>
