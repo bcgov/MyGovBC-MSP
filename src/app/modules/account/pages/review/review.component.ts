@@ -19,6 +19,7 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
     mspAccountApp: MspAccountApp;
     captchaApiBaseUrl: string;
     @ViewChild(NgForm) form: NgForm;
+    //index = 0;
 
     constructor(public dataService: MspAccountMaintenanceDataService,
                     protected router: Router,  private pageStateService: PageStateService) {
@@ -59,6 +60,11 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
     get accountContactInfoUrl() {
         return ProcessUrls.ACCOUNT_CONTACT_INFO_URL;
     }
+
+    // get addChildTitle() {
+    //     this.index++;
+    //     return 'Add Child Information #' + this.index;
+    // }
 
     get spouseForAuthorisation(): MspPerson {
         if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.addedSpouse) {

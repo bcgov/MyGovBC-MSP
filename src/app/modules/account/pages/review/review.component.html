@@ -53,11 +53,11 @@
     </div> -->
 
     <div class="row" *ngIf="mspAccountApp.addedChildren.length > 0">
-            <ng-container *ngFor="let child of mspAccountApp.addedChildren; let i = index;">
+            <ng-container *ngFor="let child of mspAccountApp.addedChildren; let i = index; let setIndex">
                 <div class="clearfix" *ngIf="i % 2 == 0"></div>
                 <div class="col-lg-6">
                     <msp-person-card [person]="child" [accountCard]=true
-                                    [customTitle]="lang('./en/index.js').addChildTitle"
+                                    [customTitle]="Add Children Information #{{i}}"
                                      [editRouterLink]="accountChildInfoUrl"></msp-person-card>
                 </div>
             </ng-container>
