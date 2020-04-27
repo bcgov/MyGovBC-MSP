@@ -15,7 +15,7 @@ module.exports = {
   addSpouseTitle:'Add Spouse Information',
   removeSpouseTitle:'Remove Spouse Information',
   updateSpouseTitle:'Update Spouse Information',
-  addChildTitle:'Add Child Information',
+  addChildTitle:'Add Child #',
   removeChildTitle:'Remove Child Information',
   updateChildTitle:'Update Child Information',
   }
