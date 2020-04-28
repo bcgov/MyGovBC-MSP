@@ -1,92 +1,32 @@
 <common-page-framework layout="blank">
     <form #formRef="ngForm" novalidate>
     <div class="col-lg-8">   
-    <h1> <strong>Authorize and submit your application</strong> </h1> <br> 
-     <p>I have received information about MSP and agree to abide by its terms and conditions. I understand the information I have given is collected under the authority of the Medicare Protection Act and may be used to assess eligibility for other Ministry of Health programs, and that practitioners who provide service(s) under MSP are required under the Medicare Protection Act to release information relative to those services to MSP to support claims for benefits.</p> 
-     <p>I declare that all information provided is true and I understand that the Ministry of Health and/or Health Insurance BC may verify this information with immigration authorities, law enforcement authorities and other public authorities, agencies and persons, as appropriate.</p>
-     <p>I agree to keep my address up to date with Health Insurance BC, notifying them of any changes within 10 days of moving. I declare that all persons listed are residents of British Columbia. Resident means a person who is a citizen of Canada or is lawfully admitted to Canada for permanent residence, who makes his or her home in British Columbia, and is physically present in British Columbia for at least six months in a calendar year, or a shorter prescribed period, and includes a person who is deemed under the regulations to be a resident, but does not include a tourist or visitor to British Columbia.</p>
-    
-
-<!--    <button tabindex="0" class="btn btn-default" onclick="window.print();return false;">
-        <i class="fa fa-print fa-lg pointer"
-           aria-hidden="true"></i>
-        Print
-    </button>
-    <h3 [innerHtml]="lang('./en/index.js').printForRecord"></h3> -->
-
-    <!--div class="row">
-        <div class="col-lg-6">
-            <msp-person-card [accountCard]=true [person]="mspAccountApp.applicant" [customTitle]="lang('./en/index.js').applicantTitle" [customLinkTitle]="lang('./en/index.js').applicantLinkTitle"
-                             [editRouterLink]="mspAccountApp.accountChangeOptions.hasAnyPISelected()  ? accountPIUrl :accountDependentUrl"></msp-person-card>
-        </div>
-        <div class="col-lg-6" *ngFor="let spouse of mspAccountApp.getallSpouses(); let i = index;">
-
-            <msp-person-card  [accountCard]=true [person]="spouse"
-                             [editRouterLink]="spouse.operationActionType == 2 ? accountPIUrl :accountDependentUrl "></msp-person-card>
-        </div>
-    </div> 
-
-    <div class="row" *ngIf="mspAccountApp.getAllChildren() != null && mspAccountApp.getAllChildren().length > 0">
-        <ng-container *ngFor="let child of mspAccountApp.getAllChildren(); let i = index;">
-            <div class="clearfix" *ngIf="i % 2 == 0"></div>
-            <div class="col-lg-6">
-                <msp-person-card [person]="child" [accountCard]=true
-                                 [editRouterLink]="child.operationActionType == 2 ? accountPIUrl :accountDependentUrl"></msp-person-card>
-            </div>
-        </ng-container>
-    </div>
-
-    <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
-        <div class="col-lg-12">
-            <h2 [innerHtml]="lang('./en/index.js').docTitle"></h2>
-            <h3 [innerHtml]="lang('./en/index.js').docConfirmTitle"></h3>
-        </div>
-
-    </div>
-
-    <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="person-card-preview-zone">
-                        <div *ngFor="let mspImage of mspAccountApp.documents" class="preview-item">
-                            <common-thumbnail [imageObject]="mspImage" [reviewMode]="true">
-                            </common-thumbnail>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
+    <h1> <strong>Authorize and submit your request</strong> </h1> <br> 
+    <p>
+        I have received information about Medical Services Plan and agree to abide by its terms and conditions. 
+        I understand the information I have given is collected under the authority of the 
+        <i>Medicare Protection Act</i> and may be used to assess eligibility for other Ministry of Health programs, 
+        and that practitioners who provide service(s) under Medical Services Plan are required under the 
+        <i>Medicare Protection Act</i> to release information relative to those services to Medical Services Plan 
+        to support claims for benefits.
+    </p>
+    <p>
+        I declare that all information provided is true and I understand that the Ministry of Health
+        and/or Health Insurance BC may verify this information with immigration authorities, law enforcement 
+        authorities and other public authorities, agencies and persons, as appropriate.
+    </p>
+    <p>
+        I agree to keep my address up to date with Health Insurance BC, notifying them of any changes within 
+        10 days of moving. I declare that all persons listed are residents of British Columbia. Resident means 
+        a person who is a citizen of Canada or is lawfully admitted to Canada for permanent residence, who makes 
+        his or her home in British Columbia, and is physically present in British Columbia for at least six months 
+        in a calendar year, or a shorter prescribed period, and includes a person who is deemed under the regulations 
+        to be a resident, but does not include a tourist or visitor to British Columbia.
+    </p>
     <div class="strong" [innerHTML]="questionApplicant"></div>
     <div class="form-check form-check-inline mb-5">
         <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="applicantAuthorizeOnChange($event)" [data]="mspAccountApp.authorizedByApplicant"></common-checkbox>
-       
-      
-        <!--        <input class="input-lg form-check-input" id="firstPersonAuthorize" name="firstPersonAuthorize"
-               type="checkbox" [ngModel]="mspAccountApp.authorizedByApplicant"
-               (ngModelChange)="applicantAuthorizeOnChange($event)">
-        <label class="form-check-label" for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label> -->
-
     </div>
-    <!-- SPouse Authorization     <div *ngIf="spouseForAuthorisation" >
-            <div class="strong" [innerHTML]="questionSpouse()"></div>
-            <div class="form-check form-check-inline">
-               
-                <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="spouseUpdateAuthorizeOnChange($event)" [data]="mspAccountApp.authorizedBySpouse"></common-checkbox>
-       
-            <input class="input-lg form-check-input" id="secondPersonAuthorize-{{i}}" type="checkbox" name="secondPersonAuthorize"
-                       [ngModel]="mspAccountApp.authorizedBySpouse"
-                       (ngModelChange)="spouseUpdateAuthorizeOnChange($event)">
-                <label class="form-check-label" for="secondPersonAuthorize-{{i}}" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
-            </div>
-     </div> -->
-
-
-
-
-
     <div class="row">
         <div class="col-lg-12">
             <common-captcha name="captcha" ngModel required
@@ -101,7 +41,6 @@
         </div>
     </div>
     <hr>
-
   </div>
 </form>
 </common-page-framework>
