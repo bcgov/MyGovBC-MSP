@@ -1,7 +1,7 @@
-import {ChangeDetectorRef, Component, ViewChild, ViewChildren , QueryList, Input } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {BaseComponent} from '../../.././../../models/base.component';
-import {AccountPersonalDetailsComponent} from '../../../components/personal-details/personal-details.component';
+import { ChangeDetectorRef, Component, ViewChild, ViewChildren , QueryList, Input } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { BaseComponent } from '../../.././../../models/base.component';
+import { AccountPersonalDetailsComponent } from '../../../components/personal-details/personal-details.component';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 import { spouseRemovedDueToDivorceDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
@@ -36,10 +36,7 @@ export class RemoveSpouseComponent extends BaseComponent {
   spouseRemoveDocs = spouseRemovedDueToDivorceDocuments();
 
   constructor(public dataService: MspAccountMaintenanceDataService, cd: ChangeDetectorRef) {
-
     super(cd);
-
-
   }
 
 
@@ -61,7 +58,6 @@ export class RemoveSpouseComponent extends BaseComponent {
       this.spouse.reasonForCancellation = evt;
     }
     //this.dataService.saveMspAccountApp();
-
   }
 
   handleAddressUpdate(evt: any){
@@ -71,9 +67,8 @@ export class RemoveSpouseComponent extends BaseComponent {
    // this.dataService.saveMspAccountApp();
   }
 
-
   get cancellationReasons() {
-    return[
+    return [
       {
         'label': 'Seperated/Divorced',
         'value': CancellationReasons.SeparatedDivorced
@@ -98,7 +93,6 @@ export class RemoveSpouseComponent extends BaseComponent {
         'label': 'Incarcerated',
         'value': CancellationReasons.Incarcerated
       },
-  ];}
-
-
+    ];
+  }
 }

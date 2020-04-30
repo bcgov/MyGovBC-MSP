@@ -2,50 +2,36 @@
   <form #formRef="ngForm" novalidate>
     <h1><strong>Manage child information on your account</strong></h1>
     <p>
-        Use this section to add a child to your account, remove a child from your account, or update the legal name, birthdate and /or gender of a child currently on your Medical Services Plan account.
+      A child is a resident of B.C. who: is a child of a beneficiary or a person who stands in place of a parent;
+      is a minor; does not have a spouse; and is supported by the beneficiary.
     </p>
-    <div class="col-8">  
-      <p>
-          A child is a resident of B.C. who:
-      </p>
-      <ul>
-          <li>
-              is a child of a beneficiary or a person who stands in place of a parent;
-          </li>
-          <li>
-              is a minor;
-          </li>
-          <li>
-              does not have a spouse; and
-          </li>
-          <li> 
-              is supported by the beneficiary.
-          </li>
-      </ul>
-    </div>
+    <p>
+      Use this section to add a child to your account, remove a child from your account, or update the legal name,
+      birthdate and / or gender of a child currently on your Medical Services Plan account.
+    </p>
     <hr>
     <div class="row">
       <!--Add Child button -->
       <div class="col-2">
-        <common-button [label]="'Add Child'" 
+        <common-button [label]="'Add Child'"
           [buttonType]="'btn btn-primary'" (btnClick)='addChildBtnClick()'>
         </common-button>
       </div>
       <!--Remove Child button -->
       <div class="col-2">
-        <common-button [label]="'Remove Child'" 
+        <common-button [label]="'Remove Child'"
           [buttonType]="'btn btn-primary'" (btnClick)='removeChildBtnClick();'>
         </common-button>
       </div>
       <!--Update Child button -->
       <div class="col-2 ">
-        <common-button [label]="'Update Child'" 
+        <common-button [label]="'Update Child'"
           [buttonType]="'btn btn-primary'" (btnClick)='updateChildBtnClick();'>
         </common-button>
-      </div> 
+      </div>
     </div>
     <br>
-    <!--Add Child Section -->   
+    <!--Add Child Section -->
       <div *ngFor="let child of children; let idx = index">
         <h2><strong>Add Child #{{children.length - idx}}</strong></h2>
         <common-xicon-button label='Remove' (click)="removeChild(idx, child.operationActionType)"></common-xicon-button>
@@ -62,7 +48,9 @@
         <h2><strong>Remove Child #{{removedChildren.length - idx}}</strong></h2>
         <common-xicon-button label='Remove' (click)="removeChild(idx, child.operationActionType);"></common-xicon-button>
         <p class="border-bottom">
-            If you are removing a child, you do not need to upload supporting documentation. However, a child 0-18 years of age must have coverage under another account. A child 19 years of age or over will be automatically set up on their own account.
+            If you are removing a child, you do not need to upload supporting documentation.
+            However, a child 0-18 years of age must have coverage under another account.
+            A child 19 years of age or over will be automatically set up on their own account.
         </p>
         <msp-remove-child [child]="child" [index]="idx">
         </msp-remove-child>
@@ -71,18 +59,21 @@
 
     <!--Update Child Section -->
     <div *ngFor="let child of updatedChildren; let idx = index">
-          <h2><strong>Update Child #{{updatedChildren.length - idx}}</strong></h2>
-      
-          <common-xicon-button label='Remove' (click)="removeChild(idx, child.operationActionType)"></common-xicon-button>
-          <p class="border-bottom">
-              Please provide personal information of the child currently on your account. If you are requesting an update or correction to the child’s name, birthdate or gender, please provide the new information here.
-          </p>
-          <msp-update-child [child]="child" [index]="idx">
-          </msp-update-child>
+        <h2><strong>Update Child #{{updatedChildren.length - idx}}</strong></h2>
+        <common-xicon-button label='Remove' (click)="removeChild(idx, child.operationActionType)"></common-xicon-button>
+        <p class="border-bottom">
+            Please provide personal information of the child currently on your account.
+            If you are requesting an update or correction to the child’s name, birthdate or gender,
+            please provide the new information here.
+        </p>
+        <msp-update-child [child]="child" [index]="idx">
+        </msp-update-child>
     </div>
-  </form>    
+  </form>
 </common-page-framework>
-<common-form-action-bar [defaultColor]="false"  [submitLabel]="hasChild? 'Continue':'No Child'"
-                        [canContinue]="canContinue()"
-                        (btnClick)="continue()">
+<common-form-action-bar
+    [defaultColor]="false"
+    [submitLabel]="hasChild? 'Continue':'No Child'"
+    [canContinue]="canContinue()"
+    (btnClick)="continue()">
 </common-form-action-bar>

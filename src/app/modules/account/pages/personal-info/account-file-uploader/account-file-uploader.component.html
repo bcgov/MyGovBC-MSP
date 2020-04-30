@@ -1,6 +1,6 @@
 <h2><strong>{{title}}</strong></h2>
 <p class="border-bottom">{{subtitle}}</p>
-           
+
 <label for="objectId" class="control-label">Document Type</label>
 <div class="form-group">
     <select style="width:250px;" class="custom-select" [id]="objectId" [(ngModel)]="docStatus">
@@ -15,9 +15,9 @@
 
 <common-xicon-button label='Remove' (click)="remove()"></common-xicon-button>
 
-<div  class="row">        
-  <div class="col-8" style="margin-bottom: 15px;">      
-      <common-file-uploader 
+<div  class="row">
+  <div class="col-8" style="margin-bottom: 15px;">
+      <common-file-uploader
           [images]="doc"
           [id]='accountApp.id'
           instructionText="Click add, or drag and drop file into this box">
@@ -46,15 +46,15 @@
                       <li>
                               Your net income (line 236)
                       </li>
-                      
-                      <li> 
+
+                      <li>
                           If you have a Registered Disability Savings Plan (line 125)
                       </li>
                   </ul>
               </div>
           </div>
-      </aside> 
-  </div>  
+      </aside>
+  </div>
   <!-- TIP -->
 
 </div>

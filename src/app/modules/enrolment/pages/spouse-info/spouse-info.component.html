@@ -3,19 +3,19 @@
 
     <h1>Add spouse information and upload documents</h1>
     <p class="border-bottom">
-      Do you have a spouse or common-law partner who also needs to enrol for MSP coverage? 
-      If so, you are required to provide spouse information and provide supporting documents. 
+      Do you have a spouse or common-law partner who also needs to enrol for MSP coverage?
+      If so, you are required to provide spouse information and provide supporting documents.
     </p>
 
     <div class="row">
       <div class="col-sm-8">
-        <common-button label="Add Spouse" 
+        <common-button label="Add Spouse"
                       buttonType="btn btn-primary"
                       (btnClick)="addSpouse()"
                       [disabled]="hasSpouse">
         </common-button>
       </div>
-    </div>  
+    </div>
 
     <div *ngIf="hasSpouse">
         <msp-canadian-status [person]="spouse"
@@ -36,9 +36,9 @@
                             [(supportDoc)]="statusDocuments">
         <div sectionTitleInfo>
           <h3>Documents</h3>
-          <p class="border-bottom"> 
-            Provide one of the required documents to support your spouse's status in Canada. 
-            If your spouse's name has changed since their ID was issued you are also required to 
+          <p class="border-bottom">
+            Provide one of the required documents to support your spouse's status in Canada.
+            If your spouse's name has changed since their ID was issued you are also required to
             upload document to support the name change
           </p>
         </div>
@@ -46,8 +46,8 @@
         <div requestAdditionInfo>
           <div class="form-group p-sm-2">
             <common-radio name="NameChangeQuestion"
-                          [(ngModel)]="spouse.hasNameChange"  
-                          label="Has your spouse's name changed since their ID was issued due to marriage or a legal name change?" 
+                          [(ngModel)]="spouse.hasNameChange"
+                          label="Has your spouse's name changed since their ID was issued due to marriage or a legal name change?"
                           required>
             </common-radio>
           </div>
@@ -57,9 +57,9 @@
       <msp-support-documents *ngIf="requestNameChangeInfo"
                             [supportDocList]="nameChangeDocList"
                             [(supportDoc)]="spouse.nameChangeDocs">
-        <div sectionTitleInfo> 
+        <div sectionTitleInfo>
           <h3>Additional Documents</h3>
-          <p class="border-bottom"> 
+          <p class="border-bottom">
             Provide <strong>one</strong> of the required documents to support your spouse's name change.
           </p>
         </div>
@@ -69,16 +69,16 @@
         <msp-personal-information [person]="spouse">
           <div sectionTitleInfo>
             <h2>Spouse's Information</h2>
-            <p class="border-bottom"> 
+            <p class="border-bottom">
               Enter spouse's legal name, birthdate and gender.
             </p>
-          </div>     
+          </div>
         </msp-personal-information>
 
         <msp-moving-information [person]="spouse">
           <div sectionTitleInfo>
             <h2 class="border-bottom">Moving Information</h2>
-          </div>         
+          </div>
         </msp-moving-information>
       </div>
     </div>
@@ -89,4 +89,3 @@
                         [defaultColor]='false'
                         (btnClick)="continue()">
 </common-form-action-bar>
-

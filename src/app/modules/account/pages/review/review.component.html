@@ -3,13 +3,14 @@
 
     <h1>Review your request</h1>
 
-<!--   <button tabindex="0" class="btn btn-default" onclick="window.print();return false;">
+<!--
+    <button tabindex="0" class="btn btn-default" onclick="window.print();return false;">
         <i class="fa fa-print fa-lg pointer"
            aria-hidden="true"></i>
         Print
     </button>
     <h3 [innerHtml]="lang('./en/index.js').printForRecord"></h3>
---> 
+-->
 
     <div class="row">
         <div class="col-lg-6">
@@ -120,11 +121,11 @@
 </common-page-framework>
 
 <div class="position: inherit;">
-    <common-form-action-bar [defaultColor]="false" 
+    <common-form-action-bar [defaultColor]="false"
         [canContinue]="canContinue()"
         (btnClick)="continue()"
         submitLabel="Continue">
-    </common-form-action-bar>   
-    
-   
+    </common-form-action-bar>
+
+
 </div>
