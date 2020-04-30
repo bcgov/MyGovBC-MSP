@@ -1,12 +1,16 @@
 
- <msp-personal-information [person]="spouse">
-    <div sectionTitleInfo>
-        <h2>Spouse's Personal Information</h2>
-        <p class="border-bottom"> 
-        </p>
-    </div>     
+<msp-personal-information
+    [person]="spouse">
 </msp-personal-information>
 
-<msp-update-request [person]="spouse"  [accountApp]="accountApp">     
-</msp-update-request>
+<div sectionTitleInfo>
+    <h2>What updates are you requesting for your Spouse?</h2>
+    <p class="border-bottom">
+        For each update or correction selected, provide the supporting documents.
+    </p>
+</div>
 
+<msp-update-request
+    [person]="spouse"
+    [accountApp]="accountApp">
+</msp-update-request>

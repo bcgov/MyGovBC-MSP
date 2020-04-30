@@ -112,8 +112,8 @@
     </common-date>
   </div>
 
-  <!-- Has your spouses name changed due to marriage? -->
-  <div class="form-group">
+  <!-- Has your spouse's name changed due to marriage? -->
+  <!-- <div class="form-group">
     <common-radio
       [value]="spouse.updateNameDueToMarriage"
       label='Has your spouse’s name changed due to marriage?'
@@ -126,8 +126,6 @@
     *ngIf="spouse.updateNameDueToMarriage"
     [supportDocList]="spouseNameChangeDocList"
     [(supportDoc)]="spouse.nameChangeDocs">
-    [supportDocList]="spouseNameChangeDocList"
-    [(supportDoc)]="spouse.updateNameDueToMarriageDocType">
     <div sectionTitleInfo>
         <h2>Account Holder's new last name</h2>
         <p class="border-bottom">
@@ -147,8 +145,8 @@
             Provide <b>one</b> of the required documents to support your personal information update.
         </p>
     </div>
-  </msp-support-documents>
-  <!-- Has your spouses name changed due to marriage? -->
+  </msp-support-documents> -->
+  <!-- Has your spouse's name changed due to marriage? -->
 
   <msp-child-moving-information
     [person]="spouse">

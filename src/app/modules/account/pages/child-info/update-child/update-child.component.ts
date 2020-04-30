@@ -3,10 +3,6 @@ import { MspAccountMaintenanceDataService } from '../../../services/msp-account-
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 
-
-
-
-
 @Component({
   selector: 'msp-update-child',
   templateUrl: './update-child.component.html',
@@ -23,7 +19,6 @@ export class UpdateChildComponent implements OnInit {
 
   ngOnInit() {
   }
-
 
   get accountUpdateList(): UpdateList[] {
     return [
@@ -68,5 +63,4 @@ export class UpdateChildComponent implements OnInit {
       };
     });
   }*/
-
 }

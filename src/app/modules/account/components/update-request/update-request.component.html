@@ -51,32 +51,33 @@
     </common-checkbox>
 </div>
 
-<msp-support-documents
-    *ngIf="person.updateNameDueToMarriage"
-    [supportDocList]="nameChangeDueToMarriageDocs"
-    [(supportDoc)]="person.updateNameDueToMarriageDocType">
-    <div sectionTitleInfo>
-        <h2>Account Holder's new last name</h2>
-        <p class="border-bottom">
-            This name will be printed on your new BC Serives Card.
-        </p>
+<div *ngIf="person.updateNameDueToMarriage" class="add-document">
+    <msp-support-documents
+        [supportDocList]="nameChangeDueToMarriageDocs"
+        [(supportDoc)]="person.updateNameDueToMarriageDocType">
+        <div sectionTitleInfo>
+            <h2>Account Holder's new last name</h2>
+            <p class="border-bottom">
+                This name will be printed on your new BC Serives Card.
+            </p>
 
-        <div class="form-group col-sm-6 pl-0">
-            <common-name name="updateNameDueToMarriageRequestedLastName"
-                label="Requested last name"
-                [disabled]="disabled"
-                [(ngModel)]="updateNameDueToMarriageRequestedLastName"
-                maxlen="30"
-                required
-                commonValidateName>
-            </common-name>
+            <div class="form-group col-sm-6 pl-0">
+                <common-name name="updateNameDueToMarriageRequestedLastName"
+                    label="Requested last name"
+                    [disabled]="disabled"
+                    [(ngModel)]="updateNameDueToMarriageRequestedLastName"
+                    maxlen="30"
+                    required
+                    commonValidateName>
+                </common-name>
+            </div>
+
+            <p class="border-bottom">
+                Provide <b>one</b> of the required documents to support your personal information update.
+            </p>
         </div>
-
-        <p class="border-bottom">
-            Provide <b>one</b> of the required documents to support your personal information update.
-        </p>
-    </div>
-</msp-support-documents>
+    </msp-support-documents>
+</div>
 
 <!-- Update name - due to name change -->
 <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
@@ -87,17 +88,18 @@
     </common-checkbox>
 </div>
 
-<msp-support-documents
-    *ngIf="person.updateNameDueToNameChange"
-    [supportDocList]="nameChangeDueToNameChangeDocs"
-    [(supportDoc)]="person.updateNameDueToNameChangeDocType">
-    <div sectionTitleInfo>
-        <h2><strong>Documents - Update name due to name change</strong></h2>
-        <p class="border-bottom">
-            Provide <b>one</b> of the required documents to support your name change.
-        </p>
-    </div>
-</msp-support-documents>
+<div *ngIf="person.updateNameDueToNameChange" class="add-document">
+    <msp-support-documents
+        [supportDocList]="nameChangeDueToNameChangeDocs"
+        [(supportDoc)]="person.updateNameDueToNameChangeDocType">
+        <div sectionTitleInfo>
+            <h2><strong>Documents - Update name due to name change</strong></h2>
+            <p class="border-bottom">
+                Provide <b>one</b> of the required documents to support your name change.
+            </p>
+        </div>
+    </msp-support-documents>
+</div>
 
 <!-- Update gender designation - due to change -->
 <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
@@ -108,17 +110,18 @@
     </common-checkbox>
 </div>
 
-<msp-support-documents
-    *ngIf="person.updateGender"
-    [supportDocList]="genderChangeDocs"
-    [(supportDoc)]="person.updateGenderDocType">
-    <div sectionTitleInfo>
-        <h2><strong>Documents - Correct gender designation - due to change</strong></h2>
-        <p class="border-bottom">
-            Provide the required document(s) to support your personal information update.
-        </p>
-    </div>
-</msp-support-documents>
+<div *ngIf="person.updateGender" class="add-document">
+    <msp-support-documents
+        [supportDocList]="genderChangeDocs"
+        [(supportDoc)]="person.updateGenderDocType">
+        <div sectionTitleInfo>
+            <h2><strong>Documents - Correct gender designation - due to change</strong></h2>
+            <p class="border-bottom">
+                Provide the required document(s) to support your personal information update.
+            </p>
+        </div>
+    </msp-support-documents>
+</div>
 
 <!-- Correct name - due to error -->
 <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
@@ -129,17 +132,18 @@
     </common-checkbox>
 </div>
 
-<msp-support-documents
-    *ngIf="person.updateNameDueToError"
-    [supportDocList]="nameChangeDuetoErrorDocs"
-    [(supportDoc)]="person.updateNameDueToErrorDocType">
-    <div sectionTitleInfo>
-        <h2> <strong> Documents - Correct name </strong> </h2>
-        <p class="border-bottom">
-            Provide <b>one</b> of the required documents to support your personal information update.
-        </p>
-    </div>
-</msp-support-documents>
+<div *ngIf="person.updateNameDueToError" class="add-document">
+    <msp-support-documents
+        [supportDocList]="nameChangeDuetoErrorDocs"
+        [(supportDoc)]="person.updateNameDueToErrorDocType">
+        <div sectionTitleInfo>
+            <h2> <strong> Documents - Correct name </strong> </h2>
+            <p class="border-bottom">
+                Provide <b>one</b> of the required documents to support your personal information update.
+            </p>
+        </div>
+    </msp-support-documents>
+</div>
 
 <!-- Correct birthdate - due to error-->
 <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
@@ -149,17 +153,18 @@
         [data]="person.updateBirthdate"></common-checkbox>
 </div>
 
-<msp-support-documents
-    *ngIf="person.updateBirthdate"
-    [supportDocList]="genderBirthdateChangeDocs"
-    [(supportDoc)]="person.updateBirthdateDocType">
-    <div sectionTitleInfo>
-        <h2> <strong> Documents - Correct birthdate </strong> </h2>
-        <p class="border-bottom">
-            Provide <b>one</b> of the required documents to support yourpersonal information update.
-        </p>
-    </div>
-</msp-support-documents>
+<div *ngIf="person.updateBirthdate" class="add-document">
+    <msp-support-documents
+        [supportDocList]="genderBirthdateChangeDocs"
+        [(supportDoc)]="person.updateBirthdateDocType">
+        <div sectionTitleInfo>
+            <h2> <strong> Documents - Correct birthdate </strong> </h2>
+            <p class="border-bottom">
+                Provide <b>one</b> of the required documents to support yourpersonal information update.
+            </p>
+        </div>
+    </msp-support-documents>
+</div>
 
 <!-- Correct gender designation - due to error -->
 <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
@@ -170,14 +175,15 @@
     </common-checkbox>
 </div>
 
-<msp-support-documents
-    *ngIf="person.updateGenderDesignation"
-    [supportDocList]="genderBirthdateChangeDocs"
-    [(supportDoc)]="person.updateGenderDesignationDocType">
-    <div sectionTitleInfo>
-        <h2><strong>Documents - Correct gender</strong></h2>
-        <p class="border-bottom">
-            Provide <b>one</b> of the required documents to support your personal information update.
-        </p>
-    </div>
-</msp-support-documents>
+<div *ngIf="person.updateGenderDesignation" class="add-document">
+    <msp-support-documents
+        [supportDocList]="genderBirthdateChangeDocs"
+        [(supportDoc)]="person.updateGenderDesignationDocType">
+        <div sectionTitleInfo>
+            <h2><strong>Documents - Correct gender</strong></h2>
+            <p class="border-bottom">
+                Provide <b>one</b> of the required documents to support your personal information update.
+            </p>
+        </div>
+    </msp-support-documents>
+</div>
