@@ -24,7 +24,13 @@ export class AccountConfirmationComponent implements OnDestroy {
     links = environment.links;
     nextSteps: any;
     message: string;
-    
+    hasSpouseAdded: boolean;
+    hasSpouseRemoved: boolean;
+    hasPrevMSPForSpouse: boolean;
+    hasChildAdded: boolean;
+    hasChildRemoved: boolean;
+    hasPrevMSPForChild: boolean;
+
     constructor(private route: ActivatedRoute, public dataService: MspAccountMaintenanceDataService) {
 
     }
@@ -39,6 +45,12 @@ export class AccountConfirmationComponent implements OnDestroy {
                 this.confirmationNum = params['confirmationNum'];
                 this.nextSteps = params['nextSteps'];
                 this.message = params['message'];
+                this.hasSpouseAdded = params['hasSpouseAdded'];
+                this.hasSpouseRemoved = params['hasSpouseRemoved'];
+                this.hasPrevMSPForSpouse = params['hasPrevMSPForSpouse'];
+                this.hasChildAdded = params['hasChildAdded'];
+                this.hasChildRemoved = params['hasChildRemoved'];
+                this.hasPrevMSPForChild = params['hasPrevMSPForChild'];
             }
         );
     }
@@ -53,6 +65,21 @@ export class AccountConfirmationComponent implements OnDestroy {
 
     get accountApp(): MspAccountApp {
         return this.dataService.accountApp;
+    }
+
+    get hasRemovedSpouseOrChild() {
+        // console.log('HAS SPOUSE REMOVED: ' + this.hasSpouseRemoved);
+        // console.log('HAS CHILD REMOVED: ' + this.hasChildRemoved);
+        return this.hasSpouseRemoved || this.hasChildRemoved;
+    }
+
+    get hasAddedSpouseOrChildWithNoPrevMSP() {
+        if (this.hasSpouseAdded || this.hasChildAdded){
+            if (!this.hasPrevMSPForSpouse || !this.hasPrevMSPForChild){
+                return true;
+            }
+        }
+        return false;
     }
 
     ngOnDestroy() {
