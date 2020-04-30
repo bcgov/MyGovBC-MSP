@@ -18,11 +18,33 @@
 			
 			<div>
 				{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
-			</div>
-			
+			</div>		
 		</div>
 
-		<div *ngIf="isSucess" AdditionalInfo>
+		<!-- If the user added a spouse or child with NO PREVIOUS MSP, means he/she is a completely new resident
+to BC and needs to go to ICBC to get their picture taken, in this only case is when the 3rd blue box needs to be displayed.-->
+		<div *ngIf="hasAddedSpouseOrChildWithNoPrevMSP" AdditionalInfo>
+			<br>
+			<h2 class="border-bottom"><strong>Next Steps</strong></h2>
+				<common-page-section layout='noTips'>
+					<div class="next-step--container">
+						<p>
+							<i class="fa fa-2x fa-exclamation-circle next-step--color pr-2" aria-label="next steps"></i>
+						</p>
+						<div>
+								To complete MSP enrolment, adult Canadian Citizens and Permanent Residents must obtain a Photo BC 
+								Services Card by visiting an Insurance Corporation of BC (ICBC) driver licensing office. To find 
+								an ICBC driver licensing office near you, please visit <a href="https://www.icbc.com" target="_blank">
+								icbc.com</a>.<br> <br>
+								If you have already been to an ICBC driver licensing office and requested a Photo BC Services Card, 
+								no further action is required.
+						</div>
+					</div>
+				</common-page-section>
+		</div>
+
+		<!-- If the user tried to remove a spouse or a child, the first blue box needs to be displayed just below the green box-->
+		<div *ngIf="hasRemovedSpouseOrChild" AdditionalInfo>
 				<br>
 					<common-page-section layout='noTips'>
 						<div class="next-step--container">
@@ -36,25 +58,9 @@
 							</div>
 						</div>
 					</common-page-section>
-			</div>
-		<!-- <div *ngIf="isSucess; else ErrorMsg">
-				<div class="row">
-					<div class="col-sm-12 col-md-12">
-							<div class="card mb-4 h-100">
-									<div class="col-2">
-											<i class="fa fa-exclamation-circle" style="font-size: 35px;"></i>
-									</div>
-									<div class="col-10">
-											To remove a spouse or child from your MSP account due to a move outside B.C. 
-											use the Permanent Move Outside British Columbia form.
-									</div>
-							</div>
-					</div>
-				</div>
-		</div> -->
+		</div>
 
 		<div *ngIf="isSucess" AdditionalInfo>
-
 			<h2 class="border-bottom"><strong>Important</strong></h2>
 			<common-page-section layout='noTips'>
 				<ul class="info--container">

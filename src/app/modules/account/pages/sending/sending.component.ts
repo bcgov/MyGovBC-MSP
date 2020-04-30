@@ -84,6 +84,7 @@ export class AccountSendingComponent implements AfterContentInit {
         console.log(tempRef);
 */
         let bcServicesCardElgible = false;
+        let hasPrevMSPForChild = true;
           //check if there is status in canada selected
           if (this.mspAccountApp.accountChangeOptions && this.mspAccountApp.accountChangeOptions.statusUpdate) {
               bcServicesCardElgible = true ;
@@ -100,13 +101,24 @@ export class AccountSendingComponent implements AfterContentInit {
             }
           }
 
+        // Checks if at least one of the children has NO previous MSP coverage
+          if (this.mspAccountApp.getAllChildren().filter( child => (!child.immigrationStatusChange) )){
+            hasPrevMSPForChild = false;
+          }
+
         //delete the application from storage
         this.dataService.removeMspAccountApp();
 
         //  go to confirmation
-
           this.router.navigate(['/deam/confirmation'],
-              {queryParams: {confirmationNum: refNumber, showDepMsg: bcServicesCardElgible, status: statusCode}});
+              {queryParams: {confirmationNum: refNumber, showDepMsg: bcServicesCardElgible, status: statusCode,
+                hasSpouseAdded: this.mspAccountApp.hasSpouseAdded, 
+                hasSpouseRemoved: this.mspAccountApp.hasSpouseRemoved,
+                hasPrevMSPForSpouse: this.mspAccountApp.spouse.immigrationStatusChange,
+                hasChildAdded: this.mspAccountApp.hasChildAdded,
+                hasChildRemoved: this.mspAccountApp.hasChildRemoved,
+                hasPrevMSPForChild: hasPrevMSPForChild
+                }});
 
 
 
