@@ -2,14 +2,6 @@
     <form #formRef="ngForm" novalidate>
         <h1><strong>Medical Services Plan Account Holder</strong></h1>
 
-        <!-- <div class="form-group">
-            <common-radio [value]="applicant.immigrationStatusChange"
-                [label]="'Are you requesting to update or renew your immigration status in Canada?'"
-                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                (valueChange)="applicant.immigrationStatusChange = $event; ">
-            </common-radio>
-        </div> -->
-
         <msp-personal-information [person]="applicant">
             <div sectionTitleInfo>
                 <h2>Account Holder Identification</h2>
@@ -20,22 +12,18 @@
         </msp-personal-information>
 
         <div class="form-group">
-            <common-radio [value]="applicant.updatingPersonalInfo"
+            <common-radio
+                [value]="applicant.updatingPersonalInfo"
                 [label]="'As the Account Holder, are you requesting an update to your personal information or renewing your status in Canada?'"
                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                 (valueChange)="applicant.updatingPersonalInfo = $event"
                 required>
             </common-radio>
-            <!-- <p class="text-danger"
-                   *ngIf="applicant.updatingPersonalInfo === undefined"
-                   role="alert"
-                   aria-live="assertive">
-                   As the Account Holder, are you requesting an update to your personal information or renewing your status in Canada? is required.
-            </p> -->
         </div>
 
         <div *ngIf="applicant.updatingPersonalInfo">
-            <msp-update-request title="What updates are you requesting for Account Holder?"
+            <msp-update-request
+                title="What updates are you requesting for Account Holder?"
                 subtitle = "For each update or correction selected, provide the supporting documents."
                 [person]="person"
                 [accountApp]="accountApp">

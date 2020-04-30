@@ -14,7 +14,8 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 
 @Component({
-  templateUrl: './personal-info.component.html'
+  templateUrl: './personal-info.component.html',
+  styleUrls: ['./personal-info.component.scss']
 })
 @Injectable()
 export class AccountPersonalInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
