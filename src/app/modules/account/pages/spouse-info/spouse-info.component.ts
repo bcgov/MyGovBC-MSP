@@ -65,6 +65,8 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   addSpouse() {
     this.addNewSpouse = true;
     this.accountApp.hasSpouseAdded = true;
+    this.accountApp.hasSpouseRemoved = false;
+    this.accountApp.hasSpouseUpdated = false;
     this.accountChangeOptions.dependentChange = true;
     this.showUpdateSpouse = false;
     this.showSpouse = false;
@@ -75,6 +77,8 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   removeSpouse() {
     this.showSpouse = true;
     this.accountApp.hasSpouseRemoved = true;
+    this.accountApp.hasSpouseAdded = false;
+    this.accountApp.hasSpouseUpdated = false;
     this.accountChangeOptions.dependentChange = true;
     this.showUpdateSpouse = false;
     this.addNewSpouse = false;
@@ -85,6 +89,8 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   updateSpouse() {
     this.showUpdateSpouse = true;
     this.accountApp.hasSpouseUpdated = true;
+    this.accountApp.hasSpouseAdded = false;
+    this.accountApp.hasSpouseRemoved = false;
     this.showSpouse = false;
     this.addNewSpouse = false;
     //this.dataService.saveMspAccountApp();

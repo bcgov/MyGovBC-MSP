@@ -34,8 +34,40 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
         this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
     }
 
+
     get hasSpouse() {
         return this.mspAccountApp.spouse ? true : false;
+    }
+
+    get getSpouseTitle() {
+        if (this.mspAccountApp.hasSpouseAdded){
+            return this.lang('./en/index.js').addSpouseTitle;
+        }
+        else if (this.mspAccountApp.hasSpouseRemoved){
+            return this.lang('./en/index.js').removeSpouseTitle;
+        }
+        else if (this.mspAccountApp.hasSpouseUpdated){
+            return this.lang('./en/index.js').updateSpouseTitle;
+        }
+        else {
+            return;
+        }
+    }
+
+    get getSpouseInfo() {
+        if (this.mspAccountApp.hasSpouseAdded){
+            return this.mspAccountApp.addedSpouse;
+        }
+        else if (this.mspAccountApp.hasSpouseRemoved){
+            return this.mspAccountApp.removedSpouse;
+        }
+        else if (this.mspAccountApp.hasSpouseUpdated){
+            return this.mspAccountApp.updatedSpouse;
+        }
+        else {
+            console.log("NO SPOUSE");
+            return;
+        }
     }
 
     // unused.. logic changed

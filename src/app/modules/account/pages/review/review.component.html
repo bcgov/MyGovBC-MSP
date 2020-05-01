@@ -20,7 +20,15 @@
                             [customLinkTitle]="lang('./en/index.js').applicantLinkTitle"
                             [editRouterLink]="accountPIUrl"></msp-person-card>
         </div>
-        <!-- <div class="col-lg-6" *ngIf="let spouse of mspAccountApp.getallSpouses(); let i = index;"> </div>-->
+
+        <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseAdded || mspAccountApp.hasSpouseRemoved|| mspAccountApp.hasSpouseUpdated">
+                <msp-person-card  [accountCard]=true 
+                                [customTitle]="getSpouseTitle"
+                                [person]="getSpouseInfo"
+                                [editRouterLink]="accountSpouseUrl"></msp-person-card>
+        </div>
+        
+        <!-- <div class="col-lg-6" *ngIf="let spouse of mspAccountApp.getallSpouses(); let i = index;"> </div>
             <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseAdded">
             <msp-person-card  [accountCard]=true 
                             [customTitle]="lang('./en/index.js').addSpouseTitle" 
@@ -36,11 +44,11 @@
             </div>
 
             <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseUpdated">
-                <msp-person-card  [accountCard]=true 
-                                    [customTitle]="lang('./en/index.js').updateSpouseTitle" 
-                                    [person]="mspAccountApp.updatedSpouse"
-                                    [editRouterLink]="accountSpouseUrl"></msp-person-card>
-            </div>
+            <msp-person-card  [accountCard]=true 
+                                [customTitle]="lang('./en/index.js').updateSpouseTitle" 
+                                [person]="mspAccountApp.updatedSpouse"
+                                [editRouterLink]="accountSpouseUrl"></msp-person-card>
+            </div> -->
     </div>
 
     <!-- <div class="row" *ngIf="mspAccountApp.getAllChildren() != null && mspAccountApp.getAllChildren().length > 0">
