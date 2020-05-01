@@ -58,8 +58,9 @@
                 <div class="clearfix" *ngIf="i % 2 == 0"></div>
                 <div class="col-lg-6">
                     <msp-person-card [person]="child" [accountCard]=true
-                                    [customTitle]="lang('./en/index.js').addChildTitle"
-                                     [editRouterLink]="accountChildInfoUrl"></msp-person-card>
+                                    [customTitle]="addChildTitle"
+                                     [editRouterLink]="accountChildInfoUrl">
+                                    </msp-person-card>
                 </div>
             </ng-container>
     </div>
@@ -69,7 +70,7 @@
                     <div class="clearfix" *ngIf="i % 2 == 0"></div>
                     <div class="col-lg-6">
                         <msp-person-card [person]="child" [accountCard]=true
-                                        [customTitle]="lang('./en/index.js').removeChildTitle"
+                                        [customTitle]="removeChildTitle"
                                          [editRouterLink]="accountChildInfoUrl"></msp-person-card>
                     </div>
             </ng-container>
@@ -80,7 +81,7 @@
                     <div class="clearfix" *ngIf="i % 2 == 0"></div>
                     <div class="col-lg-6">
                         <msp-person-card [person]="child" [accountCard]=true
-                                        [customTitle]="lang('./en/index.js').updateChildTitle"
+                                        [customTitle]="updateChildTitle"
                                          [editRouterLink]="accountChildInfoUrl"></msp-person-card>
                     </div>
             </ng-container>
