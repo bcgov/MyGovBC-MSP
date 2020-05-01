@@ -27,29 +27,7 @@
                                 [person]="getSpouseInfo"
                                 [editRouterLink]="accountSpouseUrl"></msp-person-card>
         </div>
-        
-        <!-- <div class="col-lg-6" *ngIf="let spouse of mspAccountApp.getallSpouses(); let i = index;"> </div>
-            <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseAdded">
-            <msp-person-card  [accountCard]=true 
-                            [customTitle]="lang('./en/index.js').addSpouseTitle" 
-                            [person]="mspAccountApp.addedSpouse"
-                            [editRouterLink]="accountSpouseUrl"></msp-person-card>
-            </div>
-
-            <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseRemoved">
-            <msp-person-card  [accountCard]=true 
-                            [customTitle]="lang('./en/index.js').removeSpouseTitle" 
-                            [person]="mspAccountApp.removedSpouse"
-                            [editRouterLink]="accountSpouseUrl"></msp-person-card>
-            </div>
-
-            <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseUpdated">
-            <msp-person-card  [accountCard]=true 
-                                [customTitle]="lang('./en/index.js').updateSpouseTitle" 
-                                [person]="mspAccountApp.updatedSpouse"
-                                [editRouterLink]="accountSpouseUrl"></msp-person-card>
-            </div> -->
-    </div>
+    <!-- </div> -->
 
     <!-- <div class="row" *ngIf="mspAccountApp.getAllChildren() != null && mspAccountApp.getAllChildren().length > 0">
         <ng-container *ngFor="let child of mspAccountApp.getAllChildren(); let i = index;">
@@ -61,7 +39,8 @@
         </ng-container>
     </div> -->
 
-    <div class="row" *ngIf="mspAccountApp.addedChildren.length > 0">
+    <!-- <div class="row" *ngIf="mspAccountApp.addedChildren.length > 0"> -->
+        <ng-container *ngIf="mspAccountApp.addedChildren.length > 0">
             <ng-container *ngFor="let child of mspAccountApp.addedChildren; let i = index;">
                 <div class="clearfix" *ngIf="i % 2 == 0"></div>
                 <div class="col-lg-6">
@@ -71,9 +50,10 @@
                                     </msp-person-card>
                 </div>
             </ng-container>
-    </div>
+        </ng-container>
 
-    <div class="row" *ngIf="mspAccountApp.removedChildren.length > 0">
+
+        <ng-container *ngIf="mspAccountApp.removedChildren.length > 0">
             <ng-container *ngFor="let child of mspAccountApp.removedChildren; let i = index;">
                     <div class="clearfix" *ngIf="i % 2 == 0"></div>
                     <div class="col-lg-6">
@@ -82,9 +62,10 @@
                                          [editRouterLink]="accountChildInfoUrl"></msp-person-card>
                     </div>
             </ng-container>
-    </div>
+        </ng-container>
+    
 
-    <div class="row" *ngIf="mspAccountApp.updatedChildren.length > 0">
+        <ng-container *ngIf="mspAccountApp.updatedChildren.length > 0">
             <ng-container *ngFor="let child of mspAccountApp.updatedChildren; let i = index;">
                     <div class="clearfix" *ngIf="i % 2 == 0"></div>
                     <div class="col-lg-6">
@@ -93,15 +74,14 @@
                                          [editRouterLink]="accountChildInfoUrl"></msp-person-card>
                     </div>
             </ng-container>
-    </div>
+        </ng-container>
 
-    <div class="row">
-            <div class="col-lg-6">
+        <div class="col-lg-6">
               <msp-contact-review-card [residentialAddress]="mspAccountApp.residentialAddress"
                                        [mailingAddress]="mspAccountApp.mailingAddress"
                                        [phoneNumber]="mspAccountApp.phoneNumber"
                                        [editRouterLink]="accountContactInfoUrl"></msp-contact-review-card>
-            </div>
+        </div>
     </div>
 
     <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">

@@ -49,9 +49,6 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
         else if (this.mspAccountApp.hasSpouseUpdated){
             return this.lang('./en/index.js').updateSpouseTitle;
         }
-        else {
-            return;
-        }
     }
 
     get getSpouseInfo() {
@@ -63,10 +60,6 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
         }
         else if (this.mspAccountApp.hasSpouseUpdated){
             return this.mspAccountApp.updatedSpouse;
-        }
-        else {
-            console.log("NO SPOUSE");
-            return;
         }
     }
 
