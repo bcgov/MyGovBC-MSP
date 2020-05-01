@@ -24,7 +24,9 @@
     "e2e:chrome": "npm run e2e -- --protractorConfig=e2e/protractor.conf.js",
     "e2e:enrolment": "npm run e2e -- --protractorConfig=e2e/protractor.enrolment.conf.js",
     "e2e:supp-benefits": "npm run e2e-protractor -- e2e/protractor.supp-benefits.conf.js",
-    "e2e:retro-pa": "npm run e2e-protractor -- e2e/protractor.retro-pa.conf.js"
+    "e2e:retro-pa": "npm run e2e-protractor -- e2e/protractor.retro-pa.conf.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.9",
@@ -86,7 +88,7 @@
     "css-loader": "^1.0.0",
     "date-fns": "^2.6.0",
     "faker": "^4.1.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "jxon": "git+https://github.com/bcgov/jxon.git",
     "lodash": "^4.17.15",
     "moh-common-lib": "^3.0.10",
@@ -100,6 +102,8 @@
     "typescript": "2.9.1",
     "url": "^0.11.0",
     "zlib": "^1.0.5",
-    "zone.js": "~0.8.26"
-  }
+    "zone.js": "~0.8.26",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
