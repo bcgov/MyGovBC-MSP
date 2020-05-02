@@ -14,8 +14,5 @@ module.exports = {
   docConfirmTitle:'You have uploaded the following documents. Please review to confirm that they are the correct documents and are readable (click for full size).',
   addSpouseTitle:'Add Spouse Information',
   removeSpouseTitle:'Remove Spouse Information',
-  updateSpouseTitle:'Update Spouse Information',
-  addChildTitle:'Add Child #',
-  removeChildTitle:'Remove Child Information',
-  updateChildTitle:'Update Child Information',
+  updateSpouseTitle:'Update Spouse Information'
 }
