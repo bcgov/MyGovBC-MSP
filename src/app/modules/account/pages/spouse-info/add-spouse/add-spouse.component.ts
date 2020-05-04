@@ -20,7 +20,11 @@ export class AddSpouseComponent extends Base implements OnInit {
   @Input() accountApp: MspAccountApp;
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
   status: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident];
-  supportDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
+  supportDocList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.CanadianBirthCertificate,
+    SupportDocumentTypes.CanadianPassport,
+    SupportDocumentTypes.CanadianCitizenCard
+  ];
 
   langStatus = CanadianStatusStrings;
   nameChangeDocList = nameChangeSupportDocuments();
@@ -35,12 +39,6 @@ export class AddSpouseComponent extends Base implements OnInit {
     this.accountApp = this.dataService.accountApp;
   }
 
-  // onChange($event) {
-  //   console.log($event);
-  //   console.log(this.spouse);
-  //   //this.dataService.saveMspAccountApp();
-  // }
-
   setGender(evt: any) {
     this.spouse.gender = evt;
     console.log(this.spouse);
@@ -49,7 +47,7 @@ export class AddSpouseComponent extends Base implements OnInit {
   }
 
   get items() {
-    return[
+    return [
       {
         'label': 'Marriage certificate',
         'value': SupportDocumentTypes.MarriageCertificate
@@ -60,22 +58,6 @@ export class AddSpouseComponent extends Base implements OnInit {
       }
     ];
   }
-
-  /*
-  get activitiesTable() {
-    console.log(this.activities);
-    if (!this.activities) return;
-    return this.activities.map(itm => {
-      const label = this.activityStatus[itm];
-      console.log(itm);
-      console.log(label);
-      return {
-      label,
-      value: itm
-      };
-    });
-  }
-  */
 
   get hasStatus() {
     // Has to have values
@@ -96,20 +78,11 @@ export class AddSpouseComponent extends Base implements OnInit {
     }
   }
 
-  /*
-  get activities(): Activities[] {
-    return ActivitiesRules.activitiesForAccountChange(
-        this.spouse.relationship,
-        this.spouse.status
-    );
-  }
-  */
-
   isPhnUniqueInPI() {
     return this.dataService.accountApp.isUniquePhnsInPI;
   }
 
-  activityStatus  =  {
+  activityStatus = {
     0: 'Not new to B.C. but need to apply for MSP',
     1: 'Moved to B.C. from another province',
     2: 'Moved to B.C. from another country',
@@ -150,7 +123,7 @@ export class AddSpouseComponent extends Base implements OnInit {
   }
 
   get spouseNameChangedocs(){
-    return[
+    return [
       {
         'label': 'Marriage Certificate',
         'value': SupportDocumentTypes.MarriageCertificate

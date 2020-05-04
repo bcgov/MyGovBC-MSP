@@ -1,12 +1,11 @@
-import {Component, Input} from '@angular/core';
-import {MspPerson} from '../../../../components/msp/model/msp-person.model';
+import { Component, Input } from '@angular/core';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Router } from '@angular/router';
 import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
 import { getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import { getStatusStrings, getStatusReasonStrings } from '../canadian-status/canadian-status.component';
 import { Relationship } from '../../../../models/relationship.enum';
 import { format } from 'date-fns';
-
 
 /* TO BE REPLACED when remaining apps are refactored to have own application  model definitions
  * built off the base classes ( base-person.model, base-application.model, base-msp-data.service,
@@ -27,7 +26,6 @@ export class MspPersonCardComponent {
 
   statusReason: string[] = getStatusReasonStrings();
 
-
   @Input() person: MspPerson;
   @Input() editRouterLink: string;
   @Input() customTitle: string;
@@ -38,7 +36,6 @@ export class MspPersonCardComponent {
   }
 
   ngOnInit() {
-
   }
 
   editPersonalInfo() {
@@ -68,14 +65,14 @@ export class MspPersonCardComponent {
   }
 
   get movedFromProvinceOrCountry() {
-    if (this.person.currentActivity === CanadianStatusReason.MovingFromCountry ) {
-      return getCountryDescription( this.person.movedFromProvinceOrCountry );
+    if (this.person.currentActivity === CanadianStatusReason.MovingFromCountry) {
+      return getCountryDescription(this.person.movedFromProvinceOrCountry);
     }
-    return getProvinceDescription( this.person.movedFromProvinceOrCountry );
+    return getProvinceDescription(this.person.movedFromProvinceOrCountry);
   }
 
-  formatDateField( dt: Date ) {
-    return format( dt, this.dateFormat );
+  formatDateField(dt: Date) {
+    return format(dt, this.dateFormat);
   }
 
   get hasMarriageDate(): boolean {

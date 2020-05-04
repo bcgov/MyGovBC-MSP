@@ -121,132 +121,24 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
     If the application contains any Visting status , application shouldnt be sumbitted
      */
     hasAnyInvalidStatus(): boolean {
-        console.log(this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate);
+        // console.log(this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate);
         if (!this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate) {
             return false;
         }
-       return this.dataService.getMspAccountApp().hasAnyVisitorInApplication();
+        return this.dataService.getMspAccountApp().hasAnyVisitorInApplication();
     }
 
     isPhnUniqueInPI() {
       return this.dataService.accountApp.isUniquePhnsInPI ;
     }
 
-    /*canContinue(): boolean {
-        return this.isAllValid();
-    }*/
-
     isValid(): boolean {
       return this.dataService.accountApp.isUniquePhnsInPI ;
-
     }
 
     statusLabel(): string {
         return 'You Status in Canada';
     }
-
-   /* get activitiesTable() {
-      console.log(this.activities);
-      if (!this.activities) return;
-      return this.activities.map(itm => {
-        const label = this.activityStatus[itm];
-        console.log(itm);
-        console.log(label);
-        return {
-        label,
-        value: itm
-        };
-      });
-    }
-
-    activityStatus  =  {
-      0: 'Not new to B.C. but need to apply for MSP',
-      1: 'Moved to B.C. from another province',
-      2: 'Moved to B.C. from another country',
-      3: 'Working in B.C.',
-      4: 'Studying in B.C.',
-      5: 'Religious worker',
-      6: 'Diplomat',
-      7: 'Visiting'
-    };
-
-    get activities(): Activities[] {
-      console.log( this.person.relationship);
-      console.log( this.person.status);
-      return ActivitiesRules.activitiesForAccountChange(
-          this.person.relationship,
-          this.person.status
-      );
-    }
-
-    get items()   {
-        return[
-        {
-          "label": "Canadian birth certificate",
-          "value": Documents.CanadianBirthCertificate
-        },
-        {
-          "label": "Canadian Passport",
-          "value": Documents.CanadianPassport
-        },
-        {
-          "label": "Canadian citizenship card or certificate",
-          "value": Documents.CanadianCitizenCard
-        }
-    ]};*/
-
-    /*get canadaStatus()   {
-        return[
-          { 0: 'Canadian Citizen'},
-          { 1: 'Permanent Resident' },
-          { 2: 'Temporary Permit Holder or Diplomat'}
-    ]};
-
-    get residentStatus() {
-        return[
-            {
-                'label': 'Canadian Citizen',
-                'value': StatusInCanada.CitizenAdult
-              },
-
-              {
-                'label': 'Permanent Resident',
-                'value': StatusInCanada.PermanentResident
-              },
-              {
-                'label': 'Temporary Permit Holder or Diplomat',
-                'value': StatusInCanada.TemporaryResident
-              }
-    ]; }
-
-    get accountUpdateList(): UpdateList[] {
-        return [
-          {
-            'label': 'Update status in Canada',
-            'value': this.person.updateStatusInCanada
-          },
-          {
-            'label': 'Update name - due to marriage or other',
-            'value': this.person.updateNameDueToMarriage
-          },
-          {
-            'label': 'Correct name - due to error',
-            'value': this.person.updateNameDueToError
-          },
-          {
-            'label': 'Correct birthdate',
-            'value': this.person.updateBirthdate
-          },
-          {
-            'label': 'Correct gender',
-            'value': this.person.updateGender
-          },
-          {
-            'label': 'Change gender designation',
-            'value': this.person.updateGenderDesignation
-          }
-        ];
-    }*/
 
     setStatus(value: StatusInCanada, p: MspPerson) {
         if (typeof value === 'object') return;
@@ -256,24 +148,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         if (p.status !== StatusInCanada.CitizenAdult) {
             p.institutionWorkHistory = 'No';
         }
-      //this.showServicesCardModal = true;
-
-      //this.onChange.emit(value);
     }
-
-    //continue(): void {
-
-        // console.log('personal info form itself valid: %s', this.form.valid);
-       // console.log('combinedValidationState on personal info: %s', this.isAllValid());
-       /* if (!this.isAllValid()){
-            console.log('Please fill in all required fields on the form.');
-        }else{
-           // console.log('redirecting to' + this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL)));
-           // this._router.navigate([this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL))]);
-
-           this._router.navigate([ProcessUrls.ACCOUNT_PERSONAL_INFO_URL]);
-        }*/
-   // }
 
     canContinue(): boolean {
       let valid = super.canContinue();

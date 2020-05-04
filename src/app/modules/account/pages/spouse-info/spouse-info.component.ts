@@ -41,9 +41,9 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   @ViewChild('formRef') form: NgForm;
 
   ngOnInit() {
-      this.accountApp = this.dataService.accountApp;
-      this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
-      this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
+    this.accountApp = this.dataService.accountApp;
+    this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
+    this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
   }
 
   ngOnDestroy() {
@@ -117,25 +117,6 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
     this.dataService.accountApp.updatedSpouse = new MspPerson(Relationship.Spouse);
   }
 
-
- /* get activitiesTable() {
-    if (!this.activities) return;
-    return this.activities.map(itm => {
-      const label = this.langActivities('./en/index.js')[itm];
-      return {
-      label,
-      value: itm
-      };
-    });
-  }*/
-
- /* get activities(): CanadianStatusReason[] {
-    return ActivitiesRules.activitiesForAccountChange(
-        this.removedSpouse.relationship,
-        this.removedSpouse.status
-    );
-  }*/
-
   get removedSpouse(): MspPerson {
     return this.dataService.getMspAccountApp().removedSpouse;
   }
@@ -161,9 +142,7 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
     return valid;
   }
 
-
-
- continue(): void {
+  continue(): void {
     if (!this.canContinue()) {
       console.log('Please fill in all required fields on the form.');
       this.markAllInputsTouched();

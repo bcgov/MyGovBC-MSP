@@ -1,7 +1,6 @@
 <common-page-framework layout="blank">
     <form #formRef="ngForm" novalidate>
-        <h1 class="horizontal-line"><strong>Medical Services Plan Account Holder</strong></h1>
-
+        <h1><strong>Medical Services Plan Account Holder</strong></h1>
         <msp-personal-information [person]="applicant">
             <div sectionTitleInfo>
                 <h2>Account Holder Identification</h2>
@@ -29,10 +28,8 @@
                 [accountApp]="accountApp">
             </msp-update-request>
         </div>
-
     </form>
 </common-page-framework>
-
 
 <div class="position: inherit;">
     <common-form-action-bar
