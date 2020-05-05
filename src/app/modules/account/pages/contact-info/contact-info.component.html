@@ -1,15 +1,14 @@
 <form #formRef="ngForm" novalidate >
     <common-page-framework layout="blank">
 <h1> <strong> Contact Information </strong></h1>
-<p>
+<p class="horizontal-line">
     Please provide the Account Holder's information. If you are requesting an update or correction to the address, 
     please provide the new address here.
 </p>
 
 <common-page-section layout='double'>
     <h2> <strong> Residential Address</strong> </h2>
-    <p>Enter your residential address - that's the address your currently reside at in B.C.</p>
-    <hr>
+    <p class="horizontal-line">Enter your residential address - that's the address your currently reside at in B.C.</p>
     <common-address #address
                     [address]="mspAccountApp?.residentialAddress"
                     (addressChange)="handleAddressUpdate($event)"
@@ -21,6 +20,7 @@
     </common-address> 
 
     <!-- <div class="custom-control custom-checkbox">
+        #fcba19
         <input type="checkbox"
             class="custom-control-input"
             id="isMailingAddress"
@@ -42,8 +42,7 @@
     </div>
     <aside>
         <h2> <strong> Mailing Address </strong></h2>
-        <p>Enter your mailing address - if it's different </p>
-        <hr>
+        <p class="horizontal-line">Enter your mailing address - if it's different </p>
         <div *ngIf="!mspAccountApp.mailingSameAsResidentialAddress; else NoMailingAddress">
         <common-address [address]="mspAccountApp?.mailingAddress"
                         (addressChange)="handleAddressUpdate($event)"
@@ -56,7 +55,7 @@
     </aside>
 </common-page-section>
 
-<h2 class="border-bottom"><strong>Phone</strong></h2>
+<h2 class="horizontal-line"><strong>Phone</strong></h2>
 <div class="row">
     <div class="form-group col-sm-12 col-md-3">
         <common-phone-number name="phone_number"
