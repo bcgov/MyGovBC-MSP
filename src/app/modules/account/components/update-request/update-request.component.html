@@ -15,7 +15,10 @@
     </common-checkbox>
 </div>
 
-<div *ngIf="person.updateStatusInCanada" class="add-document">
+<div class="add-document">
+
+</div>
+<div *ngIf="person.updateStatusInCanada">
     <msp-canadian-status
         [(person)]="person"
         [hideStatusReasons]="hideStatus">
