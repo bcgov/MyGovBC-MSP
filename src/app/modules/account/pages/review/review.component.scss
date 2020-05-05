@@ -8,3 +8,20 @@
     margin: 5px;
   }
 }
+
+.horizontal-line {
+  border-bottom: 1px solid black;
+}
+
+.print--icon {
+  cursor: pointer;
+  float: right;
+  font-size: 1.5rem;
+}
+
+.print--word {
+  font-size: 1.25rem;
+  padding-right: 0.25rem;
+  float: left;
+  font-family: Myriad-Pro;
+}

@@ -144,6 +144,11 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
         return this.spouseForAuthorisation.firstName + ' ' + this.spouseForAuthorisation.lastName;
     }
 
+    printPage() {
+        window.print();
+        return false;
+      }
+
     canContinue(): boolean {
         const valid = super.canContinue();
         return valid;
