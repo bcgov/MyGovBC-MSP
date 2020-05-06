@@ -38,7 +38,8 @@ export class UpdateRequestComponent extends Base {
   itemList: ItemList[];
   @Output() statusChange: EventEmitter<boolean>; //  = new EventEmitter<boolean>();
   mspAccountApp: MspAccountApp;
-  supportDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
+  canadianCitizenDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
+  permanentResidentDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.PermanentResidentConfirmation , SupportDocumentTypes.RecordOfLanding , SupportDocumentTypes.PermanentResidentCard];
   hideStatus: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident];
 
   nameChangeDocs = nameChangeSupportDocuments();
@@ -98,6 +99,15 @@ export class UpdateRequestComponent extends Base {
 
       this.person.updateGenderDesignationDocType.documentType = null;
       this.person.updateGenderDesignationDocType.images = [];
+    }
+  }
+
+  getDocList() {
+    if (this.person.status === StatusInCanada.CitizenAdult){
+      return this.canadianCitizenDocList;
+    }
+    else if (this.person.status === StatusInCanada.PermanentResident){
+      return this.permanentResidentDocList;
     }
   }
 
