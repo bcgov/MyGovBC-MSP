@@ -120,8 +120,10 @@ export class UpdateRequestComponent extends Base {
     }
   }
 
-
-
+  checkStatus() {
+    return (this.person.status === StatusInCanada.CitizenAdult || this.person.status === StatusInCanada.PermanentResident ||
+      this.person.currentActivity !== undefined);
+  }
 
 
   /*setStatus(evt: any) {
