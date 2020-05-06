@@ -16,7 +16,10 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
    * up in its parents `this.form`, and will auto-update `this.form.valid`
    */
   viewProviders: [
-    { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
+    {
+      provide: ControlContainer,
+      useExisting: forwardRef(() => NgForm)
+    }
   ]
 })
 export class ChildMovingInformationComponent extends Base implements OnInit {

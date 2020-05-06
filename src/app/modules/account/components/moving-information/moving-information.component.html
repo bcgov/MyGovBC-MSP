@@ -252,7 +252,7 @@ and check departure was within last 12 months - need to find error messages for 
       </div>
 
       <h2><strong> School Address </strong></h2>
-      <p class="border-bottom "></p>
+      <p class="border-bottom"></p>
 
       <div class="form-group">
         <common-address [(address)]="person.schoolAddress"
@@ -304,7 +304,8 @@ and check departure was within last 12 months - need to find error messages for 
 
 <ng-template #NewToBC>
   <div class="form-group col-sm-6 p-sm-2">
-    <common-date label="Most recent move to B.C."
+    <common-date name="recentMoveToBC__{{objectId}}"
+                 label="Most recent move to B.C."
                  [restrictDate]="'past'"
                  [(ngModel)]="person.arrivalToBCDate">
     </common-date>
