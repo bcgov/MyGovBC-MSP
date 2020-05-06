@@ -37,53 +37,64 @@
       </div>
     </div>
     <br>
+
     <!--Add Child Section -->
-      <div *ngFor="let child of children; let idx = index">
-        <h2><strong>Add Child #{{children.length - idx}}</strong></h2>
-        <common-xicon-button label='Remove'
-          (click)="removeChild(idx, child.operationActionType)">
-        </common-xicon-button>
-        <p class="border-bottom">
-          Please provide child’s personal information.
-        </p>
-        <msp-add-child
-          [child]="child"
-          [index]="idx">
-        </msp-add-child>
-      </div>
-    <hr>
+    <div *ngFor="let child of children; let idx = index">
+      <h2><strong>Add Child #{{children.length - idx}}</strong></h2>
+      <common-xicon-button
+        label='Remove'
+        (click)="removeChild(idx, child.operationActionType)">
+      </common-xicon-button>
+      <p class="border-bottom">
+        Please provide child’s personal information.
+      </p>
+      <msp-add-child
+        [child]="child"
+        [index]="idx">
+      </msp-add-child>
+    </div>
 
     <!--Remove Child Section -->
     <div *ngFor="let child of removedChildren; let idx = index">
-        <h2><strong>Remove Child #{{removedChildren.length - idx}}</strong></h2>
-        <common-xicon-button label='Remove' (click)="removeChild(idx, child.operationActionType);"></common-xicon-button>
-        <p class="horizontal-line">
-            If you are removing a child, you do not need to upload supporting documentation.
-            However, a child 0-18 years of age must have coverage under another account.
-            A child 19 years of age or over will be automatically set up on their own account.
-        </p>
-        <msp-remove-child [child]="child" [index]="idx">
-        </msp-remove-child>
+      <h2><strong>Remove Child #{{removedChildren.length - idx}}</strong></h2>
+      <common-xicon-button
+        label='Remove'
+        (click)="removeChild(idx, child.operationActionType);">
+      </common-xicon-button>
+      <p class="horizontal-line">
+        If you are removing a child, you do not need to upload supporting documentation.
+        However, a child 0-18 years of age must have coverage under another account.
+        A child 19 years of age or over will be automatically set up on their own account.
+      </p>
+      <msp-remove-child
+        [child]="child"
+        [index]="idx">
+      </msp-remove-child>
     </div>
-    <hr>
 
     <!--Update Child Section -->
     <div *ngFor="let child of updatedChildren; let idx = index">
-        <h2><strong>Update Child #{{updatedChildren.length - idx}}</strong></h2>
-        <common-xicon-button label='Remove' (click)="removeChild(idx, child.operationActionType)"></common-xicon-button>
-        <p class="horizontal-line">
-            Please provide personal information of the child currently on your account.
-            If you are requesting an update or correction to the child’s name, birthdate or gender,
-            please provide the new information here.
-        </p>
-        <msp-update-child [child]="child" [index]="idx">
-        </msp-update-child>
+      <h2><strong>Update Child #{{updatedChildren.length - idx}}</strong></h2>
+      <common-xicon-button
+        label='Remove'
+        (click)="removeChild(idx, child.operationActionType)">
+      </common-xicon-button>
+      <p class="horizontal-line">
+        Please provide personal information of the child currently on your account.
+        If you are requesting an update or correction to the child’s name, birthdate or gender,
+        please provide the new information here.
+      </p>
+      <msp-update-child
+        [child]="child"
+        [index]="idx">
+      </msp-update-child>
     </div>
   </form>
 </common-page-framework>
+
 <common-form-action-bar
-    [defaultColor]="false"
-    [submitLabel]="hasChild? 'Continue':'No Child'"
-    [canContinue]="canContinue()"
-    (btnClick)="continue()">
+  [defaultColor]="false"
+  [submitLabel]="hasChild? 'Continue':'No Child'"
+  [canContinue]="canContinue()"
+  (btnClick)="continue()">
 </common-form-action-bar>

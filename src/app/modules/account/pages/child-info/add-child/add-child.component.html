@@ -7,17 +7,7 @@
     [radioLabels]="childAgeCategory"
     required>
   </common-radio>
-</div>
 
-<div *ngIf="child.relationship == 2 || child.relationship == 3" >
-  <div class="form-group">
-    <common-radio
-      name="newAdopted_{{objectId}}"
-      [(ngModel)]="newlyAdopted"
-      label="Is this child newly adopted?"
-      [radioLabels]='[{"label": "No", "value": false }, {"label": "Yes", "value": true}]'>
-    </common-radio>
-  </div>
   <div class="form-group">
     <common-radio
       name="activeCoverage_{{objectId}}"
@@ -26,18 +16,20 @@
       [radioLabels]='[{"label": "No", "value": false }, {"label": "Yes", "value": true}]'>
     </common-radio>
   </div>
+</div>
 
+<div *ngIf="child.relationship && hasActiveMedicalCoverage == false">
   <!-- Canadian Status-->
   <div class="form-group">
     <msp-canadian-status
       [person]="child"
-      [hideStatusReasons]="status"
-      label="Child's current immigration status in Canada">
+      label="Child’s status in Canada">
     </msp-canadian-status>
   </div>
 
   <!-- Doc to support the Canadian Staus -->
   <msp-support-documents
+    *ngIf="child.status"
     [supportDocList]="supportDocList"
     [canadianStatus]="child.status"
     [supportDocList]="supportDocList"
@@ -85,6 +77,16 @@
       </p>
     </div>
   </msp-personal-information>
+
+  <!-- Is this child newly adopted? -->
+  <div class="form-group">
+    <common-radio
+      name="newAdopted_{{objectId}}"
+      [(ngModel)]="newlyAdopted"
+      label="Is this child newly adopted?"
+      [radioLabels]='[{"label": "No", "value": false }, {"label": "Yes", "value": true}]'>
+    </common-radio>
+  </div>
 
   <!-- Child's Moving Information-->
   <msp-child-moving-information

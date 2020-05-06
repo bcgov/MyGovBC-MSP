@@ -1,18 +1,11 @@
-<!-- <msp-account-personal-details  [person]='child'>     
-</msp-account-personal-details> -->
-
-<msp-personal-information [person]="child">
-        <div sectionTitleInfo>
-          <h2>Child's Information</h2>
-          <p class="border-bottom"> 
-            Enter child's legal name and gender.
-          </p>
-        </div>     
+<msp-personal-information
+  [person]="child">
+  <p class="border-bottom"></p>
 </msp-personal-information>
 
-<msp-update-request 
-    title="What updates are you requesting for your child?" 
-    subtitle = "For each update or correction selected, provide the supporting documents." 
-    [person]="child"
-    [accountApp]="accountApp">
+<msp-update-request
+  title="What updates are you requesting for your child?"
+  subtitle = "For each update or correction selected, provide the supporting documents."
+  [person]="child"
+  [accountApp]="accountApp">
 </msp-update-request>
