@@ -30,7 +30,7 @@
     <msp-support-documents
         *ngIf="checkStatus()"
         [canadianStatus]="person.status"
-        [supportDocList]="supportDocList"
+        [supportDocList]="getDocList()"
         [statusReason]="person.currentActivity"
         [(supportDoc)]="person.updateStatusInCanadaDocType">
         <div sectionTitleInfo>
