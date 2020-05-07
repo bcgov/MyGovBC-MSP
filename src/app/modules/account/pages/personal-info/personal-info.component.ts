@@ -150,16 +150,23 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         }
     }
 
+    hasAnyUpdateSelected(): boolean {
+      if (this.person.updatingPersonalInfo === true){
+        return (this.person.updateStatusInCanada === true ||
+          this.person.updateNameDueToMarriage === true ||
+          this.person.updateNameDueToNameChange === true ||
+          this.person.updateGender === true ||
+          this.person.updateNameDueToError === true ||
+          this.person.updateBirthdate === true ||
+          this.person.updateGenderDesignation === true);
+      }
+      else {
+        return true;
+      }
+    }
+
     canContinue(): boolean {
-      let valid = super.canContinue();
-
-      if (this.applicant.hasNameChange) {
-        valid = valid;
-      }
-
-      if (this.applicant.fullTimeStudent) {
-        valid = valid && this.applicant.inBCafterStudies;
-      }
+      const valid = super.canContinue() && this.person.updatingPersonalInfo !== undefined && this.hasAnyUpdateSelected();
       return valid;
     }
 
