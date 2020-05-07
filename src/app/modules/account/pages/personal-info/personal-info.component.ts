@@ -152,14 +152,13 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
 
     hasAnyUpdateSelected(): boolean {
       if (this.person.updatingPersonalInfo === true){
-        return (this.person.updatingPersonalInfo === true &&
-          (this.person.updateStatusInCanada === true ||
+        return (this.person.updateStatusInCanada === true ||
           this.person.updateNameDueToMarriage === true ||
           this.person.updateNameDueToNameChange === true ||
           this.person.updateGender === true ||
           this.person.updateNameDueToError === true ||
           this.person.updateBirthdate === true ||
-          this.person.updateGenderDesignation === true));
+          this.person.updateGenderDesignation === true);
       }
       else {
         return true;
