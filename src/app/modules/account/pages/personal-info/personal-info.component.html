@@ -35,7 +35,7 @@
     <common-form-action-bar
         [defaultColor]="false"
         [submitLabel]="lang('./en/index.js').continueButton"
-        [canContinue]="!hasAnyInvalidStatus()"
+        [canContinue]="canContinue()"
         (btnClick)="continue()">
     </common-form-action-bar>
 </div>

@@ -151,15 +151,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
     }
 
     canContinue(): boolean {
-      let valid = super.canContinue();
-
-      if (this.applicant.hasNameChange) {
-        valid = valid;
-      }
-
-      if (this.applicant.fullTimeStudent) {
-        valid = valid && this.applicant.inBCafterStudies;
-      }
+      const valid = super.canContinue() && this.person.updatingPersonalInfo !== undefined;
       return valid;
     }
 
