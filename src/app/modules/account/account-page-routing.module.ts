@@ -64,4 +64,4 @@ export const accountPages: Routes = [
   }
 ];
 
-export const accountStepperPages = accountPages.filter(x => (x.path !== 'sending'));
+export const accountStepperPages = accountPages.filter(x => (x.path !== 'sending') && (x.path !== 'confirmation'));
