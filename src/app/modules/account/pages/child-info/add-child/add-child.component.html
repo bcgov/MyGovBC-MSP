@@ -20,30 +20,29 @@
 
 <div *ngIf="child.relationship && hasActiveMedicalCoverage == false">
   <!-- Canadian Status-->
-  <div class="form-group">
+  <div class="form-group add-document">
     <msp-canadian-status
+      [(ngModel)]="child.status"
       [person]="child"
-      label="Child’s status in Canada">
+      label="Child's status in Canada">
     </msp-canadian-status>
-  </div>
 
-  <!-- Doc to support the Canadian Staus -->
-  <msp-support-documents
-    *ngIf="child.status"
-    [supportDocList]="supportDocList"
-    [canadianStatus]="child.status"
-    [supportDocList]="supportDocList"
-    [statusReason]="child.currentActivity"
-    [(supportDoc)]="statusDocuments">
-    <div sectionTitleInfo>
-    <h2>Documents</h2>
-    <p class="border-bottom">
-      Provide one of the required documents to support your status in Canada.
-      If your name has changed since your ID was issued you are also required
-      to upload document to support the name change.
-      </p>
-    </div>
-  </msp-support-documents>
+    <!-- Doc to support the Canadian Staus -->
+    <msp-support-documents
+      *ngIf="child.status !== undefined"
+      [supportDocList]="supportDocList"
+      [canadianStatus]="child.status"
+      [supportDocList]="supportDocList"
+      [statusReason]="child.currentActivity"
+      [(supportDoc)]="statusDocuments">
+      <div sectionTitleInfo>
+        <h2>Documents to support your child status in Canada</h2>
+        <p class="border-bottom">
+          Provide <b>one</b> of the required documents to support your child's immigration status in Canada.
+        </p>
+      </div>
+    </msp-support-documents>
+  </div>
 
   <!-- Name Change Radio -->
   <common-radio
@@ -53,20 +52,22 @@
     (valuehange)="this.personChange.emit(child);">
   </common-radio>
 
-  <!-- Name Change Supporting Doc-->
-  <msp-support-documents
-    *ngIf="child.hasNameChange"
-    [supportDocList]="nameChangeDocList"
-    [(supportDoc)]="child.nameChangeDocs">
-    <div sectionTitleInfo>
-      <h2> Documents to support child's name change</h2>
-      <p class="border-bottom">
-        Provide one of the required documents to support your child's name change.
-      </p>
-    </div>
-  </msp-support-documents>
+  <!-- Name Change Supporting Doc -->
+  <div class="add-document">
+    <msp-support-documents
+      *ngIf="child.hasNameChange"
+      [supportDocList]="nameChangeDocList"
+      [(supportDoc)]="child.nameChangeDocs">
+      <div sectionTitleInfo>
+        <h2>Documents - Update name due to name change</h2>
+        <p class="border-bottom">
+          Provide <b>one</b> of the required documents to support your child's name change.
+        </p>
+      </div>
+    </msp-support-documents>
+  </div>
 
-  <!-- Child's Personal Info-->
+  <!-- Child's Personal Info -->
   <msp-personal-information
     [person]="child">
     <div sectionTitleInfo>
@@ -78,6 +79,18 @@
     </div>
   </msp-personal-information>
 
+  <!-- Child's Gender -->
+  <div class="row">
+    <div class="col-md-4">
+      <common-radio
+        [value]="child.gender"
+        label='Gender'
+        [radioLabels]='[{"label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
+        (valueChange)="setGender($event)">
+      </common-radio>
+    </div>
+  </div>
+
   <!-- Is this child newly adopted? -->
   <div class="form-group">
     <common-radio
@@ -88,12 +101,42 @@
     </common-radio>
   </div>
 
-  <!-- Child's Moving Information-->
+  <!-- Child's Residency Information -->
   <msp-child-moving-information
-    [person]="child" >
+    [person]="child">
     <div sectionTitleInfo>
       <h2><strong>Child's Residency Information</strong></h2>
       <p class="border-bottom"></p>
     </div>
   </msp-child-moving-information>
+  <!-- Child's Moving Information -->
+
+  <!-- Add/Remove/Update Buttons -->
+  <p class="horizontal-line">
+    <b>After you have entered information for a child, click "Add child", "Remove child" or
+    "Update child" again to enter information for another child. When you are finished, click "Continue".</b>
+  </p>
+  <div class="row">
+    <div class="col-2">
+      <common-button
+        [label]="'Add Child'"
+        [buttonType]="'btn btn-primary'"
+        (btnClick)='addChildBtnClick()'>
+      </common-button>
+    </div>
+    <div class="col-2">
+      <common-button
+        [label]="'Remove Child'"
+        [buttonType]="'btn btn-primary'"
+        (btnClick)='removeChildBtnClick();'>
+      </common-button>
+    </div>
+    <div class="col-2 ">
+      <common-button
+        [label]="'Update Child'"
+        [buttonType]="'btn btn-primary'"
+        (btnClick)='updateChildBtnClick();'>
+      </common-button>
+    </div>
+  </div>
 </div>

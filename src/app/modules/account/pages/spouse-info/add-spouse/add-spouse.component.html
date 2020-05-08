@@ -99,7 +99,7 @@
       <common-radio
         [value]="spouse.gender"
         label='Gender'
-        [radioLabels]='[{ "label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
+        [radioLabels]='[{"label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
         (valueChange)="setGender($event)">
       </common-radio>
     </div>
@@ -155,7 +155,7 @@
     [person]="spouse">
     <div sectionTitleInfo>
       <h2><strong>Spouse's Residency Information</strong></h2>
-        <p class="border-bottom"></p>
+      <p class="border-bottom"></p>
     </div>
   </msp-child-moving-information>
 <!-- Spouse's Residency Information -->
@@ -177,6 +177,7 @@
     </msp-personal-information>
   </div>
 
+<!-- Spouse's Gender-->
   <div *ngIf="spouse.immigrationStatusChange" class="row">
     <div class="col-md-4">
       <common-radio
@@ -187,7 +188,9 @@
       </common-radio>
     </div>
   </div>
+<!-- Spouse's Gender-->
 
+<!-- Mariage Date -->
   <div *ngIf="spouse.immigrationStatusChange" class="form-group" style="width: 300px;">
     <common-date
       name="MarriageDate"
@@ -196,6 +199,7 @@
       [(ngModel)]="spouse.marriageDate">
     </common-date>
   </div>
+<!-- Mariage Date -->
 
   <div *ngIf="accountChangeOptions.spouseInfoUpdate">
     <msp-update-request
@@ -207,9 +211,10 @@
   </div>
 <!-- Update Spouse's Information -->
 
+<!-- Add/Remove/Update Buttons-->
   <div class="horizontal-line">
-    After you have entered information for a spouse, click “Add Spouse”, “Remove Spouse” or “Update Spouse”
-    again to enter information for another spouse. When you are finished, click “Continue”.
+    <b>After you have entered information for a spouse, click "Add Spouse", "Remove Spouse" or "Update Spouse"
+    again to enter information for another spouse. When you are finished, click "Continue".</b>
   </div>
   <div class="row">
     <div class="col-2">
@@ -220,7 +225,6 @@
         (btnClick)='addSpouse()'>
       </common-button>
     </div>
-
     <div class="col-2">
       <common-button
         [label]="'Remove Spouse'"
@@ -229,7 +233,6 @@
         (btnClick)='removeSpouse()'>
       </common-button>
     </div>
-
     <div class="col-2 ">
       <common-button
         [label]="'Update Spouse'"

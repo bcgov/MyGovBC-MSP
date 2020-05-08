@@ -13,12 +13,10 @@ import { SupportDocuments } from '../../../../msp-core/models/support-documents.
   selector: 'msp-add-child',
   templateUrl: './add-child.component.html',
   styleUrls: ['./add-child.component.scss'],
-
   viewProviders: [
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-
 
 export class AddChildComponent extends Base implements OnInit {
 
@@ -34,9 +32,9 @@ export class AddChildComponent extends Base implements OnInit {
   supportDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
   nameChangeDocList = nameChangeSupportDocuments();
 
- // @Input() accountChangeOptions: AccountChangeOptions;
+  // @Input() accountChangeOptions: AccountChangeOptions;
   @Input() child: MspPerson ;
- // @Input() accountApp: MspAccountApp;
+  // @Input() accountApp: MspAccountApp;
   @Input() index: number;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
@@ -49,113 +47,51 @@ export class AddChildComponent extends Base implements OnInit {
   }
 
   get childRelationship() {
-       return this.child.relationship;
+      return this.child.relationship;
   }
 
   set childRelationship(val: Relationship) {
     this.child.relationship = val;
-    //this.dataService.saveMspAccountApp();
     this.personChange.emit(this.child);
   }
 
-get newlyAdopted() {
+  set gender(evt: any) {
+    this.child.gender = evt;
+    this.personChange.emit(evt);
+  }
+
+  get newlyAdopted() {
     return this.child.newlyAdopted;
-}
-
-set newlyAdopted(val: boolean) {
- this.child.newlyAdopted = val;
- this.personChange.emit(this.child);
-}
-
-get hasActiveMedicalCoverage() {
-  return this.child.hasActiveMedicalServicePlan;
-}
-
-set hasActiveMedicalCoverage(val: boolean) {
-  this.child.hasActiveMedicalServicePlan = val;
-  this.personChange.emit(this.child);
-}
-
-
-get statusDocuments(): SupportDocuments {
-  return this.child.updateStatusInCanadaDocType;
-}
-
-isPhnUniqueInChild() {
-  return this.dataService.accountApp.isUniquePhnsinDependents;
-}
-
-
-set statusDocuments( document: SupportDocuments ) {
-
-  this.child.updateStatusInCanadaDocType = document;
-
-  if ( document.images && document.images.length === 0 ) {
-    // no status documents remove any name documents
-    this.child.nameChangeDocs.documentType = null;
-    this.child.nameChangeDocs.images = [];
-
-
-
-   /* this.child.updateNameDueToMarriageDocType.documentType = null;
-    this.child.updateNameDueToMarriageDocType.images = [];
-
-    this.child.updateNameDueToErrorDocType.documentType = null;
-    this.child.updateNameDueToErrorDocType.images = [];
-
-    this.child.updateBirthdateDocType.documentType = null;
-    this.child.updateBirthdateDocType.images = [];
-
-    this.child.updateGenderDocType.documentType = null;
-    this.child.updateGenderDocType.images = [];
-
-    this.child.updateGenderDesignationDocType.documentType = null;
-    this.child.updateGenderDesignationDocType.images = [];*/
-
   }
 
-
-}
-
- /* get childNameChangedocs() : PersonDocuments {
-    return this.child.nameChangeDocs;
-  };
-
-  get statusChangeDocList(): SupportDocumentTypes[] {
-    return [SupportDocumentTypes.CanadianBirthCertificate,
-          SupportDocumentTypes.CanadianCitizenCard,
-          SupportDocumentTypes.CanadianPassport];
+  set newlyAdopted(val: boolean) {
+    this.child.newlyAdopted = val;
+    this.personChange.emit(this.child);
   }
 
+  get hasActiveMedicalCoverage() {
+    return this.child.hasActiveMedicalServicePlan;
+  }
 
-   statusDocUpdate($event) {
-    this.child[this.index].documents = $event;
+  set hasActiveMedicalCoverage(val: boolean) {
+    this.child.hasActiveMedicalServicePlan = val;
+    this.personChange.emit(this.child);
+  }
 
-    if ( this.child[this.index].documents && this.child[this.index].documents.images.length === 0 ) {
+  get statusDocuments(): SupportDocuments {
+    return this.child.updateStatusInCanadaDocType;
+  }
+
+  isPhnUniqueInChild() {
+    return this.dataService.accountApp.isUniquePhnsinDependents;
+  }
+
+  set statusDocuments(document: SupportDocuments) {
+    this.child.updateStatusInCanadaDocType = document;
+    if (document.images && document.images.length === 0) {
       // no status documents remove any name documents
-      this.child[this.index].nameChangeDocs.documentType = null;
-      this.child[this.index].nameChangeDocs.images = [];
+      this.child.nameChangeDocs.documentType = null;
+      this.child.nameChangeDocs.images = [];
     }
   }
-
- displayStatusOpt(index: number): boolean {
-    return this.children[index].relationship !== Relationship.Unknown;
-  }
-
-  get items()   {
-
-    return[
-    {
-      "label": "Canadian birth certificate",
-      "value": Documents.CanadianBirthCertificate
-    },
-    {
-      "label": "Canadian Passport",
-      "value": Documents.CanadianPassport
-    },
-    {
-      "label": "Canadian citizenship card or certificate",
-      "value": Documents.CanadianCitizenCard
-    }
-  ]}; */
 }
