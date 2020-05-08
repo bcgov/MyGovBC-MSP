@@ -133,14 +133,14 @@
         <div class="form-group p-sm-2">
           <common-radio
             name="additionalDoc"
-            [(ngModel)]="person.hasUpdateGenderAdditionalDocs"
+            [(ngModel)]="person.updateGenderAdditionalDocs"
             label="Do you need to add an additional document?"
             required>
           </common-radio>
         </div>
     </div>
     <msp-support-documents
-      *ngIf="person.hasUpdateGenderAdditionalDocs"
+      *ngIf="person.updateGenderAdditionalDocs"
       [supportDocList]="genderChangeDocs"
       [(supportDoc)]="person.updateGenderDocType3">
     </msp-support-documents>

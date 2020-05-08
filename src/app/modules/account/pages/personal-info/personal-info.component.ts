@@ -165,8 +165,37 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
       }
     }
 
+    checkDocuments(){
+      let valid = true;
+      if (this.person.updateStatusInCanada === true){
+        valid = valid && this.person.updateStatusInCanadaDocType.images.length > 0;
+      }
+      if (this.person.updateNameDueToMarriage === true){
+        valid = valid && this.person.updateNameDueToMarriageDocType.images.length > 0;
+      }
+      if (this.person.updateNameDueToNameChange === true){
+        valid = valid && this.person.updateNameDueToNameChangeDocType.images.length > 0;
+      }
+      if (this.person.updateGender === true){
+        valid = valid && this.person.updateGenderDocType.images.length > 0 && this.person.updateGenderDocType2.images.length > 0;
+        if (this.person.updateGenderAdditionalDocs === true){
+          valid = valid && this.person.updateGenderDocType3.images.length > 0;
+        }
+      }
+      if (this.person.updateNameDueToError === true){
+        valid = valid && this.person.updateNameDueToErrorDocType.images.length > 0;
+      }
+      if (this.person.updateBirthdate === true){
+        valid = valid && this.person.updateBirthdateDocType.images.length > 0;
+      }
+      if (this.person.updateGenderDesignation === true){
+        valid = valid && this.person.updateGenderDesignationDocType.images.length > 0;
+      }
+      return valid;
+    }
+
     canContinue(): boolean {
-      const valid = super.canContinue() && this.person.updatingPersonalInfo !== undefined && this.hasAnyUpdateSelected();
+      const valid = super.canContinue() && this.person.updatingPersonalInfo !== undefined && this.hasAnyUpdateSelected() && this.checkDocuments();
       return valid;
     }
 
