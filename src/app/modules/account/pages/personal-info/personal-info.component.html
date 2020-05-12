@@ -1,34 +1,36 @@
 <common-page-framework layout="blank">
-    <form #formRef="ngForm" novalidate>
-        <h1><strong>Medical Services Plan Account Holder</strong></h1>
-        <msp-personal-information [person]="applicant">
-            <div sectionTitleInfo>
-                <h2>Account Holder Identification</h2>
-                <p class="horizontal-line">
-                    Please provide the Account Holder’s personal information for verification purposes.
-                </p>
+    <div class="deam-container">
+        <form #formRef="ngForm" novalidate>
+            <h1><strong>Medical Services Plan Account Holder</strong></h1>
+            <msp-personal-information [person]="applicant">
+                <div sectionTitleInfo>
+                    <h2>Account Holder Identification</h2>
+                    <p class="horizontal-line">
+                        Please provide the Account Holder’s personal information for verification purposes.
+                    </p>
+                </div>
+            </msp-personal-information>
+
+            <div class="form-group">
+                <common-radio
+                    [value]="applicant.updatingPersonalInfo"
+                    [label]="'As the Account Holder, are you requesting an update to your personal information or renewing your status in Canada?'"
+                    [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                    (valueChange)="applicant.updatingPersonalInfo = $event"
+                    required>
+                </common-radio>
             </div>
-        </msp-personal-information>
 
-        <div class="form-group">
-            <common-radio
-                [value]="applicant.updatingPersonalInfo"
-                [label]="'As the Account Holder, are you requesting an update to your personal information or renewing your status in Canada?'"
-                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                (valueChange)="applicant.updatingPersonalInfo = $event"
-                required>
-            </common-radio>
-        </div>
-
-        <div *ngIf="applicant.updatingPersonalInfo">
-            <msp-update-request
-                title="What updates are you requesting for Account Holder?"
-                subtitle = "For each update or correction selected, provide the supporting documents."
-                [person]="person"
-                [accountApp]="accountApp">
-            </msp-update-request>
-        </div>
-    </form>
+            <div *ngIf="applicant.updatingPersonalInfo">
+                <msp-update-request
+                    title="What updates are you requesting for Account Holder?"
+                    subtitle = "For each update or correction selected, provide the supporting documents."
+                    [person]="person"
+                    [accountApp]="accountApp">
+                </msp-update-request>
+            </div>
+        </form>
+    </div>
 </common-page-framework>
 
 <div class="position: inherit;">

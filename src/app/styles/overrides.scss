@@ -202,6 +202,11 @@ accordion-group + accordion-group {
   float: right;
 }
 
+.deam-container {
+  padding-left: 7rem !important;
+  padding-right: 7rem !important;
+}
+
 // Increase checkbox size.
 .custom-control-label::before {
   width: 1.5rem !important;
