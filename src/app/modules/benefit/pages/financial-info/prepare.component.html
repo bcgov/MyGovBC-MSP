@@ -29,7 +29,7 @@
                             <!-- Question 2, Enter your net income -->
                             <label for="netIncome">{{this.getFinanialInfoSectionTitle}}</label>
                             <div class="text-muted">
-                                    See Line 23600 of your Notice of Assessment or Reassessment
+                                    See Line {{ this.benefitApp.taxYear >= 2019 ? 23600 : 236 }} of your Notice of Assessment or Reassessment
                             </div>
 
                             <div class="col-md-6 input-group">
@@ -103,7 +103,7 @@
                                     <!-- Spouse Income  -->
                                         <label for="spouseIncomeLine236" [innerHtml]="getSpouseFinanialInfoSectionTitle">
                                         </label>
-                                        <div class="muted-text">See Line 23600 of your spouse's Notice of Assessment or Reassessment</div>
+                                        <div class="muted-text">See Line {{ this.benefitApp.taxYear >= 2019 ? 23600 : 236 }} of your spouse's Notice of Assessment or Reassessment</div>
                                         <div class="col-md-6 input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
@@ -164,7 +164,7 @@
                                             How much did you claim for child care expenses in {{this.benefitApp.taxYear}}?
                                         </label>
                                         <div class="muted-text">
-                                                See Line 21400 of your Notice of Assessment or Reassessment
+                                                See Line {{ this.benefitApp.taxYear >= 2019 ? 21400 : 214 }} of your Notice of Assessment or Reassessment
                                         </div>
                                         <div class="col-md-6 input-group">
                                             <div class="input-group-prepend">
@@ -195,7 +195,7 @@
                                 (valueChange)="updateDisabilityCredit($event)">
                             </common-radio>
                             <p>
-                                See Line 31600, 31800 or {{ this.benefitApp.taxYear === 2019 ? 32600 : 326 }} of your Notice of Assessment or Reassessment
+                                See Line {{ this.benefitApp.taxYear >= 2019 ? 31600 : 316 }}, {{ this.benefitApp.taxYear >= 2019 ? 31800 : 318 }} or {{ this.benefitApp.taxYear >= 2019 ? 32600 : 326 }} of your Notice of Assessment or Reassessment
                             </p>
                         </div>
         
@@ -312,7 +312,7 @@
                             <common-radio [value]="benefitApp.hasClaimedAttendantCareExpenses"  [label]="didAnyoneClaimAttendantCareLastYear" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                                 (valueChange)="updateNursingHomeExpense($event);"
-                                instructionText="See Line 215 or {{ this.benefitApp.taxYear === 2019 ? 33099 : 330}} of your Notice of Assessment or Reassessment">
+                                instructionText="See Line {{ this.benefitApp.taxYear >= 2019 ? 21500 : 215}} or {{ this.benefitApp.taxYear >= 2019 ? 33099 : 330}} of your Notice of Assessment or Reassessment">
                             </common-radio>
                             
                         </div>
