@@ -52,10 +52,10 @@
               The tax year
             </li>
             <li>
-              Your net income (line 23600)
+              Your net income (line {{ benefitApp.taxYear >= 2019 ? 23600 : 236 }})
             </li>
             <li> 
-              If you have a Registered Disability Savings Plan (line 12500)
+              If you have a Registered Disability Savings Plan (line {{ benefitApp.taxYear >= 2019 ? 12500 : 125 }})
             </li>
             </ul>
           </div>

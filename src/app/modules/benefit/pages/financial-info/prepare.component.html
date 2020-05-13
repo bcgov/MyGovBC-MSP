@@ -285,7 +285,7 @@
                                     <label for="line125">
                                             How much did you {{benefitApp.hasSpouse ? '(or your spouse/common-law partner)' : ''}} report for a Registered Disability Savings Plan in {{this.benefitApp.taxYear}}?
                                     </label>
-                                    <p class="muted-text" >See Line 12500 of the Notice of Assessment or Reassessment</p>
+                                    <p class="muted-text" >See Line {{ this.benefitApp.taxYear >= 2019 ? 12500 : 125 }} of the Notice of Assessment or Reassessment</p>
                                     <div class="col-md-6 input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">$</span>
