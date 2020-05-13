@@ -197,17 +197,13 @@ accordion-group + accordion-group {
 }
 
 // Increase checkbox size.
-.custom-control-label::before {
-  width: 1.5rem !important;
-  height: 1.5rem !important;
-}
-
-.custom-control-label::after {
-  width: 1.5rem !important;
-  height: 1.5rem !important;
-}
-
-.custom-control-label {
-  padding-top: .25rem !important;
-  padding-left: 0.5rem !important;
+common-checkbox {
+  input {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  label {
+    padding-top: 0.25rem;
+    padding-left: 0.5rem;
+  }
 }
