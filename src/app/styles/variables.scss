@@ -30,7 +30,6 @@ $container-max-widths: (
 //------------------------------------------------------------------------------
 // Custom Variables
 //------------------------------------------------------------------------------
-
 $color-primary: #036;
 $color-secondary: #fcba19;
 $color-success: #83D31D;
@@ -62,7 +61,6 @@ $theme-colors: map-merge((
         secondary-nav: $color-secondary-nav // This is new too
 ), $theme-colors);
 
-
 $blue: $color-primary; // Change bootstrap blue to our theme blue
 // Add our font as default
 $font-family-sans-serif: Myriad-Pro, Calibri, Arial, sans serif;
@@ -79,8 +77,6 @@ $headings-font-family:        inherit;
 $btn-border-radius:         4px;
 $btn-border-radius-lg:        8px;
 $btn-border-radius-sm:        2px;
-
-
 
 // Links
 $link-color:            #1a5a96;
@@ -101,8 +97,6 @@ $card-inner-border-radius: 0px;
 $card-border-radius: 0px;
 $card-border-width: 0px;
 //$card-cap-bg: $color-primary;
-
-
 
 // Now that we've set the variables, we can override them in Bootstrap
 @import "~bootstrap/scss/functions";

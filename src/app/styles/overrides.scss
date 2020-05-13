@@ -11,7 +11,6 @@
 // Make .btn-primary yellow.  The primary colour stays blue.
 .btn-primary {
     @include button-variant($color-secondary, #f8b103);
- 
     &.disabled, &:disabled, &[disabled] {
         color: #444; // passess a11y AAA
         background-color: #eee !important;
@@ -22,38 +21,36 @@
 
 .btn-secondary {
   @include button-variant($color-primary, #036);
-
   &.disabled, &:disabled, &[disabled] {
-      color: #777;
-      background-color: #eee;
-      border-color: #eee;
-      &:hover { border-color: $color-primary; }
+    color: #777;
+    background-color: #eee;
+    border-color: #eee;
+    &:hover { border-color: $color-primary; }
   }
 }
-.btn-default {
-    @include button-variant(#f4f6f9, #ccc);
 
-    &.disabled, &:disabled, &[disabled] {
-        color: #777;
-        background-color: #eee;
-        border-color: #eee;
-    }
-    
-    &:hover:not(:disabled),
-    &.active:not(:disabled) {
-      color: #333;
-      background-color: #d3dbe7;
-      border-color: #adadad;
-    }
+.btn-default {
+  @include button-variant(#f4f6f9, #ccc);
+  &.disabled, &:disabled, &[disabled] {
+    color: #777;
+    background-color: #eee;
+    border-color: #eee;
+  }
+  &:hover:not(:disabled),
+  &.active:not(:disabled) {
+  color: #333;
+  background-color: #d3dbe7;
+  border-color: #adadad;
+  }
 }
 
 // Re-implement disabled button styles from Bootstrap 3
 .btn[disabled] {
-    cursor: not-allowed;
-    opacity: .65;
-    filter: alpha(opacity=65);
-    -webkit-box-shadow: none;
-    box-shadow: none;
+  cursor: not-allowed;
+  opacity: .65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 a {
@@ -80,8 +77,6 @@ a {
   }
 }
 
-
-
 // Only paragraph links should be underlined
 p a {
   text-decoration: underline;
@@ -95,7 +90,6 @@ p a {
 header nav {
   background-color: $color-primary;
   border-bottom: 2px solid $color-secondary;
-
   -webkit-box-shadow: 0 3px 3px 1px rgba(51, 51, 51, 0.5);
   -moz-box-shadow: 0 3px 3px 1px rgba(51, 51, 51, 0.5);
   box-shadow: 0 3px 3px 1px rgba(51, 51, 51, 0.5);
@@ -106,19 +100,16 @@ header .nav-link {
   color: white !important;
 }
 
-
 .footer {
   width: 100%;
   border-color: $color-secondary;
   border-top: 2px solid $color-secondary;
-
   & > .navbar {
     min-height: 3.65rem;
     padding: 0 !important;
     flex-flow: column;
   }
 }
-
 
 // Only sibling list items in footer get left border
 footer li+li  {
@@ -128,7 +119,6 @@ footer li+li  {
 }
 
 // Have to ensure footer nav links are white
-
 footer .nav-link {
   color: white !important;
   padding-left: 1rem !important;
@@ -141,19 +131,21 @@ footer .navbar {
 footer a {
   text-decoration: none;
 }
+
 footer a:hover {
   text-decoration: underline !important;
 }
+
 footer li {
   border-left: 1px solid #4b5e73;
   padding: 2px 17px;
   margin-top: 10px;
 }
+
 footer .navbar-nav > li > a {
   padding-top: 0;
   padding-bottom: 0;
 }
-
 
 h1, h2, h3,
 .h1, .h2, .h3 {
@@ -163,7 +155,6 @@ h1, h2, h3,
 }
 
 // Modal
-
 .modal-content {
   //Bootstrap 3 to 4: Re-implement bootstrap box-shadow
   box-shadow: 0 5px 15px rgba(0,0,0,.5);
@@ -171,6 +162,7 @@ h1, h2, h3,
   // Close icon should be primary colour
   a > .fa-times { color: $color-primary; }
 }
+
 //TODO validate this approach
 .panel-group {
   margin-bottom:20px;
@@ -179,12 +171,9 @@ h1, h2, h3,
 //
 // Checkboxes
 // --------------------------------------------------
-
-
 $font-family-icon: 'FontAwesome' !default;
 $fa-var-check: "\f00c" !default;
 $check-icon: $fa-var-check !default;
-
 
 accordion-group + accordion-group {
   //Bootstrap 3 to 4: Re-implement spacing, due to removing .panels and replacing with .cards
