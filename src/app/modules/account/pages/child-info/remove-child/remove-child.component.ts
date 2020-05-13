@@ -1,22 +1,23 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
-import {NgForm, ControlContainer} from '@angular/forms';
-import {  CancellationReasons } from '../../../../../models/status-activities-documents';
+import { NgForm, ControlContainer} from '@angular/forms';
+import { CancellationReasons } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions } from '../../../models/account.model';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
-
-
 
 @Component({
   selector: 'msp-remove-child',
   templateUrl: './remove-child.component.html',
   styleUrls: ['./remove-child.component.scss'],
   viewProviders: [
-    { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
+    {
+      provide: ControlContainer,
+      useExisting: forwardRef(() => NgForm)
+    }
   ]
 })
-export class RemoveChildComponent implements OnInit {
 
+export class RemoveChildComponent implements OnInit {
   constructor( public dataService: MspAccountMaintenanceDataService) { }
 
   ngOnInit() {
@@ -28,9 +29,9 @@ export class RemoveChildComponent implements OnInit {
   @Input() index: number;
 
   get cancellationReasons() {
-    return[
+    return [
       {
-        'label': 'No Longer in full Studies',
+        'label': 'No longer in full time studies',
         'value': CancellationReasons.NoLongerInFullTimeStudies
       },
       {
@@ -38,7 +39,7 @@ export class RemoveChildComponent implements OnInit {
         'value': CancellationReasons.Deceased
       },
       {
-        'label': 'Out of province/ Out of Country move',
+        'label': 'Out of Province/ Out of Country',
         'value': CancellationReasons.OutOfProvinceOrCountry
       },
       {
@@ -49,15 +50,15 @@ export class RemoveChildComponent implements OnInit {
         'label': 'Incarcerated',
         'value': CancellationReasons.Incarcerated
       },
-  ]; }
+    ];
+  }
 
-  handleAddressUpdate(evt: any){
+  handleAddressUpdate(evt: any) {
     console.log(evt);
     console.log('address update event: %o', evt);
     evt.addressLine1 = evt.street;
     this.dataService.saveMspAccountApp();
   }
-
 
   isPhnUniqueInChild() {
     return this.dataService.accountApp.isUniquePhnsinDependents;

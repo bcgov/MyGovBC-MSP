@@ -18,7 +18,7 @@
           <common-button
             [label]="'Add Spouse'"
             [disabled]="(addNewSpouse || showUpdateSpouse)"
-            [buttonType]="'btn btn-primary'"
+            [buttonType]="'btn btn-primary btn-block'"
             (btnClick)='addSpouse()'>
           </common-button>
         </div>
@@ -27,7 +27,7 @@
           <common-button
             [label]="'Remove Spouse'"
             [disabled]="(showSpouse || showUpdateSpouse)"
-            [buttonType]="'btn btn-primary'"
+            [buttonType]="'btn btn-primary btn-block'"
             (btnClick)='removeSpouse()'>
           </common-button>
         </div>
@@ -36,7 +36,7 @@
           <common-button
             [label]="'Update Spouse'"
             [disabled]="(addNewSpouse || showUpdateSpouse || showSpouse)"
-            [buttonType]="'btn btn-primary'"
+            [buttonType]="'btn btn-primary btn-block'"
             (btnClick)='updateSpouse()'>
           </common-button>
         </div>
@@ -108,7 +108,7 @@
             <common-button
               [label]="'Add Spouse'"
               [disabled]="(addNewSpouse || showUpdateSpouse)"
-              [buttonType]="'btn btn-primary'"
+              [buttonType]="'btn btn-primary btn-block'"
               (btnClick)='addSpouse()'>
             </common-button>
           </div>
@@ -116,7 +116,7 @@
             <common-button
               [label]="'Remove Spouse'"
               [disabled]="(showSpouse || showUpdateSpouse)"
-              [buttonType]="'btn btn-primary'"
+              [buttonType]="'btn btn-primary btn-block'"
               (btnClick)='removeSpouse()'>
             </common-button>
           </div>
@@ -124,7 +124,7 @@
             <common-button
               [label]="'Update Spouse'"
               [disabled]="(addNewSpouse || showUpdateSpouse || showSpouse)"
-              [buttonType]="'btn btn-primary'"
+              [buttonType]="'btn btn-primary btn-block'"
               (btnClick)='updateSpouse()'>
             </common-button>
           </div>

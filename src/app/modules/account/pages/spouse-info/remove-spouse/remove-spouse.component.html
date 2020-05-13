@@ -1,4 +1,3 @@
-
 <msp-personal-information
   [person]="spouse">
 </msp-personal-information>
@@ -12,12 +11,12 @@
     [(ngModel)]="spouse.cancellationReason"
     (ngModelChange)="spouse.cancellationReason = $event; this.dataService.saveMspAccountApp();">
     <ng-container>
-        <option selected value="null" disabled="true">Please Select</option>
-        <option *ngFor="let item of cancellationReasons"
-          [ngValue]="item.value"
-          [selected]="spouse.cancellationReason == item.value">
-          {{ item.label }}
-        </option>
+      <option selected value="null" disabled="true">Please Select</option>
+      <option *ngFor="let item of cancellationReasons"
+        [ngValue]="item.value"
+        [selected]="spouse.cancellationReason == item.value">
+        {{item.label}}
+      </option>
     </ng-container>
   </select>
 </div>
@@ -48,7 +47,7 @@
   <common-radio
     [value]="spouse.hasCurrentMailingAddress"
     label="Do you know your spouse's current mailing address?"
-    [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+    [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
     (valueChange)="spouse.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
   </common-radio>
 
@@ -57,7 +56,8 @@
     <h2><strong>Spouse's Mailing Address</strong></h2>
       <p>Please provide the spouse's current mailing address.</p>
       <hr>
-      <common-address [address]="spouse.mailingAddress"
+      <common-address
+        [address]="spouse.mailingAddress"
         (addressChange)="handleAddressUpdate($event)"
         [isRequired]="true">
       </common-address>

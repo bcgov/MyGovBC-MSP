@@ -79,7 +79,7 @@
     <!-- Do you need to add an additional document? -->
   </div>
 
-<!-- Spouse's Personal Information -->
+  <!-- Spouse's Personal Information -->
   <msp-personal-information
     [person]="spouse">
     <div sectionTitleInfo>
@@ -110,7 +110,7 @@
     </common-date>
   </div>
 
-<!-- Has your spouse's name changed due to marriage? -->
+  <!-- Has your spouse's name changed due to marriage? -->
   <div class="form-group">
     <common-radio
       [(ngModel)]="spouse.updateNameDueToMarriage"
@@ -121,28 +121,29 @@
     </common-radio>
   </div>
 
-  <div *ngIf="updateNameDueToMarriage" class="add-document">
+  <div *ngIf="spouse.updateNameDueToMarriage === true" class="add-document">
     <msp-support-documents
       [supportDocList]="spouseNameChangeDocList"
       [(supportDoc)]="spouse.nameChangeDocs">
       <div sectionTitleInfo>
-          <h2>Account Holder's new last name</h2>
-          <p class="border-bottom">
-              This name will be printed on your new BC Serives Card.
-          </p>
-          <div class="form-group col-sm-6 pl-0" style="width: 300px;">
-              <common-name name="updateNameDueToMarriageRequestedLastName"
-                  label="Requested last name"
-                  [disabled]="disabled"
-                  [(ngModel)]="updateNameDueToMarriageRequestedLastName"
-                  maxlen="30"
-                  required
-                  commonValidateName>
-              </common-name>
-          </div>
-          <p class="border-bottom">
-              Provide <b>one</b> of the required documents to support your personal information update.
-          </p>
+        <h2>Account Holder's new last name</h2>
+        <p class="border-bottom">
+          This name will be printed on your new BC Serives Card.
+        </p>
+        <div class="form-group col-sm-6 pl-0" style="width: 300px;">
+          <common-name
+            name="updateNameDueToMarriageRequestedLastName"
+            label="Requested last name"
+            [disabled]="disabled"
+            [(ngModel)]="updateNameDueToMarriageRequestedLastName"
+            maxlen="30"
+            required
+            commonValidateName>
+          </common-name>
+        </div>
+        <p class="border-bottom">
+          Provide <b>one</b> of the required documents to support your personal information update.
+        </p>
       </div>
     </msp-support-documents>
   </div>

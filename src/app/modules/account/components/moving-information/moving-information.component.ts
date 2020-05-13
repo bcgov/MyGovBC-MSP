@@ -22,8 +22,8 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
     }
   ]
 })
-export class ChildMovingInformationComponent extends Base implements OnInit {
 
+export class ChildMovingInformationComponent extends Base implements OnInit {
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
@@ -31,7 +31,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   links = environment.links;
   countryList = COUNTRY_LIST;
   // Remove BC from province list
-  provinceList = PROVINCE_LIST.map( x => {
+  provinceList = PROVINCE_LIST.map(x => {
     if (x.provinceCode !== BRITISH_COLUMBIA) {
       return x;
     }
