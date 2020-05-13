@@ -34,11 +34,9 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
         super(cd);
         this.benefitApp = this.dataService.benefitApp;
         this.person = this.dataService.benefitApp.applicant;
-        // console.log(this.person);
     }
 
     ngAfterViewInit() {
-        //console.log(this.birthdate);
         this.personalDetailsForm.valueChanges.pipe(debounceTime(0))
             .subscribe( values => {
                 this.onChange.emit(values);
@@ -75,7 +73,6 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     }
 
     addDocument(evt: Array<any>) {
-        console.log('evt', evt);
         this.person.assistYearDocs = evt;
         this.dataService.saveBenefitApplication();
         // this.person.documents.images = this.person.documents.images.filter(

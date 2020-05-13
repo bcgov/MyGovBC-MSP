@@ -79,7 +79,6 @@ export class AssistRatesHelperModalComponent implements OnInit {
   selectYear(event: any) {
     const year = event.target.value;
     const selectedYear = this.rateData[year];
-    console.log('run', typeof year);
 
     if (parseInt(year) === 2018 || parseInt(year) === 2017) {
       this.tableHeaders = [
@@ -95,8 +94,6 @@ export class AssistRatesHelperModalComponent implements OnInit {
         'Family of Three or More'
       ];
     }
-
-    console.log('headers length', this.tableHeaders.length);
 
     const yearTitle = `${year}(January 1, ${year} to December 31, ${year})`;
     const taxReturnInfo = `Provide income information(CRA Notice of Assessment or Notice of Reassessment) for the ${year -

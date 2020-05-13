@@ -113,7 +113,6 @@ export class BaseComponent implements DoCheck {
     const self: BaseComponent = this;
 
     if (self.validationMap[comp.objectId] == null) {
-      //console.log(this.constructor.name + " is adding: " + comp.constructor.name + " (" + comp.objectId + ") in state: " + comp.isAllValid());
       self.validationMap[comp.objectId] = comp.isAllValid();
       self.emitIsFormValid();
       const subscription = comp.isFormValid
@@ -125,10 +124,8 @@ export class BaseComponent implements DoCheck {
 
       // Listen for the unsubscribe and delete it from the validation map
       comp.unRegisterComponent.subscribe( (event: BaseComponent) => {
-        //console.log(this.constructor.name + " is removing: " + event.constructor.name + ": " + event.objectId);
         delete self.validationMap[event.objectId];
         subscription.unsubscribe();
-        //console.log("after deleted: " + self.validationMap[event.objectId]);
         self.emitIsFormValid();
       });
     }
@@ -157,14 +154,9 @@ export class BaseComponent implements DoCheck {
   }
 
   private _emitIsFormValid () {
-    //console.log(this.constructor.name + "(" + this.objectId + "): children: " + this.childrenIsValid() + "(" + Object.keys(this.validationMap).length
-    //  + "); myFormValid: " + this.myFormValid +
-    //  "; this.isValid: " + this.isValid());
     for (const key of Object.keys(this.validationMap)) {
       const item = this.validationMap[key];
-      //console.log("key: " + key + "; value: " + item);
       if (item === false) {
-        //console.log(this.constructor.name + ": child is invalid: " + key);
       }
     }
 
@@ -207,7 +199,6 @@ export class BaseComponent implements DoCheck {
    * On destroym, unsubcribed and init self
    */
   ngOnDestroy(){
-    //console.log("Destroying " + this.constructor.name + "(" + this.objectId + ")");
     this.unsubscribeAll();
     this.validationMap = {};
     this.myFormValid = true;
@@ -226,6 +217,5 @@ export class BaseComponent implements DoCheck {
   }
 
   debug() {
-
   }
 }

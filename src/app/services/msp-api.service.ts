@@ -31,46 +31,44 @@ export class MspApiService {
 
    /*
     sendRequest(app: MspApplication): Promise<any> {
-		const suppBenefitRequest = this.prepareEnrolmentApplication(app);
-		console.log(suppBenefitRequest);
+        const suppBenefitRequest = this.prepareEnrolmentApplication(app);
 
-		return new Promise<ApiResponse>((resolve) => {
+        return new Promise<ApiResponse>((resolve) => {
 
-			// if no errors, then we'll sendApplication all attachments
-			return this.sendAttachments(
-			  app.authorizationToken,
-			  app.uuid,
-			  app.getAllImages()
-			)
-			  .then(attachmentResponse => {
-				console.log('sendAttachments response', attachmentResponse);
+            // if no errors, then we'll sendApplication all attachments
+            return this.sendAttachments(
+              app.authorizationToken,
+              app.uuid,
+              app.getAllImages()
+            )
+              .then(attachmentResponse => {
 
-				return this.sendEnrolmentApplication(
-				  suppBenefitRequest,
-				  app.authorizationToken
-				).subscribe(response => {
-				  // Add reference number
-				  if (response && response.referenceNumber) {
-					app.referenceNumber = response.referenceNumber.toString();
-				  }
-				  // Let our caller know were done passing back the application
-				  return resolve(response);
-				});
-			  })
-			  .catch((error: Response | any) => {
-				// TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-				console.log('sent all attachments rejected: ', error);
-				this.logService.log(
-				  {
-					text: 'Attachment - Send All Rejected ',
-					response: error
-				  },
-				  'Attachment - Send All Rejected '
-				);
-				return resolve(error);
-			  });
+                return this.sendEnrolmentApplication(
+                  suppBenefitRequest,
+                  app.authorizationToken
+                ).subscribe(response => {
+                  // Add reference number
+                  if (response && response.referenceNumber) {
+                    app.referenceNumber = response.referenceNumber.toString();
+                  }
+                  // Let our caller know were done passing back the application
+                  return resolve(response);
+                });
+              })
+              .catch((error: Response | any) => {
+                // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
+                console.log('sent all attachments rejected: ', error);
+                this.logService.log(
+                  {
+                    text: 'Attachment - Send All Rejected ',
+                    response: error
+                  },
+                  'Attachment - Send All Rejected '
+                );
+                return resolve(error);
+              });
 
-		});
+        });
     }
 */
 /*
@@ -103,14 +101,11 @@ export class MspApiService {
                 return this.maintenanceService.checkMaintenance().subscribe(response => {
                     const spaResponse = <ISpaEnvResponse> response;
                     if (spaResponse && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG === 'true'){
-                        console.log('In Maintenance Mode: ', spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
                         return reject(spaResponse);
                     } else {
 
-                        console.log('Start sending...');
                         let documentModel: document;
                       /*  if (app instanceof MspApplication) {
-                            console.log(app);
                             documentModel = this.convertMspApplication(app);
                             //documentModel = this.prepareEnrolmentApplication(app);
                         } else*/
@@ -138,7 +133,6 @@ export class MspApiService {
                             // once all attachments are done we can sendApplication in the data
                             return this.sendDocument(app.authorizationToken, documentModel, convertedAppXml).then(
                                 (response: ResponseType) => {
-                                    console.log('sent application resolved');
                                     // Add reference number
                                     app.referenceNumber = response.referenceNumber.toString();
 
@@ -171,7 +165,6 @@ export class MspApiService {
             }
         });
     }
-
 
     private sendAttachments(token: string, applicationUUID: string, attachments: CommonImage[]): Promise<void> {
         return new Promise<void>((resolve, reject) => {
@@ -325,7 +318,6 @@ export class MspApiService {
                     //    text: "Send Document XML - Success",
                     //    response: response,
                     // }, "Send Document XML - Success")
-                    console.log('sent application resolved');
                     return resolve(this.convertResponse(response));
                 })
                 .catch((error) => {
@@ -342,7 +334,6 @@ export class MspApiService {
     convertResponse(responseBody: string): ResponseType {
         return this.stringToJs<ResponseType>(responseBody)['ns2:response'];
     }
-
 
     /**
      * Start of MSP Application converted converter operation
@@ -746,7 +737,6 @@ export class MspApiService {
 
         // If no attachments just return
         if (!attachments || attachments.length < 1) {
-            // console.log("no attachments");
             return null;
         }
 
@@ -1257,7 +1247,6 @@ export class MspApiService {
 
 /*
   private prepareEnrolmentApplication(from: MspApplication): any {
-    console.log('prepareBenefitApplicatoin', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
     const output = {
       'enrolmentApplication': {
         'applicant': {
@@ -1281,7 +1270,7 @@ export class MspApiService {
           'citizenshipStatus': {
             'citizenshipType': 'ReligiousWorker',
           // 'attachmentUuids': [
-          //	'ABCDEFGHIJKLMNOPQRST'
+          //    'ABCDEFGHIJKLMNOPQRST'
           //  ]
           },
           'previousCoverage': {
@@ -1311,7 +1300,7 @@ export class MspApiService {
           }
           },
           //'attachmentUuids': [
-        //	'ABCDEFGHIJKLMNOPQRSTUVWX'
+        //    'ABCDEFGHIJKLMNOPQRSTUVWX'
         // ],
           'authorizedByApplicant': 'Y',
           'authorizedByApplicantDate': '09-10-2018',
@@ -1326,7 +1315,6 @@ export class MspApiService {
       // create Attachment from Images
       output['attachments'] = this.convertAttachmentsForEnrolment(from);
       output['uuid'] = from.uuid;
-      console.log(output);
       return output;
     }
     */

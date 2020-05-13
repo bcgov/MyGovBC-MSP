@@ -34,7 +34,6 @@ export class AssistStateService {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
       .subscribe((obs: any) => {
-        console.log( 'route events: ', obs.url );
         this.setIndex( obs.url );
       });
   }
@@ -77,14 +76,12 @@ export class AssistStateService {
   }
 
   setPageIncomplete( path: string ) {
-    console.log( 'setPageIncomplete: ', path );
     const obj = this.finAssistApp.pageStatus.find( x => path.includes(x.path) );
     if ( obj ) {
       obj.isComplete = false;
       // Set future pages to not complete
       this.finAssistApp.pageStatus.map( x => {
         if ( obj.index < x.index && x.isComplete ) {
-          console.log( 'sets pages in front false: ', x, obj );
           x.isComplete = false;
         }
       });
@@ -92,7 +89,6 @@ export class AssistStateService {
   }
 
   setPageValid( path: string, valid: boolean ) {
-    console.log( 'setPageValid: ', path, valid );
     const obj = this.finAssistApp.pageStatus.find( x => path.includes(x.path) );
     if ( obj ) {
       obj.isValid = valid;
@@ -114,13 +110,11 @@ export class AssistStateService {
     const token = this.finAssistApp.authorizationToken;
     const attachments = this.xformSvc.fileAttachments;
     const app = this.xformSvc.application;
-    console.log('run');
     try {
       //await this.api.sendFiles(token, app.uuid, attachments);
       const call = await this.api.sendApp(app, token, app.uuid, attachments);
       const res = await call.toPromise();
       this.response = res;
-      console.log(res);
       const isSuccess =  this.response.op_return_code === 'SUCCESS';
       isSuccess
         ? (this.dataSvc.removeFinAssistApplication(), this.success$.next(res))

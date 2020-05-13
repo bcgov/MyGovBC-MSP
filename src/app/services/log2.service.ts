@@ -111,7 +111,6 @@ export class MspLog2Service extends AbstractHttpService {
         const body = { message: message };
 
         if (environment.logHTTPRequestsToConsole){
-            console.log('Log Message', message);
         }
 
         if (environment.appConstants.enableLogging){
@@ -168,7 +167,6 @@ export class MspLog2Service extends AbstractHttpService {
      * @returns {string}
      */
     getApplicationId(): string {
-        console.log(this.router.url);
         if (this.router.url.indexOf('/' + APP_ROUTES.ENROLMENT + '/') !== -1){
             return  this.enrolDataService.application.uuid;
         }
@@ -183,7 +181,6 @@ export class MspLog2Service extends AbstractHttpService {
         }
     }
 }
-
 
 enum SeverityLevels {
     INFO = 'info',

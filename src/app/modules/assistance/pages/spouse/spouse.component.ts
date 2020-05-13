@@ -46,7 +46,6 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
   get validSelection() {
     const app = this.finAssistApp.assistYears;
-    console.log('this.finAssistApp.assistYears: ', this.finAssistApp.assistYears );
     return app.some(itm => itm.hasSpouse);
   }
 
@@ -158,7 +157,6 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   }
 
   toggleYear(bool: boolean, year: number) {
-    // console.log(this.finAssistApp);
     if (bool) {
       const itm = this.findYear(year);
       let i = 0;

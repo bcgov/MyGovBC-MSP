@@ -47,13 +47,10 @@ export class RemoveSpouseComponent extends BaseComponent {
   }
 
   onChange($event){
-    console.log($event);
-    console.log(this.spouse);
     //this.dataService.saveMspAccountApp();
   }
 
   setCancellationStatus(evt: any) {
-    console.log(evt);
     if (evt === 1) {
       this.spouse.reasonForCancellation = evt;
     }
@@ -61,8 +58,6 @@ export class RemoveSpouseComponent extends BaseComponent {
   }
 
   handleAddressUpdate(evt: any){
-    console.log(evt);
-    console.log('address update event: %o', evt);
     evt.addressLine1 = evt.street;
    // this.dataService.saveMspAccountApp();
   }

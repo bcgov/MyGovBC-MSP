@@ -35,11 +35,9 @@ export class MspFullNameComponent implements OnDestroy {
 
     if ( parent ) {
       this.subscriptions.push( parent.valueChanges.subscribe(obs => {
-        // console.log( '(full-name) parent change values: ', obs );
         this.dataChange.emit( obs );
       }) );
       // this.subscriptions.push( parent.statusChanges.subscribe( x => {
-      //   console.log( '(full-name) parent change status: ', parent.status );
       // }) );
     }
   }

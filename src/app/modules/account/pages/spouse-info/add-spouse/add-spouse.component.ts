@@ -41,15 +41,11 @@ export class AddSpouseComponent extends Base implements OnInit {
 
   setGender(evt: any) {
     this.spouse.gender = evt;
-    console.log(this.spouse);
-    console.log(evt);
     this.onChange.emit(evt);
   }
 
   setUpdateNameDueToMarriage(evt: any) {
     this.spouse.updateNameDueToMarriage = evt;
-    console.log(this.spouse);
-    console.log(evt);
     this.onChange.emit(evt);
   }
 

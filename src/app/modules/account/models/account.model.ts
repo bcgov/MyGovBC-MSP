@@ -50,13 +50,11 @@ class MspAccountApp implements ApplicationBase {
         return this._spouse;
     }
 
-
     /**
      * validator for phone number
      * @returns {boolean}
      */
     get phoneNumberIsValid(): boolean {
-
         // Phone is optional
         if (this.phoneNumber == null ||
             this.phoneNumber.length < 1) {
@@ -131,8 +129,6 @@ class MspAccountApp implements ApplicationBase {
         return this.isMembersPresentWithStatus(this.allPersonsInPI , StatusInCanada.TemporaryResident) ;
     }
 
-
-
     get addedChildren(): Array<MspPerson> {
         return this._addedChildren;
     }
@@ -168,13 +164,11 @@ class MspAccountApp implements ApplicationBase {
         this.updatedSpouse = null;
     }
 
-
-
     addUpdatedSpouse = (sp: MspPerson) => {
         if (!this.updatedSpouse){
             this.updatedSpouse = sp;
             this.updatedSpouse.operationActionType = OperationActionType.Update;
-        }else{
+        } else {
             console.log('spouse for updating already added to your coverage.');
         }
     }
@@ -182,7 +176,6 @@ class MspAccountApp implements ApplicationBase {
     get hasValidAuthToken(){
         return this.authorizationToken && this.authorizationToken.length > 1;
     }
-
 
     removeUpdateChild(idx: number): void {
     }
@@ -283,7 +276,6 @@ class MspAccountApp implements ApplicationBase {
             }
         }
         return  allSpouses;
-
     }
 
     /**
@@ -319,7 +311,6 @@ class MspAccountApp implements ApplicationBase {
         }
         const children: Array<MspPerson> = [...this.addedChildren, ...this.updatedChildren];
         return ((children.findIndex( child => child.isVisitor())) > -1 );
-
     }
 
     constructor(){
@@ -342,7 +333,6 @@ class MspAccountApp implements ApplicationBase {
     }
         return c;
   }
-
 
   addRemovedChild(relationship: Relationship): MspPerson {
     const c = new MspPerson(relationship, OperationActionType.Remove);
@@ -382,10 +372,7 @@ class MspAccountApp implements ApplicationBase {
         console.log('No more than 30 children can be added to one application');
     }
         return c;
-
   }
-
-
 
   removeChild(idx: number, op: OperationActionType): void {
 

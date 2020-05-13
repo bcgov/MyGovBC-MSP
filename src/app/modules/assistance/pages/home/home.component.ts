@@ -85,7 +85,6 @@ export class AssistanceHomeComponent extends BaseComponent
         distinctUntilChanged()
       )
       .subscribe(() => {
-        console.log( 'change in home page', !this.validSelection );
         // No form validation only need at least one checkbox marked
         this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, !this.validSelection );
         this.dataSvc.saveFinAssistApplication();
@@ -111,10 +110,7 @@ export class AssistanceHomeComponent extends BaseComponent
 
 
   initYearsList() {
-
-    console.log( 'init Years list' );
     const previousTaxYear = this.finAssistApp.MostRecentTaxYear - 1 ;
-    console.log( 'init Years list: previous tax Year - ', previousTaxYear );
 
     // Retro PA is eliminated as of 2020, last possible tax year is 2018
     const cutOffTaxYear = 2018;
@@ -125,7 +121,6 @@ export class AssistanceHomeComponent extends BaseComponent
       numberOfYears -= (previousTaxYear - cutOffTaxYear);
       startTaxYear = cutOffTaxYear;
     }
-    console.log( 'init Years list: tax Year - ', numberOfYears, startTaxYear );
 
     for (let i = 0; i < numberOfYears; i++ ){
       this.pastYears.push(startTaxYear - i);
@@ -158,7 +153,6 @@ export class AssistanceHomeComponent extends BaseComponent
   }
 
   closeModal() {
-    console.log('clicked');
     this.modalRef.hide();
   }
 

@@ -35,7 +35,6 @@ export class AssistanceSendingComponent implements AfterContentInit   {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = false;
-    console.log(this.dataService.getMspProcess());
 
      // this.logService.log({name: 'PA - application submitting request'},"PA : Submission Request");
     // After view inits, begin sending the application
@@ -57,7 +56,6 @@ export class AssistanceSendingComponent implements AfterContentInit   {
 
       })
       .catch((error: ResponseType | any) => {
-        console.log('Error in sending PA: %o', error);
         this.hasError = true;
 
         this.rawUrl = error.url;
@@ -71,9 +69,6 @@ export class AssistanceSendingComponent implements AfterContentInit   {
         // this.router.navigate(["/msp/assistance/confirmation"]);
           const oldUUID = this.application.uuid;
           this.application.regenUUID();
-
-          console.log('PA uuid updated: from %s to %s', oldUUID, this.dataService.finAssistApp.uuid);
-
         this.application.authorizationToken = null;
           this.dataService.saveFinAssistApplication();
       });
@@ -82,9 +77,7 @@ export class AssistanceSendingComponent implements AfterContentInit   {
   toggleErrorDetails(){
     this.showMoreErrorDetails = !this.showMoreErrorDetails;
   }
-
   retrySubmission(){
     this.router.navigate(['/assistance/authorize-submit']);
   }
-
 }

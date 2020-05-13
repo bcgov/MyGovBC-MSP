@@ -38,7 +38,6 @@ export class BenefitAuthorizeSubmitComponent {
 
     ngAfterViewInit(): void {
         this.form.valueChanges.subscribe(values => {
-            // console.log('authorization form change: %o', values);
             // this.onChange.emit(values);
             this.dataService.saveBenefitApplication();
         });
@@ -51,13 +50,11 @@ export class BenefitAuthorizeSubmitComponent {
     }
 
     uploadDocument(evt: Array<any>) {
-        console.log('evt', evt);
         this.application.powerOfAttorneyDocs = evt;
         this.dataService.saveBenefitApplication();
         //this.docActionEvent.emit(evt);
         //this.onChange.emit(evt);
     }
-
 
     errorDocument(evt: CommonImage) {
         this.mspImageErrorModal.imageWithError = evt;
@@ -66,8 +63,6 @@ export class BenefitAuthorizeSubmitComponent {
     }
 
     deleteDocument(mspImage: CommonImage) {
-        // console.log('doc to be deleted: %o', mspImage);
-
         this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.filter(
             (doc: CommonImage) => {
                 return doc.uuid !== mspImage.uuid;
@@ -85,7 +80,6 @@ export class BenefitAuthorizeSubmitComponent {
     }
 
     handleAuthorizedByAttorney(byAttorney: boolean){
-        // console.log('Power of Attorney, %o', byAttorney);
         if (!byAttorney){
             this.deleteAllDocs(!byAttorney);
         }

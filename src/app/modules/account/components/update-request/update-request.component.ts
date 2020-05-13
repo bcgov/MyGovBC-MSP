@@ -25,7 +25,6 @@ import { SupportDocuments } from '../../../msp-core/models/support-documents.mod
 })
 
 export class UpdateRequestComponent extends Base {
-
   @Input() person: MspPerson;
   @Input() activitiesTable: any[];
   @Input() accountApp: MspAccountApp;
@@ -54,7 +53,6 @@ export class UpdateRequestComponent extends Base {
   constructor() {
     super();
     //this.mspAccountApp = dataService.getMspAccountApp();
-    console.log(this.person);
   }
 
   ngOnInit() {

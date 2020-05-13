@@ -41,15 +41,12 @@ export class AssistRatesModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('entries', this.entries);
   }
 
   close() {
-    console.log('clicked');
     this.closeModal.emit(true);
   }
   test() {
-    console.log('test');
     this.closeModal.emit(true);
   }
 }
