@@ -405,8 +405,6 @@ export class FinancialAssistApplication implements ApplicationBase {
   getAssistanceApplicationType(): AssistanceApplicationType {
     const mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
 
-      mostRecentAppliedForTaxYears );
-
     // If we only have one and it's previous year
     if (
       mostRecentAppliedForTaxYears == null ||
