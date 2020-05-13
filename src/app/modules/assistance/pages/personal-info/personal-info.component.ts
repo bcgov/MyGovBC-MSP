@@ -61,7 +61,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
           distinctUntilChanged()
         )
         .subscribe(() => {
-          console.log( 'form values changed: form is ', this.personalInfoForm.valid );
           this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
           this.dataService.saveFinAssistApplication();
         })
@@ -96,7 +95,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
           this.stateSvc.touched.asObservable().subscribe(obs => {
             if (obs) {
               const controls = this.personalInfoForm.form.controls;
-              console.log( 'controls: ', controls );
               for (const control in controls) {
                 controls[control].markAsTouched();
               }

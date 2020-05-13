@@ -45,19 +45,16 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
     }
 
     init(processSteps: ProcessStep[]): void {
-        console.log('init');
         const process = new Process();
         process.processSteps = processSteps;
         this.dataService.setMspProcess(process);
     }
 
     setStep(stepNumber: number, complete: boolean) {
-        console.log('set step');
-        
+
         const process = this.process;
         process.processSteps[stepNumber].complete = complete;
         this.dataService.setMspProcess(process);
-       // console.log('ProcessService is being deprecated.');
        // return null;
     }
 
@@ -82,12 +79,10 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
     }
 
     addStep(step: ProcessStep, index: number) {
-        console.log('add step');
         const process = this.process;
         process.processSteps.splice(index, 0, step);
         this.dataService.setMspProcess(process);
     }
-
 
     getStep(stepNumber: number) {
         return this.process.processSteps[stepNumber];
@@ -96,17 +91,13 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>
         | Promise<boolean>
         | boolean {
-        console.log('can activate? state: ' + state.url);
 
         if (environment.bypassGuards) {
             return true;
         }
-        console.log('can activate');
-        
+
         // Find target route
         let lastIndex = 0;
-        console.log(this.process);
-        console.log(this.process.processSteps);
         for (lastIndex; lastIndex < this.process.processSteps.length; lastIndex++) {
             const step = this.process.processSteps[lastIndex];
             if (step.route === state.url) {
@@ -119,11 +110,9 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
         // Ensure all previous steps were complete
         for (let i = 0; i <= lastIndex; i++) {
             const step = this.process.processSteps[i];
-            console.log('step: ' + step.route + '; ' + step.complete);
 
             if (step.complete == false) {
                 // On the first step that is incomplete, navigate back one
-                console.log('navigating back');
                 this._router.navigate([this.process.processSteps[i].route]);
 
                 //If validation fails because of an activeElement not being validated, we scroll to it and trigger validation.
@@ -143,7 +132,6 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
                 return false;
             }
         }
-        console.log('router guard OK');
         return true;
     }
 }

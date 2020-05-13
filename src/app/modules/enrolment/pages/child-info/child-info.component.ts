@@ -113,9 +113,7 @@ export class ChildInfoComponent extends EnrolForm {
   canContinue(): boolean {
     let valid = true;
 
-    console.log( 'canContinue form: ', this.form, this.children.length );
     if ( this.children.length > 0 ) {
-      console.log( this.children[0] );
       valid = super.canContinue() &&
                 this.children.map( x => {
                   let childValid = x.documents.images && x.documents.images.length > 0;

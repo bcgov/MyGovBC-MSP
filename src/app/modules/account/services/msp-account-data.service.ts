@@ -385,7 +385,6 @@ export class MspAccountMaintenanceDataService {
     return output;
   }
 
-
   toMspAccountAppTransferObject(input: MspAccountApp): MspAccountDto {
     const dto: MspAccountDto = new MspAccountDto();
     dto.addressUpdate = input.accountChangeOptions.addressUpdate;
@@ -397,7 +396,6 @@ export class MspAccountMaintenanceDataService {
       input.accountChangeOptions.nameChangeDueToMarriage;
     dto.dependentChange = input.accountChangeOptions.dependentChange;
     dto.statusUpdate = input.accountChangeOptions.statusUpdate;
-    console.log(input.applicant);
     dto.applicant = this.toPersonDtoForAccount(input.applicant);
 
     dto.hasSpouseAdded = input.hasSpouseAdded;

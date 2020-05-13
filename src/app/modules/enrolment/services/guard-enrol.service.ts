@@ -13,21 +13,20 @@ export class GuardEnrolService implements AbstractPgCheckService {
   constructor( private pageStateService: PageStateService,
                private dataService: EnrolDataService ) { }
 
- public canBypassGuards(): boolean {
-   return environment.bypassGuards;
- }
+  public canBypassGuards(): boolean {
+    return environment.bypassGuards;
+  }
 
- public isPageComplete( url: string ): boolean {
-   const complete = this.pageStateService.isPageComplete( url, this.dataService.pageStatus );
-   console.log( 'isPageCompelete: ', complete );
-   return complete;
- }
+  public isPageComplete( url: string ): boolean {
+    const complete = this.pageStateService.isPageComplete( url, this.dataService.pageStatus );
+    return complete;
+  }
 
- public isPrerequisiteComplete(): boolean {
-   return true;
- }
+  public isPrerequisiteComplete(): boolean {
+    return true;
+  }
 
- public getStartUrl(): string {
-   return ROUTES_ENROL.CHECK_ELIG.fullpath;
- }
+  public getStartUrl(): string {
+    return ROUTES_ENROL.CHECK_ELIG.fullpath;
+  }
 }

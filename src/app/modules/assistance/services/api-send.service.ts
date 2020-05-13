@@ -42,7 +42,6 @@ export class ApiSendService extends AbstractHttpService {
     const appUrl = this.setAppUrl(applicationUUID);
     this._headers = this.setHeaders('application/json', token);
     await this.sendFiles(token, applicationUUID, attachments);
-    console.log('first app', JSON.stringify(app, null, 2));
 
     // return files$
     // .pipe(mergeMap(q => forkJoin(from(q))))
@@ -68,14 +67,12 @@ export class ApiSendService extends AbstractHttpService {
     }
 
     const res = await Promise.all(attachmentPromises);
-    console.log('promises', res);
     return;
     // return attachmentPromises
     // return from(attachmentPromises);
   }
 
   sendFile(token: string, applicationUUID: string, attachment) {
-    console.log('send file run');
     const url = this.setFileUrl(attachment, applicationUUID);
 
     const headers = this.setHeaders(attachment.contentType, token);
@@ -109,7 +106,6 @@ export class ApiSendService extends AbstractHttpService {
   }
 
   setAppUrl(uuid: string) {
-    console.log('url uuid', uuid);
     return (
       environment.appConstants.apiBaseUrl +
       environment.appConstants.suppBenefitAPIUrl +

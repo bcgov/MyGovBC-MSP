@@ -15,14 +15,13 @@ import {
 
 import { Subscription } from 'rxjs';
 
-
 @Component({
   selector: 'msp-contact-info',
   templateUrl: './contact-info.component.html',
   styleUrls: ['./contact-info.component.scss']
 })
-export class ContactInfoComponent extends AbstractForm implements OnInit, AfterViewInit {
 
+export class ContactInfoComponent extends AbstractForm implements OnInit, AfterViewInit {
    // Constants TODO: Figure out whether used in html
    outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
    addAnotherOutsideBCPersonButton = 'Add Another Person';
@@ -53,7 +52,6 @@ export class ContactInfoComponent extends AbstractForm implements OnInit, AfterV
 
    ngOnInit(){
       //this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
-
    }
 
    toggleCheckBox(){
@@ -76,22 +74,17 @@ export class ContactInfoComponent extends AbstractForm implements OnInit, AfterV
      });*/
    }
 
-
-
-
    handlePhoneNumberChange(evt: any) {
      this.mspAccountApp.phoneNumber = evt;
     // this.dataService.saveBenefitApplication();
    }
 
    handleAddressUpdate(evt: any){
-     console.log(evt);
-     console.log('address update event: %o', evt);
      evt.addressLine1 = evt.street;
      if (evt.addressLine1 != null) {
       // this.dataService.benefitApp.mailingAddress.hasValue = true;
      }
-  //   this.dataService.saveBenefitApplication();
+    // this.dataService.saveBenefitApplication();
    }
 
    canContinue(): boolean {
@@ -106,7 +99,6 @@ export class ContactInfoComponent extends AbstractForm implements OnInit, AfterV
     }*/
     return valid;
   }
-
 
   continue(): void {
     if (!this.canContinue()) {

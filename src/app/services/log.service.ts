@@ -115,8 +115,6 @@ export class MspLogService  {
   }
 
     getApplicationId(): string {
-
-        console.log(this.router.url);
         if (this.router.url.indexOf('/' + APP_ROUTES.ENROLMENT + '/') !== -1){
             return  this.enrolDataService.application.uuid;
         }
@@ -133,5 +131,4 @@ export class MspLogService  {
           return  this.benefitDataService.benefitApp.uuid ;
         }
     }
-
 }

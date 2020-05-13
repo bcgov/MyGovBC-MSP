@@ -149,7 +149,6 @@ export class AssistanceReviewComponent {
   }
 
   ngOnInit() {
-    console.log( 'ngOnInit (Review): ', this.route.snapshot.routeConfig.path );
     // No input required on this page
     this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, true );
 

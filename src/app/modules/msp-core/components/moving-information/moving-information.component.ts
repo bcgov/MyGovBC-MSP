@@ -146,7 +146,6 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   }
 
   get requestPermMoveInfo() {
-    //console.log( 'requestPermMoveInfo: ', this.person.livedInBCSinceBirth, this.requestLivedInBC );
     if ( this.requestLivedInBC ) {
       // Convert to boolean
       return this.person.livedInBCSinceBirth !== undefined && this.person.livedInBCSinceBirth !== null;
@@ -156,7 +155,6 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
 
   get canContinueProcess() {
 
-    //console.log( 'canContinueProcess: ', this.person.madePermanentMoveToBC );
     if ( this.person.madePermanentMoveToBC !== null &&
          this.person.madePermanentMoveToBC !== undefined ) {
 
@@ -202,7 +200,6 @@ export class MovingInformationComponent<T extends IMovingInfo> extends Base impl
   }
 
   get requestRecentMoveToBC() {
-    //console.log( 'requestRecentMoveToBC ', this.requestLivedInBC, this.person.livedInBCSinceBirth );
     if ( this.requestLivedInBC ) {
       return this.person.livedInBCSinceBirth === false;
     }

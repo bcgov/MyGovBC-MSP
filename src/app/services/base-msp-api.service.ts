@@ -93,7 +93,6 @@ export class BaseMspApiService extends AbstractHttpService  {
                 response: responses,
               }, 'Send All Attachments - Success'
             );
-            console.log('resolving responess', responses);
             return resolve(responses);
           },
           (_error: Response | any) => {

@@ -28,8 +28,6 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
   }
 
   onChange($event){
-    console.log($event);
-    console.log(this.spouse);
     //this.dataService.saveMspAccountApp();
   }
 
@@ -71,12 +69,9 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
 
 
   /*get activitiesTable() {
-    console.log(this.activities);
     if (!this.activities) return;
     return this.activities.map(itm => {
       const label = this.activityStatus[itm];
-      console.log(itm);
-      console.log(label);
       return {
       label,
       value: itm

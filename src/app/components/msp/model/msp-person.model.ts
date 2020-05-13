@@ -20,7 +20,6 @@ export enum OperationActionType {
     Update
 }
 
-
 export class MspPerson implements ICanadianStatus {
 
     readonly uuid = UUID.UUID();
@@ -112,8 +111,6 @@ export class MspPerson implements ICanadianStatus {
 
     public adoptedDate: Date;
 
-
-
     get operationActionType(): OperationActionType {
         return this._operationActionType;
     }
@@ -168,7 +165,6 @@ export class MspPerson implements ICanadianStatus {
         return this._declarationForOutsideOver30Days;
     }
 
-
     private _declarationForOutsideOver60Days: boolean;
 
     /**
@@ -214,7 +210,6 @@ export class MspPerson implements ICanadianStatus {
      * Gender
      */
     gender: Gender;
-
 
     get hasDob() {
         return !!this.dateOfBirth;
@@ -380,9 +375,7 @@ export class MspPerson implements ICanadianStatus {
     /** Only for spouse. Marriage date to applicant. */
     //marriageDate: Date = { day: null, month: null, year: null };
 
-
     marriageDate: Date;
-
 
     fullTimeStudent: boolean;
     inBCafterStudies: boolean;
@@ -423,13 +416,11 @@ export class MspPerson implements ICanadianStatus {
         this._knownMailingAddress = val;
     }
 
-
     /**
      * validator for phone number
      * @returns {boolean}
      */
     get phoneNumberIsValid(): boolean {
-
         // Phone is optional
         if (this.phoneNumber == null ||
             this.phoneNumber.length < 1) {
@@ -440,7 +431,6 @@ export class MspPerson implements ICanadianStatus {
         const regEx = new RegExp(PhoneNumber.PhoneNumberRegEx);
         return regEx.test(this.phoneNumber);
     }
-
 
     studiesBeginDate: Date;
     get hasStudiesBegin() {
@@ -454,7 +444,6 @@ export class MspPerson implements ICanadianStatus {
     get hasStudiesDeparture() {
         return !!this.studiesDepartureDate;
     }
-
 
     get status() {
         return this._status;
@@ -511,8 +500,6 @@ export class MspPerson implements ICanadianStatus {
         return this.status === StatusInCanada.TemporaryResident && this.currentActivity === CanadianStatusReason.Visiting;
     }
 
-
-
     /**
      * Social Insurance Number
      */
@@ -543,8 +530,6 @@ export class MspPerson implements ICanadianStatus {
      *   6: 'Diplomat'
      */
     get isInfoComplete() {
-        // console.log('check data completeness for: ' + Relationship[this.relationship]);
-
         let basic = _.isString(this.gender)
             && _.isString(this.firstName) && this.firstName.length > 0
             && _.isString(this.lastName) && this.lastName.length > 0
@@ -609,7 +594,6 @@ export class MspPerson implements ICanadianStatus {
             applicant16OrOlderComplete = !isAfter(this.dateOfBirth, subYears( startOfToday(), 16));
         }
 
-
         let ageOver19ChildComplete = true;
         if (this.relationship === Relationship.Child19To24) {
             const tooYoung = isAfter(this.dateOfBirth, subYears( startOfToday(), 19));
@@ -641,7 +625,6 @@ export class MspPerson implements ICanadianStatus {
             }
         }
 
-
         let arrivalToBCCompete = true;
         if (this.livedInBCSinceBirth === null || this.livedInBCSinceBirth === false) {
             arrivalToBCCompete = !!this.arrivalToBCDate;
@@ -666,8 +649,6 @@ export class MspPerson implements ICanadianStatus {
             && studentComplete
             && spouseComplete
             && this.hasCompleteOutSideRecords;
-
-        // console.log(Relationship[this.relationship] + ' data completed? ' + result);
         return result;
     }
 }

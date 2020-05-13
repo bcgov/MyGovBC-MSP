@@ -6,7 +6,6 @@ import { equalParamsAndUrlSegments } from "@angular/router/src/router_state";
 export class BaseMSPTestPage extends AbstractTestPage {
 
     navigateTo() {
-
     }
 
     clickOption(value: string) {
@@ -18,7 +17,7 @@ export class BaseMSPTestPage extends AbstractTestPage {
     }
 
     clickPencilIcon(h2Val: string) {
-        element(by.cssContainingText('h2', `${h2Val}`)).element(by.css('i[class*="fa-pencil"]')).click();    
+        element(by.cssContainingText('h2', `${h2Val}`)).element(by.css('i[class*="fa-pencil"]')).click();
     }
 
     clickStepper(text: string) {
@@ -45,7 +44,6 @@ export class BaseMSPTestPage extends AbstractTestPage {
             const month = info.birthDate.getMonth();
             const year = info.birthDate.getFullYear();
             const day = info.birthDate.getDate();
-            console.log("DATE: ", info.birthDate);
             element.all(by.css(`select[ng-reflect-name*="month"] option`)).get(month).click();
             this.typeText('day', day.toString());
             this.typeText('year', year.toString());
@@ -76,7 +74,7 @@ export class BaseMSPTestPage extends AbstractTestPage {
     typeCountry(text: string) {
         element(by.css('input[id^="country"]')).sendKeys(text);
         element(by.css('input[id^="country"]')).sendKeys(protractor.Key.ENTER);
-    }   
+    }
 
     typePostalCode(text: string) {
         element(by.css(`common-postal-code[id^="postal"] input`)).sendKeys(text);
@@ -95,7 +93,7 @@ export class BaseMSPTestPage extends AbstractTestPage {
     }
 
     uploadOneFile(absolutePath = '/space/workspace/MyGovBC-MSP/e2e/sample.jpg') {
-        element(by.css('common-file-uploader input[type="file"]')).sendKeys(absolutePath); 
+        element(by.css('common-file-uploader input[type="file"]')).sendKeys(absolutePath);
     }
 
     uploadMultipleFiles(START_YEAR: number, END_YEAR: number, absolutePath = '/space/workspace/MyGovBC-MSP/e2e/sample.jpg') {
@@ -129,7 +127,7 @@ export class BaseMSPTestPage extends AbstractTestPage {
     }
 
     /**
-     * Checks if the modal is currently displayed or not 
+     * Checks if the modal is currently displayed or not
      */
     checkConsentModal() {
         return element(by.css('common-consent-modal')).element(by.css('div[aria-labelledby="myLargeModalLabel"]')).isDisplayed();

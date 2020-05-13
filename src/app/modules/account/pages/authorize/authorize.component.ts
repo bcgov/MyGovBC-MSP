@@ -15,9 +15,7 @@ import { MspPerson } from '../../../../../app/components/msp/model/msp-person.mo
   styleUrls: ['./authorize.component.scss']
 })
 export class AuthorizeComponent extends AbstractForm implements OnInit {
-    
-
-  lang = require('./i18n');
+    lang = require('./i18n');
 
     mspAccountApp: MspAccountApp;
     captchaApiBaseUrl: string;
@@ -44,7 +42,6 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
         return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
     }
 
-
     get spouseForAuthorisation(): MspPerson {
         if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.addedSpouse) {
             return this.mspAccountApp.addedSpouse;
@@ -55,7 +52,6 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
         return undefined;
     }
 
-
     get questionApplicant() {
         return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.applicantName);
     }
@@ -64,15 +60,13 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
         return this.mspAccountApp.applicant.firstName + ' ' + this.mspAccountApp.applicant.lastName;
     }
 
-
     ngOnInit() {
         this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
-   
+
       /*  let oldUUID = this.mspAccountApp.uuid;
         this.mspAccountApp.regenUUID();
         this.dataService.saveMspAccountApp();
-        console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspAccountApp().uuid);
-*/
+    */
     }
 
     applicantAuthorizeOnChange(event: boolean) {
@@ -82,7 +76,6 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
         }
         this.dataService.saveMspAccountApp();
     }
-
 
     spouseUpdateAuthorizeOnChange(event: boolean) {
         this.mspAccountApp.authorizedBySpouse = event;
@@ -118,6 +111,4 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
         this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
         this.navigate('/deam/sending');
       }
-
-
 }

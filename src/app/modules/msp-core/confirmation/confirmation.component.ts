@@ -55,7 +55,6 @@ export class ConfirmationComponent implements OnInit {
   @Input() message: string;
 
   resultStyle(bool: boolean) {
-    console.log('success', this.success);
     return 'failure';
     // return bool ? 'success' : 'failure';
   }

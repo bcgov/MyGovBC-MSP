@@ -56,7 +56,6 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
 
   ngOnInit() {
-    console.log( 'router: ', this.router.url );
     this.stateSvc.setIndex( this.router.url );
   }
 
@@ -74,8 +73,6 @@ export class AssistContainerComponent extends Container implements OnInit {
     const index = this.stateSvc.findIndex( this.router.url );
     const idx = index ? index - 1 : 0;
 
-    console.log( 'index: ', index, this.stateSvc.finAssistApp.pageStatus.length,
-                  this.stateSvc.finAssistApp.pageStatus[idx].isValid );
     if ( this.stateSvc.finAssistApp.pageStatus[idx].isValid ) {
       this.stateSvc.finAssistApp.pageStatus[idx].isComplete = true;
       if ( index === this.stateSvc.finAssistApp.pageStatus.length ) {
@@ -92,19 +89,16 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
 
   async submit() {
-    console.log( 'submit functions - needs work' );
     this.isLoading = true;
 
     const findFieldName = (path: string) => {
       return path.split('.').pop();
     };
 
-    console.log( 'findFieldName: ', findFieldName );
     try {
       const app = this.xformSvc.application;
 
       const validateList = await this.schemaSvc.validate(app);
-      console.log('validate', validateList.errors);
 
       if (validateList.errors != null && validateList.errors.length > 0) {
         this.isLoading = false;

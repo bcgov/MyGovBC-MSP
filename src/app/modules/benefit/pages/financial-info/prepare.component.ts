@@ -127,7 +127,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
 
        /* this.prepForm.valueChanges.subscribe(() => {
-            console.log('authorization form change: %o');
             this.dataService.saveBenefitApplication();
         });
 
@@ -143,18 +142,15 @@ export class BenefitPrepareComponent  extends BaseComponent  {
                 this.dataService.benefitApp.ageOver65 = false;
             }));*/
         if (this.prepForm !== undefined) {
-           // console.log('Prepform?', this.prepForm, this.prepForm.valueChanges);
             merge(this.prepForm.valueChanges.pipe(debounceTime(250),
                 distinctUntilChanged(),
                 filter(
                     (values) => {
-                        // console.log('value changes: ', values);
                         const isEmptyObj = _.isEmpty(values);
                         return !isEmptyObj;
                     }
                 ), tap(
                     (value) => {
-                        // console.log('form value: ', value);
                         if (!value.netIncome || value.netIncome.trim().length === 0){
                             this.benefitApp.netIncomelastYear = null;
                         }else{
@@ -197,7 +193,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     }
 
-    // All the validations and required field are coming from common-deduction-calculator canContinue method 
+    // All the validations and required field are coming from common-deduction-calculator canContinue method
     canContinue(evt): any {
 
         if (evt !== undefined) {
@@ -275,14 +271,12 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     updateChildDisabilityCreditCreditMultiplier(evt: number){
-        console.log(evt);
        /* if (!evt) {
             return null;
         } else {
             const n = !!evt && !isNaN(evt) ? evt  : 0;
             return n;
         }*/
-
 
         if (evt) {
             this.benefitApp.childWithDisabilityCount = evt;
@@ -291,11 +285,9 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             }
             this.dataService.saveBenefitApplication();
         } else {
-            console.log(this.benefitApp.childWithDisabilityCount);
             this.benefitApp.childWithDisabilityCount = null;
         }
     }
-
 
     childCountExceedError(): boolean {
         if ((this.benefitApp.childWithAttendantCareCount && this.benefitApp.numberOfChildrenWithDisability) && this.benefitApp.childrenCount) {
@@ -308,7 +300,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     updateChildAttendantCareCount(evt: number){
-        console.log(evt);
         if (!evt) {
             return null;
         } else {
@@ -323,7 +314,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             }
             this.dataService.saveBenefitApplication();
         } else {
-            console.log(this.benefitApp.childWithDisabilityCount);
             this.benefitApp.childWithDisabilityCount = null;
         }*
     }
@@ -356,7 +346,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }*/
 
-
     ngDoCheck(){
         this.qualifiedForAssistance = this.benefitApp.eligibility.adjustedNetIncome <= this.qualificationThreshhold;
         // fix for DEF-91
@@ -365,15 +354,12 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     checkSelfDisabilityCredit(evt: any) {
-       // console.log(evt);
         this.dataService.benefitApp.applicantEligibleForDisabilityCredit = evt;
         this.dataService.saveBenefitApplication();
 
     }
 
     applicantClaimDataChange(evt: boolean) {
-        //console.log(evt);
-        //console.log(this.benefitApp.applicantEligibleForDisabilityCredit);
         if (evt && this.benefitApp.applicantEligibleForDisabilityCredit !== true) {
             this.dataService.benefitApp.applicantClaimForAttendantCareExpense = evt;
             this.dataService.saveBenefitApplication();
@@ -384,10 +370,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     toggleClaimForSelfDisabilityCredit(evt: Event): void {
-        //console.log(evt.defaultPrevented);
-
         this.dataService.benefitApp.applicantEligibleForDisabilityCredit = !this.dataService.benefitApp.applicantEligibleForDisabilityCredit;
-
 
         /* if (evt) {
              this.dataService.benefitApp.applicantEligibleForDisabilityCredit = true;
@@ -401,21 +384,14 @@ export class BenefitPrepareComponent  extends BaseComponent  {
          }
 
          if (this.dataService.benefitApp.applicantClaimForAttendantCareExpense === true && this.dataService.benefitApp.applicantEligibleForDisabilityCredit === true) {
-
              evt.preventDefault();
-             //console.log(evt.defaultPrevented);
              this.showNursingError = true;
          }
          this.dataService.saveBenefitApplication();
-
      }
 
-
      applicantClaimForAttendantCare(evt: Event){
-        /* console.log(evt);
-        console.log(this.dataService.benefitApp.applicantEligibleForDisabilityCredit);
-        console.log(this.dataService.benefitApp.applicantClaimForAttendantCareExpense);
-        this.dataService.benefitApp.applicantClaimForAttendantCareExpense = !this.dataService.benefitApp.applicantClaimForAttendantCareExpense;
+        /* this.dataService.benefitApp.applicantClaimForAttendantCareExpense = !this.dataService.benefitApp.applicantClaimForAttendantCareExpense;
 
         if (this.dataService.benefitApp.applicantEligibleForDisabilityCredit === true && this.dataService.benefitApp.applicantClaimForAttendantCareExpense === true) {
             evt.preventDefault();
@@ -449,7 +425,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     spouseClaimForAttendantCare(event: Event){
-        //console.log(event);
         if (!this.benefitApp.spouseClaimForAttendantCareExpense
             && this.benefitApp.spouseEligibleForDisabilityCredit){
            // event.preventDefault();
@@ -481,7 +456,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
 
     checkedChildClaimDisabilityCredit(evt: boolean) {
-        console.log(this.benefitApp.childDisablityCount);
         this.benefitApp.childClaimForDisabilityCredit = evt;
         if (!evt) {
            this.benefitApp.numberOfChildrenWithDisability = null;

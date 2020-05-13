@@ -54,8 +54,6 @@ export class RemoveChildComponent implements OnInit {
   }
 
   handleAddressUpdate(evt: any) {
-    console.log(evt);
-    console.log('address update event: %o', evt);
     evt.addressLine1 = evt.street;
     this.dataService.saveMspAccountApp();
   }
