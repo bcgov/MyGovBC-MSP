@@ -98,7 +98,8 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         this.accountChangeOptions.personInfoUpdate = event;
         if (event) {
             this.accountHolderTitle = 'Update Account Holder\'s Information';
-            this.accountHolderSubtitle = 'Please provide new information if you are requesting an update or correction to the Account Holder’s name (including a name change as a result of marriage, separation or divorce), birthdate or gender.';
+            this.accountHolderSubtitle = 'Please provide new information if you are requesting an update or correction to the ' +
+              'Account Holder’s name (including a name change as a result of marriage, separation or divorce), birthdate or gender.';
         } else {
             this.accountHolderTitle = 'Account Holder Identification';
             this.accountHolderSubtitle = 'Please provide the Account Holder’s personal information for verification purposes.';

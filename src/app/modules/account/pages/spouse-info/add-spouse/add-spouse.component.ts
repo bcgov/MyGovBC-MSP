@@ -4,7 +4,7 @@ import { MspAccountMaintenanceDataService } from '../../../services/msp-account-
 import { CanadianStatusStrings, StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.model';
 import { nameChangeSupportDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
-import { spouseNameChangeSupportDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
+import { nameChangeSupportDocs } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
@@ -28,7 +28,7 @@ export class AddSpouseComponent extends Base implements OnInit {
 
   langStatus = CanadianStatusStrings;
   nameChangeDocList = nameChangeSupportDocuments();
-  spouseNameChangeDocList = spouseNameChangeSupportDocuments();
+  spouseNameChangeDocList = nameChangeSupportDocs();
 
   constructor(public dataService: MspAccountMaintenanceDataService) {
     super();
@@ -41,6 +41,13 @@ export class AddSpouseComponent extends Base implements OnInit {
 
   setGender(evt: any) {
     this.spouse.gender = evt;
+    console.log(this.spouse);
+    console.log(evt);
+    this.onChange.emit(evt);
+  }
+
+  setUpdateNameDueToMarriage(evt: any) {
+    this.spouse.updateNameDueToMarriage = evt;
     console.log(this.spouse);
     console.log(evt);
     this.onChange.emit(evt);

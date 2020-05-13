@@ -32,7 +32,6 @@ label {
 
 #pad {
   height: 50px;
-
   // @media (max-width: 768px) {
   //   height: 100px;
   // }
@@ -45,7 +44,6 @@ label {
 .fa-exclamation-triangle {
   color: darkred;
 }
-
 
 button.disabled {
   cursor: not-allowed;
@@ -94,21 +92,17 @@ button.disabled {
 .msp-btn-radio {
   background: #2962FF;
   color: white;
-
   &:hover {
     background: #2962FF;
     color: white;
   }
-
   &:not(:hover) {
     background: #2962FF;
     color: white;
   }
-
   &::selection {
     background: #2962FF;
   }
-
   &:active {
     background: #2962FF;
   }
@@ -123,7 +117,6 @@ button.disabled {
 /* Add modal header color */
 .modal-header-primary {
   background: $primary;
-
   h2 {
     color: white;
     font-weight: 600;
@@ -147,7 +140,6 @@ hr {
 .tool-tip {
   padding: 10px 10px 25px 25px;
   background: #ECEFF1;
-
   border-radius: 8px 8px 8px 8px;
   -moz-border-radius: 8px 8px 8px 8px;
   -webkit-border-radius: 8px 8px 8px 8px;
@@ -163,7 +155,6 @@ hr {
   /* old IE */
   background-color: #333;
   /* Modern Browsers */
-
 }
 
 .strong {
@@ -181,7 +172,6 @@ h3 i {
 
 .pointer {
   cursor: pointer;
-
 }
 
 p.intro {

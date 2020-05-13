@@ -30,7 +30,7 @@ export interface IPersonalInformation {
    * up in its parents `this.form`, and will auto-update `this.form.valid`
    */
   viewProviders: [
-    { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
+    {provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
 export class PersonalInformationComponent<T extends IPersonalInformation> extends Base
@@ -48,9 +48,9 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
   dobError: boolean = false;
 
   genderLabels = [
-     {'label': 'Male', 'value': Gender.Male},
-     {'label': 'Female', 'value': Gender.Female}
-    ];
+    {'label': 'Male', 'value': Gender.Male},
+    {'label': 'Female', 'value': Gender.Female}
+  ];
 
   dobErrorMsg: ErrorMessage = null;
   dobStartRange: Date = null;
@@ -84,7 +84,7 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     return this.person.firstName;
   }
 
-  set firstName( name: string ) {
+  set firstName(name: string) {
     this.person.firstName = name;
     this.personChange.emit(this.person);
   }
@@ -93,7 +93,7 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     return this.person.middleName;
   }
 
-  set middleName( name: string ) {
+  set middleName(name: string) {
     this.person.middleName = name;
     this.personChange.emit(this.person);
   }
@@ -102,7 +102,7 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     return this.person.lastName;
   }
 
-  set lastName( name: string ) {
+  set lastName(name: string) {
     this.person.lastName = name;
     this.personChange.emit(this.person);
   }
@@ -124,7 +124,7 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     return this.person.dateOfBirth;
   }
 
-  set dateOfBirth( dob: Date ) {
+  set dateOfBirth(dob: Date) {
     this.person.dateOfBirth = dob;
     this.personChange.emit(this.person);
   }
@@ -137,7 +137,7 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     return this.person.gender;
   }
 
-  set gender( val: Gender ) {
+  set gender(val: Gender) {
     this.person.gender = val;
     this.personChange.emit(this.person);
   }
@@ -149,23 +149,22 @@ export class PersonalInformationComponent<T extends IPersonalInformation> extend
     return this.person.sin;
   }
 
-  set sin( val: string ) {
+  set sin(val: string) {
     this.person.sin = val;
     this.personChange.emit(this.person);
   }
 
   private _setErrorData() {
-
     // Set up parmeters for dob ranges
-    if ( this.person.relationship === Relationship.Applicant ) {
-      this.dobErrorMsg = { invalidRange: 'An applicant must be 16 years or older.' };
+    if (this.person.relationship === Relationship.Applicant) {
+      this.dobErrorMsg = {invalidRange: 'An applicant must be 16 years or older.'};
       this.dobEndRange = subYears( this._today, 16 );
-    } else if ( this.person.relationship === Relationship.Child19To24 ) {
-      this.dobErrorMsg = { invalidRange: 'A post-secondary student must be between 19 and 24 years.' };
+    } else if (this.person.relationship === Relationship.Child19To24) {
+      this.dobErrorMsg = {invalidRange: 'A post-secondary student must be between 19 and 24 years.'};
       this.dobStartRange = subYears( this._today, 24 );
       this.dobEndRange = subYears( this._today, 19 );
-    } else if ( this.person.relationship === Relationship.ChildUnder19 ) {
-      this.dobErrorMsg = { invalidRange: 'A child must be less than 19 years old.' };
+    } else if (this.person.relationship === Relationship.ChildUnder19) {
+      this.dobErrorMsg = {invalidRange: 'A child must be less than 19 years old.'};
       this.dobStartRange = subYears( this._today, 19 );
     } else {
       this.dobEndRange = this._today;

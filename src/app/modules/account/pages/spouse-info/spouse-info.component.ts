@@ -47,7 +47,7 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach( itm => itm.unsubscribe() );
+    this.subscriptions.forEach( itm => itm.unsubscribe());
   }
 
   ngAfterViewInit() {
