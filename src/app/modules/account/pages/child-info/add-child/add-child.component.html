@@ -19,7 +19,7 @@
 </div>
 
 <div *ngIf="child.relationship && hasActiveMedicalCoverage == false">
-  <!-- Canadian Status-->
+  <!-- Child's status in Canada-->
   <div class="form-group add-document">
     <msp-canadian-status
       [(ngModel)]="child.status"
@@ -27,7 +27,7 @@
       label="Child's status in Canada">
     </msp-canadian-status>
 
-    <!-- Doc to support the Canadian Staus -->
+    <!-- Documents to support your child status in Canada -->
     <msp-support-documents
       *ngIf="child.status !== undefined"
       [supportDocList]="supportDocList"
@@ -44,15 +44,15 @@
     </msp-support-documents>
   </div>
 
-  <!-- Name Change Radio -->
+  <!-- Has your child’s name changed since their id was issued due to a legal name change? -->
   <common-radio
     name="nameChange_{{objectId}}"
     [(ngModel)]="child.hasNameChange"
-    label="Has your child's name changed since their ID was issued?"
+    label="Has your child’s name changed since their id was issued due to a legal name change?"
     (valuehange)="this.personChange.emit(child);">
   </common-radio>
 
-  <!-- Name Change Supporting Doc -->
+  <!-- Documents - Update name due to name change -->
   <div class="add-document">
     <msp-support-documents
       *ngIf="child.hasNameChange"
@@ -101,6 +101,17 @@
     </common-radio>
   </div>
 
+  <div *ngIf="newlyAdopted" class="date-row add-document">
+    <common-date
+      name="newlyAdopted"
+      id="newlyAdopted"
+      label="Adoption date"
+      [(ngModel)]="child.newlyAdopted"
+      [restrictDate]="'past'"
+      required>
+    </common-date>
+  </div>
+
   <!-- Child's Residency Information -->
   <msp-child-moving-information
     [person]="child">
@@ -110,33 +121,4 @@
     </div>
   </msp-child-moving-information>
   <!-- Child's Moving Information -->
-
-  <!-- Add/Remove/Update Buttons -->
-  <p class="horizontal-line">
-    <b>After you have entered information for a child, click "Add child", "Remove child" or
-    "Update child" again to enter information for another child. When you are finished, click "Continue".</b>
-  </p>
-  <div class="row">
-    <div class="col-2">
-      <common-button
-        [label]="'Add Child'"
-        [buttonType]="'btn btn-primary'"
-        (btnClick)='addChildBtnClick()'>
-      </common-button>
-    </div>
-    <div class="col-2">
-      <common-button
-        [label]="'Remove Child'"
-        [buttonType]="'btn btn-primary'"
-        (btnClick)='removeChildBtnClick();'>
-      </common-button>
-    </div>
-    <div class="col-2 ">
-      <common-button
-        [label]="'Update Child'"
-        [buttonType]="'btn btn-primary'"
-        (btnClick)='updateChildBtnClick();'>
-      </common-button>
-    </div>
-  </div>
 </div>

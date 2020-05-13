@@ -103,7 +103,7 @@ export class PersonReviewCardComponent<T extends IPersonReviewCard> {
   get status() {
     let _canadianStatus = null;
 
-    if (  this.hasStatus ) {
+    if (this.hasStatus) {
         _canadianStatus = this._statusStrings[this.person.status];
 
       if ( this.person.currentActivity !== null && this.person.currentActivity !== undefined ) {
@@ -118,7 +118,7 @@ export class PersonReviewCardComponent<T extends IPersonReviewCard> {
   }
 
   get livedInBCSinceBirth() {
-    return this._convertBooleanToString(  this.person.livedInBCSinceBirth );
+    return this._convertBooleanToString( this.person.livedInBCSinceBirth );
   }
 
   get arrivalToBCDate() {

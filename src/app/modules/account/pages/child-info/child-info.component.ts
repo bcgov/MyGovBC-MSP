@@ -9,21 +9,18 @@ import { debounceTime } from 'rxjs/operators';
 import { PageStateService } from 'app/services/page-state.service';
 import { Relationship } from 'app/models/relationship.enum';
 
-
 @Component({
   selector: 'msp-child-info',
   templateUrl: './child-info.component.html',
   styleUrls: ['./child-info.component.scss']
 })
+
 export class ChildInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
-
-
  // children: MspPerson[];
 
   constructor(public dataService: MspAccountMaintenanceDataService, protected router: Router,  private pageStateService: PageStateService ) {
-
     super(router);
-   }
+  }
   subscriptions: Subscription[];
   @ViewChild('formRef') form: NgForm;
 
@@ -35,7 +32,6 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   showUpdateChild: boolean = false;
 
   ngOnInit() {
-
     this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
     //this.children = this.dataService.accountApp.children;
    if (this.dataService.accountApp.addedChildren.length > 0) {
@@ -45,7 +41,6 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
    } else if (this.dataService.accountApp.updatedChildren.length > 0) {
       this.showUpdateChild = true;
    }
-
   }
 
   ngOnDestroy() {
@@ -60,19 +55,15 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
         ).subscribe(() => {
           this.dataService.saveMspAccountApp();
         })
-        ];
+      ];
     }
   }
-
 
   addChildBtnClick(): void {
     this.showChild = true;
     this.showRemoveChild = false;
     this.showUpdateChild = false;
     this.dataService.accountApp.addChild(Relationship.Unknown);
-   // this.dataService.saveMspAccountApp();
-    console.log(this.children);
-
   }
 
   removeChildBtnClick(): void {
@@ -94,7 +85,9 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   }
 
   get hasChild(): boolean {
-    if (this.dataService.accountApp.addedChildren.length > 0 || this.dataService.accountApp.removedChildren.length > 0 || this.dataService.accountApp.updatedChildren.length > 0 ) {
+    if (this.dataService.accountApp.addedChildren.length > 0
+      || this.dataService.accountApp.removedChildren.length > 0
+      || this.dataService.accountApp.updatedChildren.length > 0 ) {
       return true;
     } else {
       return false;
@@ -113,9 +106,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     this.dataService.accountApp.removeChild(idx, op);
   }
 
-
   get accountApp() {
-
     return this.dataService.accountApp;
   }
 
@@ -132,9 +123,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     return valid;
   }
 
-
-
- continue(): void {
+  continue(): void {
     if (!this.canContinue()) {
       console.log('Please fill in all required fields on the form.');
       this.markAllInputsTouched();
@@ -143,6 +132,4 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
     this.navigate('/deam/contact-info');
   }
-
-
 }

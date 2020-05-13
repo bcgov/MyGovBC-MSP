@@ -32,7 +32,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   countryList = COUNTRY_LIST;
   // Remove BC from province list
   provinceList = PROVINCE_LIST.map( x => {
-    if ( x.provinceCode !== BRITISH_COLUMBIA ) {
+    if (x.provinceCode !== BRITISH_COLUMBIA) {
       return x;
     }
   }).filter( x => x );
@@ -44,7 +44,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   }
 
   ngOnInit() {
-    if ( this.isSpouse ) {
+    if (this.isSpouse) {
       this.relationship = 'spouse';
     } else if (this.isChild) {
       this.relationship = 'child';
@@ -116,7 +116,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   get requestPermMoveInfo() {
     return this.isCanadianFromProv || this.isCanadianFromCountry ||
           (this.isCanadianNotBC && this.person.livedInBCSinceBirth) || this.isResidentFromProv ||
-          this.isResidentFromCountry || this.isResidentNotBC;
+           this.isResidentFromCountry || this.isResidentNotBC;
   }
 
   get arrivalDateRequired() {
@@ -129,5 +129,4 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
           (this.isCanadianNotBC && this.person.livedInBCSinceBirth !== undefined) ||
           this.isResidentFromProv || this.isResidentFromCountry || this.isResidentNotBC;
   }
-
 }

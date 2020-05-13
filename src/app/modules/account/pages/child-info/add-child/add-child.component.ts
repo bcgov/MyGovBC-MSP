@@ -1,5 +1,5 @@
 import { Component, forwardRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { nameChangeSupportDocuments } from '../../../../msp-core/components/support-documents/support-documents.component';
+import { nameChangeSupportDocs } from '../../../../msp-core/components/support-documents/support-documents.component';
 import { NgForm, ControlContainer } from '@angular/forms';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { Base } from 'moh-common-lib';
@@ -30,7 +30,7 @@ export class AddChildComponent extends Base implements OnInit {
 
   status: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident , StatusInCanada.TemporaryResident];
   supportDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
-  nameChangeDocList = nameChangeSupportDocuments();
+  nameChangeDocList = nameChangeSupportDocs();
 
   // @Input() accountChangeOptions: AccountChangeOptions;
   @Input() child: MspPerson ;

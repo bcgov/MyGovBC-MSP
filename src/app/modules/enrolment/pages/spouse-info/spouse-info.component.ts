@@ -4,7 +4,7 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
-import { spouseNameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
+import { nameChangeSupportDocs } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';
 import { EnrolDataService } from '../../services/enrol-data.service';
 import { Enrollee } from '../../models/enrollee';
@@ -17,7 +17,7 @@ export class SpouseInfoComponent extends EnrolForm {
 
   statusLabel: string = 'Spouse\'s immigration status in Canada';
   nameChangeDocList = nameChangeSupportDocuments();
-  spouseNameChangeDocList = spouseNameChangeSupportDocuments();
+  spouseNameChangeDocList = nameChangeSupportDocs();
 
   constructor( protected router: Router,
                protected enrolDataService: EnrolDataService,
