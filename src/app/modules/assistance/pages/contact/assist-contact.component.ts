@@ -83,7 +83,6 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.address = this.financialAssistApplication.mailingAddress;
-    console.log('init', this.address);
     this.phone = this.financialAssistApplication.phoneNumber;
     // this.addressLines = this.getAddressLines(this.address);
 
@@ -101,8 +100,6 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe(obs => {
-        console.log('values changed', this.address);
-
         this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
         this.dataService.saveFinAssistApplication();
       });

@@ -33,8 +33,6 @@ export class ConfirmationComponent implements OnInit {
 
         this.nextSteps = params['nextSteps'];
         this.message = params['message'];
-
-        console.log( 'params: ', params );
       }
     );
   }
@@ -44,7 +42,6 @@ export class ConfirmationComponent implements OnInit {
   }
 
   get isSucess() {
-    console.log( 'isSuccess: ', this.status );
     return this.status === ApiStatusCodes.SUCCESS;
   }
 

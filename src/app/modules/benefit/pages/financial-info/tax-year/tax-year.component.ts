@@ -31,7 +31,6 @@ export class TaxYearComponent extends BaseComponent {
     cutOffEndDate: Date;
     cutOffYear: number;
 
-
     constructor(cd: ChangeDetectorRef, public dataService: MspBenefitDataService) {
         super(cd);
     }
@@ -48,8 +47,6 @@ export class TaxYearComponent extends BaseComponent {
     }
 
     getTaxYears(): number[] {
-
-        console.log( 'getTaxYears: ' );
         const currentTaxYear = this.currentYear - 1;
         return [currentTaxYear, currentTaxYear - 1 ];
     }
@@ -57,7 +54,6 @@ export class TaxYearComponent extends BaseComponent {
     get benefitApp(): BenefitApplication{
         return this.dataService.benefitApp;
     }
-
 
    /* isValid(): boolean {
         return !!this.currentTaxYear ;
@@ -75,7 +71,6 @@ export class TaxYearComponent extends BaseComponent {
 
                 // checking the cutoff Date and displaying the message
                 if (this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && (assistYear.year === this.benefitApp.MostRecentTaxYear - 1) && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
-                    console.log('Cut off date year ' + assistYear.year);
                     this.cutOffYear = assistYear.year;
                     this.dataService.benefitApp.cutoffYear = assistYear.year;
                     this.dataService.benefitApp.isCutoffDate = true;
@@ -86,11 +81,9 @@ export class TaxYearComponent extends BaseComponent {
                     this.dataService.benefitApp.isCutoffDate = false;
                 }
 
-
                 if (yearNum === this.benefitApp.MostRecentTaxYear){
                     assistYear.docsRequired = false;
                 }
-                //console.log(assistYear);
                 tally.push(assistYear);
 
                 return tally;
@@ -108,10 +101,7 @@ export class TaxYearComponent extends BaseComponent {
             const endDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END.replace(/-/g, '/'));
             this.cutOffStartDate = new Date(this.currentYear, startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds(), startDate.getMilliseconds());
             this.cutOffEndDate  = new Date(this.currentYear, endDate.getMonth(), endDate.getDate(), endDate.getHours(), endDate.getMinutes(), endDate.getSeconds(), endDate.getMilliseconds());
-            console.log('CutOff Start Date', this.cutOffStartDate);
-            console.log('CutOff End Date', this.cutOffEndDate);
 
-            // console.log('cutoffDate ran', {
             //     SPA_ENV_NOW: this.spaEnvResponse.SPA_ENV_NOW,
             //     SPA_ENV_PACUTOFF_MAINTENANCE_START: this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START,
             //     SPA_ENV_PACUTOFF_MAINTENANCE_END: this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END,
@@ -120,7 +110,5 @@ export class TaxYearComponent extends BaseComponent {
             //     cutOffEndDate: this.cutOffEndDate
             // })
         }
-
     }
-
 }

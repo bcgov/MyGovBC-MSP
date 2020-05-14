@@ -31,16 +31,12 @@
                 This is my mailing address.
                 </label>
             </div> -->
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox"
-                    class="custom-control-input"
-                    id="isMailingAddress"
-                    [checked]="mspAccountApp.mailingSameAsResidentialAddress"
-                    (click)="toggleCheckBox()" />
-                <label class="custom-control-label" for="isMailingAddress">
-                This is my mailing address.
-                </label>
-            </div>
+            <common-checkbox
+                [label]="'This is my mailing address.'"
+                (dataChange)="mspAccountApp.mailingSameAsResidentialAddress = $event;"
+                [data]="mspAccountApp.mailingSameAsResidentialAddress"
+                class="ml-4">
+            </common-checkbox>
             <aside>
                 <h2> <strong> Mailing Address </strong></h2>
                 <p class="horizontal-line">Enter your mailing address - if it's different </p>

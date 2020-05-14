@@ -57,7 +57,6 @@ import { EligibilityComponent } from './pages/eligibility/eligibility.component'
 export class BenefitModule {
 
   constructor(private processService: ProcessService) {
-    console.log('1');
     this.initProcessService();
   }
 

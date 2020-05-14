@@ -45,8 +45,6 @@ class Applicant {
 
     labelList.push( 'Have ' + this._relationshipWording + ' moved to B.C. permanently?' );
 
-    console.log('labelList: ', labelList );
-
     return labelList;
   }
 

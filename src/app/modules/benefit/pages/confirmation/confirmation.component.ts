@@ -31,8 +31,6 @@ export class BenefitConfirmationComponent implements OnDestroy {
                 this.isCutOffYear = params['isCutOffyear'];
             }
         );
-        console.log(this.isCutOff);
-        console.log(this.isCutOffYear);
 
         if (this.isCutOff) {
             if (this.isCutOffYear === true) {
@@ -69,7 +67,7 @@ export class BenefitConfirmationComponent implements OnDestroy {
 
     // Logic to get the cutoff Date text
    /* get noticeOfAssessment() {
-        
+
 
 
     }*/

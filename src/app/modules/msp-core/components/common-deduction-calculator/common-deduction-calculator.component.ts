@@ -46,7 +46,6 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
     ngDoCheck(): void {
       const valid = this.canContinue;
-      console.log("valid "+valid);
       //this.continue.emit(valid);
       //this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, valid);
     }
@@ -194,7 +193,6 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
     get applicantIncomeInfoProvided() {
-        //console.log(this.application.netIncomelastYear);
         const result = (!!this.application.netIncomelastYear && !isNaN(this.application.netIncomelastYear) && (this.application.netIncomelastYear + '').trim() !== '' ); //
         //const stamp = new Date().getTime();
         return result;
@@ -244,17 +242,17 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
               return false;
             }
         }
-        
+
         const spouseDisabilityCreditAmt = this.application.spouseDSPAmount_line125 && this.application.spouseDSPAmount_line125.toString().match(patt);
 
         if (this.application.hasRegisteredDisabilityPlan) {
             if (!spouseDisabilityCreditAmt) {
                this.continue.emit(false);
                return false;
-            } 
+            }
         }
 
-        // If a spouse id declared then income field becomes required 
+        // If a spouse id declared then income field becomes required
         if (this.application.hasSpouse) {
           if (!this.application.spouseIncomeLine236) {
               this.continue.emit(false);
@@ -322,7 +320,6 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
         if (this.application.haveChildrens) {
             const childCountcheck = this.application.childrenCount && this.application.childrenCount.toString().match(childCountPattern);
-           // console.log(this.application.childrenCount);
             if (!childCountcheck || this.application.childrenCount > 29 ) {
                 this.continue.emit(false);
                 return false;
@@ -347,11 +344,10 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
                 return false;
             }
         }
-        // Regex pattern check for the child count 
+        // Regex pattern check for the child count
 
 
-        /* console.log('Abhi DSP amount --> '+spouseDisabilityCreditAmt);
-        if (spouseDisabilityCreditAmt && this.application.hasRegisteredDisabilityPlan) {
+        /* if (spouseDisabilityCreditAmt && this.application.hasRegisteredDisabilityPlan) {
             this.continue.emit(true);
             return true;
         } else {
@@ -361,7 +357,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
         // added for DEAM-2 fix Invalid comma in money decimal fields
         const isSpouseIncomeValid = !spouseSpecified || !this.application || !this.application.spouseIncomeLine236 || this.application.spouseIncomeLine236.toString().match(patt);
-        
+
         if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid && isSpouseIncomeValid && applicanthaveChildrens && applicantapplicantClaimForAttendantCareExpense && applicantselfDisabilityCredit) {
             if (this.application.hasSpouse) {
                 this.continue.emit(spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided);
@@ -409,7 +405,6 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         }
         const n = (!!this.application.netIncomelastYear &&
             !isNaN(this.application.netIncomelastYear)) ? this.application.netIncomelastYear : 0;
-        //console.log("application net income: " + this.application.netIncomelastYear);
         return parseFloat(n + '');
     }
 
@@ -438,5 +433,3 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
 }
-
-

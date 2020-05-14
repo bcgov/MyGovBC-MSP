@@ -12,14 +12,12 @@ import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../
 import { Relationship } from '../../../../models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
-
 @Component({
   templateUrl: './personal-info.component.html',
   styleUrls: ['./personal-info.component.scss']
 })
 @Injectable()
 export class AccountPersonalInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
-
   static ProcessStepNum = 1;
   lang = require('./i18n');
   docSelected: string ;
@@ -43,22 +41,17 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
                 protected router: Router,  private pageStateService: PageStateService
             //private _processService: ProcessService,
             ) {
-      super(router);
+    super(router);
   }
 
   onChange($event){
-      console.log($event);
-      console.log(this.applicant);
-      //this.dataService.saveMspAccountApp();
+    //this.dataService.saveMspAccountApp();
   }
 
   ngOnInit(){
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
     this.person = this.dataService.accountApp.applicant;
-    console.log(this.person);
-    console.log(this.accountApp);
-    console.log(this.accountChangeOptions);
     // this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), this._processService);
   }
 
@@ -74,138 +67,135 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         ).subscribe(() => {
           this.dataService.saveMspAccountApp();
         })
-        ];
+      ];
+    }
+  }
+
+  get applicant(): MspPerson {
+    return this.dataService.accountApp.applicant;
+  }
+
+  get spouse(): MspPerson {
+    return this.dataService.getMspAccountApp().updatedSpouse;
+  }
+
+  get children(): MspPerson[] {
+      return this.dataService.getMspAccountApp().updatedChildren;
+  }
+
+  personInfoUpdateOnChange(event: boolean) {
+    // this.isPICheckedByUser = true;
+    this.accountChangeOptions.personInfoUpdate = event;
+    if (event) {
+      this.accountHolderTitle = 'Update Account Holder\'s Information';
+      this.accountHolderSubtitle = 'Please provide new information if you are requesting an update or correction to the ' +
+        'Account Holder’s name (including a name change as a result of marriage, separation or divorce), birthdate or gender.';
+    } else {
+      this.accountHolderTitle = 'Account Holder Identification';
+      this.accountHolderSubtitle = 'Please provide the Account Holder’s personal information for verification purposes.';
+    }
+
+    // this.dataService.saveMspAccountApp();
+  }
+
+  immigrationStatusChange(event: boolean) {
+    this.accountChangeOptions.immigrationStatusChange = event;
+    //  this.dataService.saveMspAccountApp();
+  }
+
+  addUpdateSpouse = () => {
+    const sp: MspPerson = new MspPerson(Relationship.Spouse);
+    this.dataService.getMspAccountApp().addUpdatedSpouse(sp);
+  }
+
+  /*
+  If the application contains any Visting status , application shouldnt be sumbitted
+    */
+  hasAnyInvalidStatus(): boolean {
+    if (!this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate) {
+      return false;
+    }
+    return this.dataService.getMspAccountApp().hasAnyVisitorInApplication();
+  }
+
+  isPhnUniqueInPI() {
+    return this.dataService.accountApp.isUniquePhnsInPI ;
+  }
+
+  isValid(): boolean {
+    return this.dataService.accountApp.isUniquePhnsInPI ;
+  }
+
+  statusLabel(): string {
+    return 'You Status in Canada';
+  }
+
+  setStatus(value: StatusInCanada, p: MspPerson) {
+    if (typeof value === 'object') return;
+    p.status = value;
+    p.currentActivity = null;
+
+    if (p.status !== StatusInCanada.CitizenAdult) {
+        p.institutionWorkHistory = 'No';
+    }
+  }
+
+  hasAnyUpdateSelected(): boolean {
+    if (this.person.updatingPersonalInfo === true){
+      return (this.person.updateStatusInCanada === true ||
+        this.person.updateNameDueToMarriage === true ||
+        this.person.updateNameDueToNameChange === true ||
+        this.person.updateGender === true ||
+        this.person.updateNameDueToError === true ||
+        this.person.updateBirthdate === true ||
+        this.person.updateGenderDesignation === true);
+    }
+    else {
+      return true;
+    }
+  }
+
+  checkDocuments(){
+    let valid = true;
+    if (this.person.updateStatusInCanada === true){
+      valid = valid && this.person.updateStatusInCanadaDocType.images.length > 0;
+    }
+    if (this.person.updateNameDueToMarriage === true){
+      valid = valid && this.person.updateNameDueToMarriageDocType.images.length > 0;
+    }
+    if (this.person.updateNameDueToNameChange === true){
+      valid = valid && this.person.updateNameDueToNameChangeDocType.images.length > 0;
+    }
+    if (this.person.updateGender === true){
+      valid = valid && this.person.updateGenderDocType.images.length > 0 && this.person.updateGenderDocType2.images.length > 0;
+      if (this.person.updateGenderAdditionalDocs === true){
+        valid = valid && this.person.updateGenderDocType3.images.length > 0;
       }
     }
-
-    get applicant(): MspPerson {
-        return this.dataService.accountApp.applicant;
+    if (this.person.updateNameDueToError === true){
+      valid = valid && this.person.updateNameDueToErrorDocType.images.length > 0;
     }
-
-    get spouse(): MspPerson {
-        return this.dataService.getMspAccountApp().updatedSpouse;
+    if (this.person.updateBirthdate === true){
+      valid = valid && this.person.updateBirthdateDocType.images.length > 0;
     }
-
-    get children(): MspPerson[] {
-        return this.dataService.getMspAccountApp().updatedChildren;
+    if (this.person.updateGenderDesignation === true){
+      valid = valid && this.person.updateGenderDesignationDocType.images.length > 0;
     }
+    return valid;
+  }
 
-    personInfoUpdateOnChange(event: boolean) {
+  canContinue(): boolean {
+    const valid = super.canContinue() && this.person.updatingPersonalInfo !== undefined && this.hasAnyUpdateSelected() && this.checkDocuments();
+    return valid;
+  }
 
-        console.log(event);
-
-       // this.isPICheckedByUser = true;
-        this.accountChangeOptions.personInfoUpdate = event;
-        if (event) {
-            this.accountHolderTitle = 'Update Account Holder\'s Information';
-            this.accountHolderSubtitle = 'Please provide new information if you are requesting an update or correction to the Account Holder’s name (including a name change as a result of marriage, separation or divorce), birthdate or gender.';
-        } else {
-            this.accountHolderTitle = 'Account Holder Identification';
-            this.accountHolderSubtitle = 'Please provide the Account Holder’s personal information for verification purposes.';
-        }
-
-       // this.dataService.saveMspAccountApp();
+  continue(): void {
+    if (!this.canContinue()) {
+      console.log('Please fill in all required fields on the form.');
+      this.markAllInputsTouched();
+      return;
     }
-
-    immigrationStatusChange(event: boolean) {
-        this.accountChangeOptions.immigrationStatusChange = event;
-      //  this.dataService.saveMspAccountApp();
-    }
-
-    addUpdateSpouse = () => {
-        const sp: MspPerson = new MspPerson(Relationship.Spouse);
-        this.dataService.getMspAccountApp().addUpdatedSpouse(sp);
-    }
-
-    /*
-    If the application contains any Visting status , application shouldnt be sumbitted
-     */
-    hasAnyInvalidStatus(): boolean {
-        // console.log(this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate);
-        if (!this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate) {
-            return false;
-        }
-        return this.dataService.getMspAccountApp().hasAnyVisitorInApplication();
-    }
-
-    isPhnUniqueInPI() {
-      return this.dataService.accountApp.isUniquePhnsInPI ;
-    }
-
-    isValid(): boolean {
-      return this.dataService.accountApp.isUniquePhnsInPI ;
-    }
-
-    statusLabel(): string {
-        return 'You Status in Canada';
-    }
-
-    setStatus(value: StatusInCanada, p: MspPerson) {
-        if (typeof value === 'object') return;
-        p.status = value;
-        p.currentActivity = null;
-
-        if (p.status !== StatusInCanada.CitizenAdult) {
-            p.institutionWorkHistory = 'No';
-        }
-    }
-
-    hasAnyUpdateSelected(): boolean {
-      if (this.person.updatingPersonalInfo === true){
-        return (this.person.updateStatusInCanada === true ||
-          this.person.updateNameDueToMarriage === true ||
-          this.person.updateNameDueToNameChange === true ||
-          this.person.updateGender === true ||
-          this.person.updateNameDueToError === true ||
-          this.person.updateBirthdate === true ||
-          this.person.updateGenderDesignation === true);
-      }
-      else {
-        return true;
-      }
-    }
-
-    checkDocuments(){
-      let valid = true;
-      if (this.person.updateStatusInCanada === true){
-        valid = valid && this.person.updateStatusInCanadaDocType.images.length > 0;
-      }
-      if (this.person.updateNameDueToMarriage === true){
-        valid = valid && this.person.updateNameDueToMarriageDocType.images.length > 0;
-      }
-      if (this.person.updateNameDueToNameChange === true){
-        valid = valid && this.person.updateNameDueToNameChangeDocType.images.length > 0;
-      }
-      if (this.person.updateGender === true){
-        valid = valid && this.person.updateGenderDocType.images.length > 0 && this.person.updateGenderDocType2.images.length > 0;
-        if (this.person.updateGenderAdditionalDocs === true){
-          valid = valid && this.person.updateGenderDocType3.images.length > 0;
-        }
-      }
-      if (this.person.updateNameDueToError === true){
-        valid = valid && this.person.updateNameDueToErrorDocType.images.length > 0;
-      }
-      if (this.person.updateBirthdate === true){
-        valid = valid && this.person.updateBirthdateDocType.images.length > 0;
-      }
-      if (this.person.updateGenderDesignation === true){
-        valid = valid && this.person.updateGenderDesignationDocType.images.length > 0;
-      }
-      return valid;
-    }
-
-    canContinue(): boolean {
-      const valid = super.canContinue() && this.person.updatingPersonalInfo !== undefined && this.hasAnyUpdateSelected() && this.checkDocuments();
-      return valid;
-    }
-
-    continue(): void {
-      if (!this.canContinue()) {
-        console.log('Please fill in all required fields on the form.');
-        this.markAllInputsTouched();
-        return;
-      }
-      this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
-      this.navigate('/deam/spouse-info');
-    }
+    this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
+    this.navigate('/deam/spouse-info');
+  }
 }

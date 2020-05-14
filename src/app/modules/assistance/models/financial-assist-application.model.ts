@@ -378,8 +378,6 @@ export class FinancialAssistApplication implements ApplicationBase {
         return value.year;
       }
     });
-
-    console.log( 'getAppliedForTaxYears: ', years );
     return years.filter( x => x );
   }
 
@@ -397,7 +395,6 @@ export class FinancialAssistApplication implements ApplicationBase {
         return b.year - a.year;
       }
     );
-    console.log( 'getMostRecentAppliedForTaxYears: ', years );
     return years;
   }
 
@@ -408,16 +405,12 @@ export class FinancialAssistApplication implements ApplicationBase {
   getAssistanceApplicationType(): AssistanceApplicationType {
     const mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
 
-    console.log( 'getAssistanceApplicationType: mostRecentAppliedForTaxYears',
-      mostRecentAppliedForTaxYears );
-
     // If we only have one and it's previous year
     if (
       mostRecentAppliedForTaxYears == null ||
       (mostRecentAppliedForTaxYears.length === 1 &&
         mostRecentAppliedForTaxYears[0].year === this.MostRecentTaxYear)
     ) {
-      console.log( 'getAssistanceApplicationType: currentYear ', mostRecentAppliedForTaxYears );
       return AssistanceApplicationType.CurrentYear;
     }
 
@@ -458,7 +451,7 @@ export class FinancialAssistApplication implements ApplicationBase {
   }
 
   get MostRecentTaxYear(): number {
-    // Dec 16, 2019: Going forward Retro PA is to be eliminated, so there will never be 
+    // Dec 16, 2019: Going forward Retro PA is to be eliminated, so there will never be
     // years newer thatn 2018.
     return moment().year() - 1;
   }

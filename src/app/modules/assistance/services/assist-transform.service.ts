@@ -44,7 +44,6 @@ export class AssistTransformService {
 
     const date = this.app.authorizedByApplicantDate;
     const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-    // console.log(date.getMonth());
     const month =
       date.getMonth() < 9 // off by 1 due to 0 indicing
         ? `0${(date.getMonth() + 1).toString()}`
@@ -52,7 +51,6 @@ export class AssistTransformService {
     const year = date.getFullYear();
 
     const authorizedByApplicantDate = `${year}-${month}-${day}`;
-    // console.log('authorization date', authorizedByApplicantDate);
     // TODO: schema updates required as not data for spouse object - POC set authorizedBySpouse based on whether spouse exists
     const authorizedBySpouse = this.app.hasSpouseOrCommonLaw ? 'Y' : 'N';
     return {
@@ -146,7 +144,6 @@ export class AssistTransformService {
   get attachmentUuids() {
     const uuids = [];
     const [...taxYears] = this.app.assistYears.filter(year => year.apply);
-    // console.log('tax years', taxYears);
     for (const year of taxYears) {
       if (year.files && year.files.length > 0) {
         year.files.forEach(itm => uuids.push(itm.uuid));
@@ -155,7 +152,6 @@ export class AssistTransformService {
         year.spouseFiles.forEach(itm => uuids.push(itm.uuid));
       }
     }
-    // console.log('uuids', uuids);
     return uuids;
   }
 
@@ -174,8 +170,6 @@ export class AssistTransformService {
     if (this.app.powerOfAttorneyDocs.length > 0 ) {
       attachments.push(...this.app.powerOfAttorneyDocs);
     }
-
-    // console.log( 'attachements: ', attachments.length );
 
     return attachments.map((itm, i) => {
       return {
@@ -202,11 +196,10 @@ export class AssistTransformService {
     if (this.app.powerOfAttorneyDocs.length > 0 ) {
       attachments.push(...this.app.powerOfAttorneyDocs);
     }
-    // console.log( 'file attachements: ', attachments.length );
     return attachments;
   }
   /**
-   *           contentType: 'IMAGE_JPEG',
+          contentType: 'IMAGE_JPEG',
           attachmentDocumentType: 'ImmigrationDocuments',
           attachmentUuid: '4345678-f89c-52d3-a456-626655441236',
           attachmentOrder: '1',

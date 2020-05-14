@@ -37,7 +37,6 @@ export class BenefitSendingComponent implements AfterContentInit  {
         // After view inits, begin sending the application
         this.transmissionInProcess = true;
         this.hasError = false;
-        //console.log(this.application);
         // this.logService.log({name: 'PA - application submitting request'},"PA : Submission Request");
         // After view inits, begin sending the application
         this.service
@@ -59,7 +58,6 @@ export class BenefitSendingComponent implements AfterContentInit  {
             this.suppBenefitResponse = <ApiResponse> response;
 
             if (this.isFailure(this.suppBenefitResponse)) {
-                console.log('isFailure', this.suppBenefitResponse);
                 this.logService.log({
                     name: 'Supplementary Benefit - DB Error',
                     confirmationNumber: this.application.uuid,
@@ -89,7 +87,6 @@ export class BenefitSendingComponent implements AfterContentInit  {
       this.transmissionInProcess = transmissionInProcess;
       const oldUUID = this.application.uuid;
       this.application.regenUUID();
-      console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.benefitApp.uuid);
       this.application.authorizationToken = null;
       this.dataService.saveBenefitApplication();
   }

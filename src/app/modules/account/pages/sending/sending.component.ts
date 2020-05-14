@@ -124,12 +124,9 @@ export class AccountSendingComponent implements AfterContentInit {
         const oldUUID = this.mspAccountApp.uuid;
        this.mspAccountApp.regenUUID();
 
-       console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspAccountApp().uuid);
-
         this.mspAccountApp.authorizationToken = null;
         this.dataService.saveMspAccountApp();
       });
-
   }
 
   processErrorResponse(transmissionInProcess: boolean) {
@@ -137,10 +134,9 @@ export class AccountSendingComponent implements AfterContentInit {
     this.transmissionInProcess = transmissionInProcess;
     const oldUUID = this.mspAccountApp.uuid;
     this.mspAccountApp.regenUUID();
-    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.accountApp.uuid);
     this.mspAccountApp.authorizationToken = null;
     this.dataService.saveMspAccountApp();
-}
+  }
 
   toggleErrorDetails(){
     this.showMoreErrorDetails = !this.showMoreErrorDetails;

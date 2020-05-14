@@ -32,13 +32,9 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
   ngOnInit() {
     super.ngOnInit();
 
-    console.log( 'this.mspApplication.hasSpouse: ', this.mspApplication.hasSpouse());
-
     if ( ( this.mspApplication.applicant.isTemporaryResident  && !this.mspApplication.hasSpouse() ) ||
          ( this.mspApplication.hasSpouse() && this.mspApplication.applicant.isTemporaryResident &&
            this.mspApplication.spouse.isTemporaryResident ) ) {
-
-      console.log( 'next steps are not shown' );
       this._hasNextSteps = false;
     }
   }
@@ -88,7 +84,6 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
     this.apiService.sendRequest( this.mspApplication )
       .then((response: ApiResponse) => {
         this.loading = false;
-        console.log( 'authorize response: ', response, (response instanceof HttpErrorResponse) );
 
         if (response instanceof HttpErrorResponse) {
           this.logService.log({
@@ -126,7 +121,7 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
       .catch(error => {
 
         this.loading = false;
-        console.log( 'autorization errror clause: ', error );
+        console.log('autorization errror clause: ', error );
 
         let message = 'This error occurred because the system encountered an unanticipated situation ' +
         'which forced it to stop.';

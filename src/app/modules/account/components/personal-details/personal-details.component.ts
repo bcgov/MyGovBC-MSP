@@ -72,7 +72,6 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     public defaultCountry = 'CANADA';
     public defaultProvince = 'BRITISH COLUMBIA';
 
-
     /**
      * Field is generally True.Set it false in special scenarios where showError is true but the address field need not to be highighted. .Use this field to overrider showError.  For example:'Removal of spouse' address field is not mandatory where other fields are mandatory.
      *
@@ -80,7 +79,6 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @Input() showErrorAddress: boolean = true;
 
     @Input() showError: boolean;
-
 
     /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
     @Input() embedded: boolean = false;
@@ -110,7 +108,6 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         this.person = this.dataService.getMspAccountApp().applicant ;
     }
 
-
     institutionList: string[] = ['Yes', 'No'];
 
     /**
@@ -119,8 +116,6 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     get statusInCanada(): StatusInCanada[] {
         return statusRules(this.person.relationship);
     }
-
-
 
     setStatus(value: StatusInCanada, p: MspPerson) {
         p.status = value;
@@ -142,16 +137,11 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         this.person.firstName = evt.first_name;
         this.person.middleName = evt.middle_name;
         this.person.lastName = evt.last_name;
-
-        console.log(this.person);
-        console.log(evt);
         this.onChange.emit(evt);
     }
 
     setGender(evt: any) {
         this.person.gender = evt;
-        console.log(this.person);
-        console.log(evt);
         this.onChange.emit(evt);
     }
 
@@ -164,13 +154,10 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     }
 
     handleAddressUpdate(evt: any) {
-        console.log('Abhi Address --> ');
-        console.log(evt);
        // this.dataService.saveMspAccountApp();
         this.emitIsFormValid();
         this.onChange.emit();
     }
-
 
     /**
      * Gets the available reason for given the known status
@@ -179,10 +166,8 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         return statusReasonRules(this.person.relationship, this.person.status);
     }
 
-
     ngAfterContentInit() {
         super.ngAfterContentInit();
-
 
         this.cd.detectChanges();
         /**
@@ -193,7 +178,6 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         }
     }
 
-
     removeChild(): void {
         this.notifyChildRemoval.emit(this.person);
         // this.notifyChildRemoval.next(id);
@@ -202,7 +186,6 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     removeSpouse(): void {
         this.notifySpouseRemoval.emit(this.person);
     }
-
 
     get hasValidCurrentActivity(): boolean {
         const v = _.isNumber(this.person.currentActivity);
@@ -216,11 +199,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     handleHealthNumberChange(evt: string) {
         this.person.healthNumberFromOtherProvince = evt;
         this.onChange.emit(evt);
-
     }
-
-
-
 
     isValid(): boolean {
         if (!this.person) {
@@ -243,10 +222,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
                     return false;
                 }
             }*/
-
-
         }
-
         return true;
     }
 }

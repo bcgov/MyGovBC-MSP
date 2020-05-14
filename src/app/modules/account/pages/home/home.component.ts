@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.mspAccountApp = this.dataService.getMspAccountApp();
   }
- 
+
   ngAfterViewInit() {
     if (!this.mspAccountApp.infoCollectionAgreement) {
         this.mspConsentModal.showFullSizeView();
@@ -29,10 +29,7 @@ export class HomeComponent implements OnInit {
 
   }
   onAccept(event: boolean) {
-    console.log(event);
     this.mspAccountApp.infoCollectionAgreement = event;
     this.dataService.saveMspAccountApp();
   }
-
-  
 }

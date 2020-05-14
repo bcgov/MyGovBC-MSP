@@ -7,7 +7,7 @@ import { tap, map } from 'rxjs/operators';
 @Component({
   template: `
   <common-page-framework layout="blank">
-     
+
       <ng-container *ngIf="success">
         <!-- SUCCESS: {{ success$ | async | json }} -->
         <msp-confirmation
@@ -55,10 +55,8 @@ export class AssistanceConfirmationComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.route.params.subscribe(obj => {
-      console.log(obj);
       this.confirmationNum = obj.id;
       this.success = obj.status === 'SUCCESS' ? true : false;
-
     });
   }
 }

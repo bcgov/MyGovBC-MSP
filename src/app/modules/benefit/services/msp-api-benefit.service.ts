@@ -60,7 +60,6 @@ export class MspApiBenefitService extends AbstractHttpService {
     return new Promise<ApiResponse>((resolve, reject) => {
       //Validating the response against the schema
       this.schemaSvc.validate(suppBenefitRequest).then(res => {
-        console.log(res.errors);
         if (res.errors) {
           let errorField;
           let errorMessage;
@@ -102,8 +101,6 @@ export class MspApiBenefitService extends AbstractHttpService {
             // TODO - Likely have to store all the responses for image uploads, so we can use those UUIDs with our application puload
             // unless we can just use our pre-uploaded ones? though that has potential for missing records.
             // once all attachments are done we can sendApplication in the data
-            console.log('sendAttachments response', attachmentResponse);
-
             return this.sendApplication(
               suppBenefitRequest,
               app.uuid,
@@ -119,7 +116,6 @@ export class MspApiBenefitService extends AbstractHttpService {
           })
           .catch((error: Response | any) => {
             // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-            console.log('sent all attachments rejected: ', error);
             this.logService.log(
               {
                 text: 'Attachment - Send All Rejected ',
@@ -183,7 +179,6 @@ export class MspApiBenefitService extends AbstractHttpService {
             //     text: "Send All Attachments - Success",
             //     response: responses,
             // }, "Send All Attachments - Success")
-            console.log('resolving responess', responses);
             return resolve(responses);
           },
           (error: Response | any) => {
@@ -194,7 +189,6 @@ export class MspApiBenefitService extends AbstractHttpService {
               },
               'Attachments - Send Error '
             );
-            console.log('error sending attachment: ', error);
             return reject();
           }
         )
@@ -206,7 +200,6 @@ export class MspApiBenefitService extends AbstractHttpService {
             },
             'Attachments - Send Error '
           );
-          console.log('error sending attachment: ', error);
           return error;
         });
     });
@@ -274,7 +267,6 @@ export class MspApiBenefitService extends AbstractHttpService {
             return resolve(response);
           },
           (error: Response | any) => {
-            console.log('error response in its origin form: ', error);
             this.logService.log(
               {
                 text: 'Attachment - Send Error ',
@@ -286,7 +278,6 @@ export class MspApiBenefitService extends AbstractHttpService {
           }
         )
         .catch((error: Response | any) => {
-          console.log('Error in sending individual attachment: ', error);
           this.logService.log(
             {
               text: 'Attachment - Send Error ',
@@ -301,7 +292,6 @@ export class MspApiBenefitService extends AbstractHttpService {
   }
 
   protected handleError(error: HttpErrorResponse) {
-    // console.log("handleError", JSON.stringify(error));
     if (error.error instanceof ErrorEvent) {
       //Client-side / network error occured
       console.error('MSP Supp Benefit API error: ', error.error.message);

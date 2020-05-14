@@ -9,7 +9,7 @@
     </common-radio>
   </div>
 
-  <div *ngIf="person.livedInBCSinceBirth !== true" class=" add-document">
+  <div *ngIf="person.livedInBCSinceBirth == false" class="add-document">
     <div *ngIf="isCanadianFromProv || isCanadianFromCountry; else NewToBC" class="form-group col-sm-6 p-sm-2">
       <common-date
         name="MostRecentMoveBC"

@@ -8,7 +8,8 @@
       and will be responsible for maintaining the Medical Services Plan account and requesting any changes.
     </p>
 
-    <msp-canadian-status [(person)]="applicant">
+    <msp-canadian-status
+      [(person)]="applicant">
       <div sectionTitleInfo>
         <h2>Your Status in Canada</h2>
         <p class="border-bottom">
@@ -17,10 +18,11 @@
       </div>
     </msp-canadian-status>
 
-    <msp-support-documents *ngIf="hasStatus"
-                            [canadianStatus]="applicant.status"
-                            [statusReason]="applicant.currentActivity"
-                            [(supportDoc)]="statusDocuments">
+    <msp-support-documents
+      *ngIf="hasStatus"
+      [canadianStatus]="applicant.status"
+      [statusReason]="applicant.currentActivity"
+      [(supportDoc)]="statusDocuments">
       <div sectionTitleInfo>
         <h2>Documents</h2>
         <p class="border-bottom">
@@ -31,18 +33,20 @@
 
       <div requestAdditionInfo>
         <div class="form-group">
-          <common-radio name="NameChangeQuestion"
-                        [(ngModel)]="applicant.hasNameChange"
-                        label="Has your name changed since your ID was issued due to marriage or a legal name change?"
-                        required>
+          <common-radio
+            name="NameChangeQuestion"
+            [(ngModel)]="applicant.hasNameChange"
+            label="Has your name changed since your ID was issued due to marriage or a legal name change?"
+            required>
           </common-radio>
         </div>
       </div>
     </msp-support-documents>
 
-    <msp-support-documents *ngIf="requestNameChangeInfo"
-                           [supportDocList]="nameChangeDocList"
-                           [(supportDoc)]="applicant.nameChangeDocs">
+    <msp-support-documents
+      *ngIf="requestNameChangeInfo"
+      [supportDocList]="nameChangeDocList"
+      [(supportDoc)]="applicant.nameChangeDocs">
       <div sectionTitleInfo>
         <h3>Additional Documents</h3>
         Please upload one of these documents as well as proof of your status in Canada:
@@ -56,7 +60,8 @@
     </msp-support-documents>
 
     <div *ngIf="requestPersonalInfo">
-      <msp-personal-information [(person)]="applicant">
+      <msp-personal-information
+        [(person)]="applicant">
         <div sectionTitleInfo>
           <h2>Your Information</h2>
           <p class="border-bottom">
@@ -65,25 +70,28 @@
         </div>
       </msp-personal-information>
 
-      <msp-moving-information [(person)]="applicant">
+      <msp-moving-information
+        [(person)]="applicant">
         <div sectionTitleInfo>
           <h2 class="border-bottom">Moving Information</h2>
         </div>
         <div additionalQuestions *ngIf="requestSchoolInfo">
           <div class="form-group">
-            <common-radio name="fullTimeStudent_{{objectId}}"
-                          [(ngModel)]="applicant.fullTimeStudent"
-                          label="Are you full-time student in B.C.?"
-                          required>
+            <common-radio
+              name="fullTimeStudent_{{objectId}}"
+              [(ngModel)]="applicant.fullTimeStudent"
+              label="Are you full-time student in B.C.?"
+              required>
             </common-radio>
           </div>
 
           <div *ngIf="applicant.fullTimeStudent" class="ml-4 border-left">
             <div class="form-group">
-              <common-radio name="inBCafterStudies_{{objectId}}"
-                            [(ngModel)]="applicant.inBCafterStudies"
-                            label="Will you reside in B.C. upon completion of your studies?"
-                            required>
+              <common-radio
+                name="inBCafterStudies_{{objectId}}"
+                [(ngModel)]="applicant.inBCafterStudies"
+                label="Will you reside in B.C. upon completion of your studies?"
+                required>
               </common-radio>
               <common-error-container [displayError]="applicant.inBCafterStudies == false">
                 To qualify for provincial health care benefits a person must be a resident of
@@ -98,7 +106,8 @@
     </div>
   </form>
 </common-page-framework>
-<common-form-action-bar [defaultColor]='false'
-                        widthOption='extra-width-mobile-only'
-                        (btnClick)="continue()">
+<common-form-action-bar
+  [defaultColor]='false'
+  widthOption='extra-width-mobile-only'
+  (btnClick)="continue()">
 </common-form-action-bar>

@@ -42,7 +42,7 @@ export function nameChangeSupportDocuments(): SupportDocumentTypes[] {
   ];
 }
 
-export function spouseNameChangeSupportDocuments(): SupportDocumentTypes[] {
+export function nameChangeSupportDocs(): SupportDocumentTypes[] {
   return [
     SupportDocumentTypes.CanadianBirthCertificate,
     SupportDocumentTypes.CanadianPassport,

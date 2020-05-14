@@ -34,14 +34,11 @@ export class MspApiEnrolmentService extends BaseMspApiService {
 
   sendRequest(app: EnrolApplication): Promise<any> {
     const enrolmentRequest = this.prepareEnrolmentApplication( app );
-    console.log(enrolmentRequest);
 
     return new Promise<ApiResponse>( (resolve, reject) => {
 
       //Validating the response against the schema
       this.schemaSvc.validate(enrolmentRequest).then(res => {
-
-        console.log(res.errors);
 
         if (res.errors) {
           let errorField;
@@ -49,7 +46,6 @@ export class MspApiEnrolmentService extends BaseMspApiService {
 
           // Getting the error field
           for (const err of res.errors) {
-            console.log( 'errors in schema' );
             errorField = err.dataPath.substr(34);
             errorMessage = err.message;
           }
@@ -71,12 +67,10 @@ export class MspApiEnrolmentService extends BaseMspApiService {
             //const urls = this.dataSvc.getMspProcess().processSteps;
             //this.router.navigate([urls[index].route]);
 
-            console.log( 'Reject message ' );
             return reject(errorMessage);
           }
         }
 
-        console.log( 'Send Attachments ' );
         // if no errors, then we'll sendApplication all attachments
         return this.sendAttachments(
           app.authorizationToken,
@@ -84,11 +78,8 @@ export class MspApiEnrolmentService extends BaseMspApiService {
           app.getAllImages()
         )
         .then(attachmentResponse => {
-          console.log('sendAttachments response', attachmentResponse);
-
           return this.sendApplication( enrolmentRequest, app.authorizationToken )
             .subscribe(response => {
-              console.log( 'msp-api-enrol services response: ', response );
               // Add reference number TODO: Why do we need this clause here? Does not save in service
               if (response && response.op_reference_number) {
                 app.referenceNumber = response.op_reference_number.toString();
@@ -99,7 +90,6 @@ export class MspApiEnrolmentService extends BaseMspApiService {
           })
           .catch((err: Response | any) => {
             // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-            console.log('sent all attachments rejected: ', err);
               this.logService.log({
               text: 'Attachment - Send All Rejected ',
               response: err

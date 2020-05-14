@@ -65,15 +65,14 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   addSpouse = () => {
-   //this.benefitApplication.applicant = new MspPerson(Relationship.Spouse);
-   this.showSpouse = true;
-   //this.dataService.benefitApp.hasSpouse = true;
-  //  this.benefitApplication.hasSpouseOrCommonLaw = true;
+    // this.benefitApplication.applicant = new MspPerson(Relationship.Spouse);
+    this.showSpouse = true;
+    // this.dataService.benefitApp.hasSpouse = true;
+    // this.benefitApplication.hasSpouseOrCommonLaw = true;
     this.dataService.benefitApp.setSpouse = true;
-    //this.dataService.benefitApp.hasSpouseOrCommonLaw = true
-    //console.log(this.benefitApplication.hasSpouseOrCommonLaw);
+    // this.dataService.benefitApp.hasSpouseOrCommonLaw = true
     // const sp: MspPerson = new MspPerson(Relationship.Spouse);
-   // this.dataService.getMspApplication().addSpouse(sp);
+    // this.dataService.getMspApplication().addSpouse(sp);
   }
 
   removeSpouse(event: Object): void{

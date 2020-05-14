@@ -76,8 +76,6 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
     this.subscriptionList.push(
       this.form.valueChanges.subscribe(() => {
 
-        console.log('form: ', this.form);
-
         this.stateSvc.setPageValid(this.route.snapshot.routeConfig.path, this.isPageValid());
         this.dataService.saveFinAssistApplication();
       })
@@ -113,7 +111,6 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
   }
 
   deleteDocument(mspImage: CommonImage) {
-    console.log(mspImage);
     this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.filter(
       (doc: CommonImage) => {
         return doc.uuid !== mspImage.uuid;
@@ -135,7 +132,6 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
     }
   }
   updateFiles(evt) {
-    console.log(evt);
     this.application.powerOfAttorneyDocs = evt;
     this.dataService.saveFinAssistApplication();
   }
@@ -143,11 +139,8 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
   isPageValid(): boolean {
     let isValid = this.form.valid && this.hasToken;
 
-    console.log( 'isPageValid: ', isValid, this.form.valid, this.hasToken, this.form );
-
     // Power of Attorney must have documents if selected
     if (this.application.authorizedByAttorney) {
-      console.log('Need power of attorney docs');
       isValid = isValid && this.application.powerOfAttorneyDocs.length > 0;
     }
     return isValid;

@@ -15,7 +15,7 @@ import { MspPerson } from '../../../../../app/components/msp/model/msp-person.mo
   styleUrls: ['./authorize.component.scss']
 })
 export class AuthorizeComponent extends AbstractForm implements OnInit {
-  lang = require('./i18n');
+    lang = require('./i18n');
 
     mspAccountApp: MspAccountApp;
     captchaApiBaseUrl: string;
@@ -98,6 +98,4 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
         this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
         this.navigate('/deam/sending');
       }
-
-
 }

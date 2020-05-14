@@ -59,7 +59,6 @@ export class AclApiService extends AbstractHttpService {
   /** Handles all failed requests that throw either a server error (400/500) or a client error (e.g. lost internet). */
   protected handleError( error: HttpErrorResponse ) {
 
-    console.log('handleError', JSON.stringify(error));
     if ( error.error instanceof ErrorEvent ) {
       // Client-side / network error occured
       console.error( 'MspMaintenanceService error: ', error.error.message );

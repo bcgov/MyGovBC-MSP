@@ -43,6 +43,7 @@ import { ChildMovingInformationComponent } from '../account/components/moving-in
     MspCoreModule,
     ModalModule
   ],
+
   declarations: [
     AccountContainerComponent,
     AccountPersonalInfoComponent,
@@ -65,6 +66,7 @@ import { ChildMovingInformationComponent } from '../account/components/moving-in
     RemoveChildComponent,
     ChildMovingInformationComponent
   ],
+
   providers: [
     { provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService },
     RouteGuardService,
@@ -72,12 +74,10 @@ import { ChildMovingInformationComponent } from '../account/components/moving-in
     MspApiAccountService
   ]
 })
-export class AccountModule { 
 
+export class AccountModule {
   // DEAM interim - any links to account pages should redirect to /deam-interim
   constructor(){
-    // console.log('Redirecting to DEAM interim');
     // window.location.href = window.location.origin + '/msp/deam-interim/';
   }
-
 }

@@ -14,7 +14,6 @@ import { format } from 'date-fns';
   styleUrls: ['./confirmation.component.scss']
 })
 export class AccountConfirmationComponent implements OnDestroy {
-
     confirmationNum: string;
     subscription: Subscription;
     noticeOfAssessment: string;
@@ -32,7 +31,6 @@ export class AccountConfirmationComponent implements OnDestroy {
     hasPrevMSPForChild: boolean;
 
     constructor(private route: ActivatedRoute, public dataService: MspAccountMaintenanceDataService) {
-
     }
 
     ngOnInit(): void {

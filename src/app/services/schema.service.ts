@@ -14,7 +14,6 @@ export class SchemaService {
     const validate = this.ajv.compile(defaultSchema);
     try {
       const valid = await validate(app);
-      // console.log('valid', valid);
       if (!valid) console.log('errors', validate.errors);
       return validate;
     } catch (err) {

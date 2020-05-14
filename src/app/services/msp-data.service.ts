@@ -76,7 +76,6 @@ export class MspDataService {
     const dto: MspAccountDto = this.toMspAccountAppTransferObject(
       this._mspAccountApp
     );
-    // console.log(dto);
     this.localStorageService.set(this.mspAccountStorageKey, dto);
   }
 
@@ -85,7 +84,6 @@ export class MspDataService {
     const dto: MspApplicationDto = this.toMspApplicationTransferObject(
       this._mspApplication
     );
-    // console.log('saving msp app: ', dto);
     this.localStorageService.set(this.mspAppStorageKey, dto);
   }
 
@@ -95,7 +93,6 @@ export class MspDataService {
     >(this.mspAppStorageKey);
 
     if (dto) {
-      // console.log('MspApplicationDto from local storage: ', dto);
       return this.fromMspApplicationTransferObject(dto);
     } else {
       return new MspApplication();
@@ -116,12 +113,9 @@ export class MspDataService {
 
 
   saveFinAssistApplication(): void {
-    // console.log('this._finAssistApp before conversion and saving: ');
-    // console.log(this._finAssistApp);
     const dto: FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(
       this._finAssistApp
     );
-    // console.log(dto);
     this.localStorageService.set(this.finAssistAppStorageKey, dto);
     // this.localStorageService.set(this.finAssistMailingAddressStorageKey,dto.mailingAddress);
   }
