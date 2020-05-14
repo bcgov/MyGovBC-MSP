@@ -51,7 +51,6 @@ export class AccountSendingComponent implements AfterContentInit {
     this.transmissionInProcess = true;
     this.hasError = undefined;
 
-
       this.service
       .sendRequest(this.mspAccountApp)
       .then((response: ApiResponse) => {
@@ -70,21 +69,11 @@ export class AccountSendingComponent implements AfterContentInit {
 
       const statusCode = (response.op_return_code === 'SUCCESS' ? ApiStatusCodes.SUCCESS : ApiStatusCodes.ERROR);
 
-
-
-  /* this.logService.log({name: 'Account - Submitting Request'},"Account - Submission Request");
-    this.service
-      .sendRequest(this.mspAccountApp)
-      .then((mspAccountApp: MspAccountApp) => {
-        this.mspAccountApp = mspAccountApp;
-        this.logService.log({name: 'Account - Received refNo ',
-          confirmationNumber: this.mspAccountApp.referenceNumber}, 'Account - Submission Response Success ');
-
-        const tempRef = this.mspAccountApp.referenceNumber;
-        console.log(tempRef);
-*/
         let bcServicesCardElgible = false;
         let hasPrevMSPForChild = true;
+        const hasChildAdded = (this.mspAccountApp.addedChildren.length > 0);
+        const hasChildRemoved = (this.mspAccountApp.removedChildren.length > 0);
+
           //check if there is status in canada selected
           if (this.mspAccountApp.accountChangeOptions && this.mspAccountApp.accountChangeOptions.statusUpdate) {
               bcServicesCardElgible = true ;
@@ -114,12 +103,11 @@ export class AccountSendingComponent implements AfterContentInit {
               {queryParams: {confirmationNum: refNumber, showDepMsg: bcServicesCardElgible, status: statusCode,
                 hasSpouseAdded: this.mspAccountApp.hasSpouseAdded,
                 hasSpouseRemoved: this.mspAccountApp.hasSpouseRemoved,
-                hasPrevMSPForSpouse: this.mspAccountApp.spouse.immigrationStatusChange,
-                hasChildAdded: this.mspAccountApp.hasChildAdded,
-                hasChildRemoved: this.mspAccountApp.hasChildRemoved,
+                hasPrevMSPForSpouse: this.mspAccountApp.addedSpouse.immigrationStatusChange,
+                hasChildAdded: hasChildAdded,
+                hasChildRemoved: hasChildRemoved,
                 hasPrevMSPForChild: hasPrevMSPForChild
                 }});
-
 
 
       }).catch((error: ResponseType | any) => {

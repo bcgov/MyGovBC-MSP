@@ -62,11 +62,6 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
 
     ngOnInit() {
         this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
-
-      /*  let oldUUID = this.mspAccountApp.uuid;
-        this.mspAccountApp.regenUUID();
-        this.dataService.saveMspAccountApp();
-    */
     }
 
     applicantAuthorizeOnChange(event: boolean) {
@@ -92,14 +87,6 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
 
     handleFormSubmission($event) {
 
-      /*  if (this.mspAccountApp.hasValidAuthToken) {
-            console.log('Found valid auth token, transfer to sending screen.');
-            this.processService.setStep(this.processService.getStepNumber(ProcessUrls.ACCOUNT_REVIEW_URL), true);
-            //  this.logService.log({name: "Account - Review Page after CAPTCHA"},"Account - Captcha Success")
-            this._router.navigate(['/account/sending']);
-        } else {
-            console.log('Auth token is not valid');
-        }*/
     }
 
     continue(): void {
