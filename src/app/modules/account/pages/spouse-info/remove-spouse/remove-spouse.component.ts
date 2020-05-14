@@ -62,6 +62,19 @@ export class RemoveSpouseComponent extends BaseComponent {
    // this.dataService.saveMspAccountApp();
   }
 
+  get checkCurrentMonthOfSeparation() {
+    const currentDate = new Date();
+    if (this.spouse.cancellationDate.getFullYear() < currentDate.getFullYear()){
+      return true;
+    }
+    else if (this.spouse.cancellationDate.getFullYear() === currentDate.getFullYear()){
+      return this.spouse.cancellationDate.getMonth() < currentDate.getMonth();
+    }
+    else {
+      return false;
+    }
+  }
+
   get cancellationReasons() {
     return [
       {

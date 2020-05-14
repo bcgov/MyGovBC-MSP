@@ -95,7 +95,7 @@ export class MspPerson implements ICanadianStatus {
     public updateGenderDesignationDocType:  SupportDocuments = new SupportDocuments();
     public updateGenderDesignationDoc: CommonImage[] = [];
     cancellationReason: CancellationReasons;
-    removedSpouseDueToDivorceDoc: SupportDocuments;
+    public removedSpouseDueToDivorceDoc: SupportDocuments = new SupportDocuments();
 
 
     get newlyAdopted(): boolean {

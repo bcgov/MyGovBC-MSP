@@ -90,8 +90,7 @@ export function spouseRemovedDueToDivorceDocuments(): SupportDocumentTypes[] {
   return [
     SupportDocumentTypes.DivorceDecree,
     SupportDocumentTypes.SeperationAgreement,
-    SupportDocumentTypes.NotrizedStatementOrAffidavit,
-    SupportDocumentTypes.Other
+    SupportDocumentTypes.NotrizedStatementOrAffidavit
   ];
 }
 
@@ -99,7 +98,8 @@ export function nameChangeDueToMarriageOrDivorceDocuments(): SupportDocumentType
   return [
     SupportDocumentTypes.MarriageCertificate,
     SupportDocumentTypes.ChangeOfNameCertificate,
-    SupportDocumentTypes.DivorceDecree];
+    SupportDocumentTypes.DivorceDecree
+  ];
 }
 
 export function genderDesignationChangeDocuments(): SupportDocumentTypes[] {
