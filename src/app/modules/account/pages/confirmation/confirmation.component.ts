@@ -68,16 +68,21 @@ export class AccountConfirmationComponent implements OnDestroy {
     }
 
     get hasRemovedSpouseOrChild() {
-        // console.log('HAS SPOUSE REMOVED: ' + this.hasSpouseRemoved);
-        // console.log('HAS CHILD REMOVED: ' + this.hasChildRemoved);
-        return this.hasSpouseRemoved || this.hasChildRemoved;
+        if (this.hasSpouseRemoved !== undefined){
+            return this.hasSpouseRemoved.toString() === 'true';
+        }
+        if (this.hasChildRemoved !== undefined){
+            return this.hasChildRemoved.toString() === 'true';
+        }
+        return false;
     }
 
     get hasAddedSpouseOrChildWithNoPrevMSP() {
-        if (this.hasSpouseAdded || this.hasChildAdded){
-            if (!this.hasPrevMSPForSpouse || !this.hasPrevMSPForChild){
-                return true;
-            }
+        if (this.hasSpouseAdded !== undefined) {
+            return (this.hasSpouseAdded.toString() === 'true' && this.hasPrevMSPForSpouse.toString() === 'false');
+        }
+        if (this.hasChildAdded !== undefined){
+            return (this.hasChildAdded.toString() === 'true' && this.hasPrevMSPForChild.toString() === 'false');
         }
         return false;
     }
