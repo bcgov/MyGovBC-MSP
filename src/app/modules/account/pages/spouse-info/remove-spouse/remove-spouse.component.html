@@ -31,18 +31,20 @@
     </common-date>
   </div>
 
-  <!-- <msp-support-documents
-    [supportDocList]="spouseRemoveDocs"
-    [(supportDoc)]="spouse.removedSpouseDueToDivorceDoc">
-    <div sectionTitleInfo>
-      <h2>
-        <strong>Documents - Cancellation due to separation/divorce</strong>
-      </h2>
-      <p class="border-bottom">
-        Provide <b>one</b> of the required documents to support your spouse cancellation.
-      </p>
-    </div>
-  </msp-support-documents> -->
+  <div *ngIf="spouse.cancellationDate && checkCurrentMonthOfSeparation" class="add-document mb-4">
+      <msp-support-documents
+        [supportDocList]="spouseRemoveDocs"
+        [(supportDoc)]="spouse.removedSpouseDueToDivorceDoc">
+        <div sectionTitleInfo>
+          <h2>
+            <strong>Documents - Cancellation due to separation/divorce</strong>
+          </h2>
+          <p class="border-bottom">
+            Provide <b>one</b> of the required documents to support your spouse cancellation.
+          </p>
+        </div>
+      </msp-support-documents>
+  </div><br>
 
   <common-radio
     [value]="spouse.hasCurrentMailingAddress"
