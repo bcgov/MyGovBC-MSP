@@ -81,9 +81,6 @@ export class ContactInfoComponent extends AbstractForm implements OnInit, AfterV
 
    handleAddressUpdate(evt: any){
      evt.addressLine1 = evt.street;
-     if (evt.addressLine1 != null) {
-      // this.dataService.benefitApp.mailingAddress.hasValue = true;
-     }
     // this.dataService.saveBenefitApplication();
    }
 
