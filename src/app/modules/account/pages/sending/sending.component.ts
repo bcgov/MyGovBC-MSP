@@ -57,10 +57,10 @@ export class AccountSendingComponent implements AfterContentInit {
 
         if (response instanceof HttpErrorResponse) {
           this.logService.log({
-              name: 'Enrolment - System Error',
+              name: 'DEAM - System Error',
               confirmationNumber: this.mspAccountApp.referenceNumber,
               url: this.router.url
-          }, 'Enrolment - Submission Response Error' + response.message);
+          }, 'DEAM - Submission Response Error' + response.message);
           this.processErrorResponse(false);
           return;
       }
