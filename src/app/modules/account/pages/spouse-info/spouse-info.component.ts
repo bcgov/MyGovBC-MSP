@@ -131,16 +131,40 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
     return this.dataService.getMspAccountApp().updatedSpouse;
   }
 
-  canContinue(): boolean {
-    const valid = super.canContinue();
-
-   /* if ( this.person.hasNameChange ) {
-      valid = valid && this.hasNameDocuments;
+  checkDocumentsForUpdatedSpouse(){
+    let valid = true;
+    if (this.updatedSpouse.updateStatusInCanada  === true){
+      valid = valid && this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
     }
+    if (this.updatedSpouse.updateNameDueToMarriage === true){
+      valid = valid && this.updatedSpouse.updateNameDueToMarriageDocType.images.length > 0;
+    }
+    if (this.updatedSpouse.updateNameDueToNameChange === true){
+      valid = valid && this.updatedSpouse.updateNameDueToNameChangeDocType.images.length > 0;
+    }
+    if (this.updatedSpouse.updateGender === true){
+      valid = valid && this.updatedSpouse.updateGenderDocType.images.length > 0 && this.updatedSpouse.updateGenderDocType2.images.length > 0;
+      if (this.updatedSpouse.updateGenderAdditionalDocs === true){
+        valid = valid && this.updatedSpouse.updateGenderDocType3.images.length > 0;
+      }
+    }
+    if (this.updatedSpouse.updateNameDueToError === true){
+      valid = valid && this.updatedSpouse.updateNameDueToErrorDocType.images.length > 0;
+    }
+    if (this.updatedSpouse.updateBirthdate === true){
+      valid = valid && this.updatedSpouse.updateBirthdateDocType.images.length > 0;
+    }
+    if (this.updatedSpouse.updateGenderDesignation === true){
+      valid = valid && this.updatedSpouse.updateGenderDesignationDocType.images.length > 0;
+    }
+    return valid;
+  }
 
-    if ( this.applicant.fullTimeStudent ) {
-      valid = valid && this.applicant.inBCafterStudies;
-    }*/
+  canContinue(): boolean {
+    let valid = super.canContinue();
+    if (this.accountApp.hasSpouseUpdated === true){
+      valid = valid && this.checkDocumentsForUpdatedSpouse();
+    }
     return valid;
   }
 
