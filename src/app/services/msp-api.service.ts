@@ -786,7 +786,7 @@ export class MspApiService {
         }
 
         if (from.previous_phn) {
-            to.phn = Number(from.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
+            to.phn = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
         }
 
         //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
@@ -1114,7 +1114,7 @@ export class MspApiService {
         }
 
         if (from.previous_phn) {
-            to.phn = Number(from.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
+            to.phn = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
         }
 
 

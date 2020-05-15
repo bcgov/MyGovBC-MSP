@@ -519,14 +519,14 @@ export class MspApiAccountService extends AbstractHttpService {
      *
      *  The same login shhould in be in review screen as well
      */
-    if ((from.accountChangeOptions.statusUpdate || from.accountChangeOptions.personInfoUpdate) && from.updatedSpouse) {
+    if ((from.accountChangeOptions.statusUpdate || from.accountChangeOptions.personInfoUpdate) && from.hasSpouseUpdated === true) {
         to.spouses.updatedSpouse = this.convertSpouseFromAccountChange(from.updatedSpouse);
 
     }
-    if (from.accountChangeOptions.dependentChange && from.removedSpouse) {
+    if (from.accountChangeOptions.dependentChange && from.hasSpouseRemoved === true) {
         to.spouses.removedSpouse = this.convertSpouseFromAccountChange(from.removedSpouse);
     }
-    if (from.accountChangeOptions.dependentChange && from.addedSpouse) {
+    if (from.accountChangeOptions.dependentChange && from.hasSpouseAdded === true) {
         to.spouses.addedSpouse = this.convertSpouseFromAccountChange(from.addedSpouse);
     }
 
@@ -558,6 +558,7 @@ private removeSequences(obj: any) {
       obj[property] = this.removeSequences(obj[property])
     }
   }
+  console.log(obj);
   return obj;
 }
 
@@ -568,12 +569,13 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
   if (from.hasDob) {
       to.birthDate = format( from.dob, this.ISO8601DateFormat);
   }
+
   if (from.gender != null) {
       to.gender = <GenderType> from.gender.toString();
   }
 
   if (from.previous_phn) {
-      to.phn = Number(from.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
+      to.phn = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
   }
 
 
@@ -670,7 +672,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
   }
 
   if (from.previous_phn) {
-      to.phn = Number(from.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
+      to.phn = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
   }
 
   //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
@@ -959,7 +961,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
       };
       output.push(partial);
     });
-
+    console.log('OUTPUT' + output.length);
     return output;
   }
 
@@ -1049,16 +1051,11 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
             accountHolder.mailingAddress = this.convertAddress(from.applicant.mailingAddress);
         }
 
-        if (from.applicant.residentialAddress && from.applicant.residentialAddress.isValid) {
-            accountHolder.residenceAddress = this.convertAddress(from.applicant.residentialAddress);
+        if (from.residentialAddress) {
+            accountHolder.residenceAddress = this.convertAddress(from.residentialAddress);
         } else {
             accountHolder.residenceAddress = this.unknownAddress();
         }
-
-        accountHolder.residenceAddress.city = from.residentialAddress.city;
-        accountHolder.residenceAddress.postalCode = from.residentialAddress.postal;
-        accountHolder.residenceAddress.provinceOrState = from.residentialAddress.province;
-        accountHolder.residenceAddress.country = from.residentialAddress.country;
 
         if (from.applicant.phoneNumber) {
             accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
@@ -1071,7 +1068,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
             accountHolder.citizenship = this.findCitizenShip(from.applicant.status, from.applicant.currentActivity);
 
         }
-        
 
         return accountHolder;
 
