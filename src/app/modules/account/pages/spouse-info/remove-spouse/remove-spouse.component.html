@@ -2,11 +2,9 @@
   [person]="spouse">
 </msp-personal-information>
 
-<br>
-
 <label for="objectId" class="control-label">Reason for cancellation</label>
 <div class="form-group">
-  <select style="width:350px;" class="custom-select"
+  <select style="width:500px;" class="custom-select"
     [id]="objectId"
     [(ngModel)]="spouse.cancellationReason"
     (ngModelChange)="spouse.cancellationReason = $event; this.dataService.saveMspAccountApp();">
@@ -22,7 +20,7 @@
 </div>
 
 <div *ngIf="spouse.cancellationReason === 0" class="form-group">
-  <div style="width: 300px;">
+  <div style="width: 500px;">
     <common-date
       label="Date of separation/divorce"
       [restrictDate]="'past'"
@@ -32,18 +30,18 @@
   </div>
 
   <div *ngIf="spouse.cancellationDate && checkCurrentMonthOfSeparation" class="add-document mb-4">
-      <msp-support-documents
-        [supportDocList]="spouseRemoveDocs"
-        [(supportDoc)]="spouse.removedSpouseDueToDivorceDoc">
-        <div sectionTitleInfo>
-          <h2>
-            <strong>Documents - Cancellation due to separation/divorce</strong>
-          </h2>
-          <p class="border-bottom">
-            Provide <b>one</b> of the required documents to support your spouse cancellation.
-          </p>
-        </div>
-      </msp-support-documents>
+    <msp-support-documents
+      [supportDocList]="spouseRemoveDocs"
+      [(supportDoc)]="spouse.removedSpouseDueToDivorceDoc">
+      <div sectionTitleInfo>
+        <h2>
+          <strong>Documents - Cancellation due to separation/divorce</strong>
+        </h2>
+        <p class="border-bottom">
+          Provide <b>one</b> of the required documents to support your spouse cancellation.
+        </p>
+      </div>
+    </msp-support-documents>
   </div><br>
 
   <common-radio
@@ -54,10 +52,10 @@
   </common-radio>
 
   <div *ngIf="spouse.hasCurrentMailingAddress">
-    <common-page-section layout='double'>
-    <h2><strong>Spouse's Mailing Address</strong></h2>
-      <p>Please provide the spouse's current mailing address.</p>
-      <hr>
+    <common-page-section
+      layout='double'>
+      <h2><strong>Spouse's Mailing Address</strong></h2>
+      <p class="horizontal-line">Please provide the spouse's current mailing address.</p>
       <common-address
         [address]="spouse.mailingAddress"
         (addressChange)="handleAddressUpdate($event)"
@@ -113,7 +111,7 @@
   <common-radio
     [value]="spouse.hasCurrentMailingAddress"
     label="Do you know your spouse's current mailing address?"
-    [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+    [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
     (valueChange)="spouse.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
   </common-radio>
 </div>

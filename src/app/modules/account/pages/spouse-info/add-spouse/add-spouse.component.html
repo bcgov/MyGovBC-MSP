@@ -74,8 +74,6 @@
         [(supportDoc)]="spouse.nameChangeAdditionalDocs">
       </msp-support-documents>
     </div>
-
-    <!-- Do you need to add an additional document? -->
   </div>
 
   <!-- Spouse's Personal Information -->
@@ -146,64 +144,15 @@
       </div>
     </msp-support-documents>
   </div>
-<!-- Has your spouse's name changed due to marriage? -->
 
   <!-- Spouse's Residency Information -->
-  <msp-child-moving-information
-    [person]="spouse">
-    <div sectionTitleInfo>
-      <h2><strong>Spouse's Residency Information</strong></h2>
-      <p class="border-bottom"></p>
-    </div>
-  </msp-child-moving-information>
-  <!-- Spouse's Residency Information -->
-
-<!-- Does your spouse currently have an active Medical Services Plan coverage? = false -->
-<!-- Update Spouse's Information -->
-  <div *ngIf="spouse.immigrationStatusChange">
-    <msp-personal-information
+  <div *ngIf="spouse.immigrationStatusChange == false">
+    <msp-child-moving-information
       [person]="spouse">
       <div sectionTitleInfo>
-        <h2>Spouse's Personal Information</h2>
-        <p class="border-bottom">
-          Enter your spouse's legal name as it appears on their official Canadian identity documents,
-          e.g., birth certificate, permanent resident card, passport.
-        </p>
+        <h2><strong>Spouse's Residency Information</strong></h2>
+        <p class="border-bottom"></p>
       </div>
-    </msp-personal-information>
+    </msp-child-moving-information>
   </div>
-
-<!-- Spouse's Gender-->
-  <div *ngIf="spouse.immigrationStatusChange" class="row">
-    <div class="col-md-4">
-      <common-radio
-        [value]="spouse.gender"
-        label='Gender'
-        [radioLabels]='[{"label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
-        (valueChange)="setGender($event)">
-      </common-radio>
-    </div>
-  </div>
-<!-- Spouse's Gender-->
-
-<!-- Mariage Date -->
-  <div *ngIf="spouse.immigrationStatusChange" class="form-group" style="width: 300px;">
-    <common-date
-      name="MarriageDate"
-      label="Marriage date (optional)"
-      [restrictDate]="'past'"
-      [(ngModel)]="spouse.marriageDate">
-    </common-date>
-  </div>
-<!-- Mariage Date -->
-
-  <div *ngIf="accountChangeOptions.spouseInfoUpdate">
-    <msp-update-request
-      title="What updates are you requesting for your spouse?"
-      subtitle = "For each update or correction selected, provide the supporting documents."
-      [person]="spouse"
-      [accountApp]="accountApp">
-    </msp-update-request>
-  </div>
-<!-- Update Spouse's Information -->
 </div>
