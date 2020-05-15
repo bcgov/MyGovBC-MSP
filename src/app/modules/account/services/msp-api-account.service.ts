@@ -554,7 +554,6 @@ private removeSequences(obj: any) {
 
   // Iterate of object looking for more objects.
   for (const property in obj) {
-    console.log(`${property}: ${obj[property]}`);
     if (obj[property] instanceof Object) {
       obj[property] = this.removeSequences(obj[property])
     }
