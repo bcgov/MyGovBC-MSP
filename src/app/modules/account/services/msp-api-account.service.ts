@@ -545,7 +545,21 @@ export class MspApiAccountService extends AbstractHttpService {
         to.attachments = this.convertAttachments(from.getAllImages());
     }
 
-    return to;
+    return this.removeSequences(to);
+}
+
+private removeSequences(obj: any) {
+  // Removes sequence.
+  delete obj._sequence;
+
+  // Iterate of object looking for more objects.
+  for (const property in obj) {
+    console.log(`${property}: ${obj[property]}`);
+    if (obj[property] instanceof Object) {
+      obj[property] = this.removeSequences(obj[property])
+    }
+  }
+  return obj;
 }
 
 private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType {
@@ -1058,7 +1072,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
             accountHolder.citizenship = this.findCitizenShip(from.applicant.status, from.applicant.currentActivity);
 
         }
-
+        
 
         return accountHolder;
 
