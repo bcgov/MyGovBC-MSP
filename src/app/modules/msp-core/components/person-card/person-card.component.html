@@ -332,15 +332,7 @@
     </div>
   </div>
   <!-- DEAM Added Info -->
-  <!-- updateStatusInCanadaLabel: 'Update/renew status in Canada',
-  updateNameDueToMarriageLabel: 'Update name - due to marriage',
-  updateNameDueToNameChangeLabel: 'Update name - due to name change',
-  updateGenderDesignationDueToChangeLabel: 'Update gender designation - due to change',
-  correctNameDueToErrorLabel: 'Correct name - due to error',
-  correctBirthdateDueToErrorLabel: 'Correct birthdate - due to error',
-  correctGenderDesignationDueToErrorLabel: 'Correct gender designation - due to error'
--->
-  <div class="row" *ngIf="person.updateStatusInCanada">
+  <div class="row" *ngIf="person.updateStatusInCanada === true">
       <div class="col-sm-4">
           {{lang('./en/index.js').updateStatusInCanadaLabel}}
       </div>
@@ -349,7 +341,7 @@
       </div>
   </div>
 
-  <div class="row" *ngIf="person.updateNameDueToMarriage">
+  <div class="row" *ngIf="person.updateNameDueToMarriage === true">
       <div class="col-sm-4">
           {{lang('./en/index.js').updateNameDueToMarriageLabel}}
       </div>
@@ -358,7 +350,7 @@
       </div>
   </div>
 
-  <div class="row" *ngIf="person.updateNameDueToNameChange">
+  <div class="row" *ngIf="person.updateNameDueToNameChange === true">
       <div class="col-sm-4">
           {{lang('./en/index.js').updateNameDueToNameChangeLabel}}
       </div>
@@ -367,7 +359,7 @@
       </div>
   </div>
 
-  <div class="row" *ngIf="person.updateGender">
+  <div class="row" *ngIf="person.updateGender === true">
       <div class="col-sm-4">
           {{lang('./en/index.js').updateGenderDesignationDueToChangeLabel}}
       </div>
@@ -376,7 +368,7 @@
       </div>
   </div>
 
-  <div class="row" *ngIf="person.updateNameDueToError">
+  <div class="row" *ngIf="person.updateNameDueToError === true">
       <div class="col-sm-4">
           {{lang('./en/index.js').correctNameDueToErrorLabel}}
       </div>
@@ -385,7 +377,7 @@
       </div>
   </div>
 
-  <div class="row" *ngIf="person.updateBirthdate">
+  <div class="row" *ngIf="person.updateBirthdate === true">
       <div class="col-sm-4">
           {{lang('./en/index.js').correctBirthdateDueToErrorLabel}}
       </div>
@@ -394,7 +386,7 @@
       </div>
   </div>
 
-  <div class="row" *ngIf="person.updateGenderDesignation">
+  <div class="row" *ngIf="person.updateGenderDesignation === true">
       <div class="col-sm-4">
           {{lang('./en/index.js').correctGenderDesignationDueToErrorLabel}}
       </div>

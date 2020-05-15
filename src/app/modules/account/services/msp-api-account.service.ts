@@ -16,7 +16,7 @@ import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
 import { AccountMaintenanceApiResponse } from '../models/account-response.interface';
 import { SchemaService } from 'app/services/schema.service';
-import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../../../modules/msp-core/api-model/accountChangeTypes';
+import { AccountChangeAccountHolderFactory, AccountChangeApplicationTypeFactory, AccountChangeAccountHolderType, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../../../modules/msp-core/api-model/accountChangeTypes';
 import { AccountChangeApplicationType } from '../../msp-core/interfaces/i-api';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../../../components/msp/model/msp-person.model';
 import { Address } from 'moh-common-lib';
@@ -325,6 +325,7 @@ export class MspApiAccountService extends AbstractHttpService {
     // return of([]);
   }
 
+  /*
   convertSampleResponse(): AccountChangeApplicationType {
     const toa: any = {
       'accountHolder': {
@@ -491,27 +492,25 @@ export class MspApiAccountService extends AbstractHttpService {
 
     return toa;
   }
+  */
 
   // This method is used to convert the response from user into a JSON object
   convertMspAccountApp(from: MspAccountApp): AccountChangeApplicationType  {
 
    // const accountHardcodeRes = ;
 
-
    const to: any = {};
 
-
     // UUID
     // UUID
-    to.application.uuid = from.uuid;
+    // to.application.uuid = from.uuid;
 
-   // to.application.accountChangeApplication = AccountChangeApplicationTypeFactory.make();
-
-
-    to.application.accountChangeApplication.accountHolder = this.convertAccountHolderFromAccountChange(from);
+    // to.application.accountChangeApplication = AccountChangeApplicationTypeFactory.make();
+    // to.application.accountChangeApplication.accountHolder = this.convertAccountHolderFromAccountChange(from);
+    to.accountHolder = this.convertAccountHolderFromAccountChange(from);
 
     //spouses
-    to.application.accountChangeApplication.spouses = AccountChangeSpousesTypeFactory.make();
+    to.spouses = AccountChangeSpousesTypeFactory.make();
 
     /** the account change option check is added so that only data belonging to current selection is sent..
      *  this avoids uncleared data being sent
@@ -521,33 +520,45 @@ export class MspApiAccountService extends AbstractHttpService {
      *  The same login shhould in be in review screen as well
      */
     if ((from.accountChangeOptions.statusUpdate || from.accountChangeOptions.personInfoUpdate) && from.updatedSpouse) {
-        to.application.accountChangeApplication.spouses.updatedSpouse = this.convertSpouseFromAccountChange(from.updatedSpouse);
+        to.spouses.updatedSpouse = this.convertSpouseFromAccountChange(from.updatedSpouse);
 
     }
     if (from.accountChangeOptions.dependentChange && from.removedSpouse) {
-        to.application.accountChangeApplication.spouses.removedSpouse = this.convertSpouseFromAccountChange(from.removedSpouse);
+        to.spouses.removedSpouse = this.convertSpouseFromAccountChange(from.removedSpouse);
     }
     if (from.accountChangeOptions.dependentChange && from.addedSpouse) {
-        to.application.accountChangeApplication.spouses.addedSpouse = this.convertSpouseFromAccountChange(from.addedSpouse);
+        to.spouses.addedSpouse = this.convertSpouseFromAccountChange(from.addedSpouse);
     }
 
     // Convert children and dependants
     if (from.getAllChildren() && from.getAllChildren().length > 0) {
-        to.application.accountChangeApplication.children = AccountChangeChildrenFactory.make();
-        to.application.accountChangeApplication.children.child = new Array<AccountChangeChildType>();
+        to.children = AccountChangeChildrenFactory.make();
+        to.children.child = new Array<AccountChangeChildType>();
         for (const child of from.getAllChildren()) {
             if (child && child.firstName && child.lastName && child.gender) {
-                to.application.accountChangeApplication.children.child.push(this.convertChildFromAccountChange(child));
+                to.children.child.push(this.convertChildFromAccountChange(child));
             }
         }
-
     }
 
     if (from.getAllImages() && from.getAllImages().length > 0){
-        to.application.attachments = this.convertAttachments(from.getAllImages());
+        to.attachments = this.convertAttachments(from.getAllImages());
     }
 
-    return to;
+    return this.removeSequences(to);
+}
+
+private removeSequences(obj: any) {
+  // Removes sequence.
+  delete obj._sequence;
+
+  // Iterate of object looking for more objects.
+  for (const property in obj) {
+    if (obj[property] instanceof Object) {
+      obj[property] = this.removeSequences(obj[property])
+    }
+  }
+  return obj;
 }
 
 private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType {
@@ -773,7 +784,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
     from: MspAccountApp
   ): MSPApplicationSchema {
     const object = {
-      accountChangeApplication: this.convertSampleResponse(),
+      accountChangeApplication: this.convertMspAccountApp(from),
       attachments: this.convertToAttachment(from.getAllImages()),
       uuid: from.uuid
     };
@@ -1020,10 +1031,14 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
             accountHolder.gender = <GenderType>{};
             accountHolder.gender = <GenderType> from.applicant.gender.toString();
         }
+        else {
+          accountHolder.gender = 'M';
+        }
         if (from.authorizedByApplicant != null) {
             accountHolder.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
-            accountHolder.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
-                .format(this.ISO8601DateFormat);
+            // accountHolder.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
+            //     .format(this.ISO8601DateFormat);
+            accountHolder.authorizedByApplicantDate = format( from.authorizedByApplicantDate, this.ISO8601DateFormat );
         }
 
         if (from.authorizedBySpouse != null) {
@@ -1040,18 +1055,23 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
             accountHolder.residenceAddress = this.unknownAddress();
         }
 
+        accountHolder.residenceAddress.city = from.residentialAddress.city;
+        accountHolder.residenceAddress.postalCode = from.residentialAddress.postal;
+        accountHolder.residenceAddress.provinceOrState = from.residentialAddress.province;
+        accountHolder.residenceAddress.country = from.residentialAddress.country;
+
         if (from.applicant.phoneNumber) {
             accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
         }
         if (from.applicant.previous_phn) {
-            accountHolder.phn = Number(from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
+            accountHolder.phn = from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
         }
 
         if (from.applicant.status != null) {
             accountHolder.citizenship = this.findCitizenShip(from.applicant.status, from.applicant.currentActivity);
 
         }
-
+        
 
         return accountHolder;
 

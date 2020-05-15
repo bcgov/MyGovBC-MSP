@@ -22,19 +22,7 @@
                                     [person]="getSpouseInfo"
                                     [editRouterLink]="accountSpouseUrl"></msp-person-card>
             </div>
-        <!-- </div> -->
 
-        <!-- <div class="row" *ngIf="mspAccountApp.getAllChildren() != null && mspAccountApp.getAllChildren().length > 0">
-            <ng-container *ngFor="let child of mspAccountApp.getAllChildren(); let i = index;">
-                <div class="clearfix" *ngIf="i % 2 == 0"></div>
-                <div class="col-lg-6">
-                    <msp-person-card [person]="child" [accountCard]=true
-                                    [editRouterLink]="child.operationActionType == 2 ? accountPIUrl :accountDependentUrl"></msp-person-card>
-                </div>
-            </ng-container>
-        </div> -->
-
-        <!-- <div class="row" *ngIf="mspAccountApp.addedChildren.length > 0"> -->
             <ng-container *ngIf="mspAccountApp.addedChildren.length > 0">
                 <ng-container *ngFor="let child of mspAccountApp.addedChildren; let i = index;">
                     <div class="clearfix" *ngIf="i % 2 == 0"></div>

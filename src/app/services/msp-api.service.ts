@@ -1056,10 +1056,14 @@ export class MspApiService {
             accountHolder.gender = <GenderType>{};
             accountHolder.gender = <GenderType> from.applicant.gender.toString();
         }
+        else {
+            accountHolder.gender = 'M';
+        }
         if (from.authorizedByApplicant != null) {
             accountHolder.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
-            accountHolder.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
-                .format(this.ISO8601DateFormat);
+            // accountHolder.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
+            //     .format(this.ISO8601DateFormat);
+            accountHolder.authorizedByApplicantDate = format( from.authorizedByApplicantDate, this.ISO8601DateFormat );
         }
 
         if (from.authorizedBySpouse != null) {
@@ -1076,11 +1080,16 @@ export class MspApiService {
             accountHolder.residenceAddress = this.unknownAddress();
         }
 
+        accountHolder.residenceAddress.city = from.residentialAddress.city;
+        accountHolder.residenceAddress.postalCode = from.residentialAddress.postal;
+        accountHolder.residenceAddress.provinceOrState = from.residentialAddress.province;
+        accountHolder.residenceAddress.country = from.residentialAddress.country;
+
         if (from.applicant.phoneNumber) {
             accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
         }
         if (from.applicant.previous_phn) {
-            accountHolder.phn = Number(from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
+            accountHolder.phn = from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
         }
 
         if (from.applicant.status != null) {
