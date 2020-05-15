@@ -13,7 +13,11 @@ interface BaseType {
 
 // accountChangeAccountHolderType
 interface _AccountChangeAccountHolderType extends ct._BasicInfoType {
-    phn: ct.PHNType;
+	name: ct.NameType;
+	gender: ct.GenderType;
+	birthDate: string;
+	attachmentUuids: ct.AttachmentUuidsType;
+    phn: ct.PrevHealthNumberType;
     telephone: number;
     residenceAddress: ct.AddressType;
     mailingAddress?: ct.AddressType;
