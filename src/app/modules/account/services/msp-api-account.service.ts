@@ -961,7 +961,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
       };
       output.push(partial);
     });
-    console.log('OUTPUT' + output.length);
     return output;
   }
 
