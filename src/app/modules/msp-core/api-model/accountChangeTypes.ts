@@ -1,7 +1,7 @@
 import * as Primitive from './xml-primitives';
 import * as ct from './commonTypes';
 import * as et from './enrolmentTypes';
-import {BasicInfoTypeFactory} from './commonTypes';
+import { BasicInfoTypeFactory, PrevHealthNumberType } from './commonTypes';
 import {EnrolmentApplicantType} from './enrolmentTypes';
 
 // BaseType
@@ -91,7 +91,7 @@ interface _AccountChangeSpouseType extends ct._BasicInfoType {
     previousLastName?: ct.SubNameType;
     mailingAddress?: ct.AddressType;
     marriageDate?: string;
-    phn?: ct.PHNType;
+    phn?: ct.PrevHealthNumberType;
     cancellationReason?: CancellationReasonType;
     cancellationDate?: string;
 }
@@ -140,7 +140,7 @@ interface _AccountChangeChildType extends ct._BasicInfoType {
     outsideBCinFuture?: et.OutsideBCType;
     willBeAway?: et.WillBeAwayType;
     mailingAddress?: ct.AddressType;
-    phn?: ct.PHNType;
+    phn?: ct.PrevHealthNumberType;
     cancellationReason?: CancellationReasonType;
     cancellationDate?: string;
     adoptionDate?: string;
