@@ -540,11 +540,7 @@ export class MspApiAccountService extends AbstractHttpService {
             }
         }
     }
-
-    if (from.getAllImages() && from.getAllImages().length > 0){
-        to.attachments = this.convertAttachments(from.getAllImages());
-    }
-
+    
     return this.removeSequences(to);
 }
 
