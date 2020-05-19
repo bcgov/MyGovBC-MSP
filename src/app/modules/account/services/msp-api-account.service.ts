@@ -1010,18 +1010,31 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         accountHolder.selectedPersonalInfoChange = from.accountChangeOptions.personInfoUpdate ? 'Y' : 'N';
         accountHolder.selectedStatusChange = from.accountChangeOptions.statusUpdate ? 'Y' : 'N';
 
+        // Full Name
         accountHolder.name = this.convertName(from.applicant);
 
+        // PHN
+        if (from.applicant.previous_phn) {
+          accountHolder.phn = from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
+        }
+
+        // Birthdate
         if (from.applicant.hasDob) {
             accountHolder.birthDate = format(from.applicant.dob, this.ISO8601DateFormat);
         }
 
+        // Gender
         if (from.applicant.gender != null) {
             accountHolder.gender = <GenderType>{};
             accountHolder.gender = <GenderType> from.applicant.gender.toString();
         }
         else {
           accountHolder.gender = 'M';
+        }
+
+        // Status
+        if (from.applicant.status != null) {
+          accountHolder.citizenship = this.findCitizenShip(from.applicant.status, from.applicant.currentActivity);
         }
 
         if (from.authorizedByApplicant != null) {
@@ -1033,26 +1046,18 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
             accountHolder.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
         }
 
-        if (!from.applicant.mailingSameAsResidentialAddress) {
-            accountHolder.mailingAddress = this.convertAddress(from.mailingAddress);
+        if (from.residentialAddress) {
+          accountHolder.residenceAddress = this.convertAddress(from.residentialAddress);
+        } else {
+          accountHolder.residenceAddress = this.unknownAddress();
         }
 
-        if (from.residentialAddress) {
-            accountHolder.residenceAddress = this.convertAddress(from.residentialAddress);
-        } else {
-            accountHolder.residenceAddress = this.unknownAddress();
+        if (from.mailingSameAsResidentialAddress === false) {
+            accountHolder.mailingAddress = this.convertAddress(from.mailingAddress);
         }
 
         if (from.applicant.phoneNumber) {
             accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
-        }
-        if (from.applicant.previous_phn) {
-            accountHolder.phn = from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
-        }
-
-        if (from.applicant.status != null) {
-            accountHolder.citizenship = this.findCitizenShip(from.applicant.status, from.applicant.currentActivity);
-
         }
 
         return accountHolder;
