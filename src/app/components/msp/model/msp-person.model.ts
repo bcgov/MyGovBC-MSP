@@ -97,7 +97,7 @@ export class MspPerson implements ICanadianStatus {
     cancellationReason: CancellationReasons;
     public removedSpouseDueToDivorceDoc: SupportDocuments = new SupportDocuments();
 
-
+    
     get newlyAdopted(): boolean {
         return this._newlyAdopted;
     }
@@ -650,5 +650,23 @@ export class MspPerson implements ICanadianStatus {
             && spouseComplete
             && this.hasCompleteOutSideRecords;
         return result;
+    }
+
+    getAllImages(): CommonImage[] {
+        return [
+            ...this.documents.images,
+            ...this.nameChangeDocs.images,
+            ...this.nameChangeAdditionalDocs.images,
+            ...this.updateStatusInCanadaDocType.images,
+            ...this.updateNameDueToMarriageDocType.images,
+            ...this.updateNameDueToNameChangeDocType.images,
+            ...this.updateNameDueToErrorDocType.images,
+            ...this.updateBirthdateDocType.images,
+            ...this.updateGenderDocType.images,
+            ...this.updateGenderDocType2.images,
+            ...this.updateGenderDocType3.images,
+            ...this.updateGenderDesignationDocType.images,
+            ...this.removedSpouseDueToDivorceDoc.images
+        ];        
     }
 }
