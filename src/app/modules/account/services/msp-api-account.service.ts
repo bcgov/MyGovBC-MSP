@@ -244,7 +244,7 @@ export class MspApiAccountService extends AbstractHttpService {
 
       // Necessary to differentiate between PA and SuppBen
       // TODO - VALIDATE THIS VALUE IS CORRECT, NEEDS TO BE CONFIRMED
-      url += '&dpackage=msp_account_change_pkg';
+      url += '&dpackage=msp_enrolment_pkg';
 
       // Setup headers
       const headers = new HttpHeaders({
