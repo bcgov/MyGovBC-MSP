@@ -584,12 +584,16 @@ private removeSequences(obj: any) {
 
 private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType {
   const to = AccountChangeSpouseTypeFactory.make();
+
+  // Name
   to.name = this.convertName(from);
 
+  // Birth Date
   if (from.hasDob) {
     to.birthDate = format(from.dob, this.ISO8601DateFormat);
   }
 
+  // Gender
   if (from.gender != null) {
     to.gender = <GenderType> from.gender.toString();
   }
@@ -597,19 +601,22 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
     to.gender = 'M';
   }
 
+  // PHN
   if (from.previous_phn) {
     to.phn = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
   }
 
-  //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
+  // Status
   if (from.status != null) {
       to.citizenship = this.findCitizenShip(from.status, from.currentActivity);
   }
 
+  // Previous Last name
   if (from.prevLastName) {
       to.previousLastName = from.prevLastName;
   }
 
+  // Marriage Date
   if (from.marriageDate) {
       to.marriageDate = format( from.marriageDate, this.ISO8601DateFormat );
   }
@@ -629,6 +636,7 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
       to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat);
       }
   }
+  
   if (from.knownMailingAddress === true ) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
   } else if (from.knownMailingAddress === false) {
@@ -1131,7 +1139,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
         // Birthdate
         if (from.applicant.hasDob) {
-            accountHolder.birthDate = format(from.applicant.dob, this.ISO8601DateFormat);
+          accountHolder.birthDate = format(from.applicant.dob, this.ISO8601DateFormat);
         }
 
         // Gender
@@ -1148,12 +1156,12 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         }
 
         if (from.authorizedByApplicant != null) {
-            accountHolder.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
-            accountHolder.authorizedByApplicantDate = format( from.authorizedByApplicantDate, this.ISO8601DateFormat );
+          accountHolder.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
+          accountHolder.authorizedByApplicantDate = format( from.authorizedByApplicantDate, this.ISO8601DateFormat );
         }
 
         if (from.authorizedBySpouse != null) {
-            accountHolder.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
+          accountHolder.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
         }
 
         if (from.residentialAddress) {
@@ -1163,12 +1171,14 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         }
 
         if (from.mailingSameAsResidentialAddress === false) {
-            accountHolder.mailingAddress = this.convertAddress(from.mailingAddress);
+          accountHolder.mailingAddress = this.convertAddress(from.mailingAddress);
         }
 
         if (from.applicant.phoneNumber) {
-            accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
+          accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
         }
+
+        console.log('PHONE NUMBER' + accountHolder.telephone);
 
         return accountHolder;
     }
