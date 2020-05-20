@@ -532,35 +532,42 @@ export class MspApiAccountService extends AbstractHttpService {
       to.spouses.updatedSpouse = this.convertSpouseFromAccountChange(from.updatedSpouse);
     }
 
-    to.children = AccountChangeChildrenFactory.make();
-    to.children.child = new Array<AccountChangeChildType>();
+    // Children
+    if (from.addedChildren.length > 0 || from.removedChildren.length > 0 || from.updatedChildren.length > 0){
+      to.children = AccountChangeChildrenFactory.make();
+      to.children.child = new Array<AccountChangeChildType>();
 
-    // Convert Added Children
-    if (from.addedChildren.length > 0){
-      for (const child of from.addedChildren) {
-        if (child && child.firstName && child.lastName) {
-            to.children.child.push(this.convertChildFromAccountChange(child));
+      // Convert Added Children
+      if (from.addedChildren.length > 0){
+        for (const child of from.addedChildren) {
+          if (child && child.firstName && child.lastName) {
+            console.log('ADD CHILD: ' + child);
+              to.children.child.push(this.convertChildFromAccountChange(child));
+          }
+        }
+      }
+
+      // Convert Removed Children
+      if (from.removedChildren.length > 0){
+        for (const child of from.removedChildren) {
+          if (child && child.firstName && child.lastName) {
+            console.log('REMOVE CHILD: ' + child);
+              to.children.child.push(this.convertChildFromAccountChange(child));
+          }
+        }
+      }
+
+      // Convert Updated Children
+      if (from.updatedChildren.length > 0){
+        for (const child of from.updatedChildren) {
+          if (child && child.firstName && child.lastName) {
+            console.log('UPDATE CHILD: ' + child);
+              to.children.child.push(this.convertChildFromAccountChange(child));
+          }
         }
       }
     }
-
-    // Convert Removed Children
-    if (from.removedChildren.length > 0){
-      for (const child of from.removedChildren) {
-        if (child && child.firstName && child.lastName) {
-            to.children.child.push(this.convertChildFromAccountChange(child));
-        }
-      }
-    }
-
-    // Convert Updated Children
-    if (from.updatedChildren.length > 0){
-      for (const child of from.updatedChildren) {
-        if (child && child.firstName && child.lastName) {
-            to.children.child.push(this.convertChildFromAccountChange(child));
-        }
-      }
-    }
+    
 
     // Create Attachments
     if (from.getAllImages() && from.getAllImages().length > 0){
