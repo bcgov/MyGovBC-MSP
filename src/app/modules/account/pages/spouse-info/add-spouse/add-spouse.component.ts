@@ -86,7 +86,7 @@ export class AddSpouseComponent extends Base implements OnInit {
   }
 
   activityStatus = {
-    0: 'Not new to B.C. but need to apply for MSP',
+    0: 'Not new to B.C. but needs to apply for MSP',
     1: 'Moved to B.C. from another province',
     2: 'Moved to B.C. from another country',
     3: 'Working in B.C.',
