@@ -541,7 +541,6 @@ export class MspApiAccountService extends AbstractHttpService {
       if (from.addedChildren.length > 0){
         for (const child of from.addedChildren) {
           if (child && child.firstName && child.lastName) {
-            console.log('ADD CHILD: ' + child);
               to.children.child.push(this.convertChildFromAccountChange(child));
           }
         }
@@ -551,7 +550,6 @@ export class MspApiAccountService extends AbstractHttpService {
       if (from.removedChildren.length > 0){
         for (const child of from.removedChildren) {
           if (child && child.firstName && child.lastName) {
-            console.log('REMOVE CHILD: ' + child);
               to.children.child.push(this.convertChildFromAccountChange(child));
           }
         }
@@ -561,17 +559,10 @@ export class MspApiAccountService extends AbstractHttpService {
       if (from.updatedChildren.length > 0){
         for (const child of from.updatedChildren) {
           if (child && child.firstName && child.lastName) {
-            console.log('UPDATE CHILD: ' + child);
               to.children.child.push(this.convertChildFromAccountChange(child));
           }
         }
       }
-    }
-    
-
-    // Create Attachments
-    if (from.getAllImages() && from.getAllImages().length > 0){
-        to.attachments = this.convertAttachments(from.getAllImages());
     }
 
     return this.removeSequences(to);
