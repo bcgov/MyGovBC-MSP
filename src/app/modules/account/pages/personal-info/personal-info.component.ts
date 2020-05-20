@@ -38,17 +38,17 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
   subscriptions: Subscription[];
 
   constructor(public dataService: MspAccountMaintenanceDataService,
-                protected router: Router,  private pageStateService: PageStateService
-            //private _processService: ProcessService,
-            ) {
+              protected router: Router,  private pageStateService: PageStateService
+              // private _processService: ProcessService,
+              ) {
     super(router);
   }
 
-  onChange($event){
+  onChange($event) {
     //this.dataService.saveMspAccountApp();
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
     this.person = this.dataService.accountApp.applicant;
@@ -56,7 +56,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach( itm => itm.unsubscribe() );
+    this.subscriptions.forEach(itm => itm.unsubscribe());
   }
 
   ngAfterViewInit() {
@@ -110,7 +110,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
 
   /*
   If the application contains any Visting status , application shouldnt be sumbitted
-    */
+   */
   hasAnyInvalidStatus(): boolean {
     if (!this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate) {
       return false;
@@ -136,7 +136,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
     p.currentActivity = null;
 
     if (p.status !== StatusInCanada.CitizenAdult) {
-        p.institutionWorkHistory = 'No';
+      p.institutionWorkHistory = 'No';
     }
   }
 
@@ -149,43 +149,45 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         this.person.updateNameDueToError === true ||
         this.person.updateBirthdate === true ||
         this.person.updateGenderDesignation === true);
-    }
-    else {
+    } else {
       return true;
     }
   }
 
-  checkDocuments(){
+  checkDocuments() {
     let valid = true;
-    if (this.person.updateStatusInCanada === true){
+    if (this.person.updateStatusInCanada === true) {
       valid = valid && this.person.updateStatusInCanadaDocType.images.length > 0;
     }
-    if (this.person.updateNameDueToMarriage === true){
+    if (this.person.updateNameDueToMarriage === true) {
       valid = valid && this.person.updateNameDueToMarriageDocType.images.length > 0;
     }
-    if (this.person.updateNameDueToNameChange === true){
+    if (this.person.updateNameDueToNameChange === true) {
       valid = valid && this.person.updateNameDueToNameChangeDocType.images.length > 0;
     }
-    if (this.person.updateGender === true){
+    if (this.person.updateGender === true) {
       valid = valid && this.person.updateGenderDocType.images.length > 0 && this.person.updateGenderDocType2.images.length > 0;
-      if (this.person.updateGenderAdditionalDocs === true){
+      if (this.person.updateGenderAdditionalDocs === true) {
         valid = valid && this.person.updateGenderDocType3.images.length > 0;
       }
     }
-    if (this.person.updateNameDueToError === true){
+    if (this.person.updateNameDueToError === true) {
       valid = valid && this.person.updateNameDueToErrorDocType.images.length > 0;
     }
-    if (this.person.updateBirthdate === true){
+    if (this.person.updateBirthdate === true) {
       valid = valid && this.person.updateBirthdateDocType.images.length > 0;
     }
-    if (this.person.updateGenderDesignation === true){
+    if (this.person.updateGenderDesignation === true) {
       valid = valid && this.person.updateGenderDesignationDocType.images.length > 0;
     }
     return valid;
   }
 
   canContinue(): boolean {
-    const valid = super.canContinue() && this.person.updatingPersonalInfo !== undefined && this.hasAnyUpdateSelected() && this.checkDocuments();
+    const valid = super.canContinue()
+                  && this.person.updatingPersonalInfo !== undefined
+                  && this.hasAnyUpdateSelected()
+                  && this.checkDocuments();
     return valid;
   }
 

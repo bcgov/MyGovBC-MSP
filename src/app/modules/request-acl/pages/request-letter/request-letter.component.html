@@ -1,15 +1,15 @@
-<msp-consent-modal #mspConsentModal 
+<msp-consent-modal #mspConsentModal
                    (onClose)="AccountHolder_Phn.focus()"
-                   [consentProcessName]="'MSP'" 
+                   [consentProcessName]="'MSP'"
                    (accept)="acceptAgreement($event)">
 </msp-consent-modal>
 
 <common-page-framework layout='blank'>
   <form #formRef='ngForm' novalidate>
-  
+
     <h1>Request Medical Services Plan Account Confirmation Letter</h1>
     <p>
-      Use this online form to request a Medical Services Plan Account Confirmation letter that 
+      Use this online form to request a Medical Services Plan Account Confirmation letter that
       will verify enrolment status for one or more individuals on an account.
     </p>
     <p class="border-bottom">
@@ -33,7 +33,7 @@
         <div class="form-group">
           <common-date name="AccountHolderDob"
                         label="Birthdate"
-                        [dateRangeEnd]="dobEndRange" 
+                        [dateRangeEnd]="dobEndRange"
                         [errorMessage]="dobErrorMsg"
                         [(ngModel)]="accountHolderDob"
                         required>
@@ -50,8 +50,8 @@
 
       <div class="form-group pt-4">
         <common-radio name="EnrolmentMembership"
-                      [(ngModel)]="enrolmentMembership" 
-                      label="Whose Medical Services Plan enrolment information should be included in the Account Confirmation Letter?" 
+                      [(ngModel)]="enrolmentMembership"
+                      label="Whose Medical Services Plan enrolment information should be included in the Account Confirmation Letter?"
                       [radioLabels]="radioBtnLabels"
                       display="table-row-group"
                       required>
@@ -82,7 +82,7 @@
       <common-captcha name="Captcha"
                       ngModel
                       required
-                      [apiBaseUrl]="captchaApiBaseUrl" 
+                      [apiBaseUrl]="captchaApiBaseUrl"
                       [nonce]="application.uuid"
                       (onValidToken)="application.authorizationToken=$event">
       </common-captcha>
@@ -95,4 +95,3 @@
                         [defaultColor]="false"
                         [isLoading]="loading">
 </common-form-action-bar>
-

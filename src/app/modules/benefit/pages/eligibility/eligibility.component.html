@@ -4,21 +4,21 @@
   [processName]="'SUPPBEN'" (accept)="benefitApp.infoCollectionAgreement = $event; this.dataService.saveBenefitApplication();">
   <p><strong>Keep your personal information secure – especially when using a shared device like a computer at a library, school or café.</strong> To delete any information that was entered, either complete the application and submit it or, if you don’t finish, close the web browser.</p><p><strong>Need to take a break and come back later?</strong> The data you enter on this form is saved locally to the computer or device you are using until you close the web browser or submit your application.</p><p>
         Personal information is collected under the authority of the <i>Medicare Protection Act</i> and section 26 (a), (c) and (e) of the <i>Freedom of Information and Protection of Privacy Act</i> for the purposes of administration of the Medical Services Plan. If you have any questions about the collection and use of your personal information, please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">contact Health Insurance BC <i class="fa fa-external-link" aria-hidden="true"></i></a>.</p>
-</common-consent-modal>    
-<common-page-framework layout="blank">   
+</common-consent-modal>
+<common-page-framework layout="blank">
   <div class="row">
     <h1>
       Supplementary Benefits
     </h1>
   </div>
   <div class="row">
-    
+
       To be eligible for Supplementary Benefits you must meet the residency requirement.
-    
-  </div>  
-  
+
+  </div>
+
   <div class="row">
-      <h2> 
+      <h2>
         <strong>
           Residency Requirement
         </strong>
@@ -36,14 +36,14 @@
   <hr>
  <div class="row">
   <div class="form-group">
-      <common-radio [value]="dataService.benefitApp.isEligible"  [label]="'Do you meet the residency requirement?'" 
-          [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+      <common-radio [value]="dataService.benefitApp.isEligible"  [label]="'Do you meet the residency requirement?'"
+          [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
           (valueChange)="dataService.benefitApp.isEligible = $event; this.continue=true; this.dataService.saveBenefitApplication(); ">
-      </common-radio> 
+      </common-radio>
   </div>
 </div>
 
-</common-page-framework> 
+</common-page-framework>
 <common-form-action-bar [submitLabel]="'Apply for Supplementary Benefits'"
         [canContinue]="dataService.benefitApp.isEligible != undefined "
         (btnClick)="navigate()"

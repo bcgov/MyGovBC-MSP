@@ -82,7 +82,8 @@
         [(ngModel)]= "person.departureReason12Months"
         maxlength="20"
         required>
-      <common-error-container [displayError]="reasonRef.error?.required">
+      <common-error-container
+        [displayError]="reasonRef.error?.required">
         Reason for departure is required.
       </common-error-container>
     </div>
@@ -99,8 +100,9 @@
         [(ngModel)]= "person.departureDestination12Months"
         maxlength="20"
         required>
-     <common-error-container [displayError]="destinationRef.error?.required">
-       Location is required.
+     <common-error-container
+      [displayError]="destinationRef.error?.required">
+        Location is required.
      </common-error-container>
     </div>
 
@@ -148,7 +150,8 @@ and check departure was within last 12 months - need to find error messages for 
         [(ngModel)]="person.departureReason"
         maxlength="20"
         required>
-      <common-error-container [displayError]="reasonRef.error?.required">
+      <common-error-container
+        [displayError]="reasonRef.error?.required">
         Reason for departure is required.
       </common-error-container>
     </div>
@@ -172,6 +175,7 @@ and check departure was within last 12 months - need to find error messages for 
 
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
+        name="over30DaysDeparture"
         label="Departure date"
         [restrictDate]="'past'"
         [(ngModel)]="person.departureDateDuring6MonthsDate">
@@ -180,15 +184,15 @@ and check departure was within last 12 months - need to find error messages for 
 
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
+        name="over30DaysReturn"
         label="Return date"
         [restrictDate]="'past'"
         [(ngModel)]="person.returnDateDuring6MonthsDate">
       </common-date>
-
+    </div>
 <!--TODO: Need to do checks to ensure return date is greater than departure date
 and check departure was within last 12 months - need to find error messages for this-->
-    </div>
-  </div>
+</div>
 
   <div class="form-group">
     <common-radio
@@ -202,6 +206,7 @@ and check departure was within last 12 months - need to find error messages for 
   <div *ngIf="person.hasBeenReleasedFromArmedForces" class="form-group p-sm-2 add-document">
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
+        name="releasedFromArmedForcesDischarge"
         label="Discharge date"
         [restrictDate]="'past'"
         [(ngModel)]="person.dischargeDate"

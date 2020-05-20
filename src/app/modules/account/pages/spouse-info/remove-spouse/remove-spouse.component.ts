@@ -13,8 +13,8 @@ import { MspPerson } from '../../../../../components/msp/model/msp-person.model'
   templateUrl: './remove-spouse.component.html',
   styleUrls: ['./remove-spouse.component.scss']
 })
-export class RemoveSpouseComponent extends BaseComponent {
 
+export class RemoveSpouseComponent extends BaseComponent {
   //static ProcessStepNum = 1;
 
   docSelected: string ;
@@ -39,11 +39,9 @@ export class RemoveSpouseComponent extends BaseComponent {
     super(cd);
   }
 
-
   ngOnInit() {
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
-   // this.spouse = this.dataService.accountApp.removedSpouse;
   }
 
   onChange($event){
@@ -59,7 +57,6 @@ export class RemoveSpouseComponent extends BaseComponent {
 
   handleAddressUpdate(evt: any){
     evt.addressLine1 = evt.street;
-   // this.dataService.saveMspAccountApp();
   }
 
   get checkCurrentMonthOfSeparation() {
