@@ -17,7 +17,7 @@ import { MspApiService } from '../../../services/msp-api.service';
 import { AccountMaintenanceApiResponse } from '../models/account-response.interface';
 import { SchemaService } from 'app/services/schema.service';
 import { AccountChangeAccountHolderFactory, AccountChangeApplicationTypeFactory, AccountChangeAccountHolderType, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../../../modules/msp-core/api-model/accountChangeTypes';
-import { AccountChangeApplicationType } from '../../msp-core/interfaces/i-api';
+import { AccountChangeApplicationType, StatusInCanadaType, DocumentType } from '../../msp-core/interfaces/i-api';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../../../components/msp/model/msp-person.model';
 import { Address } from 'moh-common-lib';
 import { AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory } from '../../../modules/msp-core/api-model/applicationTypes';
@@ -30,6 +30,7 @@ import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/cana
 import { Relationship } from '../../../models/relationship.enum';
 import { ApiResponse } from 'app/models/api-response.interface';
 import { format } from 'date-fns';
+import { SupportDocumentList, SupportDocumentTypes } from '../../msp-core/models/support-documents.enum';
 
 
 @Injectable({
@@ -496,20 +497,16 @@ export class MspApiAccountService extends AbstractHttpService {
 
   // This method is used to convert the response from user into a JSON object
   convertMspAccountApp(from: MspAccountApp): AccountChangeApplicationType  {
+    const to: any = {};
 
-   // const accountHardcodeRes = ;
-
-   const to: any = {};
-
-    // UUID
-    // UUID
     // to.application.uuid = from.uuid;
-
     // to.application.accountChangeApplication = AccountChangeApplicationTypeFactory.make();
     // to.application.accountChangeApplication.accountHolder = this.convertAccountHolderFromAccountChange(from);
+
+    // Create Account Holder
     to.accountHolder = this.convertAccountHolderFromAccountChange(from);
 
-    //spouses
+    // Create Spouses for Adding, Removing and Updating
     to.spouses = AccountChangeSpousesTypeFactory.make();
 
     /** the account change option check is added so that only data belonging to current selection is sent..
@@ -519,28 +516,55 @@ export class MspApiAccountService extends AbstractHttpService {
      *
      *  The same login shhould in be in review screen as well
      */
-    if ((from.accountChangeOptions.statusUpdate || from.accountChangeOptions.personInfoUpdate) && from.hasSpouseUpdated === true) {
-        to.spouses.updatedSpouse = this.convertSpouseFromAccountChange(from.updatedSpouse);
 
-    }
-    if (from.accountChangeOptions.dependentChange && from.hasSpouseRemoved === true) {
-        to.spouses.removedSpouse = this.convertSpouseFromAccountChange(from.removedSpouse);
-    }
+    // Add Spouse
     if (from.accountChangeOptions.dependentChange && from.hasSpouseAdded === true) {
-        to.spouses.addedSpouse = this.convertSpouseFromAccountChange(from.addedSpouse);
+      to.spouses.addedSpouse = this.convertSpouseFromAccountChange(from.addedSpouse);
     }
 
-    // Convert children and dependants
-    if (from.getAllChildren() && from.getAllChildren().length > 0) {
-        to.children = AccountChangeChildrenFactory.make();
-        to.children.child = new Array<AccountChangeChildType>();
-        for (const child of from.getAllChildren()) {
-            if (child && child.firstName && child.lastName && child.gender) {
-                to.children.child.push(this.convertChildFromAccountChange(child));
-            }
-        }
+    // Remove Spouse
+    if (from.accountChangeOptions.dependentChange && from.hasSpouseRemoved === true) {
+      to.spouses.removedSpouse = this.convertSpouseFromAccountChange(from.removedSpouse);
     }
-    
+
+    // Update Spouse
+    if (from.hasSpouseUpdated === true) {
+      to.spouses.updatedSpouse = this.convertSpouseFromAccountChange(from.updatedSpouse);
+    }
+
+    // Children
+    if (from.addedChildren.length > 0 || from.removedChildren.length > 0 || from.updatedChildren.length > 0){
+      to.children = AccountChangeChildrenFactory.make();
+      to.children.child = new Array<AccountChangeChildType>();
+
+      // Convert Added Children
+      if (from.addedChildren.length > 0){
+        for (const child of from.addedChildren) {
+          if (child && child.firstName && child.lastName) {
+              to.children.child.push(this.convertChildFromAccountChange(child));
+          }
+        }
+      }
+
+      // Convert Removed Children
+      if (from.removedChildren.length > 0){
+        for (const child of from.removedChildren) {
+          if (child && child.firstName && child.lastName) {
+              to.children.child.push(this.convertChildFromAccountChange(child));
+          }
+        }
+      }
+
+      // Convert Updated Children
+      if (from.updatedChildren.length > 0){
+        for (const child of from.updatedChildren) {
+          if (child && child.firstName && child.lastName) {
+              to.children.child.push(this.convertChildFromAccountChange(child));
+          }
+        }
+      }
+    }
+
     return this.removeSequences(to);
 }
 
@@ -563,22 +587,23 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
   to.name = this.convertName(from);
 
   if (from.hasDob) {
-      to.birthDate = format( from.dob, this.ISO8601DateFormat);
+    to.birthDate = format(from.dob, this.ISO8601DateFormat);
   }
 
   if (from.gender != null) {
-      to.gender = <GenderType> from.gender.toString();
+    to.gender = <GenderType> from.gender.toString();
+  }
+  else {
+    to.gender = 'M';
   }
 
   if (from.previous_phn) {
-      to.phn = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
+    to.phn = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
   }
-
 
   //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
   if (from.status != null) {
       to.citizenship = this.findCitizenShip(from.status, from.currentActivity);
-
   }
 
   if (from.prevLastName) {
@@ -588,6 +613,7 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
   if (from.marriageDate) {
       to.marriageDate = format( from.marriageDate, this.ISO8601DateFormat );
   }
+
   if (from.isExistingBeneficiary != null) {
       to.isExistingBeneficiary = from.isExistingBeneficiary === true ? 'Y' : 'N';
   }
@@ -596,9 +622,7 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
       this.populateNewBeneficiaryDetailsForSpouse(from, to);
   }
 
-
   // Removing Spouse
-
   if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect' ) {
       to.cancellationReason = from.reasonForCancellation;
       if (from.cancellationDate) {
@@ -630,27 +654,13 @@ private unknownAddress(): AddressType {
 private convertAddress(from: Address): AddressType {
   // Instantiate new object from interface
   const to = AddressTypeFactory.make();
-
-  /*
-   addressLine1: string;
-   addressLine2?: string;
-   addressLine3?: string;
-   city?: string;
-   country?: string;
-   postalCode?: string;
-   provinceOrState?: string;
-   */
-
   to.addressLine1 = from.addressLine1;
   to.addressLine2 = from.addressLine2;
   to.addressLine3 = from.addressLine3;
   to.city = from.city;
   to.country = from.country;
-  if (from.postal) {
-      to.postalCode = from.postal.toUpperCase().replace(' ', '');
-  }
+  to.postalCode = from.postal.toUpperCase().replace(' ', '');
   to.provinceOrState = from.province;
-
   return to;
 }
 
@@ -658,13 +668,16 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
   const to = AccountChangeChildTypeFactory.make();
 
   to.operationAction = <OperationActionType> OperationActionTypeEnum[from.operationActionType];
-
   to.name = this.convertName(from);
+
   if (from.hasDob) {
-      to.birthDate = format( from.dob, this.ISO8601DateFormat);
+    to.birthDate = format( from.dob, this.ISO8601DateFormat);
   }
   if (from.gender != null) {
-      to.gender = <GenderType> from.gender.toString();
+    to.gender = <GenderType> from.gender.toString();
+  }
+  else {
+    to.gender = 'M';
   }
 
   if (from.previous_phn) {
@@ -689,7 +702,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
           to.schoolName = from.schoolName;
       }
 
-
       if (from.hasStudiesDeparture) {
           to.departDateSchoolOutside =  format( from.studiesDepartureDate, this.ISO8601DateFormat);
       }
@@ -702,14 +714,8 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
           to.dateStudiesBegin = format( from.studiesBeginDate, this.ISO8601DateFormat);
       }
 
-      //  Departure date if school is outszide BC //TODO
-      /*   to.departDateSchoolOutside = from.departDateSchoolOutside.format(this.ISO8601DateFormat);*/
-
-      // Assemble address string
       to.schoolAddress = this.convertAddress(from.schoolAddress);
-
   }
-
 
   if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect') {
       to.cancellationReason = from.reasonForCancellation;
@@ -975,6 +981,104 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
     return to;
   }
 
+  findStatusInCanada(statusInCanada: StatusInCanada): StatusInCanadaType {
+    let status: StatusInCanadaType;
+    switch (statusInCanada) {
+        case StatusInCanada.CitizenAdult:
+            status = StatusInCanadaType.CitizenAdult;
+            break;
+        case StatusInCanada.PermanentResident:
+            status = StatusInCanadaType.PermanentResident;
+            break;
+        case StatusInCanada.TemporaryResident:
+            status = StatusInCanadaType.TemporaryResident;
+            break;
+    }
+    return status;
+  }
+
+  findDocumentType(documentType: string): DocumentType {
+    let document: DocumentType;
+    switch (documentType) {
+        case SupportDocumentList.CanadianBirthCertificate:
+            document = DocumentType.CanadianBirthCertificate;
+            break;
+        case SupportDocumentList.CanadianCitizenCard:
+            document = DocumentType.CanadianCitizenCard;
+            break;
+        case SupportDocumentList.CanadianPassport:
+            document = DocumentType.CanadianPassport;
+            break;
+        case SupportDocumentList.ChangeGenderAdultApplication:
+            document = DocumentType.ChangeGenderAdultApplication;
+            break;
+        case SupportDocumentList.ChangeGenderChildApplication:
+            document = DocumentType.ChangeGenderChildApplication;
+            break;
+        case SupportDocumentList.ChangeGenderPhyscianConfirmation:
+            document = DocumentType.ChangeGenderPhyscianConfirmation;
+            break;
+        case SupportDocumentList.ChangeOfNameCertificate:
+            document = DocumentType.ChangeOfNameCertificate;
+            break;
+        case SupportDocumentList.DiplomaticPassportAcceptance:
+            document = DocumentType.DiplomaticPassportAcceptance;
+            break;
+        case SupportDocumentList.DivorceDecree:
+            document = DocumentType.DivorceDecree;
+            break;
+        case SupportDocumentList.DriverLicense:
+            document = DocumentType.DriverLicense;
+            break;
+        case SupportDocumentList.MarriageCertificate:
+            document = DocumentType.MarriageCertificate;
+            break;
+        case SupportDocumentList.NoticeOfDecision:
+            document = DocumentType.NoticeOfDecision;
+            break;
+        case SupportDocumentList.NotrizedStatementOrAffidavit:
+            document = DocumentType.NotrizedStatementOrAffidavit;
+            break;
+        case SupportDocumentList.Other:
+            document = DocumentType.Other;
+            break;
+        case SupportDocumentList.ParentalConsentWaiver:
+            document = DocumentType.ParentalConsentWaiver;
+            break;
+        case SupportDocumentList.PassportWithDiplomaticFoil:
+            document = DocumentType.PassportWithDiplomaticFoil;
+            break;
+        case SupportDocumentList.PermanentResidentCard:
+            document = DocumentType.PermanentResidentCard;
+            break;
+        case SupportDocumentList.PermanentResidentConfirmation:
+            document = DocumentType.PermanentResidentConfirmation;
+            break;
+        case SupportDocumentList.RecordOfLanding:
+            document = DocumentType.RecordOfLanding;
+            break;
+        case SupportDocumentList.ReligiousWorker:
+            document = DocumentType.ReligiousWorker;
+            break;
+        case SupportDocumentList.SeperationAgreement:
+            document = DocumentType.SeperationAgreement;
+            break;
+        case SupportDocumentList.StudyPermit:
+            document = DocumentType.StudyPermit;
+            break;
+        case SupportDocumentList.VisitorVisa:
+            document = DocumentType.VisitorVisa;
+            break;
+        case SupportDocumentList.WorkInCanadaAcceptance:
+            document = DocumentType.WorkInCanadaAcceptance;
+            break;
+        case SupportDocumentList.WorkPermit:
+            document = DocumentType.WorkPermit;
+            break;
+    }
+    return document;
+  }
+
 
   findCitizenShip(statusInCanada: StatusInCanada, currentActivity: CanadianStatusReason): CitizenshipType {
       let citizen: CitizenshipType;
@@ -1013,28 +1117,38 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         const accountHolder: AccountChangeAccountHolderType = AccountChangeAccountHolderFactory.make();
 
         accountHolder.selectedAddRemove = from.accountChangeOptions.dependentChange ? 'Y' : 'N';
-
         accountHolder.selectedAddressChange = from.accountChangeOptions.addressUpdate ? 'Y' : 'N';
         accountHolder.selectedPersonalInfoChange = from.accountChangeOptions.personInfoUpdate ? 'Y' : 'N';
         accountHolder.selectedStatusChange = from.accountChangeOptions.statusUpdate ? 'Y' : 'N';
 
+        // Full Name
         accountHolder.name = this.convertName(from.applicant);
 
+        // PHN
+        if (from.applicant.previous_phn) {
+          accountHolder.phn = from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
+        }
 
+        // Birthdate
         if (from.applicant.hasDob) {
             accountHolder.birthDate = format(from.applicant.dob, this.ISO8601DateFormat);
         }
+
+        // Gender
         if (from.applicant.gender != null) {
-            accountHolder.gender = <GenderType>{};
-            accountHolder.gender = <GenderType> from.applicant.gender.toString();
+          accountHolder.gender = <GenderType> from.applicant.gender.toString();
         }
         else {
           accountHolder.gender = 'M';
         }
+
+        // Status
+        if (from.applicant.status != null) {
+          accountHolder.citizenship = this.findCitizenShip(from.applicant.status, from.applicant.currentActivity);
+        }
+
         if (from.authorizedByApplicant != null) {
             accountHolder.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
-            // accountHolder.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
-            //     .format(this.ISO8601DateFormat);
             accountHolder.authorizedByApplicantDate = format( from.authorizedByApplicantDate, this.ISO8601DateFormat );
         }
 
@@ -1042,30 +1156,21 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
             accountHolder.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
         }
 
-        if (!from.applicant.mailingSameAsResidentialAddress) {
-            accountHolder.mailingAddress = this.convertAddress(from.applicant.mailingAddress);
+        if (from.residentialAddress) {
+          accountHolder.residenceAddress = this.convertAddress(from.residentialAddress);
+        } else {
+          accountHolder.residenceAddress = this.unknownAddress();
         }
 
-        if (from.residentialAddress) {
-            accountHolder.residenceAddress = this.convertAddress(from.residentialAddress);
-        } else {
-            accountHolder.residenceAddress = this.unknownAddress();
+        if (from.mailingSameAsResidentialAddress === false) {
+            accountHolder.mailingAddress = this.convertAddress(from.mailingAddress);
         }
 
         if (from.applicant.phoneNumber) {
             accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
         }
-        if (from.applicant.previous_phn) {
-            accountHolder.phn = from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
-        }
-
-        if (from.applicant.status != null) {
-            accountHolder.citizenship = this.findCitizenShip(from.applicant.status, from.applicant.currentActivity);
-
-        }
 
         return accountHolder;
-
     }
 
 }

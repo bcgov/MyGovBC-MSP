@@ -353,7 +353,6 @@
       },
       "required": [
         "name",
-        "gender",
         "birthDate",
         "attachmentUuids",
         "residency"
@@ -544,7 +543,6 @@
       },
       "required": [
         "name",
-        "gender",
         "birthDate",
         "phn",
         "residenceAddress",
@@ -611,7 +609,6 @@
       "required": [
         "name",
         "birthDate",
-        "gender",
         "phn"
       ]
     },
@@ -703,7 +700,6 @@
         "name",
         "birthDate",
         "operationAction",
-        "gender",
         "phn"
       ]
     },
