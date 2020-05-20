@@ -3,7 +3,7 @@
   <common-radio
     name="immigrationStatusChange__{{objectId}}"
     [(ngModel)]="spouse.immigrationStatusChange"
-    [label]="'Does your spouse currently have an active Medical Services Plan coverage?'"
+    [label]="'Does your spouse currently have active Medical Services Plan coverage?'"
     [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'>
   </common-radio>
 </div>
@@ -27,9 +27,9 @@
         [statusReason]="spouse.currentActivity"
         [(supportDoc)]="supportDocList">
         <div sectionTitleInfo>
-          <h2>Documents to support your spouse status in Canada</h2>
+          <h2>Documents to support your spouse's status in Canada</h2>
           <p class="border-bottom">
-            Provide <b>one</b> of the required documents to support your spouse immigration status in Canada.
+            Provide <b>one</b> of the required documents to support your spouse's immigration status in Canada.
           </p>
         </div>
       </msp-support-documents>
@@ -125,7 +125,7 @@
       <div sectionTitleInfo>
         <h2>Account Holder's new last name</h2>
         <p class="border-bottom">
-          This name will be printed on your new BC Serives Card.
+          This name will be printed on your new BC Services Card.
         </p>
         <div class="form-group col-sm-6 pl-0" style="width: 300px;">
           <common-name
