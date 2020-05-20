@@ -36,7 +36,7 @@ export enum SupportDocumentTypes {
  */
 export const SupportDocumentList = {
   CanadianBirthCertificate: 'Canadian birth certificate',
-  CanadianPassport: 'Canadian passport',
+  CanadianPassport: 'Canadian Passport',
   CanadianCitizenCard: 'Canadian citizenship card or certificate',
   DriverLicense: 'BC Driver\'s License',
   RecordOfLanding: 'Record of Landing',

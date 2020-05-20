@@ -298,7 +298,13 @@ class MspAccountApp implements ApplicationBase {
     Gets all images for applicant, spouse and all children
    */
     getAllImages(): CommonImage[] {
-        return this.documents;
+        const images: CommonImage[] = [];
+        const persons: MspPerson[] = this.allPersonsInPI;
+
+        for (var index in persons) {
+            images.push(...persons[index].getAllImages())
+        }
+        return images;
     }
 
     hasAnyVisitorInApplication(): boolean {

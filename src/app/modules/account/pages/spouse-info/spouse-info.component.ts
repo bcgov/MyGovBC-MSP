@@ -22,18 +22,20 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
 
   accountApp: MspAccountApp;
   accountChangeOptions: AccountChangeOptions;
-  addNewSpouse: boolean;
-  showSpouse: boolean;
+  showAddSpouse: boolean;
+  showRemoveSpouse: boolean;
   showUpdateSpouse: boolean;
   subscriptions: Subscription[];
 
-  constructor( public dataService: MspAccountMaintenanceDataService, protected router: Router,  private pageStateService: PageStateService ) {
+  constructor(public dataService: MspAccountMaintenanceDataService, protected router: Router,  private pageStateService: PageStateService) {
     super(router);
     if (this.dataService.getMspAccountApp().hasSpouseAdded) {
-      this.addNewSpouse = true;
-    } else if (this.dataService.getMspAccountApp().hasSpouseRemoved) {
-      this.showSpouse = true;
-    } else if ( this.dataService.getMspAccountApp().hasSpouseUpdated) {
+      this.showAddSpouse = true;
+    }
+    if (this.dataService.getMspAccountApp().hasSpouseRemoved) {
+      this.showRemoveSpouse = true;
+    }
+    if (this.dataService.getMspAccountApp().hasSpouseUpdated) {
       this.showUpdateSpouse = true;
     }
   }
@@ -47,7 +49,7 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach( itm => itm.unsubscribe());
+    this.subscriptions.forEach(itm => itm.unsubscribe());
   }
 
   ngAfterViewInit() {
@@ -63,49 +65,49 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   }
 
   addSpouse() {
-    this.addNewSpouse = true;
     this.accountApp.hasSpouseAdded = true;
-    this.accountApp.hasSpouseRemoved = false;
+    // this.accountApp.hasSpouseRemoved = false;
     this.accountApp.hasSpouseUpdated = false;
     this.accountChangeOptions.dependentChange = true;
+    this.showAddSpouse = true;
+    // this.showRemoveSpouse = false;
     this.showUpdateSpouse = false;
-    this.showSpouse = false;
   //this.dataService.saveMspAccountApp();
-    return this.addNewSpouse;
+    return this.showAddSpouse;
   }
 
   removeSpouse() {
-    this.showSpouse = true;
+    // this.accountApp.hasSpouseAdded = false;
     this.accountApp.hasSpouseRemoved = true;
-    this.accountApp.hasSpouseAdded = false;
     this.accountApp.hasSpouseUpdated = false;
     this.accountChangeOptions.dependentChange = true;
+    // this.showAddSpouse = false;
+    this.showRemoveSpouse = true;
     this.showUpdateSpouse = false;
-    this.addNewSpouse = false;
     //this.dataService.saveMspAccountApp();
-    return this.showSpouse;
+    return this.showRemoveSpouse;
   }
 
   updateSpouse() {
-    this.showUpdateSpouse = true;
-    this.accountApp.hasSpouseUpdated = true;
     this.accountApp.hasSpouseAdded = false;
     this.accountApp.hasSpouseRemoved = false;
-    this.showSpouse = false;
-    this.addNewSpouse = false;
+    this.accountApp.hasSpouseUpdated = true;
+    this.showRemoveSpouse = false;
+    this.showAddSpouse = false;
+    this.showUpdateSpouse = true;
     //this.dataService.saveMspAccountApp();
     return this.showUpdateSpouse;
   }
 
   removedAddedSpouse() {
-    this.addNewSpouse = false;
+    this.showAddSpouse = false;
     this.accountApp.hasSpouseAdded = false;
     this.accountChangeOptions.dependentChange = false;
     this.dataService.accountApp.addedSpouse = new MspPerson(Relationship.Spouse);
 }
 
   removedDeletedSpouse() {
-    this.showSpouse = false;
+    this.showRemoveSpouse = false;
     this.accountApp.hasSpouseRemoved = false;
     this.accountChangeOptions.dependentChange = false;
     this.dataService.accountApp.removedSpouse = new MspPerson(Relationship.Spouse);
@@ -117,28 +119,52 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
     this.dataService.accountApp.updatedSpouse = new MspPerson(Relationship.Spouse);
   }
 
-  get removedSpouse(): MspPerson {
-    return this.dataService.getMspAccountApp().removedSpouse;
-  }
-
   get addedSpouse(): MspPerson {
     return this.dataService.getMspAccountApp().addedSpouse;
+  }
+
+  get removedSpouse(): MspPerson {
+    return this.dataService.getMspAccountApp().removedSpouse;
   }
 
   get updatedSpouse(): MspPerson {
     return this.dataService.getMspAccountApp().updatedSpouse;
   }
 
-  canContinue(): boolean {
-    const valid = super.canContinue();
-
-   /* if ( this.person.hasNameChange ) {
-      valid = valid && this.hasNameDocuments;
+  checkDocumentsForUpdatedSpouse(){
+    let valid = true;
+    if (this.updatedSpouse.updateStatusInCanada  === true){
+      valid = valid && this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
     }
+    if (this.updatedSpouse.updateNameDueToMarriage === true){
+      valid = valid && this.updatedSpouse.updateNameDueToMarriageDocType.images.length > 0;
+    }
+    if (this.updatedSpouse.updateNameDueToNameChange === true){
+      valid = valid && this.updatedSpouse.updateNameDueToNameChangeDocType.images.length > 0;
+    }
+    if (this.updatedSpouse.updateGender === true){
+      valid = valid && this.updatedSpouse.updateGenderDocType.images.length > 0 && this.updatedSpouse.updateGenderDocType2.images.length > 0;
+      if (this.updatedSpouse.updateGenderAdditionalDocs === true){
+        valid = valid && this.updatedSpouse.updateGenderDocType3.images.length > 0;
+      }
+    }
+    if (this.updatedSpouse.updateNameDueToError === true){
+      valid = valid && this.updatedSpouse.updateNameDueToErrorDocType.images.length > 0;
+    }
+    if (this.updatedSpouse.updateBirthdate === true){
+      valid = valid && this.updatedSpouse.updateBirthdateDocType.images.length > 0;
+    }
+    if (this.updatedSpouse.updateGenderDesignation === true){
+      valid = valid && this.updatedSpouse.updateGenderDesignationDocType.images.length > 0;
+    }
+    return valid;
+  }
 
-    if ( this.applicant.fullTimeStudent ) {
-      valid = valid && this.applicant.inBCafterStudies;
-    }*/
+  canContinue(): boolean {
+    let valid = super.canContinue();
+    if (this.accountApp.hasSpouseUpdated === true){
+      valid = valid && this.checkDocumentsForUpdatedSpouse();
+    }
     return valid;
   }
 

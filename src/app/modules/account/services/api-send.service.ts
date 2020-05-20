@@ -133,7 +133,7 @@ export class ApiSendService extends AbstractHttpService {
     url += '&imageSize=' + attachment.size;
 
     // Necessary to differentiate between PA and SuppBen
-    url += '&dpackage=msp_account_change_pkg';
+    url += '&dpackage=msp_enrolment_pkg';
     return url;
   }
 }
