@@ -1,3 +1,4 @@
+import { StatusInCanada } from '../models/canadian-status.enum';
 export type YesNoType = 'Y' | 'N';
 // TODO: proper submissions require captcha token at the header level
 export interface MSPApplicationSchema {
@@ -22,7 +23,7 @@ export interface AccountChangeAccountHolderType {
   authorizedBySpouse?: string;
   birthDate: string;
   citizenship?: CitizenshipType;
-  gender: string;
+  gender?: string;
   mailingAddress?: AddressType;
   name: NameType;
   phn: string;
@@ -32,6 +33,67 @@ export interface AccountChangeAccountHolderType {
   selectedPersonalInfoChange: string;
   selectedStatusChange: string;
   telephone?: string;
+  // updatingPersonalInfo: boolean;
+  // updatePersonalInfo?: UpdatePersonalInfoType;
+  // updateStatusInCanadaStatus?: StatusInCanadaType;
+  // updateStatusInCanadaDocumentType?: DocumentType;
+  // updateNameDueToMarriageLastName?: string;
+  // updateNameDueToMarraigeDocumentType?: DocumentType;
+  // updateNameDueToNameChange?: DocumentType;
+  // updateGenderDesignationDocumentType1?: DocumentType;
+  // updateGenderDesignationDocumentType2?: DocumentType;
+  // updateGenderDesignationDocumentType3?: DocumentType;
+  // correctNameDueToErrorDocumentType: DocumentType;
+  // correctBirthdateDueToError: DocumentType;
+  // correctGenderDesignationDueToError: DocumentType;
+}
+
+// export interface UpdatePersonalInfoType {
+//   updateStatusInCanadaStatus?: StatusInCanadaType;
+//   updateStatusInCanadaDocumentType?: DocumentType;
+//   updateNameDueToMarriageLastName?: string;
+//   updateNameDueToMarraigeDocumentType?: DocumentType;
+//   updateNameDueToNameChange?: DocumentType;
+//   updateGenderDesignationDocumentType1?: DocumentType;
+//   updateGenderDesignationDocumentType2?: DocumentType;
+//   updateGenderDesignationDocumentType3?: DocumentType;
+//   correctNameDueToErrorDocumentType: DocumentType;
+//   correctBirthdateDueToError: DocumentType;
+//   correctGenderDesignationDueToError: DocumentType;
+// }
+
+export enum StatusInCanadaType {
+  CitizenAdult = 'CanadianCitizen',
+  PermanentResident = 'PermanentResident',
+  TemporaryResident = 'TemporaryPermitHolderOrDiplomat'
+}
+
+export enum DocumentType {
+  CanadianBirthCertificate = 'CanadianBirthCertificate',
+  CanadianPassport = 'CanadianPassport',
+  CanadianCitizenCard = 'CanadianCitizenshipCardOrCertificate',
+  DriverLicense = 'BCDriver\'sLicense',
+  RecordOfLanding = 'RecordOfLanding',
+  PermanentResidentCard = 'PermanentResidentCard',
+  PermanentResidentConfirmation = 'ConfirmationOfPermanentResidence',
+  WorkPermit = 'WorkPermit',
+  StudyPermit = 'StudyPermit',
+  VisitorVisa = 'VisitorPermit',
+  PassportWithDiplomaticFoil = 'PassportWithDiplomaticFoil',
+  MarriageCertificate = 'MarriageCertificate',
+  ChangeOfNameCertificate = 'LegalNameChangeCertificate',
+  ReligiousWorker = 'ReligiousWorker',
+  NoticeOfDecision = 'NoticeOfDecision',
+  DiplomaticPassportAcceptance = 'DiplomaticPassportAcceptance',
+  WorkInCanadaAcceptance = 'WorkInCanadaAcceptance',
+  DivorceDecree = 'DivorceDecree',
+  ChangeGenderAdultApplication = 'ApplicationForChangeOfGenderDesignation(Adult)',
+  ChangeGenderChildApplication = 'ApplicationForChangeOfGenderDesignation(Child)',
+  ChangeGenderPhyscianConfirmation = 'Physician\'sOrPsychologistConfirmationOfChangeOfGenderDesignationForm',
+  ParentalConsentWaiver = 'RequestForWaiverOfParentalConsent(Minor)(ForUnder19Years)',
+  SeperationAgreement = 'SeperationAgreement',
+  NotrizedStatementOrAffidavit = 'NotrizedStatementOrAffidavit',
+  Other = 'Other'
 }
 
 export enum CitizenshipType {

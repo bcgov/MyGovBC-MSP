@@ -3,6 +3,7 @@ import * as ct from './commonTypes';
 import * as et from './enrolmentTypes';
 import { BasicInfoTypeFactory, PrevHealthNumberType } from './commonTypes';
 import {EnrolmentApplicantType} from './enrolmentTypes';
+import { DocumentType, StatusInCanadaType } from '../interfaces/i-api';
 
 // BaseType
 interface BaseType {
@@ -14,7 +15,7 @@ interface BaseType {
 // accountChangeAccountHolderType
 interface _AccountChangeAccountHolderType extends ct._BasicInfoType {
 	name: ct.NameType;
-	gender: ct.GenderType;
+	gender?: ct.GenderType;
 	birthDate: string;
 	attachmentUuids: ct.AttachmentUuidsType;
     phn: ct.PrevHealthNumberType;
@@ -38,7 +39,7 @@ export class AccountChangeAccountHolderFactory {
 	static make(): AccountChangeAccountHolderType {
 		const instance = <AccountChangeAccountHolderType>{};
         instance._sequence = ['name', 'gender', 'birthDate', 'attachmentUuids', 'phn', 'telephone', 'residenceAddress', 'mailingAddress', 'citizenship', 'authorizedByApplicant',
-            'authorizedByApplicantDate', 'authorizedBySpouse', 'selectedAddressChange', 'selectedPersonalInfoChange', 'selectedAddRemove', 'selectedStatusChange'];
+			'authorizedByApplicantDate', 'authorizedBySpouse', 'selectedAddressChange', 'selectedPersonalInfoChange', 'selectedAddRemove', 'selectedStatusChange'];
 		return instance;
 	}
 }

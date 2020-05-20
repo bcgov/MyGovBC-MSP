@@ -545,7 +545,6 @@ export const defaultSchema = {
       },
       required: [
         'name',
-        'gender',
         'birthDate',
         'phn',
         'residenceAddress',
@@ -612,7 +611,6 @@ export const defaultSchema = {
       required: [
         'name',
         'birthDate',
-        'gender',
         'phn'
       ]
     },
@@ -704,7 +702,6 @@ export const defaultSchema = {
         'name',
         'birthDate',
         'operationAction',
-        'gender',
         'phn'
       ]
     },
