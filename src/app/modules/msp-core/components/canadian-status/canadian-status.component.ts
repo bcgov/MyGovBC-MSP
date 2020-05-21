@@ -164,11 +164,11 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
   availableStatusReasons;
 
   get reasonList() {
-      // Get the status reason list available for the selected status
-      if (!this.statusReasonList) {
-        return statusReasonRules( this.person.relationship, this.person.status );
-      }
-      return this.statusReasonList;
+    // Get the status reason list available for the selected status
+    if (!this.statusReasonList) {
+      return statusReasonRules( this.person.relationship, this.person.status );
+    }
+    return this.statusReasonList;
   }
 
   get statusReason() {

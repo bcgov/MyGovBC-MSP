@@ -88,6 +88,7 @@
     </div>
   </msp-personal-information>
 
+  <!-- Gender -->
   <div class="row">
     <div class="col-md-4">
       <common-radio
@@ -99,6 +100,7 @@
     </div>
   </div>
 
+  <!-- Marriage date (optional) -->
   <div class="form-group" style="width: 300px;">
     <common-date
       label="Marriage date (optional)"
@@ -118,6 +120,7 @@
     </common-radio>
   </div>
 
+  <!-- Documents - Update name due to name change -->
   <div *ngIf="spouse.updateNameDueToMarriage === true" class="add-document">
     <msp-support-documents
       [supportDocList]="spouseNameChangeDocList"
