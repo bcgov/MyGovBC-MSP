@@ -18,107 +18,109 @@
   </div>
 </div>
 
-<div *ngIf="child.relationship && hasActiveMedicalCoverage == false">
-  <!-- Child's status in Canada-->
-  <div class="form-group add-document">
-    <msp-canadian-status
-      [(ngModel)]="child.status"
-      [person]="child"
-      label="Child's status in Canada">
-    </msp-canadian-status>
+<div *ngIf="child.relationship !== undefined && hasActiveMedicalCoverage !== undefined">
+  <div *ngIf="hasActiveMedicalCoverage == false">
+    <!-- Child's status in Canada-->
+    <div class="form-group add-document">
+      <msp-canadian-status
+        [person]="child"
+        label="Child's status in Canada">
+      </msp-canadian-status>
 
-    <!-- Documents to support your child status in Canada -->
-    <msp-support-documents
-      *ngIf="child.status !== undefined"
-      [supportDocList]="supportDocList"
-      [canadianStatus]="child.status"
-      [supportDocList]="supportDocList"
-      [statusReason]="child.currentActivity"
-      [(supportDoc)]="statusDocuments">
-      <div sectionTitleInfo>
-        <h2>Documents to support your child status in Canada</h2>
-        <p class="border-bottom">
-          Provide <b>one</b> of the required documents to support your child's immigration status in Canada.
-        </p>
-      </div>
-    </msp-support-documents>
-  </div>
-
-  <!-- Has your child’s name changed since their id was issued due to a legal name change? -->
-  <common-radio
-    name="nameChange_{{objectId}}"
-    [(ngModel)]="child.hasNameChange"
-    label="Has your child’s name changed since their id was issued due to a legal name change?"
-    (valuehange)="this.personChange.emit(child);">
-  </common-radio>
-
-  <!-- Documents - Update name due to name change -->
-  <div class="add-document">
-    <msp-support-documents
-      *ngIf="child.hasNameChange"
-      [supportDocList]="nameChangeDocList"
-      [(supportDoc)]="child.nameChangeDocs">
-      <div sectionTitleInfo>
-        <h2>Documents - Update name due to name change</h2>
-        <p class="border-bottom">
-          Provide <b>one</b> of the required documents to support your child's name change.
-        </p>
-      </div>
-    </msp-support-documents>
-  </div>
-
-  <!-- Child's Personal Info -->
-  <msp-personal-information
-    [person]="child">
-    <div sectionTitleInfo>
-      <h2>Child's Personal Information</h2>
-      <p class="border-bottom">
-        Enter child's legal name as it appears on their official Canadian identity
-        documents, e.g., birth certificate, permanent resident card, passport.
-      </p>
+      <!-- Documents to support your child status in Canada -->
+      <msp-support-documents
+        *ngIf="child.status !== undefined"
+        [supportDocList]="supportDocList"
+        [canadianStatus]="child.status"
+        [supportDocList]="supportDocList"
+        [statusReason]="child.currentActivity"
+        [(supportDoc)]="statusDocuments">
+        <div sectionTitleInfo>
+          <h2>Documents to support your child status in Canada</h2>
+          <p class="border-bottom">
+            Provide <b>one</b> of the required documents to support your child's immigration status in Canada.
+          </p>
+        </div>
+      </msp-support-documents>
     </div>
-  </msp-personal-information>
 
-  <!-- Child's Gender -->
-  <div class="row">
-    <div class="col-md-4">
+    <!-- Has your child's name changed since their id was issued due to a legal name change? -->
+    <common-radio
+      name="nameChange_{{objectId}}"
+      [(ngModel)]="child.hasNameChange"
+      label="Has your child’s name changed since their id was issued due to a legal name change?"
+      (valuehange)="this.personChange.emit(child);">
+    </common-radio>
+
+    <!-- Documents - Update name due to name change -->
+    <div class="add-document">
+      <msp-support-documents
+        *ngIf="child.hasNameChange"
+        [supportDocList]="nameChangeDocList"
+        [(supportDoc)]="child.nameChangeDocs">
+        <div sectionTitleInfo>
+          <h2>Documents - Update name due to name change</h2>
+          <p class="border-bottom">
+            Provide <b>one</b> of the required documents to support your child's name change.
+          </p>
+        </div>
+      </msp-support-documents>
+    </div>
+  </div>
+
+    <!-- Child's Personal Info -->
+    <msp-personal-information
+      [person]="child">
+      <div sectionTitleInfo>
+        <h2>Child's Personal Information</h2>
+        <p class="border-bottom">
+          Enter child's legal name as it appears on their official Canadian identity
+          documents, e.g., birth certificate, permanent resident card, passport.
+        </p>
+      </div>
+    </msp-personal-information>
+
+    <!-- Child's Gender -->
+    <div class="row">
+      <div class="col-md-4">
+        <common-radio
+          [value]="child.gender"
+          label='Gender'
+          [radioLabels]='[{"label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
+          (valueChange)="setGender($event)">
+        </common-radio>
+      </div>
+    </div>
+
+  <div *ngIf="hasActiveMedicalCoverage == false">
+    <!-- Is this child newly adopted? -->
+    <div class="form-group">
       <common-radio
-        [value]="child.gender"
-        label='Gender'
-        [radioLabels]='[{"label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
-        (valueChange)="setGender($event)">
+        name="newAdopted_{{objectId}}"
+        [(ngModel)]="newlyAdopted"
+        label="Is this child newly adopted?"
+        [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'>
       </common-radio>
     </div>
-  </div>
 
-  <!-- Is this child newly adopted? -->
-  <div class="form-group">
-    <common-radio
-      name="newAdopted_{{objectId}}"
-      [(ngModel)]="newlyAdopted"
-      label="Is this child newly adopted?"
-      [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'>
-    </common-radio>
-  </div>
-
-  <div *ngIf="newlyAdopted" class="col-sm-4 add-document">
-    <common-date
-      name="newlyAdopted"
-      id="newlyAdopted"
-      label="Adoption date"
-      [(ngModel)]="child.newlyAdopted"
-      [restrictDate]="'past'"
-      required>
-    </common-date>
-  </div>
-
-  <!-- Child's Residency Information -->
-  <msp-child-moving-information
-    [person]="child">
-    <div sectionTitleInfo>
-      <h2><strong>Child's Residency Information</strong></h2>
-      <p class="border-bottom"></p>
+    <div *ngIf="newlyAdopted" class="col-sm-4 add-document">
+      <common-date
+        name="newlyAdopted"
+        id="newlyAdopted"
+        label="Adoption date"
+        [(ngModel)]="child.newlyAdopted"
+        [restrictDate]="'past'"
+        required>
+      </common-date>
     </div>
-  </msp-child-moving-information>
-  <!-- Child's Moving Information -->
+  </div>
+
+    <!-- Child's Residency Information -->
+    <msp-child-moving-information
+      [person]="child">
+      <div sectionTitleInfo>
+        <h2><strong>Child's Residency Information</strong></h2>
+        <p class="border-bottom"></p>
+      </div>
+    </msp-child-moving-information>
 </div>
