@@ -101,7 +101,7 @@
   </div>
 
   <!-- Marriage date (optional) -->
-  <div class="form-group" style="width: 300px;">
+  <div class="form-group" style="width: 500px;">
     <common-date
       label="Marriage date (optional)"
       [restrictDate]="'past'"
@@ -115,18 +115,18 @@
       [(ngModel)]="spouse.updateNameDueToMarriage"
       [value]="spouse.updateNameDueToMarriage"
       label="Has your spouse's name changed due to marriage?"
-      [radioLabels]='[{"label": "No", "value": "false"}, {"label": "Yes", "value": "true"}]'
+      [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
       (valueChange)="setUpdateNameDueToMarriage($event)">
     </common-radio>
   </div>
 
   <!-- Documents - Update name due to name change -->
-  <div *ngIf="spouse.updateNameDueToMarriage === true" class="add-document">
+  <div *ngIf="spouse.updateNameDueToMarriage" class="add-document">
     <msp-support-documents
       [supportDocList]="spouseNameChangeDocList"
       [(supportDoc)]="spouse.nameChangeDocs">
       <div sectionTitleInfo>
-        <h2>Account Holder's new last name</h2>
+        <h2>Spouse's new last name</h2>
         <p class="border-bottom">
           This name will be printed on your new BC Services Card.
         </p>
