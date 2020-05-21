@@ -60,6 +60,11 @@ export class AddChildComponent extends Base implements OnInit {
     this.personChange.emit(evt);
   }
 
+  setGender(evt: any) {
+    this.child.gender = evt;
+    this.personChange.emit(evt);
+  }
+
   get newlyAdopted() {
     return this.child.newlyAdopted;
   }
