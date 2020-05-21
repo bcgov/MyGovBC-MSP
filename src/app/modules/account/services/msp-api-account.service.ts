@@ -534,14 +534,13 @@ export class MspApiAccountService extends AbstractHttpService {
 
     // Children
     if (from.addedChildren.length > 0 || from.removedChildren.length > 0 || from.updatedChildren.length > 0){
-      to.children = AccountChangeChildrenFactory.make();
-      to.children.child = new Array<AccountChangeChildType>();
+      to.children = new Array<AccountChangeChildType>();
 
       // Convert Added Children
       if (from.addedChildren.length > 0){
         for (const child of from.addedChildren) {
           if (child && child.firstName && child.lastName) {
-              to.children.child.push(this.convertChildFromAccountChange(child));
+              to.children.push(this.convertChildFromAccountChange(child));
           }
         }
       }
@@ -550,7 +549,7 @@ export class MspApiAccountService extends AbstractHttpService {
       if (from.removedChildren.length > 0){
         for (const child of from.removedChildren) {
           if (child && child.firstName && child.lastName) {
-              to.children.child.push(this.convertChildFromAccountChange(child));
+              to.children.push(this.convertChildFromAccountChange(child));
           }
         }
       }
@@ -559,7 +558,7 @@ export class MspApiAccountService extends AbstractHttpService {
       if (from.updatedChildren.length > 0){
         for (const child of from.updatedChildren) {
           if (child && child.firstName && child.lastName) {
-              to.children.child.push(this.convertChildFromAccountChange(child));
+              to.children.push(this.convertChildFromAccountChange(child));
           }
         }
       }
@@ -618,7 +617,8 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
 
   // Marriage Date
   if (from.marriageDate) {
-      to.marriageDate = format( from.marriageDate, this.ISO8601DateFormat );
+      to.marriageDate = format( 
+        from.marriageDate, this.ISO8601DateFormat );
   }
 
   if (from.isExistingBeneficiary != null) {
@@ -636,7 +636,7 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
       to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat);
       }
   }
-  
+
   if (from.knownMailingAddress === true ) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
   } else if (from.knownMailingAddress === false) {
@@ -677,6 +677,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
   to.operationAction = <OperationActionType> OperationActionTypeEnum[from.operationActionType];
   to.name = this.convertName(from);
+  console.log('NAME: ' + to.name);
 
   if (from.hasDob) {
     to.birthDate = format( from.dob, this.ISO8601DateFormat);
@@ -738,6 +739,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
       to.mailingAddress = this.unknownAddress();
   }
 
+  console.log('CHILD: ' + JSON.stringify(to));
   return to;
 }
 
@@ -1177,8 +1179,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         if (from.applicant.phoneNumber) {
           accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
         }
-
-        console.log('PHONE NUMBER' + accountHolder.telephone);
 
         return accountHolder;
     }
