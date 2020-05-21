@@ -52,27 +52,43 @@
   <msp-support-documents
     [supportDocList]="nameChangeDueToMarriageDocs"
     [(supportDoc)]="person.updateNameDueToMarriageDocType">
-    <div sectionTitleInfo>
-      <h2>Account Holder's new last name</h2>
-      <p class="horizontal-line">
-        This name will be printed on your new BC Services Card.
-      </p>
-
-      <div class="form-group col-sm-6 pl-0">
-        <common-name name="updateNameDueToMarriageRequestedLastName"
-          label="Requested last name"
-          [disabled]="disabled"
-          [(ngModel)]="updateNameDueToMarriageRequestedLastName"
-          maxlen="30"
-          required
-          commonValidateName>
-        </common-name>
+    <div class="row" sectionTitleInfo>
+      <div class="col-sm-12 col-md-8">
+        <div>
+          <h2>Account Holder's new last name</h2>
+          <p class="horizontal-line">
+            This name will be printed on your new BC Services Card.
+          </p>
+        
+          <div class="form-group col-sm-6 pl-0">
+            <common-name name="updateNameDueToMarriageRequestedLastName"
+                label="Requested last name"
+                [disabled]="disabled"
+                [(ngModel)]="updateNameDueToMarriageRequestedLastName"
+                maxlen="30"
+                required
+                commonValidateName>
+            </common-name>
+          </div>
+        
+          <p class="horizontal-line">
+            Provide <b>one</b> of the required documents to support your personal information update.
+          </p>
+        </div>
       </div>
-
-      <p class="horizontal-line">
-        Provide <b>one</b> of the required documents to support your personal information update.
-      </p>
+      <div class="col-sm-12 col-md-4">
+        <div class="card mb-4 h-100">
+          <aside>
+            <div class="card-body">
+              <h3>Tip</h3>
+              <p>For name changes due to marriage, you may combine your birth last name with a current and/or previous married last name(s). Last names may be combined in any order with a hyphen (-) or a space.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+            
     </div>
+    
   </msp-support-documents>
 </div>
 
