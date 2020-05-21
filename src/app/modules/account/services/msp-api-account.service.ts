@@ -23,28 +23,24 @@ import { Address } from 'moh-common-lib';
 import { AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory } from '../../../modules/msp-core/api-model/applicationTypes';
 import { AddressType, AddressTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../../../modules/msp-core/api-model/commonTypes';
 import { LivedInBCTypeFactory, OutsideBCTypeFactory, WillBeAwayTypeFactory } from '../../../modules/msp-core/api-model/enrolmentTypes';
-import {
-  MSPApplicationSchema
-} from 'app/modules/msp-core/interfaces/i-api';
+import { MSPApplicationSchema } from 'app/modules/msp-core/interfaces/i-api';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
 import { ApiResponse } from 'app/models/api-response.interface';
 import { format } from 'date-fns';
 import { SupportDocumentList, SupportDocumentTypes } from '../../msp-core/models/support-documents.enum';
 
-
 @Injectable({
   providedIn: 'root'
 })
 
-//TODO - nothing has been done on these service except the skeleton.
+// TODO - nothing has been done on these service except the skeleton.
 // This service should handle the hitting of the middleware
 export class MspApiAccountService extends AbstractHttpService {
 
   protected _headers: HttpHeaders = new HttpHeaders();
   readonly ISO8601DateFormat = 'yyyy-MM-dd';
   accountMaintenanceApiResponse: AccountMaintenanceApiResponse;
-
 
   constructor(
     protected http: HttpClient,
@@ -155,7 +151,6 @@ export class MspApiAccountService extends AbstractHttpService {
     });
     return this.post<MspAccountApp>(url, app);
   }
-
 
   public sendAttachments(
     token: string,
@@ -577,7 +572,6 @@ private removeSequences(obj: any) {
       obj[property] = this.removeSequences(obj[property])
     }
   }
-  console.log(obj);
   return obj;
 }
 
@@ -617,7 +611,7 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
 
   // Marriage Date
   if (from.marriageDate) {
-      to.marriageDate = format( 
+      to.marriageDate = format(
         from.marriageDate, this.ISO8601DateFormat );
   }
 
@@ -677,7 +671,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
   to.operationAction = <OperationActionType> OperationActionTypeEnum[from.operationActionType];
   to.name = this.convertName(from);
-  console.log('NAME: ' + to.name);
 
   if (from.hasDob) {
     to.birthDate = format( from.dob, this.ISO8601DateFormat);
@@ -738,8 +731,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
   } else if (from.knownMailingAddress === false) {
       to.mailingAddress = this.unknownAddress();
   }
-
-  console.log('CHILD: ' + JSON.stringify(to));
   return to;
 }
 
@@ -842,7 +833,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
           to.adoptionDate = format(from.adoptedDate, this.ISO8601DateFormat);
       }
 
-
       // Has this family member been outside of BC for more than a total of 30 days during the past 12 months?
       if (from.declarationForOutsideOver30Days != null) {
           to.outsideBC = OutsideBCTypeFactory.make();
@@ -875,7 +865,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
               to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
           }
       }
-
 
       // Have they been released from the Canadian Armed Forces or an Institution?
       if (from.hasDischarge) {
@@ -913,9 +902,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
                 to.livedInBC.recentBCMoveDate = format( from.arrivalToBCDate, this.ISO8601DateFormat);
             }
         }
-
     }
-
 
     // Has this family member been outside of BC for more than a total of 30 days during the past 12 months?
     if (from.declarationForOutsideOver30Days != null) {
@@ -949,7 +936,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
             to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
         }
     }
-
 
     // Have they been released from the Canadian Armed Forces or an Institution?
     if (from.hasDischarge) {
@@ -1089,7 +1075,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
     return document;
   }
 
-
   findCitizenShip(statusInCanada: StatusInCanada, currentActivity: CanadianStatusReason): CitizenshipType {
       let citizen: CitizenshipType;
       switch (statusInCanada) {
@@ -1184,9 +1169,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
     }
 
 }
-
-
-
 
 // TODO - Move file - meant to be generic?
 interface AttachmentRequestPartial {
