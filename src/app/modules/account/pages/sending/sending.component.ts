@@ -11,7 +11,6 @@ import { ApiResponse } from 'app/models/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiStatusCodes } from 'moh-common-lib';
 
-
 @Component({
   templateUrl: 'sending.component.html',
   styleUrls: ['./sending.component.scss']
@@ -79,7 +78,6 @@ export class AccountSendingComponent implements AfterContentInit {
               bcServicesCardElgible = true ;
           }
 
-
         //check any new beneficiary is added
           if (!bcServicesCardElgible && this.mspAccountApp.accountChangeOptions && this.mspAccountApp.accountChangeOptions.dependentChange) {
               if (this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary && this.mspAccountApp.addedSpouse.bcServiceCardShowStatus ) {
@@ -108,7 +106,6 @@ export class AccountSendingComponent implements AfterContentInit {
                 hasChildRemoved: hasChildRemoved,
                 hasPrevMSPForChild: hasPrevMSPForChild
                 }});
-
 
       }).catch((error: ResponseType | any) => {
         console.log('error in sending request: ', error);
