@@ -129,4 +129,15 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
           (this.isCanadianNotBC && this.person.livedInBCSinceBirth !== undefined) ||
           this.isResidentFromProv || this.isResidentFromCountry || this.isResidentNotBC;
   }
+
+  get possessiveRelationshipNoun() {
+    switch (this.person.relationship) {
+      case Relationship.Applicant:
+        return 'you';
+      case Relationship.Spouse:
+        return 'your spouse';
+      default:
+        return 'the child'
+    }
+  }
 }
