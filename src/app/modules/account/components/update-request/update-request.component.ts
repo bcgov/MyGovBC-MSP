@@ -13,6 +13,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
+import { Relationship } from '../../../../models/relationship.enum';
 
 @Component({
   selector: 'msp-update-request',
@@ -113,5 +114,27 @@ export class UpdateRequestComponent extends Base {
     return (this.person.status === StatusInCanada.CitizenAdult ||
       this.person.status === StatusInCanada.PermanentResident ||
       this.person.currentActivity !== undefined);
+  }
+
+  get relationshipText() {
+    switch (this.person.relationship) {
+      case Relationship.Applicant:
+        return 'Account Holder';
+      case Relationship.Spouse:
+        return 'Spouse';
+      default:
+        return 'Child'
+    }
+  }
+  
+  get possessiveRelationshipNoun() {
+    switch (this.person.relationship) {
+      case Relationship.Applicant:
+        return 'your';
+      case Relationship.Spouse:
+        return 'your spouse\'s';
+      default:
+        return 'your child\'s'
+    }
   }
 }
