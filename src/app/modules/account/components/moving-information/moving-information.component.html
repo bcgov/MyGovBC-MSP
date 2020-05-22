@@ -64,7 +64,7 @@
     <common-radio
       name="outsideOver30Days_{{objectId}}"
       [(ngModel)]="person.declarationForOutsideOver30Days"
-      label="Has this family member been outside B.C. for more than a total of 30 days during the past 12 months?"
+      label="Has {{possessiveRelationshipNoun}} been outside B.C. for more than a total of 30 days during the past 12 months?"
       required>
     </common-radio>
   </div>
@@ -132,7 +132,7 @@ and check departure was within last 12 months - need to find error messages for 
     <common-radio
       name="outsideOver30Days_{{objectId}}"
       [(ngModel)]="person.declarationForOutsideOver60Days"
-      label="Will this family member be outside B.C. for more than a total of 30 days during the next 6 months?"
+      label="Will {{possessiveRelationshipNoun}} be outside B.C. for more than a total of 30 days during the next 6 months?"
       required>
     </common-radio>
   </div>
@@ -198,7 +198,7 @@ and check departure was within last 12 months - need to find error messages for 
     <common-radio
       name="armedForces_{{objectId}}"
       [(ngModel)]="person.hasBeenReleasedFromArmedForces"
-      label="Have they been released from the Canadian Armed Forces or an institution?"
+      label="Has {{possessiveRelationshipNoun}} been released from the Canadian Armed Forces or an institution?"
       required>
     </common-radio>
   </div>
