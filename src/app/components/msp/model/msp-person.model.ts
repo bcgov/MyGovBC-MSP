@@ -41,6 +41,7 @@ export class MspPerson implements ICanadianStatus {
     nameChangeDocs: SupportDocuments = new SupportDocuments();
     nameChangeAdditionalDocs: SupportDocuments = new SupportDocuments();
     hasNameChange: boolean;
+    hasNameChangeAdditional: boolean;
 
     assistYearDocs: CommonImage[] = [];
 
