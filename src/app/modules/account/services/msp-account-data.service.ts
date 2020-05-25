@@ -130,6 +130,7 @@ export class MspAccountMaintenanceDataService {
     dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
 
     dto.hasNameChange = input.hasNameChange;
+    dto.hasNameChangeAdditional = input.hasNameChangeAdditional;
 
 
     //= input.updateNameDueToMarriageDoc;
@@ -263,6 +264,7 @@ export class MspAccountMaintenanceDataService {
     output.previous_phn = dto.previous_phn;
 
     output.hasNameChange = dto.hasNameChange;
+    output.hasNameChangeAdditional = dto.hasNameChangeAdditional;
     output.nameChangeDocs = dto.nameChangeDocs;
 
     output.relationship = dto.relationship;
