@@ -93,29 +93,6 @@
       </div>
     </div>
 
-  <div *ngIf="hasActiveMedicalCoverage == false">
-    <!-- Is this child newly adopted? -->
-    <div class="form-group">
-      <common-radio
-        name="newAdopted_{{objectId}}"
-        [(ngModel)]="newlyAdopted"
-        label="Is this child newly adopted?"
-        [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'>
-      </common-radio>
-    </div>
-
-    <div *ngIf="newlyAdopted" class="col-sm-4 add-document">
-      <common-date
-        name="newlyAdopted"
-        id="newlyAdopted"
-        label="Adoption date"
-        [(ngModel)]="child.newlyAdopted"
-        [restrictDate]="'past'"
-        required>
-      </common-date>
-    </div>
-  </div>
-
     <!-- Child's Residency Information -->
     <msp-child-moving-information
       [person]="child">
