@@ -1,3 +1,19 @@
 .horizontal-line {
   border-bottom: 1px solid black;
 }
+
+@media (max-width: 1340px) {
+  .address-subtitle {
+    min-height: 45px;
+  }
+}
+@media (max-width: 880px) {
+  .address-subtitle {
+    min-height: 64px;
+  }
+}
+@media (max-width: 768px) {
+  .address-subtitle {
+    min-height: auto;
+  }
+}
