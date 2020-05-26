@@ -227,7 +227,7 @@ export class MspApiAccountService extends AbstractHttpService {
         attachment.uuid;
 
       // programArea
-      url += '?programArea=enrolment';
+      url += '?programArea=ENROLMENT';
 
       // attachmentDocumentType - UI does NOT collect this property
       url += '&attachmentDocumentType=' + MspApiService.AttachmentDocumentType;
