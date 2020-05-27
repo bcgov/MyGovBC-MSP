@@ -45,6 +45,7 @@ module.exports = {
     marriageDateLabel:'Marriage Date',
   editButton: 'Edit {label}',
 
+  documentsLabel: 'Documents',
   statusInCanadaLabel: 'Status in Canada',
   updateStatusInCanadaLabel: 'Update/renew status in Canada',
   updateNameDueToMarriageLabel: 'Update name - due to marriage',
