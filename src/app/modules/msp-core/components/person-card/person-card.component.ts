@@ -46,6 +46,32 @@ export class MspPersonCardComponent {
     return statusInCanadaStrings[this.person.status];
   }
 
+  get documentCountForAccountHolder(): number {
+    let count = 0;
+    if (this.person.updateStatusInCanada){
+      count = count + this.person.updateStatusInCanadaDoc.length;
+    }
+    if (this.person.updateNameDueToMarriage){
+      count = count + this.person.updateNameDueToMarriageDoc.length;
+    }
+    if (this.person.updateNameDueToNameChange){
+      count = count + this.person.updateNameDueToNameChangeDoc.length;
+    }
+    if (this.person.updateGender){
+      count = count + this.person.updateGenderDoc.length;
+    }
+    if (this.person.updateNameDueToError){
+      count = count + this.person.updateNameDueToErrorDoc.length;
+    }
+    if (this.person.updateBirthdate){
+      count = count + this.person.updateBirthdateDoc.length;
+    }
+    if (this.person.updateGenderDesignation){
+      count = count + this.person.updateGenderDesignationDoc.length;
+    }
+    return count;
+  }
+
   get movedFromLabel(): string {
     if (this.person.status === StatusInCanada.TemporaryResident ||
       this.person.currentActivity === CanadianStatusReason.MovingFromCountry) {
