@@ -96,7 +96,7 @@
       </div>
 
       <!-- Add/Remove/Update Buttons-->
-      <div *ngIf="(showAddSpouse || showUpdateSpouse || showRemoveSpouse)">
+      <div *ngIf="((showAddSpouse && showAddedSpouseBottomButtons) || showUpdateSpouse || showRemoveSpouse)">
         <p class="horizontal-line"></p>
 
         <div class="row">

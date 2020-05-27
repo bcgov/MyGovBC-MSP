@@ -131,6 +131,10 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
     return this.dataService.getMspAccountApp().updatedSpouse;
   }
 
+  get showAddedSpouseBottomButtons(): boolean {
+    return this.accountApp.addedSpouse.immigrationStatusChange !== undefined;
+  }
+
   checkDocumentsForUpdatedSpouse(){
     let valid = true;
     if (this.updatedSpouse.updateStatusInCanada  === true){
