@@ -46,6 +46,13 @@ export class MspPersonCardComponent {
     return statusInCanadaStrings[this.person.status];
   }
 
+  get hasDocumentAttached(): boolean {
+    return this.person.updateStatusInCanada || this.person.updateNameDueToMarriage
+    || this.person.updateNameDueToNameChange || this.person.updateGender
+    || this.person.updateNameDueToError || this.person.updateBirthdate
+    || this.person.updateGenderDesignation;
+  }
+
   get documentCountForAccountHolder(): number {
     let count = 0;
     if (this.person.updateStatusInCanada){

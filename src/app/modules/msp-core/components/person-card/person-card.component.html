@@ -342,6 +342,15 @@
     </div>
   </div>
 
+  <div class="row" *ngIf="hasDocumentAttached">
+    <div class="col-sm-4">
+        {{lang('./en/index.js').statusInCanadaLabel}}
+    </div>
+    <div class="col-sm-8">
+      <strong>{{documentCountForAccountHolder}}</strong>
+    </div>
+  </div>
+
   <div class="row" *ngIf="person.updateStatusInCanada === true">
       <div class="col-sm-4">
           {{lang('./en/index.js').updateStatusInCanadaLabel}}
