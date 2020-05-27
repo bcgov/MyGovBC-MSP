@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Router } from '@angular/router';
-import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason, statusInCanadaStrings } from '../../models/canadian-status.enum';
 import { getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import { getStatusStrings, getStatusReasonStrings } from '../canadian-status/canadian-status.component';
 import { Relationship } from '../../../../models/relationship.enum';
@@ -40,6 +40,10 @@ export class MspPersonCardComponent {
 
   editPersonalInfo() {
     this._router.navigate([this.editRouterLink]);
+  }
+
+  get statusInCanadaLabel(): string {
+    return statusInCanadaStrings[this.person.status];
   }
 
   get movedFromLabel(): string {

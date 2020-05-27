@@ -103,6 +103,7 @@
       <strong>{{person.reasonForCancellation}}</strong>
     </div>
   </div>
+
   <div class="row" *ngIf="person.cancellationDate && person.operationActionType == 1">
     <div class="col-sm-4">
       {{lang('./en/index.js').cancellationDateLabel}}
@@ -332,6 +333,15 @@
     </div>
   </div>
   <!-- DEAM Added Info -->
+  <div class="row" *ngIf="person.status >= 0">
+    <div class="col-sm-4">
+        {{lang('./en/index.js').statusInCanadaLabel}}
+    </div>
+    <div class="col-sm-8">
+      <strong>{{statusInCanadaLabel}}</strong>
+    </div>
+  </div>
+
   <div class="row" *ngIf="person.updateStatusInCanada === true">
       <div class="col-sm-4">
           {{lang('./en/index.js').updateStatusInCanadaLabel}}
