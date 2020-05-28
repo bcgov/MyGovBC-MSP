@@ -4,3 +4,11 @@
   padding-top: 2rem !important;
   padding-left: 0rem;
 }
+
+:host {
+  common-page-section {
+    aside {
+      margin-top: 0 !important;
+    }
+  }
+}
