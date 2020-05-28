@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Router } from '@angular/router';
-import { StatusInCanada, CanadianStatusReason, statusInCanadaStrings } from '../../models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason, statusInCanadaStrings, CanadianStatusReasonStrings } from '../../models/canadian-status.enum';
 import { getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import { getStatusStrings, getStatusReasonStrings } from '../canadian-status/canadian-status.component';
 import { Relationship } from '../../../../models/relationship.enum';
@@ -44,6 +44,39 @@ export class MspPersonCardComponent {
 
   get statusInCanadaLabel(): string {
     return statusInCanadaStrings[this.person.status];
+  }
+
+  get currentActivityLabel(): string {
+    if (this.person.currentActivity === undefined){
+      return '';
+    }
+    const currentActivity = '> ';
+    switch (this.person.currentActivity) {
+      case CanadianStatusReason.LivingInBCWithoutMSP: {
+        return currentActivity + CanadianStatusReasonStrings.LivingInBCWithoutMSP;
+      }
+      case CanadianStatusReason.MovingFromProvince: {
+        return currentActivity + CanadianStatusReasonStrings.MovingFromProvince;
+      }
+      case CanadianStatusReason.MovingFromCountry: {
+        return currentActivity + CanadianStatusReasonStrings.MovingFromCountry;
+      }
+      case CanadianStatusReason.WorkingInBC: {
+        return currentActivity + CanadianStatusReasonStrings.WorkingInBC;
+      }
+      case CanadianStatusReason.StudyingInBC: {
+        return currentActivity + CanadianStatusReasonStrings.StudyingInBC;
+      }
+      case CanadianStatusReason.ReligiousWorker: {
+        return currentActivity + CanadianStatusReasonStrings.ReligiousWorker;
+      }
+      case CanadianStatusReason.Diplomat: {
+        return currentActivity + CanadianStatusReasonStrings.Diplomat;
+      }
+      case CanadianStatusReason.Visiting: {
+        return currentActivity + CanadianStatusReasonStrings.Visiting;
+      }
+    }
   }
 
   get hasDocumentAttached(): boolean {
