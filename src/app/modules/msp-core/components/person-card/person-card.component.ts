@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Router } from '@angular/router';
-import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason, statusInCanadaStrings } from '../../models/canadian-status.enum';
 import { getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import { getStatusStrings, getStatusReasonStrings } from '../canadian-status/canadian-status.component';
 import { Relationship } from '../../../../models/relationship.enum';
@@ -40,6 +40,46 @@ export class MspPersonCardComponent {
 
   editPersonalInfo() {
     this._router.navigate([this.editRouterLink]);
+  }
+
+  get statusInCanadaLabel(): string {
+    return statusInCanadaStrings[this.person.status];
+  }
+
+  get hasDocumentAttached(): boolean {
+    return this.person.updateStatusInCanada || this.person.updateNameDueToMarriage
+    || this.person.updateNameDueToNameChange || this.person.updateGender
+    || this.person.updateNameDueToError || this.person.updateBirthdate
+    || this.person.updateGenderDesignation;
+  }
+
+  get documentCountForAccountHolder(): number {
+    let count = 0;
+    if (this.person.updateStatusInCanada === true){
+      count = count + this.person.updateStatusInCanadaDocType.images.length;
+    }
+    if (this.person.updateNameDueToMarriage){
+      count = count + this.person.updateNameDueToMarriageDocType.images.length;
+    }
+    if (this.person.updateNameDueToNameChange){
+      count = count + this.person.updateNameDueToNameChangeDocType.images.length;
+    }
+    if (this.person.updateGender){
+      count = count + this.person.updateGenderDocType.images.length + this.person.updateGenderDocType2.images.length;
+      if (this.person.updateGenderDocType3.images){
+        count = count + this.person.updateGenderDocType3.images.length;
+      }
+    }
+    if (this.person.updateNameDueToError){
+      count = count + this.person.updateNameDueToErrorDocType.images.length;
+    }
+    if (this.person.updateBirthdate){
+      count = count + this.person.updateBirthdateDocType.images.length;
+    }
+    if (this.person.updateGenderDesignation){
+      count = count + this.person.updateGenderDesignationDocType.images.length;
+    }
+    return count;
   }
 
   get movedFromLabel(): string {
