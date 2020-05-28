@@ -1,5 +1,5 @@
 import { Component, OnInit, forwardRef, EventEmitter, Input, Output } from '@angular/core';
-import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST } from 'moh-common-lib';
+import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST, ErrorMessage } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { environment } from '../../../../../environments/environment';
@@ -38,6 +38,12 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   }).filter( x => x );
 
   relationship: string = 'you';
+  departureDateErrorMessage: ErrorMessage = {
+    invalidRange: 'Date must be before return date.'
+  }
+  returnDateErrorMessage: ErrorMessage = {
+    invalidRange: 'Date must be after departure date.'
+  }
 
   constructor() {
     super();
