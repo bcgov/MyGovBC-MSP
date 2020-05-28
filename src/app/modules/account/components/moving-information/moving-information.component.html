@@ -177,8 +177,9 @@ and check departure was within last 12 months - need to find error messages for 
       <common-date
         name="over30DaysDeparture"
         label="Departure date"
-        [restrictDate]="'past'"
-        [(ngModel)]="person.departureDateDuring6MonthsDate">
+        [(ngModel)]="person.departureDateDuring6MonthsDate"
+        [dateRangeEnd]='person.returnDateDuring6MonthsDate'
+        [errorMessage]='departureDateErrorMessage'>
       </common-date>
     </div>
 
@@ -186,8 +187,9 @@ and check departure was within last 12 months - need to find error messages for 
       <common-date
         name="over30DaysReturn"
         label="Return date"
-        [restrictDate]="'past'"
-        [(ngModel)]="person.returnDateDuring6MonthsDate">
+        [(ngModel)]="person.returnDateDuring6MonthsDate"
+        [dateRangeStart]='person.departureDateDuring6MonthsDate'
+        [errorMessage]='returnDateErrorMessage'>
       </common-date>
     </div>
 <!--TODO: Need to do checks to ensure return date is greater than departure date
