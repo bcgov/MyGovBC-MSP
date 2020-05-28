@@ -7,6 +7,7 @@ import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models
 import { spouseRemovedDueToDivorceDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 import { CancellationReasons } from '../../../../../models/status-activities-documents';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
+import { ErrorMessage } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-remove-spouse',
@@ -32,6 +33,9 @@ export class RemoveSpouseComponent extends BaseComponent {
   accountHolderSubtitle: string = 'Please provide the Account Holder’s personal information for verification purposes.';
   @Input() spouse: MspPerson;
   updateList: UpdateList[];
+  dateErrorMessage: ErrorMessage = {
+    noFutureDatesAllowed: 'Date must be in the past.'
+  };
 
   spouseRemoveDocs = spouseRemovedDueToDivorceDocuments();
 
