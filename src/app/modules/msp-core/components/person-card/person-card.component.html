@@ -136,7 +136,7 @@
       {{lang('./en/index.js').arrivedToBCLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{person.arrivalToBC.format(dateFormat)}}</strong>
+      <strong>{{formatDateField(person.arrivalToBCDate)}}</strong>
     </div>
   </div>
 
@@ -145,7 +145,7 @@
       {{lang('./en/index.js').arrivedToCanadaLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{person.arrivalToCanada.format(dateFormat)}}</strong>
+      <strong>{{formatDateField(person.arrivalToCanadaDate)}}</strong>
     </div>
   </div>
   <div class="row" *ngIf="person.declarationForOutsideOver30Days">
@@ -338,7 +338,7 @@
         {{lang('./en/index.js').statusInCanadaLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{statusInCanadaLabel}}</strong>
+      <strong>{{statusInCanadaLabel}} {{currentActivityLabel}}</strong>
     </div>
   </div>
 
