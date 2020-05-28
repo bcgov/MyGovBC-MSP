@@ -25,7 +25,8 @@
       label="Date of separation/divorce"
       [restrictDate]="'past'"
       [(ngModel)]="spouse.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();">
+      (ngModelChange)="this.dataService.saveMspAccountApp();"
+      [errorMessage]='dateErrorMessage'>
     </common-date>
   </div>
 
@@ -70,7 +71,8 @@
     label="Date to remove from account but still married / common-law"
     [restrictDate]="'past'"
     [(ngModel)]="spouse.cancellationDate"
-    (ngModelChange)="this.dataService.saveMspAccountApp();">
+    (ngModelChange)="this.dataService.saveMspAccountApp();"
+    [errorMessage]='dateErrorMessage'>
   </common-date>
 </div>
 
@@ -79,7 +81,8 @@
     label="Date of deceased"
     [restrictDate]="'past'"
     [(ngModel)]="spouse.cancellationDate"
-    (ngModelChange)="this.dataService.saveMspAccountApp();">
+    (ngModelChange)="this.dataService.saveMspAccountApp();"
+    [errorMessage]='dateErrorMessage'>
   </common-date>
 </div>
 
@@ -94,7 +97,8 @@
     label="Date spouse became Armed Forces"
     [restrictDate]="'past'"
     [(ngModel)]="spouse.cancellationDate"
-    (ngModelChange)="this.dataService.saveMspAccountApp();">
+    (ngModelChange)="this.dataService.saveMspAccountApp();"
+    [errorMessage]='dateErrorMessage'>
   </common-date>
 </div>
 
@@ -103,7 +107,8 @@
     label="Date incarcerated"
     [restrictDate]="'past'"
     [(ngModel)]="spouse.cancellationDate"
-    (ngModelChange)="this.dataService.saveMspAccountApp();">
+    (ngModelChange)="this.dataService.saveMspAccountApp();"
+    [errorMessage]='dateErrorMessage'>
   </common-date>
 </div>
 
