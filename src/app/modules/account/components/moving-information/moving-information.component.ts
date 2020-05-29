@@ -5,6 +5,7 @@ import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/c
 import { environment } from '../../../../../environments/environment';
 import { Relationship } from 'app/models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { formatDateField } from '../../helpers/date';
 
 // TO BE removed - differenece need to be added to msp-core moving-info so that it will work with account
 @Component({
@@ -47,6 +48,10 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   dischargeDateErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be greater than the date of birth.'
   }
+  departure12MonthsErrorMessage: ErrorMessage = {
+    invalidRange: 'Date must be within the last 12 months.'
+  }
+  dateToday: Date = new Date();
 
   constructor() {
     super();
@@ -158,6 +163,36 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     }
     else {
       return null;
+    }
+  }
+
+  get date12MonthsAgo(): Date {
+    const date: Date = new Date();
+    date.setFullYear(date.getFullYear() - 1);
+    return date;
+  }
+
+  get mostRecentMoveToBCErrorMessage() {
+    if (this.person.dateOfBirth) {
+      return {
+        invalidRange: `Date must be between ${formatDateField(this.person.dateOfBirth)} and ${formatDateField(this.dateToday)}.`
+      }
+    } else {
+      return {
+        invalidRange: `Date must be before ${formatDateField(this.dateToday)}.`
+      }
+    }
+  }
+
+  get arrivalDateInCanadaErrorMessage() {
+    if (this.person.dateOfBirth && this.person.arrivalToBCDate) {
+      return {
+        invalidRange: `Date must be between ${formatDateField(this.person.dateOfBirth)} and ${formatDateField(this.person.arrivalToBCDate)}.`
+      }
+    } else {
+      return {
+        invalidRange: `Date must be before ${formatDateField(this.dateToday)}.`
+      }
     }
   }
 }
