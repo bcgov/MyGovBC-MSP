@@ -44,6 +44,9 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   returnDateErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be after departure date.'
   }
+  dischargeDateErrorMessage: ErrorMessage = {
+    invalidRange: 'Date must be greater than the date of birth.'
+  }
 
   constructor() {
     super();
@@ -144,6 +147,17 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
         return 'your spouse';
       default:
         return 'the child'
+    }
+  }
+
+  get startDischargeDate() {
+    if (this.person.dateOfBirth){
+      const startDate = this.person.dateOfBirth;
+      startDate.setDate(this.person.dateOfBirth.getDate() + 1);
+      return startDate;
+    }
+    else {
+      return null;
     }
   }
 }

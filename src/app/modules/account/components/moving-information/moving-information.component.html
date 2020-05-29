@@ -210,7 +210,8 @@ and check departure was within last 12 months - need to find error messages for 
       <common-date
         name="releasedFromArmedForcesDischarge"
         label="Discharge date"
-        [restrictDate]="'past'"
+        [dateRangeStart]="startDischargeDate"
+        [errorMessage]='dischargeDateErrorMessage'
         [(ngModel)]="person.dischargeDate"
         required>
       </common-date>
