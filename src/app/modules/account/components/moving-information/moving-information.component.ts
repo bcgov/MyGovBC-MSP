@@ -45,6 +45,9 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   returnDateErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be after departure date.'
   }
+  dischargeDateErrorMessage: ErrorMessage = {
+    invalidRange: 'Date must be greater than the date of birth.'
+  }
   departure12MonthsErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be within the last 12 months.'
   }
@@ -152,6 +155,17 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     }
   }
 
+  get startDischargeDate() {
+    if (this.person.dateOfBirth){
+      const startDate = this.person.dateOfBirth;
+      startDate.setDate(this.person.dateOfBirth.getDate() + 1);
+      return startDate;
+    }
+    else {
+      return null;
+    }
+  }
+
   get date12MonthsAgo(): Date {
     const date: Date = new Date();
     date.setFullYear(date.getFullYear() - 1);
@@ -181,5 +195,4 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       }
     }
   }
-
 }
