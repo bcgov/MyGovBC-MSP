@@ -114,8 +114,10 @@
       <common-date
         name="DepartureDate"
         label="Departure date"
-        [restrictDate]="'past'"
-        [(ngModel)]="person.departureDateDuring12MonthsDate">
+        [(ngModel)]="person.departureDateDuring12MonthsDate"
+        [dateRangeStart]='date12MonthsAgo'
+        [dateRangeEnd]='dateToday'
+        [errorMessage]='departure12MonthsErrorMessage'>
       </common-date>
     </div>
 
@@ -123,8 +125,9 @@
       <common-date
         name="ReturnDate"
         label="Return date"
-        [restrictDate]="'past'"
-        [(ngModel)]="person.returnDateDuring12MonthsDate">
+        [(ngModel)]="person.returnDateDuring12MonthsDate"
+        [dateRangeStart]='person.departureDateDuring12MonthsDate'
+        [errorMessage]='returnDateErrorMessage'>
       </common-date>
 
 <!--TODO: Need to do checks to ensure return date is greater than departure date

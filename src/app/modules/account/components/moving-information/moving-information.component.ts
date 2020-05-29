@@ -45,6 +45,9 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   returnDateErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be after departure date.'
   }
+  departure12MonthsErrorMessage: ErrorMessage = {
+    invalidRange: 'Date must be within the last 12 months.'
+  }
   dateToday: Date = new Date();
 
   constructor() {
@@ -147,6 +150,12 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       default:
         return 'the child'
     }
+  }
+
+  get date12MonthsAgo(): Date {
+    const date: Date = new Date();
+    date.setFullYear(date.getFullYear() - 1);
+    return date;
   }
 
   get mostRecentMoveToBCErrorMessage() {
