@@ -633,8 +633,6 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
 
   if (from.mailingAddress) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
-  } else {
-      to.mailingAddress = this.unknownAddress();
   }
 
   return to;
