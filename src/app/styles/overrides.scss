@@ -207,3 +207,8 @@ common-checkbox {
     padding-left: 0.5rem;
   }
 }
+
+//Make radio buttons focusable.
+.md-radio input[type=radio] {
+  display: inline-block !important;
+}

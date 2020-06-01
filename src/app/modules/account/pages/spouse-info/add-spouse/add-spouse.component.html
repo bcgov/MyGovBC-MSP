@@ -101,12 +101,16 @@
   </div>
 
   <!-- Marriage date (optional) -->
-  <div class="form-group" style="width: 500px;">
-    <common-date
-      label="Marriage date (optional)"
-      [restrictDate]="'past'"
-      [(date)]="spouse.marriageDate">
-    </common-date>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <common-date
+          label="Marriage date (optional)"
+          [restrictDate]="'past'"
+          [(date)]="spouse.marriageDate">
+        </common-date>
+      </div>
+    </div>
   </div>
 
   <!-- Has your spouse's name changed due to marriage? -->
