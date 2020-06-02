@@ -7,3 +7,9 @@
 .horizontal-line{
   border-bottom: 1px solid black;
 }
+
+:host {
+  .card-body {
+    background-color: #F2F2F2;
+  }
+}
