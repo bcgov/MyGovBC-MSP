@@ -1,15 +1,21 @@
 <ng-content select="[sectionTitleInfo]"></ng-content>
 <div class="d-flex flex-row align-items-stretch">
-  <div class="form-group col-sm-4 pl-0">
-    <common-dropdown
-      name="DocumentType_{{objectId}}"
-      label="Document Type"
-      [items]="availableSupportDocuments"
-      placeholder="Please Select"
-      [clearable]="false"
+  <div class="form-group col-sm-6 pl-0">
+    <label for="supportDocType" class="control-label">Document Type</label>
+    <select class="custom-select"
+      id="supportDocType"
       [(ngModel)]="documentType"
-      required>
-    </common-dropdown>
+      [ngModelOptions]="{standalone: true}"
+      (ngModelChange)="documentType = $event;">
+      <ng-container>
+        <option selected value="null" disabled="true">Please Select</option>
+        <option *ngFor="let item of availableSupportDocuments"
+          [ngValue]="item"
+          [selected]="documentType == item">
+          {{item}}
+        </option>
+      </ng-container>
+    </select>
   </div>
   <div *ngIf="displayButton" class="form-group col-sm-6 display--button">
     <common-button
