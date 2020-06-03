@@ -19,9 +19,6 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
     mspAccountApp: MspAccountApp;
     captchaApiBaseUrl: string;
     @ViewChild(NgForm) form: NgForm;
-    addChildIndex = 0;
-    removeChildIndex = 0;
-    updateChildIndex = 0;
 
     constructor(public dataService: MspAccountMaintenanceDataService,
                     protected router: Router,  private pageStateService: PageStateService) {
@@ -89,18 +86,15 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
     }
 
     get addChildTitle() {
-        this.addChildIndex++;
-        return 'Add Child #' + this.addChildIndex + ' Information';
+        return 'Add Child Information #';
     }
 
     get removeChildTitle() {
-        this.removeChildIndex++;
-        return 'Remove Child #' + this.removeChildIndex + ' Information';
+        return 'Remove Child Information #';
     }
 
     get updateChildTitle() {
-        this.updateChildIndex++;
-        return 'Update Child #' + this.updateChildIndex + ' Information';
+        return 'Update Child Information #';
     }
 
     get spouseForAuthorisation(): MspPerson {
