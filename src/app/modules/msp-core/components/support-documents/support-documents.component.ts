@@ -227,7 +227,7 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   }
 
   get documentType() {
-    return this.supportDoc.documentType;
+    return this.supportDoc.documentType || '';
   }
 
   set documentType( doc: string ) {
