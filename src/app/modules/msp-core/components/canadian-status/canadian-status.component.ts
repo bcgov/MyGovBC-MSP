@@ -123,7 +123,7 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
    * Gets status available to the current person
    */
   get statusInCanada(): string {
-    return this.person.status !== undefined ? this.statusOpts[this.person.status] : undefined;
+    return this.person.status !== undefined ? this.statusOpts[this.person.status] : '';
   }
 
   set statusInCanada( val: string ) {

@@ -3,12 +3,14 @@
   <div class="form-group col-sm-8 pl-0">
     <label for="supportDocType" class="control-label">Document Type</label>
     <select class="custom-select"
+      #docTypeRef="ngModel"
       id="supportDocType"
       [(ngModel)]="documentType"
       [ngModelOptions]="{standalone: true}"
-      (ngModelChange)="documentType = $event;">
+      (ngModelChange)="documentType = $event;"
+      required>
       <ng-container>
-        <option selected value="null" disabled="true">Please Select</option>
+        <option selected value="" disabled="true">Please Select</option>
         <option *ngFor="let item of availableSupportDocuments"
           [ngValue]="item"
           [selected]="documentType == item">
@@ -16,6 +18,10 @@
         </option>
       </ng-container>
     </select>
+    <common-error-container
+      [displayError]="docTypeRef.error?.required">
+      Support document is required.
+    </common-error-container>
   </div>
   <div *ngIf="displayButton" class="form-group col-sm-4 display--button">
     <common-button
