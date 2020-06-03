@@ -299,8 +299,7 @@ class MspAccountApp implements ApplicationBase {
    */
     getAllImages(): CommonImage[] {
         const images: CommonImage[] = [];
-        const persons: MspPerson[] = this.allPersonsInPI;
-
+        const persons: MspPerson[] = this.allPersons;
         for (var index in persons) {
             images.push(...persons[index].getAllImages())
         }
