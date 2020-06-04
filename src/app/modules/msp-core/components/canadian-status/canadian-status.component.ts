@@ -8,7 +8,7 @@ import { Base } from 'moh-common-lib';
  * TODO: May be able to remove once re-factor done
  * @param relationship
  */
-export function statusRules( relationship: Relationship ): StatusInCanada[] {
+export function statusRules(relationship: Relationship): StatusInCanada[] {
   switch (relationship) {
     default:
       return [
@@ -24,8 +24,8 @@ export function statusRules( relationship: Relationship ): StatusInCanada[] {
  * @param relationship
  * @param status
  */
-export function statusReasonRules( relationship: Relationship,
-                                   status: StatusInCanada ): CanadianStatusReason[] {
+export function statusReasonRules(relationship: Relationship,
+                                  status: StatusInCanada): CanadianStatusReason[] {
   switch (status) {
     case StatusInCanada.CitizenAdult:
     case StatusInCanada.PermanentResident:
@@ -64,11 +64,11 @@ export function statusReasonRules( relationship: Relationship,
 }
 
 export function getStatusStrings(): string[] {
-  return Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+  return Object.keys(CanadianStatusStrings).map(x  => CanadianStatusStrings[x]);
 }
 
 export function getStatusReasonStrings(): string[] {
-  return Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
+  return Object.keys(CanadianStatusReasonStrings).map(x  => CanadianStatusReasonStrings[x]);
 }
 
 /**
@@ -126,9 +126,9 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
     return this.person.status !== undefined ? this.statusOpts[this.person.status] : '';
   }
 
-  set statusInCanada( val: string ) {
+  set statusInCanada(val: string) {
 
-    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === val );
+    const status = Object.keys(CanadianStatusStrings).find(x => CanadianStatusStrings[x] === val);
 
     this.person.status = StatusInCanada[status];
 
@@ -141,7 +141,7 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
   get displayStatusReasons() {
     let show = (this.statusInCanada !== undefined);
     if (show && this.hideStatusReasons.length > 0) {
-      const tmp = this.hideStatusReasons.find( x => x === this.person.status );
+      const tmp = this.hideStatusReasons.find(x => x === this.person.status);
       show = tmp === undefined ? true : false;
     }
     return show;
@@ -166,7 +166,7 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
   get reasonList() {
     // Get the status reason list available for the selected status
     if (!this.statusReasonList) {
-      return statusReasonRules( this.person.relationship, this.person.status );
+      return statusReasonRules(this.person.relationship, this.person.status);
     }
     return this.statusReasonList;
   }
@@ -175,12 +175,12 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
     return this.person.currentActivity;
   }
 
-  set statusReason( reason: CanadianStatusReason ) {
+  set statusReason(reason: CanadianStatusReason) {
     this.person.currentActivity = reason;
 
     if (this.person.clearData) {
       // Clear data
-      this.person.clearData( this.person );
+      this.person.clearData(this.person);
     }
     this.personChange.emit(this.person);
   }

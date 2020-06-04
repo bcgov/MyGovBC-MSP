@@ -20,12 +20,13 @@
     </select>
   </div>
   <div *ngIf="displayStatusReasons" class="form-group col-sm-8">
-    <common-radio name="statausReason_{{objectId}}"
-                  id="statausReason_{{objectId}}"
-                  [radioLabels]="availableStatusReasons"
-                  [(ngModel)]="statusReason"
-                  display="table-row-group"
-                  required>
+    <common-radio
+      name="statusReason_{{objectId}}"
+      id="statusReason_{{objectId}}"
+      [radioLabels]="availableStatusReasons"
+      [(ngModel)]="statusReason"
+      display="table-row-group"
+      required>
     </common-radio>
   </div>
 </common-page-section>

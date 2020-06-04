@@ -2,8 +2,8 @@
 <common-page-section layout="tips">
   <div *ngIf="requestLivedInBC" class="form-group p-sm-2 pl-0">
     <common-radio name="livedInBCSinceBirth_{{objectId}}"
-                  [(ngModel)]="person.livedInBCSinceBirth"  
-                  label="{{livedInBCSinceBirthLabel}}" 
+                  [(ngModel)]="person.livedInBCSinceBirth"
+                  label="{{livedInBCSinceBirthLabel}}"
                   required>
     </common-radio>
   </div>
@@ -14,20 +14,20 @@
                     [(ngModel)]="person.movedFromProvinceOrCountry"
                     required>
     </common-country>
-  </div> 
+  </div>
 
   <div *ngIf="requestPermMoveInfo" class="form-group">
     <!--Temporary residents can continue whether or not they make the permanent move to BC-->
     <common-radio name="madePermanentMoveToBC_{{objectId}}"
-                  [(ngModel)]="person.madePermanentMoveToBC"  
+                  [(ngModel)]="person.madePermanentMoveToBC"
                   label="{{permanentMoveLabel}}"
                   required>
     </common-radio>
-    <common-error-container 
+    <common-error-container
       [displayError]="!canContinueProcess">
-      You have indicated that a recent move to B.C. is not permanent.  As a result, {{relationship}} {{canContinueProcessContextLabel}} 
+      You have indicated that a recent move to B.C. is not permanent.  As a result, {{relationship}} {{canContinueProcessContextLabel}}
       not eligible for enrolment in the Medical Services Plan.  Please contact
-      <a href="{{links.HIBC}}" target="_blank">Health Insurance BC</a> for further 
+      <a href="{{links.HIBC}}" target="_blank">Health Insurance BC</a> for further
       information.
     </common-error-container>
   </div>
@@ -78,11 +78,11 @@
             [(ngModel)]="person.healthNumberFromOtherProvince"
             maxlength="50">
     </div>
-    
+
     <div class="form-group">
       <common-radio name="outsideOver30Days_{{objectId}}"
-                    [(ngModel)]="person.outsideBCFor30Days"  
-                    label="{{absentLast12MonthsLabel}}" 
+                    [(ngModel)]="person.outsideBCFor30Days"
+                    label="{{absentLast12MonthsLabel}}"
                     instructionText="{{absentLast12MonthsInstruct}}"
                     required>
       </common-radio>
@@ -96,12 +96,12 @@
           <input #reasonRef="ngModel"
                  name="departureReason_{{objectId}}"
                  id="departureReason_{{objectId}}"
-                 type="text" 
+                 type="text"
                  class="form-control"
                  [(ngModel)]=person.departureReason
                  maxlength="20"
                  required>
-        <common-error-container 
+        <common-error-container
            [displayError]="(reasonRef.touched || reasonRef.dirty) && reasonRef.errors?.required">
             Reason for departure is required.
         </common-error-container>
@@ -114,12 +114,12 @@
           <input #destinationRef="ngModel"
                  name="departureDestination_{{objectId}}"
                  id="departureDestination_{{objectId}}"
-                 type="text" 
+                 type="text"
                  class="form-control"
                  [(ngModel)]=person.departureDestination
                  maxlength="20"
                  required>
-        <common-error-container 
+        <common-error-container
           [displayError]="(destinationRef.touched || destinationRef.dirty ) && destinationRef.errors?.required">
           Location is required.
         </common-error-container>
@@ -150,8 +150,8 @@
 
     <div class="form-group">
       <common-radio name="hasPreviousBCPhn_{{objectId}}"
-                    [(ngModel)]="person.hasPreviousBCPhn"  
-                    label="{{previousHealthNumberLabel}}" 
+                    [(ngModel)]="person.hasPreviousBCPhn"
+                    label="{{previousHealthNumberLabel}}"
                     required>
       </common-radio>
     </div>
@@ -162,10 +162,10 @@
                   [(ngModel)]="person.previousBCPhn">
       </common-phn>
     </div>
-    
+
     <div *ngIf="requestArmForceInfo" class="form-group">
       <common-radio name="armedForces_{{objectId}}"
-                    [(ngModel)]="person.hasBeenReleasedFromArmedForces"  
+                    [(ngModel)]="person.hasBeenReleasedFromArmedForces"
                     label="{{armedForceLabel}}"
                     required>
       </common-radio>
@@ -194,7 +194,7 @@
 </common-page-section>
 
 <ng-template #SelectCountry>
-  <div *ngIf="requestCountryMoveInfo" 
+  <div *ngIf="requestCountryMoveInfo"
        class="form-group col-sm-6 pl-0">
     <common-country name="movedFromCountry_{{objectId}}"
                     label="{{countryMoveLabel}}"

@@ -2,7 +2,7 @@ const fs = require('fs');
 /* tslint:disable */
 
 // This files is called in the npm pre-build hooks. It creates a generated
-// version file which can be loaded by app.component.ts to log out.  
+// version file which can be loaded by app.component.ts to log out.
 
 // It is important that this file is written in pure node-compatible JS so it
 // can run on Jenkins. However the genreated file is a .ts as it's consumed by

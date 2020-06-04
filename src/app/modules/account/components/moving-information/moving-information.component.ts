@@ -36,7 +36,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     if (x.provinceCode !== BRITISH_COLUMBIA) {
       return x;
     }
-  }).filter( x => x );
+  }).filter(x => x);
 
   relationship: string = 'you';
   departureDateErrorMessage: ErrorMessage = {
