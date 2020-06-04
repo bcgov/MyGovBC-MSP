@@ -59,22 +59,4 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
       }
     ];
   }
-
-   /* get activities(): Activities[] {
-      return ActivitiesRules.activitiesForAccountChange(
-          this.spouse.relationship,
-          this.spouse.status
-      );*/
-  }
-
-
-  /*get activitiesTable() {
-    if (!this.activities) return;
-    return this.activities.map(itm => {
-      const label = this.activityStatus[itm];
-      return {
-      label,
-      value: itm
-      };
-    });
-  }*/
+}
