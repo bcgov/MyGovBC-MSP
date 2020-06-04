@@ -72,10 +72,10 @@ export class UpdateRequestComponent extends Base {
     return this.person.updateStatusInCanadaDocType;
   }
 
-  set statusDocuments( document: SupportDocuments ) {
+  set statusDocuments(document: SupportDocuments) {
     this.person.updateStatusInCanadaDocType = document;
 
-    if ( document.images && document.images.length === 0 ) {
+    if (document.images && document.images.length === 0) {
       // no status documents remove any name documents
       this.person.nameChangeDocs.documentType = null;
       this.person.nameChangeDocs.images = [];
@@ -126,7 +126,7 @@ export class UpdateRequestComponent extends Base {
         return 'Child'
     }
   }
-  
+
   get possessiveRelationshipNoun() {
     switch (this.person.relationship) {
       case Relationship.Applicant:
