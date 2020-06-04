@@ -11,7 +11,7 @@
 <div *ngIf="spouse.immigrationStatusChange !== undefined">
   <div *ngIf="spouse.immigrationStatusChange == false">
     <!-- Spouse's Status in Canada -->
-    <div class="add-document">
+    <div class="col-sm-6 add-document">
       <msp-canadian-status
         [(person)]="spouse"
         label="{{statusLabel}}">

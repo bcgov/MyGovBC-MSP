@@ -1,6 +1,6 @@
 <ng-content select="[sectionTitleInfo]"></ng-content>
 <common-page-section layout="tips">
-  <div class="form-group">
+  <div *ngIf="isStatus == undefined || isCanadianNotBC || isResidentNotBC" class="form-group">
     <common-radio
       name="livedInBCSinceBirth_{{objectId}}"
       [(ngModel)]="person.livedInBCSinceBirth"
@@ -9,31 +9,40 @@
     </common-radio>
   </div>
 
-  <div *ngIf="person.livedInBCSinceBirth == false" class="add-document">
-    <div *ngIf="isCanadianFromProv || isCanadianFromCountry; else NewToBC" class="form-group col-sm-6 p-sm-2">
+  <div *ngIf="showRecentMove" class="form-group col-sm-6 p-sm-2 add-document">
+    <div >
       <common-date
         name="MostRecentMoveBC"
-        label="Most recent move to B.C."
+        label="Most recent move date to B.C."
         [(ngModel)]="person.arrivalToBCDate"
         [dateRangeStart]='person.dateOfBirth'
         [dateRangeEnd]='dateToday'
-        [errorMessage]='mostRecentMoveToBCErrorMessage'>
+        [errorMessage]='mostRecentMoveToBCErrorMessage'
+        required>
       </common-date>
     </div>
 
-    <div class="form-group col-sm-6 p-sm-2">
-      <common-date
-        name="ArrivalInCanada"
-        label="Arrival date in Canada{{!isCanadianFromCountry ? ' (optional)' : ''}}"
-        [(ngModel)]="person.arrivalToCanadaDate"
-        [required]="arrivalDateRequired"
-        [dateRangeStart]='person.dateOfBirth'
-        [dateRangeEnd]='person.arrivalToBCDate'
-        [errorMessage]='arrivalDateInCanadaErrorMessage'>
-      </common-date>
+    <div *ngIf="showFromProv">
+      <common-province
+        name="movedFromProvince_{{objectId}}"
+        [provinceList]="provinceList"
+        [(ngModel)]="person.movedFromProvinceOrCountry"
+        label="From province"
+        required>
+      </common-province>
     </div>
 
-    <div class="form-group col-sm-6 p-sm-2">
+    <div *ngIf="showFromCountry">
+      <common-country
+        name="movedFromCountry_{{objectId}}"
+        label="From country"
+        [countryList]="countryList"
+        [(ngModel)]="person.movedFromProvinceOrCountry"
+        required>
+      </common-country>
+    </div>
+
+    <div *ngIf="showHealthNumber">
       <label for="healthNumber_{{objectId}}" class="control-label">
         Medical plan card # in previous place of residence (optional)
       </label>
@@ -328,29 +337,3 @@ and check departure was within last 12 months - need to find error messages for 
     </div>
   </div>
 </common-page-section>
-
-<ng-template #SelectCountry>
-  <div *ngIf="isCanadianFromCountry || isResidentFromCountry"
-       class="form-group col-sm-6 p-sm-2">
-    <common-country
-      name="movedFromCountry_{{objectId}}"
-      label="Which country are {{relationship}} moving from?"
-      [countryList]="countryList"
-      [(ngModel)]="person.movedFromProvinceOrCountry"
-      required>
-    </common-country>
-  </div>
-</ng-template>
-
-<ng-template #NewToBC>
-  <div class="form-group col-sm-6 p-sm-2">
-    <common-date
-      name="recentMoveToBC__{{objectId}}"
-      label="Most recent move to B.C."
-      [(ngModel)]="person.arrivalToBCDate"
-      [dateRangeStart]='person.dateOfBirth'
-      [dateRangeEnd]='dateToday'
-      [errorMessage]='mostRecentMoveToBCErrorMessage'>
-    </common-date>
-  </div>
-</ng-template>
