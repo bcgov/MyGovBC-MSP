@@ -3,6 +3,7 @@ import {ConsentModalComponent} from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp } from '../../models/account.model';
+import { HeaderService } from '../../../../services/header.service';
 @Component({
   selector: 'msp-home',
   templateUrl: './home.component.html',
@@ -16,7 +17,9 @@ export class HomeComponent implements OnInit {
   addressChangeBCUrl: string;
   @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
 
-  constructor(private dataService: MspAccountMaintenanceDataService) { }
+  constructor(private dataService: MspAccountMaintenanceDataService, private header: HeaderService) { 
+    this.header.setTitle('Account Management');
+  }
 
   ngOnInit() {
     this.mspAccountApp = this.dataService.getMspAccountApp();
