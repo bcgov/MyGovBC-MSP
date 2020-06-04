@@ -630,20 +630,23 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
 
   if (from.mailingAddress) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
+  } else {
+      to.mailingAddress = this.unknownAddress();
   }
 
   return to;
-
+  
 }
 
 private unknownAddress(): AddressType {
   const to = AddressTypeFactory.make();
-  to.addressLine1 = 'UNKNOWN';
+  to.addressLine1 = '';
   to.addressLine2 = '';
   to.addressLine3 = '';
   to.city = '';
-  to.provinceOrState = '';
+  to.country = '';
   to.postalCode = '';
+  to.provinceOrState = '';
 
   return to;
 }
