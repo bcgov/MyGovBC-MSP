@@ -49,18 +49,4 @@ export class UpdateChildComponent implements OnInit {
       }
     ];
   }
-
- /* get activitiesTable() {
-    console.log(this.activities);
-    if (!this.activities) return;
-    return this.activities.map(itm => {
-      const label = this.activityStatus[itm];
-      console.log(itm);
-      console.log(label);
-      return {
-      label,
-      value: itm
-      };
-    });
-  }*/
 }

@@ -16,6 +16,7 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
   templateUrl: './personal-info.component.html',
   styleUrls: ['./personal-info.component.scss']
 })
+
 @Injectable()
 export class AccountPersonalInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
   static ProcessStepNum = 1;

@@ -85,17 +85,6 @@ export class AddSpouseComponent extends Base implements OnInit {
     return this.dataService.accountApp.isUniquePhnsInPI;
   }
 
-  activityStatus = {
-    0: 'Not new to B.C. but needs to apply for MSP',
-    1: 'Moved to B.C. from another province',
-    2: 'Moved to B.C. from another country',
-    3: 'Working in B.C.',
-    4: 'Studying in B.C.',
-    5: 'Religious worker',
-    6: 'Diplomat',
-    7: 'Visiting'
-  };
-
   get accountUpdateList(): UpdateList[] {
     return [
       {
