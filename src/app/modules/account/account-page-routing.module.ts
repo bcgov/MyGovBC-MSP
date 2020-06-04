@@ -5,7 +5,7 @@ import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { ChildInfoComponent } from './pages/child-info/child-info.component';
 import { ContactInfoComponent } from './pages/contact-info/contact-info.component';
 import { AuthorizeComponent } from './pages/authorize/authorize.component';
-
+import { HomeComponent } from './pages/home/home.component';
 import { AccountSendingComponent } from './pages/sending/sending.component';
 import { AccountConfirmationComponent } from './pages/confirmation/confirmation.component';
 
@@ -16,10 +16,6 @@ export const accountPages: Routes = [
     redirectTo: 'personal-info',
     pathMatch: 'full'
   },
-  /*{
-    path: 'prepare',
-    component: AccountPrepareComponent
-  },*/
   {
     path: 'personal-info',
     component: AccountPersonalInfoComponent,
