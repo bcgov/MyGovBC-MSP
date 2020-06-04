@@ -1,7 +1,7 @@
 <ng-content select="[sectionTitleInfo]"></ng-content>
 <common-page-section layout="tips">
   <ng-content select="[additionalInfo]"></ng-content>
-  <div *ngIf="displayStatusInCanada" class="form-group col-sm-12 p-0 mb-0 pr-1">
+  <div *ngIf="displayStatusInCanada" class="form-group">
     <select class="custom-select"
       #statusInCanadaRef="ngModel"
       id="StatusInCanada_{{objectId}}"
@@ -19,7 +19,7 @@
       </ng-container>
     </select>
   </div>
-  <div *ngIf="displayStatusReasons" class="form-group col-sm-8">
+  <div *ngIf="displayStatusReasons" class="form-group">
     <common-radio
       name="statusReason_{{objectId}}"
       id="statusReason_{{objectId}}"

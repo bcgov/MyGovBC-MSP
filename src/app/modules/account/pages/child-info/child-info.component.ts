@@ -34,13 +34,13 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   ngOnInit() {
     this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
     //this.children = this.dataService.accountApp.children;
-   if (this.dataService.accountApp.addedChildren.length > 0) {
-      this.showChild = true;
-   } else if (this.dataService.accountApp.removedChildren.length > 0) {
-      this.showRemoveChild = true;
-   } else if (this.dataService.accountApp.updatedChildren.length > 0) {
-      this.showUpdateChild = true;
-   }
+    if (this.dataService.accountApp.addedChildren.length > 0) {
+        this.showChild = true;
+    } else if (this.dataService.accountApp.removedChildren.length > 0) {
+        this.showRemoveChild = true;
+    } else if (this.dataService.accountApp.updatedChildren.length > 0) {
+        this.showUpdateChild = true;
+    }
   }
 
   ngOnDestroy() {
