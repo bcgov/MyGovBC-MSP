@@ -630,6 +630,8 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
 
   if (from.mailingAddress) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
+  } else {
+      to.mailingAddress = this.unknownAddress();
   }
 
   return to;
@@ -638,12 +640,13 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
 
 private unknownAddress(): AddressType {
   const to = AddressTypeFactory.make();
-  to.addressLine1 = 'UNKNOWN';
+  to.addressLine1 = '';
   to.addressLine2 = '';
   to.addressLine3 = '';
   to.city = '';
-  to.provinceOrState = '';
+  to.country = '';
   to.postalCode = '';
+  to.provinceOrState = '';
 
   return to;
 }
@@ -1103,7 +1106,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
         const accountHolder: AccountChangeAccountHolderType = AccountChangeAccountHolderFactory.make();
 
-        accountHolder.selectedAddRemove = from.accountChangeOptions.dependentChange ? 'Y' : 'N';
+        accountHolder.selectedAddRemove = (from.accountChangeOptions.dependentChange || from.addedChildren || from.removedChildren) ? 'Y' : 'N';
         accountHolder.selectedAddressChange = from.accountChangeOptions.addressUpdate ? 'Y' : 'N';
         accountHolder.selectedPersonalInfoChange = from.accountChangeOptions.personInfoUpdate ? 'Y' : 'N';
         accountHolder.selectedStatusChange = from.accountChangeOptions.statusUpdate ? 'Y' : 'N';
