@@ -82,7 +82,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     return this.person.relationship === Relationship.Child19To24;
   }
 
-  // Has status been selected
+  // Has a reason been selected
   get isStatus() {
     return this.person.currentActivity;
   }
@@ -208,45 +208,43 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     }
   }
 
+  get showlivedInBC() {
+    return (
+      this.person.status === StatusInCanada.CitizenAdult
+    );
+  }
 
   get showRecentMove() {
-    return  this.person.currentActivity !== undefined;
+    return this.person.currentActivity !== undefined;
   }
 
   get showFromProv() {
-    return  (
-              this.person.currentActivity === CanadianStatusReason.MovingFromProvince
-              || this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP
-            );
+    return ((
+      this.person.status === StatusInCanada.CitizenAdult &&
+      (this.person.currentActivity === CanadianStatusReason.MovingFromProvince ||
+      this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP)) ||
+      (this.person.status === StatusInCanada.PermanentResident &&
+      this.person.currentActivity === CanadianStatusReason.MovingFromProvince
+    ));
   }
 
   get showFromCountry() {
-    return  (
-              this.person.currentActivity === CanadianStatusReason.MovingFromCountry
-              || this.person.currentActivity === CanadianStatusReason.WorkingInBC
-            );
+    return ((
+      this.person.status === StatusInCanada.CitizenAdult &&
+      this.person.currentActivity === CanadianStatusReason.MovingFromCountry) ||
+      (this.person.status === StatusInCanada.PermanentResident &&
+      this.person.currentActivity === CanadianStatusReason.MovingFromCountry) ||
+      this.person.status === StatusInCanada.TemporaryResident
+    );
   }
 
   get showHealthNumber() {
-    return  (
-              (
-                this.person.currentActivity === CanadianStatusReason.MovingFromProvince
-                || this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP
-              )
-          &&  (
-                this.person.status !== StatusInCanada.TemporaryResident
-              )
-            )
-        ||  (
-              (
-                this.person.currentActivity === CanadianStatusReason.MovingFromCountry
-                || this.person.currentActivity === CanadianStatusReason.WorkingInBC
-              )
-          &&  (
-                this.person.status !== StatusInCanada.PermanentResident
-              )
-            );
+    return (
+      (this.person.status === StatusInCanada.CitizenAdult &&
+      (this.person.currentActivity === CanadianStatusReason.MovingFromProvince ||
+      this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP)) ||
+      (this.person.status === StatusInCanada.PermanentResident &&
+      this.person.currentActivity === CanadianStatusReason.MovingFromProvince)
+    );
   }
-
-
 }
