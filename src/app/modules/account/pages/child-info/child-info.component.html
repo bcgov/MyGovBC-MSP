@@ -42,7 +42,7 @@
       <br>
 
       <!--Add Child Section -->
-      <div *ngFor="let child of children; let idx = index">
+      <div *ngFor="let child of children; let idx = index" class="add-child">
         <h2><strong>Add Child #{{children.length - idx}}</strong></h2>
         <common-xicon-button
           label='Remove'
@@ -58,7 +58,7 @@
       </div>
 
       <!--Remove Child Section -->
-      <div *ngFor="let child of removedChildren; let idx = index">
+      <div *ngFor="let child of removedChildren; let idx = index" class="remove-child">
         <h2><strong>Remove Child #{{removedChildren.length - idx}}</strong></h2>
         <common-xicon-button
           label='Remove'
@@ -76,7 +76,7 @@
       </div>
 
       <!--Update Child Section -->
-      <div *ngFor="let child of updatedChildren; let idx = index">
+      <div *ngFor="let child of updatedChildren; let idx = index" class="update-child">
         <h2><strong>Update Child #{{updatedChildren.length - idx}}</strong></h2>
         <common-xicon-button
           label='Remove'

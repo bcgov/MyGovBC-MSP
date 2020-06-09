@@ -3,11 +3,13 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { OperationActionType, MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { AbstractForm } from 'moh-common-lib';
+import { AbstractForm, scrollTo } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { PageStateService } from 'app/services/page-state.service';
 import { Relationship } from 'app/models/relationship.enum';
+
+const DOM_REFRESH_TIMEOUT = 50;
 
 @Component({
   selector: 'msp-child-info',
@@ -64,6 +66,10 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     this.showRemoveChild = false;
     this.showUpdateChild = false;
     this.dataService.accountApp.addChild(Relationship.Unknown);
+
+    setTimeout(() => {
+      this.scrollToChild('.add-child');
+    }, DOM_REFRESH_TIMEOUT);
   }
 
   removeChildBtnClick(): void {
@@ -71,6 +77,10 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     this.showRemoveChild = true;
     this.showUpdateChild = false;
     this.dataService.accountApp.addRemovedChild(Relationship.Unknown);
+
+    setTimeout(() => {
+      this.scrollToChild('.remove-child');
+    }, DOM_REFRESH_TIMEOUT);
   }
 
   updateChildBtnClick(): void {
@@ -78,6 +88,10 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     this.showRemoveChild = false;
     this.showUpdateChild = true;
     this.dataService.accountApp.addUpdatedChild(Relationship.Unknown);
+
+    setTimeout(() => {
+      this.scrollToChild('.update-child');
+    }, DOM_REFRESH_TIMEOUT);
   }
 
   get children(): MspPerson[] {
@@ -131,5 +145,14 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     }
     this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
     this.navigate('/deam/contact-info');
+  }
+
+  scrollToChild(section: string) {
+    const elements = document.querySelectorAll(section);
+    if (elements.length > 0) {
+      const el: Element = elements[0];
+      const top: number = el.getBoundingClientRect().top + window.pageYOffset - 75;
+      scrollTo(top);
+    }
   }
 }
