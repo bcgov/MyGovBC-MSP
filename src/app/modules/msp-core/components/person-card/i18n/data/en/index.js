@@ -23,7 +23,7 @@ module.exports = {
   outsideBCReturnDateLabel: 'Return date',
   institutionWorkHistoryLabel: 'Released from Canadian Forces',
   institutionWorkHistoryValues: {Yes: 'Yes', No: 'No'},
-  nameOfInstituteLabel:'Name of Institute',
+  nameOfInstituteLabel:'Name of Institution',
   newlyAdoptedLabel:'Is Adopted',
   dateAdoptedLabel:'Adoption date',
   dischargeDateLabel: 'Date discharged',
