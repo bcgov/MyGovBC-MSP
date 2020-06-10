@@ -630,7 +630,12 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
       }
   }
 
-  if (from.mailingAddress) {
+  if (from.mailingAddress &&
+      from.mailingAddress.addressLine1 &&
+      from.mailingAddress.city &&
+      from.mailingAddress.province &&
+      from.mailingAddress.country &&
+      from.mailingAddress.postal) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
   } else {
       to.mailingAddress = this.unknownAddress();
@@ -642,13 +647,13 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
 
 private unknownAddress(): AddressType {
   const to = AddressTypeFactory.make();
-  to.addressLine1 = '';
+  to.addressLine1 = 'UNKNOWN';
   to.addressLine2 = '';
   to.addressLine3 = '';
-  to.city = '';
-  to.country = '';
-  to.postalCode = '';
-  to.provinceOrState = '';
+  to.city = 'UNKNOWN';
+  to.country = 'UNKNOWN';
+  to.postalCode = 'UNKNOWN';
+  to.provinceOrState = 'UNKNOWN';
 
   return to;
 }
