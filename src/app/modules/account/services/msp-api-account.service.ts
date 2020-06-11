@@ -1115,10 +1115,10 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
         const accountHolder: AccountChangeAccountHolderType = AccountChangeAccountHolderFactory.make();
 
-        accountHolder.selectedAddRemove = (from.accountChangeOptions.dependentChange || from.addedChildren || from.removedChildren) ? 'Y' : 'N';
+        accountHolder.selectedAddRemove = (from.accountChangeOptions.dependentChange || (from.addedChildren && from.addedChildren.length > 0) || (from.removedChildren && from.removedChildren.length > 0)) ? 'Y' : 'N';
         accountHolder.selectedAddressChange = from.accountChangeOptions.addressUpdate ? 'Y' : 'N';
         accountHolder.selectedPersonalInfoChange = from.accountChangeOptions.personInfoUpdate ? 'Y' : 'N';
-        accountHolder.selectedStatusChange = from.accountChangeOptions.statusUpdate ? 'Y' : 'N';
+        accountHolder.selectedStatusChange = from.applicant.updateStatusInCanada ? 'Y' : 'N';
 
         // Full Name
         accountHolder.name = this.convertName(from.applicant);
