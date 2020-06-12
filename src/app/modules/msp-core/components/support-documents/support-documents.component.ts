@@ -187,9 +187,11 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   }
 
   checkDuplicateDocs() {
-    for (let i = 0; i < this.supportDoc.images.length; i++){
-      if (this.newImage){
-        return (this.supportDoc.images[i].fileContent === this.newImage[0].fileContent);
+    if(this.supportDoc.images) {
+      for (let i = 0; i < this.supportDoc.images.length; i++){
+        if (this.newImage){
+          return (this.supportDoc.images[i].fileContent === this.newImage[0].fileContent);
+        }
       }
     }
     return false;

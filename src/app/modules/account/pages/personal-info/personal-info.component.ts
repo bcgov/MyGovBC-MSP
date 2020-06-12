@@ -157,28 +157,28 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
 
   checkDocuments() {
     let valid = true;
-    if (this.person.updateStatusInCanada === true) {
+    if (this.person.updateStatusInCanada === true && this.person.updateStatusInCanadaDocType.images) {
       valid = valid && this.person.updateStatusInCanadaDocType.images.length > 0;
     }
-    if (this.person.updateNameDueToMarriage === true) {
+    if (this.person.updateNameDueToMarriage === true && this.person.updateNameDueToMarriageDocType.images) {
       valid = valid && this.person.updateNameDueToMarriageDocType.images.length > 0;
     }
-    if (this.person.updateNameDueToNameChange === true) {
+    if (this.person.updateNameDueToNameChange === true && this.person.updateNameDueToNameChangeDocType.images) {
       valid = valid && this.person.updateNameDueToNameChangeDocType.images.length > 0;
     }
-    if (this.person.updateGender === true) {
+    if (this.person.updateGender === true && this.person.updateGenderDocType.images && this.person.updateGenderDocType2.images) {
       valid = valid && this.person.updateGenderDocType.images.length > 0 && this.person.updateGenderDocType2.images.length > 0;
-      if (this.person.updateGenderAdditionalDocs === true) {
+      if (this.person.updateGenderAdditionalDocs === true && this.person.updateGenderDocType3.images) {
         valid = valid && this.person.updateGenderDocType3.images.length > 0;
       }
     }
-    if (this.person.updateNameDueToError === true) {
+    if (this.person.updateNameDueToError === true && this.person.updateNameDueToErrorDocType.images) {
       valid = valid && this.person.updateNameDueToErrorDocType.images.length > 0;
     }
-    if (this.person.updateBirthdate === true) {
+    if (this.person.updateBirthdate === true && this.person.updateBirthdateDocType.images) {
       valid = valid && this.person.updateBirthdateDocType.images.length > 0;
     }
-    if (this.person.updateGenderDesignation === true) {
+    if (this.person.updateGenderDesignation === true && this.person.updateGenderDesignationDocType.images) {
       valid = valid && this.person.updateGenderDesignationDocType.images.length > 0;
     }
     return valid;
