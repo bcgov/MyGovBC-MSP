@@ -146,6 +146,7 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   onChanges = new BehaviorSubject<SimpleChanges>( null );
 
   docSampleImages: SampleImageInterface[] = [];
+  newImage: CommonImage[];
 
   // List of all supporting document types
   private _documentOpts: string[] = Object.keys(SupportDocumentList).map( x => SupportDocumentList[x] );
@@ -183,6 +184,17 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
         }
       }
     });
+  }
+
+  checkDuplicateDocs() {
+    if(this.supportDoc.images) {
+      for (let i = 0; i < this.supportDoc.images.length; i++){
+        if (this.newImage){
+          return (this.supportDoc.images[i].fileContent === this.newImage[0].fileContent);
+        }
+      }
+    }
+    return false;
   }
 
   ngOnChanges(changes: SimpleChanges) {

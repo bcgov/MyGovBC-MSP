@@ -23,9 +23,13 @@
       </div>
 
       <div *ngIf="applicant.updatingPersonalInfo">
+        <div sectionTitleInfo>
+          <h2>What updates are you requesting for Account Holder?</h2>
+          <p class="border-bottom">
+            For each update or correction selected, provide the supporting documents.
+          </p>
+        </div>
         <msp-update-request
-          title="What updates are you requesting for the Account Holder?"
-          subtitle = "For each update or correction selected, provide the supporting documents."
           [person]="person"
           [accountApp]="accountApp">
         </msp-update-request>
