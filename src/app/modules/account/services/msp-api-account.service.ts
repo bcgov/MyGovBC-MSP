@@ -589,6 +589,8 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
   // Gender
   if (from.gender != null) {
     to.gender = <GenderType> from.gender.toString();
+  } else {
+    to.gender = 'M';
   }
 
   // PHN
@@ -628,7 +630,12 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
       }
   }
 
-  if (from.mailingAddress) {
+  if (from.mailingAddress &&
+      from.mailingAddress.addressLine1 &&
+      from.mailingAddress.city &&
+      from.mailingAddress.province &&
+      from.mailingAddress.country &&
+      from.mailingAddress.postal) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
   } else {
       to.mailingAddress = this.unknownAddress();
@@ -640,13 +647,13 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
 
 private unknownAddress(): AddressType {
   const to = AddressTypeFactory.make();
-  to.addressLine1 = '';
+  to.addressLine1 = 'UNKNOWN';
   to.addressLine2 = '';
   to.addressLine3 = '';
-  to.city = '';
-  to.country = '';
-  to.postalCode = '';
-  to.provinceOrState = '';
+  to.city = 'UNKNOWN';
+  to.country = 'UNKNOWN';
+  to.postalCode = 'UNKNOWN';
+  to.provinceOrState = 'UNKNOWN';
 
   return to;
 }
@@ -675,6 +682,8 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
   }
   if (from.gender != null) {
     to.gender = <GenderType> from.gender.toString();
+  } else {
+    to.gender = 'M';
   }
 
   if (from.previous_phn) {
@@ -1106,10 +1115,10 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 
         const accountHolder: AccountChangeAccountHolderType = AccountChangeAccountHolderFactory.make();
 
-        accountHolder.selectedAddRemove = (from.accountChangeOptions.dependentChange || from.addedChildren || from.removedChildren) ? 'Y' : 'N';
+        accountHolder.selectedAddRemove = (from.accountChangeOptions.dependentChange || (from.addedChildren && from.addedChildren.length > 0) || (from.removedChildren && from.removedChildren.length > 0)) ? 'Y' : 'N';
         accountHolder.selectedAddressChange = from.accountChangeOptions.addressUpdate ? 'Y' : 'N';
         accountHolder.selectedPersonalInfoChange = from.accountChangeOptions.personInfoUpdate ? 'Y' : 'N';
-        accountHolder.selectedStatusChange = from.accountChangeOptions.statusUpdate ? 'Y' : 'N';
+        accountHolder.selectedStatusChange = from.applicant.updateStatusInCanada ? 'Y' : 'N';
 
         // Full Name
         accountHolder.name = this.convertName(from.applicant);
@@ -1127,6 +1136,8 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         // Gender
         if (from.applicant.gender != null) {
           accountHolder.gender = <GenderType> from.applicant.gender.toString();
+        } else {
+          accountHolder.gender = 'M';
         }
 
         // Status
