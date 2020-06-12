@@ -52,6 +52,10 @@
       [required]="true"
       instructionText="{{uploadInstructions}}">
     </common-file-uploader>
+    <common-error-container
+      [displayError]="checkDuplicateDocs()">
+      Uploading the same document is not allowed.
+    </common-error-container>
     <ng-content select="[requestAdditionInfo]"></ng-content>
     <aside>
       <div>Tip</div>
