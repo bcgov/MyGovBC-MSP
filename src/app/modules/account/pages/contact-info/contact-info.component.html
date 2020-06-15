@@ -59,7 +59,7 @@
                     <div class="col-md-6 col-sm-12 pl-0">
                         <common-phone-number name="phone_number"
                             [label]="'Phone Number'"
-                            [value]="mspAccountApp.phoneNumber"
+                            [(ngModel)]="mspAccountApp.phoneNumber"
                             (onChange)="handlePhoneNumberChange($event)"></common-phone-number>
                     </div>
                     <aside>
