@@ -10,8 +10,6 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from 'app/models/relationship.enum';
 import { BaseForm } from '../../models/base-form';
 
-
-
 @Component({
   selector: 'msp-spouse-info',
   templateUrl: './spouse-info.component.html',
@@ -69,25 +67,19 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
 
   addSpouse() {
     this.accountApp.hasSpouseAdded = true;
-    // this.accountApp.hasSpouseRemoved = false;
     this.accountApp.hasSpouseUpdated = false;
     this.accountChangeOptions.dependentChange = true;
     this.showAddSpouse = true;
-    // this.showRemoveSpouse = false;
     this.showUpdateSpouse = false;
-  //this.dataService.saveMspAccountApp();
     return this.showAddSpouse;
   }
 
   removeSpouse() {
-    // this.accountApp.hasSpouseAdded = false;
     this.accountApp.hasSpouseRemoved = true;
     this.accountApp.hasSpouseUpdated = false;
     this.accountChangeOptions.dependentChange = true;
-    // this.showAddSpouse = false;
     this.showRemoveSpouse = true;
     this.showUpdateSpouse = false;
-    //this.dataService.saveMspAccountApp();
     return this.showRemoveSpouse;
   }
 
@@ -98,7 +90,6 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     this.showRemoveSpouse = false;
     this.showAddSpouse = false;
     this.showUpdateSpouse = true;
-    //this.dataService.saveMspAccountApp();
     return this.showUpdateSpouse;
   }
 
@@ -150,7 +141,8 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
       valid = valid && this.updatedSpouse.updateNameDueToNameChangeDocType.images.length > 0;
     }
     if (this.updatedSpouse.updateGender === true) {
-      valid = valid && this.updatedSpouse.updateGenderDocType.images.length > 0 && this.updatedSpouse.updateGenderDocType2.images.length > 0;
+      valid = valid && this.updatedSpouse.updateGenderDocType.images.length > 0
+                    && this.updatedSpouse.updateGenderDocType2.images.length > 0;
       if (this.updatedSpouse.updateGenderAdditionalDocs === true) {
         valid = valid && this.updatedSpouse.updateGenderDocType3.images.length > 0;
       }

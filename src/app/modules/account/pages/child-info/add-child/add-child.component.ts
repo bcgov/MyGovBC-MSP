@@ -13,14 +13,15 @@ import { SupportDocuments } from '../../../../msp-core/models/support-documents.
   selector: 'msp-add-child',
   templateUrl: './add-child.component.html',
   styleUrls: ['./add-child.component.scss'],
-  viewProviders: [
-    { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
-  ]
+  viewProviders: [{
+    provide: ControlContainer,
+    useExisting: forwardRef(() => NgForm)
+  }]
 })
 
 export class AddChildComponent extends Base implements OnInit {
 
-  statusLabel: string = 'Child\'s immigration status in Canada';
+  statusLabel: string = "Child's immigration status in Canada";
   relationShip: Relationship;
 
   childAgeCategory = [
@@ -28,8 +29,18 @@ export class AddChildComponent extends Base implements OnInit {
     {label: '19-24 years (must be a full-time student)', value: Relationship.Child19To24},
   ];
 
-  status: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident , StatusInCanada.TemporaryResident];
-  supportDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
+  status: StatusInCanada[] = [
+    StatusInCanada.CitizenAdult,
+    StatusInCanada.PermanentResident,
+    StatusInCanada.TemporaryResident
+  ];
+
+  supportDocList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.CanadianBirthCertificate,
+    SupportDocumentTypes.CanadianPassport,
+    SupportDocumentTypes.CanadianCitizenCard
+  ];
+
   nameChangeDocList = nameChangeSupportDocs();
 
   // @Input() accountChangeOptions: AccountChangeOptions;
@@ -38,7 +49,7 @@ export class AddChildComponent extends Base implements OnInit {
   @Input() index: number;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
-  constructor( public dataService: MspAccountMaintenanceDataService) {
+  constructor(public dataService: MspAccountMaintenanceDataService) {
     super();
   }
 

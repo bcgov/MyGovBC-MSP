@@ -1,4 +1,3 @@
-
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
@@ -53,51 +52,25 @@ export class ContactInfoComponent extends BaseForm implements OnInit, AfterViewI
      this.mspAccountApp = this.dataService.accountApp;
    }
 
-   ngOnInit(){
-      //this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
-   }
+   ngOnInit(){}
 
    toggleCheckBox(){
     this.mspAccountApp.mailingSameAsResidentialAddress = !this.mspAccountApp.mailingSameAsResidentialAddress;
     this.dataService.saveMspAccountApp();
   }
 
-   ngAfterViewInit(): void {
-
-   /*  if ( this.mspAccountApp.mailingAddress.addressLine1 != null) {
-        this.dataService.accountApp.mailingAddress.hasValue = true;
-     }
-
-     if ( this.mspAccountApp.mailingAddress.province === undefined || this.mspAccountApp.mailingAddress.province === null ) {
-        this.dataService.accountApp.mailingAddress.province = '';
-     }
-
-     this.form.valueChanges.subscribe(values => {
-       this.dataService.saveMspAccountApp();
-     });*/
-   }
+   ngAfterViewInit(): void {}
 
    handlePhoneNumberChange(evt: any) {
      this.mspAccountApp.phoneNumber = evt;
-    // this.dataService.saveBenefitApplication();
    }
 
    handleAddressUpdate(evt: any){
      evt.addressLine1 = evt.street;
-    // this.dataService.saveBenefitApplication();
    }
 
    canContinue(): boolean {
-    const valid = super.canContinue(); // && this.hasStatusDocuments;
-/*
-    if ( this.applicant.hasNameChange ) {
-      valid = valid && this.hasNameDocuments;
-    }
-
-    if ( this.applicant.fullTimeStudent ) {
-      valid = valid && this.applicant.inBCafterStudies;
-    }*/
-    return valid;
+    return super.canContinue(); // && this.hasStatusDocuments;
   }
 
   continue(): void {
@@ -108,5 +81,4 @@ export class ContactInfoComponent extends BaseForm implements OnInit, AfterViewI
     }
     this.navigate('/deam/review');
   }
-
 }

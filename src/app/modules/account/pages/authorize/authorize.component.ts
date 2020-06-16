@@ -15,83 +15,83 @@ import { BaseForm } from '../../models/base-form';
   styleUrls: ['./authorize.component.scss']
 })
 export class AuthorizeComponent extends BaseForm implements OnInit {
-    lang = require('./i18n');
+  lang = require('./i18n');
 
-    mspAccountApp: MspAccountApp;
-    captchaApiBaseUrl: string;
-    @ViewChild(NgForm) form: NgForm;
+  mspAccountApp: MspAccountApp;
+  captchaApiBaseUrl: string;
+  @ViewChild(NgForm) form: NgForm;
 
-    constructor(private dataService: MspAccountMaintenanceDataService,
-                private _router: Router,
-                protected containerService: ContainerService,
-                protected pageStateService: PageStateService) {
-        super(_router, containerService, pageStateService);
-        this.mspAccountApp = dataService.getMspAccountApp();
-        this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
+  constructor(private dataService: MspAccountMaintenanceDataService,
+              private _router: Router,
+              protected containerService: ContainerService,
+              protected pageStateService: PageStateService) {
+      super(_router, containerService, pageStateService);
+      this.mspAccountApp = dataService.getMspAccountApp();
+      this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
+  }
+
+  // unused.. logic changed
+  get spousesForAuthorisation(): MspPerson[] {
+      return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
+  }
+
+  get accountPIUrl() {
+      return ProcessUrls.ACCOUNT_PERSONAL_INFO_URL;
+  }
+
+  get accountDependentUrl() {
+      return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
+  }
+
+  get spouseForAuthorisation(): MspPerson {
+    if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.addedSpouse) {
+      return this.mspAccountApp.addedSpouse;
     }
-
-    // unused.. logic changed
-    get spousesForAuthorisation(): MspPerson[] {
-        return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
+    if ((this.mspAccountApp.accountChangeOptions.personInfoUpdate || this.mspAccountApp.accountChangeOptions.statusUpdate) && this.mspAccountApp.updatedSpouse) {
+      return this.mspAccountApp.updatedSpouse;
     }
+    return undefined;
+  }
 
-    get accountPIUrl() {
-        return ProcessUrls.ACCOUNT_PERSONAL_INFO_URL;
+  get questionApplicant() {
+    return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.applicantName);
+  }
+
+  get applicantName() {
+    return this.mspAccountApp.applicant.firstName + ' ' + this.mspAccountApp.applicant.lastName;
+  }
+
+  ngOnInit() {}
+
+  applicantAuthorizeOnChange(event: boolean) {
+    this.mspAccountApp.authorizedByApplicant = event;
+    if (this.mspAccountApp.authorizedByApplicant) {
+      this.mspAccountApp.authorizedByApplicantDate = new Date();
     }
+    this.dataService.saveMspAccountApp();
+  }
 
-    get accountDependentUrl() {
-        return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
+  spouseUpdateAuthorizeOnChange(event: boolean) {
+    this.mspAccountApp.authorizedBySpouse = event;
+    this.dataService.saveMspAccountApp();
+  }
+
+  questionSpouse() {
+    return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.spouseName());
+  }
+
+  spouseName() {
+    return this.spouseForAuthorisation.firstName + ' ' + this.spouseForAuthorisation.lastName;
+  }
+
+  handleFormSubmission($event) {}
+
+  continue(): void {
+    if (!this.canContinue()) {
+      console.log('Please fill in all required fields on the form.');
+      this.markAllInputsTouched();
+      return;
     }
-
-    get spouseForAuthorisation(): MspPerson {
-        if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.addedSpouse) {
-            return this.mspAccountApp.addedSpouse;
-        }
-        if ((this.mspAccountApp.accountChangeOptions.personInfoUpdate || this.mspAccountApp.accountChangeOptions.statusUpdate ) && this.mspAccountApp.updatedSpouse) {
-            return this.mspAccountApp.updatedSpouse;
-        }
-        return undefined;
-    }
-
-    get questionApplicant() {
-        return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.applicantName);
-    }
-
-    get applicantName() {
-        return this.mspAccountApp.applicant.firstName + ' ' + this.mspAccountApp.applicant.lastName;
-    }
-
-    applicantAuthorizeOnChange(event: boolean) {
-        this.mspAccountApp.authorizedByApplicant = event;
-        if (this.mspAccountApp.authorizedByApplicant) {
-            this.mspAccountApp.authorizedByApplicantDate = new Date();
-        }
-        this.dataService.saveMspAccountApp();
-    }
-
-    spouseUpdateAuthorizeOnChange(event: boolean) {
-        this.mspAccountApp.authorizedBySpouse = event;
-        this.dataService.saveMspAccountApp();
-    }
-
-    questionSpouse() {
-        return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.spouseName());
-    }
-
-    spouseName() {
-        return this.spouseForAuthorisation.firstName + ' ' + this.spouseForAuthorisation.lastName;
-    }
-
-    handleFormSubmission($event) {
-
-    }
-
-    continue(): void {
-        if (!this.canContinue()) {
-          console.log('Please fill in all required fields on the form.');
-          this.markAllInputsTouched();
-          return;
-        }
-        this.navigate('/deam/sending');
-      }
+    this.navigate('/deam/sending');
+  }
 }
