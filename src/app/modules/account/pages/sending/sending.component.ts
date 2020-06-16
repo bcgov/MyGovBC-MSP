@@ -9,14 +9,15 @@ import { MspAccountApp } from '../../models/account.model';
 import { Relationship } from '../../../../models/relationship.enum';
 import { ApiResponse } from 'app/models/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ApiStatusCodes } from 'moh-common-lib';
+import { ApiStatusCodes, ContainerService, PageStateService } from 'moh-common-lib';
+import { BaseForm } from '../../models/base-form';
 
 @Component({
   templateUrl: 'sending.component.html',
   styleUrls: ['./sending.component.scss']
 })
 @Injectable()
-export class AccountSendingComponent implements AfterContentInit {
+export class AccountSendingComponent extends BaseForm implements AfterContentInit {
   lang = require('./i18n');
 
   mspAccountApp: MspAccountApp;
@@ -28,8 +29,14 @@ export class AccountSendingComponent implements AfterContentInit {
   hasError: boolean;
   showMoreErrorDetails: boolean;
 
-  constructor(private dataService: MspAccountMaintenanceDataService, private service: MspApiAccountService, private processService: ProcessService,
-    public router: Router, private logService: MspLogService) {
+  constructor(private dataService: MspAccountMaintenanceDataService,
+              private service: MspApiAccountService,
+              private processService: ProcessService,
+              public router: Router,
+              private logService: MspLogService,
+              protected containerService: ContainerService,
+              protected pageStateService: PageStateService) {
+    super(router, containerService, pageStateService)
     this.mspAccountApp = this.dataService.accountApp;
     this.transmissionInProcess = undefined;
     this.hasError = undefined;
@@ -53,6 +60,10 @@ export class AccountSendingComponent implements AfterContentInit {
       this.service
       .sendRequest(this.mspAccountApp)
       .then((response: ApiResponse) => {
+
+        if (response.op_return_code !== 'SUCCESS') {
+          console.log('Submission response: ', response.op_return_code);
+        }
 
         if (response instanceof HttpErrorResponse) {
           this.logService.log({
@@ -96,6 +107,7 @@ export class AccountSendingComponent implements AfterContentInit {
         //delete the application from storage
         this.dataService.removeMspAccountApp();
 
+        this.pageStateService.setPageComplete();
         //  go to confirmation
           this.router.navigate(['/deam/confirmation'],
               {queryParams: {confirmationNum: refNumber, showDepMsg: bcServicesCardElgible, status: statusCode,
@@ -140,6 +152,7 @@ export class AccountSendingComponent implements AfterContentInit {
   }
 
   retrySubmission(){
+    this.pageStateService.setPageComplete();
     this.router.navigate(['/deam/authorize']);
   }
 }

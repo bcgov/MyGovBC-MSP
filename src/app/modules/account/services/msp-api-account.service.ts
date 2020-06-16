@@ -1164,8 +1164,10 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
           accountHolder.mailingAddress = this.convertAddress(from.mailingAddress);
         }
 
-        if (from.applicant.phoneNumber) {
-          accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
+        if (from.phoneNumber) {
+          accountHolder.telephone = from.phoneNumber
+            .replace(/[() +/-]/g, '')
+            .substr(1);
         }
 
         return accountHolder;

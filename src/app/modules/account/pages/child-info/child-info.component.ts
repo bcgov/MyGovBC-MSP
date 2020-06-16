@@ -3,11 +3,11 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { OperationActionType, MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { AbstractForm, scrollTo } from 'moh-common-lib';
+import { AbstractForm, scrollTo, ContainerService, PageStateService } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { PageStateService } from 'app/services/page-state.service';
 import { Relationship } from 'app/models/relationship.enum';
+import { BaseForm } from '../../models/base-form';
 
 const DOM_REFRESH_TIMEOUT = 50;
 
@@ -17,11 +17,14 @@ const DOM_REFRESH_TIMEOUT = 50;
   styleUrls: ['./child-info.component.scss']
 })
 
-export class ChildInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
+export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
  // children: MspPerson[];
 
-  constructor(public dataService: MspAccountMaintenanceDataService, protected router: Router,  private pageStateService: PageStateService ) {
-    super(router);
+  constructor(public dataService: MspAccountMaintenanceDataService,
+              protected router: Router,
+              protected containerService: ContainerService,
+              protected pageStateService: PageStateService) {
+    super(router, containerService, pageStateService);
   }
   subscriptions: Subscription[];
   @ViewChild('formRef') form: NgForm;
@@ -34,7 +37,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   showUpdateChild: boolean = false;
 
   ngOnInit() {
-    this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
+    this.pageStateService.setPageIncomplete(this.router.url);
     //this.children = this.dataService.accountApp.children;
     if (this.dataService.accountApp.addedChildren.length > 0) {
         this.showChild = true;
@@ -143,7 +146,6 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
       this.markAllInputsTouched();
       return;
     }
-    this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
     this.navigate('/deam/contact-info');
   }
 

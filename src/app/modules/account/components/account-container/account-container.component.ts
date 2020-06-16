@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Container } from 'moh-common-lib';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Container, PageStateService } from 'moh-common-lib';
 import { Router } from '@angular/router';
-import { accountPages, accountStepperPages } from '../../account-page-routing.module';
+import { accountPageRoutes } from '../../account-pages.route';
 import { HeaderService } from '../../../../services/header.service';
+import { ACCOUNT_PAGES } from '../../account.constants';
 
 @Component({
   selector: 'msp-account-container',
@@ -11,10 +12,13 @@ import { HeaderService } from '../../../../services/header.service';
 })
 export class AccountContainerComponent extends Container implements OnInit {
 
-  constructor( public router: Router, private header: HeaderService ) {
+  constructor(public router: Router,
+              private header: HeaderService,
+              private pageStateService: PageStateService) {
     super();
-    this.setProgressSteps(  accountStepperPages );
+    this.setProgressSteps(  accountPageRoutes );
     this.header.setTitle('Account Management');
+    this.pageStateService.setPages(accountPageRoutes, ACCOUNT_PAGES);
   }
 
   ngOnInit() {

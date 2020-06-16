@@ -230,3 +230,10 @@ common-address {
     margin-left: -30px;
   }  
 }
+
+common-date[label='Birthdate'] {
+  common-error-container {
+    display: inline-block;
+    min-height: 21px;
+  }
+}

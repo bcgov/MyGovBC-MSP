@@ -4,16 +4,16 @@ import { Router} from '@angular/router';
 import {ProcessUrls} from '../../../../services/process.service';
 import {environment} from '../../../../../environments/environment';
 import { MspAccountApp } from '../../models/account.model';
-import { AbstractForm } from 'moh-common-lib';
-import { PageStateService } from 'app/services/page-state.service';
+import { ContainerService, PageStateService } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { BaseForm } from '../../models/base-form';
 
 @Component({
     templateUrl: './review.component.html',
     styleUrls: ['./review.component.scss']
 })
-export class AccountReviewComponent extends AbstractForm implements OnInit {
+export class AccountReviewComponent extends BaseForm implements OnInit {
     lang = require('./i18n');
 
     mspAccountApp: MspAccountApp;
@@ -21,14 +21,16 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
     @ViewChild(NgForm) form: NgForm;
 
     constructor(public dataService: MspAccountMaintenanceDataService,
-                    protected router: Router,  private pageStateService: PageStateService) {
-                    super(router);
+                    protected router: Router,
+                    protected containerService: ContainerService,
+                    protected pageStateService: PageStateService) {
+        super(router, containerService, pageStateService);
         this.mspAccountApp = dataService.getMspAccountApp();
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
     }
 
     ngOnInit() {
-        this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
+        this.pageStateService.setPageIncomplete(this.router.url);
     }
 
 
@@ -154,7 +156,6 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
           this.markAllInputsTouched();
           return;
         }
-        this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
         this.navigate('/deam/authorize');
       }
 

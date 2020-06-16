@@ -6,11 +6,11 @@ import { MspAccountMaintenanceDataService } from '../../services/msp-account-dat
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { AbstractForm } from 'moh-common-lib';
-import { PageStateService } from 'app/services/page-state.service';
+import { AbstractForm, ContainerService, PageStateService } from 'moh-common-lib';
 import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../../models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { BaseForm } from '../../models/base-form';
 
 @Component({
   templateUrl: './personal-info.component.html',
@@ -18,7 +18,7 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 })
 
 @Injectable()
-export class AccountPersonalInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
+export class AccountPersonalInfoComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
   static ProcessStepNum = 1;
   lang = require('./i18n');
   docSelected: string ;
@@ -39,10 +39,12 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
   subscriptions: Subscription[];
 
   constructor(public dataService: MspAccountMaintenanceDataService,
-              protected router: Router,  private pageStateService: PageStateService
+              protected router: Router,
+              protected pageStateService: PageStateService,
+              protected containerService: ContainerService,
               // private _processService: ProcessService,
               ) {
-    super(router);
+    super(router, containerService, pageStateService);
   }
 
   onChange($event) {
@@ -198,7 +200,6 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
       this.markAllInputsTouched();
       return;
     }
-    this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
     this.navigate('/deam/spouse-info');
   }
 }
