@@ -61,6 +61,10 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
       .sendRequest(this.mspAccountApp)
       .then((response: ApiResponse) => {
 
+        if (response.op_return_code !== 'SUCCESS') {
+          console.log('Submission response: ', response.op_return_code);
+        }
+
         if (response instanceof HttpErrorResponse) {
           this.logService.log({
               name: 'DEAM - System Error',
