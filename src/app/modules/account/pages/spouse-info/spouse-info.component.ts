@@ -129,7 +129,38 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     return this.accountApp.addedSpouse.immigrationStatusChange !== undefined;
   }
 
-  checkDocumentsForUpdatedSpouse(){
+  checkAdd() {
+    let valid = true;
+    if (this.accountApp.hasSpouseAdded === true) {
+      valid = valid && this.addedSpouse.immigrationStatusChange !== undefined
+    }
+    valid = valid && this.addedSpouse.gender !== undefined
+      && this.addedSpouse.updateNameDueToMarriage !== undefined;
+    return valid;
+  }
+
+  checkAddDocuments() {
+    let valid = true;
+    if (this.addedSpouse.updateStatusInCanada === true) {
+      valid = valid && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined;
+    }
+    if (this.addedSpouse.updateNameDueToMarriage === true) {
+      valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
+        && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
+        && this.addedSpouse.nameChangeDocs.images.length > 0;
+    }
+    return valid;
+  }
+
+  checkRemoveDocuments() {
+    let valid = true;
+    if (this.removedSpouse.cancellationReason !== undefined) {
+      valid = valid && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
+    }
+    return valid;
+  }
+
+  checkUpdateDocuments() {
     let valid = true;
     if (this.updatedSpouse.updateStatusInCanada  === true) {
       valid = valid && this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
@@ -142,7 +173,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     }
     if (this.updatedSpouse.updateGender === true) {
       valid = valid && this.updatedSpouse.updateGenderDocType.images.length > 0
-                    && this.updatedSpouse.updateGenderDocType2.images.length > 0;
+        && this.updatedSpouse.updateGenderDocType2.images.length > 0;
       if (this.updatedSpouse.updateGenderAdditionalDocs === true) {
         valid = valid && this.updatedSpouse.updateGenderDocType3.images.length > 0;
       }
@@ -161,8 +192,14 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
 
   canContinue(): boolean {
     let valid = super.canContinue();
+    if (this.accountApp.hasSpouseAdded === true) {
+      valid = valid && this.checkAdd() && this.checkAddDocuments();
+    }
+    if (this.accountApp.hasSpouseRemoved === true) {
+      valid = valid && this.checkRemoveDocuments();
+    }
     if (this.accountApp.hasSpouseUpdated === true) {
-      valid = valid && this.checkDocumentsForUpdatedSpouse();
+      valid = valid && this.checkUpdateDocuments();
     }
     return valid;
   }

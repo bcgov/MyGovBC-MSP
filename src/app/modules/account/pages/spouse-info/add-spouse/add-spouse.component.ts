@@ -120,7 +120,7 @@ export class AddSpouseComponent extends Base implements OnInit {
     ];
   }
 
-  get spouseNameChangedocs(){
+  get spouseNameChangedocs() {
     return [
       {
         'label': 'Marriage Certificate',
