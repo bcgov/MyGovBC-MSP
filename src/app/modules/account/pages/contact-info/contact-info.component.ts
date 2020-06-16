@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp } from '../../models/account.model';
 import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
-import { PROVINCE_LIST, COUNTRY_LIST, AbstractForm } from 'moh-common-lib';
+import { PROVINCE_LIST, COUNTRY_LIST, PageStateService, ContainerService } from 'moh-common-lib';
 
 import {
   CountryList,
@@ -14,6 +14,7 @@ import {
 } from 'moh-common-lib';
 
 import { Subscription } from 'rxjs';
+import { BaseForm } from '../../models/base-form';
 
 @Component({
   selector: 'msp-contact-info',
@@ -21,7 +22,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./contact-info.component.scss']
 })
 
-export class ContactInfoComponent extends AbstractForm implements OnInit, AfterViewInit {
+export class ContactInfoComponent extends BaseForm implements OnInit, AfterViewInit {
    // Constants TODO: Figure out whether used in html
    outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
    addAnotherOutsideBCPersonButton = 'Add Another Person';
@@ -45,8 +46,10 @@ export class ContactInfoComponent extends AbstractForm implements OnInit, AfterV
    subscriptions: Subscription[];
 
    constructor(private dataService: MspAccountMaintenanceDataService,
-               protected router: Router) {
-     super(router);
+               protected router: Router,
+               protected containerService: ContainerService,
+               protected pageStateService: PageStateService) {
+     super(router, containerService, pageStateService);
      this.mspAccountApp = this.dataService.accountApp;
    }
 
@@ -103,7 +106,6 @@ export class ContactInfoComponent extends AbstractForm implements OnInit, AfterV
       this.markAllInputsTouched();
       return;
     }
-    //this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
     this.navigate('/deam/review');
   }
 

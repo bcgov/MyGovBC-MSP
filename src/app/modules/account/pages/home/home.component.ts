@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, Injectable, ViewChild, ElementRef } from '@angular/core';
-import {ConsentModalComponent} from 'moh-common-lib';
+import {ConsentModalComponent, PageStateService} from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp } from '../../models/account.model';
@@ -17,8 +17,11 @@ export class HomeComponent implements OnInit {
   addressChangeBCUrl: string;
   @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
 
-  constructor(private dataService: MspAccountMaintenanceDataService, private header: HeaderService) { 
+  constructor(private dataService: MspAccountMaintenanceDataService,
+              private header: HeaderService,
+              private pageStateService: PageStateService) { 
     this.header.setTitle('Account Management');
+    this.pageStateService.setPageComplete();
   }
 
   ngOnInit() {
