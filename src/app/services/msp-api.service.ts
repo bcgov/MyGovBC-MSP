@@ -1086,7 +1086,9 @@ export class MspApiService {
         accountHolder.residenceAddress.country = from.residentialAddress.country;
 
         if (from.applicant.phoneNumber) {
-            accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
+            accountHolder.telephone = from.applicant.phoneNumber
+            .replace(/[() +/-]/g, '')
+            .substr(1);
         }
         if (from.applicant.previous_phn) {
             accountHolder.phn = from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');

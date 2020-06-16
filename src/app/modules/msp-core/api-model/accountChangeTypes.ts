@@ -19,7 +19,7 @@ interface _AccountChangeAccountHolderType extends ct._BasicInfoType {
 	birthDate: string;
 	attachmentUuids: ct.AttachmentUuidsType;
     phn: ct.PrevHealthNumberType;
-    telephone: number;
+    telephone: string;
     residenceAddress: ct.AddressType;
     mailingAddress?: ct.AddressType;
     citizenship?: ct.CitizenshipType;
