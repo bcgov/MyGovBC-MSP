@@ -60,6 +60,7 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
       this.service
       .sendRequest(this.mspAccountApp)
       .then((response: ApiResponse) => {
+        console.log('Submission Response: ', response);
 
         if (response instanceof HttpErrorResponse) {
           this.logService.log({
