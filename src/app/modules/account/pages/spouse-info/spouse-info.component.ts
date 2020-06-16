@@ -4,11 +4,11 @@ import { MspAccountMaintenanceDataService } from '../../services/msp-account-dat
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
-import { AbstractForm } from 'moh-common-lib';
+import { AbstractForm, ContainerService, PageStateService } from 'moh-common-lib';
 import { Router } from '@angular/router';
-import { PageStateService } from 'app/services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from 'app/models/relationship.enum';
+import { BaseForm } from '../../models/base-form';
 
 
 
@@ -18,7 +18,7 @@ import { Relationship } from 'app/models/relationship.enum';
   styleUrls: ['./spouse-info.component.scss']
 })
 
-export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
+export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
 
   accountApp: MspAccountApp;
   accountChangeOptions: AccountChangeOptions;
@@ -27,8 +27,11 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   showUpdateSpouse: boolean;
   subscriptions: Subscription[];
 
-  constructor(public dataService: MspAccountMaintenanceDataService, protected router: Router,  private pageStateService: PageStateService) {
-    super(router);
+  constructor(public dataService: MspAccountMaintenanceDataService,
+              protected router: Router,
+              protected containerService: ContainerService,
+              protected pageStateService: PageStateService) {
+    super(router, containerService, pageStateService);
     if (this.dataService.getMspAccountApp().hasSpouseAdded) {
       this.showAddSpouse = true;
     }
@@ -45,7 +48,7 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   ngOnInit() {
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
-    this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
+    this.pageStateService.setPageIncomplete(this.router.url);
   }
 
   ngOnDestroy() {
@@ -178,7 +181,6 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
       this.markAllInputsTouched();
       return;
     }
-    this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
     this.navigate('/deam/child-info');
   }
 }

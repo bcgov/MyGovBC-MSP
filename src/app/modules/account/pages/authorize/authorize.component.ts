@@ -5,16 +5,16 @@ import {MspDataService} from '../../../../services/msp-data.service';
 import {ProcessService, ProcessUrls} from '../../../../services/process.service';
 import {environment} from '../../../../../environments/environment';
 import { MspAccountApp } from '../../models/account.model';
-import { PageStateService } from 'app/services/page-state.service';
-import { AbstractForm } from 'moh-common-lib';
+import { ContainerService, PageStateService } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspPerson } from '../../../../../app/components/msp/model/msp-person.model';
+import { BaseForm } from '../../models/base-form';
 @Component({
   selector: 'msp-authorize',
   templateUrl: './authorize.component.html',
   styleUrls: ['./authorize.component.scss']
 })
-export class AuthorizeComponent extends AbstractForm implements OnInit {
+export class AuthorizeComponent extends BaseForm implements OnInit {
     lang = require('./i18n');
 
     mspAccountApp: MspAccountApp;
@@ -23,8 +23,9 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
 
     constructor(private dataService: MspAccountMaintenanceDataService,
                 private _router: Router,
-                private pageStateService: PageStateService) {
-        super(_router);
+                protected containerService: ContainerService,
+                protected pageStateService: PageStateService) {
+        super(_router, containerService, pageStateService);
         this.mspAccountApp = dataService.getMspAccountApp();
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
     }
@@ -60,10 +61,6 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
         return this.mspAccountApp.applicant.firstName + ' ' + this.mspAccountApp.applicant.lastName;
     }
 
-    ngOnInit() {
-        this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
-    }
-
     applicantAuthorizeOnChange(event: boolean) {
         this.mspAccountApp.authorizedByApplicant = event;
         if (this.mspAccountApp.authorizedByApplicant) {
@@ -95,7 +92,6 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
           this.markAllInputsTouched();
           return;
         }
-        this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
         this.navigate('/deam/sending');
       }
 }
