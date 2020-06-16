@@ -8,7 +8,7 @@
   <select class="custom-select text-width"
     name="cancellationReason"
     [(ngModel)]="child.cancellationReason"
-    (ngModelChange)="child.cancellationReason = $event; this.dataService.saveMspAccountApp();">
+    (ngModelChange)="setCancellationStatus($event)">
     <ng-container>
       <option selected value="null" disabled="true">Please Select</option>
       <option *ngFor="let item of cancellationReasons"
