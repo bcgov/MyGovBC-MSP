@@ -623,7 +623,7 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
   }
 
   // Removing Spouse
-  if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect' ) {
+  if (from.reasonForCancellation !== 'pleaseSelect') {
       to.cancellationReason = from.reasonForCancellation;
       if (from.cancellationDate) {
       to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat);
@@ -723,7 +723,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
       to.schoolAddress = this.convertAddress(from.schoolAddress);
   }
 
-  if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect') {
+  if (from.reasonForCancellation !== 'pleaseSelect') {
       to.cancellationReason = from.reasonForCancellation;
       if (from.cancellationDate) {
           to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat);

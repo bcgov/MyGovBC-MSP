@@ -5,7 +5,7 @@ import { AccountPersonalDetailsComponent } from '../../../components/personal-de
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 import { spouseRemovedDueToDivorceDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
-import { CancellationReasons } from '../../../../../models/status-activities-documents';
+import { CancellationReasons, CancellationReasonsStrings } from '../../../../../models/status-activities-documents';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 import { ErrorMessage } from 'moh-common-lib';
 
@@ -36,8 +36,33 @@ export class RemoveSpouseComponent extends BaseComponent {
   dateErrorMessage: ErrorMessage = {
     noFutureDatesAllowed: 'Date must be in the past.'
   };
-
   spouseRemoveDocs = spouseRemovedDueToDivorceDocuments();
+  listofCancellationReasons = [
+    {
+      'label': 'Seperated/Divorced',
+      'value': CancellationReasons.SeparatedDivorced
+    },
+    {
+      'label': 'Remove from Account but still married/common-law',
+      'value': CancellationReasons.RemoveFromAccountButStillMarriedOrCommomLaw
+    },
+    {
+      'label': 'Deceased',
+      'value': CancellationReasons.Deceased
+    },
+    {
+      'label': 'Out of province/ Out of Country move',
+      'value': CancellationReasons.OutOfProvinceOrCountry
+    },
+    {
+      'label': 'Armed Forces',
+      'value': CancellationReasons.ArmedForces
+    },
+    {
+      'label': 'Incarcerated',
+      'value': CancellationReasons.Incarcerated
+    },
+  ];
 
   constructor(public dataService: MspAccountMaintenanceDataService, cd: ChangeDetectorRef) {
     super(cd);
@@ -53,10 +78,9 @@ export class RemoveSpouseComponent extends BaseComponent {
   }
 
   setCancellationStatus(evt: any) {
-    if (evt === 1) {
-      this.spouse.reasonForCancellation = evt;
-    }
-    //this.dataService.saveMspAccountApp();
+    this.spouse.cancellationReason = evt;
+    this.spouse.reasonForCancellation = CancellationReasonsStrings[evt];
+    this.dataService.saveMspAccountApp();
   }
 
   handleAddressUpdate(evt: any){
@@ -77,31 +101,6 @@ export class RemoveSpouseComponent extends BaseComponent {
   }
 
   get cancellationReasons() {
-    return [
-      {
-        'label': 'Seperated/Divorced',
-        'value': CancellationReasons.SeparatedDivorced
-      },
-      {
-        'label': 'Remove from Account but still married/common-law',
-        'value': CancellationReasons.RemoveFromAccountButStillMarriedOrCommomLaw
-      },
-      {
-        'label': 'Deceased',
-        'value': CancellationReasons.Deceased
-      },
-      {
-        'label': 'Out of province/ Out of Country move',
-        'value': CancellationReasons.OutOfProvinceOrCountry
-      },
-      {
-        'label': 'Armed Forces',
-        'value': CancellationReasons.ArmedForces
-      },
-      {
-        'label': 'Incarcerated',
-        'value': CancellationReasons.Incarcerated
-      },
-    ];
+    return this.listofCancellationReasons;
   }
 }
