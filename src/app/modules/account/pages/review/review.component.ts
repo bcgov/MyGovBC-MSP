@@ -38,30 +38,6 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
         return this.mspAccountApp.spouse ? true : false;
     }
 
-    get getSpouseTitle() {
-        if (this.mspAccountApp.hasSpouseAdded){
-            return this.lang('./en/index.js').addSpouseTitle;
-        }
-        else if (this.mspAccountApp.hasSpouseRemoved){
-            return this.lang('./en/index.js').removeSpouseTitle;
-        }
-        else if (this.mspAccountApp.hasSpouseUpdated){
-            return this.lang('./en/index.js').updateSpouseTitle;
-        }
-    }
-
-    get getSpouseInfo() {
-        if (this.mspAccountApp.hasSpouseAdded){
-            return this.mspAccountApp.addedSpouse;
-        }
-        else if (this.mspAccountApp.hasSpouseRemoved){
-            return this.mspAccountApp.removedSpouse;
-        }
-        else if (this.mspAccountApp.hasSpouseUpdated){
-            return this.mspAccountApp.updatedSpouse;
-        }
-    }
-
     // unused.. logic changed
     get spousesForAuthorisation(): MspPerson[] {
         return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
