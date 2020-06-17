@@ -22,7 +22,6 @@
             (btnClick)='addSpouse()'>
           </common-button>
         </div>
-
         <div class="col-2">
           <common-button
             [label]="'Remove Spouse'"
@@ -31,7 +30,6 @@
             (btnClick)='removeSpouse()'>
           </common-button>
         </div>
-
         <div class="col-2 ">
           <common-button
             [label]="'Update Spouse'"
@@ -98,7 +96,6 @@
       <!-- Add/Remove/Update Buttons-->
       <div *ngIf="((showAddSpouse && showAddedSpouseBottomButtons) || showUpdateSpouse || showRemoveSpouse)">
         <p class="horizontal-line"></p>
-
         <div class="row">
           <div class="col-2">
             <common-button
@@ -108,7 +105,6 @@
               (btnClick)='addSpouse()'>
             </common-button>
           </div>
-
           <div class="col-2">
             <common-button
               [label]="'Remove Spouse'"
@@ -117,7 +113,6 @@
               (btnClick)='removeSpouse()'>
             </common-button>
           </div>
-
           <div class="col-2 ">
             <common-button
               [label]="'Update Spouse'"

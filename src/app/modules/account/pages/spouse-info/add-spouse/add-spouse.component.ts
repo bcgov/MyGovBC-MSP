@@ -19,7 +19,10 @@ export class AddSpouseComponent extends Base implements OnInit {
   @Input() spouse: MspPerson;
   @Input() accountApp: MspAccountApp;
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
-  status: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident];
+  status: StatusInCanada[] = [
+    StatusInCanada.CitizenAdult,
+    StatusInCanada.PermanentResident
+  ];
   supportDocList: SupportDocumentTypes[] = [
     SupportDocumentTypes.CanadianBirthCertificate,
     SupportDocumentTypes.CanadianPassport,
@@ -49,6 +52,10 @@ export class AddSpouseComponent extends Base implements OnInit {
     this.onChange.emit(evt);
   }
 
+  get updateNameDueToMarriage(){
+    return this.spouse.updateNameDueToMarriage
+  }
+
   get items() {
     return [
       {
@@ -73,7 +80,6 @@ export class AddSpouseComponent extends Base implements OnInit {
 
   set statusDocuments(document: SupportDocuments) {
     this.spouse.updateStatusInCanadaDocType = document;
-
     if (document.images && document.images.length === 0) {
       // no status documents remove any name documents
       this.spouse.nameChangeDocs.documentType = null;
@@ -114,7 +120,7 @@ export class AddSpouseComponent extends Base implements OnInit {
     ];
   }
 
-  get spouseNameChangedocs(){
+  get spouseNameChangedocs() {
     return [
       {
         'label': 'Marriage Certificate',

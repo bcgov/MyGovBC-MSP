@@ -128,16 +128,7 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   }
 
   canContinue(): boolean {
-    const valid = super.canContinue();
-
-   /* if ( this.child.hasNameChange ) {
-      valid = valid ; // && this.hasNameDocuments;
-    }
-
-    if ( this.child.fullTimeStudent ) {
-      valid = valid && this.child.inBCafterStudies;
-    }*/
-    return valid;
+    return super.canContinue();
   }
 
   continue(): void {

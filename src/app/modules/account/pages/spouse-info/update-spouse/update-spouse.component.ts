@@ -17,7 +17,6 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
 
 
   constructor(public dataService: MspAccountMaintenanceDataService, cd: ChangeDetectorRef) {
-
     super(cd);
   }
 
