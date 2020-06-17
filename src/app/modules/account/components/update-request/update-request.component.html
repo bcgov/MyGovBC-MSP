@@ -52,16 +52,6 @@
   <msp-support-documents
     [supportDocList]="nameChangeDueToMarriageDocs"
     [(supportDoc)]="person.updateNameDueToMarriageDocType">
-    <div class='immediate-tip-slot'>
-      <aside>
-        <div class="card">
-          <div class="card-body">
-            <div>Tip</div>
-            <div>For name changes due to marriage, you may combine your birth last name with a current and/or previous married last name(s). Last names may be combined in any order with a hyphen (-) or a space.</div>
-          </div>
-        </div>
-      </aside>
-    </div>
     <div class="row" sectionTitleInfo>
       <div class="col-sm-12 col-md-8">
         <div>
@@ -74,7 +64,7 @@
             <common-name name="updateNameDueToMarriageRequestedLastName"
                 label="Requested last name"
                 [disabled]="disabled"
-                [(ngModel)]="updateNameDueToMarriageRequestedLastName"
+                [(ngModel)]="person.updateNameDueToMarriageRequestedLastName"
                 maxlen="30"
                 required
                 commonValidateName>
@@ -203,7 +193,8 @@
   <common-checkbox
     [label]="'Correct birthdate - due to error'"
     (dataChange)="person.updateBirthdate = $event;"
-    [data]="person.updateBirthdate"></common-checkbox>
+    [data]="person.updateBirthdate">
+  </common-checkbox>
 </div>
 
 <div *ngIf="person.updateBirthdate" class="add-document mb-4">
