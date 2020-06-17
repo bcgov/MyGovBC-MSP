@@ -228,7 +228,10 @@ common-address {
     border-bottom: 1px solid #333333;
     border-left: 1px solid #CCCCCC;
     margin-left: -30px;
-  }  
+  }
+  .btn:focus {
+    box-shadow: none;
+  }
 }
 
 common-date[label='Birthdate'] {
