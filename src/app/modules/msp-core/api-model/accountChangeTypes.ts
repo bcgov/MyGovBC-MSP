@@ -96,7 +96,6 @@ interface _AccountChangeSpouseType extends ct._BasicInfoType {
     phn?: ct.PrevHealthNumberType;
     cancellationReason?: CancellationReasonType;
 	cancellationDate?: string;
-	requestedLastName?: string;
 }
 export interface AccountChangeSpouseType extends _AccountChangeSpouseType { constructor: { new(): AccountChangeSpouseType }; }
 
