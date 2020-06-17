@@ -1170,6 +1170,10 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
             .substr(1);
         }
 
+        if (from.applicant.updateNameDueToMarriage) {
+          accountHolder.requestedLastName = from.applicant.updateNameDueToMarriageRequestedLastName;
+        }
+
         return accountHolder;
     }
 
