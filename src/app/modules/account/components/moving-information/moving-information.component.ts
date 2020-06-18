@@ -89,7 +89,6 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
 
   // Has lived in B.C. since birth
   get isLivedInBCSinceBirth() {
-    console.log(this.person.currentActivity)
     return this.person.currentActivity !== undefined && this.person.currentActivity !== 0;
   }
 
@@ -130,7 +129,6 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   }
 
   get isTemporaryResident() {
-    console.log(this.person.status === StatusInCanada.TemporaryResident)
     return this.person.status === StatusInCanada.TemporaryResident;
   }
 
