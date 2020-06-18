@@ -372,7 +372,6 @@ class MspAccountApp implements ApplicationBase {
     if ( this._updatedChildren.length < 30 ) {
         const tmp = [c, ...this._updatedChildren];
         this._updatedChildren = tmp;
-
     } else {
         console.log('No more than 30 children can be added to one application');
     }
@@ -380,7 +379,6 @@ class MspAccountApp implements ApplicationBase {
   }
 
   removeChild(idx: number, op: OperationActionType): void {
-
     if (op === 0) {
         this._addedChildren.splice(idx, 1);
     }
@@ -392,9 +390,7 @@ class MspAccountApp implements ApplicationBase {
     if (op === 2) {
         this._updatedChildren.splice(idx, 1);
     }
-
   }
-
 }
 
 class AccountChangeOptions {

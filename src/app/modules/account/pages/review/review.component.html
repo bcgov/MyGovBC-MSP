@@ -1,104 +1,104 @@
 <common-page-framework layout="blank">
 <form #formRef="ngForm" novalidate>
-    <div class="deam-container">
-        <h1 class="horizontal-line"><strong>Review your request</strong>
-            <i class="fa fa-print print--icon" aria-hidden="true" (click)="printPage()">
-                <span class="print--word">Print </span>
-            </i>
-        </h1>
+  <div class="deam-container">
+    <h1 class="horizontal-line"><strong>Review your request</strong>
+      <i class="fa fa-print print--icon" aria-hidden="true" (click)="printPage()">
+        <span class="print--word">Print </span>
+      </i>
+    </h1>
 
-        <div class="row">
+    <div class="row">
+      <div class="col-lg-6">
+        <msp-person-card [accountCard]=true
+                [person]="mspAccountApp.applicant"
+                [customTitle]="lang('./en/index.js').applicantTitle"
+                [customLinkTitle]="lang('./en/index.js').applicantLinkTitle"
+                [editRouterLink]="accountPIUrl"></msp-person-card>
+      </div>
+
+      <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseAdded || mspAccountApp.hasSpouseRemoved|| mspAccountApp.hasSpouseUpdated">
+          <msp-person-card  [accountCard]=true
+                  [customTitle]="getSpouseTitle"
+                  [person]="getSpouseInfo"
+                  [editRouterLink]="accountSpouseUrl"></msp-person-card>
+      </div>
+
+      <ng-container *ngIf="mspAccountApp.addedChildren.length > 0">
+        <ng-container *ngFor="let child of mspAccountApp.addedChildren; let i = index;">
+          <div class="clearfix" *ngIf="i % 2 == 0"></div>
+          <div class="col-lg-6">
+            <msp-person-card [person]="child" [accountCard]=true
+                    [customTitle]="addChildTitle + (i+1)"
+                    [editRouterLink]="accountChildInfoUrl">
+                    </msp-person-card>
+          </div>
+        </ng-container>
+      </ng-container>
+
+
+      <ng-container *ngIf="mspAccountApp.removedChildren.length > 0">
+        <ng-container *ngFor="let child of mspAccountApp.removedChildren; let i = index;">
+            <div class="clearfix" *ngIf="i % 2 == 0"></div>
             <div class="col-lg-6">
-                <msp-person-card [accountCard]=true 
-                                [person]="mspAccountApp.applicant" 
-                                [customTitle]="lang('./en/index.js').applicantTitle" 
-                                [customLinkTitle]="lang('./en/index.js').applicantLinkTitle"
-                                [editRouterLink]="accountPIUrl"></msp-person-card>
+              <msp-person-card [person]="child" [accountCard]=true
+                      [customTitle]="removeChildTitle + (i+1)"
+                      [editRouterLink]="accountChildInfoUrl"></msp-person-card>
             </div>
-
-            <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseAdded || mspAccountApp.hasSpouseRemoved|| mspAccountApp.hasSpouseUpdated">
-                    <msp-person-card  [accountCard]=true 
-                                    [customTitle]="getSpouseTitle"
-                                    [person]="getSpouseInfo"
-                                    [editRouterLink]="accountSpouseUrl"></msp-person-card>
-            </div>
-
-            <ng-container *ngIf="mspAccountApp.addedChildren.length > 0">
-                <ng-container *ngFor="let child of mspAccountApp.addedChildren; let i = index;">
-                    <div class="clearfix" *ngIf="i % 2 == 0"></div>
-                    <div class="col-lg-6">
-                        <msp-person-card [person]="child" [accountCard]=true
-                                        [customTitle]="addChildTitle + (i+1)"
-                                        [editRouterLink]="accountChildInfoUrl">
-                                        </msp-person-card>
-                    </div>
-                </ng-container>
-            </ng-container>
+        </ng-container>
+      </ng-container>
 
 
-            <ng-container *ngIf="mspAccountApp.removedChildren.length > 0">
-                <ng-container *ngFor="let child of mspAccountApp.removedChildren; let i = index;">
-                        <div class="clearfix" *ngIf="i % 2 == 0"></div>
-                        <div class="col-lg-6">
-                            <msp-person-card [person]="child" [accountCard]=true
-                                            [customTitle]="removeChildTitle + (i+1)"
-                                            [editRouterLink]="accountChildInfoUrl"></msp-person-card>
-                        </div>
-                </ng-container>
-            </ng-container>
-        
-
-            <ng-container *ngIf="mspAccountApp.updatedChildren.length > 0">
-                <ng-container *ngFor="let child of mspAccountApp.updatedChildren; let i = index;">
-                        <div class="clearfix" *ngIf="i % 2 == 0"></div>
-                        <div class="col-lg-6">
-                            <msp-person-card [person]="child" [accountCard]=true
-                                            [customTitle]="updateChildTitle + (i+1)"
-                                            [editRouterLink]="accountChildInfoUrl"></msp-person-card>
-                        </div>
-                </ng-container>
-            </ng-container>
-
+      <ng-container *ngIf="mspAccountApp.updatedChildren.length > 0">
+        <ng-container *ngFor="let child of mspAccountApp.updatedChildren; let i = index;">
+            <div class="clearfix" *ngIf="i % 2 == 0"></div>
             <div class="col-lg-6">
-                <msp-contact-review-card [residentialAddress]="mspAccountApp.residentialAddress"
-                                        [mailingAddress]="mspAccountApp.mailingAddress"
-                                        [phoneNumber]="mspAccountApp.phoneNumber"
-                                        [editRouterLink]="accountContactInfoUrl"></msp-contact-review-card>
+              <msp-person-card [person]="child" [accountCard]=true
+                      [customTitle]="updateChildTitle + (i+1)"
+                      [editRouterLink]="accountChildInfoUrl"></msp-person-card>
             </div>
-        </div>
+        </ng-container>
+      </ng-container>
 
-        <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
-            <div class="col-lg-12">
-                <h2 [innerHtml]="lang('./en/index.js').docTitle"></h2>
-                <h3 [innerHtml]="lang('./en/index.js').docConfirmTitle"></h3>
+      <div class="col-lg-6">
+        <msp-contact-review-card [residentialAddress]="mspAccountApp.residentialAddress"
+                    [mailingAddress]="mspAccountApp.mailingAddress"
+                    [phoneNumber]="mspAccountApp.phoneNumber"
+                    [editRouterLink]="accountContactInfoUrl"></msp-contact-review-card>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
+      <div class="col-lg-12">
+        <h2 [innerHtml]="lang('./en/index.js').docTitle"></h2>
+        <h3 [innerHtml]="lang('./en/index.js').docConfirmTitle"></h3>
+      </div>
+
+    </div>
+
+    <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="person-card-preview-zone">
+              <div *ngFor="let mspImage of mspAccountApp.documents" class="preview-item">
+                <common-thumbnail [imageObject]="mspImage" [reviewMode]="true">
+                </common-thumbnail>
+              </div>
             </div>
-
+          </div>
         </div>
-
-        <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="person-card-preview-zone">
-                            <div *ngFor="let mspImage of mspAccountApp.documents" class="preview-item">
-                                <common-thumbnail [imageObject]="mspImage" [reviewMode]="true">
-                                </common-thumbnail>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> 
+      </div>
+    </div>
+  </div>
 </form>
 </common-page-framework>
 
 <div class="position: inherit;">
-    <common-form-action-bar [defaultColor]="false"
-        [canContinue]="canContinue()"
-        (btnClick)="continue()"
-        submitLabel="Continue">
-    </common-form-action-bar>
+  <common-form-action-bar [defaultColor]="false"
+    [canContinue]="canContinue()"
+    (btnClick)="continue()"
+    submitLabel="Continue">
+  </common-form-action-bar>
 
 
 </div>
