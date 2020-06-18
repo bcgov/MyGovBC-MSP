@@ -29,6 +29,7 @@ import { Relationship } from '../../../models/relationship.enum';
 import { ApiResponse } from 'app/models/api-response.interface';
 import { format } from 'date-fns';
 import { SupportDocumentList, SupportDocumentTypes } from '../../msp-core/models/support-documents.enum';
+import { ɵINTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS } from '@angular/platform-browser-dynamic';
 
 @Injectable({
   providedIn: 'root'
@@ -622,8 +623,34 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
       this.populateNewBeneficiaryDetailsForSpouse(from, to);
   }
 
+  to.livedInBC = LivedInBCTypeFactory.make();
+
+  if (from.liveInBC) {
+    to.livedInBC.hasLivedInBC = from.liveInBC === true ? 'Y' : 'N';
+  }
+
+  if (from.arrivalToBCDate) {
+    to.livedInBC.recentBCMoveDate = format(from.arrivalToBCDate, this.ISO8601DateFormat );
+  }
+
+  if (from.arrivalToCanadaDate) {
+    to.livedInBC.recentCanadaMoveDate = format(from.arrivalToCanadaDate, this.ISO8601DateFormat );
+  }
+
+  if (from.madePermanentMoveToBC) {
+    to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? 'Y' : 'N';
+  }
+
+  if (from.movedFromProvinceOrCountry) {
+    to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
+  }
+
+  if (from.previous_phn) {
+    to.livedInBC.prevHealthNumber = from.previous_phn;
+  }
+
   // Removing Spouse
-  if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect' ) {
+  if (from.reasonForCancellation !== 'pleaseSelect') {
       to.cancellationReason = from.reasonForCancellation;
       if (from.cancellationDate) {
       to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat);
@@ -723,7 +750,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
       to.schoolAddress = this.convertAddress(from.schoolAddress);
   }
 
-  if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect') {
+  if (from.reasonForCancellation !== 'pleaseSelect') {
       to.cancellationReason = from.reasonForCancellation;
       if (from.cancellationDate) {
           to.cancellationDate = format( from.cancellationDate, this.ISO8601DateFormat);
@@ -1118,7 +1145,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         accountHolder.selectedAddRemove = (from.accountChangeOptions.dependentChange || (from.addedChildren && from.addedChildren.length > 0) || (from.removedChildren && from.removedChildren.length > 0)) ? 'Y' : 'N';
         accountHolder.selectedAddressChange = from.accountChangeOptions.addressUpdate ? 'Y' : 'N';
         accountHolder.selectedPersonalInfoChange = from.accountChangeOptions.personInfoUpdate ? 'Y' : 'N';
-        accountHolder.selectedStatusChange = from.applicant.updateStatusInCanada ? 'Y' : 'N';
+        accountHolder.selectedStatusChange = from.applicant.updateStatusInCanada || (from.addedSpouse && from.addedSpouse.updateStatusInCanada) || (from.removedSpouse && from.removedSpouse.updateStatusInCanada) || (from.updatedSpouse && from.updatedSpouse.updateStatusInCanada) ? 'Y' : 'N';
 
         // Full Name
         accountHolder.name = this.convertName(from.applicant);
