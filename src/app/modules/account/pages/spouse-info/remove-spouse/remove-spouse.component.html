@@ -11,7 +11,7 @@
         [(ngModel)]="spouse.cancellationReason"
         (ngModelChange)="setCancellationStatus($event)">
         <ng-container>
-          <option selected value="null" disabled="true">Please Select</option>
+          <option selected value="null" disabled="true">Please select</option>
           <option *ngFor="let item of cancellationReasons"
             [ngValue]="item.value"
             [selected]="spouse.cancellationReason == item.value">
