@@ -5,7 +5,7 @@
 <div class="form-group">
     <select style="width:250px;" class="custom-select" [id]="objectId" [(ngModel)]="docStatus">
         <ng-container>
-            <option selected value="null" disabled="true">Please Select</option>
+            <option selected value="null" disabled="true">Please select</option>
             <option  *ngFor="let item of items" [ngValue]="item.value" [selected]="docStatus == item.value">{{ item.label }}</option>
         </ng-container>
     </select>

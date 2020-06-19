@@ -10,7 +10,7 @@
       (ngModelChange)="statusInCanada = $event;"
       required>
       <ng-container>
-        <option selected value="" disabled="true">Select your status</option>
+        <option selected value="" disabled="true">Please select</option>
         <option *ngFor="let item of statusOpts"
           [ngValue]="item"
           [selected]="statusInCanada == item">

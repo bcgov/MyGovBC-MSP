@@ -10,7 +10,7 @@
       (ngModelChange)="documentType = $event;"
       required>
       <ng-container>
-        <option selected value="" disabled="true">Please Select</option>
+        <option selected value="" disabled="true">Please select</option>
         <option *ngFor="let item of availableSupportDocuments"
           [ngValue]="item"
           [selected]="documentType == item">
