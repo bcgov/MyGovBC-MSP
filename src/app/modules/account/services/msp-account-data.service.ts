@@ -316,7 +316,6 @@ export class MspAccountMaintenanceDataService {
     output.reasonForCancellation = dto.reasonForCancellation;
     output.prevLastName = dto.prevLastName;
     output.isExistingBeneficiary = dto.isExistingBeneficiary;
-    output.marriageDate = dto.marriageDate;
     output.knownMailingAddress = dto.knownMailingAddress;
 
 
