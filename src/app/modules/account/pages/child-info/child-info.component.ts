@@ -127,8 +127,72 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     return this.dataService.accountApp;
   }
 
+  scrollToChild(section: string) {
+    const elements = document.querySelectorAll(section);
+    if (elements.length > 0) {
+      const el: Element = elements[0];
+      const top: number = el.getBoundingClientRect().top + window.pageYOffset - 75;
+      scrollTo(top);
+    }
+  }
+
+  checkUpdateDocuments() {
+    let valid = true;
+    this.updatedChildren.forEach(function (child) {
+      if (child.updateStatusInCanada === true) {
+        valid = valid && child.updateStatusInCanadaDocType.images.length > 0
+      }
+
+      if (child.updateNameDueToMarriage === true) {
+        valid = valid
+          && child.updateNameDueToMarriageDocType.images !== undefined
+          && child.updateNameDueToMarriageDocType.images.length !== undefined
+          && child.updateNameDueToMarriageDocType.images.length > 0
+      }
+
+      if (child.updateNameDueToNameChange == true) {
+        valid = valid && child.updateNameDueToNameChangeDocType.images.length > 0
+      }
+
+      if (child.updateGender === true) {
+        valid = valid
+          && child.updateGenderDocType.images !== undefined
+          && child.updateGenderDocType.images.length > 0
+        if (child.updateGenderAdditionalDocs === true) {
+          valid = valid && child.updateGenderDocType2.images.length > 0
+        }
+      }
+
+      if (child.updateNameDueToError === true) {
+        valid = valid
+          && child.updateNameDueToErrorDocType.images !== undefined
+          && child.updateNameDueToErrorDocType.images.length > 0
+      }
+
+      if (child.updateBirthdate === true) {
+        valid = valid
+          && child.updateBirthdateDocType.images !== undefined
+          && child.updateBirthdateDocType.images.length > 0
+      }
+
+      if (child.updateGenderDesignation == true) {
+        valid = valid
+          && child.updateGenderDesignationDocType.images !== undefined
+          && child.updateGenderDesignationDocType.images.length > 0
+    }
+    });
+    return valid;
+  }
+
   canContinue(): boolean {
-    return super.canContinue();
+    let valid = super.canContinue();
+    // if (this.accountApp.hasSpouseRemoved === true) {
+    //   valid = valid && this.checkRemoveDocuments();
+    // }
+    if (this.dataService.accountApp.updatedChildren.length > 0) {
+      valid = valid && this.checkUpdateDocuments();
+    }
+    return valid;
   }
 
   continue(): void {
@@ -138,14 +202,5 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
       return;
     }
     this.navigate('/deam/contact-info');
-  }
-
-  scrollToChild(section: string) {
-    const elements = document.querySelectorAll(section);
-    if (elements.length > 0) {
-      const el: Element = elements[0];
-      const top: number = el.getBoundingClientRect().top + window.pageYOffset - 75;
-      scrollTo(top);
-    }
   }
 }
