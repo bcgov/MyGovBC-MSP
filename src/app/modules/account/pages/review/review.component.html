@@ -16,12 +16,26 @@
                 [editRouterLink]="accountPIUrl"></msp-person-card>
       </div>
 
-      <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseAdded || mspAccountApp.hasSpouseRemoved|| mspAccountApp.hasSpouseUpdated">
-          <msp-person-card  [accountCard]=true
-                  [customTitle]="getSpouseTitle"
-                  [person]="getSpouseInfo"
-                  [editRouterLink]="accountSpouseUrl"></msp-person-card>
-      </div>
+            <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseAdded">
+                <msp-person-card [accountCard]=true 
+                                [customTitle]="lang('./en/index.js').addSpouseTitle"
+                                [person]="mspAccountApp.addedSpouse"
+                                [editRouterLink]="accountSpouseUrl"></msp-person-card>
+            </div>
+
+            <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseRemoved">
+                <msp-person-card [accountCard]=true 
+                                [customTitle]="lang('./en/index.js').removeSpouseTitle"
+                                [person]="mspAccountApp.removedSpouse"
+                                [editRouterLink]="accountSpouseUrl"></msp-person-card>
+            </div>
+
+            <div class="col-lg-6" *ngIf="mspAccountApp.hasSpouseUpdated">
+                <msp-person-card [accountCard]=true 
+                                [customTitle]="lang('./en/index.js').updateSpouseTitle"
+                                [person]="mspAccountApp.updatedSpouse"
+                                [editRouterLink]="accountSpouseUrl"></msp-person-card>
+            </div>
 
       <ng-container *ngIf="mspAccountApp.addedChildren.length > 0">
         <ng-container *ngFor="let child of mspAccountApp.addedChildren; let i = index;">
