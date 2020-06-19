@@ -1160,7 +1160,11 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
           accountHolder.residenceAddress = this.unknownAddress();
         }
 
-        if (from.mailingSameAsResidentialAddress === false) {
+        // If mailing is same as residential address, use residential address as the mailing adress.
+        // Otherwise, use a different address as the mailing address.
+        if (from.mailingSameAsResidentialAddress === true) {
+          accountHolder.mailingAddress = this.convertAddress(from.residentialAddress);
+        } else {
           accountHolder.mailingAddress = this.convertAddress(from.mailingAddress);
         }
 
