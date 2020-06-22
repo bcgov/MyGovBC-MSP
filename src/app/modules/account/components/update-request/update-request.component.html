@@ -40,12 +40,14 @@
 </div>
 
 <!-- Update name - due to marriage -->
-<div role="dialog" aria-labelledby="q2" class="form-check mb-2">
-  <common-checkbox
-    [label]="'Update name - due to marriage'"
-    (dataChange)="person.updateNameDueToMarriage = $event;"
-    [data]="person.updateNameDueToMarriage">
-  </common-checkbox>
+<div *ngIf="isChild === false">
+  <div role="dialog" aria-labelledby="q2" class="form-check mb-2">
+    <common-checkbox
+      [label]="'Update name - due to marriage'"
+      (dataChange)="person.updateNameDueToMarriage = $event;"
+      [data]="person.updateNameDueToMarriage">
+    </common-checkbox>
+  </div>
 </div>
 
 <div *ngIf="person.updateNameDueToMarriage" class="add-document mb-4">
