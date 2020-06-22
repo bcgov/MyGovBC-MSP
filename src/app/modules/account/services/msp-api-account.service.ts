@@ -625,9 +625,7 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
 
   to.livedInBC = LivedInBCTypeFactory.make();
 
-  if (from.liveInBC) {
-    to.livedInBC.hasLivedInBC = from.liveInBC === true ? 'Y' : 'N';
-  }
+  to.livedInBC.hasLivedInBC = from.liveInBC ? 'Y' : 'N';
 
   if (from.arrivalToBCDate) {
     to.livedInBC.recentBCMoveDate = format(from.arrivalToBCDate, this.ISO8601DateFormat );
