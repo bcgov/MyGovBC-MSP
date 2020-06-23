@@ -136,7 +136,7 @@
       {{lang('./en/index.js').arrivedToBCLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{formatDateField(person.arrivalToBCDate)}}</strong>
+      <strong>{{person.arrivalToBCDate.format(dateFormat)}}</strong>
     </div>
   </div>
 
@@ -145,7 +145,7 @@
       {{lang('./en/index.js').arrivedToCanadaLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{formatDateField(person.arrivalToCanadaDate)}}</strong>
+      <strong>{{person.arrivalToCanadaDate.format(dateFormat)}}</strong>
     </div>
   </div>
   <div class="row" *ngIf="person.declarationForOutsideOver30Days">
@@ -157,7 +157,7 @@
     </div>
   </div>
   <div *ngIf="person.departureReason">
-    <div class="row">
+    <div class="row" *ngIf="person.departureReason">
       <div class="col-sm-4">
         {{lang('./en/index.js').outsideBCReasonLabel}}
       </div>
@@ -165,7 +165,7 @@
         <strong>{{person.departureReason}}</strong>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="person.departureDestination">
       <div class="col-sm-4">
         {{lang('./en/index.js').outsideBCLocationLabel}}
       </div>
@@ -173,20 +173,20 @@
         <strong>{{person.departureDestination}}</strong>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="person.departureDate">
       <div class="col-sm-4">
         {{lang('./en/index.js').outsideBCDepartureDateLabel}}
       </div>
       <div class="col-sm-8">
-        <strong>{{formatDateField(person.departureDate)}}</strong>
+        <strong>{{person.departureDate.format(dateFormat)}}</strong>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="person.returnDate">
       <div class="col-sm-4">
         {{lang('./en/index.js').outsideBCReturnDateLabel}}
       </div>
       <div class="col-sm-8">
-        <strong>{{formatDateField(person.returnDate)}}</strong>
+        <strong>{{person.returnDate.format(dateFormat)}}</strong>
       </div>
     </div>
   </div>
