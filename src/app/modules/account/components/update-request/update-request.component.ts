@@ -116,6 +116,10 @@ export class UpdateRequestComponent extends Base {
       this.person.currentActivity !== undefined);
   }
 
+  get isChild() {
+    return this.person.relationship === undefined;
+  }
+
   get relationshipText() {
     switch (this.person.relationship) {
       case Relationship.Applicant:
