@@ -133,6 +133,49 @@ export class MspApiAccountService extends AbstractHttpService {
     });
   }
 
+  sendChangeAddressApplication(mspAccountApp: MspAccountApp): Promise<ApiResponse> {
+    const app: MSPApplicationSchema = {
+      accountChangeApplication: {
+        accountHolder: {
+          selectedAddressChange: 'Y',
+          selectedAddRemove: 'N',
+          selectedPersonalInfoChange: 'N',
+          selectedStatusChange: 'N',
+          authorizedByApplicant: mspAccountApp.authorizedByApplicant ? 'Y' : 'N',
+          authorizedByApplicantDate: format(new Date(), this.ISO8601DateFormat),
+          birthDate: '2000-01-01',
+          name: {
+            firstName: 'NA',
+            lastName: 'NA',
+          },
+          phn: '1234567890',
+          residenceAddress: {
+            addressLine1: 'UNKNOWN',
+            city: 'UNKNOWN',
+            provinceOrState: 'UNKNOWN',
+            country: 'UNKNOWN',
+            postalCode: 'UNKNOWN',
+          },
+          gender: 'M',
+        }
+      },
+      attachments: [],
+      uuid: mspAccountApp.uuid
+    };
+    return new Promise<ApiResponse>((resolve, reject) => {
+      this.sendApplication(app, mspAccountApp.uuid, mspAccountApp.authorizationToken).subscribe(response => {
+        // Add reference number
+        if (response && response.op_reference_number) {
+          mspAccountApp.referenceNumber = response.op_reference_number.toString();
+        }
+        // Let our caller know were done passing back the application
+        return resolve(response);
+      }, (error) => {
+        return reject(error);
+      });
+    });
+  }
+
   sendApplication(
     app: MSPApplicationSchema,
     uuid: string,

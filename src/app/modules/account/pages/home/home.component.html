@@ -129,6 +129,7 @@
     </div>
     <div class="row mt-3" *ngIf="showAddressChangeCaptcha || showMoveCaptcha">
       <div class="col-12">
+        <div class="text-danger mb-3">You will be redirected to {{outLinkTitle}} to complete you request. Please complete the field below and click Continue.</div>
         <common-captcha
           name="captcha"
           [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
@@ -146,6 +147,6 @@
   [defaultColor]="false"
   [submitLabel]="'Continue'"
   [canContinue]="true"
-  [isLoading]="false"
+  [isLoading]="continueButtonLoading"
   (btnClick)="continue($event)">
 </common-form-action-bar>
