@@ -116,10 +116,10 @@
               individuals who have moved out of province.
             </p>
             <div class="btn-group-vertical mt-auto" role="group">
-              <button type="button" class="btn btn-primary btn-md btn-block" onclick="window.open('http://www.addresschange.gov.bc.ca/', '_blank')">
+              <button type="button" class="btn btn-primary btn-md btn-block" (click)="onClickAddressChange()">
                 Report an address change in B.C. <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
               </button> <br>
-              <button type="button" class="btn btn-primary btn-md btn-block" onclick="window.open('http://www.health.gov.bc.ca/exforms/msp/7063.html', '_blank')" class="mt-auto btn btn-primary">
+              <button type="button" class="btn btn-primary btn-md btn-block" (click)="onClickMove()" class="mt-auto btn btn-primary">
                 Report a move outside B.C. <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
               </button>
             </div>
@@ -127,5 +127,26 @@
         </div>
       </div>
     </div>
+    <div class="row mt-3" *ngIf="showAddressChangeCaptcha || showMoveCaptcha">
+      <div class="col-12">
+        <div class="text-danger mb-3">You will be redirected to {{outLinkTitle}} to complete you request. Please complete the field below and click Continue.</div>
+        <common-captcha
+          name="captcha"
+          [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
+          (onValidToken)="mspAccountApp.authorizationToken = $event"
+          ngModel
+          required>
+        </common-captcha>
+      </div>
+    </div>
   </div>
 </common-page-framework>
+
+<common-form-action-bar
+  *ngIf="mspAccountApp.authorizationToken"
+  [defaultColor]="false"
+  [submitLabel]="'Continue'"
+  [canContinue]="true"
+  [isLoading]="continueButtonLoading"
+  (btnClick)="continue($event)">
+</common-form-action-bar>
