@@ -145,7 +145,8 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
       valid = valid && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined;
     }
     if (this.addedSpouse.updateNameDueToMarriage === true) {
-      valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
+      valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length
+        && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
         && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
         && this.addedSpouse.nameChangeDocs.images.length > 0;
     }
@@ -162,7 +163,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
 
   checkUpdateDocuments() {
     let valid = true;
-    if (this.updatedSpouse.updateStatusInCanada  === true) {
+    if (this.updatedSpouse.updateStatusInCanada === true) {
       valid = valid && this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
     }
     if (this.updatedSpouse.updateNameDueToMarriage === true) {
