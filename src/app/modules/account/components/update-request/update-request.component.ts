@@ -38,9 +38,20 @@ export class UpdateRequestComponent extends Base {
   itemList: ItemList[];
   @Output() statusChange: EventEmitter<boolean>; //  = new EventEmitter<boolean>();
   mspAccountApp: MspAccountApp;
-  canadianCitizenDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
-  permanentResidentDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.PermanentResidentConfirmation , SupportDocumentTypes.RecordOfLanding , SupportDocumentTypes.PermanentResidentCard];
-  hideStatus: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident];
+  canadianCitizenDocList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.CanadianBirthCertificate,
+    SupportDocumentTypes.CanadianPassport,
+    SupportDocumentTypes.CanadianCitizenCard
+  ];
+  permanentResidentDocList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.PermanentResidentConfirmation,
+    SupportDocumentTypes.RecordOfLanding,
+    SupportDocumentTypes.PermanentResidentCard
+  ];
+  hideStatus: StatusInCanada[] = [
+    StatusInCanada.CitizenAdult,
+    StatusInCanada.PermanentResident
+  ];
 
   nameChangeDocs = nameChangeSupportDocuments();
   nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
