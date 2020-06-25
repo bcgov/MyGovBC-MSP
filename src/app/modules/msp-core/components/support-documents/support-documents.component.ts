@@ -11,8 +11,8 @@ export function suportDocumentRules(status: StatusInCanada, reason: CanadianStat
     case StatusInCanada.CitizenAdult:
       return [
         SupportDocumentTypes.CanadianBirthCertificate,
-        SupportDocumentTypes.CanadianPassport,
         SupportDocumentTypes.CanadianCitizenCard,
+        SupportDocumentTypes.CanadianPassport
       ];
     case StatusInCanada.PermanentResident:
       return [
