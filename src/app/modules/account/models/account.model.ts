@@ -96,8 +96,8 @@ class MspAccountApp implements ApplicationBase {
             this.applicant,
             ...this.updatedChildren,
             this.updatedSpouse,
-           ]
-            .filter(x => x); //no 'undefined's
+        ]
+        .filter(x => x); //no 'undefined's
     }
 
     /*
@@ -113,7 +113,7 @@ class MspAccountApp implements ApplicationBase {
             this.removedSpouse,
             ...this.updatedChildren,
         ]
-            .filter(x => x); //no 'undefined's
+        .filter(x => x); //no 'undefined's
     }
 
     public isMembersPresentWithStatus(personList: Array<MspPerson>, statusInCanada: StatusInCanada): boolean {
@@ -190,16 +190,16 @@ class MspAccountApp implements ApplicationBase {
     }
 
     get isUniquePhnsinDependents () {
-        const allPhs: string[] = this.allPersonsInDep.filter(x => x) .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
+        const allPhs: string[] = this.allPersonsInDep.filter(x => x).map(x => x.previous_phn).filter(x => x).filter(x => x.length >= 10) ;
         return new Set(allPhs).size === allPhs.length ;
     }
 
     /*
         to address , unique bug when PI and Dependents change is selected.
-        When PI and Dependents page is coming in two pages and if there are duplications ,PI page continue should be enabled.
+        When PI and Dependents page is coming in two pages and if there are duplications, PI page continue should be enabled.
      */
     get isUniquePhnsInPI () {
-        const allPhs: string[] = this.allPersonsInPI.filter(x => x) .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
+        const allPhs: string[] = this.allPersonsInPI.filter(x => x).map(x => x.previous_phn).filter(x => x).filter(x => x.length >= 10) ;
         return new Set(allPhs).size === allPhs.length ;
     }
 
