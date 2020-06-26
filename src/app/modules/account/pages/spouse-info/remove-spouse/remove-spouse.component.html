@@ -28,10 +28,11 @@
     <div *ngIf="spouse.cancellationReason === 0">
       <common-date
         label="Date of separation/divorce"
-        [restrictDate]="'past'"
+        [dateRangeStart]='spouse.dateOfBirth'
+        [dateRangeEnd]='dateToday'
         [(ngModel)]="spouse.cancellationDate"
         (ngModelChange)="this.dataService.saveMspAccountApp();"
-        [errorMessage]='dateErrorMessage'>
+        [errorMessage]='cancellationDateErrorMessage'>
       </common-date>
     </div>
   </div>
