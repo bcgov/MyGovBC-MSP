@@ -150,6 +150,10 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
 
   checkRemove() {
     let valid = true;
+    valid = valid && this.removedSpouse.cancellationReason !== undefined;
+    if (this.removedSpouse.cancellationReason === 0) {
+      valid = valid && this.removedSpouse.hasCurrentMailingAddress !== undefined
+    }
     if (this.removedSpouse.cancellationReason !== undefined) {
       valid = valid && this.removedSpouse.removedSpouseDueToDivorceDoc.images
       && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
