@@ -145,7 +145,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
       valid = valid && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined;
     }
     if (this.addedSpouse.updateNameDueToMarriage === true) {
-      valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length
+      valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName
         && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
         && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
         && this.addedSpouse.nameChangeDocs.images.length > 0;
