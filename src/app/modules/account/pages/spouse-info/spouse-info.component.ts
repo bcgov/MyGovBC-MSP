@@ -132,15 +132,10 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   checkAdd() {
     let valid = true;
     if (this.accountApp.hasSpouseAdded === true) {
-      valid = valid && this.addedSpouse.immigrationStatusChange !== undefined
+      valid = valid && this.addedSpouse.immigrationStatusChange !== undefined;
     }
     valid = valid && this.addedSpouse.gender !== undefined
       && this.addedSpouse.updateNameDueToMarriage !== undefined;
-    return valid;
-  }
-
-  checkAddDocuments() {
-    let valid = true;
     if (this.addedSpouse.updateStatusInCanada === true) {
       valid = valid && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined;
     }
@@ -150,18 +145,19 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
         && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
         && this.addedSpouse.nameChangeDocs.images.length > 0;
     }
-    return valid;
+      return valid;
   }
 
-  checkRemoveDocuments() {
+  checkRemove() {
     let valid = true;
     if (this.removedSpouse.cancellationReason !== undefined) {
-      valid = valid && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
+      valid = valid && this.removedSpouse.removedSpouseDueToDivorceDoc.images
+      && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
     }
     return valid;
   }
 
-  checkUpdateDocuments() {
+  checkUpdate() {
     let valid = true;
     if (this.updatedSpouse.updateStatusInCanada === true) {
       valid = valid && this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
@@ -194,13 +190,13 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   canContinue(): boolean {
     let valid = super.canContinue();
     if (this.accountApp.hasSpouseAdded === true) {
-      valid = valid && this.checkAdd() && this.checkAddDocuments();
+      valid = valid && this.checkAdd();
     }
     if (this.accountApp.hasSpouseRemoved === true) {
-      valid = valid && this.checkRemoveDocuments();
+      valid = valid && this.checkRemove();
     }
     if (this.accountApp.hasSpouseUpdated === true) {
-      valid = valid && this.checkUpdateDocuments();
+      valid = valid && this.checkUpdate();
     }
     return valid;
   }
