@@ -4,6 +4,7 @@
 export enum Relationship {
   Applicant,
   Spouse,
+  Child,
   ChildUnder19,
   Child19To24,
   ChildUnder24,

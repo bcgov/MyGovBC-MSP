@@ -128,7 +128,7 @@ export class UpdateRequestComponent extends Base {
   }
 
   get isChild() {
-    return this.person.relationship === undefined;
+    return this.person.relationship === Relationship.Child || this.person.relationship === undefined;
   }
 
   get relationshipText() {

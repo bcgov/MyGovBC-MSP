@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
+import { Relationship } from '../../../../../models/relationship.enum';
 
 @Component({
   selector: 'msp-update-child',
@@ -18,6 +19,7 @@ export class UpdateChildComponent implements OnInit {
   @Input() index: number;
 
   ngOnInit() {
+    this.child.relationship = Relationship.Child;
   }
 
   get accountUpdateList(): UpdateList[] {
