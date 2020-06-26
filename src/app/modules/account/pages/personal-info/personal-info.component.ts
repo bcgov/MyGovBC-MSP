@@ -143,6 +143,30 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
     }
   }
 
+  changeUpdatingPersonalInfo(value: boolean) {
+    this.person.updatingPersonalInfo = value;
+
+    if (this.person.updatingPersonalInfo === false) {
+      this.person.updateStatusInCanada = false;
+      this.person.updateNameDueToMarriage = false;
+      this.person.updateNameDueToNameChange = false;
+      this.person.updateGender = false;
+      this.person.updateNameDueToError = false;
+      this.person.updateBirthdate = false;
+      this.person.updateGenderDesignation = false;
+
+      this.person.updateStatusInCanadaDocType.images = [];
+      this.person.updateNameDueToMarriageDocType.images = [];
+      this.person.updateNameDueToNameChangeDocType.images = [];
+      this.person.updateGenderDocType.images = [];
+      this.person.updateGenderDocType2.images = [];
+      this.person.updateGenderDocType3.images = [];
+      this.person.updateNameDueToErrorDocType.images = [];
+      this.person.updateBirthdateDocType.images = [];
+      this.person.updateGenderDesignationDocType.images = [];
+    }
+  }
+
   hasAnyUpdateSelected(): boolean {
     if (this.person.updatingPersonalInfo === true){
       return (this.person.updateStatusInCanada === true ||
