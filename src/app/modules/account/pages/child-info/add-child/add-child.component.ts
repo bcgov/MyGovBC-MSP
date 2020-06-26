@@ -57,6 +57,11 @@ export class AddChildComponent extends Base implements OnInit {
     this.personChange.emit(this.child);
   }
 
+  relationship( $event, child ) {
+    child.relationship = $event;
+    child.fullTimeStudent = ( child.relationship === Relationship.Child19To24 ) ? true : false;
+  }
+
   get childRelationship() {
       return this.child.relationship;
   }

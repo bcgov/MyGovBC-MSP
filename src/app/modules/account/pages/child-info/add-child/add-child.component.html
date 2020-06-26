@@ -1,8 +1,9 @@
 <div class="form-group">
   <common-radio
-    [(ngModel)]="child.relationship"
     name="AgeCategory_{{index}}"
     id="AgeCategory_{{index}}"
+    [ngModel]="child.relationship"
+    (ngModelChange)="relationship($event, child)"
     label="How old is the child?"
     [radioLabels]="childAgeCategory"
     required>
