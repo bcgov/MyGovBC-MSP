@@ -106,8 +106,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
 
   // Not new to BC
   get isCanadianNotBC() {
-    return this.person.status === StatusInCanada.CitizenAdult &&
-           this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
+    return this.person.status === StatusInCanada.CitizenAdult;
   }
 
   // Moved from another province
@@ -213,7 +212,13 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   }
 
   get showRecentMove() {
-    return this.person.currentActivity !== undefined;
+    return (
+            this.person.currentActivity !== undefined &&
+            this.person.livedInBCSinceBirth === false
+          ) || (
+            this.person.livedInBCSinceBirth === false &&
+            this.isChild
+          );
   }
 
   get showFromProv() {
@@ -223,7 +228,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP)) ||
       (this.person.status === StatusInCanada.PermanentResident &&
       this.person.currentActivity === CanadianStatusReason.MovingFromProvince
-    ));
+    )) && !this.isChild;
   }
 
   get showFromCountry() {
@@ -233,7 +238,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       (this.person.status === StatusInCanada.PermanentResident &&
       this.person.currentActivity === CanadianStatusReason.MovingFromCountry) ||
       this.person.status === StatusInCanada.TemporaryResident
-    );
+    ) && !this.isChild;
   }
 
   get showHealthNumber() {
@@ -242,7 +247,8 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       (this.person.currentActivity === CanadianStatusReason.MovingFromProvince ||
       this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP)) ||
       (this.person.status === StatusInCanada.PermanentResident &&
-      this.person.currentActivity === CanadianStatusReason.MovingFromProvince)
+      this.person.currentActivity === CanadianStatusReason.MovingFromProvince) ||
+      this.isChild
     );
   }
 }
