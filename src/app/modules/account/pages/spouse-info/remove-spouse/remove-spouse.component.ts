@@ -6,7 +6,7 @@ import { MspAccountMaintenanceDataService } from '../../../services/msp-account-
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 import { spouseRemovedDueToDivorceDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 import { CancellationReasons, CancellationReasonsStrings } from '../../../../../models/status-activities-documents';
-import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
+import { MspPerson, OperationActionType } from '../../../../../components/msp/model/msp-person.model';
 import { ErrorMessage } from 'moh-common-lib';
 import { formatDateField } from '../../../../../modules/account/helpers/date';
 
@@ -73,6 +73,7 @@ export class RemoveSpouseComponent extends BaseComponent {
   ngOnInit() {
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
+    this.spouse.operationActionType = OperationActionType.Remove;
   }
 
   onChange($event){
