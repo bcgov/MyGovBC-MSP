@@ -8,6 +8,7 @@ import { nameChangeSupportDocs } from 'app/modules/msp-core/components/support-d
 import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
+
 @Component({
   selector: 'msp-add-spouse',
   templateUrl: './add-spouse.component.html',
@@ -54,6 +55,10 @@ export class AddSpouseComponent extends Base implements OnInit {
 
   get updateNameDueToMarriage(){
     return this.spouse.updateNameDueToMarriage
+  }
+
+  get marriageDateError() {
+    return this.spouse.dateOfBirth > this.spouse.marriageDate ? true :false
   }
 
   get items() {

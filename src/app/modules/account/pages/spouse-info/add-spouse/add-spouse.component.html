@@ -110,7 +110,11 @@
           [restrictDate]="'past'"
           [(ngModel)]="spouse.marriageDate">
         </common-date>
-      </div>
+        <common-error-container
+          [displayError]="marriageDateError">
+          Marriage date must be after Birthdate
+        </common-error-container>
+        </div>
     </div>
   </div>
 
