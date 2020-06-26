@@ -8,6 +8,7 @@ import { spouseRemovedDueToDivorceDocuments } from 'app/modules/msp-core/compone
 import { CancellationReasons, CancellationReasonsStrings } from '../../../../../models/status-activities-documents';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 import { ErrorMessage } from 'moh-common-lib';
+import { formatDateField } from '../../../../../modules/account/helpers/date';
 
 @Component({
   selector: 'msp-remove-spouse',
@@ -37,6 +38,7 @@ export class RemoveSpouseComponent extends BaseComponent {
     noFutureDatesAllowed: 'Date must be in the past.'
   };
   spouseRemoveDocs = spouseRemovedDueToDivorceDocuments();
+  dateToday: Date = new Date();
   listofCancellationReasons = [
     {
       'label': 'Seperated/Divorced',
@@ -97,6 +99,18 @@ export class RemoveSpouseComponent extends BaseComponent {
     }
     else {
       return false;
+    }
+  }
+
+  get cancellationDateErrorMessage() {
+    if (this.spouse.dateOfBirth) {
+      return {
+        invalidRange: `Date must be between ${formatDateField(this.spouse.dateOfBirth)} and ${formatDateField(this.dateToday)}.`
+      }
+    } else {
+      return {
+        invalidRange: `Date must be before ${formatDateField(this.dateToday)}.`
+      }
     }
   }
 
