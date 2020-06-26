@@ -9,7 +9,7 @@
     </common-radio>
   </div>
 
-  <div *ngIf="showRecentMove" class="form-group col-sm-6 p-sm-2 add-document">
+  <div *ngIf="person.livedInBCSinceBirth === false" class="form-group col-sm-6 p-sm-2 add-document">
     <div >
       <common-date
         name="MostRecentMoveBC"
@@ -22,27 +22,7 @@
       </common-date>
     </div>
 
-    <div *ngIf="showFromProv" class="mt-3">
-      <common-province
-        name="movedFromProvince_{{objectId}}"
-        [provinceList]="provinceList"
-        [(ngModel)]="person.movedFromProvinceOrCountry"
-        label="From province"
-        required>
-      </common-province>
-    </div>
-
-    <div *ngIf="showFromCountry" class="mt-3">
-      <common-country
-        name="movedFromCountry_{{objectId}}"
-        label="From country"
-        [countryList]="countryList"
-        [(ngModel)]="person.movedFromProvinceOrCountry"
-        required>
-      </common-country>
-    </div>
-
-    <div *ngIf="isChild" class="form-group mt-3">
+    <div *ngIf="person.livedInBCSinceBirth === false" class="form-group mt-3">
       <label for="movedFromProvinceOrCountry" class="control-label">From (province or country)</label>
       <input type="text"
         class="form-control"
@@ -52,7 +32,7 @@
         maxlength="255"/>
     </div>
 
-    <div *ngIf="showHealthNumber" class="mt-3">
+    <div *ngIf="person.livedInBCSinceBirth === false" class="form-group mt-3">
       <label for="healthNumber_{{objectId}}" class="control-label">
         Medical plan card # in previous place of residence (optional)
       </label>
@@ -61,6 +41,7 @@
         type="text"
         class="form-control"
         [(ngModel)]="person.healthNumberFromOtherProvince"
+        required
         maxlength="15">
     </div>
   </div>

@@ -1,5 +1,5 @@
-import {ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
-import {BaseComponent} from '../../.././../../models/base.component';
+import { ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
+import { BaseComponent } from '../../.././../../models/base.component';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, UpdateList } from '../../../models/account.model';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
