@@ -20,21 +20,19 @@
         [errorMessage]='mostRecentMoveToBCErrorMessage'
         required>
       </common-date>
-    </div> <br>
+    </div>
 
-    <div *ngIf="person.livedInBCSinceBirth === false">
-      <label for="movedFromCountry_{{objectId}}" class="control-label">
-        From (province or country)
-      </label>
-      <input
-        name="movedFromCountry_{{objectId}}"
-        type="text"
+    <div *ngIf="person.livedInBCSinceBirth === false" class="form-group mt-3">
+      <label for="movedFromProvinceOrCountry" class="control-label">From (province or country)</label>
+      <input type="text"
         class="form-control"
+        id="movedFromProvinceOrCountry"
         [(ngModel)]="person.movedFromProvinceOrCountry"
-        required>
-    </div> <br>
+        [ngModelOptions]="{standalone: true}"
+        maxlength="255"/>
+    </div>
 
-    <div *ngIf="person.livedInBCSinceBirth === false">
+    <div *ngIf="person.livedInBCSinceBirth === false" class="form-group mt-3">
       <label for="healthNumber_{{objectId}}" class="control-label">
         Medical plan card # in previous place of residence (optional)
       </label>
@@ -45,7 +43,7 @@
         [(ngModel)]="person.healthNumberFromOtherProvince"
         required
         maxlength="15">
-    </div> <br>
+    </div>
   </div>
 
   <div class="form-group">
