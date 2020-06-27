@@ -30,6 +30,10 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
     //this.dataService.saveMspAccountApp();
   }
 
+  get phnList() {
+    return [this.accountApp.applicant.previous_phn];
+  }
+
   get accountUpdateList(): UpdateList[] {
     return [
       {

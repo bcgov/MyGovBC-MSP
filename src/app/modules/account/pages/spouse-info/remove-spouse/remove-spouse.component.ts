@@ -90,6 +90,10 @@ export class RemoveSpouseComponent extends BaseComponent {
     evt.addressLine1 = evt.street;
   }
 
+  get phnList() {
+    return [this.accountApp.applicant.previous_phn];
+  }
+
   get checkCurrentMonthOfSeparation() {
     const currentDate = new Date();
     if (this.spouse.cancellationDate.getFullYear() < currentDate.getFullYear()){
