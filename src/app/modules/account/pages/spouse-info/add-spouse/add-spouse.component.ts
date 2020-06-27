@@ -96,6 +96,10 @@ export class AddSpouseComponent extends Base implements OnInit {
     return this.dataService.accountApp.isUniquePhnsInPI;
   }
 
+  get phnList() {
+    return [this.accountApp.applicant.previous_phn];
+  }
+
   get accountUpdateList(): UpdateList[] {
     return [
       {
