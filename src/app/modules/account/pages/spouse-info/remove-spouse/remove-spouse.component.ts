@@ -84,6 +84,7 @@ export class RemoveSpouseComponent extends BaseComponent {
     this.spouse.cancellationReason = evt;
     this.spouse.reasonForCancellation = CancellationReasonsStrings[evt];
     this.dataService.saveMspAccountApp();
+    this.spouse.removedSpouseDueToDivorceDoc.images = [];
   }
 
   handleAddressUpdate(evt: any){
