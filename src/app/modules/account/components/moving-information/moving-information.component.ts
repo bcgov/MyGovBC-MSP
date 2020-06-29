@@ -37,6 +37,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       return x;
     }
   }).filter(x => x);
+  readonly Child19To24: Relationship = Relationship.Child19To24;
 
   relationship: string = 'you';
   departureDateErrorMessage: ErrorMessage = {
