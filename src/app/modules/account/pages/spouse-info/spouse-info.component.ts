@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from 'app/models/relationship.enum';
 import { BaseForm } from '../../models/base-form';
+import { CancellationReasons } from '../../../../models/status-activities-documents';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -151,12 +152,15 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   checkRemove() {
     let valid = true;
     valid = valid && this.removedSpouse.cancellationReason !== undefined;
-    if (this.removedSpouse.cancellationReason === 0) {
+    if (this.removedSpouse.cancellationReason === CancellationReasons.SeparatedDivorced) {
       valid = valid && this.removedSpouse.hasCurrentMailingAddress !== undefined
-    }
-    if (this.removedSpouse.cancellationReason !== undefined) {
       valid = valid && this.removedSpouse.removedSpouseDueToDivorceDoc.images
-      && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
+                    && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
+    }
+    if (this.removedSpouse.cancellationReason !== undefined
+      && this.removedSpouse.cancellationReason !== CancellationReasons.OutOfProvinceOrCountry) {
+      valid = valid && this.removedSpouse.cancellationDate !== undefined
+                    && this.removedSpouse.cancellationDate !== null;
     }
     return valid;
   }
