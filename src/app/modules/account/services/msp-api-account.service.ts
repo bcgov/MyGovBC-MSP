@@ -633,8 +633,6 @@ private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType
   // Gender
   if (from.gender != null) {
     to.gender = <GenderType> from.gender.toString();
-  } else {
-    to.gender = 'M';
   }
 
   // PHN
@@ -750,8 +748,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
   }
   if (from.gender != null) {
     to.gender = <GenderType> from.gender.toString();
-  } else {
-    to.gender = 'M';
   }
 
   if (from.previous_phn) {
@@ -1204,8 +1200,6 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         // Gender
         if (from.applicant.gender != null) {
           accountHolder.gender = <GenderType> from.applicant.gender.toString();
-        } else {
-          accountHolder.gender = 'M';
         }
 
         // Status
