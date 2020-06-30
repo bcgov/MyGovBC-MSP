@@ -33,6 +33,7 @@ export function suportDocumentRules(status: StatusInCanada, reason: CanadianStat
     case CanadianStatusReason.Visiting:
       return [SupportDocumentTypes.VisitorVisa];
   }
+  return [];
 }
 
 export function nameChangeSupportDocuments(): SupportDocumentTypes[] {

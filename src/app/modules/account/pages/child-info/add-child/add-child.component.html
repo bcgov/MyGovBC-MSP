@@ -32,9 +32,7 @@
       <!-- Documents to support your child status in Canada -->
       <msp-support-documents
         *ngIf="child.status !== undefined"
-        [supportDocList]="supportDocList"
         [canadianStatus]="child.status"
-        [supportDocList]="supportDocList"
         [statusReason]="child.currentActivity"
         [(supportDoc)]="statusDocuments">
         <div sectionTitleInfo>
