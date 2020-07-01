@@ -7,7 +7,7 @@ export enum SupportDocumentTypes {
   CanadianBirthCertificate,
   CanadianPassport,
   CanadianCitizenCard,
-  DriverLicense,
+  DriversLicense,
   RecordOfLanding,
   PermanentResidentCard,
   PermanentResidentConfirmation,
@@ -23,11 +23,11 @@ export enum SupportDocumentTypes {
   WorkInCanadaAcceptance,
   DivorceDecree,
   ChangeGenderAdultApplication,
-  ChangeGenderChildApplication,
-  ChangeGenderPhyscianConfirmation,
+  ChangeGenderMinorApplication,
+  ChangeGenderPhysicianConfirmation,
   ParentalConsentWaiver,
-  SeperationAgreement,
-  NotrizedStatementOrAffidavit,
+  SeparationAgreement,
+  NotarizedStatementOrAffidavit,
   Other,
 }
 
@@ -38,7 +38,7 @@ export const SupportDocumentList = {
   CanadianBirthCertificate: "Canadian Birth Certificate",
   CanadianPassport: "Canadian Passport",
   CanadianCitizenCard: "Canadian Citizenship Card or Certificate",
-  DriverLicense: "BC Driver's License",
+  DriversLicense: "BC Driver's License",
   RecordOfLanding: "Record of Landing",
   PermanentResidentCard: "Permanent Resident Card",
   PermanentResidentConfirmation: "Confirmation of Permanent Residence",
@@ -55,14 +55,14 @@ export const SupportDocumentList = {
   DivorceDecree: "Divorce Decree",
   ChangeGenderAdultApplication:
     "Application for Change of Gender Designation (Adult)",
-  ChangeGenderChildApplication:
+  ChangeGenderMinorApplication:
     "Application for Change of Gender Designation (Minor)",
-  ChangeGenderPhyscianConfirmation:
+  ChangeGenderPhysicianConfirmation:
     "Physician's or Psychologist Confirmation of Change of Gender Designation Form",
   ParentalConsentWaiver:
     "Request for Waiver of Parental Consent (minor) (for under 19 years)",
-  SeperationAgreement: "Seperation Agreement",
-  NotrizedStatementOrAffidavit: "Notrized Statement Or Affidavit",
+  SeparationAgreement: "Separation Agreement",
+  NotarizedStatementOrAffidavit: "Notarized Statement Or Affidavit",
   Other: "Other",
 };
 
@@ -83,7 +83,7 @@ export const SupportDocumentSamples: SampleImageInterface[] = [
     path: "assets/canadian_cit_card_cert.jpg",
     desc: "Picture of a sample Canadian Citizenship Card and a Certificate",
   },
-  // DriverLicense
+  // DriversLicense
   {
     path: "assets/bc_driving_license.jpg",
     desc: "Picture of a sample BC Driver’s License",
@@ -133,22 +133,22 @@ export const SupportDocumentSamples: SampleImageInterface[] = [
   // ReligiousWorker
   {
     path: null,
-    desc: "Picture of a ",
+    desc: null,
   },
   // NoticeOfDecision
   {
     path: null,
-    desc: "Picture of a ",
+    desc: null,
   },
   // DiplomaticPassportAcceptance
   {
     path: null,
-    desc: "Picture of a ",
+    desc: null,
   },
   // WorkInCanadaAcceptance
   {
     path: null,
-    desc: "Picture of a ",
+    desc: null,
   },
   // DivorceDecree
   {
@@ -160,12 +160,12 @@ export const SupportDocumentSamples: SampleImageInterface[] = [
     path: "assets/app_change_gender_adult.jpg",
     desc: "Picture of a Application for Change of Gender Designation (Adult)",
   },
-  // ChangeGenderChildApplication
+  // ChangeGenderMinorApplication
   {
     path: "assets/app_change_gender_minor.jpg",
     desc: "Picture of a Application for Change of Gender Designation (Minor)",
   },
-  // ChangeGenderPhyscianConfirmation:
+  // ChangeGenderPhysicianConfirmation:
   {
     path: "assets/physician_conf_gender_designation.jpg",
     desc:
@@ -177,12 +177,12 @@ export const SupportDocumentSamples: SampleImageInterface[] = [
     desc:
       "Picture of a Request for Waiver of Parental Consent (minor) (for under 19 years) Form",
   },
-  // SeperationAgreement
+  // SeparationAgreement
   {
     path: null,
     desc: null,
   },
-  // NotrizedStatementOrAffidavit
+  // NotarizedStatementOrAffidavit
   {
     path: null,
     desc: null,
