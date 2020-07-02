@@ -743,12 +743,6 @@ export class MspApiAccountService extends AbstractHttpService {
       );
     }
 
-    to.livedInBC.hasLivedInBC = from.liveInBC ? 'Y' : 'N';
-    
-    if (from.arrivalToBCDate) {
-      to.livedInBC.recentBCMoveDate = format(from.arrivalToBCDate, this.ISO8601DateFormat );
-    }
-
     if (from.arrivalToCanadaDate) {
       to.livedInBC.recentCanadaMoveDate = format(
         from.arrivalToCanadaDate,
