@@ -1,5 +1,5 @@
-import { StatusInCanada } from "../models/canadian-status.enum";
-export type YesNoType = "Y" | "N";
+import { StatusInCanada } from '../models/canadian-status.enum';
+export type YesNoType = 'Y' | 'N';
 // TODO: proper submissions require captcha token at the header level
 export interface MSPApplicationSchema {
   accountChangeApplication?: AccountChangeApplicationType;
@@ -63,47 +63,47 @@ export interface AccountChangeAccountHolderType {
 // }
 
 export enum StatusInCanadaType {
-  CitizenAdult = "CanadianCitizen",
-  PermanentResident = "PermanentResident",
-  TemporaryResident = "TemporaryPermitHolderOrDiplomat",
+  CitizenAdult = 'CanadianCitizen',
+  PermanentResident = 'PermanentResident',
+  TemporaryResident = 'TemporaryPermitHolderOrDiplomat',
 }
 
 export enum DocumentType {
-  CanadianBirthCertificate = "CanadianBirthCertificate",
-  CanadianPassport = "CanadianPassport",
-  CanadianCitizenCard = "CanadianCitizenshipCardOrCertificate",
-  DriversLicense = "BCDriver'sLicense",
-  RecordOfLanding = "RecordOfLanding",
-  PermanentResidentCard = "PermanentResidentCard",
-  PermanentResidentConfirmation = "ConfirmationOfPermanentResidence",
-  WorkPermit = "WorkPermit",
-  StudyPermit = "StudyPermit",
-  VisitorVisa = "VisitorPermit",
-  PassportWithDiplomaticFoil = "PassportWithDiplomaticFoil",
-  MarriageCertificate = "MarriageCertificate",
-  ChangeOfNameCertificate = "LegalNameChangeCertificate",
-  ReligiousWorker = "ReligiousWorker",
-  NoticeOfDecision = "NoticeOfDecision",
-  DiplomaticPassportAcceptance = "DiplomaticPassportAcceptance",
-  WorkInCanadaAcceptance = "WorkInCanadaAcceptance",
-  DivorceDecree = "DivorceDecree",
-  ChangeGenderAdultApplication = "ApplicationForChangeOfGenderDesignation(Adult)",
-  ChangeGenderMinorApplication = "ApplicationForChangeOfGenderDesignation(Child)",
-  ChangeGenderPhysicianConfirmation = "Physician'sOrPsychologistConfirmationOfChangeOfGenderDesignationForm",
-  ParentalConsentWaiver = "RequestForWaiverOfParentalConsent(Minor)(ForUnder19Years)",
-  SeparationAgreement = "SeparationAgreement",
-  NotarizedStatementOrAffidavit = "NotarizedStatementOrAffidavit",
-  Other = "Other",
+  CanadianBirthCertificate = 'CanadianBirthCertificate',
+  CanadianPassport = 'CanadianPassport',
+  CanadianCitizenCard = 'CanadianCitizenshipCardOrCertificate',
+  DriversLicense = 'BCDriver\'sLicense',
+  RecordOfLanding = 'RecordOfLanding',
+  PermanentResidentCard = 'PermanentResidentCard',
+  PermanentResidentConfirmation = 'ConfirmationOfPermanentResidence',
+  WorkPermit = 'WorkPermit',
+  StudyPermit = 'StudyPermit',
+  VisitorVisa = 'VisitorPermit',
+  PassportWithDiplomaticFoil = 'PassportWithDiplomaticFoil',
+  MarriageCertificate = 'MarriageCertificate',
+  ChangeOfNameCertificate = 'LegalNameChangeCertificate',
+  ReligiousWorker = 'ReligiousWorker',
+  NoticeOfDecision = 'NoticeOfDecision',
+  DiplomaticPassportAcceptance = 'DiplomaticPassportAcceptance',
+  WorkInCanadaAcceptance = 'WorkInCanadaAcceptance',
+  DivorceDecree = 'DivorceDecree',
+  ChangeGenderAdultApplication = 'ApplicationForChangeOfGenderDesignation(Adult)',
+  ChangeGenderMinorApplication = 'ApplicationForChangeOfGenderDesignation(Child)',
+  ChangeGenderPhysicianConfirmation = 'Physician\'sOrPsychologistConfirmationOfChangeOfGenderDesignationForm',
+  ParentalConsentWaiver = 'RequestForWaiverOfParentalConsent(Minor)(ForUnder19Years)',
+  SeparationAgreement = 'SeparationAgreement',
+  NotarizedStatementOrAffidavit = 'NotarizedStatementOrAffidavit',
+  Other = 'Other',
 }
 
 export enum CitizenshipType {
-  CanadianCitizen = "CanadianCitizen",
-  Diplomat = "Diplomat",
-  PermanentResident = "PermanentResident",
-  ReligiousWorker = "ReligiousWorker",
-  StudyPermit = "StudyPermit",
-  VisitorPermit = "VisitorPermit",
-  WorkPermit = "WorkPermit",
+  CanadianCitizen = 'CanadianCitizen',
+  Diplomat = 'Diplomat',
+  PermanentResident = 'PermanentResident',
+  ReligiousWorker = 'ReligiousWorker',
+  StudyPermit = 'StudyPermit',
+  VisitorPermit = 'VisitorPermit',
+  WorkPermit = 'WorkPermit',
 }
 
 export interface AddressType {
@@ -220,9 +220,9 @@ export interface FinancialsType {
 }
 
 export enum AssistanceYearType {
-  CurrentPA = "CurrentPA",
-  MultiYear = "MultiYear",
-  PreviousTwo = "PreviousTwo",
+  CurrentPA = 'CurrentPA',
+  MultiYear = 'MultiYear',
+  PreviousTwo = 'PreviousTwo',
 }
 
 export interface AssistanceSpouseType {

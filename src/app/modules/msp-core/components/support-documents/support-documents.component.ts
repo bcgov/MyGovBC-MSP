@@ -8,20 +8,20 @@ import {
   SimpleChanges,
   OnChanges,
   OnDestroy,
-} from "@angular/core";
-import { Base, CommonImage, SampleImageInterface } from "moh-common-lib";
+} from '@angular/core';
+import { Base, CommonImage, SampleImageInterface } from 'moh-common-lib';
 import {
   CanadianStatusReason,
   StatusInCanada,
-} from "../../models/canadian-status.enum";
+} from '../../models/canadian-status.enum';
 import {
   SupportDocumentList,
   SupportDocumentSamples,
   SupportDocumentTypes,
-} from "../../models/support-documents.enum";
-import { ControlContainer, NgForm } from "@angular/forms";
-import { BehaviorSubject } from "rxjs";
-import { SupportDocuments } from "../../models/support-documents.model";
+} from '../../models/support-documents.enum';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { SupportDocuments } from '../../models/support-documents.model';
 
 export function suportDocumentRules(
   status: StatusInCanada,
@@ -134,9 +134,9 @@ export function genderDesignationChangeDocuments(): SupportDocumentTypes[] {
 }
 
 @Component({
-  selector: "msp-support-documents",
-  templateUrl: "./support-documents.component.html",
-  styleUrls: ["./support-documents.component.scss"],
+  selector: 'msp-support-documents',
+  templateUrl: './support-documents.component.html',
+  styleUrls: ['./support-documents.component.scss'],
   /* Re-use the same ngForm that it's parent is using. The component will show
    * up in its parents `this.form`, and will auto-update `this.form.valid`
    */
@@ -160,7 +160,7 @@ export class SupportDocumentsComponent extends Base
     SupportDocuments
   >();
 
-  uploadInstructions = "Click add, or drag and drop a file into this box";
+  uploadInstructions = 'Click add, or drag and drop a file into this box';
 
   btnEnabled: boolean = true;
   availableSupportDocuments: string[] = [];
@@ -267,7 +267,7 @@ export class SupportDocumentsComponent extends Base
   }
 
   get documentType() {
-    return this.supportDoc.documentType || "";
+    return this.supportDoc.documentType || '';
   }
 
   set documentType(doc: string) {

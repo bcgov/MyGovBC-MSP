@@ -1,24 +1,24 @@
-import { Injectable } from "@angular/core";
-import { MspLogService } from "../../../services/log.service";
+import { Injectable } from '@angular/core';
+import { MspLogService } from '../../../services/log.service';
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
-} from "@angular/common/http";
-import { MspAccountApp } from "../models/account.model";
+} from '@angular/common/http';
+import { MspAccountApp } from '../models/account.model';
 import {
   AttachmentType,
   _ApplicationTypeNameSpace,
-} from "../../msp-core/api-model/applicationTypes";
-import { environment } from "../../../../environments/environment";
-import * as moment from "moment";
-import { AbstractHttpService, CommonImage } from "moh-common-lib";
-import { Observable } from "rxjs";
-import { of } from "rxjs";
-import { Response } from "@angular/http";
-import { MspApiService } from "../../../services/msp-api.service";
-import { AccountMaintenanceApiResponse } from "../models/account-response.interface";
-import { SchemaService } from "app/services/schema.service";
+} from '../../msp-core/api-model/applicationTypes';
+import { environment } from '../../../../environments/environment';
+import * as moment from 'moment';
+import { AbstractHttpService, CommonImage } from 'moh-common-lib';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs';
+import { Response } from '@angular/http';
+import { MspApiService } from '../../../services/msp-api.service';
+import { AccountMaintenanceApiResponse } from '../models/account-response.interface';
+import { SchemaService } from 'app/services/schema.service';
 import {
   AccountChangeAccountHolderFactory,
   AccountChangeApplicationTypeFactory,
@@ -30,22 +30,22 @@ import {
   AccountChangeSpouseTypeFactory,
   AccountChangeSpousesTypeFactory,
   OperationActionType,
-} from "../../../modules/msp-core/api-model/accountChangeTypes";
+} from '../../../modules/msp-core/api-model/accountChangeTypes';
 import {
   AccountChangeApplicationType,
   StatusInCanadaType,
   DocumentType,
-} from "../../msp-core/interfaces/i-api";
+} from '../../msp-core/interfaces/i-api';
 import {
   OperationActionType as OperationActionTypeEnum,
   MspPerson,
-} from "../../../components/msp/model/msp-person.model";
-import { Address } from "moh-common-lib";
+} from '../../../components/msp/model/msp-person.model';
+import { Address } from 'moh-common-lib';
 import {
   AttachmentTypeFactory,
   AttachmentsType,
   AttachmentsTypeFactory,
-} from "../../../modules/msp-core/api-model/applicationTypes";
+} from '../../../modules/msp-core/api-model/applicationTypes';
 import {
   AddressType,
   AddressTypeFactory,
@@ -53,35 +53,35 @@ import {
   GenderType,
   NameType,
   NameTypeFactory,
-} from "../../../modules/msp-core/api-model/commonTypes";
+} from '../../../modules/msp-core/api-model/commonTypes';
 import {
   LivedInBCTypeFactory,
   OutsideBCTypeFactory,
   WillBeAwayTypeFactory,
-} from "../../../modules/msp-core/api-model/enrolmentTypes";
-import { MSPApplicationSchema } from "app/modules/msp-core/interfaces/i-api";
+} from '../../../modules/msp-core/api-model/enrolmentTypes';
+import { MSPApplicationSchema } from 'app/modules/msp-core/interfaces/i-api';
 import {
   StatusInCanada,
   CanadianStatusReason,
-} from "../../msp-core/models/canadian-status.enum";
-import { Relationship } from "../../../models/relationship.enum";
-import { ApiResponse } from "app/models/api-response.interface";
-import { format } from "date-fns";
+} from '../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../../models/relationship.enum';
+import { ApiResponse } from 'app/models/api-response.interface';
+import { format } from 'date-fns';
 import {
   SupportDocumentList,
   SupportDocumentTypes,
-} from "../../msp-core/models/support-documents.enum";
-import { ɵINTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS } from "@angular/platform-browser-dynamic";
+} from '../../msp-core/models/support-documents.enum';
+import { ɵINTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS } from '@angular/platform-browser-dynamic';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 
 // TODO - nothing has been done on these service except the skeleton.
 // This service should handle the hitting of the middleware
 export class MspApiAccountService extends AbstractHttpService {
   protected _headers: HttpHeaders = new HttpHeaders();
-  readonly ISO8601DateFormat = "yyyy-MM-dd";
+  readonly ISO8601DateFormat = 'yyyy-MM-dd';
   accountMaintenanceApiResponse: AccountMaintenanceApiResponse;
 
   constructor(
@@ -96,8 +96,8 @@ export class MspApiAccountService extends AbstractHttpService {
    * User does NOT specify document type therefore we always say its a supporting document
    * @type {string}
    */
-  static readonly AttachmentDocumentType = "SupportDocument";
-  static readonly ApplicationType = "benefitApplication";
+  static readonly AttachmentDocumentType = 'SupportDocument';
+  static readonly ApplicationType = 'benefitApplication';
 
   sendRequest(app: MspAccountApp): Promise<any> {
     const suppBenefitRequest = this.prepareAccountApplication(app);
@@ -120,12 +120,12 @@ export class MspApiAccountService extends AbstractHttpService {
             this.logService.log(
               {
                 text:
-                  "Account Maintenance - API validation against schema failed becuase of " +
+                  'Account Maintenance - API validation against schema failed becuase of ' +
                   errorField +
-                  " field",
+                  ' field',
                 response: errorMessage,
               },
-              "Account Maintenance -  API validation against schema failed"
+              'Account Maintenance -  API validation against schema failed'
             );
 
             /* const mapper = new FieldPageMap();
@@ -164,10 +164,10 @@ export class MspApiAccountService extends AbstractHttpService {
             // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
             this.logService.log(
               {
-                text: "Attachment - Send All Rejected ",
+                text: 'Attachment - Send All Rejected ',
                 response: error,
               },
-              "Attachment - Send All Rejected "
+              'Attachment - Send All Rejected '
             );
             return resolve(error);
           });
@@ -181,28 +181,28 @@ export class MspApiAccountService extends AbstractHttpService {
     const app: MSPApplicationSchema = {
       accountChangeApplication: {
         accountHolder: {
-          selectedAddressChange: "Y",
-          selectedAddRemove: "N",
-          selectedPersonalInfoChange: "N",
-          selectedStatusChange: "N",
+          selectedAddressChange: 'Y',
+          selectedAddRemove: 'N',
+          selectedPersonalInfoChange: 'N',
+          selectedStatusChange: 'N',
           authorizedByApplicant: mspAccountApp.authorizedByApplicant
-            ? "Y"
-            : "N",
+            ? 'Y'
+            : 'N',
           authorizedByApplicantDate: format(new Date(), this.ISO8601DateFormat),
-          birthDate: "2000-01-01",
+          birthDate: '2000-01-01',
           name: {
-            firstName: "NA",
-            lastName: "NA",
+            firstName: 'NA',
+            lastName: 'NA',
           },
-          phn: "1234567890",
+          phn: '1234567890',
           residenceAddress: {
-            addressLine1: "UNKNOWN",
-            city: "UNKNOWN",
-            provinceOrState: "UNKNOWN",
-            country: "UNKNOWN",
-            postalCode: "UNKNOWN",
+            addressLine1: 'UNKNOWN',
+            city: 'UNKNOWN',
+            provinceOrState: 'UNKNOWN',
+            country: 'UNKNOWN',
+            postalCode: 'UNKNOWN',
           },
-          gender: "M",
+          gender: 'M',
         },
       },
       attachments: [],
@@ -241,9 +241,9 @@ export class MspApiAccountService extends AbstractHttpService {
 
     // Setup headers
     this._headers = new HttpHeaders({
-      "Content-Type": "application/json",
-      "Response-Type": "application/json",
-      "X-Authorization": "Bearer " + authToken,
+      'Content-Type': 'application/json',
+      'Response-Type': 'application/json',
+      'X-Authorization': 'Bearer ' + authToken,
     });
     return this.post<MspAccountApp>(url, app);
   }
@@ -284,10 +284,10 @@ export class MspApiAccountService extends AbstractHttpService {
           (error: Response | any) => {
             this.logService.log(
               {
-                text: "Attachments - Send Error ",
+                text: 'Attachments - Send Error ',
                 error: error,
               },
-              "Attachments - Send Error "
+              'Attachments - Send Error '
             );
             return reject();
           }
@@ -295,10 +295,10 @@ export class MspApiAccountService extends AbstractHttpService {
         .catch((error: Response | any) => {
           this.logService.log(
             {
-              text: "Attachments - Send Error ",
+              text: 'Attachments - Send Error ',
               error: error,
             },
-            "Attachments - Send Error "
+            'Attachments - Send Error '
           );
           return error;
         });
@@ -316,37 +316,37 @@ export class MspApiAccountService extends AbstractHttpService {
              /{applicationUUID}/attachment/{attachmentUUID}
              */
       let url =
-        environment.appConstants["apiBaseUrl"] +
-        environment.appConstants["attachment"] +
+        environment.appConstants['apiBaseUrl'] +
+        environment.appConstants['attachment'] +
         applicationUUID +
-        "/attachments/" +
+        '/attachments/' +
         attachment.uuid;
 
       // programArea
-      url += "?programArea=ENROLMENT";
+      url += '?programArea=ENROLMENT';
 
       // attachmentDocumentType - UI does NOT collect this property
-      url += "&attachmentDocumentType=" + MspApiService.AttachmentDocumentType;
+      url += '&attachmentDocumentType=' + MspApiService.AttachmentDocumentType;
 
       // contentType
-      url += "&contentType=" + attachment.contentType;
+      url += '&contentType=' + attachment.contentType;
 
       // imageSize
-      url += "&imageSize=" + attachment.size;
+      url += '&imageSize=' + attachment.size;
 
       // Necessary to differentiate between PA and SuppBen
       // TODO - VALIDATE THIS VALUE IS CORRECT, NEEDS TO BE CONFIRMED
-      url += "&dpackage=msp_enrolment_pkg";
+      url += '&dpackage=msp_enrolment_pkg';
 
       // Setup headers
       const headers = new HttpHeaders({
-        "Content-Type": attachment.contentType,
-        "Access-Control-Allow-Origin": "*",
-        "X-Authorization": "Bearer " + token,
+        'Content-Type': attachment.contentType,
+        'Access-Control-Allow-Origin': '*',
+        'X-Authorization': 'Bearer ' + token,
       });
-      const options = { headers: headers, responseType: "text" as "text" };
+      const options = { headers: headers, responseType: 'text' as 'text' };
 
-      const binary = atob(attachment.fileContent.split(",")[1]);
+      const binary = atob(attachment.fileContent.split(',')[1]);
       const array = <any>[];
       for (let i = 0; i < binary.length; i++) {
         array.push(binary.charCodeAt(i));
@@ -369,10 +369,10 @@ export class MspApiAccountService extends AbstractHttpService {
           (error: Response | any) => {
             this.logService.log(
               {
-                text: "Attachment - Send Error ",
+                text: 'Attachment - Send Error ',
                 response: error,
               },
-              "Attachment - Send Error "
+              'Attachment - Send Error '
             );
             return reject(error);
           }
@@ -380,10 +380,10 @@ export class MspApiAccountService extends AbstractHttpService {
         .catch((error: Response | any) => {
           this.logService.log(
             {
-              text: "Attachment - Send Error ",
+              text: 'Attachment - Send Error ',
               response: error,
             },
-            "Attachment - Send Error "
+            'Attachment - Send Error '
           );
 
           reject(error);
@@ -394,7 +394,7 @@ export class MspApiAccountService extends AbstractHttpService {
   protected handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       //Client-side / network error occured
-      console.error("MSP Supp Benefit API error: ", error.error.message);
+      console.error('MSP Supp Benefit API error: ', error.error.message);
     } else {
       // The backend returned an unsuccessful response code
       console.error(
@@ -404,10 +404,10 @@ export class MspApiAccountService extends AbstractHttpService {
 
     this.logService.log(
       {
-        text: "Cannot get Suppbenefit API response",
+        text: 'Cannot get Suppbenefit API response',
         response: error,
       },
-      "Cannot get Suppbenefit API response"
+      'Cannot get Suppbenefit API response'
     );
 
     // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
@@ -705,7 +705,7 @@ export class MspApiAccountService extends AbstractHttpService {
 
     // PHN
     if (from.previous_phn) {
-      to.phn = from.previous_phn.replace(new RegExp("[^0-9]", "g"), "");
+      to.phn = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
     }
 
     // Status
@@ -725,7 +725,7 @@ export class MspApiAccountService extends AbstractHttpService {
 
     if (from.isExistingBeneficiary != null) {
       to.isExistingBeneficiary =
-        from.isExistingBeneficiary === true ? "Y" : "N";
+        from.isExistingBeneficiary === true ? 'Y' : 'N';
     }
 
     if (from.isExistingBeneficiary === false) {
@@ -734,7 +734,7 @@ export class MspApiAccountService extends AbstractHttpService {
 
     to.livedInBC = LivedInBCTypeFactory.make();
 
-    to.livedInBC.hasLivedInBC = from.liveInBC ? "Y" : "N";
+    to.livedInBC.hasLivedInBC = from.liveInBC ? 'Y' : 'N';
 
     if (from.arrivalToBCDate) {
       to.livedInBC.recentBCMoveDate = format(
@@ -752,7 +752,7 @@ export class MspApiAccountService extends AbstractHttpService {
 
     if (from.madePermanentMoveToBC) {
       to.livedInBC.isPermanentMove =
-        from.madePermanentMoveToBC === true ? "Y" : "N";
+        from.madePermanentMoveToBC === true ? 'Y' : 'N';
     }
 
     if (from.movedFromProvinceOrCountry) {
@@ -764,7 +764,7 @@ export class MspApiAccountService extends AbstractHttpService {
     }
 
     // Removing Spouse
-    if (from.reasonForCancellation !== "pleaseSelect") {
+    if (from.reasonForCancellation !== 'pleaseSelect') {
       to.cancellationReason = from.reasonForCancellation;
       if (from.cancellationDate) {
         to.cancellationDate = format(
@@ -792,13 +792,13 @@ export class MspApiAccountService extends AbstractHttpService {
 
   private unknownAddress(): AddressType {
     const to = AddressTypeFactory.make();
-    to.addressLine1 = "UNKNOWN";
-    to.addressLine2 = "";
-    to.addressLine3 = "";
-    to.city = "UNKNOWN";
-    to.country = "UNKNOWN";
-    to.postalCode = "UNKNOWN";
-    to.provinceOrState = "UNKNOWN";
+    to.addressLine1 = 'UNKNOWN';
+    to.addressLine2 = '';
+    to.addressLine3 = '';
+    to.city = 'UNKNOWN';
+    to.country = 'UNKNOWN';
+    to.postalCode = 'UNKNOWN';
+    to.provinceOrState = 'UNKNOWN';
 
     return to;
   }
@@ -812,7 +812,7 @@ export class MspApiAccountService extends AbstractHttpService {
     to.city = from.city;
     to.country = from.country;
     to.postalCode = from.postal
-      ? from.postal.toUpperCase().replace(" ", "")
+      ? from.postal.toUpperCase().replace(' ', '')
       : undefined;
     to.provinceOrState = from.province;
     return to;
@@ -836,7 +836,7 @@ export class MspApiAccountService extends AbstractHttpService {
     }
 
     if (from.previous_phn) {
-      to.phn = from.previous_phn.replace(new RegExp("[^0-9]", "g"), "");
+      to.phn = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
     }
 
     //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
@@ -845,7 +845,7 @@ export class MspApiAccountService extends AbstractHttpService {
     }
     if (from.isExistingBeneficiary != null) {
       to.isExistingBeneficiary =
-        from.isExistingBeneficiary === true ? "Y" : "N";
+        from.isExistingBeneficiary === true ? 'Y' : 'N';
     }
     // only for new beneficiaries ; these fields are used
     if (from.isExistingBeneficiary === false) {
@@ -881,7 +881,7 @@ export class MspApiAccountService extends AbstractHttpService {
       to.schoolAddress = this.convertAddress(from.schoolAddress);
     }
 
-    if (from.reasonForCancellation !== "pleaseSelect") {
+    if (from.reasonForCancellation !== 'pleaseSelect') {
       to.cancellationReason = from.reasonForCancellation;
       if (from.cancellationDate) {
         to.cancellationDate = format(
@@ -927,11 +927,11 @@ export class MspApiAccountService extends AbstractHttpService {
 
         // Content type
         switch (attachment.contentType) {
-          case "image/jpeg":
-            toAttachment.contentType = "image/jpeg";
+          case 'image/jpeg':
+            toAttachment.contentType = 'image/jpeg';
             break;
-          case "application/pdf":
-            toAttachment.contentType = "application/pdf";
+          case 'application/pdf':
+            toAttachment.contentType = 'application/pdf';
             break;
           default:
           //TODO: throw error on bad content type
@@ -970,14 +970,14 @@ export class MspApiAccountService extends AbstractHttpService {
     if (from.livedInBCSinceBirth != null) {
       to.livedInBC = LivedInBCTypeFactory.make();
       if (from.livedInBCSinceBirth === true) {
-        to.livedInBC.hasLivedInBC = "Y";
+        to.livedInBC.hasLivedInBC = 'Y';
       } else {
-        to.livedInBC.hasLivedInBC = "N";
+        to.livedInBC.hasLivedInBC = 'N';
       }
 
       if (from.livedInBCSinceBirth === false) {
         to.livedInBC.isPermanentMove =
-          from.madePermanentMoveToBC === true ? "Y" : "N";
+          from.madePermanentMoveToBC === true ? 'Y' : 'N';
         if (from.healthNumberFromOtherProvince) {
           to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
         }
@@ -1004,7 +1004,7 @@ export class MspApiAccountService extends AbstractHttpService {
     if (from.declarationForOutsideOver30Days != null) {
       to.outsideBC = OutsideBCTypeFactory.make();
       to.outsideBC.beenOutsideBCMoreThan =
-        from.declarationForOutsideOver30Days === true ? "Y" : "N";
+        from.declarationForOutsideOver30Days === true ? 'Y' : 'N';
       if (from.declarationForOutsideOver30Days) {
         if (from.outOfBCRecord.hasDeparture) {
           to.outsideBC.departureDate = format(
@@ -1028,7 +1028,7 @@ export class MspApiAccountService extends AbstractHttpService {
     if (from.plannedAbsence != null) {
       to.outsideBCinFuture = OutsideBCTypeFactory.make();
       to.outsideBCinFuture.beenOutsideBCMoreThan =
-        from.plannedAbsence === true ? "Y" : "N";
+        from.plannedAbsence === true ? 'Y' : 'N';
       if (from.plannedAbsence) {
         if (from.planOnBeingOutOfBCRecord.hasDeparture) {
           to.outsideBCinFuture.departureDate = format(
@@ -1057,7 +1057,7 @@ export class MspApiAccountService extends AbstractHttpService {
         this.ISO8601DateFormat
       );
       to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
-      to.willBeAway.isFullTimeStudent = "N";
+      to.willBeAway.isFullTimeStudent = 'N';
     }
   }
 
@@ -1069,14 +1069,14 @@ export class MspApiAccountService extends AbstractHttpService {
     if (from.livedInBCSinceBirth != null) {
       to.livedInBC = LivedInBCTypeFactory.make();
       if (from.livedInBCSinceBirth === true) {
-        to.livedInBC.hasLivedInBC = "Y";
+        to.livedInBC.hasLivedInBC = 'Y';
       } else {
-        to.livedInBC.hasLivedInBC = "N";
+        to.livedInBC.hasLivedInBC = 'N';
       }
 
       if (from.livedInBCSinceBirth === false) {
         to.livedInBC.isPermanentMove =
-          from.madePermanentMoveToBC === true ? "Y" : "N";
+          from.madePermanentMoveToBC === true ? 'Y' : 'N';
         if (from.healthNumberFromOtherProvince) {
           to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
         }
@@ -1099,7 +1099,7 @@ export class MspApiAccountService extends AbstractHttpService {
     if (from.declarationForOutsideOver30Days != null) {
       to.outsideBC = OutsideBCTypeFactory.make();
       to.outsideBC.beenOutsideBCMoreThan =
-        from.declarationForOutsideOver30Days === true ? "Y" : "N";
+        from.declarationForOutsideOver30Days === true ? 'Y' : 'N';
       if (from.declarationForOutsideOver30Days) {
         if (from.outOfBCRecord.hasDeparture) {
           to.outsideBC.departureDate = format(
@@ -1123,7 +1123,7 @@ export class MspApiAccountService extends AbstractHttpService {
     if (from.plannedAbsence != null) {
       to.outsideBCinFuture = OutsideBCTypeFactory.make();
       to.outsideBCinFuture.beenOutsideBCMoreThan =
-        from.plannedAbsence === true ? "Y" : "N";
+        from.plannedAbsence === true ? 'Y' : 'N';
       if (from.plannedAbsence) {
         if (from.planOnBeingOutOfBCRecord.hasDeparture) {
           to.outsideBCinFuture.departureDate = format(
@@ -1152,7 +1152,7 @@ export class MspApiAccountService extends AbstractHttpService {
         this.ISO8601DateFormat
       );
       to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
-      to.willBeAway.isFullTimeStudent = "N";
+      to.willBeAway.isFullTimeStudent = 'N';
     }
   }
 
@@ -1162,10 +1162,10 @@ export class MspApiAccountService extends AbstractHttpService {
     const output = [];
     images.map((image, i) => {
       const partial: AttachmentRequestPartial = {
-        contentType: "IMAGE_JPEG",
+        contentType: 'IMAGE_JPEG',
         attachmentDocumentType: MspApiAccountService.AttachmentDocumentType,
         attachmentOrder: (i + 1).toString(),
-        description: "",
+        description: '',
         // TODO - Sure this is the correct UUID here?
         attachmentUuid: image.uuid,
       };
@@ -1294,28 +1294,28 @@ export class MspApiAccountService extends AbstractHttpService {
     let citizen: CitizenshipType;
     switch (statusInCanada) {
       case StatusInCanada.CitizenAdult:
-        citizen = "CanadianCitizen";
+        citizen = 'CanadianCitizen';
         break;
       case StatusInCanada.PermanentResident:
-        citizen = "PermanentResident";
+        citizen = 'PermanentResident';
         break;
       case StatusInCanada.TemporaryResident:
         switch (currentActivity) {
           case CanadianStatusReason.WorkingInBC:
-            citizen = "WorkPermit";
+            citizen = 'WorkPermit';
             break;
           case CanadianStatusReason.StudyingInBC:
-            citizen = "StudyPermit";
+            citizen = 'StudyPermit';
             break;
           case CanadianStatusReason.Diplomat:
-            citizen = "Diplomat";
+            citizen = 'Diplomat';
             break;
           case CanadianStatusReason.ReligiousWorker:
-            citizen = "ReligiousWorker";
+            citizen = 'ReligiousWorker';
             break;
           case CanadianStatusReason.Visiting:
           default:
-            citizen = "VisitorPermit";
+            citizen = 'VisitorPermit';
             break;
         }
     }
@@ -1331,23 +1331,23 @@ export class MspApiAccountService extends AbstractHttpService {
       from.accountChangeOptions.dependentChange ||
       (from.addedChildren && from.addedChildren.length > 0) ||
       (from.removedChildren && from.removedChildren.length > 0)
-        ? "Y"
-        : "N";
+        ? 'Y'
+        : 'N';
     accountHolder.selectedAddressChange = from.accountChangeOptions
       .addressUpdate
-      ? "Y"
-      : "N";
+      ? 'Y'
+      : 'N';
     accountHolder.selectedPersonalInfoChange = from.accountChangeOptions
       .personInfoUpdate
-      ? "Y"
-      : "N";
+      ? 'Y'
+      : 'N';
     accountHolder.selectedStatusChange =
       from.applicant.updateStatusInCanada ||
       (from.addedSpouse && from.addedSpouse.updateStatusInCanada) ||
       (from.removedSpouse && from.removedSpouse.updateStatusInCanada) ||
       (from.updatedSpouse && from.updatedSpouse.updateStatusInCanada)
-        ? "Y"
-        : "N";
+        ? 'Y'
+        : 'N';
 
     // Full Name
     accountHolder.name = this.convertName(from.applicant);
@@ -1355,8 +1355,8 @@ export class MspApiAccountService extends AbstractHttpService {
     // PHN
     if (from.applicant.previous_phn) {
       accountHolder.phn = from.applicant.previous_phn.replace(
-        new RegExp("[^0-9]", "g"),
-        ""
+        new RegExp('[^0-9]', 'g'),
+        ''
       );
     }
 
@@ -1383,8 +1383,8 @@ export class MspApiAccountService extends AbstractHttpService {
 
     if (from.authorizedByApplicant != null) {
       accountHolder.authorizedByApplicant = from.authorizedByApplicant
-        ? "Y"
-        : "N";
+        ? 'Y'
+        : 'N';
       accountHolder.authorizedByApplicantDate = format(
         from.authorizedByApplicantDate,
         this.ISO8601DateFormat
@@ -1392,7 +1392,7 @@ export class MspApiAccountService extends AbstractHttpService {
     }
 
     if (from.authorizedBySpouse != null) {
-      accountHolder.authorizedBySpouse = from.authorizedBySpouse ? "Y" : "N";
+      accountHolder.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
     }
 
     if (from.residentialAddress) {
@@ -1415,7 +1415,7 @@ export class MspApiAccountService extends AbstractHttpService {
 
     if (from.phoneNumber) {
       accountHolder.telephone = from.phoneNumber
-        .replace(/[() +/-]/g, "")
+        .replace(/[() +/-]/g, '')
         .substr(1);
     }
 
@@ -1430,9 +1430,9 @@ export class MspApiAccountService extends AbstractHttpService {
 
 // TODO - Move file - meant to be generic?
 interface AttachmentRequestPartial {
-  contentType: "IMAGE_JPEG";
+  contentType: 'IMAGE_JPEG';
   // attachmentDocumentType: string; // TODO lock down
-  attachmentDocumentType: "SupportDocument";
+  attachmentDocumentType: 'SupportDocument';
   attachmentOrder: string; // String of number! '1', '2', '3'
   description: string;
   attachmentUuid: string;

@@ -1,8 +1,8 @@
 import {
   StatusInCanada,
   CanadianStatusReason,
-} from "../modules/msp-core/models/canadian-status.enum";
-import { Relationship } from "./relationship.enum";
+} from '../modules/msp-core/models/canadian-status.enum';
+import { Relationship } from './relationship.enum';
 
 export enum CancellationReasons {
   SeparatedDivorced,
@@ -15,13 +15,13 @@ export enum CancellationReasons {
 }
 
 export enum CancellationReasonsStrings {
-  "Separated/Divorced",
-  "Remove from Account but still married/common-law",
-  "No longer in full time studies",
-  "Deceased",
-  "Out of province/ Out of Country move",
-  "Armed Forces",
-  "Incarcerated",
+  'Separated/Divorced',
+  'Remove from Account but still married/common-law',
+  'No longer in full time studies',
+  'Deceased',
+  'Out of province/ Out of Country move',
+  'Armed Forces',
+  'Incarcerated',
 }
 
 export enum CancellationReasonsForSpouse {
