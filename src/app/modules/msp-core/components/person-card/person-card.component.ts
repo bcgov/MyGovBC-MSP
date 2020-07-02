@@ -112,6 +112,15 @@ export class MspPersonCardComponent {
     if (this.person.updateGenderDesignation){
       count = count + this.person.updateGenderDesignationDocType.images.length;
     }
+    if (this.person.updateStatusInCanada === true){
+      count = count + this.person.updateStatusInCanadaDocType.images.length;
+    }
+    if (this.person.nameChangeDocs){
+      count = count + this.person.nameChangeDocs.images.length;
+    }
+    if (this.person.nameChangeAdditionalDocs){
+      count = count + this.person.nameChangeAdditionalDocs.images.length;
+    }
     return count;
   }
 
