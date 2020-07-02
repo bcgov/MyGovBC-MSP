@@ -65,14 +65,14 @@ export interface AccountChangeAccountHolderType {
 export enum StatusInCanadaType {
   CitizenAdult = 'CanadianCitizen',
   PermanentResident = 'PermanentResident',
-  TemporaryResident = 'TemporaryPermitHolderOrDiplomat'
+  TemporaryResident = 'TemporaryPermitHolderOrDiplomat',
 }
 
 export enum DocumentType {
   CanadianBirthCertificate = 'CanadianBirthCertificate',
   CanadianPassport = 'CanadianPassport',
   CanadianCitizenCard = 'CanadianCitizenshipCardOrCertificate',
-  DriverLicense = 'BCDriver\'sLicense',
+  DriversLicense = 'BCDriver\'sLicense',
   RecordOfLanding = 'RecordOfLanding',
   PermanentResidentCard = 'PermanentResidentCard',
   PermanentResidentConfirmation = 'ConfirmationOfPermanentResidence',
@@ -88,12 +88,12 @@ export enum DocumentType {
   WorkInCanadaAcceptance = 'WorkInCanadaAcceptance',
   DivorceDecree = 'DivorceDecree',
   ChangeGenderAdultApplication = 'ApplicationForChangeOfGenderDesignation(Adult)',
-  ChangeGenderChildApplication = 'ApplicationForChangeOfGenderDesignation(Child)',
-  ChangeGenderPhyscianConfirmation = 'Physician\'sOrPsychologistConfirmationOfChangeOfGenderDesignationForm',
+  ChangeGenderMinorApplication = 'ApplicationForChangeOfGenderDesignation(Child)',
+  ChangeGenderPhysicianConfirmation = 'Physician\'sOrPsychologistConfirmationOfChangeOfGenderDesignationForm',
   ParentalConsentWaiver = 'RequestForWaiverOfParentalConsent(Minor)(ForUnder19Years)',
-  SeperationAgreement = 'SeperationAgreement',
-  NotrizedStatementOrAffidavit = 'NotrizedStatementOrAffidavit',
-  Other = 'Other'
+  SeparationAgreement = 'SeparationAgreement',
+  NotarizedStatementOrAffidavit = 'NotarizedStatementOrAffidavit',
+  Other = 'Other',
 }
 
 export enum CitizenshipType {
@@ -103,7 +103,7 @@ export enum CitizenshipType {
   ReligiousWorker = 'ReligiousWorker',
   StudyPermit = 'StudyPermit',
   VisitorPermit = 'VisitorPermit',
-  WorkPermit = 'WorkPermit'
+  WorkPermit = 'WorkPermit',
 }
 
 export interface AddressType {
@@ -222,7 +222,7 @@ export interface FinancialsType {
 export enum AssistanceYearType {
   CurrentPA = 'CurrentPA',
   MultiYear = 'MultiYear',
-  PreviousTwo = 'PreviousTwo'
+  PreviousTwo = 'PreviousTwo',
 }
 
 export interface AssistanceSpouseType {

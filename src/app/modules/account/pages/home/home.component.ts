@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
               private pageStateService: PageStateService,
               private apiService: MspApiAccountService,
               private router: Router,
-              private logService: MspLogService) { 
+              private logService: MspLogService) {
     this.header.setTitle('Account Management');
     this.pageStateService.setPageComplete();
   }
@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit {
         }
 
         this.continueButtonLoading = false;
-        
+
         // Open new window.
         window.open(this.outLinkUrl, '_blank');
 
