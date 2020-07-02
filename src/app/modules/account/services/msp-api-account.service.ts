@@ -763,6 +763,32 @@ export class MspApiAccountService extends AbstractHttpService {
       to.livedInBC.prevHealthNumber = from.previous_phn;
     }
 
+    if (from.declarationForOutsideOver30Days) {
+      to.outsideBC = OutsideBCTypeFactory.make();
+      to.outsideBC.beenOutsideBCMoreThan = 'Y';
+      to.outsideBC.familyMemberReason = from.departureReason12Months;
+      to.outsideBC.destination = from.departureDestination12Months;
+      if (from.departureDateDuring12MonthsDate) {
+        to.outsideBC.departureDate = format(from.departureDateDuring12MonthsDate, this.ISO8601DateFormat);
+      }
+      if (from.returnDateDuring12MonthsDate) {
+        to.outsideBC.returnDate = format(from.returnDateDuring12MonthsDate, this.ISO8601DateFormat);
+      }
+    }
+
+    if (from.declarationForOutsideOver60Days) {
+      to.outsideBCinFuture = OutsideBCTypeFactory.make();
+      to.outsideBCinFuture.beenOutsideBCMoreThan = 'Y';
+      to.outsideBCinFuture.familyMemberReason = from.departureReason;
+      to.outsideBCinFuture.destination = from.departureDestination;
+      if (from.departureDateDuring6MonthsDate) {
+        to.outsideBCinFuture.departureDate = format(from.departureDateDuring6MonthsDate, this.ISO8601DateFormat);
+      }
+      if (from.returnDateDuring6MonthsDate) {
+        to.outsideBCinFuture.returnDate = format(from.returnDateDuring6MonthsDate, this.ISO8601DateFormat);
+      }
+    }
+
     // Removing Spouse
     if (from.reasonForCancellation !== 'pleaseSelect') {
       to.cancellationReason = from.reasonForCancellation;

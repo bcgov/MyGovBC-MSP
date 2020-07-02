@@ -35,6 +35,7 @@ import { UpdateChildComponent } from './pages/child-info/update-child/update-chi
 import { RemoveChildComponent } from './pages/child-info/remove-child/remove-child.component';
 import { ChildMovingInformationComponent } from '../account/components/moving-information/moving-information.component';
 import { environment } from 'environments/environment';
+import { AccountPersonCardComponent } from './components/person-card/person-card.component';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import { environment } from 'environments/environment';
     AccountContainerComponent,
     AccountPersonalInfoComponent,
     AccountPersonalDetailsComponent,
+    AccountPersonCardComponent,
     AccountReviewComponent,
     AccountSendingComponent,
     AccountConfirmationComponent,
