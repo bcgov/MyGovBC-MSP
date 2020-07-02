@@ -152,7 +152,7 @@ export const SupportDocumentSamples: SampleImageInterface[] = [
   },
   // DivorceDecree
   {
-    path: 'assets/TEMP_divorce_decree.jpg',
+    path: 'assets/TEMP_divorce_decree.png',
     desc: 'Picture of a sample Divorce Decree',
   },
   // ChangeGenderAdultApplication
