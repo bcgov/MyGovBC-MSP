@@ -6,6 +6,7 @@ import { environment } from '../../../../../environments/environment';
 import { Relationship } from 'app/models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { formatDateField } from '../../helpers/date';
+import { isBefore, subDays, addDays, addMonths } from 'date-fns';
 
 // TO BE removed - differenece need to be added to msp-core moving-info so that it will work with account
 @Component({
@@ -41,16 +42,16 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
 
   relationship: string = 'you';
   departureDateErrorMessage: ErrorMessage = {
-    invalidRange: 'Date must be before return date.'
+    invalidRange: 'Date must be at least 30 days before return date.'
   }
   returnDateErrorMessage: ErrorMessage = {
-    invalidRange: 'Date must be after departure date.'
+    invalidRange: 'Date must be at least 30 days after departure date.'
   }
   dischargeDateErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be greater than the date of birth.'
   }
   departure12MonthsErrorMessage: ErrorMessage = {
-    invalidRange: 'Date must be within the last 12 months.'
+    invalidRange: 'Date must be within the last 12 months, and at least 30 days before the return date.'
   }
   dateToday: Date = new Date();
 
@@ -203,6 +204,44 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       return {
         invalidRange: `Date must be before ${formatDateField(this.dateToday)}.`
       }
+    }
+  }
+
+  get departureDateDuring12MonthsEndRange() {
+    if (this.person.returnDateDuring12MonthsDate
+      && this.person.returnDateDuring12MonthsDate instanceof Date
+      && isBefore(this.person.returnDateDuring12MonthsDate, this.dateToday)) {
+      return subDays(this.person.returnDateDuring12MonthsDate, 31);
+    } else {
+      return this.dateToday;
+    }
+  }
+
+  get returnDateDuring12MonthsStartRange() {
+    if (this.person.departureDateDuring12MonthsDate
+      && this.person.departureDateDuring12MonthsDate instanceof Date) {
+      return addDays(this.person.departureDateDuring12MonthsDate, 31)
+    } else {
+      return null;
+    }
+  }
+
+  get departureDateDuring6MonthsEndRange() {
+    if (this.person.returnDateDuring6MonthsDate
+      && this.person.returnDateDuring6MonthsDate instanceof Date
+      && isBefore(this.person.returnDateDuring6MonthsDate, addMonths(this.dateToday, 6))) {
+      return subDays(this.person.returnDateDuring6MonthsDate, 31);
+    } else {
+      return addMonths(this.dateToday, 6);
+    }
+  }
+
+  get returnDateDuring6MonthsStartRange() {
+    if (this.person.departureDateDuring6MonthsDate
+      && this.person.departureDateDuring6MonthsDate instanceof Date) {
+      return addDays(this.person.departureDateDuring6MonthsDate, 31)
+    } else {
+      return this.dateToday;
     }
   }
 

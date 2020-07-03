@@ -117,7 +117,7 @@
         label="Departure date"
         [(ngModel)]="person.departureDateDuring12MonthsDate"
         [dateRangeStart]='date12MonthsAgo'
-        [dateRangeEnd]='dateToday'
+        [dateRangeEnd]='departureDateDuring12MonthsEndRange'
         [errorMessage]='departure12MonthsErrorMessage'>
       </common-date>
     </div>
@@ -127,7 +127,7 @@
         name="ReturnDate"
         label="Return date"
         [(ngModel)]="person.returnDateDuring12MonthsDate"
-        [dateRangeStart]='person.departureDateDuring12MonthsDate'
+        [dateRangeStart]='returnDateDuring12MonthsStartRange'
         [errorMessage]='returnDateErrorMessage'>
       </common-date>
 
@@ -187,7 +187,7 @@ and check departure was within last 12 months - need to find error messages for 
         name="over30DaysDeparture"
         label="Departure date"
         [(ngModel)]="person.departureDateDuring6MonthsDate"
-        [dateRangeEnd]='person.returnDateDuring6MonthsDate'
+        [dateRangeEnd]='departureDateDuring6MonthsEndRange'
         [errorMessage]='departureDateErrorMessage'>
       </common-date>
     </div>
@@ -197,7 +197,7 @@ and check departure was within last 12 months - need to find error messages for 
         name="over30DaysReturn"
         label="Return date"
         [(ngModel)]="person.returnDateDuring6MonthsDate"
-        [dateRangeStart]='person.departureDateDuring6MonthsDate'
+        [dateRangeStart]='returnDateDuring6MonthsStartRange'
         [errorMessage]='returnDateErrorMessage'>
       </common-date>
     </div>
