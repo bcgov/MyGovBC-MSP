@@ -57,13 +57,16 @@ export class AddChildComponent extends Base implements OnInit {
     this.personChange.emit(this.child);
   }
 
-  relationship( $event, child ) {
-    child.relationship = $event;
-    child.fullTimeStudent = ( child.relationship === Relationship.Child19To24 ) ? true : false;
-  }
+  // relationship( $event ) {
+  //   this.child.relationship = $event;
+  //   this.child.fullTimeStudent = ( this.child.relationship === Relationship.Child19To24 ) ? true : false;
+  //   this.personChange.emit(this.child);
+  // }
 
   get childRelationship() {
-      return this.child.relationship;
+    this.child.fullTimeStudent = ( this.child.relationship === Relationship.Child19To24 ) ? true : false;
+    this.personChange.emit(this.child);
+    return this.child.relationship;
   }
 
   set childRelationship(val: Relationship) {
@@ -71,6 +74,12 @@ export class AddChildComponent extends Base implements OnInit {
     this.personChange.emit(this.child);
   }
 
+  setChildRelationship(val: Relationship) {
+    this.child.relationship = val;
+    this.personChange.emit(this.child);
+  }
+
+  // TODO: Is this setter method necessary?
   set gender(evt: any) {
     this.child.gender = evt;
     this.personChange.emit(evt);
