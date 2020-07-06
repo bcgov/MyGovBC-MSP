@@ -49,7 +49,7 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach( itm => itm.unsubscribe() );
+    this.subscriptions.forEach(itm => itm.unsubscribe());
   }
 
   ngAfterViewInit() {
@@ -186,9 +186,6 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
 
   canContinue(): boolean {
     let valid = super.canContinue();
-    // if (this.accountApp.hasSpouseRemoved === true) {
-    //   valid = valid && this.checkRemoveDocuments();
-    // }
     if (this.dataService.accountApp.updatedChildren.length > 0) {
       valid = valid && this.checkUpdateDocuments();
     }

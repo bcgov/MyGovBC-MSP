@@ -58,7 +58,9 @@ export class AddSpouseComponent extends Base implements OnInit {
   }
 
   get marriageDateError() {
-    return this.spouse.dateOfBirth > this.spouse.marriageDate ? true :false
+    return this.spouse.dateOfBirth !== undefined && this.spouse.marriageDate !== undefined
+      && this.spouse.dateOfBirth !== null && this.spouse.marriageDate !== null
+      && this.spouse.dateOfBirth > this.spouse.marriageDate;
   }
 
   get items() {
