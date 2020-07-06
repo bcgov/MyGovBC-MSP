@@ -8,6 +8,7 @@ import { nameChangeSupportDocs } from 'app/modules/msp-core/components/support-d
 import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
+import { isAfter } from 'date-fns';
 
 @Component({
   selector: 'msp-add-spouse',
@@ -58,7 +59,9 @@ export class AddSpouseComponent extends Base implements OnInit {
   }
 
   get marriageDateError() {
-    return this.spouse.dateOfBirth > this.spouse.marriageDate ? true :false
+    return this.spouse.dateOfBirth !== undefined && this.spouse.marriageDate !== undefined
+      && this.spouse.dateOfBirth !== null && this.spouse.marriageDate !== null
+      && isAfter(this.spouse.dateOfBirth, this.spouse.marriageDate);
   }
 
   get items() {
