@@ -42,6 +42,11 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     SupportDocumentTypes.PermanentResidentCard,
     SupportDocumentTypes.PermanentResidentConfirmation
   ];
+  permanentResidentDocList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.PermanentResidentConfirmation,
+    SupportDocumentTypes.RecordOfLanding,
+    SupportDocumentTypes.PermanentResidentCard
+  ];
 
   ngOnInit() {
     this.pageStateService.setPageIncomplete(this.router.url);
