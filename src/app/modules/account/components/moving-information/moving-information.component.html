@@ -80,16 +80,18 @@
       </label>
       <input
         #reasonRef="ngModel"
-        name="departureReason_{{objectId}}"
+        name="departureReason12Months_{{objectId}}"
         type="text"
         class="form-control"
         [(ngModel)]= "person.departureReason12Months"
         maxlength="20"
-        required>
-      <common-error-container
-        [displayError]="reasonRef.error?.required">
-        Reason for departure is required.
-      </common-error-container>
+        required/>
+      <ng-container *ngIf="reasonRef.invalid && (reasonRef.dirty || reasonRef.touched)">
+        <common-error-container
+          [displayError]="reasonRef.errors?.required">
+          Reason for departure is required.
+        </common-error-container>
+      </ng-container>
     </div>
 
     <div class="form-group col-sm-6 p-sm-2">
@@ -98,16 +100,18 @@
        </label>
        <input
         #destinationRef="ngModel"
-        name="departureDestination_{{objectId}}"
+        name="departureDestination12Months_{{objectId}}"
         type="text"
         class="form-control"
         [(ngModel)]= "person.departureDestination12Months"
         maxlength="20"
-        required>
-      <common-error-container
-        [displayError]="destinationRef.error?.required">
-        Location is required.
-      </common-error-container>
+        required/>
+      <ng-container *ngIf="destinationRef.invalid && (destinationRef.dirty || destinationRef.touched)">
+        <common-error-container
+          [displayError]="destinationRef.errors?.required">
+          Location is required.
+        </common-error-container>
+      </ng-container>
     </div>
 
     <div class="form-group col-sm-6 p-sm-2">
@@ -137,7 +141,7 @@ and check departure was within last 12 months - need to find error messages for 
 
   <div class="form-group">
     <common-radio
-      name="outsideOver30Days_{{objectId}}"
+      name="outsideOver60Days_{{objectId}}"
       [(ngModel)]="person.declarationForOutsideOver60Days"
       label="Will {{possessiveRelationshipNoun}} be outside B.C. for more than a total of 30 days during the next 6 months?"
       required>
@@ -150,17 +154,19 @@ and check departure was within last 12 months - need to find error messages for 
           Reason for departure
       </label>
       <input
-        #reasonRef="ngModel"
+        #over60DaysReasonRef="ngModel"
         name="departureReason_{{objectId}}"
         type="text"
         class="form-control"
         [(ngModel)]="person.departureReason"
         maxlength="20"
-        required>
-      <common-error-container
-        [displayError]="reasonRef.error?.required">
-        Reason for departure is required.
-      </common-error-container>
+        required/>
+      <ng-container *ngIf="over60DaysReasonRef.invalid && (over60DaysReasonRef.dirty || over60DaysReasonRef.touched)">
+        <common-error-container
+          [displayError]="over60DaysReasonRef.errors?.required">
+          Reason for departure is required.
+        </common-error-container>
+      </ng-container>
     </div>
 
     <div class="form-group col-sm-6 p-sm-2">
@@ -168,17 +174,19 @@ and check departure was within last 12 months - need to find error messages for 
         Location
       </label>
       <input
-        #destinationRef="ngModel"
+        #over60DaysDestinationRef="ngModel"
         name="departureDestination_{{objectId}}"
         type="text"
         class="form-control"
         [(ngModel)]="person.departureDestination"
         maxlength="20"
-        required>
-      <common-error-container
-        [displayError]="destinationRef.error?.required">
-        Location is required.
-      </common-error-container>
+        required/>
+      <ng-container *ngIf="over60DaysDestinationRef.invalid && (over60DaysDestinationRef.dirty || over60DaysDestinationRef.touched)">
+        <common-error-container
+          [displayError]="over60DaysDestinationRef.errors?.required">
+          Location is required.
+        </common-error-container>
+      </ng-container>
     </div>
 
     <div class="form-group col-sm-6 p-sm-2">
