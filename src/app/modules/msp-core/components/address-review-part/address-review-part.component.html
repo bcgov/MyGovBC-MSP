@@ -9,13 +9,13 @@
     <span>{{address.addressLine1}}<br></span>
     <span *ngIf="address.addressLine2 != null">{{address.addressLine2}}<br></span>
     <span *ngIf="address.addressLine3 != null">{{address.addressLine3}}<br></span>
-  </msp-review-part> 
+  </msp-review-part>
 
   <msp-review-part *ngIf="address?.city"
                    label="City"
                    [value]="address?.city"
                    [columnClass]="columnClass">
-  </msp-review-part> 
+  </msp-review-part>
 
   <msp-review-part *ngIf="address?.province"
                    label="Province"
@@ -27,11 +27,11 @@
                    label="Postal Code"
                    [value]="address?.postal"
                    [columnClass]="columnClass">
-  </msp-review-part> 
+  </msp-review-part>
 
   <msp-review-part *ngIf="address?.country"
                    label="Country"
                    [value]="country"
                    [columnClass]="columnClass">
-  </msp-review-part> 
+  </msp-review-part>
 </div>

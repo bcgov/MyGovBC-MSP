@@ -252,13 +252,10 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   }
 
   get showRecentMove() {
-    return (
-            this.person.currentActivity !== undefined &&
-            this.person.livedInBCSinceBirth === false
-          ) || (
-            this.person.livedInBCSinceBirth === false &&
-            this.isChild
-          );
+    return (this.person.currentActivity !== undefined
+            && this.person.livedInBCSinceBirth === false)
+            || (this.person.livedInBCSinceBirth === false
+            && this.isChild);
   }
 
   get showFromProv() {
