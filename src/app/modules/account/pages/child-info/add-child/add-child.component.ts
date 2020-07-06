@@ -58,7 +58,7 @@ export class AddChildComponent extends Base implements OnInit {
   }
 
   get childRelationship() {
-    this.child.fullTimeStudent = ( this.child.relationship === Relationship.Child19To24 ) ? true : false;
+    this.child.fullTimeStudent = (this.child.relationship === Relationship.Child19To24) ? true : false;
     this.personChange.emit(this.child);
     return this.child.relationship;
   }
