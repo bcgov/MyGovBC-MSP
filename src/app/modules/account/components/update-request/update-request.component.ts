@@ -1,4 +1,4 @@
-import {EventEmitter, Output, Component, Input, forwardRef } from '@angular/core';
+import { EventEmitter, Output, Component, Input, forwardRef } from '@angular/core';
 import { MspAccountApp, UpdateList, ItemList } from '../../models/account.model';
 import {
   nameChangeSupportDocuments,
@@ -7,12 +7,12 @@ import {
   nameChangeDueToErrorDocuments,
   genderBirthDateChangeDocuments
 } from '../../../msp-core/components/support-documents/support-documents.component';
+import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
 import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
 import { Relationship } from '../../../../models/relationship.enum';
 
 @Component({

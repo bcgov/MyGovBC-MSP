@@ -3,10 +3,12 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { OperationActionType, MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { AbstractForm, scrollTo, ContainerService, PageStateService } from 'moh-common-lib';
+import { scrollTo, ContainerService, PageStateService } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { Relationship } from 'app/models/relationship.enum';
+import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
+import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { BaseForm } from '../../models/base-form';
 
 const DOM_REFRESH_TIMEOUT = 50;
@@ -35,6 +37,11 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   child: MspPerson ;
   showRemoveChild: boolean = false;
   showUpdateChild: boolean = false;
+  canadianCitizenDocList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.CanadianCitizenCard,
+    SupportDocumentTypes.PermanentResidentCard,
+    SupportDocumentTypes.PermanentResidentConfirmation
+  ];
 
   ngOnInit() {
     this.pageStateService.setPageIncomplete(this.router.url);
@@ -95,6 +102,15 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     setTimeout(() => {
       this.scrollToChild('.update-child');
     }, DOM_REFRESH_TIMEOUT);
+  }
+
+  getDocList() {
+    if (this.child.status === StatusInCanada.CitizenAdult){
+      return this.canadianCitizenDocList;
+    }
+    else if (this.child.status === StatusInCanada.PermanentResident){
+      return this.permanentResidentDocList;
+    }
   }
 
   get children(): MspPerson[] {

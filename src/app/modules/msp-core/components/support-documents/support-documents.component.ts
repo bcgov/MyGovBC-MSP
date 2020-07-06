@@ -77,7 +77,6 @@ export function nameChangeSupportDocs(): SupportDocumentTypes[] {
   ];
 }
 
-// Added by Abhi
 export function genderBirthDateChangeDocuments(): SupportDocumentTypes[] {
   return [
     SupportDocumentTypes.DriversLicense,

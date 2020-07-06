@@ -3,6 +3,15 @@ import { MspAccountMaintenanceDataService } from '../../../services/msp-account-
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../../../models/relationship.enum';
+import { StatusInCanada } from '../../../../msp-core/models/canadian-status.enum';
+import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
+import {
+  nameChangeSupportDocuments,
+  nameChangeDueToMarriageOrDivorceDocuments,
+  genderDesignationChangeDocuments,
+  nameChangeDueToErrorDocuments,
+  genderBirthDateChangeDocuments
+} from '../../../../msp-core/components/support-documents/support-documents.component';
 
 @Component({
   selector: 'msp-update-child',
@@ -18,8 +27,40 @@ export class UpdateChildComponent implements OnInit {
   @Input() accountApp: MspAccountApp;
   @Input() index: number;
 
+  canadianCitizenDocList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.CanadianBirthCertificate,
+    SupportDocumentTypes.CanadianCitizenCard,
+    SupportDocumentTypes.CanadianPassport
+  ];
+  permanentResidentDocList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.PermanentResidentConfirmation,
+    SupportDocumentTypes.RecordOfLanding,
+    SupportDocumentTypes.PermanentResidentCard
+  ];
+  nameChangeDocs = nameChangeSupportDocuments();
+  nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
+  nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
+  genderChangeDocs = genderDesignationChangeDocuments();
+  nameChangeDuetoErrorDocs = nameChangeDueToErrorDocuments();
+  genderBirthdateChangeDocs = genderBirthDateChangeDocuments();
+
   ngOnInit() {
     this.child.relationship = Relationship.Child;
+  }
+
+  checkStatus() {
+    return (this.child.status === StatusInCanada.CitizenAdult ||
+      this.child.status === StatusInCanada.PermanentResident ||
+      this.child.currentActivity !== undefined);
+  }
+
+  getDocList() {
+    if (this.child.status === StatusInCanada.CitizenAdult){
+      return this.canadianCitizenDocList;
+    }
+    else if (this.child.status === StatusInCanada.PermanentResident){
+      return this.permanentResidentDocList;
+    }
   }
 
   get accountUpdateList(): UpdateList[] {

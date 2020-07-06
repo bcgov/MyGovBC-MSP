@@ -127,11 +127,8 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
   }
 
   set statusInCanada(val: string) {
-
     const status = Object.keys(CanadianStatusStrings).find(x => CanadianStatusStrings[x] === val);
-
     this.person.status = StatusInCanada[status];
-
     // not activity at this point - mark as undefined
     this.person.currentActivity = undefined;
     this.availableStatusReasons = this._availableStatusReasons;
@@ -140,7 +137,7 @@ export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
 
   get displayStatusReasons() {
     let show = (this.statusInCanada !== undefined);
-    if (show && this.hideStatusReasons.length > 0) {
+    if (show && this.hideStatusReasons && this.hideStatusReasons.length > 0) {
       const tmp = this.hideStatusReasons.find(x => x === this.person.status);
       show = tmp === undefined ? true : false;
     }
