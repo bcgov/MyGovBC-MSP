@@ -106,10 +106,6 @@ export class AddChildComponent extends Base implements OnInit {
     return this.child.updateStatusInCanadaDocType;
   }
 
-  isPhnUniqueInChild() {
-    return this.dataService.accountApp.isUniquePhnsinDependents;
-  }
-
   set statusDocuments(document: SupportDocuments) {
     this.child.updateStatusInCanadaDocType = document;
     if (document.images && document.images.length === 0) {
@@ -117,5 +113,9 @@ export class AddChildComponent extends Base implements OnInit {
       this.child.nameChangeDocs.documentType = null;
       this.child.nameChangeDocs.images = [];
     }
+  }
+
+  isPhnUniqueInChild() {
+    return this.dataService.accountApp.isUniquePhnsinDependents;
   }
 }
