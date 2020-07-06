@@ -49,7 +49,7 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach( itm => itm.unsubscribe() );
+    this.subscriptions.forEach(itm => itm.unsubscribe());
   }
 
   ngAfterViewInit() {
@@ -136,18 +136,11 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     }
   }
 
-  checkUpdateDocuments() {
+  checkUpdate() {
     let valid = true;
     this.updatedChildren.forEach(function (child) {
       if (child.updateStatusInCanada === true) {
         valid = valid && child.updateStatusInCanadaDocType.images.length > 0
-      }
-
-      if (child.updateNameDueToMarriage === true) {
-        valid = valid
-          && child.updateNameDueToMarriageDocType.images !== undefined
-          && child.updateNameDueToMarriageDocType.images.length !== undefined
-          && child.updateNameDueToMarriageDocType.images.length > 0
       }
 
       if (child.updateNameDueToNameChange == true) {
@@ -179,18 +172,15 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
         valid = valid
           && child.updateGenderDesignationDocType.images !== undefined
           && child.updateGenderDesignationDocType.images.length > 0
-    }
+      }
     });
     return valid;
   }
 
   canContinue(): boolean {
     let valid = super.canContinue();
-    // if (this.accountApp.hasSpouseRemoved === true) {
-    //   valid = valid && this.checkRemoveDocuments();
-    // }
     if (this.dataService.accountApp.updatedChildren.length > 0) {
-      valid = valid && this.checkUpdateDocuments();
+      valid = valid && this.checkUpdate();
     }
     return valid;
   }
