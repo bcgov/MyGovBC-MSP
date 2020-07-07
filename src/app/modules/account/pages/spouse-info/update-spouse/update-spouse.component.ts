@@ -7,59 +7,63 @@ import { MspPerson } from '../../../../../components/msp/model/msp-person.model'
 @Component({
   selector: 'msp-update-spouse',
   templateUrl: './update-spouse.component.html',
-  styleUrls: ['./update-spouse.component.scss']
+  styleUrls: ['./update-spouse.component.scss'],
 })
 export class UpdateSpouseComponent extends BaseComponent implements OnInit {
-
   @Input() spouse: MspPerson;
   @Input() accountApp: MspAccountApp;
+  @Input() phns: string[];
   //langActivities = require('../../../../../components/msp/common/activities/i18n');
 
-
-  constructor(public dataService: MspAccountMaintenanceDataService, cd: ChangeDetectorRef) {
+  constructor(
+    public dataService: MspAccountMaintenanceDataService,
+    cd: ChangeDetectorRef
+  ) {
     super(cd);
   }
 
   ngOnInit() {
-   // this.spouse = this.dataService.accountApp.spouse;
+    // this.spouse = this.dataService.accountApp.spouse;
     this.accountApp = this.dataService.accountApp;
     //this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
   }
 
-  onChange($event){
+  onChange($event) {
     //this.dataService.saveMspAccountApp();
   }
 
   get phnList() {
-    return [this.accountApp.applicant.previous_phn];
+    const cp = [...this.phns];
+    cp.splice(cp.indexOf(this.spouse.phn), 1);
+    return cp;
   }
 
   get accountUpdateList(): UpdateList[] {
     return [
       {
-        'label': 'Update status in Canada',
-        'value': this.spouse.updateStatusInCanada
+        label: 'Update status in Canada',
+        value: this.spouse.updateStatusInCanada,
       },
       {
-        'label': 'Update name - due to marriage or other',
-        'value': this.spouse.updateNameDueToMarriage
+        label: 'Update name - due to marriage or other',
+        value: this.spouse.updateNameDueToMarriage,
       },
       {
-        'label': 'Correct name - due to error',
-        'value': this.spouse.updateNameDueToError
+        label: 'Correct name - due to error',
+        value: this.spouse.updateNameDueToError,
       },
       {
-        'label': 'Correct birthdate',
-        'value': this.spouse.updateBirthdate
+        label: 'Correct birthdate',
+        value: this.spouse.updateBirthdate,
       },
       {
-        'label': 'Correct gender',
-        'value': this.spouse.updateGender
+        label: 'Correct gender',
+        value: this.spouse.updateGender,
       },
       {
-        'label': 'Change gender designation',
-        'value': this.spouse.updateGenderDesignation
-      }
+        label: 'Change gender designation',
+        value: this.spouse.updateGenderDesignation,
+      },
     ];
   }
 }

@@ -4,14 +4,18 @@
       <h1><strong>Manage child information on your account</strong></h1>
       <p>A child is a resident of B.C. who:</p>
       <ul>
-        <li>is a child of a beneficiary or a person who stands in place of a parent;</li>
+        <li>
+          is a child of a beneficiary or a person who stands in place of a
+          parent;
+        </li>
         <li>is a minor;</li>
         <li>does not have a spouse;</li>
         <li>and is supported by the beneficiary.</li>
       </ul>
       <p class="horizontal-line">
-        Use this section to add a child to your account, remove a child from your account, or update the legal name,
-        birthdate and / or gender of a child currently on your Medical Services Plan account.
+        Use this section to add a child to your account, remove a child from
+        your account, or update the legal name, birthdate and / or gender of a
+        child currently on your Medical Services Plan account.
       </p>
       <div class="row">
         <!--Add Child button -->
@@ -19,7 +23,8 @@
           <common-button
             [label]="'Add Child'"
             [buttonType]="'btn btn-primary btn-block'"
-            (btnClick)='addChildBtnClick()'>
+            (btnClick)="addChildBtnClick()"
+          >
           </common-button>
         </div>
         <!--Remove Child button -->
@@ -27,7 +32,8 @@
           <common-button
             [label]="'Remove Child'"
             [buttonType]="'btn btn-primary btn-block'"
-            (btnClick)='removeChildBtnClick();'>
+            (btnClick)="removeChildBtnClick()"
+          >
           </common-button>
         </div>
         <!--Update Child button -->
@@ -35,61 +41,72 @@
           <common-button
             [label]="'Update Child'"
             [buttonType]="'btn btn-primary btn-block'"
-            (btnClick)='updateChildBtnClick();'>
+            (btnClick)="updateChildBtnClick()"
+          >
           </common-button>
         </div>
       </div>
-      <br>
+      <br />
 
       <!--Add Child Section -->
       <div *ngFor="let child of children; let idx = index" class="add-child">
-        <h2><strong>Add Child #{{children.length - idx}}</strong></h2>
+        <h2>
+          <strong>Add Child #{{ children.length - idx }}</strong>
+        </h2>
         <common-xicon-button
-          label='Remove'
-          (click)="removeChild(idx, child.operationActionType)">
+          label="Remove"
+          (click)="removeChild(idx, child.operationActionType)"
+        >
         </common-xicon-button>
         <p class="border-bottom">
           Please provide child’s personal information.
         </p>
-        <msp-add-child
-          [child]="child"
-          [index]="idx">
+        <msp-add-child [child]="child" [index]="idx" [phns]="phns">
         </msp-add-child>
       </div>
 
       <!--Remove Child Section -->
-      <div *ngFor="let child of removedChildren; let idx = index" class="remove-child">
-        <h2><strong>Remove Child #{{removedChildren.length - idx}}</strong></h2>
+      <div
+        *ngFor="let child of removedChildren; let idx = index"
+        class="remove-child"
+      >
+        <h2>
+          <strong>Remove Child #{{ removedChildren.length - idx }}</strong>
+        </h2>
         <common-xicon-button
-          label='Remove'
-          (click)="removeChild(idx, child.operationActionType)">
+          label="Remove"
+          (click)="removeChild(idx, child.operationActionType)"
+        >
         </common-xicon-button>
         <p class="horizontal-line">
-          If you are removing a child, you do not need to upload supporting documentation.
-          However, a child 0-18 years of age must have coverage under another account.
-          A child 19 years of age or over will be automatically set up on their own account.
+          If you are removing a child, you do not need to upload supporting
+          documentation. However, a child 0-18 years of age must have coverage
+          under another account. A child 19 years of age or over will be
+          automatically set up on their own account.
         </p>
-        <msp-remove-child
-          [child]="child"
-          [index]="idx">
+        <msp-remove-child [child]="child" [index]="idx" [phns]="phns">
         </msp-remove-child>
       </div>
 
       <!--Update Child Section -->
-      <div *ngFor="let child of updatedChildren; let idx = index" class="update-child">
-        <h2><strong>Update Child #{{updatedChildren.length - idx}}</strong></h2>
+      <div
+        *ngFor="let child of updatedChildren; let idx = index"
+        class="update-child"
+      >
+        <h2>
+          <strong>Update Child #{{ updatedChildren.length - idx }}</strong>
+        </h2>
         <common-xicon-button
-          label='Remove'
-          (click)="removeChild(idx, child.operationActionType)">
+          label="Remove"
+          (click)="removeChild(idx, child.operationActionType)"
+        >
         </common-xicon-button>
         <p class="horizontal-line">
-          Please provide personal information of the child currently on your account.
-          If you are requesting an update or correction to the child’s name, birthdate or gender,
-          please provide the new information here.
+          Please provide personal information of the child currently on your
+          account. If you are requesting an update or correction to the child’s
+          name, birthdate or gender, please provide the new information here.
         </p>
-        <msp-update-child
-          [child]="child"
-          [index]="idx">
+        <msp-update-child [child]="child" [index]="idx" [phns]="phns">
         </msp-update-child>
       </div>
 
@@ -97,8 +114,9 @@
       <div *ngIf="hasChild">
         <p class="horizontal-line">
           <b>
-            After you have entered information for a child, click "Add child", "Remove child" or "Update child"
-            again to enter information for another child. When you are finished, click "Continue".
+            After you have entered information for a child, click "Add child",
+            "Remove child" or "Update child" again to enter information for
+            another child. When you are finished, click "Continue".
           </b>
         </p>
         <div class="row">
@@ -106,21 +124,24 @@
             <common-button
               [label]="'Add Child'"
               [buttonType]="'btn btn-primary btn-block'"
-              (btnClick)='addChildBtnClick()'>
+              (btnClick)="addChildBtnClick()"
+            >
             </common-button>
           </div>
           <div class="col-2">
             <common-button
               [label]="'Remove Child'"
               [buttonType]="'btn btn-primary btn-block'"
-              (btnClick)='removeChildBtnClick();'>
+              (btnClick)="removeChildBtnClick()"
+            >
             </common-button>
           </div>
-          <div class="col-2 ">
+          <div class="col-2">
             <common-button
               [label]="'Update Child'"
               [buttonType]="'btn btn-primary btn-block'"
-              (btnClick)='updateChildBtnClick();'>
+              (btnClick)="updateChildBtnClick()"
+            >
             </common-button>
           </div>
         </div>
@@ -131,7 +152,8 @@
 
 <common-form-action-bar
   [defaultColor]="false"
-  [submitLabel]="hasChild? 'Continue':'No Child'"
+  [submitLabel]="hasChild ? 'Continue' : 'No Child'"
   [canContinue]="canContinue()"
-  (btnClick)="continue()">
+  (btnClick)="continue()"
+>
 </common-form-action-bar>

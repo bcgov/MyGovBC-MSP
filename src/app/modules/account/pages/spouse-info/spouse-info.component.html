@@ -3,13 +3,14 @@
     <form #formRef="ngForm" novalidate>
       <h1><strong>Manage spouse information on your account</strong></h1>
       <p>
-        A spouse is a resident of B.C. who is married to or is living and cohabiting in a
-        marriage-like relationship with the Account Holder.
+        A spouse is a resident of B.C. who is married to or is living and
+        cohabiting in a marriage-like relationship with the Account Holder.
       </p>
       <p class="horizontal-line">
-        Use this section to add or remove a spouse from your Medical Services Plan account.
-        If you already have a spouse on your account, use “Update Spouse” to update your
-        current spouse’s personal information or status in Canada.
+        Use this section to add or remove a spouse from your Medical Services
+        Plan account. If you already have a spouse on your account, use “Update
+        Spouse” to update your current spouse’s personal information or status
+        in Canada.
       </p>
 
       <!-- Add/Remove/Update Buttons-->
@@ -17,108 +18,120 @@
         <div class="col-2">
           <common-button
             [label]="'Add Spouse'"
-            [disabled]="(showAddSpouse || showUpdateSpouse)"
+            [disabled]="showAddSpouse || showUpdateSpouse"
             [buttonType]="'btn btn-primary btn-block'"
-            (btnClick)='addSpouse()'>
+            (btnClick)="addSpouse()"
+          >
           </common-button>
         </div>
         <div class="col-2">
           <common-button
             [label]="'Remove Spouse'"
-            [disabled]="(showRemoveSpouse || showUpdateSpouse)"
+            [disabled]="showRemoveSpouse || showUpdateSpouse"
             [buttonType]="'btn btn-primary btn-block'"
-            (btnClick)='removeSpouse()'>
+            (btnClick)="removeSpouse()"
+          >
           </common-button>
         </div>
-        <div class="col-2 ">
+        <div class="col-2">
           <common-button
             [label]="'Update Spouse'"
-            [disabled]="(showAddSpouse || showUpdateSpouse || showRemoveSpouse)"
+            [disabled]="showAddSpouse || showUpdateSpouse || showRemoveSpouse"
             [buttonType]="'btn btn-primary btn-block'"
-            (btnClick)='updateSpouse()'>
+            (btnClick)="updateSpouse()"
+          >
           </common-button>
         </div>
       </div>
-      <br>
+      <br />
 
       <!-- Add Spouse Section -->
       <div *ngIf="showAddSpouse">
         <h2><strong>Add Spouse</strong></h2>
-        <common-xicon-button
-          label='Remove'
-          (click)="removedAddedSpouse()">
+        <common-xicon-button label="Remove" (click)="removedAddedSpouse()">
         </common-xicon-button>
         <p class="horizontal-line">
           Please provide your spouse's personal information.
         </p>
         <msp-add-spouse
-          [accountChangeOptions]="accountChangeOptions"
+          [spouse]="addedSpouse"
           [accountApp]="accountApp"
-          [spouse]="addedSpouse">
+          [phns]="phns"
+          [accountChangeOptions]="accountChangeOptions"
+        >
         </msp-add-spouse>
       </div>
 
       <!-- Remove Spouse Section -->
       <div *ngIf="showRemoveSpouse">
         <h2><strong>Remove Spouse</strong></h2>
-        <common-xicon-button
-          label='Remove'
-          (click)="removedDeletedSpouse()">
+        <common-xicon-button label="Remove" (click)="removedDeletedSpouse()">
         </common-xicon-button>
         <p class="horizontal-line">
-          Please provide spouse's personal information and indicate the reason for removing the spouse from your account.
+          Please provide spouse's personal information and indicate the reason
+          for removing the spouse from your account.
         </p>
-        <br>
-        <msp-remove-spouse
-          [spouse]="removedSpouse">
+        <br />
+        <msp-remove-spouse [spouse]="removedSpouse" [phns]="phns">
         </msp-remove-spouse>
       </div>
 
       <!-- Update Spouse Section -->
       <div *ngIf="showUpdateSpouse">
         <h2><strong>Update Spouse's Information</strong></h2>
-        <common-xicon-button
-          label='Remove'
-          (click)="removedUpdatedSpouse()">
+        <common-xicon-button label="Remove" (click)="removedUpdatedSpouse()">
         </common-xicon-button>
         <p class="horizontal-line">
-          Please provide personal information of the spouse currently on your Medical Services Plan account.
-          If you are requesting an update or correction to the spouse's legal name (including a name change as a
-          result of marriage, separation or divorce), birthdate or gender, please provide the new information here.
+          Please provide personal information of the spouse currently on your
+          Medical Services Plan account. If you are requesting an update or
+          correction to the spouse's legal name (including a name change as a
+          result of marriage, separation or divorce), birthdate or gender,
+          please provide the new information here.
         </p>
-        <br>
+        <br />
         <msp-update-spouse
           [spouse]="updatedSpouse"
-          [accountApp]="accountApp">
+          [accountApp]="accountApp"
+          [phns]="phns"
+        >
         </msp-update-spouse>
       </div>
 
       <!-- Add/Remove/Update Buttons-->
-      <div *ngIf="((showAddSpouse && showAddedSpouseBottomButtons) || showUpdateSpouse || showRemoveSpouse)">
+      <div
+        *ngIf="
+          (showAddSpouse && showAddedSpouseBottomButtons) ||
+          showUpdateSpouse ||
+          showRemoveSpouse
+        "
+      >
         <p class="horizontal-line"></p>
         <div class="row">
           <div class="col-2">
             <common-button
               [label]="'Add Spouse'"
-              [disabled]="(showAddSpouse || showUpdateSpouse)"
+              [disabled]="showAddSpouse || showUpdateSpouse"
               [buttonType]="'btn btn-primary btn-block'"
-              (btnClick)='addSpouse()'>
+              (btnClick)="addSpouse()"
+            >
             </common-button>
           </div>
           <div class="col-2">
             <common-button
               [label]="'Remove Spouse'"
-              [disabled]="(showRemoveSpouse || showUpdateSpouse)"
+              [disabled]="showRemoveSpouse || showUpdateSpouse"
               [buttonType]="'btn btn-primary btn-block'"
-              (btnClick)='removeSpouse()'>
+              (btnClick)="removeSpouse()"
+            >
             </common-button>
           </div>
-          <div class="col-2 ">
+          <div class="col-2">
             <common-button
               [label]="'Update Spouse'"
-              [disabled]="(showAddSpouse || showUpdateSpouse || showRemoveSpouse)"
+              [disabled]="showAddSpouse || showUpdateSpouse || showRemoveSpouse"
               [buttonType]="'btn btn-primary btn-block'"
-              (btnClick)='updateSpouse()'>
+              (btnClick)="updateSpouse()"
+            >
             </common-button>
           </div>
         </div>
@@ -129,7 +142,14 @@
 
 <common-form-action-bar
   [defaultColor]="false"
-  [submitLabel]="(this.accountApp.hasSpouseAdded || this.accountApp.hasSpouseRemoved || this.accountApp.hasSpouseUpdated) ? 'Continue':'No Spouse'"
+  [submitLabel]="
+    this.accountApp.hasSpouseAdded ||
+    this.accountApp.hasSpouseRemoved ||
+    this.accountApp.hasSpouseUpdated
+      ? 'Continue'
+      : 'No Spouse'
+  "
   [canContinue]="canContinue()"
-  (btnClick)="continue()">
+  (btnClick)="continue()"
+>
 </common-form-action-bar>

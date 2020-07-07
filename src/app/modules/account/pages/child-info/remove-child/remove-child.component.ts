@@ -1,8 +1,14 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
-import { NgForm, ControlContainer} from '@angular/forms';
-import { CancellationReasons, CancellationReasonsStrings } from '../../../../../models/status-activities-documents';
+import { NgForm, ControlContainer } from '@angular/forms';
+import {
+  CancellationReasons,
+  CancellationReasonsStrings,
+} from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import { MspAccountApp, AccountChangeOptions } from '../../../models/account.model';
+import {
+  MspAccountApp,
+  AccountChangeOptions,
+} from '../../../models/account.model';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 
 @Component({
@@ -12,41 +18,40 @@ import { MspPerson } from '../../../../../components/msp/model/msp-person.model'
   viewProviders: [
     {
       provide: ControlContainer,
-      useExisting: forwardRef(() => NgForm)
-    }
-  ]
+      useExisting: forwardRef(() => NgForm),
+    },
+  ],
 })
-
 export class RemoveChildComponent implements OnInit {
-  constructor( public dataService: MspAccountMaintenanceDataService) { }
+  constructor(public dataService: MspAccountMaintenanceDataService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   @Input() accountChangeOptions: AccountChangeOptions;
-  @Input() child: MspPerson ;
+  @Input() child: MspPerson;
   @Input() accountApp: MspAccountApp;
+  @Input() phns: string[];
   @Input() index: number;
   listofCancellationReasons = [
     {
-      'label': 'No longer in full time studies',
-      'value': CancellationReasons.NoLongerInFullTimeStudies
+      label: 'No longer in full time studies',
+      value: CancellationReasons.NoLongerInFullTimeStudies,
     },
     {
-      'label': 'Deceased',
-      'value': CancellationReasons.Deceased
+      label: 'Deceased',
+      value: CancellationReasons.Deceased,
     },
     {
-      'label': 'Out of Province/ Out of Country',
-      'value': CancellationReasons.OutOfProvinceOrCountry
+      label: 'Out of Province/ Out of Country',
+      value: CancellationReasons.OutOfProvinceOrCountry,
     },
     {
-      'label': 'Armed Forces',
-      'value': CancellationReasons.ArmedForces
+      label: 'Armed Forces',
+      value: CancellationReasons.ArmedForces,
     },
     {
-      'label': 'Incarcerated',
-      'value': CancellationReasons.Incarcerated
+      label: 'Incarcerated',
+      value: CancellationReasons.Incarcerated,
     },
   ];
 
@@ -61,6 +66,12 @@ export class RemoveChildComponent implements OnInit {
 
   isPhnUniqueInChild() {
     return this.dataService.accountApp.isUniquePhnsinDependents;
+  }
+
+  get phnList() {
+    const cp = [...this.phns];
+    cp.splice(cp.indexOf(this.child.phn), 1);
+    return cp;
   }
 
   setCancellationStatus(evt: any) {

@@ -1,5 +1,14 @@
-import { Component, ViewChild, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
-import { MspAccountApp, AccountChangeOptions } from '../../models/account.model';
+import {
+  Component,
+  ViewChild,
+  AfterViewInit,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
+import {
+  MspAccountApp,
+  AccountChangeOptions,
+} from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -14,11 +23,10 @@ import { CancellationReasons } from '../../../../models/status-activities-docume
 @Component({
   selector: 'msp-spouse-info',
   templateUrl: './spouse-info.component.html',
-  styleUrls: ['./spouse-info.component.scss']
+  styleUrls: ['./spouse-info.component.scss'],
 })
-
-export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
-
+export class SpouseInfoComponent extends BaseForm
+  implements OnInit, AfterViewInit, OnDestroy {
   accountApp: MspAccountApp;
   accountChangeOptions: AccountChangeOptions;
   showAddSpouse: boolean;
@@ -26,10 +34,12 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   showUpdateSpouse: boolean;
   subscriptions: Subscription[];
 
-  constructor(public dataService: MspAccountMaintenanceDataService,
-              protected router: Router,
-              protected containerService: ContainerService,
-              protected pageStateService: PageStateService) {
+  constructor(
+    public dataService: MspAccountMaintenanceDataService,
+    protected router: Router,
+    protected containerService: ContainerService,
+    protected pageStateService: PageStateService
+  ) {
     super(router, containerService, pageStateService);
     if (this.dataService.getMspAccountApp().hasSpouseAdded) {
       this.showAddSpouse = true;
@@ -57,11 +67,9 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   ngAfterViewInit() {
     if (this.form) {
       this.subscriptions = [
-        this.form.valueChanges.pipe(
-          debounceTime(100)
-        ).subscribe(() => {
+        this.form.valueChanges.pipe(debounceTime(100)).subscribe(() => {
           this.dataService.saveMspAccountApp();
-        })
+        }),
       ];
     }
   }
@@ -98,20 +106,26 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     this.showAddSpouse = false;
     this.accountApp.hasSpouseAdded = false;
     this.accountChangeOptions.dependentChange = false;
-    this.dataService.accountApp.addedSpouse = new MspPerson(Relationship.Spouse);
-}
+    this.dataService.accountApp.addedSpouse = new MspPerson(
+      Relationship.Spouse
+    );
+  }
 
   removedDeletedSpouse() {
     this.showRemoveSpouse = false;
     this.accountApp.hasSpouseRemoved = false;
     this.accountChangeOptions.dependentChange = false;
-    this.dataService.accountApp.removedSpouse = new MspPerson(Relationship.Spouse);
+    this.dataService.accountApp.removedSpouse = new MspPerson(
+      Relationship.Spouse
+    );
   }
 
   removedUpdatedSpouse() {
     this.showUpdateSpouse = false;
     this.accountApp.hasSpouseUpdated = false;
-    this.dataService.accountApp.updatedSpouse = new MspPerson(Relationship.Spouse);
+    this.dataService.accountApp.updatedSpouse = new MspPerson(
+      Relationship.Spouse
+    );
   }
 
   get addedSpouse(): MspPerson {
@@ -135,16 +149,24 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     if (this.accountApp.hasSpouseAdded === true) {
       valid = valid && this.addedSpouse.immigrationStatusChange !== undefined;
     }
-    valid = valid && this.addedSpouse.gender !== undefined
-      && this.addedSpouse.updateNameDueToMarriage !== undefined;
+    valid =
+      valid &&
+      this.addedSpouse.gender !== undefined &&
+      this.addedSpouse.updateNameDueToMarriage !== undefined;
     if (this.addedSpouse.updateStatusInCanada === true) {
-      valid = valid && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined;
+      valid =
+        valid &&
+        this.addedSpouse.updateStatusInCanadaDocType.images !== undefined;
     }
     if (this.addedSpouse.updateNameDueToMarriage === true) {
-      valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName
-        && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
-        && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
-        && this.addedSpouse.nameChangeDocs.images.length > 0;
+      valid =
+        valid &&
+        this.addedSpouse.updateNameDueToMarriageRequestedLastName &&
+        this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0 &&
+        this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(
+          /\d+/g
+        ) === null &&
+        this.addedSpouse.nameChangeDocs.images.length > 0;
     }
     return valid;
   }
@@ -152,15 +174,25 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   checkRemove() {
     let valid = true;
     valid = valid && this.removedSpouse.cancellationReason !== undefined;
-    if (this.removedSpouse.cancellationReason === CancellationReasons.SeparatedDivorced) {
-      valid = valid && this.removedSpouse.hasCurrentMailingAddress !== undefined
-        && this.removedSpouse.removedSpouseDueToDivorceDoc.images
-        && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
+    if (
+      this.removedSpouse.cancellationReason ===
+      CancellationReasons.SeparatedDivorced
+    ) {
+      valid =
+        valid &&
+        this.removedSpouse.hasCurrentMailingAddress !== undefined &&
+        this.removedSpouse.removedSpouseDueToDivorceDoc.images &&
+        this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
     }
-    if (this.removedSpouse.cancellationReason !== undefined
-      && this.removedSpouse.cancellationReason !== CancellationReasons.OutOfProvinceOrCountry) {
-      valid = valid && this.removedSpouse.cancellationDate !== undefined
-        && this.removedSpouse.cancellationDate !== null;
+    if (
+      this.removedSpouse.cancellationReason !== undefined &&
+      this.removedSpouse.cancellationReason !==
+        CancellationReasons.OutOfProvinceOrCountry
+    ) {
+      valid =
+        valid &&
+        this.removedSpouse.cancellationDate !== undefined &&
+        this.removedSpouse.cancellationDate !== null;
     }
     return valid;
   }
@@ -168,29 +200,43 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   checkUpdate() {
     let valid = true;
     if (this.updatedSpouse.updateStatusInCanada === true) {
-      valid = valid && this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
+      valid =
+        valid &&
+        this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
     }
     if (this.updatedSpouse.updateNameDueToMarriage === true) {
-      valid = valid && this.updatedSpouse.updateNameDueToMarriageDocType.images.length > 0;
+      valid =
+        valid &&
+        this.updatedSpouse.updateNameDueToMarriageDocType.images.length > 0;
     }
     if (this.updatedSpouse.updateNameDueToNameChange === true) {
-      valid = valid && this.updatedSpouse.updateNameDueToNameChangeDocType.images.length > 0;
+      valid =
+        valid &&
+        this.updatedSpouse.updateNameDueToNameChangeDocType.images.length > 0;
     }
     if (this.updatedSpouse.updateGender === true) {
-      valid = valid && this.updatedSpouse.updateGenderDocType.images.length > 0
-        && this.updatedSpouse.updateGenderDocType2.images.length > 0;
+      valid =
+        valid &&
+        this.updatedSpouse.updateGenderDocType.images.length > 0 &&
+        this.updatedSpouse.updateGenderDocType2.images.length > 0;
       if (this.updatedSpouse.updateGenderAdditionalDocs === true) {
-        valid = valid && this.updatedSpouse.updateGenderDocType3.images.length > 0;
+        valid =
+          valid && this.updatedSpouse.updateGenderDocType3.images.length > 0;
       }
     }
     if (this.updatedSpouse.updateNameDueToError === true) {
-      valid = valid && this.updatedSpouse.updateNameDueToErrorDocType.images.length > 0;
+      valid =
+        valid &&
+        this.updatedSpouse.updateNameDueToErrorDocType.images.length > 0;
     }
     if (this.updatedSpouse.updateBirthdate === true) {
-      valid = valid && this.updatedSpouse.updateBirthdateDocType.images.length > 0;
+      valid =
+        valid && this.updatedSpouse.updateBirthdateDocType.images.length > 0;
     }
     if (this.updatedSpouse.updateGenderDesignation === true) {
-      valid = valid && this.updatedSpouse.updateGenderDesignationDocType.images.length > 0;
+      valid =
+        valid &&
+        this.updatedSpouse.updateGenderDesignationDocType.images.length > 0;
     }
     return valid;
   }
@@ -216,5 +262,14 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
       return;
     }
     this.navigate('/deam/child-info');
+  }
+
+  get phns(): string[] {
+    const phns = this.dataService.accountApp.allPersons
+      .filter(x => x)
+      .map(x => x.phn)
+      .filter(x => x)
+      .filter(x => x.length >= 10);
+    return phns;
   }
 }

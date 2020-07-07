@@ -51,6 +51,7 @@ export class RemoveSpouseComponent extends BaseComponent {
   accountHolderSubtitle: string =
     'Please provide the Account Holder’s personal information for verification purposes.';
   @Input() spouse: MspPerson;
+  @Input() phns: string[];
   updateList: UpdateList[];
   dateErrorMessage: ErrorMessage = {
     noFutureDatesAllowed: 'Date must be in the past.',
@@ -113,9 +114,10 @@ export class RemoveSpouseComponent extends BaseComponent {
   }
 
   get phnList() {
-    return [this.accountApp.applicant.previous_phn];
+    const cp = [...this.phns];
+    cp.splice(cp.indexOf(this.spouse.phn), 1);
+    return cp;
   }
-
   get checkCurrentMonthOfSeparation() {
     const currentDate = new Date();
     if (

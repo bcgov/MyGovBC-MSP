@@ -1,20 +1,23 @@
-<msp-personal-information
-  [person]="child">
+<msp-personal-information [person]="child" [phnList]="phnList">
   <p class="border-bottom"></p>
 </msp-personal-information>
 
 <label for="objectId" class="control-label">Reason for cancellation</label>
 <div class="form-group">
-  <select class="custom-select text-width"
+  <select
+    class="custom-select text-width"
     name="cancellationReason"
     [(ngModel)]="child.cancellationReason"
-    (ngModelChange)="setCancellationStatus($event)">
+    (ngModelChange)="setCancellationStatus($event)"
+  >
     <ng-container>
       <option selected value="null" disabled="true">Please select</option>
-      <option *ngFor="let item of cancellationReasons"
+      <option
+        *ngFor="let item of cancellationReasons"
         [ngValue]="item.value"
-        [selected]="child.cancellationReason == item.value">
-        {{item.label}}
+        [selected]="child.cancellationReason == item.value"
+      >
+        {{ item.label }}
       </option>
     </ng-container>
   </select>
@@ -26,7 +29,8 @@
         label="Date no longer in full time studies"
         [restrictDate]="'past'"
         [(ngModel)]="child.cancellationDate"
-        (ngModelChange)="this.dataService.saveMspAccountApp();">
+        (ngModelChange)="this.dataService.saveMspAccountApp()"
+      >
       </common-date>
     </div>
     <div class="blue-text">
@@ -36,9 +40,10 @@
         </div>
         <div class="col-10">
           <p>
-            You do not need to upload supporting documentation. However, a child 0-18 years of age
-            must have coverage under another account. A child 19 years of age or over will be
-            automatically set up on their own account.
+            You do not need to upload supporting documentation. However, a child
+            0-18 years of age must have coverage under another account. A child
+            19 years of age or over will be automatically set up on their own
+            account.
           </p>
         </div>
       </div>
@@ -47,20 +52,27 @@
     <common-radio
       [value]="child.hasCurrentMailingAddress"
       label="Do you know your child’s current mailing address?"
-      [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
-      (valueChange)="child.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
+      [radioLabels]="[
+        { label: 'No', value: false },
+        { label: 'Yes', value: true }
+      ]"
+      (valueChange)="
+        child.hasCurrentMailingAddress = $event;
+        this.dataService.saveMspAccountApp()
+      "
+    >
     </common-radio>
 
     <div *ngIf="child.hasCurrentMailingAddress">
-      <common-page-section
-        layout='double'>
-      <h2><strong>Child’s Mailing Address</strong></h2>
+      <common-page-section layout="double">
+        <h2><strong>Child’s Mailing Address</strong></h2>
         <p>Please provide the child’s current mailing address.</p>
-        <hr>
+        <hr />
         <common-address
           [address]="child.mailingAddress"
           (addressChange)="handleAddressUpdate($event)"
-          [isRequired]="true">
+          [isRequired]="true"
+        >
         </common-address>
       </common-page-section>
     </div>
@@ -72,19 +84,24 @@
       label="Date of deceased"
       [restrictDate]="'past'"
       [(ngModel)]="child.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();">
+      (ngModelChange)="this.dataService.saveMspAccountApp()"
+    >
     </common-date>
   </div>
 
   <div *ngIf="child.cancellationReason === 4" class="form-group">
     <div class="red-text">
       <b>
-        To remove a child from your MSP account because they have moved away from BC, use the
-        <a href="https://www.health.gov.bc.ca/exforms/msp/7063.html" target="_blank">
+        To remove a child from your MSP account because they have moved away
+        from BC, use the
+        <a
+          href="https://www.health.gov.bc.ca/exforms/msp/7063.html"
+          target="_blank"
+        >
           Permanent Move Outside British Columbia
         </a>
-        form. If you have additional changes
-        to make to your MSP account, this link is also provided at the end of this form.
+        form. If you have additional changes to make to your MSP account, this
+        link is also provided at the end of this form.
       </b>
     </div>
   </div>
@@ -95,7 +112,8 @@
       label="Date child became Armed Forces"
       [restrictDate]="'past'"
       [(ngModel)]="child.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();">
+      (ngModelChange)="this.dataService.saveMspAccountApp()"
+    >
     </common-date>
   </div>
 
@@ -105,7 +123,8 @@
       label="Date incarcerated"
       [restrictDate]="'past'"
       [(ngModel)]="child.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();">
+      (ngModelChange)="this.dataService.saveMspAccountApp()"
+    >
     </common-date>
   </div>
 </div>

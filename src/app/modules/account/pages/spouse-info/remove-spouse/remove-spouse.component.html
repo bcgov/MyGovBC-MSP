@@ -1,22 +1,24 @@
-<msp-personal-information
-  [person]="spouse"
-  [phnList]="phnList">
+<msp-personal-information [person]="spouse" [phnList]="phnList">
 </msp-personal-information>
 
-<div class='row'>
-  <div class='col-sm-12 col-md-4'>
+<div class="row">
+  <div class="col-sm-12 col-md-4">
     <label for="objectId" class="control-label">Reason for cancellation</label>
     <div class="form-group">
-      <select class="custom-select"
+      <select
+        class="custom-select"
         [id]="objectId"
         [(ngModel)]="spouse.cancellationReason"
-        (ngModelChange)="setCancellationStatus($event)">
+        (ngModelChange)="setCancellationStatus($event)"
+      >
         <ng-container>
           <option selected value="null" disabled="true">Please select</option>
-          <option *ngFor="let item of cancellationReasons"
+          <option
+            *ngFor="let item of cancellationReasons"
             [ngValue]="item.value"
-            [selected]="spouse.cancellationReason == item.value">
-            {{item.label}}
+            [selected]="spouse.cancellationReason == item.value"
+          >
+            {{ item.label }}
           </option>
         </ng-container>
       </select>
@@ -24,38 +26,47 @@
   </div>
 </div>
 
-<div class='row'>
-  <div class='col-sm-12 col-md-4'>
+<div class="row">
+  <div class="col-sm-12 col-md-4">
     <div *ngIf="spouse.cancellationReason === 0">
       <common-date
         label="Date of separation/divorce"
-        [dateRangeStart]='spouse.dateOfBirth'
-        [dateRangeEnd]='dateToday'
+        [dateRangeStart]="spouse.dateOfBirth"
+        [dateRangeEnd]="dateToday"
         [(ngModel)]="spouse.cancellationDate"
-        (ngModelChange)="this.dataService.saveMspAccountApp();"
-        [errorMessage]='cancellationDateErrorMessage'>
+        (ngModelChange)="this.dataService.saveMspAccountApp()"
+        [errorMessage]="cancellationDateErrorMessage"
+      >
       </common-date>
     </div>
   </div>
 </div>
 
-<div class='row'>
-  <div class='col-12'>
+<div class="row">
+  <div class="col-12">
     <div *ngIf="spouse.cancellationReason === 0">
-      <div *ngIf="spouse.cancellationDate && checkCurrentMonthOfSeparation" class="add-document mb-4">
+      <div
+        *ngIf="spouse.cancellationDate && checkCurrentMonthOfSeparation"
+        class="add-document mb-4"
+      >
         <msp-support-documents
           [supportDocList]="spouseRemoveDocs"
-          [(supportDoc)]="spouse.removedSpouseDueToDivorceDoc">
+          [(supportDoc)]="spouse.removedSpouseDueToDivorceDoc"
+        >
           <div sectionTitleInfo>
             <h2>
-              <strong>Documents - Cancellation due to separation/divorce</strong>
+              <strong
+                >Documents - Cancellation due to separation/divorce</strong
+              >
             </h2>
             <p class="border-bottom">
-              Provide <b>one</b> of the required documents to support your spouse cancellation.
+              Provide <b>one</b> of the required documents to support your
+              spouse cancellation.
             </p>
           </div>
         </msp-support-documents>
-      </div><br>
+      </div>
+      <br />
     </div>
   </div>
 </div>
@@ -66,15 +77,24 @@
       <common-radio
         [value]="spouse.hasCurrentMailingAddress"
         label="Do you know your spouse's current mailing address?"
-        [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
-        (valueChange)="spouse.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
+        [radioLabels]="[
+          { label: 'No', value: false },
+          { label: 'Yes', value: true }
+        ]"
+        (valueChange)="
+          spouse.hasCurrentMailingAddress = $event;
+          this.dataService.saveMspAccountApp()
+        "
+      >
       </common-radio>
     </div>
   </div>
   <common-page-section layout="noTips">
     <div *ngIf="spouse.hasCurrentMailingAddress">
       <h2><strong>Spouse's Mailing Address</strong></h2>
-      <p class="horizontal-line">Please provide the spouse's current mailing address.</p>
+      <p class="horizontal-line">
+        Please provide the spouse's current mailing address.
+      </p>
       <div class="row">
         <div class="col-sm-12 col-md-4 form-group">
           <common-address
@@ -84,7 +104,8 @@
             [allowExtralines]="true"
             [disableGeocoder]="true"
             [bcOnly]="true"
-            [isRequired]="true">
+            [isRequired]="true"
+          >
           </common-address>
         </div>
       </div>
@@ -92,56 +113,64 @@
   </common-page-section>
 </div>
 
-<div class='row' *ngIf="spouse.cancellationReason === 1">
-  <div class='col-sm-12 col-md-4 form-group'>
+<div class="row" *ngIf="spouse.cancellationReason === 1">
+  <div class="col-sm-12 col-md-4 form-group">
     <common-date
       label="Date to remove from account but still married / common-law"
       [restrictDate]="'past'"
       [(ngModel)]="spouse.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();"
-      [errorMessage]='dateErrorMessage'>
+      (ngModelChange)="this.dataService.saveMspAccountApp()"
+      [errorMessage]="dateErrorMessage"
+    >
     </common-date>
   </div>
 </div>
 
-<div class='row' *ngIf="spouse.cancellationReason === 3">
-  <div class='col-sm-12 col-md-4 form-group'>
+<div class="row" *ngIf="spouse.cancellationReason === 3">
+  <div class="col-sm-12 col-md-4 form-group">
     <common-date
       label="Date of deceased"
       [restrictDate]="'past'"
       [(ngModel)]="spouse.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();"
-      [errorMessage]='dateErrorMessage'>
+      (ngModelChange)="this.dataService.saveMspAccountApp()"
+      [errorMessage]="dateErrorMessage"
+    >
     </common-date>
   </div>
 </div>
 
 <div *ngIf="spouse.cancellationReason === 4" class="form-group notice">
-  To remove a spouse from your MSP account because they have moved away from BC, use the
-  <a href="https://www.health.gov.bc.ca/exforms/msp/7063.html" target="_blank">Permanent Move Outside British Columbia</a> form.
-  If you have additional changes to make to your MSP account, this link is also provided at the end of this form.
+  To remove a spouse from your MSP account because they have moved away from BC,
+  use the
+  <a href="https://www.health.gov.bc.ca/exforms/msp/7063.html" target="_blank"
+    >Permanent Move Outside British Columbia</a
+  >
+  form. If you have additional changes to make to your MSP account, this link is
+  also provided at the end of this form.
 </div>
 
-<div class='row' *ngIf="spouse.cancellationReason === 5">
-  <div class='col-sm-12 col-md-4 form-group'>
+<div class="row" *ngIf="spouse.cancellationReason === 5">
+  <div class="col-sm-12 col-md-4 form-group">
     <common-date
       label="Date spouse became Armed Forces"
       [restrictDate]="'past'"
       [(ngModel)]="spouse.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();"
-      [errorMessage]='dateErrorMessage'>
+      (ngModelChange)="this.dataService.saveMspAccountApp()"
+      [errorMessage]="dateErrorMessage"
+    >
     </common-date>
   </div>
 </div>
 
-<div class='row' *ngIf="spouse.cancellationReason === 6">
-  <div class='col-sm-12 col-md-4 form-group'>
+<div class="row" *ngIf="spouse.cancellationReason === 6">
+  <div class="col-sm-12 col-md-4 form-group">
     <common-date
       label="Date incarcerated"
       [restrictDate]="'past'"
       [(ngModel)]="spouse.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();"
-      [errorMessage]='dateErrorMessage'>
+      (ngModelChange)="this.dataService.saveMspAccountApp()"
+      [errorMessage]="dateErrorMessage"
+    >
     </common-date>
   </div>
 </div>
