@@ -91,6 +91,9 @@ export class UpdateRequestComponent extends Base {
       this.person.nameChangeDocs.documentType = null;
       this.person.nameChangeDocs.images = [];
 
+      this.person.nameChangeAdditionalDocs.documentType = null;
+      this.person.nameChangeAdditionalDocs.images = [];
+
       this.person.updateNameDueToMarriageRequestedLastName = null;
       this.person.updateNameDueToMarriageDocType.documentType = null;
       this.person.updateNameDueToMarriageDocType.images = [];

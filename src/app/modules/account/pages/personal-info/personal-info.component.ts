@@ -155,6 +155,8 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
       this.person.updateBirthdate = false;
       this.person.updateGenderDesignation = false;
 
+      this.person.nameChangeDocs.images = [];
+      this.person.nameChangeAdditionalDocs.images = [];
       this.person.updateStatusInCanadaDocType.images = [];
       this.person.updateNameDueToMarriageDocType.images = [];
       this.person.updateNameDueToNameChangeDocType.images = [];
