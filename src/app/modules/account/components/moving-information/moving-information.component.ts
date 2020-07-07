@@ -53,6 +53,9 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   departure12MonthsErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be within the last 12 months, and at least 30 days before the return date.'
   }
+  adoptionDateErrorMessage: ErrorMessage = {
+    invalidRange: 'Date must be after the birthdate.'
+  }
   dateToday: Date = new Date();
 
   constructor() {
@@ -162,7 +165,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       case Relationship.Spouse:
         return 'your spouse';
       default:
-        return 'the child'
+        return 'this child'
     }
   }
 

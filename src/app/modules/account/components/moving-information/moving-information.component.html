@@ -4,7 +4,7 @@
     <common-radio
       name="livedInBCSinceBirth_{{objectId}}"
       [(ngModel)]="person.livedInBCSinceBirth"
-      label="Has {{relationship}} lived in B.C. since birth?"
+      label="Has {{possessiveRelationshipNoun}} lived in B.C. since birth?"
       required>
     </common-radio>
   </div>
@@ -45,11 +45,34 @@
     </div>
   </div>
 
+  <div class="form-group" *ngIf="isChild">
+    <common-radio
+      name="adopted_{{objectId}}"
+      [(ngModel)]="person.newlyAdopted"
+      label="Is this child newly adopted?"
+      required>
+    </common-radio>
+  </div>
+
+  <div *ngIf="person.newlyAdopted" class="form-group col-sm-6 p-sm-2 add-document">
+    <div >
+      <common-date
+        name="adoptionDate"
+        label="Adoption date"
+        [(ngModel)]="person.adoptedDate"
+        [dateRangeStart]='person.dateOfBirth'
+        [dateRangeEnd]='dateToday'
+        [errorMessage]='adoptionDateErrorMessage'
+        required>
+      </common-date>
+    </div>
+  </div>
+
   <div class="form-group">
     <common-radio
       name="madePermanentMoveToBC_{{objectId}}"
       [(ngModel)]="person.madePermanentMoveToBC"
-      label="Is this a permanent move to B.C.?"
+      label="Is this a permanent move to B.C. for {{possessiveRelationshipNoun}}?"
       required>
     </common-radio>
   </div>
