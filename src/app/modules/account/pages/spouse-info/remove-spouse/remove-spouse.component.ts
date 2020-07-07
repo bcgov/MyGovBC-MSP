@@ -49,8 +49,9 @@ export class RemoveSpouseComponent extends BaseComponent {
   accountChangeOptions: AccountChangeOptions;
   accountHolderTitle: string = 'Account Holder Identification';
   accountHolderSubtitle: string =
-    'Please provide the Account Holder’s personal information for verification purposes.';
+  'Please provide the Account Holder’s personal information for verification purposes.';
   @Input() spouse: MspPerson;
+  @Input() phns: string[];
   updateList: UpdateList[];
   dateErrorMessage: ErrorMessage = {
     noFutureDatesAllowed: 'Date must be in the past.',
@@ -87,15 +88,15 @@ export class RemoveSpouseComponent extends BaseComponent {
   constructor(
     public dataService: MspAccountMaintenanceDataService,
     cd: ChangeDetectorRef
-  ) {
-    super(cd);
-  }
+    ) {
+      super(cd);
+    }
 
-  ngOnInit() {
-    this.accountApp = this.dataService.accountApp;
-    this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
-    this.spouse.operationActionType = OperationActionType.Remove;
-  }
+    ngOnInit() {
+      this.accountApp = this.dataService.accountApp;
+      this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
+      this.spouse.operationActionType = OperationActionType.Remove;
+    }
 
   onChange($event) {
     //this.dataService.saveMspAccountApp();
@@ -113,7 +114,9 @@ export class RemoveSpouseComponent extends BaseComponent {
   }
 
   get phnList() {
-    return [this.accountApp.applicant.previous_phn];
+    const cp = [...this.phns];
+    cp.splice(cp.indexOf(this.spouse.phn), 1);
+    return cp;
   }
 
   get checkCurrentMonthOfSeparation() {
@@ -148,4 +151,5 @@ export class RemoveSpouseComponent extends BaseComponent {
   get cancellationReasons() {
     return this.listofCancellationReasons;
   }
+
 }

@@ -118,6 +118,15 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     }
   }
 
+  get phns(): string[] {
+    const phns = this.dataService.accountApp.allPersons
+      .filter(x => x)
+      .map(x => x.phn)
+      .filter(x => x)
+      .filter(x => x.length >= 10);
+    return phns;
+  }
+
   get children(): MspPerson[] {
     return this.dataService.accountApp.addedChildren;
   }

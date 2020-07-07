@@ -13,6 +13,7 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
 
   @Input() spouse: MspPerson;
   @Input() accountApp: MspAccountApp;
+  @Input() phns: string[];
   //langActivities = require('../../../../../components/msp/common/activities/i18n');
 
 
@@ -21,7 +22,7 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-   // this.spouse = this.dataService.accountApp.spouse;
+    // this.spouse = this.dataService.accountApp.spouse;
     this.accountApp = this.dataService.accountApp;
     //this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
   }
@@ -31,7 +32,9 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
   }
 
   get phnList() {
-    return [this.accountApp.applicant.previous_phn];
+    const cp = [...this.phns];
+    cp.splice(cp.indexOf(this.spouse.phn), 1);
+    return cp;
   }
 
   get accountUpdateList(): UpdateList[] {

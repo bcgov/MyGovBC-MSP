@@ -47,6 +47,7 @@ export class AddChildComponent extends Base implements OnInit {
   @Input() child: MspPerson ;
   // @Input() accountApp: MspAccountApp;
   @Input() index: number;
+  @Input() phns: string[];
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
   constructor(public dataService: MspAccountMaintenanceDataService) {
@@ -82,6 +83,12 @@ export class AddChildComponent extends Base implements OnInit {
   setGender(evt: any) {
     this.child.gender = evt;
     this.personChange.emit(evt);
+  }
+
+  get phnList() {
+    const cp = [...this.phns];
+    cp.splice(cp.indexOf(this.child.phn), 1);
+    return cp;
   }
 
   get newlyAdopted() {

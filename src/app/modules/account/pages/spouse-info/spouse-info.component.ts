@@ -133,6 +133,14 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     return this.accountApp.addedSpouse.immigrationStatusChange !== undefined;
   }
 
+  get phns(): string[] {
+    return this.dataService.accountApp.allPersons
+      .filter(x => x)
+      .map(x => x.phn)
+      .filter(x => x)
+      .filter(x => x.length >= 10);
+  }
+
   checkAdd() {
     let valid = true;
     if (this.accountApp.hasSpouseAdded === true) {

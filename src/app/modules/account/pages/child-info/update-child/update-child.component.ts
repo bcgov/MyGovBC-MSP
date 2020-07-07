@@ -26,7 +26,7 @@ export class UpdateChildComponent implements OnInit {
   @Input() child: MspPerson ;
   @Input() accountApp: MspAccountApp;
   @Input() index: number;
-
+  @Input() phns: string[];
   canadianCitizenDocList: SupportDocumentTypes[] = [
     SupportDocumentTypes.CanadianBirthCertificate,
     SupportDocumentTypes.CanadianCitizenCard,
@@ -52,10 +52,10 @@ export class UpdateChildComponent implements OnInit {
     return (this.child.status === StatusInCanada.CitizenAdult ||
       this.child.status === StatusInCanada.PermanentResident ||
       this.child.currentActivity !== undefined);
-  }
+    }
 
-  getDocList() {
-    if (this.child.status === StatusInCanada.CitizenAdult){
+    getDocList() {
+      if (this.child.status === StatusInCanada.CitizenAdult){
       return this.canadianCitizenDocList;
     }
     else if (this.child.status === StatusInCanada.PermanentResident){
@@ -91,5 +91,11 @@ export class UpdateChildComponent implements OnInit {
         'value': this.child.updateGenderDesignation
       }
     ];
+  }
+
+  get phnList() {
+    const cp = [...this.phns];
+    cp.splice(cp.indexOf(this.child.phn), 1);
+    return cp;
   }
 }
