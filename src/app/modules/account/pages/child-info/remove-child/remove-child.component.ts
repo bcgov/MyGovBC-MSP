@@ -27,6 +27,7 @@ export class RemoveChildComponent implements OnInit {
   @Input() child: MspPerson ;
   @Input() accountApp: MspAccountApp;
   @Input() index: number;
+  @Input() phns: string[];
   listofCancellationReasons = [
     {
       'label': 'No longer in full time studies',
@@ -67,5 +68,11 @@ export class RemoveChildComponent implements OnInit {
     this.child.cancellationReason = evt;
     this.child.reasonForCancellation = CancellationReasonsStrings[evt];
     this.dataService.saveMspAccountApp();
+  }
+
+  get phnList() {
+    const cp = [...this.phns];
+    cp.splice(cp.indexOf(this.child.phn), 1);
+    return cp;
   }
 }

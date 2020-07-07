@@ -20,6 +20,7 @@ export class AddSpouseComponent extends Base implements OnInit {
   @Input() accountChangeOptions: AccountChangeOptions;
   @Input() spouse: MspPerson;
   @Input() accountApp: MspAccountApp;
+  @Input() phns: string[];
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
   status: StatusInCanada[] = [
     StatusInCanada.CitizenAdult,
@@ -100,7 +101,9 @@ export class AddSpouseComponent extends Base implements OnInit {
   }
 
   get phnList() {
-    return [this.accountApp.applicant.previous_phn];
+    const cp = [...this.phns];
+    cp.splice(cp.indexOf(this.spouse.phn), 1);
+    return cp;
   }
 
   get accountUpdateList(): UpdateList[] {
