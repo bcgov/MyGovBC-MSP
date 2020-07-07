@@ -95,6 +95,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   }
 
   removedAddedSpouse() {
+    this.addedSpouse.documents = null;
     this.showAddSpouse = false;
     this.accountApp.hasSpouseAdded = false;
     this.accountChangeOptions.dependentChange = false;
@@ -102,6 +103,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
 }
 
   removedDeletedSpouse() {
+    this.removedSpouse.documents = null;
     this.showRemoveSpouse = false;
     this.accountApp.hasSpouseRemoved = false;
     this.accountChangeOptions.dependentChange = false;
@@ -109,6 +111,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   }
 
   removedUpdatedSpouse() {
+    this.updatedSpouse.documents = null;
     this.showUpdateSpouse = false;
     this.accountApp.hasSpouseUpdated = false;
     this.dataService.accountApp.updatedSpouse = new MspPerson(Relationship.Spouse);
