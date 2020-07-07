@@ -873,8 +873,7 @@ export class MspApiAccountService extends AbstractHttpService {
       to.isExistingBeneficiary =
         from.isExistingBeneficiary === true ? 'Y' : 'N';
     }
-    // only for new beneficiaries ; these fields are used
-    if (from.isExistingBeneficiary === false) {
+    if (from.operationActionType === OperationActionTypeEnum.Add) {
       this.populateNewBeneficiaryDetailsForChild(from, to);
     }
     // Child 19-24
