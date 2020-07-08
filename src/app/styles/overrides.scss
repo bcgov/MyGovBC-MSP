@@ -272,8 +272,9 @@ common-date[label="Birthdate"] {
   }
 }
 
-.immediate-tip-slot {
-  width: 100%;
-  padding-left: 0px;
+.custom-tipbox {
+  @media (max-width: 768px){
+    max-width: 100%;
+  }
 }
 
