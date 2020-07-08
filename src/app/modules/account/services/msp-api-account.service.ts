@@ -774,6 +774,9 @@ export class MspApiAccountService extends AbstractHttpService {
       if (from.returnDateDuring12MonthsDate) {
         to.outsideBC.returnDate = format(from.returnDateDuring12MonthsDate, this.ISO8601DateFormat);
       }
+    } else if (from.declarationForOutsideOver30Days === false) {
+      to.outsideBC = OutsideBCTypeFactory.make();
+      to.outsideBC.beenOutsideBCMoreThan = 'N';
     }
 
     if (from.declarationForOutsideOver60Days) {
@@ -787,6 +790,9 @@ export class MspApiAccountService extends AbstractHttpService {
       if (from.returnDateDuring6MonthsDate) {
         to.outsideBCinFuture.returnDate = format(from.returnDateDuring6MonthsDate, this.ISO8601DateFormat);
       }
+    } else if (from.declarationForOutsideOver60Days === false) {
+      to.outsideBCinFuture = OutsideBCTypeFactory.make();
+      to.outsideBCinFuture.beenOutsideBCMoreThan = 'N';
     }
 
     // Removing Spouse
