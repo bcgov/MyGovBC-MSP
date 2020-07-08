@@ -265,3 +265,16 @@ common-date[label="Birthdate"] {
   width: 100%;
   max-width: 500px;
 }
+
+.custom-container {
+  @media (max-width: 768px) {
+    flex-direction: column !important;
+  }
+}
+
+.custom-tipbox {
+  @media (max-width: 768px){
+    max-width: 100%;
+  }
+}
+

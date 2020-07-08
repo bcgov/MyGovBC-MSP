@@ -1,5 +1,5 @@
 <ng-content select="[sectionTitleInfo]"></ng-content>
-<div class="d-flex flex-row align-items-stretch">
+<div class="d-flex custom-container align-items-stretch">
   <div class="form-group col-sm-8 pl-0">
     <label for="supportDocType" class="control-label">Document Type</label><br>
     <select class="custom-select"
@@ -32,7 +32,7 @@
       id="addDoc_{{objectId}}">
     </common-button>
   </div>
-  <div *ngIf="!displayButton" class="form-group col-sm-4 pr-0">
+  <div *ngIf="!displayButton" class="form-group col-sm-4 pr-0 custom-tipbox">
     <ng-content select='.immediate-tip-slot'></ng-content>
   </div>
 </div>
