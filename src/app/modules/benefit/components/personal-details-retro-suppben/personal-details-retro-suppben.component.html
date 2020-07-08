@@ -6,8 +6,8 @@
     <div sectionTitleInfo>
       <!-- Remove Spouse and Child Button, (Red cross) -->
       <div *ngIf="removeable">
-        <div *ngIf="person.relationship !== 0">
-          <div  *ngIf="person.relationship === 1">
+        <div *ngIf="person.relationship !== Relationship.Applicant">
+          <div  *ngIf="person.relationship === Relationship.Spouse">
             <h2>Your spouse or common-law partner</h2>
             Enter your spouse’s legal name as it appears on their BC Services Card.
             
@@ -52,10 +52,10 @@
               The tax year
             </li>
             <li>
-              Your net income (line 236)
+              Your net income (line {{ benefitApp.taxYear >= 2019 ? 23600 : 236 }})
             </li>
             <li> 
-              If you have a Registered Disability Savings Plan (line 125)
+              If you have a Registered Disability Savings Plan (line {{ benefitApp.taxYear >= 2019 ? 12500 : 125 }})
             </li>
             </ul>
           </div>

@@ -9,6 +9,7 @@ import { AssistanceApplicationType } from '../../assistance/models/financial-ass
 import { Eligibility } from '../../assistance/models/eligibility.model';
 import { ISpaEnvResponse } from '../../../components/msp/model/spa-env-response.interface';
 import { Relationship } from '../../../models/relationship.enum';
+import { ATTENDANT_CARE_CLAIM_AMT } from '../../../constants';
 
 export class BenefitApplication implements ApplicationBase {
 
@@ -22,17 +23,16 @@ export class BenefitApplication implements ApplicationBase {
   taxYear: number;
   userSelectedMostRecentTaxYear: number;
   public spaEnvCutOffDate: string;
-  public spaEnvRes: ISpaEnvResponse;  
+  public spaEnvRes: ISpaEnvResponse;
   isEligible: boolean;
 
-  cutOffDate: Date; 
+  cutOffDate: Date;
 
   infoCollectionAgreement: boolean = false;
   // cutoff Date fields
   cutoffYear: number;
   isCutoffDate: boolean;
   //numDisabled: number;
-
 
   hasClaimedAttendantCareExpenses: boolean;
   applicantClaimForAttendantCareExpense: boolean = false;
@@ -50,7 +50,9 @@ export class BenefitApplication implements ApplicationBase {
   childrenDisabilityCredit: number;
   totalDeduction: number;
 
-  _attendantCareExpense: number;
+  _applicantAttendantCareExpense: number = 0;
+  _spouseAttendantCareExpense: number = 0;
+  _childAttendantCareExpense: number = 0;
 
   private _attendantCareExpenseReceipts: CommonImage[] = new Array<CommonImage>();
 
@@ -60,6 +62,7 @@ export class BenefitApplication implements ApplicationBase {
 
   regenUUID() {
     this._uuid = UUID.UUID();
+
     /**
      * Each image will have a uuid that starts with application uuid
      * followed by [index]-of-[total]
@@ -70,12 +73,28 @@ export class BenefitApplication implements ApplicationBase {
     });
   }
 
-  get attendantCareExpense(): number {
-    if (!!this._attendantCareExpense && !isNaN(this._attendantCareExpense)) {
-      return parseFloat(this._attendantCareExpense + '');
-    } else {
-      return null;
-    }
+  get applicantAttendantCareExpense(): number {
+    return this._applicantAttendantCareExpense;
+  }
+
+  set applicantAttendantCareExpense(expense: number) {
+    this._applicantAttendantCareExpense = expense;
+  }
+
+  get spouseAttendantCareExpense(): number {
+    return this._spouseAttendantCareExpense;
+  }
+
+  set spouseAttendantCareExpense(expense: number) {
+    this._spouseAttendantCareExpense = expense;
+  }
+
+  get childAttendantCareExpense(): number {
+    return this._childAttendantCareExpense;
+  }
+
+  set childAttendantCareExpense(expense: number) {
+    this._childAttendantCareExpense = expense;
   }
 
   get isUniquePhns() {
@@ -84,6 +103,7 @@ export class BenefitApplication implements ApplicationBase {
       .map(x => x.previous_phn)
       .filter(x => x)
       .filter(x => x.length >= 10);
+
     return new Set(allPhs).size === allPhs.length;
   }
 
@@ -92,12 +112,10 @@ export class BenefitApplication implements ApplicationBase {
       .filter(x => x)
       .map(x => x.sin)
       .filter(x => x);
+
     return new Set(allPhs).size === allPhs.length;
   }
 
-  set attendantCareExpense(n: number) {
-    this._attendantCareExpense = n || 0;
-  }
   get attendantCareExpenseReceipts(): CommonImage[] {
     return this._attendantCareExpenseReceipts;
   }
@@ -129,7 +147,7 @@ export class BenefitApplication implements ApplicationBase {
    */
   private _spouseIncomeLine236: number;
 
-  private _childrenCount: number;
+  private _childrenCount: number = 0;
   /**
    * Line 214 on NOA
    */
@@ -151,7 +169,7 @@ export class BenefitApplication implements ApplicationBase {
   private _hasSpouseOrCommonLaw: boolean;
 
   /**
-   * Returns an array of ALL persons uses in financial assistance.
+   * Returns an array of ALL persons used in financial assistance.
    *
    * Useful, for example, to make sure all PHNs are unique.
    */
@@ -176,6 +194,7 @@ export class BenefitApplication implements ApplicationBase {
   authorizedByApplicantDate: Date;
 
   powerOfAttorneyDocs: CommonImage[] = [];
+
   get hasPowerOfAttorney(): boolean {
     return this.powerOfAttorneyDocs && this.powerOfAttorneyDocs.length > 0;
   }
@@ -184,22 +203,18 @@ export class BenefitApplication implements ApplicationBase {
     this._authorizedByApplicant = auth;
 
     if (auth) {
-     // this._authorizedByAttorney = false;
       this.authorizedByApplicantDate = moment().toDate();
     }
   }
 
   set authorizedBySpouse(auth: boolean) {
     this._authorizedBySpouse = auth;
-    if (auth) {
-      //this._authorizedByAttorney = false;
-    }
   }
+
   set authorizedByAttorney(auth: boolean) {
     this._authorizedByAttorney = auth;
+
     if (auth) {
-      //this._authorizedByApplicant = false;
-      //this._authorizedBySpouse = false;
       this.authorizedByApplicantDate = moment().toDate();
     }
   }
@@ -221,9 +236,7 @@ export class BenefitApplication implements ApplicationBase {
   }
 
   set netIncomelastYear(n: number) {
-  //  if (!this.isEmptyString(n)) {
-      this._netIncomelastYear = n;
-   // }
+    this._netIncomelastYear = n;
   }
 
   get spouseIncomeLine236(): number {
@@ -231,12 +244,10 @@ export class BenefitApplication implements ApplicationBase {
   }
 
   set spouseIncomeLine236(n: number) {
-    //if (!this.isEmptyString(n)) {
-      this._spouseIncomeLine236 = n;
-    //}
+    this._spouseIncomeLine236 = n;
   }
 
-  //End of GET SET for the SpouseIncome
+  // End of GET SET for the SpouseIncome
   isEmptyString(value: number) {
     let temp: string = value + '';
     temp = temp.trim();
@@ -244,19 +255,11 @@ export class BenefitApplication implements ApplicationBase {
   }
 
   get childrenCount(): number {
-    if (!this._childrenCount) {
-      return null;
-    } else {
-      const n =
-        !!this._childrenCount && !isNaN(this._childrenCount)
-          ? this._childrenCount * 1
-          : 0;
-      return n;
-    }
+    return this._childrenCount;
   }
 
   set childrenCount(n: number) {
-      this._childrenCount = n;
+    this._childrenCount = n;
   }
 
 
@@ -282,7 +285,7 @@ export class BenefitApplication implements ApplicationBase {
       return null;
     } else {
       const n =
-        !!this.childClaimForAttendantCareExpenseCount 
+        !!this.childClaimForAttendantCareExpenseCount
           ? this.childClaimForAttendantCareExpenseCount
           : 0;
       return n;
@@ -291,6 +294,7 @@ export class BenefitApplication implements ApplicationBase {
 
   set childWithAttendantCareCount(n: number) {
     this.childClaimForAttendantCareExpenseCount = n;
+    this.childAttendantCareExpense = n * ATTENDANT_CARE_CLAIM_AMT;
   }
 
  /// ***********************************************
@@ -303,8 +307,6 @@ export class BenefitApplication implements ApplicationBase {
 
     return arr;
   }
-
- 
 
   get claimedChildCareExpense_line214() {
     return this._claimedChildCareExpense_line214 === null ? null : this._claimedChildCareExpense_line214;
@@ -320,9 +322,7 @@ export class BenefitApplication implements ApplicationBase {
   }
 
   set claimedChildCareExpense_line214(n: number) {
-   // if (!this.isEmptyString(n)) {
-      this._claimedChildCareExpense_line214 = n;
-   // }
+    this._claimedChildCareExpense_line214 = n;
   }
 
   get reportedUCCBenefit_line117(): number {
@@ -341,6 +341,7 @@ export class BenefitApplication implements ApplicationBase {
       this._reportedUCCBenefit_line117 = n;
     }
   }
+
   get spouseDSPAmount_line125(): number {
     return this._spouseDSPAmount_line125 === null ? null : this._spouseDSPAmount_line125;
 
@@ -355,9 +356,7 @@ export class BenefitApplication implements ApplicationBase {
   }
 
   set spouseDSPAmount_line125(n: number) {
-   // if (!this.isEmptyString(n)) {
-      this._spouseDSPAmount_line125 = n;
-    //}
+    this._spouseDSPAmount_line125 = n;
   }
 
   // End of GET SET for spouseDSPAmount_line125
@@ -371,6 +370,7 @@ export class BenefitApplication implements ApplicationBase {
       //this.spouseIncomeLine236 = undefined;
       //this.spouseAgeOver65 = undefined;
     }
+
     this._hasSpouseOrCommonLaw = arg;
     this.hasSpouse = arg;
   }

@@ -50,8 +50,7 @@ export class AssistCraDocumentsComponent implements OnInit {
   @Output() dataChange: any = new EventEmitter<any>();
 
   tip1 = `If you are uploading a copy of a Notice of Assessment or Reassessment from the Canada Revenue Agency website, make sure the image contains:`;
-  tipList = ['your name', 'the tax year', 'your net income (line 236)'];
-
+  tipList = ['your name', 'the tax year', 'your net income (line 23600)'];
 
   constructor() {}
 

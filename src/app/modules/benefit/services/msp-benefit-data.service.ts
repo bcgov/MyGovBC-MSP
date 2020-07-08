@@ -80,7 +80,9 @@ export class MspBenefitDataService extends MspDataService{
         dto.hasClaimedAttendantCareExpenses = input.hasClaimedAttendantCareExpenses;
         dto.applicantEligibleForDisabilityCredit = input.applicantEligibleForDisabilityCredit;
 
-        dto.attendantCareExpense = input.attendantCareExpense;
+        dto.applicantAttendantCareExpense = input.applicantAttendantCareExpense;
+        dto.spouseAttendantCareExpense = input.spouseAttendantCareExpense;
+        dto.childAttendantCareExpense = input.childAttendantCareExpense;
 
         dto.authorizedByApplicant = input.authorizedByApplicant;
         dto.authorizedBySpouse = input.authorizedBySpouse;
@@ -122,13 +124,12 @@ export class MspBenefitDataService extends MspDataService{
         output.spaEnvRes = dto.spaEnvRes;
         output.isEligible = dto.isEligible;
 
-
         output.netIncomelastYear = dto.incomeLine236;
         output.ageOver65 = dto.ageOver65;
         output.setSpouse = dto.hasSpouseOrCommonLaw;
         output.hasSpouse = dto.hasSpouse;
         output.spouseAgeOver65 = dto.spouseAgeOver65;
-        //output.assistYearDocs = dto.assistYearDocs;
+        // output.assistYearDocs = dto.assistYearDocs;
         output.haveChildrens = dto.haveChildrens;
         output.spouseIncomeLine236 = dto.spouseIncomeLine236;
         output.childrenCount = dto.childrenCount;
@@ -145,7 +146,9 @@ export class MspBenefitDataService extends MspDataService{
         output.spouseClaimForAttendantCareExpense = dto.spouseClaimForAttendantCareExpense;
         output.childClaimForAttendantCareExpense = dto.childClaimForAttendantCareExpense;
         output.childClaimForAttendantCareExpenseCount = dto.childClaimForAttendantCareExpenseCount;
-        output.attendantCareExpense = dto.attendantCareExpense;
+        output.applicantAttendantCareExpense = dto.applicantAttendantCareExpense;
+        output.spouseAttendantCareExpense = dto.spouseAttendantCareExpense;
+        output.childAttendantCareExpense = dto.childAttendantCareExpense;
 
         output.hasRegisteredDisabilityPlan = dto.hasRegisteredDisabilityPlan;
         output.hasClaimedAttendantCareExpenses = dto.hasClaimedAttendantCareExpenses;
@@ -163,15 +166,13 @@ export class MspBenefitDataService extends MspDataService{
         output.cutoffYear = dto.cutoffYear;
         output.isCutoffDate = dto.isCutoffDate;
         output.totalDeduction = dto.totalDeduction;
-//        output.assistYearDocs = dto.assistYearDocs || [];
+        // output.assistYearDocs = dto.assistYearDocs || [];
 
         this.convertToPerson(dto.applicant, output.applicant);
         this.convertToPerson(dto.spouse, output.spouse);
         output.mailingAddress = this.fromAddressTransferObject( dto.mailingAddress );
-        //this.convertMailingAddress(dto, output);
-       // this.convertResidentialAddress(dto, output);
+        // this.convertMailingAddress(dto, output);
+        // this.convertResidentialAddress(dto, output);
         return output;
-
-
     }
 }

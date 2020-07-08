@@ -61,8 +61,8 @@ export class MspApiBenefitService extends AbstractHttpService {
       //Validating the response against the schema
       this.schemaSvc.validate(suppBenefitRequest).then(res => {
         if (res.errors) {
-          let errorField;
-          let errorMessage;
+          let errorField: string;
+          let errorMessage: string;
 
           // Getting the error field
           for (const error of res.errors) {
@@ -403,6 +403,10 @@ export class MspApiBenefitService extends AbstractHttpService {
         ? from.eligibility.totalNetIncome
         : 0;
 
+    to.applicantAttendantCareExpense = from.applicantAttendantCareExpense;
+    to.spouseAttendantCareExpense = from.spouseAttendantCareExpense;
+    to.childAttendantCareExpense = from.childAttendantCareExpense;
+
     to.childCareExpense = from.claimedChildCareExpense_line214 != null ? (from.claimedChildCareExpense_line214 / 2) * 1 : 0 ;
 
     to.netIncomeLastYear = Number(from.netIncomelastYear);
@@ -459,7 +463,7 @@ export class MspApiBenefitService extends AbstractHttpService {
     to.powerOfAttorney = from.hasPowerOfAttorney ? 'Y' : 'N';
 
     // returning the suppbenefitresponse object
-    return to;
+    return to as SupplementaryBenefitsApplicationType;
   }
 
   private prepareBenefitApplication(

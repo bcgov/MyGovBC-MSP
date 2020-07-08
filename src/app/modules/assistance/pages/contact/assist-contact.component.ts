@@ -16,7 +16,7 @@ import { AssistStateService } from '../../services/assist-state.service';
         <h1>{{ title }}</h1>
         <p>{{ subtitle }}</p>
         <h2>{{ mailTitle }}</h2>
-        <p class="border-bottom">{{ mailSubtitle }}</p>
+        <p class="border-bottom" innerHTML="{{ mailSubtitle }}"></p>
       </common-page-section>
       <common-page-section layout="double">
         <common-address
@@ -54,14 +54,13 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   addressLines = 0;
 
   title = 'Contact Info';
-  subtitle = 'Provide your contact information.';
+  subtitle = 'Provide the Account Holder\'s contact information.';
   mailTitle = 'Mailing Address';
-  mailSubtitle = 'Enter your current mailing address';
+  mailSubtitle = 'Enter your <strong>current</strong> mailing address';
   phoneTitle = 'Phone';
   phoneLabel = 'Phone number (optional)';
   phoneTip =
     'Please provide a phone number so you may be contacted in case of any issues with your application.';
-
 
   // form variables
   address: Address;

@@ -9,7 +9,6 @@ import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import { CANADA } from 'moh-common-lib';
 
-
 @Component({
    templateUrl: './personal-info.component.html',
     styleUrls: ['./personal-info.component.scss']
@@ -50,16 +49,15 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
         });
     }
 
-    ngOnInit(){
-        //this._processService.setPageIncomplete();
+    ngOnInit() {
         this.initProcessMembers(BenefitPersonalInfoComponent.ProcessStepNum, this._processService);
     }
 
-    onChange($event) {
+    onChange() {
         this.dataService.saveBenefitApplication();
     }
 
-    onSubmit(){
+    onSubmit() {
         this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum, true);
         this._router.navigate(['/benefit/spouse-info']);
     }
@@ -68,12 +66,12 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
         return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin;
     }
 
-    get canContinue(): boolean{
-        //const allDocs: MspImage[][] = this.dataService.benefitApp.allPersons.filter(x => x).map(x => x.assistYeaDocs).filter(x => x)  ;
-        if ( this.isAllValid() && this.benefitApplication.applicant.assistYearDocs && this.benefitApplication.applicant.assistYearDocs.length > 0) {
-            return true;
-        }
-        return  false;
+    get canContinue(): boolean {
+        return (
+            this.isAllValid() &&
+            this.benefitApplication.applicant.assistYearDocs &&
+            this.benefitApplication.applicant.assistYearDocs.length > 0
+        );
     }
 
 }
