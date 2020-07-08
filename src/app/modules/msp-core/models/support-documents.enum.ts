@@ -85,7 +85,7 @@ export const SupportDocumentSamples: SampleImageInterface[] = [
   },
   // DriversLicense
   {
-    path: 'assets/bc_driving_license.jpg',
+    path: 'assets/bc_drivers_license.jpg',
     desc: 'Picture of a sample BC Driver’s License',
   },
   // RecordOfLanding
