@@ -178,7 +178,7 @@
         {{lang('./en/index.js').outsideBCDepartureDateLabel}}
       </div>
       <div class="col-sm-8">
-        <strong>{{person.departureDate.format(dateFormat)}}</strong>
+        <strong>{{formatDateField(person.departureDate)}}</strong>
       </div>
     </div>
     <div class="row" *ngIf="person.returnDate">
@@ -186,7 +186,7 @@
         {{lang('./en/index.js').outsideBCReturnDateLabel}}
       </div>
       <div class="col-sm-8">
-        <strong>{{person.returnDate.format(dateFormat)}}</strong>
+        <strong>{{formatDateField(person.returnDate)}}</strong>
       </div>
     </div>
   </div>
@@ -223,7 +223,7 @@
         {{lang('./en/index.js').outsideBCDepartureDateLabel}}
       </div>
       <div class="col-sm-8">
-        <strong>{{person.planOnBeingOutOfBCRecord.departureDate.format(dateFormat)}}</strong>
+        <strong>{{formatDateField(person.planOnBeingOutOfBCRecord.departureDate)}}</strong>
       </div>
     </div>
     <div class="row">
@@ -231,7 +231,7 @@
         {{lang('./en/index.js').outsideBCReturnDateLabel}}
       </div>
       <div class="col-sm-8">
-        <strong>{{person.planOnBeingOutOfBCRecord.returnDate.format(dateFormat)}}</strong>
+        <strong>{{formatDateField(person.planOnBeingOutOfBCRecord.returnDate)}}</strong>
       </div>
     </div>
   </div>
@@ -294,7 +294,7 @@
       {{lang('./en/index.js').dischargeDateLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{person.dischargeDate.format(dateFormat)}}</strong>
+      <strong>{{formatDateField(person.dischargeDate)}}</strong>
     </div>
   </div>
 
@@ -312,7 +312,7 @@
       {{lang('./en/index.js').dateStuduesBeginLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{person.studiesBeginDate.format(dateFormat)}}</strong>
+      <strong>{{formatDateField(person.studiesBeginDate)}}</strong>
     </div>
   </div>
 
@@ -321,7 +321,7 @@
       {{lang('./en/index.js').studiesFinishedLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{person.studiesFinishedDate.format(dateFormat)}}</strong>
+      <strong>{{formatDateField(person.studiesFinishedDate)}}</strong>
     </div>
   </div>
   <div class="row" *ngIf="person.hasStudiesDeparture">
@@ -329,7 +329,7 @@
       {{lang('./en/index.js').studiesDepartureLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{person.studiesDepartureDate.format(dateFormat)}}</strong>
+      <strong>{{formatDateField(person.studiesDepartureDate)}}</strong>
     </div>
   </div>
   <!-- DEAM Added Info -->
