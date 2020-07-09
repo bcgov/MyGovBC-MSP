@@ -23,10 +23,11 @@
 
       <!-- Documents to support your spouse status in Canada -->
       <msp-support-documents
-        *ngIf="spouse.status !== undefined"
+        *ngIf="checkStatus()"
         [canadianStatus]="spouse.status"
+        [supportDocList]="getDocList()"
         [statusReason]="spouse.currentActivity"
-        [(supportDoc)]="supportDocList">
+        [(supportDoc)]="spouse.updateStatusInCanadaDocType">
         <div sectionTitleInfo>
           <h2>Documents to support your spouse status in Canada</h2>
           <p class="border-bottom">
