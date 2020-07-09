@@ -103,35 +103,11 @@ http {
 			return https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
 			# return 301 https://my.gov.bc.ca/msp/account-letter/request-acl;
 		}
-		location /account/prepare {
-			return https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
-			# return 301 https://my.gov.bc.ca/msp/deam-interim/;
-		}
+        location /deam-interim/msp/account/prepare {                                                                                                  
+            return https://msp-deam-%MSP_ENV%.pathfinder.gov.bc.ca;                                                                                   
+            # return 301 https://my.gov.bc.ca/msp/deam-interim/;                                                                                      
+        }                                                                                                                                             
 
-        # ALL BELOW DEAM-INTERIM ROUTES CAN BE REMOVED ONCE DEAM RE-ALIGNMENT IS DONE (sometime in 2020_)
-
-        # Allows loading of /deam-interim/ to hit homepage
-        # User can hit <url>/deam-interim/ to hit correct page.
-        location /deam-interim/ {
-            alias /tmp/app/dist/deam-interim/;
-        }
-
-        # Allows loading of /deam-interim/ to hit homepage, more of a fallback case.
-        location /deam-interim/msp {
-            alias /tmp/app/dist/deam-interim/;
-        }
-
-        # Fixes loading of css files/assets, but doesn't fix deep linking / direct to page.
-        location /msp/deam-interim/ {
-            alias /tmp/app/dist/deam-interim/;
-        }
-
-        # This location makes it possible to direct link to the page, and can refresh on that page.
-        location /deam-interim/msp/account/prepare {
-            try_files $uri $uri/ /tmp/app/dist/deam-interim/index.html;
-            alias /tmp/app/dist/deam-interim/;
-        }
-        
         location /api {
             proxy_pass http://mygovbc-msp-service:8080/;
             proxy_read_timeout 300;
