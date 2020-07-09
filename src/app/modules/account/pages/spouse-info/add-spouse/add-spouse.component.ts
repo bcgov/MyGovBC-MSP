@@ -31,6 +31,11 @@ export class AddSpouseComponent extends Base implements OnInit {
     SupportDocumentTypes.CanadianPassport,
     SupportDocumentTypes.CanadianCitizenCard
   ];
+  permanentResidentDocList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.PermanentResidentConfirmation,
+    SupportDocumentTypes.RecordOfLanding,
+    SupportDocumentTypes.PermanentResidentCard
+  ];
 
   langStatus = CanadianStatusStrings;
   nameChangeDocList = nameChangeSupportDocuments();
@@ -43,6 +48,21 @@ export class AddSpouseComponent extends Base implements OnInit {
   ngOnInit() {
     //this.spouse = this.dataService.accountApp.spouse;
     this.accountApp = this.dataService.accountApp;
+  }
+
+  checkStatus() {
+    return (this.spouse.status === StatusInCanada.CitizenAdult ||
+      this.spouse.status === StatusInCanada.PermanentResident ||
+      this.spouse.currentActivity !== undefined);
+  }
+
+  getDocList() {
+    if (this.spouse.status === StatusInCanada.CitizenAdult){
+      return this.supportDocList;
+    }
+    else if (this.spouse.status === StatusInCanada.PermanentResident){
+      return this.permanentResidentDocList;
+    }
   }
 
   setGender(evt: any) {
