@@ -7,6 +7,7 @@
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/buttons"; // for button-variant()
 @import "variables";
+@import "mixins";
 
 // Make .btn-primary yellow.  The primary colour stays blue.
 .btn-primary {
@@ -211,11 +212,6 @@ accordion-group + accordion-group {
   float: right;
 }
 
-.deam-container {
-  padding-left: 7rem !important;
-  padding-right: 7rem !important;
-}
-
 // Increase checkbox size.
 common-checkbox {
   input {
@@ -233,11 +229,13 @@ common-checkbox {
   display: inline-block !important;
 }
 
+// Make address expansion button in line with input
 common-address {
   .fa-plus,
   .fa-minus {
-    width: 2.0rem;
-    height: 1.5rem;
+    @include center-item-with-flex;
+    width: calc(1.5em + 0.75rem + 2px);
+    height: calc(1.5em + 0.75rem + 2px);
     text-decoration: none;
     background-color: #eeeeee;
     color: #333333;
@@ -246,12 +244,37 @@ common-address {
     border-right: 1px solid #333333;
     border-bottom: 1px solid #333333;
     border-left: 1px solid #cccccc;
-    margin-left: -40px;
-    margin-top: -20px;
+    margin: 0;
   }
+
   .btn:focus {
     box-shadow: none;
   }
+
+  // The address input with the button beside it
+  .col-11 {
+    flex: 0 0 80%;
+  }
+
+  // The button beside the address input
+  .col-1 {
+    padding: 0;
+    > .btn {
+      padding: 0;
+    }
+  }
+
+  // Remove uneven spacing
+  > .form-group {
+    padding-left: 0;
+
+    // More alignment of button
+    > .row {
+      justify-content: flex-start;
+      align-items: flex-end;
+    }
+  }
+
 }
 
 common-date[label="Birthdate"] {
@@ -275,6 +298,7 @@ common-date[label="Birthdate"] {
 .custom-tipbox {
   @media (max-width: 768px){
     max-width: 100%;
+    padding-left: 0;
   }
 }
 

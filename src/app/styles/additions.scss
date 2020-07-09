@@ -1,3 +1,4 @@
+@import "mixins";
 @import "./variables.scss";
 // @import "~@ng-select/ng-select/themes/default.theme.css";
 
@@ -9,6 +10,34 @@ html,
 body {
   position: relative;
   // height: 100%;
+}
+
+
+.deam-container {
+  padding-left: 7rem;
+  padding-right: 7rem;
+  @include remove-x-padding-at-tablet-size;
+}
+
+// Add, Remove, Update buttons container
+.aru-buttons {
+  @include flex-col-at-tablet-size;
+
+  &__button {
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-bottom: 8px;
+      flex: none;
+      max-width: none;
+    }
+  }
+}
+
+.add-document {
+  margin-left: 30px;
+  padding-left: 10px;
+  border-left: 3px solid black;
+  max-width: 90%;
 }
 
 label {
@@ -266,4 +295,9 @@ input[type="radio"] + label {
 
 .roundbullet {
   list-style-type: circle;
+}
+
+// Moved here from many duplicates in component sheets
+.horizontal-line {
+  border-bottom: 1px solid black;
 }

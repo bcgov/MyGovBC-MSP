@@ -51,14 +51,14 @@
       <div class="row">
         <div class="form-group col-sm-12">
           <common-page-section layout="tips">
-            <div class="col-md-6 col-sm-12 pl-0">
+            <div class="col-md-6 col-sm-12 pl-0 phone__input">
               <common-phone-number name="phone_number"
-                [label]="'Phone Number'"
+                [label]="'Phone Number (optional)'"
                 [(ngModel)]="mspAccountApp.phoneNumber"
                 (onChange)="handlePhoneNumberChange($event)">
               </common-phone-number>
             </div>
-            <aside>
+            <aside class="phone__tip">
               <b>Tip</b>
               <p>
                 Please provide a phone number so you may be contacted in case of any issues with your application.

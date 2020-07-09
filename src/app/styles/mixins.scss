@@ -1,0 +1,19 @@
+@mixin remove-x-padding-at-tablet-size {
+  @media (max-width: 768px) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+@mixin flex-col-at-tablet-size {
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@mixin center-item-with-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

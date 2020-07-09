@@ -13,8 +13,8 @@
       </p>
 
       <!-- Add/Remove/Update Buttons-->
-      <div class="row">
-        <div class="col-2">
+      <div class="row aru-buttons">
+        <div class="col-4 aru-buttons__button">
           <common-button
             [label]="'Add Spouse'"
             [disabled]="(showAddSpouse || showUpdateSpouse)"
@@ -22,7 +22,7 @@
             (btnClick)='addSpouse()'>
           </common-button>
         </div>
-        <div class="col-2">
+        <div class="col-4 aru-buttons__button">
           <common-button
             [label]="'Remove Spouse'"
             [disabled]="(showRemoveSpouse || showUpdateSpouse)"
@@ -30,7 +30,7 @@
             (btnClick)='removeSpouse()'>
           </common-button>
         </div>
-        <div class="col-2 ">
+        <div class="col-4 aru-buttons__button">
           <common-button
             [label]="'Update Spouse'"
             [disabled]="(showAddSpouse || showUpdateSpouse || showRemoveSpouse)"
@@ -99,8 +99,8 @@
       <!-- Add/Remove/Update Buttons-->
       <div *ngIf="((showAddSpouse && showAddedSpouseBottomButtons) || showUpdateSpouse || showRemoveSpouse)">
         <p class="horizontal-line"></p>
-        <div class="row">
-          <div class="col-2">
+        <div class="row aru-buttons">
+          <div class="col-4 aru-buttons__button">
             <common-button
               [label]="'Add Spouse'"
               [disabled]="(showAddSpouse || showUpdateSpouse)"
@@ -108,7 +108,7 @@
               (btnClick)='addSpouse()'>
             </common-button>
           </div>
-          <div class="col-2">
+          <div class="col-4 aru-buttons__button">
             <common-button
               [label]="'Remove Spouse'"
               [disabled]="(showRemoveSpouse || showUpdateSpouse)"
@@ -116,7 +116,7 @@
               (btnClick)='removeSpouse()'>
             </common-button>
           </div>
-          <div class="col-2 ">
+          <div class="col-4 aru-buttons__button ">
             <common-button
               [label]="'Update Spouse'"
               [disabled]="(showAddSpouse || showUpdateSpouse || showRemoveSpouse)"
