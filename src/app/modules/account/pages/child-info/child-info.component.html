@@ -13,9 +13,9 @@
         Use this section to add a child to your account, remove a child from your account, or update the legal name,
         birthdate and / or gender of a child currently on your Medical Services Plan account.
       </p>
-      <div class="row">
+      <div class="row aru-buttons">
         <!--Add Child button -->
-        <div class="col-2">
+        <div class="col-4 aru-buttons__button">
           <common-button
             [label]="'Add Child'"
             [buttonType]="'btn btn-primary btn-block'"
@@ -23,7 +23,7 @@
           </common-button>
         </div>
         <!--Remove Child button -->
-        <div class="col-2">
+        <div class="col-4 aru-buttons__button">
           <common-button
             [label]="'Remove Child'"
             [buttonType]="'btn btn-primary btn-block'"
@@ -31,7 +31,7 @@
           </common-button>
         </div>
         <!--Update Child button -->
-        <div class="col-2">
+        <div class="col-4 aru-buttons__button">
           <common-button
             [label]="'Update Child'"
             [buttonType]="'btn btn-primary btn-block'"
@@ -104,22 +104,22 @@
             again to enter information for another child. When you are finished, click "Continue".
           </b>
         </p>
-        <div class="row">
-          <div class="col-2">
+        <div class="row aru-buttons">
+          <div class="col-4 aru-buttons__button">
             <common-button
               [label]="'Add Child'"
               [buttonType]="'btn btn-primary btn-block'"
               (btnClick)='addChildBtnClick()'>
             </common-button>
           </div>
-          <div class="col-2">
+          <div class="col-4 aru-buttons__button">
             <common-button
               [label]="'Remove Child'"
               [buttonType]="'btn btn-primary btn-block'"
               (btnClick)='removeChildBtnClick();'>
             </common-button>
           </div>
-          <div class="col-2 ">
+          <div class="col-4 aru-buttons__button">
             <common-button
               [label]="'Update Child'"
               [buttonType]="'btn btn-primary btn-block'"

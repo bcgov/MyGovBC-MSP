@@ -1,6 +1,7 @@
-@import 'variables';
+@import "variables";
 @import "overrides";
 @import "additions";
+@import "mixins";
 
 .container-fluid {
   @include media-breakpoint-up(md) {

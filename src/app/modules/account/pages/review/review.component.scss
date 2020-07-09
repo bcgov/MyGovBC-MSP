@@ -9,10 +9,6 @@
   }
 }
 
-.horizontal-line {
-  border-bottom: 1px solid black;
-}
-
 .print--icon {
   cursor: pointer;
   float: right;
@@ -24,4 +20,12 @@
   padding-right: 0.25rem;
   float: left;
   font-family: Myriad-Pro, Calibri, Arial, sans-serif;
+}
+
+// Give a bit of space above icons when right below other content
+.fa, .edit--word {
+  padding-top: 6px;
+  &::before {
+    padding-top: 6px;
+  }
 }

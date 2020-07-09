@@ -1,27 +1,62 @@
+@import "mixins";
+
 .cardHeader {
-    background-color:#036; 
-    border-radius: 5px 5px 0px 0px;
-    font-size: 22px; 
-    color: white;
-
-    text-align: center;
-    font-weight: bold;
+  background-color: #036;
+  border-radius: 5px 5px 0px 0px;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
 }
 
-.containerHomePage {
-    font-family: Arial;
-    margin-top: 30px;
-    margin-bottom: 30px;
+.home-container {
+  font-family: Arial;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  @include remove-x-padding-at-tablet-size;
+
+  &__grandchild-container {
+    @include remove-x-padding-at-tablet-size;
+  }
+
+  &__option-container {
+    // space between the cards for Manage Account / Address Change Only
+      > .home-container__grandchild-container:first-child {
+        margin-bottom: 24px;
+      }
+  }
 }
 
-.consentModal{
-    font-family: Arial;
+.home-alert {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: auto 5%;
+  @include remove-x-padding-at-tablet-size;
+
+  &__icon {
+    // top, horizontal, bottom
+    padding: 0 16px 16px;
+  }
+
+  &__text {
+    font-size:12px;
+    padding: 0 16px 16px;
+  }
+
+  &__aside-wrapper {
+      align-self: center;
+      justify-self: center;
+  }
 }
 
-.btn-space{
-    margin-right: 5px;
+.consentModal {
+  font-family: Arial;
 }
 
-.horizontal-line{
-    border-bottom: 1px solid black;
+.btn-space {
+  margin-right: 5px;
 }
+
+
