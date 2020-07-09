@@ -57,7 +57,7 @@ export class UpdateRequestComponent extends Base {
   nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
   nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
   genderChangeDocs = genderDesignationChangeDocuments();
-  nameChangeDuetoErrorDocs = nameChangeDueToErrorDocuments();
+  nameChangeDueToErrorDocs = nameChangeDueToErrorDocuments();
   genderBirthdateChangeDocs = genderBirthDateChangeDocuments();
 
   //statusValue: number;

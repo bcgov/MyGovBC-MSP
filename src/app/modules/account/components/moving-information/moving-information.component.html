@@ -9,8 +9,8 @@
     </common-radio>
   </div>
 
-  <div *ngIf="person.livedInBCSinceBirth === false" class="form-group col-sm-6 p-sm-2 add-document">
-    <div >
+  <div *ngIf="person.livedInBCSinceBirth === false" class="add-document">
+    <div class="form-group col-sm-6 p-sm-2">
       <common-date
         name="MostRecentMoveBC"
         label="Most recent move date to B.C."
@@ -22,7 +22,7 @@
       </common-date>
     </div>
 
-    <div *ngIf="person.livedInBCSinceBirth === false" class="form-group mt-3">
+    <div *ngIf="person.livedInBCSinceBirth === false" class="form-group col-sm-6 p-sm-2">
       <label for="movedFromProvinceOrCountry" class="control-label">From (province or country)</label>
       <input type="text"
         class="form-control"
@@ -32,7 +32,7 @@
         maxlength="255"/>
     </div>
 
-    <div *ngIf="person.livedInBCSinceBirth === false" class="form-group mt-3">
+    <div *ngIf="person.livedInBCSinceBirth === false" class="form-group col-sm-6 p-sm-2">
       <label for="healthNumber_{{objectId}}" class="control-label">
         Medical plan card # in previous place of residence (optional)
       </label>
@@ -54,8 +54,8 @@
     </common-radio>
   </div>
 
-  <div *ngIf="person.newlyAdopted" class="form-group col-sm-6 p-sm-2 add-document">
-    <div >
+  <div *ngIf="person.newlyAdopted" class="add-document">
+    <div class="form-group col-sm-6 p-sm-2">
       <common-date
         name="adoptionDate"
         label="Adoption date"
