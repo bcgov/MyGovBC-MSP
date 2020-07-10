@@ -37,6 +37,10 @@ export class UpdateChildComponent implements OnInit {
     SupportDocumentTypes.RecordOfLanding,
     SupportDocumentTypes.PermanentResidentCard
   ];
+  hideStatus: StatusInCanada[] = [
+    StatusInCanada.CitizenAdult,
+    StatusInCanada.PermanentResident
+  ];
   nameChangeDocs = nameChangeSupportDocuments();
   nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
   nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
