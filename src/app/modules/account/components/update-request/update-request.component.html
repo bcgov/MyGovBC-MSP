@@ -129,7 +129,7 @@
 
 <div *ngIf="person.updateGender" class="add-document mb-4">
   <msp-support-documents
-    [supportDocList]="genderChangeDocs"
+    [supportDocList]="genderChangeDocsType()"
     [(supportDoc)]="person.updateGenderDocType">
     <div class='immediate-tip-slot'>
       <aside>
@@ -151,7 +151,7 @@
 
   <div class="mb-4"></div>
   <msp-support-documents
-    [supportDocList]="genderChangeDocs"
+    [supportDocList]="genderChangeDocsType()"
     [(supportDoc)]="person.updateGenderDocType2">
   </msp-support-documents>
 
@@ -168,7 +168,7 @@
   </div>
   <msp-support-documents
     *ngIf="person.updateGenderAdditionalDocs"
-    [supportDocList]="genderChangeDocs"
+    [supportDocList]="genderChangeDocsType()"
     [(supportDoc)]="person.updateGenderDocType3">
   </msp-support-documents>
 </div>

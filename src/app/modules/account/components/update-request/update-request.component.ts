@@ -14,6 +14,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../../models/relationship.enum';
+import { SupportDocumentList } from '../../../msp-core/models/support-documents.enum';
 
 @Component({
   selector: 'msp-update-request',
@@ -48,17 +49,25 @@ export class UpdateRequestComponent extends Base {
     SupportDocumentTypes.RecordOfLanding,
     SupportDocumentTypes.PermanentResidentCard
   ];
+  genderChangeDocList = [
+    SupportDocumentList.CanadianBirthCertificate,
+    SupportDocumentList.ChangeGenderAdultApplication,
+    SupportDocumentList.ChangeGenderMinorApplication,
+    SupportDocumentList.ChangeGenderPhysicianConfirmation,
+    SupportDocumentList.ParentalConsentWaiver
+  ]
   hideStatus: StatusInCanada[] = [
     StatusInCanada.CitizenAdult,
     StatusInCanada.PermanentResident
   ];
+  
 
   nameChangeDocs = nameChangeSupportDocuments();
   nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
   nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
-  genderChangeDocs = genderDesignationChangeDocuments();
   nameChangeDueToErrorDocs = nameChangeDueToErrorDocuments();
   genderBirthdateChangeDocs = genderBirthDateChangeDocuments();
+  //genderChangeDocs = genderDesignationChangeDocuments();
 
   //statusValue: number;
  //  = legalStatus;
@@ -72,6 +81,48 @@ export class UpdateRequestComponent extends Base {
     if (this.person.status >= 0 &&  this.person.status !== undefined) {
       //this.itemList = this.item(this.person.status);
     }
+  }
+
+  genderChangeDocsType() {
+    let genderList = genderDesignationChangeDocuments();
+    if (this.person.updateGenderDocType === undefined && this.person.updateGenderDocType2 === undefined && this.person.updateGenderDocType3 === undefined){
+      return genderList;
+    }
+    for (let item in this.genderChangeDocList){
+      console.log('PERSON UPDATE GENDER DOC TYPE: ' + this.person.updateGenderDocType);
+      console.log('ITEM: ' + this.genderChangeDocList[item]);
+      if (this.person.updateGenderDocType === undefined){
+        if (this.person.updateGenderDocType2 && this.person.updateGenderDocType2.documentType === this.genderChangeDocList[item]){
+          genderList.splice(+item, 1);
+        }
+        if (this.person.updateGenderDocType3 && this.person.updateGenderDocType3.documentType === this.genderChangeDocList[item]){
+          genderList.splice(+item, 1);
+        }
+        return genderList;
+      }
+    
+      if (this.person.updateGenderDocType2 === undefined){
+        if (this.person.updateGenderDocType && this.person.updateGenderDocType.documentType === this.genderChangeDocList[item]){
+          genderList.splice(+item, 1);
+        }
+        if (this.person.updateGenderDocType3 && this.person.updateGenderDocType3.documentType === this.genderChangeDocList[item]){
+          genderList.splice(+item, 1);
+        }
+        return genderList;
+      }
+
+      if (this.person.updateGenderDocType3 === undefined){
+        if (this.person.updateGenderDocType && this.person.updateGenderDocType.documentType === this.genderChangeDocList[item]){
+          genderList.splice(+item, 1);
+        }
+        if (this.person.updateGenderDocType2 && this.person.updateGenderDocType2.documentType === this.genderChangeDocList[item]){
+          genderList.splice(+item, 1);
+        }
+        return genderList;
+      }
+      // console.log(this.genderList);
+    }
+    return genderList;
   }
 
   get hasStatus() {
