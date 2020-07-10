@@ -10,6 +10,8 @@ import { Relationship } from 'app/models/relationship.enum';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { BaseForm } from '../../models/base-form';
+import { CancellationReasons } from '../../../../models/status-activities-documents';
+
 
 const DOM_REFRESH_TIMEOUT = 50;
 
@@ -149,6 +151,10 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     return this.dataService.accountApp.updatedChildren;
   }
 
+  get addedChildren(): MspPerson[] {
+    return this.dataService.accountApp.addedChildren;
+  }
+
   removeChild(idx: number, op: OperationActionType): void {
     this.dataService.accountApp.removeChild(idx, op);
   }
@@ -207,9 +213,35 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     return valid;
   }
 
+  checkAdd() {
+    let valid = true;
+    this.addedChildren.forEach(addedChild => {
+      if (addedChild.newlyAdopted) {
+        valid = valid && addedChild.adoptedDate !== undefined;
+        valid = valid && addedChild.adoptedDate != null;
+      }
+    })
+    return valid;
+  }
+
+  checkRemove() {
+    let valid = true;
+    this.removedChildren.forEach(removedChild => {
+      valid = valid && removedChild.cancellationReason !== undefined;
+      valid = valid && removedChild.cancellationReason != null;
+    })
+    return valid;
+  }
+
   canContinue(): boolean {
     let valid = super.canContinue();
-    if (this.dataService.accountApp.updatedChildren.length > 0) {
+    if (this.dataService.accountApp.addedChildren) {
+      valid = valid && this.checkAdd();
+    }
+    if (this.dataService.accountApp.removedChildren) {
+      valid = valid && this.checkRemove();
+    }
+    if (this.dataService.accountApp.updatedChildren) {
       valid = valid && this.checkUpdate();
     }
     return valid;
