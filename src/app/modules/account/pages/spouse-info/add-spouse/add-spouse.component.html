@@ -134,8 +134,8 @@
   <!-- Documents - Update name due to name change -->
   <div *ngIf="spouse.updateNameDueToMarriage" class="add-document">
     <msp-support-documents
-      [supportDocList]="spouseNameChangeDocList"
-      [(supportDoc)]="spouse.nameChangeDocs">
+      [supportDocList]="nameChangeDueToMarriageDocs"
+      [(supportDoc)]="spouse.updateNameDueToMarriageDocType">
       <div class='immediate-tip-slot'>
         <aside>
           <div class="card">

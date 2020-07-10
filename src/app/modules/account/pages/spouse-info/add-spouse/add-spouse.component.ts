@@ -3,7 +3,7 @@ import { AccountChangeOptions, MspAccountApp, UpdateList } from 'app/modules/acc
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { CanadianStatusStrings, StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.model';
-import { nameChangeSupportDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
+import { nameChangeSupportDocuments, nameChangeDueToMarriageOrDivorceDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 import { nameChangeSupportDocs } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
@@ -40,6 +40,7 @@ export class AddSpouseComponent extends Base implements OnInit {
   langStatus = CanadianStatusStrings;
   nameChangeDocList = nameChangeSupportDocuments();
   spouseNameChangeDocList = nameChangeSupportDocs();
+  nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
 
   constructor(public dataService: MspAccountMaintenanceDataService) {
     super();
