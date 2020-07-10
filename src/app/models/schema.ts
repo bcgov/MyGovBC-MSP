@@ -20,10 +20,7 @@ export const defaultSchema = {
           $ref: '#/definitions/SubNameType'
         }
       },
-      required: [
-        'firstName',
-        'lastName'
-      ]
+      required: ['firstName', 'lastName']
     },
     SubAddressLineType: {
       type: 'string',
@@ -100,7 +97,7 @@ export const defaultSchema = {
     },
     SINType: {
       type: 'string',
-      pattern: '^[1-9]([0-9]{8})$'
+      pattern: '^[0-9]([0-9]{8})$'
     },
     TelephoneType: {
       type: 'string',
@@ -116,11 +113,7 @@ export const defaultSchema = {
     },
     AssistanceYearType: {
       type: 'string',
-      enum: [
-        'CurrentPA',
-        'PreviousTwo',
-        'MultiYear'
-      ]
+      enum: ['CurrentPA', 'PreviousTwo', 'MultiYear']
     },
     CitizenshipType: {
       type: 'string',
@@ -136,18 +129,11 @@ export const defaultSchema = {
     },
     ContentType: {
       type: 'string',
-      enum: [
-        'image/jpeg',
-        'application/pdf'
-      ]
+      enum: ['image/jpeg', 'application/pdf']
     },
     OperationActionType: {
       type: 'string',
-      enum: [
-        'Add',
-        'Remove',
-        'Update'
-      ]
+      enum: ['Add', 'Remove', 'Update']
     },
     PrevProvinceOrCountryType: {
       type: 'string',
@@ -190,10 +176,7 @@ export const defaultSchema = {
           $ref: '#/definitions/AttachmentUuidsType'
         }
       },
-      required: [
-        'citizenshipType',
-        'attachmentUuids'
-      ]
+      required: ['citizenshipType', 'attachmentUuids']
     },
     MMDDYYDateType: {
       type: 'string',
@@ -215,10 +198,7 @@ export const defaultSchema = {
           $ref: '#/definitions/AttachmentUuidsType'
         }
       },
-      required: [
-        'name',
-        'birthDate'
-      ]
+      required: ['name', 'birthDate']
     },
     PreviousCoverageType: {
       type: 'object',
@@ -230,9 +210,7 @@ export const defaultSchema = {
           $ref: '#/definitions/PHNType'
         }
       },
-      required: [
-        'hasPreviousCoverage'
-      ]
+      required: ['hasPreviousCoverage']
     },
     OutsideBCType: {
       type: 'object',
@@ -253,9 +231,7 @@ export const defaultSchema = {
           type: 'string'
         }
       },
-      required: [
-        'beenOutsideBCMoreThan'
-      ]
+      required: ['beenOutsideBCMoreThan']
     },
     LivedInBCType: {
       type: 'object',
@@ -279,9 +255,7 @@ export const defaultSchema = {
           $ref: '#/definitions/PrevHealthNumberType'
         }
       },
-      required: [
-        'hasLivedInBC'
-      ]
+      required: ['hasLivedInBC']
     },
     WillBeAwayType: {
       type: 'object',
@@ -299,9 +273,7 @@ export const defaultSchema = {
           $ref: '#/definitions/InstitutionNameType'
         }
       },
-      required: [
-        'isFullTimeStudent'
-      ]
+      required: ['isFullTimeStudent']
     },
     ResidencyType: {
       type: 'object',
@@ -352,13 +324,7 @@ export const defaultSchema = {
           $ref: '#/definitions/ResidencyType'
         }
       },
-      required: [
-        'name',
-        'gender',
-        'birthDate',
-        'attachmentUuids',
-        'residency'
-      ]
+      required: ['name', 'gender', 'birthDate', 'attachmentUuids', 'residency']
     },
     DependentType: {
       type: 'object',
@@ -484,9 +450,7 @@ export const defaultSchema = {
           $ref: '#/definitions/EnrolmentDependentsType'
         }
       },
-      required: [
-        'applicant'
-      ]
+      required: ['applicant']
     },
     AccountChangeAccountHolderType: {
       type: 'object',
@@ -545,6 +509,7 @@ export const defaultSchema = {
       },
       required: [
         'name',
+        'gender',
         'birthDate',
         'phn',
         'residenceAddress',
@@ -608,11 +573,7 @@ export const defaultSchema = {
           $ref: '#/definitions/MMDDYYDateType'
         }
       },
-      required: [
-        'name',
-        'birthDate',
-        'phn'
-      ]
+      required: ['name', 'birthDate', 'gender', 'phn']
     },
     AccountChangeSpousesType: {
       type: 'object',
@@ -698,12 +659,7 @@ export const defaultSchema = {
           $ref: '#/definitions/MMDDYYDateType'
         }
       },
-      required: [
-        'name',
-        'birthDate',
-        'operationAction',
-        'phn'
-      ]
+      required: ['name', 'birthDate', 'operationAction', 'gender', 'phn']
     },
     AccountChangeChildrenType: {
       type: 'array',
@@ -726,9 +682,7 @@ export const defaultSchema = {
           $ref: '#/definitions/AccountChangeChildrenType'
         }
       },
-      required: [
-        'accountHolder'
-      ]
+      required: ['accountHolder']
     },
     FinancialsType: {
       type: 'object',
@@ -873,12 +827,7 @@ export const defaultSchema = {
           $ref: '#/definitions/AttachmentUuidsType'
         }
       },
-      required: [
-        'name',
-        'birthDate',
-        'phn',
-        'sin'
-      ]
+      required: ['name', 'birthDate', 'phn', 'sin']
     },
     AssistanceApplicationType: {
       type: 'object',
@@ -922,8 +871,7 @@ export const defaultSchema = {
           description: 'Applicant Last Name'
         },
         applicantGender: {
-          $ref: '#/definitions/GenderType',
-          description: 'Gender of Applicant'
+          $ref: '#/definitions/GenderType'
         },
         applicantBirthdate: {
           $ref: '#/definitions/MMDDYYDateType',
@@ -1153,11 +1101,7 @@ export const defaultSchema = {
           type: 'string'
         }
       },
-      required: [
-        'contentType',
-        'attachmentDocumentType',
-        'attachmentUuid'
-      ]
+      required: ['contentType', 'attachmentDocumentType', 'attachmentUuid']
     },
     AttachmentsType: {
       type: 'array',
@@ -1190,8 +1134,5 @@ export const defaultSchema = {
       $ref: '#/definitions/AttachmentsType'
     }
   },
-  required: [
-    'uuid',
-    'attachments'
-  ]
+  required: ['uuid', 'attachments']
 };
