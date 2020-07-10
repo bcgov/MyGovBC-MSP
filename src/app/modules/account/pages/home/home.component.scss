@@ -11,8 +11,8 @@
 
 .home-container {
   font-family: Arial;
-  margin-top: 32px;
-  margin-bottom: 32px;
+  max-width: 1150px;
+  margin: 32px auto;
   @include remove-x-padding-at-tablet-size;
 
   &__grandchild-container {
@@ -32,12 +32,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: auto 5%;
+  padding: 6px 5%;
+  width: 100%;
   @include remove-x-padding-at-tablet-size;
+
+  > * {
+    width: 100%;
+  }
 
   &__icon {
     // top, horizontal, bottom
-    padding: 0 16px 16px;
+    padding: 6px 16px 16px;
+    text-align: center;
   }
 
   &__text {
@@ -48,6 +54,7 @@
   &__aside-wrapper {
       align-self: center;
       justify-self: center;
+      width: 100%;
   }
 }
 
