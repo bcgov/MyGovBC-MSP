@@ -88,7 +88,7 @@
     "faker": "^4.1.0",
     "jquery": "^3.3.1",
     "jxon": "git+https://github.com/bcgov/jxon.git",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.16",
     "moh-common-lib": "^3.0.10",
     "moment": "^2.22.2",
     "ngx-bootstrap": "3.0.1",
