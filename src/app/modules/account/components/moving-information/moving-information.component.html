@@ -161,9 +161,6 @@
         [dateRangeStart]='returnDateDuring12MonthsStartRange'
         [errorMessage]='returnDateErrorMessage'>
       </common-date>
-
-<!--TODO: Need to do checks to ensure return date is greater than departure date
-and check departure was within last 12 months - need to find error messages for this-->
     </div>
   </div>
 
@@ -223,6 +220,7 @@ and check departure was within last 12 months - need to find error messages for 
         name="over30DaysDeparture"
         label="Departure date"
         [(ngModel)]="person.departureDateDuring6MonthsDate"
+        [dateRangeStart]='departureDateDuring6MonthsStartRange'
         [dateRangeEnd]='departureDateDuring6MonthsEndRange'
         [errorMessage]='departureDateErrorMessage'>
       </common-date>
