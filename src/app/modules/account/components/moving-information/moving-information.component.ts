@@ -6,7 +6,7 @@ import { environment } from '../../../../../environments/environment';
 import { Relationship } from 'app/models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { formatDateField } from '../../helpers/date';
-import { isBefore, subDays, addDays, addMonths } from 'date-fns';
+import { isBefore, isAfter, subDays, addDays, addMonths, subMonths } from 'date-fns';
 
 // TO BE removed - differenece need to be added to msp-core moving-info so that it will work with account
 @Component({
@@ -42,16 +42,16 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
 
   relationship: string = 'you';
   departureDateErrorMessage: ErrorMessage = {
-    invalidRange: 'Date must be at least 30 days before return date.'
+    invalidRange: 'Date must be more than 30 days before return date and within the next six months.'
   }
   returnDateErrorMessage: ErrorMessage = {
-    invalidRange: 'Date must be at least 30 days after departure date.'
+    invalidRange: 'Date must be more than 30 days after departure date.'
   }
   dischargeDateErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be greater than the date of birth.'
   }
   departure12MonthsErrorMessage: ErrorMessage = {
-    invalidRange: 'Date must be within the last 12 months, and at least 30 days before the return date.'
+    invalidRange: 'Date must be within the last 12 months, and more than 30 days before the return date.'
   }
   adoptionDateErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be after the birthdate.'
@@ -186,6 +186,11 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     return date;
   }
 
+  get date6MonthsFromNow(): Date {
+    const date: Date = new Date();
+    return addMonths(date, 6);
+  }
+
   get mostRecentMoveToBCErrorMessage() {
     if (this.person.dateOfBirth) {
       return {
@@ -214,13 +219,13 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     if (this.person.returnDateDuring12MonthsDate
       && this.person.returnDateDuring12MonthsDate instanceof Date
       && isBefore(this.person.returnDateDuring12MonthsDate, this.dateToday)) {
-      return subDays(this.person.returnDateDuring12MonthsDate, 31);
-    } else {
-      return this.dateToday;
+        return subDays(this.person.returnDateDuring12MonthsDate, 31);
+      } else {
+        return this.dateToday;
+      }
     }
-  }
 
-  get returnDateDuring12MonthsStartRange() {
+    get returnDateDuring12MonthsStartRange() {
     if (this.person.departureDateDuring12MonthsDate
       && this.person.departureDateDuring12MonthsDate instanceof Date) {
       return addDays(this.person.departureDateDuring12MonthsDate, 31)
@@ -229,23 +234,25 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     }
   }
 
-  get departureDateDuring6MonthsEndRange() {
-    if (this.person.returnDateDuring6MonthsDate
-      && this.person.returnDateDuring6MonthsDate instanceof Date
-      && isBefore(this.person.returnDateDuring6MonthsDate, addMonths(this.dateToday, 6))) {
-      return subDays(this.person.returnDateDuring6MonthsDate, 31);
-    } else {
-      return addMonths(this.dateToday, 6);
-    }
+  // Leaving today earliest
+  get departureDateDuring6MonthsStartRange() {
+    return this.dateToday;
   }
 
-  get returnDateDuring6MonthsStartRange() {
-    if (this.person.departureDateDuring6MonthsDate
+  // Latest they can leave is 31 days before six months from now
+  get departureDateDuring6MonthsEndRange() {
+        return subDays(addMonths(this.dateToday, 6), 31);
+    }
+
+    // Earliest they can get back is 31 days after the departure date
+    get returnDateDuring6MonthsStartRange() {
+      if (this.person.departureDateDuring6MonthsDate
       && this.person.departureDateDuring6MonthsDate instanceof Date) {
       return addDays(this.person.departureDateDuring6MonthsDate, 31)
     } else {
-      return this.dateToday;
+      return addDays(this.dateToday, 31);
     }
+
   }
 
   get showlivedInBC() {
