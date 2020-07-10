@@ -9,6 +9,7 @@
     </common-radio>
   </div>
 
+  <!-- lived in B.C. since birth? -->
   <div *ngIf="person.livedInBCSinceBirth === false" class="add-document">
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
@@ -24,7 +25,8 @@
 
     <div *ngIf="person.livedInBCSinceBirth === false" class="form-group col-sm-6 p-sm-2">
       <label for="movedFromProvinceOrCountry" class="control-label">From (province or country)</label>
-      <input type="text"
+      <input
+        type="text"
         class="form-control"
         id="movedFromProvinceOrCountry"
         [(ngModel)]="person.movedFromProvinceOrCountry"
@@ -41,10 +43,11 @@
         type="text"
         class="form-control"
         [(ngModel)]="person.healthNumberFromOtherProvince"
-        maxlength="15">
+        maxlength="15"/>
     </div>
   </div>
 
+  <!-- newly adopted? -->
   <div class="form-group" *ngIf="isChild">
     <common-radio
       name="adopted_{{objectId}}"
@@ -68,6 +71,7 @@
     </div>
   </div>
 
+  <!-- permanent move to B.C. -->
   <div class="form-group">
     <common-radio
       name="madePermanentMoveToBC_{{objectId}}"
@@ -87,6 +91,7 @@
     </common-error-container>
   </div>
 
+  <!-- 30 days during the past 12 months -->
   <div class="form-group">
     <common-radio
       name="outsideOver30Days_{{objectId}}"
@@ -162,6 +167,7 @@ and check departure was within last 12 months - need to find error messages for 
     </div>
   </div>
 
+  <!-- 30 days during the next 6 months -->
   <div class="form-group">
     <common-radio
       name="outsideOver60Days_{{objectId}}"
@@ -233,8 +239,9 @@ and check departure was within last 12 months - need to find error messages for 
     </div>
 <!--TODO: Need to do checks to ensure return date is greater than departure date
 and check departure was within last 12 months - need to find error messages for this-->
-</div>
+  </div>
 
+  <!-- released from the Canadian Armed Forces -->
   <div class="form-group">
     <common-radio
       name="armedForces_{{objectId}}"
@@ -244,7 +251,7 @@ and check departure was within last 12 months - need to find error messages for 
     </common-radio>
   </div>
 
-  <div *ngIf="person.hasBeenReleasedFromArmedForces" class="form-group p-sm-2 add-document">
+  <div *ngIf="person.hasBeenReleasedFromArmedForces" class="add-document">
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
         name="releasedFromArmedForcesDischarge"
@@ -267,7 +274,7 @@ and check departure was within last 12 months - need to find error messages for 
         class="form-control"
         [(ngModel)]=person.nameOfInstitute
         maxlength="20"
-        required>
+        required/>
       <common-error-container
         [displayError]="destinationRef.error?.required">
         Name of institution is required.
@@ -277,13 +284,13 @@ and check departure was within last 12 months - need to find error messages for 
 </common-page-section>
 
 <common-page-section layout="tips">
-  <div *ngIf="isChild && person.relationship === Child19To24 ">
-    <h2><strong> School Information </strong></h2>
-    <p class="border-bottom ">
+  <div *ngIf="person.relationship === Child19To24">
+    <h2><strong>School Information</strong></h2>
+    <p class="border-bottom">
       Enter information of the school that this child is attending (must be in full-time attendance)
     </p>
 
-    <div class="form-group">
+    <div class="form-group col-sm-6 p-sm-2">
       <label for="schoolName_{{objectId}}" class="control-label">
         School Name
       </label>
@@ -294,14 +301,14 @@ and check departure was within last 12 months - need to find error messages for 
         class="form-control"
         [(ngModel)]=person.schoolName
         maxlength="50"
-        required>
+        required/>
       <common-error-container
         [displayError]="schoolNameRef.error?.required">
         Name of school is required.
       </common-error-container>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-sm-6 p-sm-2">
       <common-radio
         name="inBCafterStudiesOA_{{objectId}}"
         [(ngModel)]="person.schoolOutsideOfBC"
@@ -320,10 +327,10 @@ and check departure was within last 12 months - need to find error messages for 
       </div>
     </div>
 
-    <h2><strong> School Address </strong></h2>
+    <h2><strong>School Address</strong></h2>
     <p class="border-bottom"></p>
 
-    <div class="form-group">
+    <div class="form-group col-sm-7 p-sm-2">
       <common-address
         [(address)]="person.schoolAddress"
         [isRequired]="true"
@@ -332,21 +339,21 @@ and check departure was within last 12 months - need to find error messages for 
       </common-address>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-sm-6 p-sm-2">
       <common-date
         label="Date studies will begin"
         [(ngModel)]="person.studiesDepartureDate">
       </common-date>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-sm-6 p-sm-2">
       <common-date
         label="Date studies will finish"
         [(ngModel)]="person.studiesFinishedDate">
       </common-date>
     </div>
 
-    <div class="form-group  ">
+    <div class="form-group">
       <common-radio
         name="inBCafterStudiesOA_{{objectId}}"
         [(ngModel)]="person.inBCafterStudies"
