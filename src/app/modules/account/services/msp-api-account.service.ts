@@ -759,8 +759,8 @@ export class MspApiAccountService extends AbstractHttpService {
       to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
     }
 
-    if (from.previous_phn) {
-      to.livedInBC.prevHealthNumber = from.previous_phn;
+    if (from.healthNumberFromOtherProvince) {
+      to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince;
     }
 
     if (from.declarationForOutsideOver30Days) {
