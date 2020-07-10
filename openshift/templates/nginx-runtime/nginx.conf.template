@@ -106,7 +106,14 @@ http {
         location /deam-interim/msp/account/prepare {                                                                                                  
             return https://msp-deam-%MSP_ENV%.pathfinder.gov.bc.ca;                                                                                   
             # return 301 https://my.gov.bc.ca/msp/deam-interim/;                                                                                      
-        }                                                                                                                                             
+        }
+
+        location /deam/home {
+            proxy_pass_header http_host;
+            proxy_pass_header request_method;
+            proxy_pass_header http_x_forwarded_host;
+            proxy_pass https://msp-deam-%MSP_ENV%.pathfinder.gov.bc.ca/msp/deam/home;
+        }
 
         location /api {
             proxy_pass http://mygovbc-msp-service:8080/;
