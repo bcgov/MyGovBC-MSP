@@ -179,12 +179,12 @@ export const SupportDocumentSamples: SampleImageInterface[] = [
   },
   // SeparationAgreement
   {
-    path: null,
-    desc: null,
+    path: 'assets/separation_agreement.png',
+    desc: 'Picture of a sample Separation Agreement',
   },
   // NotarizedStatementOrAffidavit
   {
-    path: null,
-    desc: null,
+    path: 'assets/affidavit.png',
+    desc: 'Picture of a sample Affidavit',
   },
 ];
