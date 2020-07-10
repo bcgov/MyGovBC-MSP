@@ -25,6 +25,7 @@
     <div *ngIf="person.livedInBCSinceBirth === false" class="form-group col-sm-6 p-sm-2">
       <label for="movedFromProvinceOrCountry" class="control-label">From (province or country)</label>
       <input type="text"
+        name="movedFromProvinceOrCountry_{{objectId}}"
         class="form-control"
         id="movedFromProvinceOrCountry"
         [(ngModel)]="person.movedFromProvinceOrCountry"
@@ -311,6 +312,7 @@ and check departure was within last 12 months - need to find error messages for 
     <div *ngIf="person.schoolOutsideOfBC" >
       <div class="form-group col-sm-6 p-sm-2">
         <common-date
+          name="departureDate_{{objectId}}"
           label="Departure date from B.C."
           [restrictDate]="'past'"
           [(ngModel)]="person.departureDate">
@@ -332,6 +334,7 @@ and check departure was within last 12 months - need to find error messages for 
 
     <div class="form-group">
       <common-date
+        name="studiesDepartureDate_{{objectId}}"
         label="Date studies will begin"
         [(ngModel)]="person.studiesDepartureDate">
       </common-date>
@@ -339,6 +342,7 @@ and check departure was within last 12 months - need to find error messages for 
 
     <div class="form-group">
       <common-date
+        name="studiesFinishedDate_{{objectId}}"
         label="Date studies will finish"
         [(ngModel)]="person.studiesFinishedDate">
       </common-date>

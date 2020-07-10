@@ -1036,16 +1036,10 @@ export class MspApiAccountService extends AbstractHttpService {
         from.declarationForOutsideOver30Days === true ? 'Y' : 'N';
       if (from.declarationForOutsideOver30Days) {
         if (from.outOfBCRecord.hasDeparture) {
-          to.outsideBC.departureDate = format(
-            from.outOfBCRecord.departureDate,
-            this.ISO8601DateFormat
-          );
+          to.outsideBC.departureDate = String(from.outOfBCRecord.departureDate)
         }
         if (from.outOfBCRecord.hasReturn) {
-          to.outsideBC.returnDate = format(
-            from.outOfBCRecord.returnDate,
-            this.ISO8601DateFormat
-          );
+          to.outsideBC.returnDate = String(from.outOfBCRecord.returnDate)
         }
         to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
         to.outsideBC.destination = from.outOfBCRecord.location;
@@ -1060,17 +1054,13 @@ export class MspApiAccountService extends AbstractHttpService {
         from.plannedAbsence === true ? 'Y' : 'N';
       if (from.plannedAbsence) {
         if (from.planOnBeingOutOfBCRecord.hasDeparture) {
-          to.outsideBCinFuture.departureDate = format(
-            from.planOnBeingOutOfBCRecord.departureDate,
-            this.ISO8601DateFormat
-          );
+          to.outsideBCinFuture.departureDate = String(from.planOnBeingOutOfBCRecord.departureDate)
         }
+
         if (from.planOnBeingOutOfBCRecord.hasReturn) {
-          to.outsideBCinFuture.returnDate = format(
-            from.planOnBeingOutOfBCRecord.returnDate,
-            this.ISO8601DateFormat
-          );
+          to.outsideBCinFuture.returnDate = String(from.planOnBeingOutOfBCRecord.returnDate);
         }
+
         to.outsideBCinFuture.familyMemberReason =
           from.planOnBeingOutOfBCRecord.reason;
         to.outsideBCinFuture.destination =
