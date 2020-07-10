@@ -49,7 +49,7 @@ export const CanadianStatusReasonStrings = {
   StudyingInBC: 'Study Permit',
   ReligiousWorker: 'Religious Worker',
   Diplomat: 'Diplomat',
-  Visiting: 'Visiting'
+  Visiting: 'Visitor Permit'
 };
 
 
