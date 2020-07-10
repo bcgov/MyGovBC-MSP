@@ -109,10 +109,7 @@ http {
         }
 
         location /deam/home {
-            proxy_pass_header http_host;
-            proxy_pass_header request_method;
-            proxy_pass_header http_x_forwarded_host;
-            proxy_pass https://msp-deam-%MSP_ENV%.pathfinder.gov.bc.ca/msp/deam/home;
+            return https://msp-deam-%MSP_ENV%.pathfinder.gov.bc.ca/msp/deam/home;
         }
 
         location /api {
