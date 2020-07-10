@@ -277,7 +277,8 @@ common-address {
 
 }
 
-common-date[label="Birthdate"] {
+common-date[label="Birthdate"],
+common-date[label="Marriage date (optional)"] {
   common-error-container {
     display: inline-block;
     min-height: 21px;
