@@ -235,13 +235,13 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
 
   canContinue(): boolean {
     let valid = super.canContinue();
-    if (this.dataService.accountApp.addedChildren) {
+    if (this.addedChildren.length > 0) {
       valid = valid && this.checkAdd();
     }
-    if (this.dataService.accountApp.removedChildren) {
+    if (this.removedChildren.length > 0) {
       valid = valid && this.checkRemove();
     }
-    if (this.dataService.accountApp.updatedChildren) {
+    if (this.updatedChildren.length > 0) {
       valid = valid && this.checkUpdate();
     }
     return valid;
