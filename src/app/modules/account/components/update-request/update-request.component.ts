@@ -49,19 +49,29 @@ export class UpdateRequestComponent extends Base {
     SupportDocumentTypes.RecordOfLanding,
     SupportDocumentTypes.PermanentResidentCard
   ];
-  genderChangeDocList = [
-    SupportDocumentList.CanadianBirthCertificate,
-    SupportDocumentList.ChangeGenderAdultApplication,
-    SupportDocumentList.ChangeGenderMinorApplication,
-    SupportDocumentList.ChangeGenderPhysicianConfirmation,
-    SupportDocumentList.ParentalConsentWaiver
-  ]
+  // genderChangeDocList = [
+  //   SupportDocumentList.CanadianBirthCertificate,
+  //   SupportDocumentList.ChangeGenderAdultApplication,
+  //   SupportDocumentList.ChangeGenderMinorApplication,
+  //   SupportDocumentList.ChangeGenderPhysicianConfirmation,
+  //   SupportDocumentList.ParentalConsentWaiver
+  // ]
+  genderDesignationForAdultsList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.ChangeGenderAdultApplication,
+    SupportDocumentTypes.ChangeGenderPhysicianConfirmation,
+    SupportDocumentTypes.CanadianBirthCertificate
+  ];
+  genderDesignationForMinorsList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.ChangeGenderMinorApplication,
+    SupportDocumentTypes.ParentalConsentWaiver,
+    SupportDocumentTypes.ChangeGenderPhysicianConfirmation,
+    SupportDocumentTypes.CanadianBirthCertificate
+  ];
   hideStatus: StatusInCanada[] = [
     StatusInCanada.CitizenAdult,
     StatusInCanada.PermanentResident
   ];
   
-
   nameChangeDocs = nameChangeSupportDocuments();
   nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
   nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
@@ -83,47 +93,59 @@ export class UpdateRequestComponent extends Base {
     }
   }
 
-  genderChangeDocsType() {
-    let genderList = genderDesignationChangeDocuments();
-    if (this.person.updateGenderDocType === undefined && this.person.updateGenderDocType2 === undefined && this.person.updateGenderDocType3 === undefined){
-      return genderList;
-    }
-    for (let item in this.genderChangeDocList){
-      console.log('PERSON UPDATE GENDER DOC TYPE: ' + this.person.updateGenderDocType);
-      console.log('ITEM: ' + this.genderChangeDocList[item]);
-      if (this.person.updateGenderDocType === undefined){
-        if (this.person.updateGenderDocType2 && this.person.updateGenderDocType2.documentType === this.genderChangeDocList[item]){
-          genderList.splice(+item, 1);
-        }
-        if (this.person.updateGenderDocType3 && this.person.updateGenderDocType3.documentType === this.genderChangeDocList[item]){
-          genderList.splice(+item, 1);
-        }
-        return genderList;
-      }
-    
-      if (this.person.updateGenderDocType2 === undefined){
-        if (this.person.updateGenderDocType && this.person.updateGenderDocType.documentType === this.genderChangeDocList[item]){
-          genderList.splice(+item, 1);
-        }
-        if (this.person.updateGenderDocType3 && this.person.updateGenderDocType3.documentType === this.genderChangeDocList[item]){
-          genderList.splice(+item, 1);
-        }
-        return genderList;
-      }
-
-      if (this.person.updateGenderDocType3 === undefined){
-        if (this.person.updateGenderDocType && this.person.updateGenderDocType.documentType === this.genderChangeDocList[item]){
-          genderList.splice(+item, 1);
-        }
-        if (this.person.updateGenderDocType2 && this.person.updateGenderDocType2.documentType === this.genderChangeDocList[item]){
-          genderList.splice(+item, 1);
-        }
-        return genderList;
-      }
-      // console.log(this.genderList);
-    }
-    return genderList;
+  changeGenderDesignation(value: boolean) {
+    this.person.applyingForChangeOfGenderAsAdult = value;
   }
+
+  genderDesignationList() {
+    if (this.person.applyingForChangeOfGenderAsAdult){
+      return this.genderDesignationForAdultsList;
+    } else {
+      return this.genderDesignationForMinorsList;
+    }
+  }
+
+  // genderChangeDocsType() {
+  //   let genderList = genderDesignationChangeDocuments();
+  //   if (this.person.updateGenderDocType === undefined && this.person.updateGenderDocType2 === undefined && this.person.updateGenderDocType3 === undefined){
+  //     return genderList;
+  //   }
+  //   for (let item in this.genderChangeDocList){
+  //     console.log('PERSON UPDATE GENDER DOC TYPE: ' + this.person.updateGenderDocType);
+  //     console.log('ITEM: ' + this.genderChangeDocList[item]);
+  //     if (this.person.updateGenderDocType === undefined){
+  //       if (this.person.updateGenderDocType2 && this.person.updateGenderDocType2.documentType === this.genderChangeDocList[item]){
+  //         genderList.splice(+item, 1);
+  //       }
+  //       if (this.person.updateGenderDocType3 && this.person.updateGenderDocType3.documentType === this.genderChangeDocList[item]){
+  //         genderList.splice(+item, 1);
+  //       }
+  //       return genderList;
+  //     }
+    
+  //     if (this.person.updateGenderDocType2 === undefined){
+  //       if (this.person.updateGenderDocType && this.person.updateGenderDocType.documentType === this.genderChangeDocList[item]){
+  //         genderList.splice(+item, 1);
+  //       }
+  //       if (this.person.updateGenderDocType3 && this.person.updateGenderDocType3.documentType === this.genderChangeDocList[item]){
+  //         genderList.splice(+item, 1);
+  //       }
+  //       return genderList;
+  //     }
+
+  //     if (this.person.updateGenderDocType3 === undefined){
+  //       if (this.person.updateGenderDocType && this.person.updateGenderDocType.documentType === this.genderChangeDocList[item]){
+  //         genderList.splice(+item, 1);
+  //       }
+  //       if (this.person.updateGenderDocType2 && this.person.updateGenderDocType2.documentType === this.genderChangeDocList[item]){
+  //         genderList.splice(+item, 1);
+  //       }
+  //       return genderList;
+  //     }
+  //     // console.log(this.genderList);
+  //   }
+  //   return genderList;
+  // }
 
   get hasStatus() {
     // Has to have values
@@ -204,6 +226,15 @@ export class UpdateRequestComponent extends Base {
         return 'your spouse\'s';
       default:
         return 'your child\'s'
+    }
+  }
+
+  get adultOrMinor() {
+    if (this.person.applyingForChangeOfGenderAsAdult == true) {
+      return 'Adult';
+    }
+    else {
+      return 'Minor';
     }
   }
 }

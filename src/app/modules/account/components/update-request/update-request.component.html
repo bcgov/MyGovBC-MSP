@@ -128,34 +128,48 @@
 </div>
 
 <div *ngIf="person.updateGender" class="add-document mb-4">
-  <msp-support-documents
-    [supportDocList]="genderChangeDocsType()"
-    [(supportDoc)]="person.updateGenderDocType">
-    <div class='immediate-tip-slot'>
-      <aside>
-        <div class="card">
-          <div class="card-body">
-            <div>Tip</div>
-            <div>Adults must upload at least two documents, minors need three documents.</div>
+  <div class="form-group p-sm-2">
+    <common-radio
+      [value]="person.applyingForChangeOfGenderAsAdult"
+      [label]="'Are you applying for change of gender designation as an adult?'"
+      [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
+      (valueChange)="changeGenderDesignation($event)"
+      required>
+    </common-radio>
+  </div>
+  <div *ngIf="person.applyingForChangeOfGenderAsAdult !== undefined">
+      <msp-support-documents
+      [supportDocList]="genderDesignationList()"
+      [(supportDoc)]="person.updateGenderDocType">
+      <div class='immediate-tip-slot'>
+        <aside>
+          <div class="card">
+            <div class="card-body">
+              <div>Tip</div>
+              <div>{{adultOrMinor}}s must upload at least three documents.</div>
+            </div>
           </div>
-        </div>
-      </aside>
-    </div>
-    <div sectionTitleInfo>
-      <h2><strong>Documents - Update gender designation - due to change</strong></h2>
-      <p class="horizontal-line">
-        Provide the required document(s) to support {{possessiveRelationshipNoun}} personal information update.
-      </p>
-    </div>
-  </msp-support-documents>
-
-  <div class="mb-4"></div>
-  <msp-support-documents
-    [supportDocList]="genderChangeDocsType()"
-    [(supportDoc)]="person.updateGenderDocType2">
-  </msp-support-documents>
-
-  <div class="mb-4"></div>
+        </aside>
+      </div>
+      <div sectionTitleInfo>
+        <h2><strong>Documents - Update gender designation - due to change (for {{adultOrMinor}})</strong></h2>
+        <p class="horizontal-line">
+          Provide the required document(s) to support {{possessiveRelationshipNoun}} personal information update.
+        </p>
+      </div>
+    </msp-support-documents>
+    <div class="mb-4"></div>
+    <msp-support-documents
+      [supportDocList]="genderDesignationList()"
+      [(supportDoc)]="person.updateGenderDocType2">
+    </msp-support-documents>
+    <div class="mb-4"></div>
+    <msp-support-documents
+      [supportDocList]="genderDesignationList()"
+      [(supportDoc)]="person.updateGenderDocType3">
+    </msp-support-documents>
+  </div>
+  <!-- <div class="mb-4"></div>
   <div requestAdditionInfo>
     <div class="form-group p-sm-2">
       <common-radio
@@ -170,7 +184,7 @@
     *ngIf="person.updateGenderAdditionalDocs"
     [supportDocList]="genderChangeDocsType()"
     [(supportDoc)]="person.updateGenderDocType3">
-  </msp-support-documents>
+  </msp-support-documents> -->
 </div>
 
 <!-- Correct name - due to error -->

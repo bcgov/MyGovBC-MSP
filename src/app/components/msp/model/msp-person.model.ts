@@ -86,10 +86,12 @@ export class MspPerson implements ICanadianStatus {
     public updateBirthdateDoc: CommonImage[] = [];
 
     public updateGender: boolean;
+    public applyingForChangeOfGenderAsAdult: boolean;
     public updateGenderDocType:  SupportDocuments = new SupportDocuments();
     public updateGenderDocType2:  SupportDocuments = new SupportDocuments();
     public updateGenderAdditionalDocs: boolean;
     public updateGenderDocType3:  SupportDocuments = new SupportDocuments();
+    public updateGenderDocType4:  SupportDocuments = new SupportDocuments();
     public updateGenderDoc: CommonImage[] = [];
 
     public updateGenderDesignation: boolean;
