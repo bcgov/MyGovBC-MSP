@@ -14,6 +14,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../../models/relationship.enum';
+import { SupportDocumentList } from '../../../msp-core/models/support-documents.enum';
 
 @Component({
   selector: 'msp-update-request',
@@ -48,17 +49,28 @@ export class UpdateRequestComponent extends Base {
     SupportDocumentTypes.RecordOfLanding,
     SupportDocumentTypes.PermanentResidentCard
   ];
+  genderDesignationForAdultsList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.ChangeGenderAdultApplication,
+    SupportDocumentTypes.ChangeGenderPhysicianConfirmation,
+    SupportDocumentTypes.CanadianBirthCertificate
+  ];
+  genderDesignationForMinorsList: SupportDocumentTypes[] = [
+    SupportDocumentTypes.ChangeGenderMinorApplication,
+    SupportDocumentTypes.ParentalConsentWaiver,
+    SupportDocumentTypes.ChangeGenderPhysicianConfirmation,
+    SupportDocumentTypes.CanadianBirthCertificate
+  ];
   hideStatus: StatusInCanada[] = [
     StatusInCanada.CitizenAdult,
     StatusInCanada.PermanentResident
   ];
-
+  
   nameChangeDocs = nameChangeSupportDocuments();
   nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
   nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
-  genderChangeDocs = genderDesignationChangeDocuments();
   nameChangeDueToErrorDocs = nameChangeDueToErrorDocuments();
   genderBirthdateChangeDocs = genderBirthDateChangeDocuments();
+  //genderChangeDocs = genderDesignationChangeDocuments();
 
   //statusValue: number;
  //  = legalStatus;
@@ -71,6 +83,18 @@ export class UpdateRequestComponent extends Base {
     //this.person = this.dataService.getMspAccountApp().applicant ;
     if (this.person.status >= 0 &&  this.person.status !== undefined) {
       //this.itemList = this.item(this.person.status);
+    }
+  }
+
+  changeGenderDesignation(value: boolean) {
+    this.person.applyingForChangeOfGenderAsAdult = value;
+  }
+
+  genderDesignationList() {
+    if (this.person.applyingForChangeOfGenderAsAdult){
+      return this.genderDesignationForAdultsList;
+    } else {
+      return this.genderDesignationForMinorsList;
     }
   }
 
@@ -153,6 +177,15 @@ export class UpdateRequestComponent extends Base {
         return 'your spouse\'s';
       default:
         return 'your child\'s'
+    }
+  }
+
+  get adultOrMinor() {
+    if (this.person.applyingForChangeOfGenderAsAdult == true) {
+      return 'Adult';
+    }
+    else {
+      return 'Minor';
     }
   }
 }
