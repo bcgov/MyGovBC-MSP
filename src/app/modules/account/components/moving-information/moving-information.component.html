@@ -309,7 +309,7 @@ and check departure was within last 12 months - need to find error messages for 
 
     <div class="form-group col-sm-6 p-sm-2">
       <common-radio
-        name="inBCafterStudiesOA_{{objectId}}"
+        name="schoolOutsideOfBC_{{objectId}}"
         [(ngModel)]="person.schoolOutsideOfBC"
         label="Is this school located outside British Columbia?"
         required>
@@ -343,7 +343,8 @@ and check departure was within last 12 months - need to find error messages for 
       <common-date
         name="studiesDepartureDate_{{objectId}}"
         label="Date studies will begin"
-        [(ngModel)]="person.studiesDepartureDate">
+        [(ngModel)]="person.studiesDepartureDate"
+        required>
       </common-date>
     </div>
 
@@ -351,7 +352,8 @@ and check departure was within last 12 months - need to find error messages for 
       <common-date
         name="studiesFinishedDate_{{objectId}}"
         label="Date studies will finish"
-        [(ngModel)]="person.studiesFinishedDate">
+        [(ngModel)]="person.studiesFinishedDate"
+        required>
       </common-date>
     </div>
 

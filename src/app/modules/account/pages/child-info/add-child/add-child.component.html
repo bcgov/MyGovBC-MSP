@@ -48,7 +48,8 @@
       name="nameChange_{{objectId}}"
       [(ngModel)]="child.hasNameChange"
       label="Has your child’s name changed since their ID was issued due to a legal name change?"
-      (valuehange)="this.personChange.emit(child);">
+      (valuehange)="this.personChange.emit(child);"
+      required>
     </common-radio>
 
     <!-- Documents - Update name due to name change -->
@@ -87,7 +88,8 @@
           [value]="child.gender"
           label='Gender'
           [radioLabels]='[{"label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
-          (valueChange)="setGender($event)">
+          (valueChange)="setGender($event)"
+          required>
         </common-radio>
       </div>
     </div>

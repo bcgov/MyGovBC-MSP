@@ -217,8 +217,7 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     let valid = true;
     this.addedChildren.forEach(addedChild => {
       if (addedChild.newlyAdopted) {
-        valid = valid && addedChild.adoptedDate !== undefined;
-        valid = valid && addedChild.adoptedDate != null;
+        valid = valid && addedChild.adoptedDate !== undefined && addedChild.adoptedDate != null;
       }
     })
     return valid;
