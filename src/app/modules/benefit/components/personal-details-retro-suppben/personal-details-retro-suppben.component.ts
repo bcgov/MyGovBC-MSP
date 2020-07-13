@@ -25,6 +25,8 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     @Output() docActionEvent = new EventEmitter<any>();
     @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
+
+    Relationship = Relationship;
     subscriptions: Subscription[];
 
 
@@ -46,7 +48,7 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     }
 
     get docText(): string {
-        return this.person.relationship === 0 ? 'account holder\'s' : 'spouse\'s';
+        return this.person.relationship === Relationship.Applicant ? 'your' : 'your spouse\'s';
     }
 
 

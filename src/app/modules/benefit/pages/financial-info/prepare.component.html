@@ -29,7 +29,7 @@
                             <!-- Question 2, Enter your net income -->
                             <label for="netIncome">{{this.getFinanialInfoSectionTitle}}</label>
                             <div class="text-muted">
-                                    See Line 236 of your Notice of Assessment or Reassessment
+                                    See Line {{ this.benefitApp.taxYear >= 2019 ? 23600 : 236 }} of your Notice of Assessment or Reassessment
                             </div>
 
                             <div class="col-md-6 input-group">
@@ -94,7 +94,7 @@
                                     <!-- Spouse Income  -->
                                         <label for="spouseIncomeLine236" [innerHtml]="getSpouseFinanialInfoSectionTitle">
                                         </label>
-                                        <div class="muted-text">See Line 236 of your spouse's Notice of Assessment or Reassessment</div>
+                                        <div class="muted-text">See Line {{ this.benefitApp.taxYear >= 2019 ? 23600 : 236 }} of your spouse's Notice of Assessment or Reassessment</div>
                                         <div class="col-md-6 input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
@@ -132,16 +132,14 @@
 
                                 <div class="col-md-8">
 
-                                    <!-- Children Count-->
                                     <div class="form-group">
                                         <label  for="childrenCount" [innerHtml]="'How many children do you have on your account?'">
                                         </label>
 
-                                        <input type="text" class="form-control col-md-2" name="childrenCount"
+                                        <input type="number" class="form-control col-md-2" name="childrenCount"
+                                            pattern="\b([1-9]|1[0-9]|2[0-9])\b"
                                             id="childrenCount"
-                                            maxlength="2"
                                             #childCount="ngModel"
-                                            pattern="^[0-9]{0,2}?$"
                                             [(ngModel)]="benefitApp.childrenCount">
 
                                         <div  class="text-danger" *ngIf="childCount.errors?.pattern || benefitApp.childrenCount > 29"
@@ -156,7 +154,7 @@
                                             How much did you claim for child care expenses in {{this.benefitApp.taxYear}}?
                                         </label>
                                         <div class="muted-text">
-                                                See Line 214 of your Notice of Assessment or Reassessment
+                                                See Line {{ this.benefitApp.taxYear >= 2019 ? 21400 : 214 }} of your Notice of Assessment or Reassessment
                                         </div>
                                         <div class="col-md-6 input-group">
                                             <div class="input-group-prepend">
@@ -167,7 +165,7 @@
                                                 [required]="benefitApp.haveChildrens"
                                                 pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                                 #line214Ref="ngModel"
-												maxlength="9"
+                                                maxlength="9"
                                                 [(ngModel)]="benefitApp.claimedChildCareExpense_line214">
                                         </div>
                                         <div class="text-danger" *ngIf="(line214Ref.touched && line214Ref.errors?.required)"
@@ -187,7 +185,7 @@
                                 (valueChange)="updateDisabilityCredit($event)">
                             </common-radio>
                             <p>
-                                See Line 316, 318 or 326 of your Notice of Assessment or Reassessment
+                                See Line {{ this.benefitApp.taxYear >= 2019 ? 31600 : 316 }}, {{ this.benefitApp.taxYear >= 2019 ? 31800 : 318 }} or {{ this.benefitApp.taxYear >= 2019 ? 32600 : 326 }} of your Notice of Assessment or Reassessment
                             </p>
                         </div>
 
@@ -199,7 +197,8 @@
                                     <div class="form-group d-flex">
                                         <div class="form-check form-check-inline">
                                                 <common-checkbox label="Myself"
-                                                    (click)="toggleClaimForSelfDisabilityCredit($event)"
+                                                    (click)="disabilityClicked($event, Claimant.APPLICANT)"
+                                                    (dataChange)="applicantClaimForDisabilityCredit($event)"
                                                     [data]="benefitApp.applicantEligibleForDisabilityCredit" >
                                                 </common-checkbox>
                                         </div>
@@ -208,8 +207,8 @@
                                             <div><!--benefitApp.hasSpouse-->
                                                <common-checkbox label="My spouse/common-law partner"
                                                     [disabled]="!benefitApp.hasSpouse"
-                                                    (click)="spouseDisabilityClicked($event)"
-                                                    (dataChange)="toggleClaimForSpouseDisabilityCredit($event)"
+                                                    (click)="disabilityClicked($event, Claimant.SPOUSE)"
+                                                    (dataChange)="spouseClaimForDisabilityCredit($event)"
                                                     [data]="benefitApp.spouseEligibleForDisabilityCredit" >
                                                 </common-checkbox>
                                             </div>
@@ -272,9 +271,9 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="line125">
-                                            How much was reported for a Registered Disability Savings Plan?
+                                            How much did you {{benefitApp.hasSpouse ? '(or your spouse/common-law partner)' : ''}} report for a Registered Disability Savings Plan in {{this.benefitApp.taxYear}}?
                                     </label>
-                                    <p class="muted-text" >See Line 125 of the Notice of Assessment or Reassessment</p>
+                                    <p class="muted-text" >See Line {{ this.benefitApp.taxYear >= 2019 ? 12500 : 125 }} of the Notice of Assessment or Reassessment</p>
                                     <div class="col-md-6 input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">$</span>
@@ -301,7 +300,7 @@
                             <common-radio [value]="benefitApp.hasClaimedAttendantCareExpenses"  [label]="didAnyoneClaimAttendantCareLastYear"
                                 [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
                                 (valueChange)="updateNursingHomeExpense($event);"
-                                instructionText="See Line 215 or 330 of your Notice of Assessment or Reassessment">
+                                instructionText="See Line {{ this.benefitApp.taxYear >= 2019 ? 21500 : 215}} or {{ this.benefitApp.taxYear >= 2019 ? 33099 : 330}} of your Notice of Assessment or Reassessment">
                             </common-radio>
                         </div>
 
@@ -315,7 +314,8 @@
                                 <div class="form-group d-flex">
                                     <div class="form-check form-check-inline">
                                         <common-checkbox label="Myself"
-                                            (click)="applicantClaimForAttendantCare($event)"
+                                            (dataChange)="applicantClaimForAttendantCare($event)"
+                                            (click)="nursingClicked($event, Claimant.APPLICANT)"
                                             [data]="benefitApp.applicantClaimForAttendantCareExpense" >
                                         </common-checkbox>
 
@@ -325,7 +325,7 @@
                                         <div class="form-check form-check-inline">
                                                 <common-checkbox label="My spouse/common-law partner"
                                                     [disabled]="!benefitApp.hasSpouse"
-                                                    (click)="spouseNursingClicked($event)"
+                                                    (click)="nursingClicked($event, Claimant.SPOUSE)"
                                                     (dataChange)="spouseClaimForAttendantCare($event)"
                                                     [data]="benefitApp.spouseClaimForAttendantCareExpense" >
                                                 </common-checkbox>
@@ -361,15 +361,14 @@
                                 <input type="text" class="form-control" name="childClaimForAttendantCareExpenseCount"
                                         id="childClaimForAttendantCareExpenseCount"
                                         #attendantCareCount="ngModel"
-                                        pattern="^[0-9]{0,2}?$"
-                                        maxlength="2"
-                                        [(ngModel)]="benefitApp.childWithAttendantCareCount">
+                                        pattern="\b([1-9]|1[0-9]|2[0-9])\b"
+                                        [(ngModel)]="benefitApp.childWithAttendantCareCount" >
                             </div>
                             <div style="margin-left:15px;"  class="text-danger" *ngIf="attendantCareCount.errors?.pattern"
                                     [innerHTML]="'Children count must be numeric and in between 1-29'">
                             </div>
                             <div style="margin-left:15px;" class="text-danger" *ngIf="childCountExceedError()"
-                                        [innerHTML]="'The total number of children for which you claimed disability credit and attendance care expense credit cannot exceed the total number of children on the account.'" tabindex="0">
+                                    [innerHTML]="'The total number of children for which you claimed disability credit and attendance care expense credit cannot exceed the total number of children on the account.'" tabindex="0">
                             </div>
 
                             <div style="margin-left:15px;" class="text-danger" *ngIf="benefitApp.childWithAttendantCareCount > benefitApp.childrenCount"

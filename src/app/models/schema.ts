@@ -910,23 +910,19 @@ export const defaultSchema = {
       type: 'object',
       properties: {
         applicantFirstName: {
-          type: 'string',
-          maxLength: 30,
+          $ref: '#/definitions/SubNameType',
           description: 'Applicant First Name'
         },
         applicantSecondName: {
-          type: 'string',
-          maxLength: 30,
+          $ref: '#/definitions/SubNameType',
           description: 'Applicant Middle Name'
         },
         applicantLastName: {
-          type: 'string',
-          maxLength: 30,
+          $ref: '#/definitions/SubNameType',
           description: 'Applicant Last Name'
         },
         applicantGender: {
-          type: 'string',
-          pattern: '^[MF]$',
+          $ref: '#/definitions/GenderType',
           description: 'Gender of Applicant'
         },
         applicantBirthdate: {
@@ -972,9 +968,7 @@ export const defaultSchema = {
           description: 'Applicant Country'
         },
         applicantPostalCode: {
-          type: 'string',
-          pattern: '^[V][0-9][ABCEGHJ-NPRSTV-Z][0-9][ABCEGHJ-NPRSTV-Z][0-9]$',
-          description: 'PostalCode of Applicant'
+          $ref: '#/definitions/PostalCodeType'
         },
         applicantTelephone: {
           $ref: '#/definitions/TelephoneType',
@@ -1100,6 +1094,18 @@ export const defaultSchema = {
         spouseSixtyFiveDeduction: {
           type: 'number',
           description: 'Spouse 65 years old deduction'
+        },
+        applicantAttendantCareExpense: {
+          type: 'number',
+          description: 'Applicant Attendant Care Expense'
+        },
+        spouseAttendantCareExpense: {
+          type: 'number',
+          description: 'Spouse Attendant Care Expense'
+        },
+        childAttendantCareExpense: {
+          type: 'number',
+          description: 'Child Attendant Care Expense'
         }
       },
       required: [

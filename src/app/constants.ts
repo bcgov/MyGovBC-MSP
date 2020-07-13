@@ -1,0 +1,1 @@
+export const ATTENDANT_CARE_CLAIM_AMT = 3000;
