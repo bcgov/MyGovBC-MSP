@@ -49,13 +49,6 @@ export class UpdateRequestComponent extends Base {
     SupportDocumentTypes.RecordOfLanding,
     SupportDocumentTypes.PermanentResidentCard
   ];
-  // genderChangeDocList = [
-  //   SupportDocumentList.CanadianBirthCertificate,
-  //   SupportDocumentList.ChangeGenderAdultApplication,
-  //   SupportDocumentList.ChangeGenderMinorApplication,
-  //   SupportDocumentList.ChangeGenderPhysicianConfirmation,
-  //   SupportDocumentList.ParentalConsentWaiver
-  // ]
   genderDesignationForAdultsList: SupportDocumentTypes[] = [
     SupportDocumentTypes.ChangeGenderAdultApplication,
     SupportDocumentTypes.ChangeGenderPhysicianConfirmation,
@@ -104,48 +97,6 @@ export class UpdateRequestComponent extends Base {
       return this.genderDesignationForMinorsList;
     }
   }
-
-  // genderChangeDocsType() {
-  //   let genderList = genderDesignationChangeDocuments();
-  //   if (this.person.updateGenderDocType === undefined && this.person.updateGenderDocType2 === undefined && this.person.updateGenderDocType3 === undefined){
-  //     return genderList;
-  //   }
-  //   for (let item in this.genderChangeDocList){
-  //     console.log('PERSON UPDATE GENDER DOC TYPE: ' + this.person.updateGenderDocType);
-  //     console.log('ITEM: ' + this.genderChangeDocList[item]);
-  //     if (this.person.updateGenderDocType === undefined){
-  //       if (this.person.updateGenderDocType2 && this.person.updateGenderDocType2.documentType === this.genderChangeDocList[item]){
-  //         genderList.splice(+item, 1);
-  //       }
-  //       if (this.person.updateGenderDocType3 && this.person.updateGenderDocType3.documentType === this.genderChangeDocList[item]){
-  //         genderList.splice(+item, 1);
-  //       }
-  //       return genderList;
-  //     }
-    
-  //     if (this.person.updateGenderDocType2 === undefined){
-  //       if (this.person.updateGenderDocType && this.person.updateGenderDocType.documentType === this.genderChangeDocList[item]){
-  //         genderList.splice(+item, 1);
-  //       }
-  //       if (this.person.updateGenderDocType3 && this.person.updateGenderDocType3.documentType === this.genderChangeDocList[item]){
-  //         genderList.splice(+item, 1);
-  //       }
-  //       return genderList;
-  //     }
-
-  //     if (this.person.updateGenderDocType3 === undefined){
-  //       if (this.person.updateGenderDocType && this.person.updateGenderDocType.documentType === this.genderChangeDocList[item]){
-  //         genderList.splice(+item, 1);
-  //       }
-  //       if (this.person.updateGenderDocType2 && this.person.updateGenderDocType2.documentType === this.genderChangeDocList[item]){
-  //         genderList.splice(+item, 1);
-  //       }
-  //       return genderList;
-  //     }
-  //     // console.log(this.genderList);
-  //   }
-  //   return genderList;
-  // }
 
   get hasStatus() {
     // Has to have values
