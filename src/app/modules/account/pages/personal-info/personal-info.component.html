@@ -2,7 +2,7 @@
   <div class="deam-container">
     <form #formRef="ngForm" novalidate>
       <h1><strong>Medical Services Plan Account Holder</strong></h1>
-      <msp-personal-information
+      <account-personal-information
         [person]="applicant">
         <div sectionTitleInfo>
           <h2>Account Holder Identification</h2>
@@ -10,7 +10,7 @@
             Please provide the Account Holder's personal information for verification purposes.
           </p>
         </div>
-      </msp-personal-information>
+      </account-personal-information>
 
       <div class="form-group">
         <common-radio
