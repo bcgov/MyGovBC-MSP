@@ -306,4 +306,12 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       this.person.nameOfInstitute = null;
     }
   }
+
+  setDeclarationForOutsideOver60Days(event: boolean) {
+    this.person.declarationForOutsideOver60Days = event;
+    if (this.person.declarationForOutsideOver60Days === false){
+      this.person.departureReason = null;
+      this.person.departureDestination = null;
+    }
+  }
 }
