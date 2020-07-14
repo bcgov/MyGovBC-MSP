@@ -298,4 +298,12 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
       this.isChild
     );
   }
+
+  setHasBeenReleasedFromArmedForces(event: boolean) {
+    this.person.hasBeenReleasedFromArmedForces = event;
+    if (this.person.hasBeenReleasedFromArmedForces === false){
+      this.person.dischargeDate = null;
+      this.person.nameOfInstitute = null;
+    }
+  }
 }
