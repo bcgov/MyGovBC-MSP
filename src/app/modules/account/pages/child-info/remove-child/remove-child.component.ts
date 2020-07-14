@@ -38,7 +38,7 @@ export class RemoveChildComponent implements OnInit {
       'value': CancellationReasons.Deceased
     },
     {
-      'label': 'Out of Province/ Out of Country',
+      'label': 'Out of province / Out of Country',
       'value': CancellationReasons.OutOfProvinceOrCountry
     },
     {

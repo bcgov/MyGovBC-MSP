@@ -72,7 +72,7 @@ export class RemoveSpouseComponent extends BaseComponent {
       value: CancellationReasons.Deceased,
     },
     {
-      label: 'Out of province/ Out of Country move',
+      label: 'Out of province / Out of Country move',
       value: CancellationReasons.OutOfProvinceOrCountry,
     },
     {
