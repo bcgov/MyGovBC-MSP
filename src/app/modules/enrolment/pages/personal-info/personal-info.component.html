@@ -3,7 +3,7 @@
     <h1>Add personal information and upload documents</h1>
 
     <h2>Main Applicant</h2>
-    <p class="border-bottom">
+    <p class="horizontal-line">
       After enrolment, the main applicant will be the Medical Services Plan Account Holder,
       and will be responsible for maintaining the Medical Services Plan account and requesting any changes.
     </p>
@@ -12,7 +12,7 @@
       [(person)]="applicant">
       <div sectionTitleInfo>
         <h2>Your Status in Canada</h2>
-        <p class="border-bottom">
+        <p class="horizontal-line">
             Please provide your immigration status information. You will be required to upload documents to support your status in Canada.
         </p>
       </div>
@@ -25,7 +25,7 @@
       [(supportDoc)]="statusDocuments">
       <div sectionTitleInfo>
         <h2>Documents</h2>
-        <p class="border-bottom">
+        <p class="horizontal-line">
           Provide one of the required documents to support your status in Canada.
           If your name has changed since your ID was issued you are also required to upload document to support the name change.
         </p>
@@ -54,7 +54,7 @@
           <li>Marriage Certificate</li>
           <li>Legal Name Change Certificate</li>
         </ul>
-        <p class="border-bottom">
+        <p class="horizontal-line">
         </p>
       </div>
     </msp-support-documents>
@@ -64,7 +64,7 @@
         [(person)]="applicant">
         <div sectionTitleInfo>
           <h2>Your Information</h2>
-          <p class="border-bottom">
+          <p class="horizontal-line">
             Enter your legal name, birthdate and gender.
           </p>
         </div>
@@ -73,7 +73,7 @@
       <msp-moving-information
         [(person)]="applicant">
         <div sectionTitleInfo>
-          <h2 class="border-bottom">Moving Information</h2>
+          <h2 class="horizontal-line">Moving Information</h2>
         </div>
         <div additionalQuestions *ngIf="requestSchoolInfo">
           <div class="form-group">

@@ -1,7 +1,7 @@
 <common-page-framework layout="blank">
   <form #formRef="ngForm" novalidate>
     <h1>Add child information and upload documents</h1>
-    <p class="border-bottom">
+    <p class="horizontal-line">
         Do you have a child who also needs to enrol for MSP coverage?
         If so, you are required to provide child information and provide supporting documents.
     </p>
@@ -21,7 +21,7 @@
                              [displayStatusInCanada]="displayStatusOpt(child)">
           <div sectionTitleInfo>
             <h2>Child #{{idx + 1}}</h2>
-            <p class="border-bottom">
+            <p class="horizontal-line">
               Please provide child's personal information and immigration status in Canada.
               You will be required to upload supporting documents with your application.
               <common-xicon-button label= "Remove child #{{idx + 1}}" (click)="removeChild(idx)">
@@ -48,7 +48,7 @@
                                (supportDocChange)="statusDocUpdate">
           <div sectionTitleInfo>
             <h3>Documents</h3>
-            <p class="border-bottom">
+            <p class="horizontal-line">
               Provide one of the required documents to support the child's status in Canada.
               If the child's name has changed since their ID was issued you are also required
               to upload document to support the name change.
@@ -71,7 +71,7 @@
                               [(supportDoc)]="child.nameChangeDocs">
           <div sectionTitleInfo>
             <h3>Additional Documents</h3>
-            <p class="border-bottom">
+            <p class="horizontal-line">
               Provide <strong>one</strong> of the required documents to support the child's name change.
             </p>
           </div>
@@ -81,7 +81,7 @@
           <msp-personal-information [person]="child">
             <div sectionTitleInfo>
               <h3>Child's Information</h3>
-              <p class="border-bottom">
+              <p class="horizontal-line">
                 Enter the child's legal name, birthdate and gender.
               </p>
             </div>
@@ -89,13 +89,13 @@
 
           <msp-moving-information [person]="child">
             <div sectionTitleInfo>
-              <h3 class="border-bottom">Moving Information</h3>
+              <h3 class="horizontal-line">Moving Information</h3>
             </div>
           </msp-moving-information>
 
           <div *ngIf="child.isOveragedChild">
             <h2>School Information</h2>
-            <p class="border-bottom">
+            <p class="horizontal-line">
               Enter information of the school that this child is attending (must be in full-time attendance)
             </p>
             <common-page-section layout="tips">
