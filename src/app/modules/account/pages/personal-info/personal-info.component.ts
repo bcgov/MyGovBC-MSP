@@ -86,21 +86,6 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
       return this.dataService.getMspAccountApp().updatedChildren;
   }
 
-  personInfoUpdateOnChange(event: boolean) {
-    // this.isPICheckedByUser = true;
-    this.accountChangeOptions.personInfoUpdate = event;
-    if (event) {
-      this.accountHolderTitle = 'Update Account Holder\'s Information';
-      this.accountHolderSubtitle = 'Please provide new information if you are requesting an update or correction to the ' +
-        'Account Holder’s name (including a name change as a result of marriage, separation or divorce), birthdate or gender.';
-    } else {
-      this.accountHolderTitle = 'Account Holder Identification';
-      this.accountHolderSubtitle = 'Please provide the Account Holder’s personal information for verification purposes.';
-    }
-
-    // this.dataService.saveMspAccountApp();
-  }
-
   immigrationStatusChange(event: boolean) {
     this.accountChangeOptions.immigrationStatusChange = event;
     //  this.dataService.saveMspAccountApp();
@@ -145,6 +130,7 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
 
   changeUpdatingPersonalInfo(value: boolean) {
     this.person.updatingPersonalInfo = value;
+    this.accountChangeOptions.personInfoUpdate = value;
 
     if (this.person.updatingPersonalInfo === false) {
       this.person.updateStatusInCanada = false;
