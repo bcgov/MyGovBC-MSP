@@ -322,7 +322,7 @@ and check departure was within last 12 months - need to find error messages for 
           name="departureDate_{{objectId}}"
           label="Departure date from B.C."
           [restrictDate]="'past'"
-          [(ngModel)]="person.departureDate">
+          [(ngModel)]="person.studiesDepartureDate">
         </common-date>
       </div>
     </div>
@@ -341,9 +341,9 @@ and check departure was within last 12 months - need to find error messages for 
 
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
-        name="studiesDepartureDate_{{objectId}}"
+        name="studiesBeginDate_{{objectId}}"
         label="Date studies will begin"
-        [(ngModel)]="person.studiesDepartureDate"
+        [(ngModel)]="person.studiesBeginDate"
         required>
       </common-date>
     </div>

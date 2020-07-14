@@ -861,6 +861,7 @@ export class MspApiAccountService extends AbstractHttpService {
     if (from.hasDob) {
       to.birthDate = format(from.dob, this.ISO8601DateFormat);
     }
+
     if (from.gender != null) {
       to.gender = <GenderType>from.gender.toString();
     }
@@ -869,17 +870,82 @@ export class MspApiAccountService extends AbstractHttpService {
       to.phn = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
     }
 
-    //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
     if (from.status != null) {
       to.citizenship = this.findCitizenShip(from.status, from.currentActivity);
     }
+
     if (from.isExistingBeneficiary != null) {
       to.isExistingBeneficiary =
         from.isExistingBeneficiary === true ? 'Y' : 'N';
     }
+
     if (from.operationActionType === OperationActionTypeEnum.Add) {
       this.populateNewBeneficiaryDetailsForChild(from, to);
     }
+
+    to.livedInBC = LivedInBCTypeFactory.make();
+
+    to.livedInBC.hasLivedInBC = from.liveInBC ? 'Y' : 'N';
+
+    if (from.arrivalToBCDate) {
+      to.livedInBC.recentBCMoveDate = format(
+        from.arrivalToBCDate,
+        this.ISO8601DateFormat
+      );
+    }
+
+    if (from.arrivalToCanadaDate) {
+      to.livedInBC.recentCanadaMoveDate = format(
+        from.arrivalToCanadaDate,
+        this.ISO8601DateFormat
+      );
+    }
+
+    if (from.madePermanentMoveToBC) {
+      to.livedInBC.isPermanentMove =
+        from.madePermanentMoveToBC === true ? 'Y' : 'N';
+    }
+
+    if (from.movedFromProvinceOrCountry) {
+      to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
+    }
+
+    if (from.healthNumberFromOtherProvince) {
+      to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince;
+    }
+
+    if (from.declarationForOutsideOver30Days) {
+      to.outsideBC = OutsideBCTypeFactory.make();
+      to.outsideBC.beenOutsideBCMoreThan = 'Y';
+      to.outsideBC.familyMemberReason = from.departureReason12Months;
+      to.outsideBC.destination = from.departureDestination12Months;
+      if (from.departureDateDuring12MonthsDate) {
+        to.outsideBC.departureDate = format(from.departureDateDuring12MonthsDate, this.ISO8601DateFormat);
+      }
+      if (from.returnDateDuring12MonthsDate) {
+        to.outsideBC.returnDate = format(from.returnDateDuring12MonthsDate, this.ISO8601DateFormat);
+      }
+    } else if (from.declarationForOutsideOver30Days === false) {
+      to.outsideBC = OutsideBCTypeFactory.make();
+      to.outsideBC.beenOutsideBCMoreThan = 'N';
+    }
+
+    if (from.declarationForOutsideOver60Days) {
+      to.outsideBCinFuture = OutsideBCTypeFactory.make();
+      to.outsideBCinFuture.beenOutsideBCMoreThan = 'Y';
+      to.outsideBCinFuture.familyMemberReason = from.departureReason;
+      to.outsideBCinFuture.destination = from.departureDestination;
+      if (from.departureDateDuring6MonthsDate) {
+        to.outsideBCinFuture.departureDate = format(from.departureDateDuring6MonthsDate, this.ISO8601DateFormat);
+      }
+      if (from.returnDateDuring6MonthsDate) {
+        to.outsideBCinFuture.returnDate = format(from.returnDateDuring6MonthsDate, this.ISO8601DateFormat);
+      }
+    } else if (from.declarationForOutsideOver60Days === false) {
+      to.outsideBCinFuture = OutsideBCTypeFactory.make();
+      to.outsideBCinFuture.beenOutsideBCMoreThan = 'N';
+    }
+
     // Child 19-24
     if (from.relationship === Relationship.Child19To24) {
       if (from.schoolName) {
