@@ -228,6 +228,18 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     this.removedChildren.forEach(removedChild => {
       valid = valid && removedChild.cancellationReason !== undefined;
       valid = valid && removedChild.cancellationReason != null;
+
+      // For these options there is only a mandatory date
+      if (removedChild.cancellationReason === CancellationReasons.ArmedForces
+      || removedChild.cancellationReason === CancellationReasons.Deceased
+      || removedChild.cancellationReason === CancellationReasons.Incarcerated) {
+        valid = valid && removedChild.cancellationDate instanceof Date;
+      }
+
+      // For this option there is a mandatory date and radio button
+      if (removedChild.cancellationReason === CancellationReasons.NoLongerInFullTimeStudies) {
+        valid = valid && removedChild.cancellationDate instanceof Date && removedChild.hasCurrentMailingAddress !== undefined;
+      }
     })
     return valid;
   }
