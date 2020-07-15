@@ -50,8 +50,6 @@ export function suportDocumentRules(
       return [SupportDocumentTypes.VisitorVisa];
     case CanadianStatusReason.Diplomat:
       return [SupportDocumentTypes.PassportWithDiplomaticFoil];
-    case CanadianStatusReason.Visiting:
-      return [SupportDocumentTypes.VisitorVisa];
   }
   return [];
 }
