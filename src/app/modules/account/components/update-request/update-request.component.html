@@ -126,38 +126,63 @@
     [data]="person.updateGender">
   </common-checkbox>
 </div>
-
 <div *ngIf="person.updateGender" class="add-document mb-4">
-  <div class="form-group p-sm-2">
-    <common-radio
-      [value]="person.applyingForChangeOfGenderAsAdult"
-      [label]="'Are you applying for change of gender designation as an adult?'"
-      [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
-      (valueChange)="changeGenderDesignation($event)"
-      required>
-    </common-radio>
-  </div>
-  <div *ngIf="person.applyingForChangeOfGenderAsAdult !== undefined">
-      <msp-support-documents
-      [supportDocList]="genderDesignationList()"
-      [(supportDoc)]="person.updateGenderDocType">
-      <div class='immediate-tip-slot'>
-        <aside>
-          <div class="card">
-            <div class="card-body">
-              <div>Tip</div>
-              <div>{{adultOrMinor}}s must upload at least three documents.</div>
-            </div>
+  <msp-support-documents
+    [supportDocList]="genderChangeDocs"
+    [(supportDoc)]="person.updateGenderDocType">
+    <div class='immediate-tip-slot'>
+      <aside>
+        <div class="card">
+          <div class="card-body">
+            <div>Tip</div>
+            <div>Adults and minors must upload at least one document.</div>
           </div>
-        </aside>
-      </div>
-      <div sectionTitleInfo>
-        <h2><strong>Documents - Update gender designation - due to change (for {{adultOrMinor}})</strong></h2>
-        <p class="horizontal-line">
-          Provide the required document(s) to support {{possessiveRelationshipNoun}} personal information update.
-        </p>
-      </div>
+        </div>
+      </aside>
+    </div>
+    <div sectionTitleInfo>
+      <h2><strong>Documents - Update gender designation - due to change</strong></h2>
+      <p class="horizontal-line">
+        Provide the required document(s) to support {{possessiveRelationshipNoun}} personal information update.
+      </p>
+    </div>
+  </msp-support-documents>
+  <div class="mb-4"></div>
+  <div requestAdditionInfo>
+    <div class="form-group p-sm-2">
+      <common-radio
+        name="additionalDoc"
+        [(ngModel)]="person.updateGenderAdditionalDocs"
+        label="Do you need to add an additional document?"
+        required>
+      </common-radio>
+    </div>
+    <msp-support-documents
+      *ngIf="person.updateGenderAdditionalDocs"
+      [supportDocList]="genderChangeDocs"
+      [(supportDoc)]="person.updateGenderDocType2">
     </msp-support-documents>
+    <div *ngIf="person.updateGenderAdditionalDocs">
+        <div requestAdditionInfo>
+            <div class="form-group p-sm-2">
+              <common-radio
+                name="additionalDoc2"
+                [(ngModel)]="person.updateGenderAdditionalDocs2"
+                label="Do you need to add an additional document?"
+                required>
+              </common-radio>
+            </div>
+            <msp-support-documents
+              *ngIf="person.updateGenderAdditionalDocs2"
+              [supportDocList]="genderChangeDocs"
+              [(supportDoc)]="person.updateGenderDocType3">
+            </msp-support-documents>
+        </div>   
+    </div>
+  </div>
+</div>
+  
+  <!-- <div *ngIf="person.applyingForChangeOfGenderAsAdult !== undefined">    
     <div class="mb-4"></div>
     <msp-support-documents
       [supportDocList]="genderDesignationList()"
@@ -169,7 +194,7 @@
       [(supportDoc)]="person.updateGenderDocType3">
     </msp-support-documents>
   </div>
-  <!-- <div class="mb-4"></div>
+  <div class="mb-4"></div>
   <div requestAdditionInfo>
     <div class="form-group p-sm-2">
       <common-radio
@@ -185,7 +210,6 @@
     [supportDocList]="genderChangeDocsType()"
     [(supportDoc)]="person.updateGenderDocType3">
   </msp-support-documents> -->
-</div>
 
 <!-- Correct name - due to error -->
 <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
