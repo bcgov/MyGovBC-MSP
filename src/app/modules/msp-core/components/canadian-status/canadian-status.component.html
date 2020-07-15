@@ -2,6 +2,9 @@
 <common-page-section layout="tips">
   <ng-content select="[additionalInfo]"></ng-content>
   <div *ngIf="displayStatusInCanada" class="form-group">
+    <div *ngIf="label">
+      <label for="StatusInCanada_{{objectId}}">{{label}}</label><br/>
+    </div>
     <select class="custom-select"
       #statusInCanadaRef="ngModel"
       id="StatusInCanada_{{objectId}}"
