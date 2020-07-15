@@ -144,19 +144,44 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   checkAdd() {
     let valid = true;
     if (this.accountApp.hasSpouseAdded === true) {
-      valid = valid && this.addedSpouse.immigrationStatusChange !== undefined;
+      // Checking radio buttons have been ticked
+      valid = valid && this.addedSpouse.immigrationStatusChange !== undefined
+        && this.addedSpouse.immigrationStatusChange != null
+        && this.addedSpouse.gender !== undefined
+        && this.addedSpouse.gender != null
+        && this.addedSpouse.updateNameDueToMarriage !== undefined
+        && this.addedSpouse.updateNameDueToMarriage != null
+        && this.addedSpouse.hasNameChange !== undefined
+        && this.addedSpouse.hasNameChange != null;
+
+      if (this.addedSpouse.updateStatusInCanada === true) {
+        // Check that they have at least one document to support the status change
+        valid = valid && this.addedSpouse.updateStatusInCanadaDocType !== undefined
+          && this.addedSpouse.updateStatusInCanadaDocType != null
+          && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined
+          && this.addedSpouse.updateStatusInCanadaDocType.images !== null
+          && this.addedSpouse.updateStatusInCanadaDocType.images.length > 0;
+      }
+
+      if (this.addedSpouse.updateNameDueToMarriage === true) {
+        // Check that they inputted a requested lastname and that they uploaded at least one supporting doc
+        valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName !== undefined
+          && this.addedSpouse.updateNameDueToMarriageRequestedLastName != null
+          && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
+          && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
+          && this.addedSpouse.nameChangeDocs.images !== undefined
+          && this.addedSpouse.nameChangeDocs.images != null
+          && this.addedSpouse.nameChangeDocs.images.length > 0;
+      }
+
+      if (this.addedSpouse.livedInBCSinceBirth === false) {
+        // Check they inputted the province or country they came from
+        valid = valid && this.addedSpouse.movedFromProvinceOrCountry !== undefined
+          && this.addedSpouse.movedFromProvinceOrCountry != null
+          && this.addedSpouse.movedFromProvinceOrCountry.length > 0;
+      }
     }
-    valid = valid && this.addedSpouse.gender !== undefined
-      && this.addedSpouse.updateNameDueToMarriage !== undefined;
-    if (this.addedSpouse.updateStatusInCanada === true) {
-      valid = valid && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined;
-    }
-    if (this.addedSpouse.updateNameDueToMarriage === true) {
-      valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName
-        && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
-        && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
-        && this.addedSpouse.nameChangeDocs.images.length > 0;
-    }
+
     return valid;
   }
 
