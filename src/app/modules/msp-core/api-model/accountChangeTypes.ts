@@ -90,7 +90,8 @@ interface _AccountChangeSpouseType extends ct._BasicInfoType {
 	outsideBC?: et.OutsideBCType;
 	outsideBCinFuture?: et.OutsideBCType;
 	willBeAway?: et.WillBeAwayType;
-    previousLastName?: ct.SubNameType;
+	previousLastName?: ct.SubNameType;
+	requestedLastName?: ct.SubNameType;
     mailingAddress?: ct.AddressType;
     marriageDate?: string;
     phn?: ct.PrevHealthNumberType;
