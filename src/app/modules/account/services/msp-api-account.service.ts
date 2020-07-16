@@ -718,6 +718,11 @@ export class MspApiAccountService extends AbstractHttpService {
       to.previousLastName = from.prevLastName;
     }
 
+    // Requested last name
+    if (from.updateNameDueToMarriageRequestedLastName) {
+      to.requestedLastName = from.updateNameDueToMarriageRequestedLastName;
+    }
+
     // Marriage Date
     if (from.marriageDate) {
       to.marriageDate = format(from.marriageDate, this.ISO8601DateFormat);

@@ -90,6 +90,7 @@ export class MspPerson implements ICanadianStatus {
     public updateGenderDocType:  SupportDocuments = new SupportDocuments();
     public updateGenderDocType2:  SupportDocuments = new SupportDocuments();
     public updateGenderAdditionalDocs: boolean;
+    public updateGenderAdditionalDocs2: boolean;
     public updateGenderDocType3:  SupportDocuments = new SupportDocuments();
     public updateGenderDocType4:  SupportDocuments = new SupportDocuments();
     public updateGenderDoc: CommonImage[] = [];
