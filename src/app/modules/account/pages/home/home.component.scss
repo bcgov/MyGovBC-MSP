@@ -77,22 +77,25 @@
 // The box with alert icon and warning text
 .home-alert {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 6px 5%;
   width: 100%;
   @include remove-x-padding-at-tablet-size;
 
   > * {
-    width: 100%;
+    max-width: 100%;
   }
 
   // Red alert icon
   &__icon {
     // top, horizontal, bottom
-    padding: 6px 16px 16px;
     text-align: center;
+    padding: 8px 0 0 0;
+    @media (max-width: 767px) {
+      padding-left: 16px;
+    }
   }
 
   // Alert text
