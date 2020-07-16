@@ -3,16 +3,15 @@
   flex-wrap: wrap;
   justify-content: center;
 
-  .preview-item {.edit--icon {
-    cursor: pointer;.edit--icon {
+  .preview-item {
+    .edit--icon {
       cursor: pointer;
       float: right;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: row-reverse;
     }
-    float: right;
-  }.edit--icon {
-  cursor: pointer;
-  float: right;
-}
+
     height: 110px;
     margin: 5px;
   }
@@ -37,4 +36,7 @@
 .edit--icon {
   cursor: pointer;
   float: right;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
 }
