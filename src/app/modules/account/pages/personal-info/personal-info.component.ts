@@ -183,9 +183,12 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
       valid = valid && this.person.updateNameDueToNameChangeDocType.images.length > 0;
     }
 
-    if (this.person.updateGender === true && this.person.updateGenderDocType.images && this.person.updateGenderDocType2.images) {
-      valid = valid && this.person.updateGenderDocType.images.length > 0 && this.person.updateGenderDocType2.images.length > 0;
-      if (this.person.updateGenderAdditionalDocs === true && this.person.updateGenderDocType3.images) {
+    if (this.person.updateGender === true && this.person.updateGenderDocType.images) {
+      valid = valid && this.person.updateGenderDocType.images.length > 0;
+      if (this.person.updateGenderAdditionalDocs === true && this.person.updateGenderDocType2.images) {
+        valid = valid && this.person.updateGenderDocType2.images.length > 0;
+      }
+      if (this.person.updateGenderAdditionalDocs2 === true && this.person.updateGenderDocType3.images) {
         valid = valid && this.person.updateGenderDocType3.images.length > 0;
       }
     }

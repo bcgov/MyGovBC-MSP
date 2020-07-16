@@ -70,7 +70,7 @@ export class UpdateRequestComponent extends Base {
   nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
   nameChangeDueToErrorDocs = nameChangeDueToErrorDocuments();
   genderBirthdateChangeDocs = genderBirthDateChangeDocuments();
-  //genderChangeDocs = genderDesignationChangeDocuments();
+  genderChangeDocs = genderDesignationChangeDocuments();
 
   //statusValue: number;
  //  = legalStatus;
