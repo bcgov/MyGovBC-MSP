@@ -188,4 +188,11 @@ export class UpdateRequestComponent extends Base {
       return 'Minor';
     }
   }
+
+  changeUpdateNameDueToMarriage(event: boolean) {
+    this.person.updateNameDueToMarriage = event;
+    if (!event) {
+      this.person.updateNameDueToMarriageRequestedLastName = '';
+    }
+  }
 }
