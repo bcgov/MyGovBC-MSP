@@ -216,8 +216,22 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   checkAdd() {
     let valid = true;
     this.addedChildren.forEach(addedChild => {
+      // Radio for newly adopted must be ticked
+      valid = addedChild.newlyAdopted !== undefined && addedChild.newlyAdopted !== null;
+
+      // If ticked yes, adoption date must be present as well
       if (addedChild.newlyAdopted) {
-        valid = valid && addedChild.adoptedDate !== undefined && addedChild.adoptedDate != null;
+        valid = valid && addedChild.adoptedDate !== undefined && addedChild.adoptedDate !== null;
+      }
+      // Radio for discharge must be ticked
+      valid = valid
+        && addedChild.hasBeenReleasedFromArmedForces !== undefined
+        && addedChild.hasBeenReleasedFromArmedForces !== null;
+
+      // If ticked yes, the date and institution name must be present as well
+      if (addedChild.hasBeenReleasedFromArmedForces) {
+        valid = valid && addedChild.dischargeDate !== undefined && addedChild.dischargeDate !== null;
+        valid = valid && addedChild.nameOfInstitute !== undefined && addedChild.nameOfInstitute !== null;
       }
     })
     return valid;
