@@ -1,6 +1,9 @@
 .edit--icon {
   cursor: pointer;
   float: right;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
 }
 
 .edit--word {
@@ -8,4 +11,10 @@
   padding-right: 0.25rem;
   float: left;
   font-family: Myriad-Pro, Calibri, Arial, sans-serif;
+}
+
+.review-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }

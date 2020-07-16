@@ -210,6 +210,9 @@ accordion-group + accordion-group {
 .edit--icon {
   cursor: pointer;
   float: right;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
 }
 
 // Increase checkbox size.
