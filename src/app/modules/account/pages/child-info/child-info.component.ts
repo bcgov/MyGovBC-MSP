@@ -219,6 +219,14 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
       if (addedChild.newlyAdopted) {
         valid = valid && addedChild.adoptedDate !== undefined && addedChild.adoptedDate != null;
       }
+      if (addedChild.hasBeenReleasedFromArmedForces === false){
+        addedChild.dischargeDate = null;
+        addedChild.nameOfInstitute = null;
+      }
+      if (addedChild.declarationForOutsideOver60Days === false){
+        addedChild.departureReason = null;
+        addedChild.departureDestination = null;
+      }
     })
     return valid;
   }
