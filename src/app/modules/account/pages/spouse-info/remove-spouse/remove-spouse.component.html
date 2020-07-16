@@ -42,7 +42,7 @@
 <div class='row'>
   <div class='col-12'>
     <div *ngIf="spouse.cancellationReason === 0">
-      <div *ngIf="spouse.cancellationDate && checkValidDate" class="add-document mb-4">
+      <div *ngIf="spouse.cancellationDate && isValidDate" class="add-document mb-4">
         <msp-support-documents
           [supportDocList]="spouseRemoveDocs"
           [(supportDoc)]="spouse.removedSpouseDueToDivorceDoc">

@@ -120,7 +120,7 @@ export class RemoveSpouseComponent extends BaseComponent {
     return cp;
   }
 
-  get checkValidDate() {
+  get isValidDate() {
     const currentDate = new Date();
     return this.spouse.cancellationDate <= currentDate && this.spouse.cancellationDate >= this.spouse.dateOfBirth;
     // if (
