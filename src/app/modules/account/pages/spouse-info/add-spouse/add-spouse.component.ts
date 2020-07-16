@@ -74,6 +74,10 @@ export class AddSpouseComponent extends Base implements OnInit {
   setUpdateNameDueToMarriage(evt: any) {
     this.spouse.updateNameDueToMarriage = evt;
     this.onChange.emit(evt);
+
+    if (!evt) {
+      this.spouse.updateNameDueToMarriageRequestedLastName = '';
+    }
   }
 
   get updateNameDueToMarriage(){
