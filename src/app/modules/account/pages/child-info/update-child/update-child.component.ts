@@ -6,7 +6,7 @@ import { Relationship } from '../../../../../models/relationship.enum';
 import { StatusInCanada } from '../../../../msp-core/models/canadian-status.enum';
 import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import {
-  nameChangeSupportDocuments,
+  nameChangeSupportDocs,
   nameChangeDueToMarriageOrDivorceDocuments,
   genderDesignationChangeDocuments,
   nameChangeDueToErrorDocuments,
@@ -41,9 +41,8 @@ export class UpdateChildComponent implements OnInit {
     StatusInCanada.CitizenAdult,
     StatusInCanada.PermanentResident
   ];
-  nameChangeDocs = nameChangeSupportDocuments();
+  nameChangeDueToNameChangeDocs = nameChangeSupportDocs();
   nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
-  nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
   genderChangeDocs = genderDesignationChangeDocuments();
   nameChangeDuetoErrorDocs = nameChangeDueToErrorDocuments();
   genderBirthdateChangeDocs = genderBirthDateChangeDocuments();

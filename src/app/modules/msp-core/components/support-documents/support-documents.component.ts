@@ -58,6 +58,7 @@ export function suportDocumentRules(
   return [];
 }
 
+// @TODO: If both of these are needed one should be renamed
 export function nameChangeSupportDocuments(): SupportDocumentTypes[] {
   return [
     SupportDocumentTypes.MarriageCertificate,
@@ -67,6 +68,7 @@ export function nameChangeSupportDocuments(): SupportDocumentTypes[] {
 
 export function nameChangeSupportDocs(): SupportDocumentTypes[] {
   return [
+    SupportDocumentTypes.ChangeOfNameCertificate,
     SupportDocumentTypes.CanadianBirthCertificate,
     SupportDocumentTypes.CanadianCitizenCard,
     SupportDocumentTypes.CanadianPassport,
