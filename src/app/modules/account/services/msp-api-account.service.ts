@@ -1427,8 +1427,8 @@ export class MspApiAccountService extends AbstractHttpService {
       .addressUpdate
       ? 'Y'
       : 'N';
-    accountHolder.selectedPersonalInfoChange = from.accountChangeOptions
-      .personInfoUpdate
+    accountHolder.selectedPersonalInfoChange = (from.accountChangeOptions
+      .personInfoUpdate || from.applicant.updatingPersonalInfo === true)
       ? 'Y'
       : 'N';
     accountHolder.selectedStatusChange =

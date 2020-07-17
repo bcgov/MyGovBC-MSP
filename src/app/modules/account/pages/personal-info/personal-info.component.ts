@@ -131,7 +131,7 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
 
   changeUpdatingPersonalInfo(value: boolean) {
     this.person.updatingPersonalInfo = value;
-    this.accountChangeOptions.personInfoUpdate = value;
+    this.accountChangeOptions.personInfoUpdate = !!value;
 
     if (this.person.updatingPersonalInfo === false) {
       // Uncheck update checkboxes.

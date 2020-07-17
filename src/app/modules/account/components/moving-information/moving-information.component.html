@@ -283,7 +283,7 @@
 <common-page-section layout="tips">
   <div *ngIf="person.relationship === Child19To24">
     <h2><strong>School Information</strong></h2>
-    <p class="border-bottom">
+    <p class="horizontal-line">
       Enter information of the school that this child is attending (must be in full-time attendance)
     </p>
 
@@ -326,7 +326,7 @@
     </div>
 
     <h2><strong>School Address</strong></h2>
-    <p class="border-bottom"></p>
+    <p class="horizontal-line"></p>
 
     <div class="form-group col-sm-7 p-sm-2">
       <common-address
@@ -342,6 +342,9 @@
         name="studiesBeginDate_{{objectId}}"
         label="Date studies will begin"
         [(ngModel)]="person.studiesBeginDate"
+        [dateRangeStart]="studiesBeginDateStartRange"
+        [dateRangeEnd]="startBeginDateEndRange"
+        [errorMessage]="studiesBeginDateErrorMessage"
         required>
       </common-date>
     </div>
@@ -351,6 +354,9 @@
         name="studiesFinishedDate_{{objectId}}"
         label="Date studies will finish"
         [(ngModel)]="person.studiesFinishedDate"
+        [dateRangeStart]="studiesFinishedDateStartRange"
+        [dateRangeEnd]="studiesFinishedDateEndRange"
+        [errorMessage]="studiesFinishedDateErrorMessage"
         required>
       </common-date>
     </div>
