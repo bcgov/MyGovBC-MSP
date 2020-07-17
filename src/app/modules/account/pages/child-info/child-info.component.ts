@@ -178,42 +178,73 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
 
   checkUpdate() {
     let valid = true;
-    this.updatedChildren.forEach(function (child) {
+
+    this.updatedChildren.forEach((child) => {
+      // Must upload at least one doc for all updates
       if (child.updateStatusInCanada === true) {
-        valid = valid && child.updateStatusInCanadaDocType.images.length > 0
+        valid = valid && this.isSet(child.updateStatusInCanadaDocType.images)
+          && child.updateStatusInCanadaDocType.images.length > 0
       }
 
-      if (child.updateNameDueToNameChange == true) {
-        valid = valid && child.updateNameDueToNameChangeDocType.images.length > 0
+      if (child.updateNameDueToNameChange === true) {
+        valid = valid && this.isSet(child.updateNameDueToNameChangeDocType.images)
+          && child.updateNameDueToNameChangeDocType.images.length > 0
       }
 
+      // This is the "due to change" gender one
       if (child.updateGender === true) {
         valid = valid
-          && child.updateGenderDocType.images !== undefined
+          // Check upload
+          && this.isSet(child.updateGenderDocType.images)
           && child.updateGenderDocType.images.length > 0
+          // Check radio button
+          && this.isSet(child.updateGenderAdditionalDocs);
+
         if (child.updateGenderAdditionalDocs === true) {
-          valid = valid && child.updateGenderDocType2.images.length > 0
+          // Check upload
+          valid = valid && this.isSet(child.updateGenderDocType2.images)
+            && child.updateGenderDocType2.images.length > 0
+            // Check radio button
+            && this.isSet(child.updateGenderAdditionalDocs2)
+
+          if (child.updateGenderAdditionalDocs2 === true) {
+            // Check upload
+            valid = valid && this.isSet(child.updateGenderDocType3.images)
+              && child.updateGenderDocType3.images.length > 0
+          }
         }
       }
 
       if (child.updateNameDueToError === true) {
         valid = valid
-          && child.updateNameDueToErrorDocType.images !== undefined
+          && this.isSet(child.updateNameDueToErrorDocType.images)
           && child.updateNameDueToErrorDocType.images.length > 0
       }
 
       if (child.updateBirthdate === true) {
         valid = valid
-          && child.updateBirthdateDocType.images !== undefined
+          && this.isSet(child.updateBirthdateDocType.images)
           && child.updateBirthdateDocType.images.length > 0
       }
 
-      if (child.updateGenderDesignation == true) {
+      if (child.updateGenderDesignation === true) {
         valid = valid
-          && child.updateGenderDesignationDocType.images !== undefined
+          && this.isSet(child.updateGenderDesignationDocType.images)
           && child.updateGenderDesignationDocType.images.length > 0
       }
+
+      if (!child.updateGenderDesignation
+        && !child.updateBirthdate
+        && !child.updateNameDueToError
+        && !child.updateGender
+        && !child.updateNameDueToNameChange
+        && !child.updateStatusInCanada
+      ) {
+        // at least one update must be requested
+        valid = false;
+      }
     });
+
     return valid;
   }
 
