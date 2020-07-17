@@ -120,6 +120,10 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     }
   }
 
+  get dateToday() {
+    return new Date();
+  }
+
   get phns(): string[] {
     const phns = this.dataService.accountApp.allPersons
       .filter(x => x)
@@ -174,95 +178,202 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
 
   checkUpdate() {
     let valid = true;
-    this.updatedChildren.forEach(function (child) {
+
+    this.updatedChildren.forEach((child) => {
+      // Must upload at least one doc for all updates
       if (child.updateStatusInCanada === true) {
-        valid = valid && child.updateStatusInCanadaDocType.images.length > 0
+        valid = valid && this.isSet(child.updateStatusInCanadaDocType.images)
+          && child.updateStatusInCanadaDocType.images.length > 0
       }
 
-      if (child.updateNameDueToNameChange == true) {
-        valid = valid && child.updateNameDueToNameChangeDocType.images.length > 0
+      if (child.updateNameDueToNameChange === true) {
+        valid = valid && this.isSet(child.updateNameDueToNameChangeDocType.images)
+          && child.updateNameDueToNameChangeDocType.images.length > 0
       }
 
+      // This is the "due to change" gender one
       if (child.updateGender === true) {
         valid = valid
-          && child.updateGenderDocType.images !== undefined
+          // Check upload
+          && this.isSet(child.updateGenderDocType.images)
           && child.updateGenderDocType.images.length > 0
+          // Check radio button
+          && this.isSet(child.updateGenderAdditionalDocs);
+
         if (child.updateGenderAdditionalDocs === true) {
-          valid = valid && child.updateGenderDocType2.images.length > 0
+          // Check upload
+          valid = valid && this.isSet(child.updateGenderDocType2.images)
+            && child.updateGenderDocType2.images.length > 0
+            // Check radio button
+            && this.isSet(child.updateGenderAdditionalDocs2)
+
+          if (child.updateGenderAdditionalDocs2 === true) {
+            // Check upload
+            valid = valid && this.isSet(child.updateGenderDocType3.images)
+              && child.updateGenderDocType3.images.length > 0
+          }
         }
       }
 
       if (child.updateNameDueToError === true) {
         valid = valid
-          && child.updateNameDueToErrorDocType.images !== undefined
+          && this.isSet(child.updateNameDueToErrorDocType.images)
           && child.updateNameDueToErrorDocType.images.length > 0
       }
 
       if (child.updateBirthdate === true) {
         valid = valid
-          && child.updateBirthdateDocType.images !== undefined
+          && this.isSet(child.updateBirthdateDocType.images)
           && child.updateBirthdateDocType.images.length > 0
       }
 
-      if (child.updateGenderDesignation == true) {
+      if (child.updateGenderDesignation === true) {
         valid = valid
-          && child.updateGenderDesignationDocType.images !== undefined
+          && this.isSet(child.updateGenderDesignationDocType.images)
           && child.updateGenderDesignationDocType.images.length > 0
       }
+
+      if (!child.updateGenderDesignation
+        && !child.updateBirthdate
+        && !child.updateNameDueToError
+        && !child.updateGender
+        && !child.updateNameDueToNameChange
+        && !child.updateStatusInCanada
+      ) {
+        // at least one update must be requested
+        valid = false;
+      }
     });
+
     return valid;
   }
 
   checkAdd() {
     let valid = true;
     this.addedChildren.forEach(addedChild => {
-      // Radio for newly adopted must be ticked
-      valid = addedChild.newlyAdopted !== undefined && addedChild.newlyAdopted !== null;
+      // Ticked "How old is the child?"
+      valid = valid && this.isSet(addedChild.relationship)
+        // Ticked "Does your child have active MSP coverage?"
+        && this.isSet(addedChild.hasActiveMedicalServicePlan)
+        // Ticked "Gender"
+        && this.isSet(addedChild.gender)
+        // Ticked "Is this child newly adopted?"
+        && this.isSet(addedChild.newlyAdopted)
+        // Ticked "Is this a permanent move to BC for this child?"
+        && this.isSet(addedChild.madePermanentMoveToBC)
+        // Ticked "more than 30 days in the last 12 months"
+        && this.isSet(addedChild.declarationForOutsideOver30Days)
+        // Ticked "more than 30 days in the next 6 months"
+        && this.isSet(addedChild.declarationForOutsideOver60Days)
+        // Ticked "Has this child been released from the Canadian Armed Forces?"
+        && this.isSet(addedChild.hasBeenReleasedFromArmedForces)
 
-      // If ticked yes, adoption date must be present as well
-      if (addedChild.newlyAdopted) {
-        valid = valid && addedChild.adoptedDate !== undefined && addedChild.adoptedDate !== null;
-      }
-      // Radio for discharge must be ticked
-      valid = valid
-        && addedChild.hasBeenReleasedFromArmedForces !== undefined
-        && addedChild.hasBeenReleasedFromArmedForces !== null;
+      // Ticked "19 - 24" under "How old is the child?"
+      if (addedChild.relationship === Relationship.Child19To24) {
+        // Filled out school name
+        valid = valid && this.isSet(addedChild.schoolName)
+          && typeof addedChild.schoolName === 'string'
+          && addedChild.schoolName.length > 0
+          // Ticked "Is this school outside British Columbia?"
+          && this.isSet(addedChild.schoolOutsideOfBC)
+          // Filled out school address (common-address handles finer validation here)
+          && this.isSet(addedChild.schoolAddress)
+          // Filled out "Date studies will begin"
+          && this.isSet(addedChild.studiesBeginDate)
+          // Filled out "Date studies will finish"
+          && this.isSet(addedChild.studiesFinishedDate)
+          // Ticked "reside in BC after completing study in this school?"
+          && this.isSet(addedChild.inBCafterStudies)
 
-      // If ticked yes, the date and institution name must be present as well
-      if (addedChild.hasBeenReleasedFromArmedForces) {
-        valid = valid && addedChild.dischargeDate !== undefined && addedChild.dischargeDate !== null;
-        valid = valid && addedChild.nameOfInstitute !== undefined && addedChild.nameOfInstitute !== null;
+        if (addedChild.schoolOutsideOfBC === true) {
+          valid = valid && !!addedChild.studiesDepartureDate;
+        }
       }
-      if (addedChild.hasBeenReleasedFromArmedForces === false){
-        addedChild.dischargeDate = null;
-        addedChild.nameOfInstitute = null;
+
+      // Ticked no to "active MSP coverage"
+      if (addedChild.hasActiveMedicalServicePlan === false) {
+        // Check that they uploaded at least one supporting doc
+        valid = valid && this.isSet(addedChild.status)
+          && this.isSet(addedChild.updateStatusInCanadaDocType.images)
+          && addedChild.updateStatusInCanadaDocType.images.length > 0
+          && this.isSet(addedChild.hasNameChange);
+
+          if (addedChild.hasNameChange === true) {
+          valid = valid && addedChild.nameChangeDocs
+          && this.isSet(addedChild.nameChangeDocs.images)
+          && addedChild.nameChangeDocs.images.length > 0;
+        }
       }
-      if (addedChild.declarationForOutsideOver60Days === false){
-        addedChild.departureReason = null;
-        addedChild.departureDestination = null;
+
+      // No to "lived in BC since birth"
+      if (addedChild.livedInBCSinceBirth === false) {
+        // Check they inputted the province or country they came from and the date
+        valid = valid && this.isSet(addedChild.arrivalToBCDate)
+          && this.isSet(addedChild.movedFromProvinceOrCountry)
+          && typeof addedChild.movedFromProvinceOrCountry === 'string'
+          && addedChild.movedFromProvinceOrCountry.length > 0;
+      }
+
+      // Yes to "newly adopted"
+      if (addedChild.newlyAdopted === true) {
+        // Check they inputted the province or country they came from and the date
+        valid = valid && this.isSet(addedChild.adoptedDate)
+      }
+
+      // Yes to "more than 30 days in the last 12 months"
+      if (addedChild.declarationForOutsideOver30Days === true) {
+        valid = valid && this.isSet(addedChild.departureDateDuring12MonthsDate)
+          && this.isSet(addedChild.returnDateDuring12MonthsDate)
+          && this.isSet(addedChild.departureReason12Months)
+          && this.isSet(addedChild.departureDestination12Months)
+      }
+
+      // Yes to "more than 30 days in the next 6 months"
+      if (addedChild.declarationForOutsideOver60Days === true) {
+        valid = valid && this.isSet(addedChild.departureDateDuring6MonthsDate)
+          && this.isSet(addedChild.returnDateDuring6MonthsDate)
+          && this.isSet(addedChild.departureReason)
+          && this.isSet(addedChild.departureDestination)
+      }
+
+      // Yes to "released from Canadian Armed Forces"
+      if (addedChild.hasBeenReleasedFromArmedForces === true) {
+        valid = valid && this.isSet(addedChild.dischargeDate)
+          && this.isSet(addedChild.nameOfInstitute)
       }
     })
+
     return valid;
   }
 
   checkRemove() {
     let valid = true;
     this.removedChildren.forEach(removedChild => {
-      valid = valid && removedChild.cancellationReason !== undefined;
-      valid = valid && removedChild.cancellationReason != null;
+      // Must choose a cancellation reason
+      valid = valid && this.isSet(removedChild.cancellationReason);
 
       // For these options there is only a mandatory date
       if (removedChild.cancellationReason === CancellationReasons.ArmedForces
       || removedChild.cancellationReason === CancellationReasons.Deceased
       || removedChild.cancellationReason === CancellationReasons.Incarcerated) {
-        valid = valid && removedChild.cancellationDate instanceof Date;
+        valid = valid && this.isSet(removedChild.cancellationDate)
+          && removedChild.cancellationDate instanceof Date;
       }
 
       // For this option there is a mandatory date and radio button
       if (removedChild.cancellationReason === CancellationReasons.NoLongerInFullTimeStudies) {
-        valid = valid && removedChild.cancellationDate instanceof Date && removedChild.hasCurrentMailingAddress !== undefined;
+        valid = valid && this.isSet(removedChild.cancellationDate)
+          && removedChild.cancellationDate instanceof Date
+          // mailing address validation is handled by the common component
+          && this.isSet(removedChild.hasCurrentMailingAddress);
+      }
+
+      // Cannot proceed with this option
+      if (removedChild.cancellationReason === CancellationReasons.OutOfProvinceOrCountry) {
+        valid = false;
       }
     })
+
     return valid;
   }
 
