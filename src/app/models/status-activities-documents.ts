@@ -19,7 +19,7 @@ export enum CancellationReasonsStrings {
   'Remove from Account but still married/common-law',
   'No longer in full time studies',
   'Deceased',
-  'Out of province/ Out of Country move',
+  'Out of province / Out of Country move',
   'Armed Forces',
   'Incarcerated',
 }

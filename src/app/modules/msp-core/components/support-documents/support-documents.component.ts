@@ -9,7 +9,7 @@ import {
   OnChanges,
   OnDestroy,
 } from '@angular/core';
-import { Base, CommonImage, SampleImageInterface } from 'moh-common-lib';
+import { Base, CommonImage, SampleImageInterface, CommonImageError } from 'moh-common-lib';
 import {
   CanadianStatusReason,
   StatusInCanada,
@@ -22,6 +22,8 @@ import {
 import { ControlContainer, NgForm } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { SupportDocuments } from '../../models/support-documents.model';
+import { MspLogService } from '../../../../services/log.service';
+
 
 export function suportDocumentRules(
   status: StatusInCanada,
@@ -56,6 +58,7 @@ export function suportDocumentRules(
   return [];
 }
 
+// @TODO: If both of these are needed one should be renamed
 export function nameChangeSupportDocuments(): SupportDocumentTypes[] {
   return [
     SupportDocumentTypes.MarriageCertificate,
@@ -65,6 +68,7 @@ export function nameChangeSupportDocuments(): SupportDocumentTypes[] {
 
 export function nameChangeSupportDocs(): SupportDocumentTypes[] {
   return [
+    SupportDocumentTypes.ChangeOfNameCertificate,
     SupportDocumentTypes.CanadianBirthCertificate,
     SupportDocumentTypes.CanadianCitizenCard,
     SupportDocumentTypes.CanadianPassport,
@@ -153,30 +157,26 @@ export class SupportDocumentsComponent extends Base
   @Input() statusReason: CanadianStatusReason;
   // Toggles display for the 'Add' button (true => button is displayed, false => no button displayed)
   @Input() displayButton: boolean = false;
-
   @Input() supportDoc: SupportDocuments;
-  @Output() supportDocChange: EventEmitter<SupportDocuments> = new EventEmitter<
-    SupportDocuments
-  >();
+  @Output() supportDocChange: EventEmitter<SupportDocuments> = new EventEmitter<SupportDocuments>();
 
   uploadInstructions = 'Click add, or drag and drop a file into this box';
-
   btnEnabled: boolean = true;
   availableSupportDocuments: string[] = [];
-
   onChanges = new BehaviorSubject<SimpleChanges>(null);
-
   docSampleImages: SampleImageInterface[] = [];
-  newImage: CommonImage[];
 
   // List of all supporting document types
   private _documentOpts: string[] = Object.keys(SupportDocumentList).map(
     x => SupportDocumentList[x]
   );
 
-  constructor() {
+  constructor(private logService: MspLogService) {
     super();
   }
+
+  _supportDocError: CommonImage = null;
+  _supportDocErrorMsg: string = '';
 
   ngOnInit() {
     if (this.supportDoc.documentType && this.displayButton) {
@@ -210,22 +210,87 @@ export class SupportDocumentsComponent extends Base
     });
   }
 
-  checkDuplicateDocs() {
-    if (this.supportDoc.images) {
-      for (let i = 0; i < this.supportDoc.images.length; i++) {
-        if (this.newImage) {
-          return (
-            this.supportDoc.images[i].fileContent ===
-            this.newImage[0].fileContent
-          );
-        }
+  // Set the error obj and appropriate msg
+  handleSupportDocError(error: CommonImage) {
+    if (error) {
+      switch (error.error) {
+        case CommonImageError.WrongType:
+          this.supportDocError = error;
+          this.supportDocErrorMsg = 'That is the wrong type of attachment to submit.';
+          break;
+        case CommonImageError.TooSmall:
+          this.supportDocError = error;
+          this.supportDocErrorMsg = 'That attachment is too small, please upload a larger attachment.';
+          break;
+        case CommonImageError.TooBig:
+          this.supportDocError = error;
+          this.supportDocErrorMsg = 'That attachment is too big, please upload a smaller attachment.';
+          break;
+        case CommonImageError.AlreadyExists:
+          this.supportDocError = error;
+          this.supportDocErrorMsg = 'That attachment has already been uploaded.';
+          break;
+        case CommonImageError.Unknown:
+          this.supportDocError = error;
+          this.supportDocErrorMsg = 'The upload failed, please try again. If the issue persists, please upload a different attachment.';
+          break;
+        case CommonImageError.CannotOpen:
+          this.supportDocError = error;
+          this.supportDocErrorMsg = 'That attachment cannot be opened, please upload a different attachment.';
+          break;
+        case CommonImageError.PDFnotSupported:
+          this.supportDocError = error;
+          this.supportDocErrorMsg = 'That PDF type is not supported, please upload a different attachment.';
+          break;
+        case CommonImageError.CannotOpenPDF:
+          this.supportDocError = error;
+          this.supportDocErrorMsg = 'That PDF cannot be opened, please upload a different attachment.';
+          break;
+        default:
+          this.supportDocError = null;
+          this.supportDocErrorMsg = '';
+          break;
       }
     }
-    return false;
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.onChanges.next(changes);
+  }
+
+  get supportDocError() {
+    return this._supportDocError;
+  }
+
+  set supportDocError(error) {
+    // If the error objects exists and it's enum is defined
+    if (error && error.error !== undefined && error.error !== null) {
+      this._supportDocError = error;
+      // TODO: Confirm Splunk usage is ok for this, and how the log should be structured
+      // this.logService.log({ date: new Date(), error}, 'Request method here');
+    } else {
+      // Remove both the error object and the current message, as there is no longer an error
+      this._supportDocError = null;
+      this._supportDocErrorMsg = '';
+    }
+  }
+
+  get supportDocErrorMsg() {
+    // If we have an error object and the enum is defined
+    if (this.supportDocError && this.supportDocError.error !== null && this.supportDocError.error !== undefined) {
+      // return the message
+      return this._supportDocErrorMsg;
+    }
+    return '';
+  }
+
+  set supportDocErrorMsg(msg) {
+    // Just incase someone tries to set the msg to something that isn't a string
+    if (typeof msg === 'string') {
+      this._supportDocErrorMsg = msg;
+    } else {
+      this._supportDocErrorMsg = '';
+    }
   }
 
   ngOnDestroy() {
@@ -233,7 +298,7 @@ export class SupportDocumentsComponent extends Base
   }
 
   get hasDocumentType() {
-    return this.supportDoc.documentType ? true : false;
+    return this.supportDoc && this.supportDoc.documentType ? true : false;
   }
 
   // When clicked button is disabled
@@ -251,7 +316,6 @@ export class SupportDocumentsComponent extends Base
 
   removeDocument() {
     this.btnEnabled = true;
-
     this.supportDoc.images = [];
     this.supportDoc.documentType = null;
     this.supportDocChange.emit(this.supportDoc);
@@ -301,6 +365,8 @@ export class SupportDocumentsComponent extends Base
   }
 
   set documents(images: CommonImage[]) {
+    // When a new doc is uploaded, remove the current error before checking again
+    this.supportDocError = null;
     this.supportDoc.images = images;
     this.supportDocChange.emit(this.supportDoc);
   }

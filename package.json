@@ -1,6 +1,6 @@
 {
   "name": "mygovbc-msp",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "MyGovBC MSP Service Provider Web App",
   "license": "Apache-2.0",
   "repository": {
@@ -13,7 +13,7 @@
     "prestart": "npm install",
     "preinstall": "rm -rf node_modules/",
     "start": "npm run dev",
-    "dev": "ng serve --host='0.0.0.0' --port=4304 -o",
+    "dev": "ng serve --host=\"0.0.0.0\" --port=4304 -o",
     "dev-build": "ng build",
     "prebuild": "node src/version.js",
     "build": "ng build --prod",

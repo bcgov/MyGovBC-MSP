@@ -103,9 +103,10 @@ http {
 			return https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
 			# return 301 https://my.gov.bc.ca/msp/account-letter/request-acl;
 		}
-		location /account/prepare {
-			return https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents;
-		}
+        location /deam-interim/msp/account/prepare {                                                                                                  
+            return https://msp-deam-%MSP_ENV%.pathfinder.gov.bc.ca;                                                                                   
+            # return 301 https://my.gov.bc.ca/msp/deam-interim/;                                                                                      
+        }
 
         location /api {
             proxy_pass http://mygovbc-msp-service:8080/;

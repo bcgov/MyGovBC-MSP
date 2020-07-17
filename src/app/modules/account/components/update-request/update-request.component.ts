@@ -70,7 +70,7 @@ export class UpdateRequestComponent extends Base {
   nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
   nameChangeDueToErrorDocs = nameChangeDueToErrorDocuments();
   genderBirthdateChangeDocs = genderBirthDateChangeDocuments();
-  //genderChangeDocs = genderDesignationChangeDocuments();
+  genderChangeDocs = genderDesignationChangeDocuments();
 
   //statusValue: number;
  //  = legalStatus;
@@ -186,6 +186,13 @@ export class UpdateRequestComponent extends Base {
     }
     else {
       return 'Minor';
+    }
+  }
+
+  changeUpdateNameDueToMarriage(event: boolean) {
+    this.person.updateNameDueToMarriage = event;
+    if (!event) {
+      this.person.updateNameDueToMarriageRequestedLastName = '';
     }
   }
 }

@@ -58,6 +58,7 @@ export class RemoveSpouseComponent extends BaseComponent {
   };
   spouseRemoveDocs = spouseRemovedDueToDivorceDocuments();
   dateToday: Date = new Date();
+
   listofCancellationReasons = [
     {
       label: 'Separated/Divorced',
@@ -72,7 +73,7 @@ export class RemoveSpouseComponent extends BaseComponent {
       value: CancellationReasons.Deceased,
     },
     {
-      label: 'Out of province/ Out of Country move',
+      label: 'Out of province / Out of Country move',
       value: CancellationReasons.OutOfProvinceOrCountry,
     },
     {
@@ -119,19 +120,20 @@ export class RemoveSpouseComponent extends BaseComponent {
     return cp;
   }
 
-  get checkCurrentMonthOfSeparation() {
+  get isValidDate() {
     const currentDate = new Date();
-    if (
-      this.spouse.cancellationDate.getFullYear() < currentDate.getFullYear()
-    ) {
-      return true;
-    } else if (
-      this.spouse.cancellationDate.getFullYear() === currentDate.getFullYear()
-    ) {
-      return this.spouse.cancellationDate.getMonth() < currentDate.getMonth();
-    } else {
-      return false;
-    }
+    return this.spouse.cancellationDate <= currentDate && this.spouse.cancellationDate >= this.spouse.dateOfBirth;
+    // if (
+    //   this.spouse.cancellationDate.getFullYear() < currentDate.getFullYear()
+    // ) {
+    //   return true;
+    // } else if (
+    //   this.spouse.cancellationDate.getFullYear() === currentDate.getFullYear()
+    // ) {
+    //   return this.spouse.cancellationDate.getMonth() < currentDate.getMonth();
+    // } else {
+    //   return false;
+    // }
   }
 
   get cancellationDateErrorMessage() {

@@ -243,8 +243,8 @@ and check departure was within last 12 months - need to find error messages for 
   <!-- released from the Canadian Armed Forces -->
   <div class="form-group">
     <common-radio
-      [value]="person.hasBeenReleasedFromArmedForces"
-      (valueChange)="setHasBeenReleasedFromArmedForces($event)"
+      name="releasedFromArmedForces_{{objectId}}"
+      [(ngModel)]="hasBeenReleasedFromArmedForces"
       label="Has {{possessiveRelationshipNoun}} been released from the Canadian Armed Forces or an institution?"
       required>
     </common-radio>
@@ -271,7 +271,7 @@ and check departure was within last 12 months - need to find error messages for 
         name="nameOfInstitute_{{objectId}}"
         type="text"
         class="form-control"
-        [(ngModel)]=person.nameOfInstitute
+        [(ngModel)]="person.nameOfInstitute"
         maxlength="20"
         required/>
       <common-error-container

@@ -6,7 +6,7 @@
       "description": "Deployment template for a angular on nginx",
       "tags": "angular,nginx"
     },
-    "name": "msp-deam"
+    "name": "angular-on-nginx"
   },
   "objects": [
     {
@@ -227,14 +227,14 @@
       "displayName": "Source Name",
       "name": "SOURCE_NAME",
       "required": true,
-      "value": "msp-deam"
+      "value": "msp"
     },
     {
       "description": "The name assigned to all of the openshift objects defined in this template. It is also the name of runtime image you want.",
       "displayName": "Name",
       "name": "NAME",
       "required": true,
-      "value": "msp-deam"
+      "value": "msp"
     },
     {
       "description": "The namespace where to get the above image name",

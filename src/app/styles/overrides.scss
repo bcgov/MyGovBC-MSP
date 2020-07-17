@@ -210,6 +210,9 @@ accordion-group + accordion-group {
 .edit--icon {
   cursor: pointer;
   float: right;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
 }
 
 // Increase checkbox size.
@@ -278,7 +281,13 @@ common-address {
 }
 
 common-date[label="Birthdate"],
-common-date[label="Marriage date (optional)"] {
+common-date[label="Marriage date (optional)"],
+common-date[label="Adoption date"],
+common-date[label="Return date"],
+common-date[label="Departure date"],
+common-date[label="Date studies will begin"],
+common-date[label="Date studies will finish"],
+common-date[label="Date no longer in full time studies"] {
   common-error-container {
     display: inline-block;
     min-height: 21px;

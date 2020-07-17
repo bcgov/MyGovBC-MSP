@@ -1,7 +1,7 @@
-<msp-personal-information
+<account-personal-information
   [person]="spouse"
   [phnList]="phnList">
-</msp-personal-information>
+</account-personal-information>
 
 <div class='row'>
   <div class='col-sm-12 col-md-4'>
@@ -42,7 +42,7 @@
 <div class='row'>
   <div class='col-12'>
     <div *ngIf="spouse.cancellationReason === 0">
-      <div *ngIf="spouse.cancellationDate && checkCurrentMonthOfSeparation" class="add-document mb-4">
+      <div *ngIf="spouse.cancellationDate && isValidDate" class="add-document mb-4">
         <msp-support-documents
           [supportDocList]="spouseRemoveDocs"
           [(supportDoc)]="spouse.removedSpouseDueToDivorceDoc">
@@ -115,7 +115,7 @@
   </div>
 </div>
 
-<div *ngIf="spouse.cancellationReason === 4" class="form-group notice">
+<div *ngIf="spouse.cancellationReason === 4" class="form-group notice text-danger">
   To remove a spouse from your MSP account because they have moved away from BC, use the
   <a href="https://www.health.gov.bc.ca/exforms/msp/7063.html" target="_blank">Permanent Move Outside British Columbia</a> form.
   If you have additional changes to make to your MSP account, this link is also provided at the end of this form.
