@@ -185,31 +185,81 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
 
   checkUpdate() {
     let valid = true;
+
+    // Each update type selected must have at least one document
     if (this.updatedSpouse.updateStatusInCanada === true) {
-      valid = valid && this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
+      valid = valid && this.updatedSpouse.updateStatusInCanadaDocType.images !== undefined
+        && this.updatedSpouse.updateStatusInCanadaDocType.images !== null
+        && this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
     }
+
     if (this.updatedSpouse.updateNameDueToMarriage === true) {
-      valid = valid && this.updatedSpouse.updateNameDueToMarriageDocType.images.length > 0;
+      valid = valid && this.updatedSpouse.updateNameDueToMarriageDocType.images !== undefined
+        && this.updatedSpouse.updateNameDueToMarriageDocType.images !== null
+        && this.updatedSpouse.updateNameDueToMarriageDocType.images.length > 0;
     }
+
     if (this.updatedSpouse.updateNameDueToNameChange === true) {
-      valid = valid && this.updatedSpouse.updateNameDueToNameChangeDocType.images.length > 0;
+      valid = valid && this.updatedSpouse.updateNameDueToNameChangeDocType.images !== undefined
+        && this.updatedSpouse.updateNameDueToNameChangeDocType.images !== null
+        && this.updatedSpouse.updateNameDueToNameChangeDocType.images.length > 0;
     }
+
+    // gender "due to change" one as opposed to update
     if (this.updatedSpouse.updateGender === true) {
-      valid = valid && this.updatedSpouse.updateGenderDocType.images.length > 0
-        && this.updatedSpouse.updateGenderDocType2.images.length > 0;
+      valid = valid && this.updatedSpouse.updateGenderDocType.images !== undefined
+        && this.updatedSpouse.updateGenderDocType.images !== null
+        && this.updatedSpouse.updateGenderDocType.images.length > 0
+        // "Need a second document" radio button is mandatory
+        && this.updatedSpouse.updateGenderAdditionalDocs !== undefined
+        && this.updatedSpouse.updateGenderAdditionalDocs !== null
+      // If "need a second document?" radio is clicked yes
       if (this.updatedSpouse.updateGenderAdditionalDocs === true) {
-        valid = valid && this.updatedSpouse.updateGenderDocType3.images.length > 0;
+        valid = valid && this.updatedSpouse.updateGenderDocType2.images !== undefined
+          && this.updatedSpouse.updateGenderDocType2.images !== null
+          && this.updatedSpouse.updateGenderDocType2.images.length > 0
+        // "Need a third document" radio button mandatory
+          && this.updatedSpouse.updateGenderAdditionalDocs2 !== undefined
+          && this.updatedSpouse.updateGenderAdditionalDocs2 !== null
+        // If "need a third document?" radio is clicked yes
+        if (this.updatedSpouse.updateGenderAdditionalDocs2 === true) {
+          valid = valid && this.updatedSpouse.updateGenderDocType3.images !== undefined
+            && this.updatedSpouse.updateGenderDocType3.images !== null
+            && this.updatedSpouse.updateGenderDocType3.images.length > 0
+        }
       }
     }
+
     if (this.updatedSpouse.updateNameDueToError === true) {
-      valid = valid && this.updatedSpouse.updateNameDueToErrorDocType.images.length > 0;
+      valid = valid && this.updatedSpouse.updateNameDueToErrorDocType.images !== undefined
+        && this.updatedSpouse.updateNameDueToErrorDocType.images !== null
+        && this.updatedSpouse.updateNameDueToErrorDocType.images.length > 0;
     }
+
     if (this.updatedSpouse.updateBirthdate === true) {
-      valid = valid && this.updatedSpouse.updateBirthdateDocType.images.length > 0;
+      valid = valid && this.updatedSpouse.updateBirthdateDocType.images !== undefined
+        && this.updatedSpouse.updateBirthdateDocType.images !== null
+        && this.updatedSpouse.updateBirthdateDocType.images.length > 0;
     }
+
     if (this.updatedSpouse.updateGenderDesignation === true) {
-      valid = valid && this.updatedSpouse.updateGenderDesignationDocType.images.length > 0;
+      valid = valid && this.updatedSpouse.updateGenderDesignationDocType.images !== undefined
+        && this.updatedSpouse.updateGenderDesignationDocType.images !== null
+        && this.updatedSpouse.updateGenderDesignationDocType.images.length > 0;
     }
+
+    if (!this.updatedSpouse.updateGenderDesignation
+      && !this.updatedSpouse.updateBirthdate
+      && !this.updatedSpouse.updateNameDueToError
+      && !this.updatedSpouse.updateGender
+      && !this.updatedSpouse.updateNameDueToNameChange
+      && !this.updatedSpouse.updateNameDueToMarriage
+      && !this.updatedSpouse.updateStatusInCanada
+    ) {
+      // at least one update must be requested
+      valid = false;
+    }
+
     return valid;
   }
 
