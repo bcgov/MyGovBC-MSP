@@ -136,36 +136,41 @@
     <msp-support-documents
       [supportDocList]="nameChangeDueToMarriageDocs"
       [(supportDoc)]="spouse.updateNameDueToMarriageDocType">
-      <div class='immediate-tip-slot'>
-        <aside>
-          <div class="card">
-            <div class="card-body">
-              <div>Tip</div>
-              <div>
-                For name changes due to marriage, you may combine your birth last name with a
-                current and/or previous married last name(s). Last names may be combined in any
-                order with a hyphen (-) or a space.
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
       <div sectionTitleInfo>
         <h2>Spouse's new last name</h2>
         <p class="horizontal-line">
           This name will be printed on your new BC Services Card.
         </p>
-        <div class="form-group col-sm-6 pl-0" style="width: 300px;">
-          <common-name
-            name="updateNameDueToMarriageRequestedLastName"
-            label="Requested last name"
-            [disabled]="disabled"
-            [(ngModel)]="spouse.updateNameDueToMarriageRequestedLastName"
-            maxlen="30"
-            required
-            commonValidateName>
-          </common-name>
+        <div class="row mb-3">
+          <div class="form-group col-sm-8">
+            <div style="max-width: 300px">
+              <common-name
+                name="updateNameDueToMarriageRequestedLastName"
+                label="Requested last name"
+                [disabled]="disabled"
+                [(ngModel)]="spouse.updateNameDueToMarriageRequestedLastName"
+                maxlen="30"
+                required
+                commonValidateName>
+              </common-name>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <aside>
+              <div class="card">
+                <div class="card-body">
+                  <div>Tip</div>
+                  <div>
+                    For name changes due to marriage, you may combine your birth last name with a
+                    current and/or previous married last name(s). Last names may be combined in any
+                    order with a hyphen (-) or a space.
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
+        
         <p class="horizontal-line">
           Provide <b>one</b> of the required documents to support your personal information update.
         </p>
