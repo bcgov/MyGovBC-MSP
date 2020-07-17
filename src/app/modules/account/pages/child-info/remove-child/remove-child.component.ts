@@ -4,6 +4,7 @@ import { CancellationReasons, CancellationReasonsStrings } from '../../../../../
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions } from '../../../models/account.model';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
+import { ErrorMessage } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-remove-child',
@@ -50,6 +51,14 @@ export class RemoveChildComponent implements OnInit {
       'value': CancellationReasons.Incarcerated
     },
   ];
+
+  cancellationDateErrorMessage: ErrorMessage = {
+    invalidRange: 'Date may not be in the future and must be after the child\'s birthday'
+  }
+
+  get dateToday(): Date {
+    return new Date();
+  }
 
   get cancellationReasons() {
     return this.listofCancellationReasons;

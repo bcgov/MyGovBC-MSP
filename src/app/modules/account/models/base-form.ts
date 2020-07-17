@@ -35,6 +35,10 @@ export class BaseForm extends AbstractForm implements OnInit, AfterViewInit, OnD
     }
   }
 
+  isSet(val) {
+    return val !== undefined && val !== null;
+  }
+
   continue() {
     // console.log( 'Continue: base form to be overriden');
   }

@@ -117,6 +117,10 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     this.dataService.accountApp.updatedSpouse = new MspPerson(Relationship.Spouse);
   }
 
+  get dateToday(): Date {
+    return new Date();
+  }
+
   get addedSpouse(): MspPerson {
     return this.dataService.getMspAccountApp().addedSpouse;
   }
@@ -143,73 +147,185 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
 
   checkAdd() {
     let valid = true;
+
+    // Don't bother checking if they aren't adding a spouse
     if (this.accountApp.hasSpouseAdded === true) {
-      valid = valid && this.addedSpouse.immigrationStatusChange !== undefined;
-    }
-    valid = valid && this.addedSpouse.gender !== undefined
-      && this.addedSpouse.updateNameDueToMarriage !== undefined;
-    if (this.addedSpouse.updateStatusInCanada === true) {
-      valid = valid && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined;
-    }
-    if (this.addedSpouse.updateNameDueToMarriage === true) {
-      valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName
-        && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
-        && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
-        && this.addedSpouse.nameChangeDocs.images.length > 0;
+      // Ticked "...active Medical Services Plan coverage?"
+      valid = valid && this.isSet(this.addedSpouse.immigrationStatusChange)
+        // Ticked gender radio
+        && this.isSet(this.addedSpouse.gender)
+        // Ticked "Has your spouse's name changed due to marriage?"
+        && this.isSet(this.addedSpouse.updateNameDueToMarriage)
+
+      // Ticked yes to name changed due to marriage
+      if (this.addedSpouse.updateNameDueToMarriage === true) {
+        // Check that they inputted a requested lastname and that they uploaded at least one supporting doc
+        valid = valid && this.isSet(this.addedSpouse.updateNameDueToMarriageRequestedLastName)
+          && typeof this.addedSpouse.updateNameDueToMarriageRequestedLastName === 'string'
+          && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
+          && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
+          && this.isSet(this.addedSpouse.updateNameDueToMarriageDocType.images)
+          && this.addedSpouse.updateNameDueToMarriageDocType.images.length > 0;
+      }
+
+      // If they don't have existing coverage
+      if (this.addedSpouse.immigrationStatusChange === false) {
+        // All radio buttons visible at this point have been ticked, and one update doc has been uploaded
+        valid = valid && this.isSet(this.addedSpouse.updateStatusInCanadaDocType)
+          && this.isSet(this.addedSpouse.updateStatusInCanadaDocType.images)
+          && this.addedSpouse.updateStatusInCanadaDocType.images.length > 0
+          && this.isSet(this.addedSpouse.hasNameChange)
+          && this.isSet(this.addedSpouse.livedInBCSinceBirth)
+          && this.isSet(this.addedSpouse.madePermanentMoveToBC)
+          && this.isSet(this.addedSpouse.declarationForOutsideOver30Days)
+          && this.isSet(this.addedSpouse.declarationForOutsideOver60Days)
+          && this.isSet(this.addedSpouse.hasBeenReleasedFromArmedForces)
+        // Yes to name change "due to legal name change"
+        if (this.addedSpouse.hasNameChange === true) {
+          valid = valid && this.isSet(this.addedSpouse.nameChangeDocs)
+            && this.isSet(this.addedSpouse.nameChangeDocs.images)
+            && this.addedSpouse.nameChangeDocs.images.length > 0
+            && this.isSet(this.addedSpouse.hasNameChangeAdditional);
+          // Yes to an additional document
+          if (this.addedSpouse.hasNameChangeAdditional === true) {
+            valid = valid && this.isSet(this.addedSpouse.nameChangeAdditionalDocs)
+              && this.isSet(this.addedSpouse.nameChangeAdditionalDocs.images)
+              && this.addedSpouse.nameChangeAdditionalDocs.images.length > 0;
+          }
+        }
+
+        // No to "lived in BC since birth"
+        if (this.addedSpouse.livedInBCSinceBirth === false) {
+          // Check they inputted the province or country they came from and the date
+          valid = valid && this.isSet(this.addedSpouse.arrivalToBCDate)
+            && this.isSet(this.addedSpouse.movedFromProvinceOrCountry)
+            && typeof this.addedSpouse.movedFromProvinceOrCountry === 'string'
+            && this.addedSpouse.movedFromProvinceOrCountry.length > 0
+        }
+
+        // Yes to "more than 30 days in the last 12 months"
+        if (this.addedSpouse.declarationForOutsideOver30Days === true) {
+          valid = valid && this.isSet(this.addedSpouse.departureDateDuring12MonthsDate)
+            && this.isSet(this.addedSpouse.returnDateDuring12MonthsDate)
+            && this.isSet(this.addedSpouse.departureReason12Months)
+            && this.isSet(this.addedSpouse.departureDestination12Months)
+        }
+
+        // Yes to "more than 30 days in the next 6 months"
+        if (this.addedSpouse.declarationForOutsideOver60Days === true) {
+          valid = valid && this.isSet(this.addedSpouse.departureDateDuring6MonthsDate)
+            && this.isSet(this.addedSpouse.returnDateDuring6MonthsDate)
+            && this.isSet(this.addedSpouse.departureReason)
+            && this.isSet(this.addedSpouse.departureDestination)
+        }
+
+        // Yes to "released from Canadian Armed Forces"
+        if (this.addedSpouse.hasBeenReleasedFromArmedForces === true) {
+          valid = valid && this.isSet(this.addedSpouse.dischargeDate)
+            && this.isSet(this.addedSpouse.nameOfInstitute)
+        }
+      }
     }
     return valid;
   }
 
   checkRemove() {
     let valid = true;
-    valid = valid && this.removedSpouse.cancellationReason !== undefined;
+    // Must choose a cancellation reason
+    valid = valid && this.isSet(this.removedSpouse.cancellationReason)
+
+    // If they are divorced/separated they must upload at least one document
     if (this.removedSpouse.cancellationReason === CancellationReasons.SeparatedDivorced) {
-      valid = valid && this.removedSpouse.hasCurrentMailingAddress !== undefined
+      valid = valid && this.isSet(this.removedSpouse.hasCurrentMailingAddress)
+        && this.removedSpouse.removedSpouseDueToDivorceDoc
         && this.removedSpouse.removedSpouseDueToDivorceDoc.images
         && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
     }
-    if (this.removedSpouse.cancellationReason !== undefined
-      && this.removedSpouse.cancellationReason !== CancellationReasons.OutOfProvinceOrCountry) {
-      valid = valid && this.removedSpouse.cancellationDate !== undefined
-        && this.removedSpouse.cancellationDate !== null;
+
+    // For these selections they must include a valid cancellation date
+    if (this.removedSpouse.cancellationReason === CancellationReasons.ArmedForces
+      || this.removedSpouse.cancellationReason === CancellationReasons.Deceased
+      || this.removedSpouse.cancellationReason === CancellationReasons.Incarcerated
+      || this.removedSpouse.cancellationReason === CancellationReasons.RemoveFromAccountButStillMarriedOrCommomLaw) {
+      valid = valid && this.isSet(this.removedSpouse.cancellationDate)
+        && this.removedSpouse.cancellationDate <= this.dateToday
+        && this.removedSpouse.cancellationDate > this.removedSpouse.dateOfBirth;
     }
+
+    // They cannot proceed if this is their option
     if (this.removedSpouse.cancellationReason === CancellationReasons.OutOfProvinceOrCountry){
       valid = false;
     }
-    if (this.removedSpouse.cancellationDate) {
-      const currentDate = new Date();
-      valid = valid && this.removedSpouse.cancellationDate <= currentDate && this.removedSpouse.cancellationDate >= this.removedSpouse.dateOfBirth;
-    }
+
     return valid;
   }
 
   checkUpdate() {
     let valid = true;
+
+    // Each update type selected must have at least one document
     if (this.updatedSpouse.updateStatusInCanada === true) {
-      valid = valid && this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
+      valid = valid && this.isSet(this.updatedSpouse.updateStatusInCanadaDocType.images)
+        && this.updatedSpouse.updateStatusInCanadaDocType.images.length > 0;
     }
+
     if (this.updatedSpouse.updateNameDueToMarriage === true) {
-      valid = valid && this.updatedSpouse.updateNameDueToMarriageDocType.images.length > 0;
+      valid = valid && this.isSet(this.updatedSpouse.updateNameDueToMarriageDocType.images)
+        && this.updatedSpouse.updateNameDueToMarriageDocType.images.length > 0;
     }
+
     if (this.updatedSpouse.updateNameDueToNameChange === true) {
-      valid = valid && this.updatedSpouse.updateNameDueToNameChangeDocType.images.length > 0;
+      valid = valid && this.isSet(this.updatedSpouse.updateNameDueToNameChangeDocType.images)
+        && this.updatedSpouse.updateNameDueToNameChangeDocType.images.length > 0;
     }
+
+    // gender "due to change" one as opposed to update
     if (this.updatedSpouse.updateGender === true) {
-      valid = valid && this.updatedSpouse.updateGenderDocType.images.length > 0
-        && this.updatedSpouse.updateGenderDocType2.images.length > 0;
+      valid = valid && this.isSet(this.updatedSpouse.updateGenderDocType.images)
+        && this.updatedSpouse.updateGenderDocType.images.length > 0
+        // "Need a second document" radio button is mandatory
+        && this.isSet(this.updatedSpouse.updateGenderAdditionalDocs)
+      // If "need a second document?" radio is clicked yes
       if (this.updatedSpouse.updateGenderAdditionalDocs === true) {
-        valid = valid && this.updatedSpouse.updateGenderDocType3.images.length > 0;
+        valid = valid && this.isSet(this.updatedSpouse.updateGenderDocType2.images)
+          && this.updatedSpouse.updateGenderDocType2.images.length > 0
+        // "Need a third document" radio button mandatory
+          && this.isSet(this.updatedSpouse.updateGenderAdditionalDocs2)
+        // If "need a third document?" radio is clicked yes
+        if (this.updatedSpouse.updateGenderAdditionalDocs2 === true) {
+          valid = valid && this.isSet(this.updatedSpouse.updateGenderDocType3.images)
+            && this.updatedSpouse.updateGenderDocType3.images.length > 0
+        }
       }
     }
+
     if (this.updatedSpouse.updateNameDueToError === true) {
-      valid = valid && this.updatedSpouse.updateNameDueToErrorDocType.images.length > 0;
+      valid = valid && this.isSet(this.updatedSpouse.updateNameDueToErrorDocType.images)
+        && this.updatedSpouse.updateNameDueToErrorDocType.images.length > 0;
     }
+
     if (this.updatedSpouse.updateBirthdate === true) {
-      valid = valid && this.updatedSpouse.updateBirthdateDocType.images.length > 0;
+      valid = valid && this.isSet(this.updatedSpouse.updateBirthdateDocType.images)
+        && this.updatedSpouse.updateBirthdateDocType.images.length > 0;
     }
+
     if (this.updatedSpouse.updateGenderDesignation === true) {
-      valid = valid && this.updatedSpouse.updateGenderDesignationDocType.images.length > 0;
+      valid = valid && this.isSet(this.updatedSpouse.updateGenderDesignationDocType.images)
+        && this.updatedSpouse.updateGenderDesignationDocType.images.length > 0;
     }
+
+    if (!this.updatedSpouse.updateGenderDesignation
+      && !this.updatedSpouse.updateBirthdate
+      && !this.updatedSpouse.updateNameDueToError
+      && !this.updatedSpouse.updateGender
+      && !this.updatedSpouse.updateNameDueToNameChange
+      && !this.updatedSpouse.updateNameDueToMarriage
+      && !this.updatedSpouse.updateStatusInCanada
+    ) {
+      // at least one update must be requested
+      valid = false;
+    }
+
     return valid;
   }
 
