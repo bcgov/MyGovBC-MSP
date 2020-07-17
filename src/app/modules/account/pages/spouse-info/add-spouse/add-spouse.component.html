@@ -10,7 +10,7 @@
 </div>
 
 <div *ngIf="spouse.immigrationStatusChange !== undefined">
-  <div *ngIf="spouse.immigrationStatusChange == false">
+  <div *ngIf="spouse.immigrationStatusChange === false">
     <!-- Spouse's Status in Canada -->
     <div class="col-sm-6 add-document">
       <msp-canadian-status
@@ -174,7 +174,7 @@
   </div>
 
   <!-- Spouse's Residency Information -->
-  <div *ngIf="spouse.immigrationStatusChange == false">
+  <div *ngIf="spouse.immigrationStatusChange === false">
     <msp-child-moving-information
       [person]="spouse">
       <div sectionTitleInfo>
