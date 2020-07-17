@@ -217,52 +217,38 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     let valid = true;
     this.addedChildren.forEach(addedChild => {
       // Ticked "How old is the child?"
-      valid = valid && addedChild.relationship !== undefined
-        && addedChild.relationship !== null
+      valid = valid && this.isSet(addedChild.relationship)
         // Ticked "Does your child have active MSP coverage?"
-        && addedChild.hasActiveMedicalServicePlan !== undefined
-        && addedChild.hasActiveMedicalServicePlan !== null
+        && this.isSet(addedChild.hasActiveMedicalServicePlan)
         // Ticked "Gender"
-        && addedChild.gender !== undefined
-        && addedChild.gender !== null
+        && this.isSet(addedChild.gender)
         // Ticked "Is this child newly adopted?"
-        && addedChild.newlyAdopted !== undefined
-        && addedChild.newlyAdopted !== null
+        && this.isSet(addedChild.newlyAdopted)
         // Ticked "Is this a permanent move to BC for this child?"
-        && addedChild.madePermanentMoveToBC !== undefined
-        && addedChild.madePermanentMoveToBC !== null
+        && this.isSet(addedChild.madePermanentMoveToBC)
         // Ticked "more than 30 days in the last 12 months"
-        && addedChild.declarationForOutsideOver30Days !== undefined
-        && addedChild.declarationForOutsideOver30Days !== null
+        && this.isSet(addedChild.declarationForOutsideOver30Days)
         // Ticked "more than 30 days in the next 6 months"
-        && addedChild.declarationForOutsideOver60Days !== undefined
-        && addedChild.declarationForOutsideOver60Days !== null
+        && this.isSet(addedChild.declarationForOutsideOver60Days)
         // Ticked "Has this child been released from the Canadian Armed Forces?"
-        && addedChild.hasBeenReleasedFromArmedForces !== undefined
-        && addedChild.hasBeenReleasedFromArmedForces !== null;
+        && this.isSet(addedChild.hasBeenReleasedFromArmedForces)
 
       // Ticked "19 - 24" under "How old is the child?"
       if (addedChild.relationship === Relationship.Child19To24) {
         // Filled out school name
-        valid = valid && addedChild.schoolName !== undefined
-          && addedChild.schoolName !== null
+        valid = valid && this.isSet(addedChild.schoolName)
           && typeof addedChild.schoolName === 'string'
           && addedChild.schoolName.length > 0
           // Ticked "Is this school outside British Columbia?"
-          && addedChild.schoolOutsideOfBC !== undefined
-          && addedChild.schoolOutsideOfBC !== null
+          && this.isSet(addedChild.schoolOutsideOfBC)
           // Filled out school address (common-address handles finer validation here)
-          && addedChild.schoolAddress !== undefined
-          && addedChild.schoolAddress !== null
+          && this.isSet(addedChild.schoolAddress)
           // Filled out "Date studies will begin"
-          && addedChild.studiesBeginDate !== undefined
-          && addedChild.studiesBeginDate !== null
+          && this.isSet(addedChild.studiesBeginDate)
           // Filled out "Date studies will finish"
-          && addedChild.studiesFinishedDate !== undefined
-          && addedChild.studiesFinishedDate !== null
+          && this.isSet(addedChild.studiesFinishedDate)
           // Ticked "reside in BC after completing study in this school?"
-          && addedChild.inBCafterStudies !== undefined
-          && addedChild.inBCafterStudies !== null
+          && this.isSet(addedChild.inBCafterStudies)
 
         if (addedChild.schoolOutsideOfBC === true) {
           valid = valid && !!addedChild.studiesDepartureDate;
@@ -272,18 +258,14 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
       // Ticked no to "active MSP coverage"
       if (addedChild.hasActiveMedicalServicePlan === false) {
         // Check that they uploaded at least one supporting doc
-        valid = valid && addedChild.status !== undefined
-          && addedChild.status !== null
-          && addedChild.updateStatusInCanadaDocType.images !== undefined
-          && addedChild.updateStatusInCanadaDocType.images !== null
+        valid = valid && this.isSet(addedChild.status)
+          && this.isSet(addedChild.updateStatusInCanadaDocType.images)
           && addedChild.updateStatusInCanadaDocType.images.length > 0
-          && addedChild.hasNameChange !== undefined
-          && addedChild.hasNameChange !== null;
+          && this.isSet(addedChild.hasNameChange);
 
           if (addedChild.hasNameChange === true) {
           valid = valid && addedChild.nameChangeDocs
-          && addedChild.nameChangeDocs.images !== undefined
-          && addedChild.nameChangeDocs.images !== null
+          && this.isSet(addedChild.nameChangeDocs.images)
           && addedChild.nameChangeDocs.images.length > 0;
         }
       }
@@ -291,10 +273,8 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
       // No to "lived in BC since birth"
       if (addedChild.livedInBCSinceBirth === false) {
         // Check they inputted the province or country they came from and the date
-        valid = valid && addedChild.arrivalToBCDate !== undefined
-          && addedChild.arrivalToBCDate !== null
-          && addedChild.movedFromProvinceOrCountry !== undefined
-          && addedChild.movedFromProvinceOrCountry !== null
+        valid = valid && this.isSet(addedChild.arrivalToBCDate)
+          && this.isSet(addedChild.movedFromProvinceOrCountry)
           && typeof addedChild.movedFromProvinceOrCountry === 'string'
           && addedChild.movedFromProvinceOrCountry.length > 0;
       }
@@ -302,41 +282,29 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
       // Yes to "newly adopted"
       if (addedChild.newlyAdopted === true) {
         // Check they inputted the province or country they came from and the date
-        valid = valid && addedChild.adoptedDate !== undefined
-        && addedChild.adoptedDate !== null
+        valid = valid && this.isSet(addedChild.adoptedDate)
       }
 
       // Yes to "more than 30 days in the last 12 months"
       if (addedChild.declarationForOutsideOver30Days === true) {
-        valid = valid && addedChild.departureDateDuring12MonthsDate !== undefined
-          && addedChild.departureDateDuring12MonthsDate !== null
-          && addedChild.returnDateDuring12MonthsDate !== undefined
-          && addedChild.returnDateDuring12MonthsDate !== null
-          && addedChild.departureReason12Months !== undefined
-          && addedChild.departureReason12Months !== null
-          && addedChild.departureDestination12Months !== undefined
-          && addedChild.departureDestination12Months !== null;
+        valid = valid && this.isSet(addedChild.departureDateDuring12MonthsDate)
+          && this.isSet(addedChild.returnDateDuring12MonthsDate)
+          && this.isSet(addedChild.departureReason12Months)
+          && this.isSet(addedChild.departureDestination12Months)
       }
 
       // Yes to "more than 30 days in the next 6 months"
       if (addedChild.declarationForOutsideOver60Days === true) {
-        valid = valid && addedChild.departureDateDuring6MonthsDate !== undefined
-          && addedChild.departureDateDuring6MonthsDate !== null
-          && addedChild.returnDateDuring6MonthsDate !== undefined
-          && addedChild.returnDateDuring6MonthsDate !== null
-          && addedChild.departureReason !== undefined
-          && addedChild.departureReason !== null
-          && addedChild.departureDestination !== undefined
-          && addedChild.departureDestination !== null;
+        valid = valid && this.isSet(addedChild.departureDateDuring6MonthsDate)
+          && this.isSet(addedChild.returnDateDuring6MonthsDate)
+          && this.isSet(addedChild.departureReason)
+          && this.isSet(addedChild.departureDestination)
       }
-
 
       // Yes to "released from Canadian Armed Forces"
       if (addedChild.hasBeenReleasedFromArmedForces === true) {
-        valid = valid && addedChild.dischargeDate !== undefined
-          && addedChild.dischargeDate !== null
-          && addedChild.nameOfInstitute !== undefined
-          && addedChild.nameOfInstitute !== null;
+        valid = valid && this.isSet(addedChild.dischargeDate)
+          && this.isSet(addedChild.nameOfInstitute)
       }
     })
 
