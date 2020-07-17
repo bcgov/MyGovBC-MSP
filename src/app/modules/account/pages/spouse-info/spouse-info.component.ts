@@ -146,42 +146,117 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     if (this.accountApp.hasSpouseAdded === true) {
       // Checking radio buttons have been ticked
       valid = valid && this.addedSpouse.immigrationStatusChange !== undefined
-        && this.addedSpouse.immigrationStatusChange != null
+        && this.addedSpouse.immigrationStatusChange !== null
         && this.addedSpouse.gender !== undefined
-        && this.addedSpouse.gender != null
+        && this.addedSpouse.gender !== null
         && this.addedSpouse.updateNameDueToMarriage !== undefined
-        && this.addedSpouse.updateNameDueToMarriage != null
-        && this.addedSpouse.hasNameChange !== undefined
-        && this.addedSpouse.hasNameChange != null;
+        && this.addedSpouse.updateNameDueToMarriage !== null;
+
+        console.log('beginning passes:', valid);
 
       if (this.addedSpouse.updateStatusInCanada === true) {
         // Check that they have at least one document to support the status change
         valid = valid && this.addedSpouse.updateStatusInCanadaDocType !== undefined
-          && this.addedSpouse.updateStatusInCanadaDocType != null
+          && this.addedSpouse.updateStatusInCanadaDocType !== null
           && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined
           && this.addedSpouse.updateStatusInCanadaDocType.images !== null
           && this.addedSpouse.updateStatusInCanadaDocType.images.length > 0;
       }
 
+      console.log(
+        'updateStatus passes',
+        valid,
+        this.addedSpouse.updateStatusInCanadaDocType !== null,
+        this.addedSpouse.updateStatusInCanadaDocType.images !== undefined,
+        this.addedSpouse.updateStatusInCanadaDocType.images !== null
+      );
+
       if (this.addedSpouse.updateNameDueToMarriage === true) {
         // Check that they inputted a requested lastname and that they uploaded at least one supporting doc
         valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName !== undefined
-          && this.addedSpouse.updateNameDueToMarriageRequestedLastName != null
+          && this.addedSpouse.updateNameDueToMarriageRequestedLastName !== null
+          && typeof this.addedSpouse.updateNameDueToMarriageRequestedLastName === 'string'
           && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
           && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
-          && this.addedSpouse.nameChangeDocs.images !== undefined
-          && this.addedSpouse.nameChangeDocs.images != null
-          && this.addedSpouse.nameChangeDocs.images.length > 0;
+          && this.addedSpouse.updateNameDueToMarriageDocType.images !== undefined
+          && this.addedSpouse.updateNameDueToMarriageDocType.images !== null
+          && this.addedSpouse.updateNameDueToMarriageDocType.images.length > 0;
       }
 
-      if (this.addedSpouse.livedInBCSinceBirth === false) {
-        // Check they inputted the province or country they came from
-        valid = valid && this.addedSpouse.movedFromProvinceOrCountry !== undefined
-          && this.addedSpouse.movedFromProvinceOrCountry != null
-          && this.addedSpouse.movedFromProvinceOrCountry.length > 0;
+      console.log('updateName passes:', valid, this.addedSpouse.updateNameDueToMarriageRequestedLastName !== undefined,
+        this.addedSpouse.updateNameDueToMarriageRequestedLastName !== null,
+        typeof this.addedSpouse.updateNameDueToMarriageRequestedLastName === 'string',
+        typeof this.addedSpouse.updateNameDueToMarriageRequestedLastName === 'string' && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0,
+        this.addedSpouse.updateNameDueToMarriageDocType.images !== undefined,
+        this.addedSpouse.updateNameDueToMarriageDocType.images !== null,
+        this.addedSpouse.updateNameDueToMarriageDocType.images && this.addedSpouse.updateNameDueToMarriageDocType.images.length > 0
+      );
+
+      if (this.addedSpouse.immigrationStatusChange === true) {
+        valid = valid && this.addedSpouse.livedInBCSinceBirth !== undefined
+        && this.addedSpouse.livedInBCSinceBirth !== null;
+
+        if (this.addedSpouse.livedInBCSinceBirth === false) {
+          // Check they inputted the province or country they came from
+          valid = valid && this.addedSpouse.movedFromProvinceOrCountry !== undefined
+          && this.addedSpouse.movedFromProvinceOrCountry !== null
+            && this.addedSpouse.movedFromProvinceOrCountry.length > 0
+            && this.addedSpouse.arrivalToBCDate !== undefined
+            && this.addedSpouse.arrivalToBCDate !== null;
+        }
+
+        console.log('inBC passes:', valid, this.addedSpouse.movedFromProvinceOrCountry !== undefined,
+          this.addedSpouse.movedFromProvinceOrCountry !== null,
+          typeof this.addedSpouse.movedFromProvinceOrCountry === 'string',
+          typeof this.addedSpouse.movedFromProvinceOrCountry === 'string' && this.addedSpouse.movedFromProvinceOrCountry.length > 0,
+          this.addedSpouse.arrivalToBCDate !== undefined,
+          this.addedSpouse.arrivalToBCDate !== null
+        );
+
+        valid = valid && this.addedSpouse.madePermanentMoveToBC !== undefined
+          && this.addedSpouse.madePermanentMoveToBC !== null;
+
+        valid = valid && this.addedSpouse.declarationForOutsideOver30Days !== undefined
+          && this.addedSpouse.declarationForOutsideOver30Days !== null;
+        console.log('Y/N declarations passes:', valid);
+
+        if (this.addedSpouse.declarationForOutsideOver30Days === true) {
+          valid = valid && this.addedSpouse.departureDateDuring12MonthsDate !== undefined
+            && this.addedSpouse.departureDateDuring12MonthsDate !== null;
+          valid = valid && this.addedSpouse.returnDateDuring12MonthsDate !== undefined
+            && this.addedSpouse.returnDateDuring12MonthsDate !== null;
+          valid = valid && this.addedSpouse.departureReason12Months !== undefined
+            && this.addedSpouse.departureReason12Months !== null;
+          valid = valid && this.addedSpouse.departureDestination12Months !== undefined
+            && this.addedSpouse.departureDestination12Months !== null;
+        }
+        console.log('over30passes:', valid);
+
+        valid = valid && this.addedSpouse.declarationForOutsideOver60Days !== undefined
+          && this.addedSpouse.declarationForOutsideOver60Days !== null;
+        if (this.addedSpouse.declarationForOutsideOver60Days === true) {
+          valid = valid && this.addedSpouse.departureDateDuring6MonthsDate !== undefined
+            && this.addedSpouse.departureDateDuring6MonthsDate !== null;
+          valid = valid && this.addedSpouse.returnDateDuring6MonthsDate !== undefined
+            && this.addedSpouse.returnDateDuring6MonthsDate !== null;
+          valid = valid && this.addedSpouse.departureReason !== undefined
+            && this.addedSpouse.departureReason !== null;
+          valid = valid && this.addedSpouse.departureDestination !== undefined
+            && this.addedSpouse.departureDestination !== null;
+        }
+        console.log('over60passes:', valid);
+
+        valid = valid && this.addedSpouse.hasBeenReleasedFromArmedForces !== undefined
+        && this.addedSpouse.hasBeenReleasedFromArmedForces !== null;
+        if (this.addedSpouse.hasBeenReleasedFromArmedForces === true) {
+          valid = valid && this.addedSpouse.dischargeDate !== undefined
+            && this.addedSpouse.dischargeDate !== null;
+          valid = valid && this.addedSpouse.nameOfInstitute !== undefined
+            && this.addedSpouse.nameOfInstitute !== null;
+        }
+        console.log('armedforces passes:', valid);
       }
     }
-
     return valid;
   }
 
