@@ -1427,17 +1427,8 @@ export class MspApiAccountService extends AbstractHttpService {
       .addressUpdate
       ? 'Y'
       : 'N';
-    accountHolder.selectedPersonalInfoChange = from.accountChangeOptions
-      .personInfoUpdate
-      ? 'Y'
-      : 'N';
-    accountHolder.selectedStatusChange =
-      from.applicant.updateStatusInCanada ||
-      (from.addedSpouse && from.addedSpouse.updateStatusInCanada) ||
-      (from.removedSpouse && from.removedSpouse.updateStatusInCanada) ||
-      (from.updatedSpouse && from.updatedSpouse.updateStatusInCanada)
-        ? 'Y'
-        : 'N';
+    accountHolder.selectedPersonalInfoChange = from.accountChangeOptions.personInfoUpdate ? 'Y' : 'N';
+    accountHolder.selectedStatusChange = from.applicant.updateStatusInCanada ? 'Y' : 'N';
 
     // Full Name
     accountHolder.name = this.convertName(from.applicant);
