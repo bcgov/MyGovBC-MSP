@@ -167,13 +167,11 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   checkRemove() {
     let valid = true;
     // Must choose a cancellation reason
-    valid = valid && this.removedSpouse.cancellationReason !== undefined
-      && this.removedSpouse.cancellationReason !== null;
+    valid = valid && this.isSet(this.removedSpouse.cancellationReason)
 
     // If they are divorced/separated they must upload at least one document
     if (this.removedSpouse.cancellationReason === CancellationReasons.SeparatedDivorced) {
-      valid = valid && this.removedSpouse.hasCurrentMailingAddress !== undefined
-        && this.removedSpouse.hasCurrentMailingAddress !== null
+      valid = valid && this.isSet(this.removedSpouse.hasCurrentMailingAddress)
         && this.removedSpouse.removedSpouseDueToDivorceDoc
         && this.removedSpouse.removedSpouseDueToDivorceDoc.images
         && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
@@ -184,8 +182,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
       || this.removedSpouse.cancellationReason === CancellationReasons.Deceased
       || this.removedSpouse.cancellationReason === CancellationReasons.Incarcerated
       || this.removedSpouse.cancellationReason === CancellationReasons.RemoveFromAccountButStillMarriedOrCommomLaw) {
-      valid = valid && this.removedSpouse.cancellationDate !== undefined
-        && this.removedSpouse.cancellationDate !== null
+      valid = valid && this.isSet(this.removedSpouse.cancellationDate)
         && this.removedSpouse.cancellationDate <= this.dateToday
         && this.removedSpouse.cancellationDate > this.removedSpouse.dateOfBirth;
     }
