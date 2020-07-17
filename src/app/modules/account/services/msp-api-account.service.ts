@@ -822,6 +822,16 @@ export class MspApiAccountService extends AbstractHttpService {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
     }
 
+    if (from.hasDischarge) {
+      to.willBeAway = WillBeAwayTypeFactory.make();
+      to.willBeAway.armedDischargeDate = format(
+        from.dischargeDate,
+        this.ISO8601DateFormat
+        );
+      to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
+      to.willBeAway.isFullTimeStudent = from.relationship === Relationship.Child19To24 ? 'Y' : 'N';
+    }
+
     return to;
   }
 
@@ -996,6 +1006,17 @@ export class MspApiAccountService extends AbstractHttpService {
     } else if (from.knownMailingAddress === false) {
       to.mailingAddress = this.unknownAddress();
     }
+
+    if (from.hasDischarge) {
+      to.willBeAway = WillBeAwayTypeFactory.make();
+      to.willBeAway.armedDischargeDate = format(
+        from.dischargeDate,
+        this.ISO8601DateFormat
+        );
+      to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
+      to.willBeAway.isFullTimeStudent = from.relationship === Relationship.Child19To24 ? 'Y' : 'N';
+    }
+
     return to;
   }
 
@@ -1138,17 +1159,6 @@ export class MspApiAccountService extends AbstractHttpService {
           from.planOnBeingOutOfBCRecord.location;
       }
     }
-
-    // Have they been released from the Canadian Armed Forces or an Institution?
-    if (from.hasDischarge) {
-      to.willBeAway = WillBeAwayTypeFactory.make();
-      to.willBeAway.armedDischargeDate = format(
-        from.dischargeDate,
-        this.ISO8601DateFormat
-      );
-      to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
-      to.willBeAway.isFullTimeStudent = 'N';
-    }
   }
 
   private populateNewBeneficiaryDetailsForSpouse(
@@ -1232,17 +1242,6 @@ export class MspApiAccountService extends AbstractHttpService {
         to.outsideBCinFuture.destination =
           from.planOnBeingOutOfBCRecord.location;
       }
-    }
-
-    // Have they been released from the Canadian Armed Forces or an Institution?
-    if (from.hasDischarge) {
-      to.willBeAway = WillBeAwayTypeFactory.make();
-      to.willBeAway.armedDischargeDate = format(
-        from.dischargeDate,
-        this.ISO8601DateFormat
-      );
-      to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
-      to.willBeAway.isFullTimeStudent = 'N';
     }
   }
 
