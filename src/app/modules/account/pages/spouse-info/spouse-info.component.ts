@@ -130,7 +130,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   }
 
   get showAddedSpouseBottomButtons(): boolean {
-    return this.accountApp.addedSpouse.immigrationStatusChange !== undefined && this.accountApp.addedSpouse.immigrationStatusChange !== false;
+    return this.accountApp.addedSpouse.immigrationStatusChange !== undefined;
   }
 
   get phns(): string[] {
