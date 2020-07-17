@@ -6,7 +6,7 @@ import { environment } from '../../../../../environments/environment';
 import { Relationship } from 'app/models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { formatDateField } from '../../helpers/date';
-import { isBefore, isAfter, subDays, addDays, addMonths, subMonths } from 'date-fns';
+import { isBefore, subDays, addDays, addMonths } from 'date-fns';
 
 // TO BE removed - differenece need to be added to msp-core moving-info so that it will work with account
 @Component({
@@ -55,6 +55,12 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   }
   adoptionDateErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be after the birthdate.'
+  }
+  studiesBeginDateErrorMessage: ErrorMessage = {
+    invalidRange: 'Studies must begin after departure date and before date of completion.'
+  }
+  studiesFinishedDateErrorMessage: ErrorMessage = {
+    invalidRange: "Studies must end after departure date and today's date."
   }
   dateToday: Date = new Date();
 
@@ -219,13 +225,13 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     if (this.person.returnDateDuring12MonthsDate
       && this.person.returnDateDuring12MonthsDate instanceof Date
       && isBefore(this.person.returnDateDuring12MonthsDate, this.dateToday)) {
-        return subDays(this.person.returnDateDuring12MonthsDate, 31);
-      } else {
-        return this.dateToday;
-      }
+      return subDays(this.person.returnDateDuring12MonthsDate, 31);
+    } else {
+      return this.dateToday;
     }
+  }
 
-    get returnDateDuring12MonthsStartRange() {
+  get returnDateDuring12MonthsStartRange() {
     if (this.person.departureDateDuring12MonthsDate
       && this.person.departureDateDuring12MonthsDate instanceof Date) {
       return addDays(this.person.departureDateDuring12MonthsDate, 31)
@@ -241,18 +247,37 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
 
   // Latest they can leave is 31 days before six months from now
   get departureDateDuring6MonthsEndRange() {
-        return subDays(addMonths(this.dateToday, 6), 31);
-    }
+    return subDays(addMonths(this.dateToday, 6), 31);
+  }
 
-    // Earliest they can get back is 31 days after the departure date
-    get returnDateDuring6MonthsStartRange() {
-      if (this.person.departureDateDuring6MonthsDate
+  // Earliest they can get back is 31 days after the departure date
+  get returnDateDuring6MonthsStartRange() {
+    if (this.person.departureDateDuring6MonthsDate
       && this.person.departureDateDuring6MonthsDate instanceof Date) {
       return addDays(this.person.departureDateDuring6MonthsDate, 31)
     } else {
       return addDays(this.dateToday, 31);
     }
+  }
 
+  // Can't start before you've left
+  get studiesBeginDateStartRange() {
+    return !!this.person.studiesDepartureDate && addDays(this.person.studiesDepartureDate, 1);
+  }
+
+  // Can't begin after you finish
+  get studiesBeginDateEndRange() {
+    return !!this.person.studiesFinishedDate ? subDays(this.person.studiesFinishedDate, 1) : null;
+  }
+
+  // Can't finish before you begin or today
+  get studiesFinishedDateStartRange() {
+    return !!this.person.studiesBeginDate && isBefore(this.dateToday, this.person.studiesBeginDate) ? addDays(this.person.studiesBeginDate, 1) : addDays(this.dateToday, 1);
+  }
+
+  // Placeholder incase we need more validation for the end date
+  get studiesFinishedDateEndRange() {
+    return null;
   }
 
   get showlivedInBC() {
