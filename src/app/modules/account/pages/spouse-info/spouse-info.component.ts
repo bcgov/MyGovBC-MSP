@@ -147,64 +147,45 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     // Don't bother checking if they aren't adding a spouse
     if (this.accountApp.hasSpouseAdded === true) {
       // Ticked "...active Medical Services Plan coverage?"
-      valid = valid && this.addedSpouse.immigrationStatusChange !== undefined
-        && this.addedSpouse.immigrationStatusChange !== null
+      valid = valid && this.isSet(this.addedSpouse.immigrationStatusChange)
         // Ticked gender radio
-        && this.addedSpouse.gender !== undefined
-        && this.addedSpouse.gender !== null
+        && this.isSet(this.addedSpouse.gender)
         // Ticked "Has your spouse's name changed due to marriage?"
-        && this.addedSpouse.updateNameDueToMarriage !== undefined
-        && this.addedSpouse.updateNameDueToMarriage !== null;
+        && this.isSet(this.addedSpouse.updateNameDueToMarriage)
 
       // Ticked yes to name changed due to marriage
       if (this.addedSpouse.updateNameDueToMarriage === true) {
         // Check that they inputted a requested lastname and that they uploaded at least one supporting doc
-        valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName !== undefined
-          && this.addedSpouse.updateNameDueToMarriageRequestedLastName !== null
+        valid = valid && this.isSet(this.addedSpouse.updateNameDueToMarriageRequestedLastName)
           && typeof this.addedSpouse.updateNameDueToMarriageRequestedLastName === 'string'
           && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
           && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
-          && this.addedSpouse.updateNameDueToMarriageDocType.images !== undefined
-          && this.addedSpouse.updateNameDueToMarriageDocType.images !== null
+          && this.isSet(this.addedSpouse.updateNameDueToMarriageDocType.images)
           && this.addedSpouse.updateNameDueToMarriageDocType.images.length > 0;
       }
 
       // If they don't have existing coverage
       if (this.addedSpouse.immigrationStatusChange === false) {
         // All radio buttons visible at this point have been ticked, and one update doc has been uploaded
-        valid = valid && this.addedSpouse.updateStatusInCanadaDocType !== undefined
-          && this.addedSpouse.updateStatusInCanadaDocType !== null
-          && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined
-          && this.addedSpouse.updateStatusInCanadaDocType.images !== null
+        valid = valid && this.isSet(this.addedSpouse.updateStatusInCanadaDocType)
+          && this.isSet(this.addedSpouse.updateStatusInCanadaDocType.images)
           && this.addedSpouse.updateStatusInCanadaDocType.images.length > 0
-          && this.addedSpouse.hasNameChange !== undefined
-          && this.addedSpouse.hasNameChange !== null
-          && this.addedSpouse.livedInBCSinceBirth !== undefined
-          && this.addedSpouse.livedInBCSinceBirth !== null
-          && this.addedSpouse.madePermanentMoveToBC !== undefined
-          && this.addedSpouse.madePermanentMoveToBC !== null
-          && this.addedSpouse.declarationForOutsideOver30Days !== undefined
-          && this.addedSpouse.declarationForOutsideOver30Days !== null
-          && this.addedSpouse.declarationForOutsideOver60Days !== undefined
-          && this.addedSpouse.declarationForOutsideOver60Days !== null
-          && this.addedSpouse.hasBeenReleasedFromArmedForces !== undefined
-          && this.addedSpouse.hasBeenReleasedFromArmedForces !== null;
-
+          && this.isSet(this.addedSpouse.hasNameChange)
+          && this.isSet(this.addedSpouse.livedInBCSinceBirth)
+          && this.isSet(this.addedSpouse.madePermanentMoveToBC)
+          && this.isSet(this.addedSpouse.declarationForOutsideOver30Days)
+          && this.isSet(this.addedSpouse.declarationForOutsideOver60Days)
+          && this.isSet(this.addedSpouse.hasBeenReleasedFromArmedForces)
         // Yes to name change "due to legal name change"
         if (this.addedSpouse.hasNameChange === true) {
-          valid = valid && this.addedSpouse.nameChangeDocs !== undefined
-            && this.addedSpouse.nameChangeDocs !== null
-            && this.addedSpouse.nameChangeDocs.images !== undefined
-            && this.addedSpouse.nameChangeDocs.images !== null
+          valid = valid && this.isSet(this.addedSpouse.nameChangeDocs)
+            && this.isSet(this.addedSpouse.nameChangeDocs.images)
             && this.addedSpouse.nameChangeDocs.images.length > 0
-            && this.addedSpouse.hasNameChangeAdditional !== undefined
-            && this.addedSpouse.hasNameChangeAdditional !== null;
+            && this.isSet(this.addedSpouse.hasNameChangeAdditional);
           // Yes to an additional document
           if (this.addedSpouse.hasNameChangeAdditional === true) {
-            valid = valid && this.addedSpouse.nameChangeAdditionalDocs !== undefined
-              && this.addedSpouse.nameChangeAdditionalDocs !== null
-              && this.addedSpouse.nameChangeAdditionalDocs.images !== undefined
-              && this.addedSpouse.nameChangeAdditionalDocs.images !== null
+            valid = valid && this.isSet(this.addedSpouse.nameChangeAdditionalDocs)
+              && this.isSet(this.addedSpouse.nameChangeAdditionalDocs.images)
               && this.addedSpouse.nameChangeAdditionalDocs.images.length > 0;
           }
         }
@@ -212,44 +193,32 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
         // No to "lived in BC since birth"
         if (this.addedSpouse.livedInBCSinceBirth === false) {
           // Check they inputted the province or country they came from and the date
-          valid = valid && this.addedSpouse.arrivalToBCDate !== undefined
-            && this.addedSpouse.arrivalToBCDate !== null
-            && this.addedSpouse.movedFromProvinceOrCountry !== undefined
-            && this.addedSpouse.movedFromProvinceOrCountry !== null
+          valid = valid && this.isSet(this.addedSpouse.arrivalToBCDate)
+            && this.isSet(this.addedSpouse.movedFromProvinceOrCountry)
             && typeof this.addedSpouse.movedFromProvinceOrCountry === 'string'
             && this.addedSpouse.movedFromProvinceOrCountry.length > 0
         }
 
         // Yes to "more than 30 days in the last 12 months"
         if (this.addedSpouse.declarationForOutsideOver30Days === true) {
-          valid = valid && this.addedSpouse.departureDateDuring12MonthsDate !== undefined
-            && this.addedSpouse.departureDateDuring12MonthsDate !== null
-            && this.addedSpouse.returnDateDuring12MonthsDate !== undefined
-            && this.addedSpouse.returnDateDuring12MonthsDate !== null
-            && this.addedSpouse.departureReason12Months !== undefined
-            && this.addedSpouse.departureReason12Months !== null
-            && this.addedSpouse.departureDestination12Months !== undefined
-            && this.addedSpouse.departureDestination12Months !== null;
+          valid = valid && this.isSet(this.addedSpouse.departureDateDuring12MonthsDate)
+            && this.isSet(this.addedSpouse.returnDateDuring12MonthsDate)
+            && this.isSet(this.addedSpouse.departureReason12Months)
+            && this.isSet(this.addedSpouse.departureDestination12Months)
         }
 
         // Yes to "more than 30 days in the next 6 months"
         if (this.addedSpouse.declarationForOutsideOver60Days === true) {
-          valid = valid && this.addedSpouse.departureDateDuring6MonthsDate !== undefined
-            && this.addedSpouse.departureDateDuring6MonthsDate !== null
-            && this.addedSpouse.returnDateDuring6MonthsDate !== undefined
-            && this.addedSpouse.returnDateDuring6MonthsDate !== null
-            && this.addedSpouse.departureReason !== undefined
-            && this.addedSpouse.departureReason !== null
-            && this.addedSpouse.departureDestination !== undefined
-            && this.addedSpouse.departureDestination !== null;
+          valid = valid && this.isSet(this.addedSpouse.departureDateDuring6MonthsDate)
+            && this.isSet(this.addedSpouse.returnDateDuring6MonthsDate)
+            && this.isSet(this.addedSpouse.departureReason)
+            && this.isSet(this.addedSpouse.departureDestination)
         }
 
         // Yes to "released from Canadian Armed Forces"
         if (this.addedSpouse.hasBeenReleasedFromArmedForces === true) {
-          valid = valid && this.addedSpouse.dischargeDate !== undefined
-            && this.addedSpouse.dischargeDate !== null
-            && this.addedSpouse.nameOfInstitute !== undefined
-            && this.addedSpouse.nameOfInstitute !== null;
+          valid = valid && this.isSet(this.addedSpouse.dischargeDate)
+            && this.isSet(this.addedSpouse.nameOfInstitute)
         }
       }
     }
