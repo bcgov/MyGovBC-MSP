@@ -120,6 +120,10 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     }
   }
 
+  get dateToday() {
+    return new Date();
+  }
+
   get phns(): string[] {
     const phns = this.dataService.accountApp.allPersons
       .filter(x => x)
@@ -314,21 +318,31 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   checkRemove() {
     let valid = true;
     this.removedChildren.forEach(removedChild => {
-      valid = valid && removedChild.cancellationReason !== undefined;
-      valid = valid && removedChild.cancellationReason != null;
+      // Must choose a cancellation reason
+      valid = valid && this.isSet(removedChild.cancellationReason);
 
       // For these options there is only a mandatory date
       if (removedChild.cancellationReason === CancellationReasons.ArmedForces
       || removedChild.cancellationReason === CancellationReasons.Deceased
       || removedChild.cancellationReason === CancellationReasons.Incarcerated) {
-        valid = valid && removedChild.cancellationDate instanceof Date;
+        valid = valid && this.isSet(removedChild.cancellationDate)
+          && removedChild.cancellationDate instanceof Date;
       }
 
       // For this option there is a mandatory date and radio button
       if (removedChild.cancellationReason === CancellationReasons.NoLongerInFullTimeStudies) {
-        valid = valid && removedChild.cancellationDate instanceof Date && removedChild.hasCurrentMailingAddress !== undefined;
+        valid = valid && this.isSet(removedChild.cancellationDate)
+          && removedChild.cancellationDate instanceof Date
+          // mailing address validation is handled by the common component
+          && this.isSet(removedChild.hasCurrentMailingAddress);
+      }
+
+      // Cannot proceed with this option
+      if (removedChild.cancellationReason === CancellationReasons.OutOfProvinceOrCountry) {
+        valid = false;
       }
     })
+
     return valid;
   }
 

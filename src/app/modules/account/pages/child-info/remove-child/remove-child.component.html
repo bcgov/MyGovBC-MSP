@@ -31,7 +31,9 @@
       <common-date
         name="2"
         label="Date no longer in full time studies"
-        [restrictDate]="'past'"
+        [dateRangeStart]="child.dob"
+        [dateRangeEnd]="dateToday"
+        [errorMessage]="cancellationDateErrorMessage"
         [(ngModel)]="child.cancellationDate"
         (ngModelChange)="this.dataService.saveMspAccountApp();">
       </common-date>
@@ -78,7 +80,9 @@
     <common-date
       name="3"
       label="Date of deceased"
-      [restrictDate]="'past'"
+      [dateRangeStart]="child.dob"
+      [dateRangeEnd]="dateToday"
+      [errorMessage]="cancellationDateErrorMessage"
       [(ngModel)]="child.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();">
     </common-date>
@@ -96,7 +100,9 @@
     <common-date
       name="5"
       label="Date child became Armed Forces"
-      [restrictDate]="'past'"
+      [dateRangeStart]="child.dob"
+      [dateRangeEnd]="dateToday"
+      [errorMessage]="cancellationDateErrorMessage"
       [(ngModel)]="child.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();">
     </common-date>
@@ -108,7 +114,9 @@
     <common-date
       name="6"
       label="Date incarcerated"
-      [restrictDate]="'past'"
+      [dateRangeStart]="child.dob"
+      [dateRangeEnd]="dateToday"
+      [errorMessage]="cancellationDateErrorMessage"
       [(ngModel)]="child.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();">
     </common-date>
