@@ -1,10 +1,10 @@
 <ng-content select="[sectionTitleInfo]"></ng-content>
 <div class="d-flex custom-container align-items-stretch">
   <div class="form-group col-sm-8 pl-0">
-    <label for="supportDocType" class="control-label">Document Type</label><br>
+    <label for="supportDocType_{{objectId}}" class="control-label">Document Type</label><br>
     <select class="custom-select"
       #docTypeRef="ngModel"
-      id="supportDocType"
+      id="supportDocType_{{objectId}}"
       [(ngModel)]="documentType"
       [ngModelOptions]="{standalone: true}"
       (ngModelChange)="documentType = $event;"

@@ -1,14 +1,13 @@
 // Edit your app's name below
-def APP_NAME = 'msp'
+def APP_NAME = 'msp-deam'
 
-def CHAINED_ANGULAR_BUILD = 'angular-builder'
+def CHAINED_ANGULAR_BUILD = 'angular-builder-deam'
 
 // Edit your environment TAG names below
 def TAG_NAMES = ['dev', 'test', 'prod']
-def TAG_NAMES_BACKUP = ['devbackup', 'testbackup', 'prodbackup']
 
 // You shouldn't have to edit these if you're following the conventions
-def NGINX_BUILD_CONFIG = 'nginx-runtime'
+def NGINX_BUILD_CONFIG = 'nginx-runtime-deam'
 def BUILD_CONFIG = APP_NAME + '-build'
 def IMAGESTREAM_NAME = APP_NAME 
 
@@ -43,16 +42,14 @@ node {
   stage('deploy-' + TAG_NAMES[1]) {
     input "Deploy to " + TAG_NAMES[1] + "?"
     echo "Deploy to " + TAG_NAMES[1] + " " + IMAGESTREAM_NAME + ":" + "${IMAGE_HASH}"
-    openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES_BACKUP[1], srcStream: IMAGESTREAM_NAME, srcTag: TAG_NAMES[1]
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[1], srcStream: IMAGESTREAM_NAME, srcTag: "${IMAGE_HASH}"
   }
 }
 
 node {
-  stage('deploy-'  + TAG_NAMES[2]) {
+  stage('deploy-' + TAG_NAMES[2]) {
     input "Deploy to " + TAG_NAMES[2] + "?"
     echo "Deploy to " + TAG_NAMES[2] + " " + IMAGESTREAM_NAME + ":" + "${IMAGE_HASH}"
-    openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES_BACKUP[2], srcStream: IMAGESTREAM_NAME, srcTag: TAG_NAMES[2]
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[2], srcStream: IMAGESTREAM_NAME, srcTag: "${IMAGE_HASH}"
   }
 }

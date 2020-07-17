@@ -216,8 +216,30 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   checkAdd() {
     let valid = true;
     this.addedChildren.forEach(addedChild => {
+      // Radio for newly adopted must be ticked
+      valid = addedChild.newlyAdopted !== undefined && addedChild.newlyAdopted !== null;
+
+      // If ticked yes, adoption date must be present as well
       if (addedChild.newlyAdopted) {
-        valid = valid && addedChild.adoptedDate !== undefined && addedChild.adoptedDate != null;
+        valid = valid && addedChild.adoptedDate !== undefined && addedChild.adoptedDate !== null;
+      }
+      // Radio for discharge must be ticked
+      valid = valid
+        && addedChild.hasBeenReleasedFromArmedForces !== undefined
+        && addedChild.hasBeenReleasedFromArmedForces !== null;
+
+      // If ticked yes, the date and institution name must be present as well
+      if (addedChild.hasBeenReleasedFromArmedForces) {
+        valid = valid && addedChild.dischargeDate !== undefined && addedChild.dischargeDate !== null;
+        valid = valid && addedChild.nameOfInstitute !== undefined && addedChild.nameOfInstitute !== null;
+      }
+      if (addedChild.hasBeenReleasedFromArmedForces === false){
+        addedChild.dischargeDate = null;
+        addedChild.nameOfInstitute = null;
+      }
+      if (addedChild.declarationForOutsideOver60Days === false){
+        addedChild.departureReason = null;
+        addedChild.departureDestination = null;
       }
     })
     return valid;
@@ -228,6 +250,18 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     this.removedChildren.forEach(removedChild => {
       valid = valid && removedChild.cancellationReason !== undefined;
       valid = valid && removedChild.cancellationReason != null;
+
+      // For these options there is only a mandatory date
+      if (removedChild.cancellationReason === CancellationReasons.ArmedForces
+      || removedChild.cancellationReason === CancellationReasons.Deceased
+      || removedChild.cancellationReason === CancellationReasons.Incarcerated) {
+        valid = valid && removedChild.cancellationDate instanceof Date;
+      }
+
+      // For this option there is a mandatory date and radio button
+      if (removedChild.cancellationReason === CancellationReasons.NoLongerInFullTimeStudies) {
+        valid = valid && removedChild.cancellationDate instanceof Date && removedChild.hasCurrentMailingAddress !== undefined;
+      }
     })
     return valid;
   }
