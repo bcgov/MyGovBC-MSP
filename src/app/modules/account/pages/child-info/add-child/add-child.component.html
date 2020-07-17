@@ -17,7 +17,7 @@
 </div>
 
 <div *ngIf="child.relationship !== undefined && hasActiveMedicalCoverage !== undefined">
-  <div *ngIf="hasActiveMedicalCoverage == false">
+  <div *ngIf="hasActiveMedicalCoverage === false">
     <!-- Child's status in Canada-->
     <div class="form-group col-sm-6 add-document">
       <msp-canadian-status

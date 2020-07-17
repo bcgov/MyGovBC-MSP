@@ -69,12 +69,6 @@ export class AddChildComponent extends Base implements OnInit {
     this.personChange.emit(this.child);
   }
 
-  setChildRelationship(val: Relationship) {
-    this.child.relationship = val;
-    this.personChange.emit(this.child);
-  }
-
-  // TODO: Is this setter method necessary?
   set gender(evt: any) {
     this.child.gender = evt;
     this.personChange.emit(evt);

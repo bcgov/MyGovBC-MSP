@@ -216,32 +216,130 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   checkAdd() {
     let valid = true;
     this.addedChildren.forEach(addedChild => {
-      // Radio for newly adopted must be ticked
-      valid = addedChild.newlyAdopted !== undefined && addedChild.newlyAdopted !== null;
-
-      // If ticked yes, adoption date must be present as well
-      if (addedChild.newlyAdopted) {
-        valid = valid && addedChild.adoptedDate !== undefined && addedChild.adoptedDate !== null;
-      }
-      // Radio for discharge must be ticked
-      valid = valid
+      // Ticked "How old is the child?"
+      valid = valid && addedChild.relationship !== undefined
+        && addedChild.relationship !== null
+        // Ticked "Does your child have active MSP coverage?"
+        && addedChild.hasActiveMedicalServicePlan !== undefined
+        && addedChild.hasActiveMedicalServicePlan !== null
+        // Ticked "Gender"
+        && addedChild.gender !== undefined
+        && addedChild.gender !== null
+        // Ticked "Is this child newly adopted?"
+        && addedChild.newlyAdopted !== undefined
+        && addedChild.newlyAdopted !== null
+        // Ticked "Is this a permanent move to BC for this child?"
+        && addedChild.madePermanentMoveToBC !== undefined
+        && addedChild.madePermanentMoveToBC !== null
+        // Ticked "more than 30 days in the last 12 months"
+        && addedChild.declarationForOutsideOver30Days !== undefined
+        && addedChild.declarationForOutsideOver30Days !== null
+        // Ticked "more than 30 days in the next 6 months"
+        && addedChild.declarationForOutsideOver60Days !== undefined
+        && addedChild.declarationForOutsideOver60Days !== null
+        // Ticked "Has this child been released from the Canadian Armed Forces?"
         && addedChild.hasBeenReleasedFromArmedForces !== undefined
         && addedChild.hasBeenReleasedFromArmedForces !== null;
 
-      // If ticked yes, the date and institution name must be present as well
-      if (addedChild.hasBeenReleasedFromArmedForces) {
-        valid = valid && addedChild.dischargeDate !== undefined && addedChild.dischargeDate !== null;
-        valid = valid && addedChild.nameOfInstitute !== undefined && addedChild.nameOfInstitute !== null;
+      // Ticked "19 - 24" under "How old is the child?"
+      if (addedChild.relationship === Relationship.Child19To24) {
+        // Filled out school name
+        valid = valid && addedChild.schoolName !== undefined
+          && addedChild.schoolName !== null
+          && typeof addedChild.schoolName === 'string'
+          && addedChild.schoolName.length > 0
+          // Ticked "Is this school outside British Columbia?"
+          && addedChild.schoolOutsideOfBC !== undefined
+          && addedChild.schoolOutsideOfBC !== null
+          // Filled out school address (common-address handles finer validation here)
+          && addedChild.schoolAddress !== undefined
+          && addedChild.schoolAddress !== null
+          // Filled out "Date studies will begin"
+          && addedChild.studiesBeginDate !== undefined
+          && addedChild.studiesBeginDate !== null
+          // Filled out "Date studies will finish"
+          && addedChild.studiesFinishedDate !== undefined
+          && addedChild.studiesFinishedDate !== null
+          // Ticked "reside in BC after completing study in this school?"
+          && addedChild.inBCafterStudies !== undefined
+          && addedChild.inBCafterStudies !== null
+
+        if (addedChild.schoolOutsideOfBC === true) {
+          valid = valid && !!addedChild.studiesDepartureDate;
+        }
       }
-      if (addedChild.hasBeenReleasedFromArmedForces === false){
-        addedChild.dischargeDate = null;
-        addedChild.nameOfInstitute = null;
+
+      // Ticked no to "active MSP coverage"
+      if (addedChild.hasActiveMedicalServicePlan === false) {
+        // Check that they uploaded at least one supporting doc
+        valid = valid && addedChild.status !== undefined
+          && addedChild.status !== null
+          && addedChild.updateStatusInCanadaDocType.images !== undefined
+          && addedChild.updateStatusInCanadaDocType.images !== null
+          && addedChild.updateStatusInCanadaDocType.images.length > 0
+          && addedChild.hasNameChange !== undefined
+          && addedChild.hasNameChange !== null;
+
+          if (addedChild.hasNameChange === true) {
+          valid = valid && addedChild.nameChangeDocs
+          && addedChild.nameChangeDocs.images !== undefined
+          && addedChild.nameChangeDocs.images !== null
+          && addedChild.nameChangeDocs.images.length > 0;
+        }
       }
-      if (addedChild.declarationForOutsideOver60Days === false){
-        addedChild.departureReason = null;
-        addedChild.departureDestination = null;
+
+      // No to "lived in BC since birth"
+      if (addedChild.livedInBCSinceBirth === false) {
+        // Check they inputted the province or country they came from and the date
+        valid = valid && addedChild.arrivalToBCDate !== undefined
+          && addedChild.arrivalToBCDate !== null
+          && addedChild.movedFromProvinceOrCountry !== undefined
+          && addedChild.movedFromProvinceOrCountry !== null
+          && typeof addedChild.movedFromProvinceOrCountry === 'string'
+          && addedChild.movedFromProvinceOrCountry.length > 0;
+      }
+
+      // Yes to "newly adopted"
+      if (addedChild.newlyAdopted === true) {
+        // Check they inputted the province or country they came from and the date
+        valid = valid && addedChild.adoptedDate !== undefined
+        && addedChild.adoptedDate !== null
+      }
+
+      // Yes to "more than 30 days in the last 12 months"
+      if (addedChild.declarationForOutsideOver30Days === true) {
+        valid = valid && addedChild.departureDateDuring12MonthsDate !== undefined
+          && addedChild.departureDateDuring12MonthsDate !== null
+          && addedChild.returnDateDuring12MonthsDate !== undefined
+          && addedChild.returnDateDuring12MonthsDate !== null
+          && addedChild.departureReason12Months !== undefined
+          && addedChild.departureReason12Months !== null
+          && addedChild.departureDestination12Months !== undefined
+          && addedChild.departureDestination12Months !== null;
+      }
+
+      // Yes to "more than 30 days in the next 6 months"
+      if (addedChild.declarationForOutsideOver60Days === true) {
+        valid = valid && addedChild.departureDateDuring6MonthsDate !== undefined
+          && addedChild.departureDateDuring6MonthsDate !== null
+          && addedChild.returnDateDuring6MonthsDate !== undefined
+          && addedChild.returnDateDuring6MonthsDate !== null
+          && addedChild.departureReason !== undefined
+          && addedChild.departureReason !== null
+          && addedChild.departureDestination !== undefined
+          && addedChild.departureDestination !== null;
+      }
+
+
+      // Yes to "released from Canadian Armed Forces"
+      if (addedChild.hasBeenReleasedFromArmedForces === true) {
+        valid = valid && addedChild.dischargeDate !== undefined
+          && addedChild.dischargeDate !== null
+          && addedChild.nameOfInstitute !== undefined
+          && addedChild.nameOfInstitute !== null;
       }
     })
+
     return valid;
   }
 
