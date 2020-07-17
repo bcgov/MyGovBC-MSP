@@ -143,19 +143,84 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
 
   checkAdd() {
     let valid = true;
+
+    // Don't bother checking if they aren't adding a spouse
     if (this.accountApp.hasSpouseAdded === true) {
-      valid = valid && this.addedSpouse.immigrationStatusChange !== undefined;
-    }
-    valid = valid && this.addedSpouse.gender !== undefined
-      && this.addedSpouse.updateNameDueToMarriage !== undefined;
-    if (this.addedSpouse.updateStatusInCanada === true) {
-      valid = valid && this.addedSpouse.updateStatusInCanadaDocType.images !== undefined;
-    }
-    if (this.addedSpouse.updateNameDueToMarriage === true) {
-      valid = valid && this.addedSpouse.updateNameDueToMarriageRequestedLastName
-        && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
-        && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
-        && this.addedSpouse.nameChangeDocs.images.length > 0;
+      // Ticked "...active Medical Services Plan coverage?"
+      valid = valid && this.isSet(this.addedSpouse.immigrationStatusChange)
+        // Ticked gender radio
+        && this.isSet(this.addedSpouse.gender)
+        // Ticked "Has your spouse's name changed due to marriage?"
+        && this.isSet(this.addedSpouse.updateNameDueToMarriage)
+
+      // Ticked yes to name changed due to marriage
+      if (this.addedSpouse.updateNameDueToMarriage === true) {
+        // Check that they inputted a requested lastname and that they uploaded at least one supporting doc
+        valid = valid && this.isSet(this.addedSpouse.updateNameDueToMarriageRequestedLastName)
+          && typeof this.addedSpouse.updateNameDueToMarriageRequestedLastName === 'string'
+          && this.addedSpouse.updateNameDueToMarriageRequestedLastName.length > 0
+          && this.addedSpouse.updateNameDueToMarriageRequestedLastName.match(/\d+/g) === null
+          && this.isSet(this.addedSpouse.updateNameDueToMarriageDocType.images)
+          && this.addedSpouse.updateNameDueToMarriageDocType.images.length > 0;
+      }
+
+      // If they don't have existing coverage
+      if (this.addedSpouse.immigrationStatusChange === false) {
+        // All radio buttons visible at this point have been ticked, and one update doc has been uploaded
+        valid = valid && this.isSet(this.addedSpouse.updateStatusInCanadaDocType)
+          && this.isSet(this.addedSpouse.updateStatusInCanadaDocType.images)
+          && this.addedSpouse.updateStatusInCanadaDocType.images.length > 0
+          && this.isSet(this.addedSpouse.hasNameChange)
+          && this.isSet(this.addedSpouse.livedInBCSinceBirth)
+          && this.isSet(this.addedSpouse.madePermanentMoveToBC)
+          && this.isSet(this.addedSpouse.declarationForOutsideOver30Days)
+          && this.isSet(this.addedSpouse.declarationForOutsideOver60Days)
+          && this.isSet(this.addedSpouse.hasBeenReleasedFromArmedForces)
+        // Yes to name change "due to legal name change"
+        if (this.addedSpouse.hasNameChange === true) {
+          valid = valid && this.isSet(this.addedSpouse.nameChangeDocs)
+            && this.isSet(this.addedSpouse.nameChangeDocs.images)
+            && this.addedSpouse.nameChangeDocs.images.length > 0
+            && this.isSet(this.addedSpouse.hasNameChangeAdditional);
+          // Yes to an additional document
+          if (this.addedSpouse.hasNameChangeAdditional === true) {
+            valid = valid && this.isSet(this.addedSpouse.nameChangeAdditionalDocs)
+              && this.isSet(this.addedSpouse.nameChangeAdditionalDocs.images)
+              && this.addedSpouse.nameChangeAdditionalDocs.images.length > 0;
+          }
+        }
+
+        // No to "lived in BC since birth"
+        if (this.addedSpouse.livedInBCSinceBirth === false) {
+          // Check they inputted the province or country they came from and the date
+          valid = valid && this.isSet(this.addedSpouse.arrivalToBCDate)
+            && this.isSet(this.addedSpouse.movedFromProvinceOrCountry)
+            && typeof this.addedSpouse.movedFromProvinceOrCountry === 'string'
+            && this.addedSpouse.movedFromProvinceOrCountry.length > 0
+        }
+
+        // Yes to "more than 30 days in the last 12 months"
+        if (this.addedSpouse.declarationForOutsideOver30Days === true) {
+          valid = valid && this.isSet(this.addedSpouse.departureDateDuring12MonthsDate)
+            && this.isSet(this.addedSpouse.returnDateDuring12MonthsDate)
+            && this.isSet(this.addedSpouse.departureReason12Months)
+            && this.isSet(this.addedSpouse.departureDestination12Months)
+        }
+
+        // Yes to "more than 30 days in the next 6 months"
+        if (this.addedSpouse.declarationForOutsideOver60Days === true) {
+          valid = valid && this.isSet(this.addedSpouse.departureDateDuring6MonthsDate)
+            && this.isSet(this.addedSpouse.returnDateDuring6MonthsDate)
+            && this.isSet(this.addedSpouse.departureReason)
+            && this.isSet(this.addedSpouse.departureDestination)
+        }
+
+        // Yes to "released from Canadian Armed Forces"
+        if (this.addedSpouse.hasBeenReleasedFromArmedForces === true) {
+          valid = valid && this.isSet(this.addedSpouse.dischargeDate)
+            && this.isSet(this.addedSpouse.nameOfInstitute)
+        }
+      }
     }
     return valid;
   }
