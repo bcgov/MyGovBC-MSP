@@ -41,16 +41,6 @@
     </div>
   </div>
 
-  <!-- Did they request an update to their status? -->
-  <div class="row" *ngIf="person.updateStatusInCanada === true">
-    <div class="col-sm-4">
-      {{lang('./en/index.js').updateStatusInCanadaLabel}}
-    </div>
-    <div class="col-sm-8">
-      <strong>{{lang('./en/index.js').requestedLabel}}</strong>
-    </div>
-  </div>
-
   <!-- PHN -->
   <div class="row" *ngIf="person.previous_phn">
     <div class="col-sm-4">

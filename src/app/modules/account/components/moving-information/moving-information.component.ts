@@ -299,12 +299,13 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     );
   }
 
-  setHasBeenReleasedFromArmedForces(event: boolean) {
-    this.person.hasBeenReleasedFromArmedForces = event;
-    if (this.person.hasBeenReleasedFromArmedForces === false){
-      this.person.dischargeDate = null;
-      this.person.nameOfInstitute = null;
-    }
+  get hasBeenReleasedFromArmedForces() {
+    return this.person.hasBeenReleasedFromArmedForces;
+  }
+
+  set hasBeenReleasedFromArmedForces(val: boolean) {
+    this.person.hasBeenReleasedFromArmedForces = val;
+    this.personChange.emit(this.person);
   }
 
   setDeclarationForOutsideOver60Days(event: boolean) {

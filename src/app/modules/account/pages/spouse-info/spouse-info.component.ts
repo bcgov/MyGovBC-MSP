@@ -201,6 +201,10 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     if (this.removedSpouse.cancellationReason === CancellationReasons.OutOfProvinceOrCountry){
       valid = false;
     }
+    if (this.removedSpouse.cancellationDate) {
+      const currentDate = new Date();
+      valid = valid && this.removedSpouse.cancellationDate <= currentDate && this.removedSpouse.cancellationDate >= this.removedSpouse.dateOfBirth;
+    }
     return valid;
   }
 

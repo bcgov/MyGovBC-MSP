@@ -44,7 +44,7 @@
   <div role="dialog" aria-labelledby="q2" class="form-check mb-2">
     <common-checkbox
       [label]="'Update name - due to marriage'"
-      (dataChange)="person.updateNameDueToMarriage = $event;"
+      (dataChange)="changeUpdateNameDueToMarriage($event)"
       [data]="person.updateNameDueToMarriage">
     </common-checkbox>
   </div>
