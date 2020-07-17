@@ -820,8 +820,6 @@ export class MspApiAccountService extends AbstractHttpService {
       from.mailingAddress.postal
     ) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
-    } else {
-      to.mailingAddress = this.unknownAddress();
     }
 
     return to;
@@ -1002,8 +1000,6 @@ export class MspApiAccountService extends AbstractHttpService {
       from.mailingAddress.postal
     ) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
-    } else {
-      to.mailingAddress = this.unknownAddress();
     }
 
     return to;
@@ -1499,8 +1495,6 @@ export class MspApiAccountService extends AbstractHttpService {
       accountHolder.residenceAddress = this.convertAddress(
         from.residentialAddress
       );
-    } else {
-      accountHolder.residenceAddress = this.unknownAddress();
     }
 
     // If mailing is same as residential address, use residential address as the mailing adress.
