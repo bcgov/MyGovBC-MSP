@@ -178,14 +178,12 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     this.updatedChildren.forEach((child) => {
       // Must upload at least one doc for all updates
       if (child.updateStatusInCanada === true) {
-        valid = valid && child.updateStatusInCanadaDocType.images !== undefined
-          && child.updateStatusInCanadaDocType.images !== null
+        valid = valid && this.isSet(child.updateStatusInCanadaDocType.images)
           && child.updateStatusInCanadaDocType.images.length > 0
       }
 
       if (child.updateNameDueToNameChange === true) {
-        valid = valid && child.updateNameDueToNameChangeDocType.images !== undefined
-          && child.updateNameDueToNameChangeDocType.images !== null
+        valid = valid && this.isSet(child.updateNameDueToNameChangeDocType.images)
           && child.updateNameDueToNameChangeDocType.images.length > 0
       }
 
@@ -193,26 +191,21 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
       if (child.updateGender === true) {
         valid = valid
           // Check upload
-          && child.updateGenderDocType.images !== undefined
-          && child.updateGenderDocType.images !== null
+          && this.isSet(child.updateGenderDocType.images)
           && child.updateGenderDocType.images.length > 0
           // Check radio button
-          && child.updateGenderAdditionalDocs !== undefined
-          && child.updateGenderAdditionalDocs !== null;
+          && this.isSet(child.updateGenderAdditionalDocs);
 
         if (child.updateGenderAdditionalDocs === true) {
           // Check upload
-          valid = valid && child.updateGenderDocType2.images !== undefined
-            && child.updateGenderDocType2.images !== null
+          valid = valid && this.isSet(child.updateGenderDocType2.images)
             && child.updateGenderDocType2.images.length > 0
             // Check radio button
-            && child.updateGenderAdditionalDocs2 !== undefined
-            && child.updateGenderAdditionalDocs2 !== null;
+            && this.isSet(child.updateGenderAdditionalDocs2)
 
           if (child.updateGenderAdditionalDocs2 === true) {
             // Check upload
-            valid = valid && child.updateGenderDocType3.images !== undefined
-              && child.updateGenderDocType3.images !== null
+            valid = valid && this.isSet(child.updateGenderDocType3.images)
               && child.updateGenderDocType3.images.length > 0
           }
         }
@@ -220,22 +213,19 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
 
       if (child.updateNameDueToError === true) {
         valid = valid
-          && child.updateNameDueToErrorDocType.images !== undefined
-          && child.updateNameDueToErrorDocType.images !== null
+          && this.isSet(child.updateNameDueToErrorDocType.images)
           && child.updateNameDueToErrorDocType.images.length > 0
       }
 
       if (child.updateBirthdate === true) {
         valid = valid
-          && child.updateBirthdateDocType.images !== undefined
-          && child.updateBirthdateDocType.images !== null
+          && this.isSet(child.updateBirthdateDocType.images)
           && child.updateBirthdateDocType.images.length > 0
       }
 
       if (child.updateGenderDesignation === true) {
         valid = valid
-          && child.updateGenderDesignationDocType.images !== undefined
-          && child.updateGenderDesignationDocType.images !== null
+          && this.isSet(child.updateGenderDesignationDocType.images)
           && child.updateGenderDesignationDocType.images.length > 0
       }
 
