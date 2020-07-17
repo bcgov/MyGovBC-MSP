@@ -820,6 +820,8 @@ export class MspApiAccountService extends AbstractHttpService {
       from.mailingAddress.postal
     ) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
+    } else {
+      to.mailingAddress = this.unknownAddress();
     }
 
     return to;
@@ -991,11 +993,19 @@ export class MspApiAccountService extends AbstractHttpService {
       }
     }
 
-    if (from.knownMailingAddress === true) {
+    if (
+      from.mailingAddress &&
+      from.mailingAddress.addressLine1 &&
+      from.mailingAddress.city &&
+      from.mailingAddress.province &&
+      from.mailingAddress.country &&
+      from.mailingAddress.postal
+    ) {
       to.mailingAddress = this.convertAddress(from.mailingAddress);
-    } else if (from.knownMailingAddress === false) {
+    } else {
       to.mailingAddress = this.unknownAddress();
     }
+
     return to;
   }
 
