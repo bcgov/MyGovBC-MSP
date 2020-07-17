@@ -827,7 +827,7 @@ export class MspApiAccountService extends AbstractHttpService {
       to.willBeAway.armedDischargeDate = format(
         from.dischargeDate,
         this.ISO8601DateFormat
-        );
+      );
       to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
       to.willBeAway.isFullTimeStudent = from.relationship === Relationship.Child19To24 ? 'Y' : 'N';
     }
@@ -1012,7 +1012,7 @@ export class MspApiAccountService extends AbstractHttpService {
       to.willBeAway.armedDischargeDate = format(
         from.dischargeDate,
         this.ISO8601DateFormat
-        );
+      );
       to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
       to.willBeAway.isFullTimeStudent = from.relationship === Relationship.Child19To24 ? 'Y' : 'N';
     }
