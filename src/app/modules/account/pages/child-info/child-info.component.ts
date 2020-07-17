@@ -253,26 +253,22 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     let valid = true;
     this.removedChildren.forEach(removedChild => {
       // Must choose a cancellation reason
-      valid = valid && removedChild.cancellationReason !== undefined;
-      valid = valid && removedChild.cancellationReason != null;
+      valid = valid && this.isSet(removedChild.cancellationReason);
 
       // For these options there is only a mandatory date
       if (removedChild.cancellationReason === CancellationReasons.ArmedForces
       || removedChild.cancellationReason === CancellationReasons.Deceased
       || removedChild.cancellationReason === CancellationReasons.Incarcerated) {
-        valid = valid && removedChild.cancellationDate !== undefined
-          && removedChild.cancellationDate !== null
+        valid = valid && this.isSet(removedChild.cancellationDate)
           && removedChild.cancellationDate instanceof Date;
       }
 
       // For this option there is a mandatory date and radio button
       if (removedChild.cancellationReason === CancellationReasons.NoLongerInFullTimeStudies) {
-        valid = valid && removedChild.cancellationDate !== undefined
-          && removedChild.cancellationDate !== null
+        valid = valid && this.isSet(removedChild.cancellationDate)
           && removedChild.cancellationDate instanceof Date
-          && removedChild.hasCurrentMailingAddress !== undefined
-          && removedChild.hasCurrentMailingAddress !== null;
-        // mailing address validation is handling by it's component
+          // mailing address validation is handled by the common component
+          && this.isSet(removedChild.hasCurrentMailingAddress);
       }
 
       // Cannot proceed with this option
