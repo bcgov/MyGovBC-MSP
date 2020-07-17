@@ -44,7 +44,7 @@
   <div role="dialog" aria-labelledby="q2" class="form-check mb-2">
     <common-checkbox
       [label]="'Update name - due to marriage'"
-      (dataChange)="person.updateNameDueToMarriage = $event;"
+      (dataChange)="changeUpdateNameDueToMarriage($event)"
       [data]="person.updateNameDueToMarriage">
     </common-checkbox>
   </div>
@@ -153,8 +153,7 @@
       <common-radio
         name="additionalDoc"
         [(ngModel)]="person.updateGenderAdditionalDocs"
-        label="Do you need to add a second document?"
-        required>
+        label="Do you need to add a second document?">
       </common-radio>
     </div>
     <msp-support-documents
@@ -168,8 +167,7 @@
               <common-radio
                 name="additionalDoc2"
                 [(ngModel)]="person.updateGenderAdditionalDocs2"
-                label="Do you need to add a third document?"
-                required>
+                label="Do you need to add a third document?">
               </common-radio>
             </div>
             <msp-support-documents
@@ -181,35 +179,6 @@
     </div>
   </div>
 </div>
-  
-  <!-- <div *ngIf="person.applyingForChangeOfGenderAsAdult !== undefined">    
-    <div class="mb-4"></div>
-    <msp-support-documents
-      [supportDocList]="genderDesignationList()"
-      [(supportDoc)]="person.updateGenderDocType2">
-    </msp-support-documents>
-    <div class="mb-4"></div>
-    <msp-support-documents
-      [supportDocList]="genderDesignationList()"
-      [(supportDoc)]="person.updateGenderDocType3">
-    </msp-support-documents>
-  </div>
-  <div class="mb-4"></div>
-  <div requestAdditionInfo>
-    <div class="form-group p-sm-2">
-      <common-radio
-      name="additionalDoc"
-      [(ngModel)]="person.updateGenderAdditionalDocs"
-      label="Do you need to add an additional document?"
-      required>
-      </common-radio>
-    </div>
-  </div>
-  <msp-support-documents
-    *ngIf="person.updateGenderAdditionalDocs"
-    [supportDocList]="genderChangeDocsType()"
-    [(supportDoc)]="person.updateGenderDocType3">
-  </msp-support-documents> -->
 
 <!-- Correct name - due to error -->
 <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >

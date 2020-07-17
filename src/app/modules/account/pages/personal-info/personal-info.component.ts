@@ -11,6 +11,7 @@ import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../
 import { Relationship } from '../../../../models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { BaseForm } from '../../models/base-form';
+import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
 
 @Component({
   templateUrl: './personal-info.component.html',
@@ -130,9 +131,10 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
 
   changeUpdatingPersonalInfo(value: boolean) {
     this.person.updatingPersonalInfo = value;
-    this.accountChangeOptions.personInfoUpdate = value;
+    this.accountChangeOptions.personInfoUpdate = !!value;
 
     if (this.person.updatingPersonalInfo === false) {
+      // Uncheck update checkboxes.
       this.person.updateStatusInCanada = false;
       this.person.updateNameDueToMarriage = false;
       this.person.updateNameDueToNameChange = false;
@@ -141,17 +143,24 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
       this.person.updateBirthdate = false;
       this.person.updateGenderDesignation = false;
 
-      this.person.nameChangeDocs.images = [];
-      this.person.nameChangeAdditionalDocs.images = [];
-      this.person.updateStatusInCanadaDocType.images = [];
-      this.person.updateNameDueToMarriageDocType.images = [];
-      this.person.updateNameDueToNameChangeDocType.images = [];
-      this.person.updateGenderDocType.images = [];
-      this.person.updateGenderDocType2.images = [];
-      this.person.updateGenderDocType3.images = [];
-      this.person.updateNameDueToErrorDocType.images = [];
-      this.person.updateBirthdateDocType.images = [];
-      this.person.updateGenderDesignationDocType.images = [];
+      // Reset extra fields.
+      this.person.status = undefined;
+      this.person.updateNameDueToMarriageRequestedLastName = '';
+      this.person.updateGenderAdditionalDocs = null;
+      this.person.updateGenderAdditionalDocs2 = null;
+
+      // Reset all uploaded images.
+      this.person.nameChangeDocs = new SupportDocuments();
+      this.person.nameChangeAdditionalDocs = new SupportDocuments();
+      this.person.updateStatusInCanadaDocType = new SupportDocuments();
+      this.person.updateNameDueToMarriageDocType = new SupportDocuments();
+      this.person.updateNameDueToNameChangeDocType = new SupportDocuments();
+      this.person.updateGenderDocType = new SupportDocuments();
+      this.person.updateGenderDocType2 = new SupportDocuments();
+      this.person.updateGenderDocType3 = new SupportDocuments();
+      this.person.updateNameDueToErrorDocType = new SupportDocuments();
+      this.person.updateBirthdateDocType = new SupportDocuments();
+      this.person.updateGenderDesignationDocType = new SupportDocuments();
     }
   }
 

@@ -50,11 +50,12 @@
       [(images)]="documents"
       id="docUploader_{{objectId}}"
       [required]="true"
-      instructionText="{{uploadInstructions}}">
+      instructionText="{{uploadInstructions}}"
+      (errorDocument)="handleSupportDocError($event)">
     </common-file-uploader>
     <common-error-container
-      [displayError]="checkDuplicateDocs()">
-      Uploading the same document is not allowed.
+      [displayError]="supportDocError !== null">
+      {{ supportDocErrorMsg }}
     </common-error-container>
     <ng-content select="[requestAdditionInfo]"></ng-content>
     <aside>

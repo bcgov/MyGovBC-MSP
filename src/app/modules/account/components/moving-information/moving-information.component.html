@@ -169,7 +169,7 @@
   <div class="form-group">
     <common-radio
       [value]="person.declarationForOutsideOver60Days"
-      (valueChange)="setDeclarationForOutsideOver60Days($event)"
+      (valueChange)="person.declarationForOutsideOver60Days = $event;"
       label="Will {{possessiveRelationshipNoun}} be outside B.C. for more than a total of 30 days during the next 6 months?"
       required>
     </common-radio>
@@ -344,6 +344,9 @@ and check departure was within last 12 months - need to find error messages for 
         name="studiesBeginDate_{{objectId}}"
         label="Date studies will begin"
         [(ngModel)]="person.studiesBeginDate"
+        [dateRangeStart]="studiesBeginDateStartRange"
+        [dateRangeEnd]="startBeginDateEndRange"
+        [errorMessage]="studiesBeginDateErrorMessage"
         required>
       </common-date>
     </div>
@@ -353,6 +356,9 @@ and check departure was within last 12 months - need to find error messages for 
         name="studiesFinishedDate_{{objectId}}"
         label="Date studies will finish"
         [(ngModel)]="person.studiesFinishedDate"
+        [dateRangeStart]="studiesFinishedDateStartRange"
+        [dateRangeEnd]="studiesFinishedDateEndRange"
+        [errorMessage]="studiesFinishedDateErrorMessage"
         required>
       </common-date>
     </div>

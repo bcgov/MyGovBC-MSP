@@ -49,17 +49,6 @@ export class UpdateRequestComponent extends Base {
     SupportDocumentTypes.RecordOfLanding,
     SupportDocumentTypes.PermanentResidentCard
   ];
-  genderDesignationForAdultsList: SupportDocumentTypes[] = [
-    SupportDocumentTypes.ChangeGenderAdultApplication,
-    SupportDocumentTypes.ChangeGenderPhysicianConfirmation,
-    SupportDocumentTypes.CanadianBirthCertificate
-  ];
-  genderDesignationForMinorsList: SupportDocumentTypes[] = [
-    SupportDocumentTypes.ChangeGenderMinorApplication,
-    SupportDocumentTypes.ParentalConsentWaiver,
-    SupportDocumentTypes.ChangeGenderPhysicianConfirmation,
-    SupportDocumentTypes.CanadianBirthCertificate
-  ];
   hideStatus: StatusInCanada[] = [
     StatusInCanada.CitizenAdult,
     StatusInCanada.PermanentResident
@@ -83,18 +72,6 @@ export class UpdateRequestComponent extends Base {
     //this.person = this.dataService.getMspAccountApp().applicant ;
     if (this.person.status >= 0 &&  this.person.status !== undefined) {
       //this.itemList = this.item(this.person.status);
-    }
-  }
-
-  changeGenderDesignation(value: boolean) {
-    this.person.applyingForChangeOfGenderAsAdult = value;
-  }
-
-  genderDesignationList() {
-    if (this.person.applyingForChangeOfGenderAsAdult){
-      return this.genderDesignationForAdultsList;
-    } else {
-      return this.genderDesignationForMinorsList;
     }
   }
 
@@ -180,12 +157,10 @@ export class UpdateRequestComponent extends Base {
     }
   }
 
-  get adultOrMinor() {
-    if (this.person.applyingForChangeOfGenderAsAdult == true) {
-      return 'Adult';
-    }
-    else {
-      return 'Minor';
+  changeUpdateNameDueToMarriage(event: boolean) {
+    this.person.updateNameDueToMarriage = event;
+    if (!event) {
+      this.person.updateNameDueToMarriageRequestedLastName = '';
     }
   }
 }
