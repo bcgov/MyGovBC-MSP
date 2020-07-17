@@ -169,7 +169,7 @@
   <div class="form-group">
     <common-radio
       [value]="person.declarationForOutsideOver60Days"
-      (valueChange)="setDeclarationForOutsideOver60Days($event)"
+      (valueChange)="person.declarationForOutsideOver60Days = $event;"
       label="Will {{possessiveRelationshipNoun}} be outside B.C. for more than a total of 30 days during the next 6 months?"
       required>
     </common-radio>
