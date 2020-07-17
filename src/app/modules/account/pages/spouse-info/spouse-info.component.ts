@@ -117,6 +117,10 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     this.dataService.accountApp.updatedSpouse = new MspPerson(Relationship.Spouse);
   }
 
+  get dateToday(): Date {
+    return new Date();
+  }
+
   get addedSpouse(): MspPerson {
     return this.dataService.getMspAccountApp().addedSpouse;
   }
@@ -227,24 +231,32 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
 
   checkRemove() {
     let valid = true;
-    valid = valid && this.removedSpouse.cancellationReason !== undefined;
+    // Must choose a cancellation reason
+    valid = valid && this.isSet(this.removedSpouse.cancellationReason)
+
+    // If they are divorced/separated they must upload at least one document
     if (this.removedSpouse.cancellationReason === CancellationReasons.SeparatedDivorced) {
-      valid = valid && this.removedSpouse.hasCurrentMailingAddress !== undefined
+      valid = valid && this.isSet(this.removedSpouse.hasCurrentMailingAddress)
+        && this.removedSpouse.removedSpouseDueToDivorceDoc
         && this.removedSpouse.removedSpouseDueToDivorceDoc.images
         && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
     }
-    if (this.removedSpouse.cancellationReason !== undefined
-      && this.removedSpouse.cancellationReason !== CancellationReasons.OutOfProvinceOrCountry) {
-      valid = valid && this.removedSpouse.cancellationDate !== undefined
-        && this.removedSpouse.cancellationDate !== null;
+
+    // For these selections they must include a valid cancellation date
+    if (this.removedSpouse.cancellationReason === CancellationReasons.ArmedForces
+      || this.removedSpouse.cancellationReason === CancellationReasons.Deceased
+      || this.removedSpouse.cancellationReason === CancellationReasons.Incarcerated
+      || this.removedSpouse.cancellationReason === CancellationReasons.RemoveFromAccountButStillMarriedOrCommomLaw) {
+      valid = valid && this.isSet(this.removedSpouse.cancellationDate)
+        && this.removedSpouse.cancellationDate <= this.dateToday
+        && this.removedSpouse.cancellationDate > this.removedSpouse.dateOfBirth;
     }
+
+    // They cannot proceed if this is their option
     if (this.removedSpouse.cancellationReason === CancellationReasons.OutOfProvinceOrCountry){
       valid = false;
     }
-    if (this.removedSpouse.cancellationDate) {
-      const currentDate = new Date();
-      valid = valid && this.removedSpouse.cancellationDate <= currentDate && this.removedSpouse.cancellationDate >= this.removedSpouse.dateOfBirth;
-    }
+
     return valid;
   }
 
