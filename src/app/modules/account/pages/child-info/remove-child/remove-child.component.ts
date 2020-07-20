@@ -74,7 +74,6 @@ export class RemoveChildComponent implements OnInit {
   }
 
   setCancellationStatus(evt: any) {
-    this.child.cancellationReason = evt;
     this.child.reasonForCancellation = CancellationReasonsStrings[evt];
     this.dataService.saveMspAccountApp();
   }

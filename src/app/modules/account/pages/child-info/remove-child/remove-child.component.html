@@ -6,20 +6,19 @@
 
 <div class="row">
   <div class="col-sm-12 col-md-4">
-    <label for="objectId" class="control-label">Reason for cancellation</label>
+    <label for="cancellationReason_{{objectId}}" class="control-label">Reason for cancellation</label>
     <div class="form-group">
     <select class="custom-select"
-      name="cancellationReason"
+      name="cancellationReason_{{objectId}}"
+      id="cancellationReason_{{objectId}}"
       [(ngModel)]="child.cancellationReason"
+      [ngModelOptions]="{standalone: true}"
       (ngModelChange)="setCancellationStatus($event)">
-      <ng-container>
-        <option selected value="null" disabled="true">Please select</option>
-        <option *ngFor="let item of cancellationReasons"
-          [ngValue]="item.value"
-          [selected]="child.cancellationReason == item.value">
-          {{item.label}}
-        </option>
-      </ng-container>
+      <option selected value="null" disabled="true">Please select</option>
+      <option *ngFor="let item of cancellationReasons"
+        [ngValue]="item.value">
+        {{item.label}}
+      </option>
     </select>
     </div>
   </div>
