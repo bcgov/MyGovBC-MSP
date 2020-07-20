@@ -1,7 +1,7 @@
 import { EventEmitter, Output, Component, Input, forwardRef } from '@angular/core';
 import { MspAccountApp, UpdateList, ItemList } from '../../models/account.model';
 import {
-  nameChangeSupportDocuments,
+  nameChangeSupportDocs,
   nameChangeDueToMarriageOrDivorceDocuments,
   genderDesignationChangeDocuments,
   nameChangeDueToErrorDocuments,
@@ -64,10 +64,9 @@ export class UpdateRequestComponent extends Base {
     StatusInCanada.CitizenAdult,
     StatusInCanada.PermanentResident
   ];
-  
-  nameChangeDocs = nameChangeSupportDocuments();
+
   nameChangeDueToMarriageDocs = nameChangeDueToMarriageOrDivorceDocuments();
-  nameChangeDueToNameChangeDocs = nameChangeDueToErrorDocuments();
+  nameChangeDueToNameChangeDocs = nameChangeSupportDocs();
   nameChangeDueToErrorDocs = nameChangeDueToErrorDocuments();
   genderBirthdateChangeDocs = genderBirthDateChangeDocuments();
   genderChangeDocs = genderDesignationChangeDocuments();
