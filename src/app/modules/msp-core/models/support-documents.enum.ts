@@ -47,7 +47,7 @@ export const SupportDocumentList = {
   VisitorVisa: 'Visitor Permit',
   PassportWithDiplomaticFoil: 'Passport With Diplomatic Foil',
   MarriageCertificate: 'Marriage Certificate',
-  ChangeOfNameCertificate: 'Legal Name Change Certificate',
+  ChangeOfNameCertificate: 'Name Change Certificate / Certificate of Name Change',
   ReligiousWorker: 'Religious Worker',
   NoticeOfDecision: 'Notice Of Decision',
   DiplomaticPassportAcceptance: 'Diplomatic Passport Acceptance',
