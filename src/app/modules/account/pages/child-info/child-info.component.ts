@@ -283,7 +283,7 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
           // Filled out "Date studies will finish"
           && this.isSet(addedChild.studiesFinishedDate)
           // Ticked "reside in BC after completing study in this school?"
-          && this.isSet(addedChild.inBCafterStudies)
+          && this.isSet(addedChild.inBCafterStudies) && addedChild.inBCafterStudies === true
 
         if (addedChild.schoolOutsideOfBC === true) {
           valid = valid && !!addedChild.studiesDepartureDate;
