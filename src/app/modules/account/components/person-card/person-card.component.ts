@@ -79,21 +79,11 @@ export class AccountPersonCardComponent {
     }
   }
 
-  // Check actual document uploads as opposed to which fields they have filled (children and spouses don't have the same fields as AH)
   get hasDocumentAttached(): boolean {
-    return (
-      this.person.updateStatusInCanadaDocType.images && this.person.updateStatusInCanadaDocType.images.length > 0 ||
-      this.person.updateNameDueToMarriageDocType.images && this.person.updateNameDueToMarriageDocType.images.length > 0 ||
-      this.person.updateNameDueToNameChangeDocType.images && this.person.updateNameDueToNameChangeDocType.images.length > 0 ||
-      this.person.updateGenderDocType.images && this.person.updateGenderDocType.images.length > 0 ||
-      this.person.updateNameDueToErrorDocType.images && this.person.updateNameDueToErrorDocType.images.length > 0 ||
-      this.person.updateBirthdateDocType.images && this.person.updateBirthdateDocType.images.length > 0 ||
-      this.person.updateGenderDesignationDocType.images && this.person.updateGenderDesignationDocType.images.length > 0 ||
-      this.person.removedSpouseDueToDivorceDoc.images && this.person.removedSpouseDueToDivorceDoc.images.length > 0
-    );
+    return this.documentCount > 0;
   }
 
-  get documentCountForAccountHolder(): number {
+  get documentCount(): number {
     let count = 0;
     if (this.person.updateStatusInCanadaDocType.images) {
       count = count + this.person.updateStatusInCanadaDocType.images.length;
@@ -139,9 +129,9 @@ export class AccountPersonCardComponent {
   }
 
   get fileLabel(): string {
-    if (this.documentCountForAccountHolder > 1) {
+    if (this.documentCount > 1) {
       return 'Files';
-    } else if (this.documentCountForAccountHolder === 1) {
+    } else if (this.documentCount === 1) {
       return 'File';
     } else {
       return '';
