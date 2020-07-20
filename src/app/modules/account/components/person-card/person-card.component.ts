@@ -80,37 +80,40 @@ export class AccountPersonCardComponent {
   }
 
   get hasDocumentAttached(): boolean {
-    return this.person.updateStatusInCanada || this.person.updateNameDueToMarriage
-    || this.person.updateNameDueToNameChange || this.person.updateGender
-    || this.person.updateNameDueToError || this.person.updateBirthdate
-    || this.person.updateGenderDesignation;
+    return this.documentCount > 0;
   }
 
-  get documentCountForAccountHolder(): number {
+  get documentCount(): number {
     let count = 0;
-    if (this.person.updateStatusInCanada === true){
+    if (this.person.updateStatusInCanadaDocType.images) {
       count = count + this.person.updateStatusInCanadaDocType.images.length;
     }
-    if (this.person.updateNameDueToMarriage){
+    if (this.person.updateNameDueToMarriageDocType.images) {
       count = count + this.person.updateNameDueToMarriageDocType.images.length;
     }
-    if (this.person.updateNameDueToNameChange){
+    if (this.person.updateNameDueToNameChangeDocType.images) {
       count = count + this.person.updateNameDueToNameChangeDocType.images.length;
     }
-    if (this.person.updateGender){
-      count = count + this.person.updateGenderDocType.images.length + this.person.updateGenderDocType2.images.length;
-      if (this.person.updateGenderDocType3.images){
+    if (this.person.updateGenderDocType.images) {
+      count = count + this.person.updateGenderDocType.images.length;
+      if (this.person.updateGenderDocType2.images) {
+        count = count + this.person.updateGenderDocType2.images.length;
+      }
+      if (this.person.updateGenderDocType3.images) {
         count = count + this.person.updateGenderDocType3.images.length;
       }
     }
-    if (this.person.updateNameDueToError){
+    if (this.person.updateNameDueToErrorDocType.images) {
       count = count + this.person.updateNameDueToErrorDocType.images.length;
     }
-    if (this.person.updateBirthdate){
+    if (this.person.updateBirthdateDocType.images) {
       count = count + this.person.updateBirthdateDocType.images.length;
     }
-    if (this.person.updateGenderDesignation){
+    if (this.person.updateGenderDesignationDocType.images) {
       count = count + this.person.updateGenderDesignationDocType.images.length;
+    }
+    if (this.person.removedSpouseDueToDivorceDoc && this.person.removedSpouseDueToDivorceDoc.images) {
+      count = count + this.person.removedSpouseDueToDivorceDoc.images.length;
     }
     return count;
   }
@@ -126,13 +129,12 @@ export class AccountPersonCardComponent {
   }
 
   get fileLabel(): string {
-
-    if (this.person.assistYearDocs !== null && this.person.assistYearDocs.length > 0 ) {
-      if (this.person.assistYearDocs.length > 1) {
-        return 'Files';
-      } else if (this.person.assistYearDocs.length < 2) {
-        return 'File';
-      }
+    if (this.documentCount > 1) {
+      return 'Files';
+    } else if (this.documentCount === 1) {
+      return 'File';
+    } else {
+      return '';
     }
   }
 
