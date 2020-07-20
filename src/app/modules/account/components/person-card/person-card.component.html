@@ -31,16 +31,6 @@
     </div>
   </div>
 
-  <!-- Status In Canada -->
-  <div class="row" *ngIf="person.status >= 0">
-    <div class="col-sm-4">
-        {{lang('./en/index.js').statusInCanadaLabel}}
-    </div>
-    <div class="col-sm-8">
-      <strong>{{statusInCanadaLabel}} {{currentActivityLabel}}</strong>
-    </div>
-  </div>
-
   <!-- PHN -->
   <div class="row" *ngIf="person.previous_phn">
     <div class="col-sm-4">
@@ -48,6 +38,16 @@
     </div>
     <div class="col-sm-8">
       <strong>{{person.previous_phn}}</strong>
+    </div>
+  </div>
+
+  <!-- Status In Canada -->
+  <div class="row" *ngIf="person.status >= 0">
+    <div class="col-sm-4">
+      {{lang('./en/index.js').statusInCanadaLabel}}
+    </div>
+    <div class="col-sm-8">
+      <strong>{{statusInCanadaLabel}} {{currentActivityLabel}}</strong>
     </div>
   </div>
 
@@ -80,15 +80,6 @@
       <strong>{{formatDateField(person.marriageDate)}}</strong>
     </div>
   </div>
-
-  <!-- Residential address -->
-  <msp-address-card-part [address]="person.residentialAddress" *ngIf="accountCard"
-    [label]="lang('./en/index.js').residentialAddressLabel"></msp-address-card-part>
-
-  <!-- Mailing address -->
-  <msp-address-card-part [address]="person.mailingAddress" *ngIf="accountCard"
-    [label]="lang('./en/index.js').mailingAddressLabel"></msp-address-card-part>
-
 
   <!-- Phone Number -->
   <div class="row" *ngIf="person.phoneNumber && accountCard">
@@ -170,99 +161,13 @@
     </div>
   </div>
 
-  <!-- Info associated with leaving BC in the last 12 months for more than 30 days -->
-  <div *ngIf="person.departureReason12Months">
-    <!-- Reason -->
-    <div class="row">
-      <div class="col-sm-4">
-        {{lang('./en/index.js').outsideBCReasonLabel}}
-      </div>
-      <div class="col-sm-8">
-        <strong>{{person.departureReason12Months}}</strong>
-      </div>
-    </div>
-
-    <!-- Destination -->
-    <div class="row" *ngIf="person.departureDestination12Months">
-      <div class="col-sm-4">
-        {{lang('./en/index.js').outsideBCLocationLabel}}
-      </div>
-      <div class="col-sm-8">
-        <strong>{{person.departureDestination12Months}}</strong>
-      </div>
-    </div>
-
-    <!-- Date they left -->
-    <div class="row" *ngIf="person.departureDateDuring12MonthsDate">
-      <div class="col-sm-4">
-        {{lang('./en/index.js').outsideBCDepartureDateLabel}}
-      </div>
-      <div class="col-sm-8">
-        <strong>{{formatDateField(person.departureDateDuring12MonthsDate)}}</strong>
-      </div>
-    </div>
-
-    <!-- Date they returned -->
-    <div class="row" *ngIf="person.returnDateDuring12MonthsDate">
-      <div class="col-sm-4">
-        {{lang('./en/index.js').outsideBCReturnDateLabel}}
-      </div>
-      <div class="col-sm-8">
-        <strong>{{formatDateField(person.returnDateDuring12MonthsDate)}}</strong>
-      </div>
-    </div>
-  </div>
-
   <!-- Will they be leaving for more than 30 days in the next 6 months? -->
   <div class="row" *ngIf="person.declarationForOutsideOver60Days">
     <div class="col-sm-4">
       {{lang('./en/index.js').outsideBCFutureLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{person.declarationForOutsideOver60Days ? "Yes": "No"}}</strong>
-    </div>
-  </div>
-
-  <!-- Info associated with leaving in the next 6 months -->
-  <div *ngIf="person.departureReason">
-    <!-- Reason -->
-    <div class="row">
-      <div class="col-sm-4">
-        {{lang('./en/index.js').outsideBCFutureReasonLabel}}
-      </div>
-      <div class="col-sm-8">
-        <strong>{{person.departureReason}}</strong>
-      </div>
-    </div>
-
-    <!-- Destination -->
-    <div class="row" *ngIf="person.departureDestination">
-      <div class="col-sm-4">
-        {{lang('./en/index.js').outsideBCFutureLocationLabel}}
-      </div>
-      <div class="col-sm-8">
-        <strong>{{person.departureDestination}}</strong>
-      </div>
-    </div>
-
-    <!-- Date they left -->
-    <div class="row" *ngIf="person.departureDateDuring6MonthsDate">
-      <div class="col-sm-4">
-        {{lang('./en/index.js').outsideBCFutureDepartureDateLabel}}
-      </div>
-      <div class="col-sm-8">
-        <strong>{{formatDateField(person.departureDateDuring6MonthsDate)}}</strong>
-      </div>
-    </div>
-
-    <!-- Date they returned -->
-    <div class="row" *ngIf="person.returnDateDuring6MonthsDate">
-      <div class="col-sm-4">
-        {{lang('./en/index.js').outsideBCFutureReturnDateLabel}}
-      </div>
-      <div class="col-sm-8">
-        <strong>{{formatDateField(person.returnDateDuring6MonthsDate)}}</strong>
-      </div>
+      <strong>{{person.declarationForOutsideOver60Days ? "Yes" : "No"}}</strong>
     </div>
   </div>
 
@@ -346,6 +251,10 @@
     </div>
   </div>
 
+  <!-- Address of their school -->
+  <msp-address-card-part [address]="person.schoolAddress" [label]="lang('./en/index.js').schoolAddressLabel">
+  </msp-address-card-part>
+
   <!-- When did they leave to study outside BC? -->
   <div class="row" *ngIf="person.hasStudiesDeparture">
     <div class="col-sm-4">
@@ -383,15 +292,6 @@
     </div>
     <div class="col-sm-8">
       <strong>{{person.inBCafterStudies ? "Yes": "No"}}</strong>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="hasDocumentAttached">
-    <div class="col-sm-4">
-        {{lang('./en/index.js').documentsLabel}}
-    </div>
-    <div class="col-sm-8">
-      <strong>{{documentCountForAccountHolder}}</strong>
     </div>
   </div>
 
@@ -458,29 +358,19 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="person.assistYearDocs.length > 0">
+  <!-- Number of documents they have -->
+  <div class="row" *ngIf="hasDocumentAttached">
     <div class="col-sm-4">
-      Documents
+      {{lang('./en/index.js').documentsLabel}}
     </div>
     <div class="col-sm-8">
-      <strong>{{person.assistYearDocs.length}} {{fileLabel}}</strong>
+      <strong>{{documentCountForAccountHolder}} {{fileLabel}}</strong>
     </div>
   </div>
 
-  <div class="row" *ngIf="person.documents.images.length > 0">
-    <div class="col-sm-4">
-      Documents
-    </div>
-    <div class="col-sm-8" *ngIf="person.documents.images.length == 1">
-      <strong>{{person.documents.images.length}} file</strong>
-    </div>
-    <div class="col-sm-8" *ngIf="person.documents.images.length > 1">
-      <strong>{{person.documents.images.length}} files</strong>
-    </div>
-  </div>
-
-  <msp-address-card-part [address]="person.schoolAddress" [label]="lang('./en/index.js').schoolAddressLabel">
-  </msp-address-card-part>
+  <!-- Mailing address -->
+ <msp-address-review-part [address]="person.mailingAddress" *ngIf="accountCard"[label]="lang('./en/index.js').mailingAddressLabel">
+</msp-address-review-part>
 
   <div class="person-card-preview-zone">
     <div *ngFor="let mspImage of person.documents.images" class="preview-item">

@@ -79,38 +79,51 @@ export class AccountPersonCardComponent {
     }
   }
 
+  // Check actual document uploads as opposed to which fields they have filled (children and spouses don't have the same fields as AH)
   get hasDocumentAttached(): boolean {
-    return this.person.updateStatusInCanada || this.person.updateNameDueToMarriage
-    || this.person.updateNameDueToNameChange || this.person.updateGender
-    || this.person.updateNameDueToError || this.person.updateBirthdate
-    || this.person.updateGenderDesignation;
+    return (
+      this.person.updateStatusInCanadaDocType.images && this.person.updateStatusInCanadaDocType.images.length > 0 ||
+      this.person.updateNameDueToMarriageDocType.images && this.person.updateNameDueToMarriageDocType.images.length > 0 ||
+      this.person.updateNameDueToNameChangeDocType.images && this.person.updateNameDueToNameChangeDocType.images.length > 0 ||
+      this.person.updateGenderDocType.images && this.person.updateGenderDocType.images.length > 0 ||
+      this.person.updateNameDueToErrorDocType.images && this.person.updateNameDueToErrorDocType.images.length > 0 ||
+      this.person.updateBirthdateDocType.images && this.person.updateBirthdateDocType.images.length > 0 ||
+      this.person.updateGenderDesignationDocType.images && this.person.updateGenderDesignationDocType.images.length > 0 ||
+      this.person.removedSpouseDueToDivorceDoc.images && this.person.removedSpouseDueToDivorceDoc.images.length > 0
+    );
   }
 
   get documentCountForAccountHolder(): number {
     let count = 0;
-    if (this.person.updateStatusInCanada === true){
+    if (this.person.updateStatusInCanadaDocType.images) {
       count = count + this.person.updateStatusInCanadaDocType.images.length;
     }
-    if (this.person.updateNameDueToMarriage){
+    if (this.person.updateNameDueToMarriageDocType.images) {
       count = count + this.person.updateNameDueToMarriageDocType.images.length;
     }
-    if (this.person.updateNameDueToNameChange){
+    if (this.person.updateNameDueToNameChangeDocType.images) {
       count = count + this.person.updateNameDueToNameChangeDocType.images.length;
     }
-    if (this.person.updateGender){
-      count = count + this.person.updateGenderDocType.images.length + this.person.updateGenderDocType2.images.length;
-      if (this.person.updateGenderDocType3.images){
+    if (this.person.updateGenderDocType.images) {
+      count = count + this.person.updateGenderDocType.images.length;
+      if (this.person.updateGenderDocType2.images) {
+        count = count + this.person.updateGenderDocType2.images.length;
+      }
+      if (this.person.updateGenderDocType3.images) {
         count = count + this.person.updateGenderDocType3.images.length;
       }
     }
-    if (this.person.updateNameDueToError){
+    if (this.person.updateNameDueToErrorDocType.images) {
       count = count + this.person.updateNameDueToErrorDocType.images.length;
     }
-    if (this.person.updateBirthdate){
+    if (this.person.updateBirthdateDocType.images) {
       count = count + this.person.updateBirthdateDocType.images.length;
     }
-    if (this.person.updateGenderDesignation){
+    if (this.person.updateGenderDesignationDocType.images) {
       count = count + this.person.updateGenderDesignationDocType.images.length;
+    }
+    if (this.person.removedSpouseDueToDivorceDoc && this.person.removedSpouseDueToDivorceDoc.images) {
+      count = count + this.person.removedSpouseDueToDivorceDoc.images.length;
     }
     return count;
   }
@@ -126,13 +139,12 @@ export class AccountPersonCardComponent {
   }
 
   get fileLabel(): string {
-
-    if (this.person.assistYearDocs !== null && this.person.assistYearDocs.length > 0 ) {
-      if (this.person.assistYearDocs.length > 1) {
-        return 'Files';
-      } else if (this.person.assistYearDocs.length < 2) {
-        return 'File';
-      }
+    if (this.documentCountForAccountHolder > 1) {
+      return 'Files';
+    } else if (this.documentCountForAccountHolder === 1) {
+      return 'File';
+    } else {
+      return '';
     }
   }
 
