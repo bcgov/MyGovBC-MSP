@@ -26,28 +26,34 @@
 </div>
 
 <div *ngIf="child.cancellationReason === 2">
-  <div class='row'>
-    <div class="col-sm-12 col-md-4 form-group">
-      <common-date
-        name="2"
-        label="Date no longer in full time studies"
-        [dateRangeStart]="child.dob"
-        [dateRangeEnd]="dateToday"
-        [errorMessage]="cancellationDateErrorMessage"
-        [(ngModel)]="child.cancellationDate"
-        (ngModelChange)="this.dataService.saveMspAccountApp();">
-      </common-date>
-      <div class="warning--blue">
-        <i class="fa fa-exclamation-circle" style="font-size: 35px;"></i>
-        <p>
-          You do not need to upload supporting documentation. However, a child 0-18 years of age
-          must have coverage under another account. A child 19 years of age or over will be
-          automatically set up on their own account.
-        </p>
+  <div class="form-group">
+    <div class='row'>
+      <div class="col-sm-12 col-md-4">
+        <common-date
+          name="2"
+          label="Date no longer in full time studies"
+          [dateRangeStart]="child.dob"
+          [dateRangeEnd]="dateToday"
+          [errorMessage]="cancellationDateErrorMessage"
+          [(ngModel)]="child.cancellationDate"
+          (ngModelChange)="this.dataService.saveMspAccountApp();">
+        </common-date>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="warning--blue">
+          <i class="fa fa-exclamation-circle" style="font-size: 35px;"></i>
+          <p>
+            You do not need to upload supporting documentation. However, a child 0-18 years of age
+            must have coverage under another account. A child 19 years of age or over will be
+            automatically set up on their own account.
+          </p>
+        </div>
       </div>
     </div>
   </div>
-
+  
   <common-radio
     [value]="child.hasCurrentMailingAddress"
     label="Do you know your child’s current mailing address?"
