@@ -210,8 +210,17 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
       valid = valid && this.person.updateBirthdateDocType.images.length > 0;
     }
 
-    if (this.person.updateGenderDesignation === true && this.person.updateGenderDesignationDocType.images) {
-      valid = valid && this.person.updateGenderDesignationDocType.images.length > 0;
+    // Check additional radio buttons and documents for gender designation
+    if (this.person.updateGender === true && this.person.updateGenderDocType.images) {
+      valid = valid && this.person.updateGenderDocType.images.length > 0;
+      valid = valid && this.isSet(this.person.updateGenderAdditionalDocs);
+      if (this.person.updateGenderAdditionalDocs) {
+        valid = valid && this.person.updateGenderDocType2.images && this.person.updateGenderDocType2.images.length > 0;
+        valid = valid && this.isSet(this.person.updateGenderAdditionalDocs2);
+        if (this.person.updateGenderAdditionalDocs2) {
+          valid = valid && this.person.updateGenderDocType3.images && this.person.updateGenderDocType3.images.length > 0;
+        }
+      }
     }
 
     return valid;
