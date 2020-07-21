@@ -241,7 +241,7 @@ fdescribe('MovingInformationComponent', () => {
     err = fixture.debugElement.query(By.css('.error--container'));
     elmts = fixture.debugElement.queryAll(By.css('.form-group'));
     expect(err).toBeNull();
-    expect(elmts.length).toBe(6);
+    expect(elmts.length).toBe(5);
   });
 
   it('(Applicant) Permanent Resident -> province move permanent in BC', () => {
@@ -254,7 +254,7 @@ fdescribe('MovingInformationComponent', () => {
     err = fixture.debugElement.query(By.css('.error--container'));
     elmts = fixture.debugElement.queryAll(By.css('.form-group'));
     expect(err).toBeNull();
-    expect(elmts.length).toBe(8);
+    expect(elmts.length).toBe(7);
   });
 
   // Temporary Resident
