@@ -261,6 +261,8 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
         && this.isSet(addedChild.newlyAdopted)
         // Ticked "Is this a permanent move to BC for this child?"
         && this.isSet(addedChild.madePermanentMoveToBC)
+        // Disable continue if they are going to live in BC permanently
+        && addedChild.madePermanentMoveToBC !== false
         // Ticked "more than 30 days in the last 12 months"
         && this.isSet(addedChild.declarationForOutsideOver30Days)
         // Ticked "more than 30 days in the next 6 months"
