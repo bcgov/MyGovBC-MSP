@@ -59,7 +59,7 @@ export class RemoveSpouseComponent extends BaseComponent {
   };
   spouseRemoveDocs = spouseRemovedDueToDivorceDocuments();
   dateToday: Date = new Date();
-  yesterday = subDays( this.dateToday, 1);
+  yesterday = subDays(this.dateToday, 1);
 
   listofCancellationReasons = [
     {
@@ -124,8 +124,8 @@ export class RemoveSpouseComponent extends BaseComponent {
 
   get isValidDate() {
     const currentDate = new Date();
-    if (this.spouse.cancellationDate.getTime() && this.spouse.cancellationDate < currentDate 
-    && this.spouse.cancellationDate >= this.spouse.dateOfBirth){
+    if (this.spouse.cancellationDate.getTime() && this.spouse.cancellationDate < currentDate
+      && this.spouse.cancellationDate >= this.spouse.dateOfBirth){
       // Checks if the cancellation month is the same as the current month
       return this.spouse.cancellationDate.getMonth() !== currentDate.getMonth();
     }
