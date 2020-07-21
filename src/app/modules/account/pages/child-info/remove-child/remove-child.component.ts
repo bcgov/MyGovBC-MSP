@@ -5,6 +5,7 @@ import { MspAccountMaintenanceDataService } from '../../../services/msp-account-
 import { MspAccountApp, AccountChangeOptions } from '../../../models/account.model';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 import { ErrorMessage } from 'moh-common-lib';
+import { UUID } from 'angular2-uuid';
 
 @Component({
   selector: 'msp-remove-child',
@@ -55,6 +56,7 @@ export class RemoveChildComponent implements OnInit {
   cancellationDateErrorMessage: ErrorMessage = {
     invalidRange: 'Date may not be in the future and must be after the child\'s birthday'
   }
+  objectId: string = UUID.UUID().toString();
 
   get dateToday(): Date {
     return new Date();

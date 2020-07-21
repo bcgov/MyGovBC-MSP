@@ -7,6 +7,7 @@ import { Relationship } from 'app/models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { formatDateField } from '../../helpers/date';
 import { isBefore, subDays, addDays, addMonths } from 'date-fns';
+import * as _ from "lodash";
 
 // TO BE removed - differenece need to be added to msp-core moving-info so that it will work with account
 @Component({
@@ -179,8 +180,8 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   }
 
   get startDischargeDate() {
-    if (this.person.dateOfBirth){
-      const startDate = this.person.dateOfBirth;
+    if (this.person.dateOfBirth) {
+      const startDate = _.cloneDeep(this.person.dateOfBirth);
       startDate.setDate(this.person.dateOfBirth.getDate() + 1);
       return startDate;
     }

@@ -57,7 +57,7 @@ export class AccountConfirmationComponent implements OnDestroy {
     //this.dataService.removeMspBenefitApp();
   }
 
-  get isSucess() {
+  get isSuccess() {
     return this.status === ApiStatusCodes.SUCCESS;
   }
 
