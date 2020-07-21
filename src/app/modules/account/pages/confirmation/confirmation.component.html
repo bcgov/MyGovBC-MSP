@@ -1,7 +1,7 @@
 <common-page-framework layout="blank">
   <div class="deam-container">
     <common-confirm-template [displayIcon]="status">
-      <div confirmationTitle *ngIf="isSucess; else ErrorTitle;">
+      <div confirmationTitle *ngIf="isSuccess; else ErrorTitle;">
         <a onclick="window.print();return false;">
           <strong class="float-right">Print
             <i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
@@ -12,7 +12,7 @@
           It is important to keep your reference number - write it down, or print this page for your records.
         </p>
       </div>
-      <div message *ngIf="isSucess; else ErrorMsg">
+      <div message *ngIf="isSuccess; else ErrorMsg">
         <div class="icon--message">
           Your update request has been submitted
         </div>
@@ -61,7 +61,7 @@
         </common-page-section>
       </div>
 
-      <div *ngIf="isSucess" AdditionalInfo>
+      <div *ngIf="isSuccess" AdditionalInfo>
         <h2 class="horizontal-line"><strong>Important</strong></h2>
         <common-page-section layout='noTips'>
           <ul class="info--container">
