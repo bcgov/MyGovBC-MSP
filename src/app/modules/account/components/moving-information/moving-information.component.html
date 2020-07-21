@@ -17,7 +17,7 @@
         label="Most recent move date to B.C."
         [(ngModel)]="person.arrivalToBCDate"
         [dateRangeStart]='person.dateOfBirth'
-        [dateRangeEnd]='dateToday'
+        [dateRangeEnd]='arrivalToBCEndRange'
         [errorMessage]='mostRecentMoveToBCErrorMessage'
         required>
       </common-date>
@@ -148,7 +148,7 @@
         name="DepartureDate"
         label="Departure date"
         [(ngModel)]="person.departureDateDuring12MonthsDate"
-        [dateRangeStart]='date12MonthsAgo'
+        [dateRangeStart]='departureDateDuring12MonthsStartRange'
         [dateRangeEnd]='departureDateDuring12MonthsEndRange'
         [errorMessage]='departure12MonthsErrorMessage'>
       </common-date>
@@ -319,8 +319,10 @@
         <common-date
           name="departureDate_{{objectId}}"
           label="Departure date from B.C."
-          [restrictDate]="'past'"
-          [(ngModel)]="person.studiesDepartureDate">
+          [dateRangeStart]="studiesDepartureDateStartRange"
+          [dateRangeEnd]="studiesDepartureDateEndRange"
+          [(ngModel)]="person.studiesDepartureDate"
+          [errorMessage]="studiesDepartureDateErrorMessage">
         </common-date>
       </div>
     </div>
