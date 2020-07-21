@@ -176,6 +176,8 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
           && this.addedSpouse.updateStatusInCanadaDocType.images.length > 0
           && this.isSet(this.addedSpouse.hasNameChange)
           && this.isSet(this.addedSpouse.livedInBCSinceBirth)
+          // Disable continue if they are going to live in BC permanently
+          && this.addedSpouse.madePermanentMoveToBC !== false
           && this.isSet(this.addedSpouse.madePermanentMoveToBC)
           && this.isSet(this.addedSpouse.declarationForOutsideOver30Days)
           && this.isSet(this.addedSpouse.declarationForOutsideOver60Days)
@@ -238,10 +240,10 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     if (this.removedSpouse.cancellationReason === CancellationReasons.SeparatedDivorced) {
       valid = valid && this.isSet(this.removedSpouse.hasCurrentMailingAddress) && this.isSet(this.removedSpouse.cancellationDate);
       if (valid && this.removedSpouse.cancellationDate.getMonth() !== this.dateToday.getMonth()){
-        valid = valid && this.removedSpouse.removedSpouseDueToDivorceDoc 
+        valid = valid && this.removedSpouse.removedSpouseDueToDivorceDoc
         && this.removedSpouse.removedSpouseDueToDivorceDoc.images
         && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
-      } 
+      }
       valid = valid && this.removedSpouse.cancellationDate < this.dateToday
       && this.removedSpouse.cancellationDate >= this.removedSpouse.dateOfBirth;
     }

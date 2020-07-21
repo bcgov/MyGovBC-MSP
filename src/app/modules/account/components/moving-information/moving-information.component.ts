@@ -51,13 +51,16 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     invalidRange: 'Date must be greater than the date of birth.'
   }
   departure12MonthsErrorMessage: ErrorMessage = {
-    invalidRange: 'Date must be within the last 12 months, and more than 30 days before the return date.'
+    invalidRange: 'Date must be within the last 12 months, more than 30 days before the return date, and after the arrival to BC date.'
   }
   adoptionDateErrorMessage: ErrorMessage = {
     invalidRange: 'Date must be after the birthdate.'
   }
+  studiesDepartureDateErrorMessage: ErrorMessage = {
+    invalidRange: 'Date must be after the birthdate.'
+  }
   studiesBeginDateErrorMessage: ErrorMessage = {
-    invalidRange: 'Studies must begin after departure date and before date of completion.'
+    invalidRange: 'Studies must begin after departure date, after the birthdate, and before date of completion.'
   }
   studiesFinishedDateErrorMessage: ErrorMessage = {
     invalidRange: "Studies must end after departure date and today's date."
@@ -86,7 +89,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
 
   get isChild() {
     return this.person.relationship === Relationship.ChildUnder19 ||
-           this.person.relationship === Relationship.Child19To24;
+      this.person.relationship === Relationship.Child19To24;
   }
 
   get isOveragedChild() {
@@ -186,39 +189,41 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     }
   }
 
-  get date12MonthsAgo(): Date {
-    const date: Date = new Date();
-    date.setFullYear(date.getFullYear() - 1);
-    return date;
-  }
-
   get date6MonthsFromNow(): Date {
     const date: Date = new Date();
     return addMonths(date, 6);
   }
 
   get mostRecentMoveToBCErrorMessage() {
-    if (this.person.dateOfBirth) {
-      return {
-        invalidRange: `Date must be between ${formatDateField(this.person.dateOfBirth)} and ${formatDateField(this.dateToday)}.`
-      }
-    } else {
-      return {
-        invalidRange: `Date must be before ${formatDateField(this.dateToday)}.`
-      }
+    return {
+      invalidRange: `Date must be after the birthdate, before today's date, and before any recent departure dates.`
     }
   }
 
   get arrivalDateInCanadaErrorMessage() {
-    if (this.person.dateOfBirth && this.person.arrivalToBCDate) {
-      return {
-        invalidRange: `Date must be between ${formatDateField(this.person.dateOfBirth)} and ${formatDateField(this.person.arrivalToBCDate)}.`
+    return {
+      invalidRange: `Date must be after the birthdate, before today's date, and before any recent departure dates.`
+    }
+  }
+
+  get arrivalToBCEndRange() {
+    if (this.person.departureDateDuring12MonthsDate && this.person.departureDateDuring12MonthsDate instanceof Date) {
+      if (isBefore(this.person.departureDateDuring12MonthsDate, this.person.arrivalToBCDate)) {
+        return this.person.departureDateDuring12MonthsDate;
       }
     } else {
-      return {
-        invalidRange: `Date must be before ${formatDateField(this.dateToday)}.`
-      }
+      return this.dateToday;
     }
+  }
+
+  get departureDateDuring12MonthsStartRange() {
+    if (this.person.arrivalToBCDate && this.person.arrivalToBCDate instanceof Date
+      && isBefore(this.person.departureDateDuring12MonthsDate, this.person.arrivalToBCDate)) {
+        // Must be after arrival to BC
+        return this.person.arrivalToBCDate;
+    }
+
+    return null;
   }
 
   get departureDateDuring12MonthsEndRange() {
@@ -260,9 +265,23 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     }
   }
 
-  // Can't start before you've left
+  // Must be after birthdate
+  get studiesDepartureDateStartRange() {
+    return this.person.dob;
+  }
+
+  // Must be in the past
+  get studiesDepartureDateEndRange() {
+    return subDays(this.dateToday, 1);
+  }
+
+  // Can't start before you've left or before you're born
   get studiesBeginDateStartRange() {
-    return !!this.person.studiesDepartureDate && addDays(this.person.studiesDepartureDate, 1);
+    if (!!this.person.studiesDepartureDate && isBefore(this.person.dob, this.person.studiesDepartureDate)) {
+      return addDays(this.person.studiesDepartureDate, 1);
+    } else {
+      return this.person.dob;
+    }
   }
 
   // Can't begin after you finish
