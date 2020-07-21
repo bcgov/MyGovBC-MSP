@@ -15,7 +15,7 @@ export enum CancellationReasons {
 }
 
 export enum CancellationReasonsStrings {
-  'Separated/Divorced',
+  'Separated / Divorced',
   'Remove from Account but still married/common-law',
   'No longer in full time studies',
   'Deceased',

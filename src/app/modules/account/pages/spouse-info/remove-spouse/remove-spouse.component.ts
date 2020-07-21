@@ -63,7 +63,7 @@ export class RemoveSpouseComponent extends BaseComponent {
 
   listofCancellationReasons = [
     {
-      label: 'Separated/Divorced',
+      label: 'Separated / Divorced',
       value: CancellationReasons.SeparatedDivorced,
     },
     {
