@@ -236,10 +236,14 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
 
     // If they are divorced/separated they must upload at least one document
     if (this.removedSpouse.cancellationReason === CancellationReasons.SeparatedDivorced) {
-      valid = valid && this.isSet(this.removedSpouse.hasCurrentMailingAddress)
-        && this.removedSpouse.removedSpouseDueToDivorceDoc
+      valid = valid && this.isSet(this.removedSpouse.hasCurrentMailingAddress) && this.isSet(this.removedSpouse.cancellationDate);
+      if (valid && this.removedSpouse.cancellationDate.getMonth() !== this.dateToday.getMonth()){
+        valid = valid && this.removedSpouse.removedSpouseDueToDivorceDoc 
         && this.removedSpouse.removedSpouseDueToDivorceDoc.images
         && this.removedSpouse.removedSpouseDueToDivorceDoc.images.length > 0;
+      } 
+      valid = valid && this.removedSpouse.cancellationDate < this.dateToday
+      && this.removedSpouse.cancellationDate >= this.removedSpouse.dateOfBirth;
     }
 
     // For these selections they must include a valid cancellation date
@@ -248,8 +252,8 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
       || this.removedSpouse.cancellationReason === CancellationReasons.Incarcerated
       || this.removedSpouse.cancellationReason === CancellationReasons.RemoveFromAccountButStillMarriedOrCommomLaw) {
       valid = valid && this.isSet(this.removedSpouse.cancellationDate)
-        && this.removedSpouse.cancellationDate <= this.dateToday
-        && this.removedSpouse.cancellationDate > this.removedSpouse.dateOfBirth;
+        && this.removedSpouse.cancellationDate < this.dateToday
+        && this.removedSpouse.cancellationDate >= this.removedSpouse.dateOfBirth;
     }
 
     // They cannot proceed if this is their option

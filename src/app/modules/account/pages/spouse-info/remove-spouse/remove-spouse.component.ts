@@ -26,6 +26,7 @@ import {
 } from '../../../../../components/msp/model/msp-person.model';
 import { ErrorMessage } from 'moh-common-lib';
 import { formatDateField } from '../../../../../modules/account/helpers/date';
+import { subDays } from 'date-fns';
 
 @Component({
   selector: 'msp-remove-spouse',
@@ -58,10 +59,11 @@ export class RemoveSpouseComponent extends BaseComponent {
   };
   spouseRemoveDocs = spouseRemovedDueToDivorceDocuments();
   dateToday: Date = new Date();
+  yesterday = subDays(this.dateToday, 1);
 
   listofCancellationReasons = [
     {
-      label: 'Separated/Divorced',
+      label: 'Separated / Divorced',
       value: CancellationReasons.SeparatedDivorced,
     },
     {
@@ -122,18 +124,12 @@ export class RemoveSpouseComponent extends BaseComponent {
 
   get isValidDate() {
     const currentDate = new Date();
-    return this.spouse.cancellationDate <= currentDate && this.spouse.cancellationDate >= this.spouse.dateOfBirth;
-    // if (
-    //   this.spouse.cancellationDate.getFullYear() < currentDate.getFullYear()
-    // ) {
-    //   return true;
-    // } else if (
-    //   this.spouse.cancellationDate.getFullYear() === currentDate.getFullYear()
-    // ) {
-    //   return this.spouse.cancellationDate.getMonth() < currentDate.getMonth();
-    // } else {
-    //   return false;
-    // }
+    if (this.spouse.cancellationDate.getTime() && this.spouse.cancellationDate < currentDate
+      && this.spouse.cancellationDate >= this.spouse.dateOfBirth){
+      // Checks if the cancellation month is the same as the current month
+      return this.spouse.cancellationDate.getMonth() !== currentDate.getMonth();
+    }
+    return false;
   }
 
   get cancellationDateErrorMessage() {
