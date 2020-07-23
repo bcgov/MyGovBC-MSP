@@ -46,15 +46,12 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
 
     init(processSteps: ProcessStep[]): void {
         const process = new Process();
-        console.log('INIT PROC:' + process);
         process.processSteps = processSteps;
         this.dataService.setMspProcess(process);
     }
 
     setStep(stepNumber: number, complete: boolean) {
-
         const process = this.process;
-        console.log('PROC:' + process);
         process.processSteps[stepNumber].complete = complete;
         this.dataService.setMspProcess(process);
        // return null;

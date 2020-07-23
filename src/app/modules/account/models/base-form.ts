@@ -45,7 +45,6 @@ export class BaseForm extends AbstractForm implements OnInit, AfterViewInit, OnD
   initProcessMembers(processStepNum: number, newProcessService: ProcessService){
     this.linkedProcessStepNumber = processStepNum;
     this._processService = newProcessService;
-    console.log('INIT PROCESS MEM: ' +this._processService);
   }
 
   continue() {
