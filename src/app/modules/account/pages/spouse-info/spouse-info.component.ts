@@ -176,9 +176,11 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
           && this.addedSpouse.updateStatusInCanadaDocType.images.length > 0
           && this.isSet(this.addedSpouse.hasNameChange)
           && this.isSet(this.addedSpouse.livedInBCSinceBirth)
-          && this.isSet(this.addedSpouse.madePermanentMoveToBC)
           // Disable continue if they are going to live in BC permanently
           && this.addedSpouse.madePermanentMoveToBC !== false
+          && this.isSet(this.addedSpouse.madePermanentMoveToBC)
+          // Disable continue if they are not going to live in BC permanently
+          && this.addedSpouse.madePermanentMoveToBC === true
           && this.isSet(this.addedSpouse.declarationForOutsideOver30Days)
           && this.isSet(this.addedSpouse.declarationForOutsideOver60Days)
           && this.isSet(this.addedSpouse.hasBeenReleasedFromArmedForces)

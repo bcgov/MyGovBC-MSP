@@ -13,11 +13,11 @@
   <div *ngIf="person.livedInBCSinceBirth === false" class="add-document">
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
-        name="MostRecentMoveBC"
+        name="arrivalToBCDate_{{objectId}}"
         label="Most recent move date to B.C."
         [(ngModel)]="person.arrivalToBCDate"
-        [dateRangeStart]='person.dateOfBirth'
-        [dateRangeEnd]='dateToday'
+        [dateRangeStart]='arrivalToBCStartRange'
+        [dateRangeEnd]='arrivalToBCEndRange'
         [errorMessage]='mostRecentMoveToBCErrorMessage'
         required>
       </common-date>
@@ -61,7 +61,7 @@
   <div *ngIf="person.newlyAdopted" class="add-document">
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
-        name="adoptionDate"
+        name="adoptionDate_{{objectId}}"
         label="Adoption date"
         [(ngModel)]="person.adoptedDate"
         [dateRangeStart]='person.dateOfBirth'
@@ -145,22 +145,23 @@
 
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
-        name="DepartureDate"
-        label="Departure date"
+        name="departureDate12Months_{{objectId}}"
+        label="Departure date 12 months"
         [(ngModel)]="person.departureDateDuring12MonthsDate"
-        [dateRangeStart]='date12MonthsAgo'
+        [dateRangeStart]='departureDateDuring12MonthsStartRange'
         [dateRangeEnd]='departureDateDuring12MonthsEndRange'
-        [errorMessage]='departure12MonthsErrorMessage'>
+        [errorMessage]='departureDate12MonthsErrorMessage'>
       </common-date>
     </div>
 
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
-        name="ReturnDate"
-        label="Return date"
+        name="returnDate12Months_{{objectId}}"
+        label="Return date 12 months"
         [(ngModel)]="person.returnDateDuring12MonthsDate"
         [dateRangeStart]='returnDateDuring12MonthsStartRange'
-        [errorMessage]='returnDateErrorMessage'>
+        [dateRangeEnd]='returnDateDuring12MonthsEndRange'
+        [errorMessage]='returnDate12MonthsErrorMessage'>
       </common-date>
     </div>
   </div>
@@ -218,22 +219,22 @@
 
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
-        name="over30DaysDeparture"
-        label="Departure date"
+        name="departureDate6Months_{{objectId}}"
+        label="Departure date 6 months"
         [(ngModel)]="person.departureDateDuring6MonthsDate"
         [dateRangeStart]='departureDateDuring6MonthsStartRange'
         [dateRangeEnd]='departureDateDuring6MonthsEndRange'
-        [errorMessage]='departureDateErrorMessage'>
+        [errorMessage]='departureDate6MonthsErrorMessage'>
       </common-date>
     </div>
 
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
-        name="over30DaysReturn"
-        label="Return date"
+        name="returnDate6Months_{{objectId}}"
+        label="Return date 6 months"
         [(ngModel)]="person.returnDateDuring6MonthsDate"
         [dateRangeStart]='returnDateDuring6MonthsStartRange'
-        [errorMessage]='returnDateErrorMessage'>
+        [errorMessage]='returnDate6MonthsErrorMessage'>
       </common-date>
     </div>
   </div>
@@ -251,10 +252,11 @@
   <div *ngIf="person.hasBeenReleasedFromArmedForces" class="add-document">
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
-        name="releasedFromArmedForcesDischarge"
+        name="releasedFromArmedForcesDischarge_{{objectId}}"
         label="Discharge date"
-        [dateRangeStart]="startDischargeDate"
-        [errorMessage]='dischargeDateErrorMessage'
+        [dateRangeStart]="dischargeDateStartRange"
+        [dateRangeEnd]="dischargeDateEndRange"
+        [errorMessage]="dischargeDateErrorMessage"
         [(ngModel)]="person.dischargeDate"
         required>
       </common-date>
@@ -317,9 +319,11 @@
     <div *ngIf="person.schoolOutsideOfBC" >
       <div class="form-group col-sm-6 p-sm-2">
         <common-date
-          name="departureDate_{{objectId}}"
+          name="studiesDepartureDate_{{objectId}}"
           label="Departure date from B.C."
-          [restrictDate]="'past'"
+          [dateRangeStart]="studiesDepartureDateStartRange"
+          [dateRangeEnd]="studiesDepartureDateEndRange"
+          [errorMessage]="studiesDepartureDateErrorMessage"
           [(ngModel)]="person.studiesDepartureDate">
         </common-date>
       </div>
@@ -343,7 +347,7 @@
         label="Date studies will begin"
         [(ngModel)]="person.studiesBeginDate"
         [dateRangeStart]="studiesBeginDateStartRange"
-        [dateRangeEnd]="startBeginDateEndRange"
+        [dateRangeEnd]="studiesBeginDateEndRange"
         [errorMessage]="studiesBeginDateErrorMessage"
         required>
       </common-date>
