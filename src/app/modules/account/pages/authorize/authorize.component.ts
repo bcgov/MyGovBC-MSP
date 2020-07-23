@@ -16,7 +16,7 @@ import { BaseForm } from '../../models/base-form';
 })
 export class AuthorizeComponent extends BaseForm implements OnInit {
   lang = require('./i18n');
-
+  static ProcessStepNum = 5;
   mspAccountApp: MspAccountApp;
   captchaApiBaseUrl: string;
   @ViewChild(NgForm) form: NgForm;
@@ -24,8 +24,9 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
   constructor(private dataService: MspAccountMaintenanceDataService,
               private _router: Router,
               protected containerService: ContainerService,
-              protected pageStateService: PageStateService) {
-      super(_router, containerService, pageStateService);
+              protected pageStateService: PageStateService,
+              protected _processService: ProcessService) {
+      super(_router, containerService, pageStateService, _processService);
       this.mspAccountApp = dataService.getMspAccountApp();
       this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
@@ -61,7 +62,10 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
     return this.mspAccountApp.applicant.firstName + ' ' + this.mspAccountApp.applicant.lastName;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.initProcessMembers(AuthorizeComponent.ProcessStepNum, this._processService);
+    this._processService.setStep(AuthorizeComponent.ProcessStepNum, false);
+  }
 
   applicantAuthorizeOnChange(event: boolean) {
     this.mspAccountApp.authorizedByApplicant = event;
@@ -90,8 +94,10 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
     if (!this.canContinue()) {
       console.log('Please fill in all required fields on the form.');
       this.markAllInputsTouched();
+      this._processService.setStep(AuthorizeComponent.ProcessStepNum, false);
       return;
     }
+    this._processService.setStep(AuthorizeComponent.ProcessStepNum, true);
     this.navigate('/deam/sending');
   }
 }

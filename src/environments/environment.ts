@@ -59,6 +59,6 @@ export const environment = {
         MGMT_MSP_ACCOUNT: 'https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/managing-your-msp-account'
     },
     /** Do not trigger guards */
-    bypassGuards: true,
+    bypassGuards: false,
     useMockBackend: false
 };
