@@ -11,7 +11,7 @@ import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum
 import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { BaseForm } from '../../models/base-form';
 import { CancellationReasons } from '../../../../models/status-activities-documents';
-
+import {ProcessService} from '../../../../services/process.service';
 
 const DOM_REFRESH_TIMEOUT = 50;
 
@@ -23,12 +23,14 @@ const DOM_REFRESH_TIMEOUT = 50;
 
 export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
  // children: MspPerson[];
+  static ProcessStepNum = 2;
 
   constructor(public dataService: MspAccountMaintenanceDataService,
               protected router: Router,
               protected containerService: ContainerService,
-              protected pageStateService: PageStateService) {
-    super(router, containerService, pageStateService);
+              protected pageStateService: PageStateService,
+              protected _processService: ProcessService) {
+    super(router, containerService, pageStateService, _processService);
   }
   subscriptions: Subscription[];
   @ViewChild('formRef') form: NgForm;
@@ -60,6 +62,8 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     } else if (this.dataService.accountApp.updatedChildren.length > 0) {
         this.showUpdateChild = true;
     }
+    this.initProcessMembers(ChildInfoComponent.ProcessStepNum, this._processService);
+    this._processService.setStep(ChildInfoComponent.ProcessStepNum, false);
   }
 
   ngOnDestroy() {
@@ -390,6 +394,9 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     if (this.updatedChildren.length > 0) {
       valid = valid && this.checkUpdate();
     }
+    if (valid === false){
+      this._processService.setStep(ChildInfoComponent.ProcessStepNum, false);
+    }
     return valid;
   }
 
@@ -399,6 +406,7 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
       this.markAllInputsTouched();
       return;
     }
+    this._processService.setStep(ChildInfoComponent.ProcessStepNum, true);
     this.navigate('/deam/contact-info');
   }
 }

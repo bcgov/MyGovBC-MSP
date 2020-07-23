@@ -19,7 +19,7 @@ import { BaseForm } from '../../models/base-form';
 @Injectable()
 export class AccountSendingComponent extends BaseForm implements AfterContentInit {
   lang = require('./i18n');
-
+  static ProcessStepNum = 6;
   mspAccountApp: MspAccountApp;
   rawUrl: string;
   rawError: string;
@@ -36,7 +36,7 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
               private logService: MspLogService,
               protected containerService: ContainerService,
               protected pageStateService: PageStateService) {
-    super(router, containerService, pageStateService)
+    super(router, containerService, pageStateService, processService)
     this.mspAccountApp = this.dataService.accountApp;
     this.transmissionInProcess = undefined;
     this.hasError = undefined;
