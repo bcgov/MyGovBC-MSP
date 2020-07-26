@@ -20,6 +20,7 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
   mspAccountApp: MspAccountApp;
   captchaApiBaseUrl: string;
   @ViewChild(NgForm) form: NgForm;
+  _showUnauthorizedError: boolean = false;
 
   constructor(private dataService: MspAccountMaintenanceDataService,
               private _router: Router,
@@ -28,6 +29,14 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
       super(_router, containerService, pageStateService);
       this.mspAccountApp = dataService.getMspAccountApp();
       this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
+  }
+
+  get showUnauthorizedError() {
+    return this._showUnauthorizedError;
+  }
+
+  set showUnauthorizedError(val: boolean) {
+    this._showUnauthorizedError = val;
   }
 
   // unused.. logic changed
@@ -87,11 +96,13 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
   handleFormSubmission($event) {}
 
   continue(): void {
-    if (!this.canContinue()) {
+    if (!this.canContinue() || !this.mspAccountApp.authorizedByApplicant) {
       console.log('Please fill in all required fields on the form.');
       this.markAllInputsTouched();
+      this.showUnauthorizedError = true;
       return;
     }
+    this.showUnauthorizedError = false;
     this.navigate('/deam/sending');
   }
 }
