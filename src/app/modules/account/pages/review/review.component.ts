@@ -8,6 +8,7 @@ import { ContainerService, PageStateService } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { BaseForm } from '../../models/base-form';
+import {ProcessService} from '../../../../services/process.service';
 
 @Component({
   templateUrl: './review.component.html',
@@ -15,7 +16,7 @@ import { BaseForm } from '../../models/base-form';
 })
 export class AccountReviewComponent extends BaseForm implements OnInit {
   lang = require('./i18n');
-
+  static ProcessStepNum = 4;
   mspAccountApp: MspAccountApp;
   captchaApiBaseUrl: string;
   @ViewChild(NgForm) form: NgForm;
@@ -23,14 +24,17 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
   constructor(public dataService: MspAccountMaintenanceDataService,
           protected router: Router,
           protected containerService: ContainerService,
-          protected pageStateService: PageStateService) {
-    super(router, containerService, pageStateService);
+          protected pageStateService: PageStateService,
+          protected _processService: ProcessService) {
+    super(router, containerService, pageStateService, _processService);
     this.mspAccountApp = dataService.getMspAccountApp();
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
 
   ngOnInit() {
     this.pageStateService.setPageIncomplete(this.router.url);
+    this.initProcessMembers(AccountReviewComponent.ProcessStepNum, this._processService);
+    this._processService.setStep(AccountReviewComponent.ProcessStepNum, false);
   }
 
   get hasSpouse() {
@@ -127,8 +131,10 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
     if (!this.canContinue()) {
       console.log('Please fill in all required fields on the form.');
       this.markAllInputsTouched();
+      this._processService.setStep(AccountReviewComponent.ProcessStepNum, false);
       return;
     }
+    this._processService.setStep(AccountReviewComponent.ProcessStepNum, true);
     this.navigate('/deam/authorize');
   }
 }

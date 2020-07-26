@@ -10,6 +10,7 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from 'app/models/relationship.enum';
 import { BaseForm } from '../../models/base-form';
 import { CancellationReasons } from '../../../../models/status-activities-documents';
+import {ProcessService} from '../../../../services/process.service';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -18,7 +19,7 @@ import { CancellationReasons } from '../../../../models/status-activities-docume
 })
 
 export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
-
+  static ProcessStepNum = 1;
   accountApp: MspAccountApp;
   accountChangeOptions: AccountChangeOptions;
   showAddSpouse: boolean;
@@ -29,8 +30,9 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   constructor(public dataService: MspAccountMaintenanceDataService,
               protected router: Router,
               protected containerService: ContainerService,
-              protected pageStateService: PageStateService) {
-    super(router, containerService, pageStateService);
+              protected pageStateService: PageStateService,
+              protected _processService: ProcessService) {
+    super(router, containerService, pageStateService, _processService);
     if (this.dataService.getMspAccountApp().hasSpouseAdded) {
       this.showAddSpouse = true;
     }
@@ -48,6 +50,8 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
     this.pageStateService.setPageIncomplete(this.router.url);
+    this.initProcessMembers(SpouseInfoComponent.ProcessStepNum, this._processService);
+    this._processService.setStep(SpouseInfoComponent.ProcessStepNum, false);
   }
 
   ngOnDestroy() {
@@ -348,6 +352,9 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     if (this.accountApp.hasSpouseUpdated === true) {
       valid = valid && this.checkUpdate();
     }
+    if (valid === false){
+      this._processService.setStep(SpouseInfoComponent.ProcessStepNum, false);
+    }
     return valid;
   }
 
@@ -357,6 +364,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
       this.markAllInputsTouched();
       return;
     }
+    this._processService.setStep(SpouseInfoComponent.ProcessStepNum, true);
     this.navigate('/deam/child-info');
   }
 }

@@ -51,7 +51,6 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
     }
 
     setStep(stepNumber: number, complete: boolean) {
-
         const process = this.process;
         process.processSteps[stepNumber].complete = complete;
         this.dataService.setMspProcess(process);

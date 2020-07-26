@@ -12,6 +12,7 @@ import { Relationship } from '../../../../models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { BaseForm } from '../../models/base-form';
 import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
+import {ProcessService} from '../../../../services/process.service';
 
 @Component({
   templateUrl: './personal-info.component.html',
@@ -20,7 +21,7 @@ import { SupportDocuments } from '../../../msp-core/models/support-documents.mod
 
 @Injectable()
 export class AccountPersonalInfoComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
-  static ProcessStepNum = 1;
+  static ProcessStepNum = 0;
   lang = require('./i18n');
   docSelected: string ;
   //activitiesOpts: string[] = CanadianStatusReason;
@@ -43,9 +44,10 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
               protected router: Router,
               protected pageStateService: PageStateService,
               protected containerService: ContainerService,
+              protected _processService: ProcessService
               // private _processService: ProcessService,
               ) {
-    super(router, containerService, pageStateService);
+    super(router, containerService, pageStateService, _processService);
   }
 
   onChange($event) {
@@ -56,7 +58,9 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
     this.person = this.dataService.accountApp.applicant;
-    // this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), this._processService);
+    this.initProcessMembers(AccountPersonalInfoComponent.ProcessStepNum, this._processService);
+    this._processService.setStep(AccountPersonalInfoComponent.ProcessStepNum, false);
+    //this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), this._processService);
   }
 
   ngOnDestroy() {
@@ -231,6 +235,9 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
                   && this.person.updatingPersonalInfo !== undefined
                   && this.hasAnyUpdateSelected()
                   && this.checkDocuments();
+    if (valid === false){
+      this._processService.setStep(AccountPersonalInfoComponent.ProcessStepNum, false);
+    }
     return valid;
   }
 
@@ -240,6 +247,7 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
       this.markAllInputsTouched();
       return;
     }
+    this._processService.setStep(AccountPersonalInfoComponent.ProcessStepNum, true);
     this.navigate('/deam/spouse-info');
   }
 }
