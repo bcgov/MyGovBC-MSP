@@ -27,12 +27,19 @@
       <div class="strong"
         [innerHTML]="questionApplicant">
       </div>
-      <div class="form-check form-check-inline mb-5">
-        <common-checkbox
-          [label]="lang('./en/index.js').agreeLabel"
-          (dataChange)="applicantAuthorizeOnChange($event)"
-          [data]="mspAccountApp.authorizedByApplicant">
-        </common-checkbox>
+      <div class="form mb-5">
+        <div class="form-check form-check-inline">
+          <common-checkbox
+            name="authorizedByApplicant"
+            [label]="lang('./en/index.js').agreeLabel"
+            (dataChange)="applicantAuthorizeOnChange($event)"
+            [data]="mspAccountApp.authorizedByApplicant"
+            [required]="true">
+          </common-checkbox>
+        </div>
+        <common-error-container [displayError]="showUnauthorizedError && !mspAccountApp.authorizedByApplicant">
+          Field is required.
+        </common-error-container>
       </div>
       <div class="row">
         <div class="col-lg-12">
