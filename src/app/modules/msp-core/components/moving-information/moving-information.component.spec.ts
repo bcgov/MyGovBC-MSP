@@ -53,7 +53,7 @@ class Applicant {
   }
 }
 
-fdescribe('MovingInformationComponent', () => {
+describe('MovingInformationComponent', () => {
   let component: MovingInformationComponent<IMovingInfo>;
   let fixture: ComponentFixture<MovingInformationComponent<IMovingInfo>>;
   let person: Applicant;
