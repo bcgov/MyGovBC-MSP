@@ -349,7 +349,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   }
   
   get dischargeDateEndRange() {
-    return this.dateToday;
+    return null;
   }
 
   // === DATE ERROR GETTERS ===
@@ -496,9 +496,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   }
 
   get dischargeDateErrorMessage(): ErrorMessage {
-    if (this.dischargeDate > this.dateToday) {
-      return { invalidRange: 'Date cannot be in the future.' };
-    } else if (this.dischargeDate < this.dob) {
+    if (this.dischargeDate < this.dob) {
       return { invalidRange: 'Date must be after birthdate.' };
     } else {
       return { invalidRange: 'Invalid date range.' };
