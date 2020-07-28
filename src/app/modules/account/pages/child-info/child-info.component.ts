@@ -257,7 +257,7 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     this.addedChildren.forEach(addedChild => {
       // Ticked "How old is the child?"
       valid = valid && this.isSet(addedChild.relationship)
-        // Ticked "Does your child have active MSP coverage?"
+        // Ticked "Does the child have active MSP coverage?"
         && this.isSet(addedChild.hasActiveMedicalServicePlan)
         // Ticked "Gender"
         && this.isSet(addedChild.gender)

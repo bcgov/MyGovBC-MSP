@@ -152,7 +152,7 @@ export class UpdateRequestComponent extends Base {
       case Relationship.Spouse:
         return 'your spouse\'s';
       default:
-        return 'your child\'s'
+        return 'the child\'s'
     }
   }
 
