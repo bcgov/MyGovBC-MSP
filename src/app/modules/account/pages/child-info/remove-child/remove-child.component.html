@@ -52,18 +52,18 @@
       </div>
     </div>
   </div>
-  
+
   <common-radio
     [value]="child.hasCurrentMailingAddress"
-    label="Do you know your child’s current mailing address?"
+    label="Do you know the child's current mailing address?"
     [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
     (valueChange)="child.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
   </common-radio>
 
   <common-page-section layout='noTips'>
     <div *ngIf="child.hasCurrentMailingAddress">
-      <h2><strong>Child’s Mailing Address</strong></h2>
-      <p class="horizontal-line">Please provide the spouse's current mailing address.</p>
+      <h2><strong>Child's Mailing Address</strong></h2>
+      <p class="horizontal-line">Please provide the child's current mailing address.</p>
       <div class="row">
         <div class="col-sm-12 col-md-4 form-group">
           <common-address

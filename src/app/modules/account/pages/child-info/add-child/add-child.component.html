@@ -10,7 +10,7 @@
   <common-radio
       name="activeCoverage_{{objectId}}"
       [(ngModel)]="hasActiveMedicalCoverage"
-      label="Does your child currently have active Medical Services Plan coverage?"
+      label="Does the child currently have active Medical Services Plan coverage?"
       [radioLabels]='[{"label": "No", "value": false }, {"label": "Yes", "value": true}]'
       required>
   </common-radio>
@@ -25,26 +25,26 @@
         label="Child's status in Canada">
       </msp-canadian-status>
 
-      <!-- Documents to support your child status in Canada -->
+      <!-- Documents to support the child status in Canada -->
       <msp-support-documents
         *ngIf="child.status !== undefined"
         [canadianStatus]="child.status"
         [statusReason]="child.currentActivity"
         [(supportDoc)]="statusDocuments">
         <div sectionTitleInfo>
-          <h2>Documents to support your child status in Canada</h2>
+          <h2>Documents to support the child status in Canada</h2>
           <p class="horizontal-line">
-            Provide <b>one</b> of the required documents to support your child's immigration status in Canada.
+            Provide <b>one</b> of the required documents to support the child's immigration status in Canada.
           </p>
         </div>
       </msp-support-documents>
     </div>
 
-    <!-- Has your child's name changed since their id was issued due to a legal name change? -->
+    <!-- Has the child's name changed since their id was issued due to a legal name change? -->
     <common-radio
       name="nameChange_{{objectId}}"
       [(ngModel)]="child.hasNameChange"
-      label="Has your child’s name changed since their ID was issued due to a legal name change?"
+      label="Has the child's name changed since their ID was issued due to a legal name change?"
       (valuehange)="this.personChange.emit(child);"
       required>
     </common-radio>
@@ -58,7 +58,7 @@
         <div sectionTitleInfo>
           <h2>Documents - Update name due to name change</h2>
           <p class="horizontal-line">
-            Provide <b>one</b> of the required documents to support your child's name change.
+            Provide <b>one</b> of the required documents to support the child's name change.
           </p>
         </div>
       </msp-support-documents>
@@ -72,7 +72,7 @@
     <div sectionTitleInfo>
       <h2>Child's Personal Information</h2>
       <p class="horizontal-line">
-        Enter child's legal name as it appears on their official Canadian identity
+        Enter the child's legal name as it appears on their official Canadian identity
         documents, e.g., birth certificate, permanent resident card, passport.
       </p>
     </div>
