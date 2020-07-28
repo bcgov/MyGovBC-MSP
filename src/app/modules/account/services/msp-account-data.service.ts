@@ -53,6 +53,7 @@ export class MspAccountMaintenanceDataService {
   }
 
   private fetchMspAccountApplication(): MspAccountApp {
+    console.log('fetchMspAccount ran');
     const dto: MspAccountDto = this.localStorageService.get<MspAccountDto>(
       this.mspAccountStorageKey
     );
@@ -109,6 +110,7 @@ export class MspAccountMaintenanceDataService {
   }
 
   private toPersonDtoForAccount(input: MspPerson): PersonDto {
+    console.log('toPersonDtaForAccount ran');
     const dto: PersonDto = new PersonDto();
 
     dto.id = input.id;
@@ -219,8 +221,8 @@ export class MspAccountMaintenanceDataService {
 
     dto.departureDateDuring12MonthsDate =  input.departureDateDuring12MonthsDate;
     dto.departureDateDuring6MonthsDate = input.departureDateDuring6MonthsDate;
-    dto.returnDate12MonthsDate = input.returnDate12MonthsDate ;
-    dto.returnDate6MonthsDate = input.returnDate6MonthsDate ;
+    dto.returnDateDuring12MonthsDate = input.returnDateDuring12MonthsDate ;
+    dto.returnDateDuring6MonthsDate = input.returnDateDuring6MonthsDate ;
 
     dto.immigrationStatusChange = input.immigrationStatusChange;
    // dto.spouseRemoved = input.spouseRemoved;
@@ -246,6 +248,7 @@ export class MspAccountMaintenanceDataService {
   }
 
   private fromPersonDtoForAccount(dto: PersonDto): MspPerson {
+    console.log('fromPersonDtoForAccount ran');
     const output: MspPerson = new MspPerson(dto.relationship);
 
     output.id = dto.id;
@@ -258,7 +261,7 @@ export class MspAccountMaintenanceDataService {
     output.firstName = dto.firstName;
     output.middleName = dto.middleName;
     output.lastName = dto.lastName;
-    output.dob = dto.dob;
+    output.dob = new Date(dto.dob);
     output.middleName = dto.middleName;
     output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
     output.previous_phn = dto.previous_phn;
@@ -275,32 +278,32 @@ export class MspAccountMaintenanceDataService {
     output.updatingPersonalInfo = dto.updatingPersonalInfo;
     output.departureDestination = dto.departureDestination;
 
-    output.cancellationDate = dto.cancellationDate;
+    output.cancellationDate = new Date(dto.cancellationDate);
     output.cancellationReason = dto.cancellationReason;
     output.hasCurrentMailingAddress = dto.hasCurrentMailingAddress;
     output.removedSpouseDueToDivorceDoc = dto.removedSpouseDueToDivorceDoc;
 
     output.isRemovedAtTheEndOfCurrentMonth = dto.isRemovedAtTheEndOfCurrentMonth;
 
-    output.marriageDate  = dto.marriageDate;
+    output.marriageDate  = new Date(dto.marriageDate);
 
     output.hasActiveMedicalServicePlan = dto.hasActiveMedicalServicePlan;
 
-    output.arrivalToCanadaDate = dto.arrivalToCanadaDate;
-    output.arrivalToBCDate = dto.arrivalToBCDate;
+    output.arrivalToCanadaDate = new Date(dto.arrivalToCanadaDate);
+    output.arrivalToBCDate = new Date(dto.arrivalToBCDate);
 
     output.movedFromProvinceOrCountry = dto.movedFromProvinceOrCountry;
     output.hasBeenReleasedFromArmedForces = dto.hasBeenReleasedFromArmedForces;
     output.institutionWorkHistory = dto.institutionWorkHistory;
-    output.dischargeDate = dto.dischargeDate;
+    output.dischargeDate = new Date(dto.dischargeDate);
 
     output.fullTimeStudent = dto.fullTimeStudent;
     output.inBCafterStudies = dto.inBCafterStudies;
 
     output.schoolName = dto.schoolName;
-    output.studiesDepartureDate = dto.studiesDepartureDate;
-    output.studiesFinishedDate = dto.studiesFinishedDate;
-    output.studiesBeginDate = dto.studiesBeginDate;
+    output.studiesDepartureDate = new Date(dto.studiesDepartureDate);
+    output.studiesFinishedDate = new Date(dto.studiesFinishedDate);
+    output.studiesBeginDate = new Date(dto.studiesBeginDate);
 
     output.schoolOutsideOfBC = dto.schoolOutsideOfBC;
 
@@ -311,7 +314,7 @@ export class MspAccountMaintenanceDataService {
       dto.declarationForOutsideOver60Days;
 
     output.newlyAdopted = dto.newlyAdopted;
-    output.adoptedDate = dto.adoptedDate;
+    output.adoptedDate = new Date(dto.adoptedDate);
 
     output.reasonForCancellation = dto.reasonForCancellation;
     output.prevLastName = dto.prevLastName;
@@ -326,18 +329,14 @@ export class MspAccountMaintenanceDataService {
     output.departureReason = dto.departureReason;
     output.departureReason12Months = dto.departureReason12Months;
     output.departureDestination12Months = dto.departureDestination12Months;
-    output.departureDateDuring12MonthsDate =  dto.departureDateDuring12MonthsDate;
-    output.departureDateDuring6MonthsDate = dto.departureDateDuring6MonthsDate ;
-
-    output.returnDate12MonthsDate = dto.returnDate12MonthsDate ;
-
-    output.returnDate6MonthsDate = dto.returnDate6MonthsDate ;
+    output.departureDateDuring12MonthsDate = new Date(dto.departureDateDuring12MonthsDate);
+    output.departureDateDuring6MonthsDate = new Date(dto.departureDateDuring6MonthsDate);
+    output.returnDateDuring12MonthsDate = new Date(dto.returnDateDuring12MonthsDate);
+    output.returnDateDuring6MonthsDate = dto.returnDateDuring6MonthsDate;
     output.nameOfInstitute = dto.nameOfInstitute;
 
 
-
-
-    output.cancellationDate = dto.cancellationDate;
+    output.cancellationDate = new Date(dto.cancellationDate);
     if (dto.gender) {
       output.gender = dto.gender;
     }
@@ -387,6 +386,7 @@ export class MspAccountMaintenanceDataService {
   }
 
   toMspAccountAppTransferObject(input: MspAccountApp): MspAccountDto {
+    console.log('toMspAccountAppTransferObject ran');
     const dto: MspAccountDto = new MspAccountDto();
     dto.addressUpdate = input.accountChangeOptions.addressUpdate;
 
@@ -457,6 +457,7 @@ export class MspAccountMaintenanceDataService {
 
 
   private toOutofBCRecordDto(outofBCRecord: OutofBCRecord) {
+    console.log('toOutofBCRecordDto ran');
     if (outofBCRecord == null) return null;
 
     const dto: OutofBCRecordDto = new OutofBCRecordDto();
@@ -468,17 +469,19 @@ export class MspAccountMaintenanceDataService {
   }
 
   private toOutofBCRecord(dto: OutofBCRecordDto) {
+    console.log('toOutofBCRecord ran');
     if (dto == null) return null;
 
     const rec: OutofBCRecord = new OutofBCRecord();
     rec.reason = dto.reason;
     rec.location = dto.location;
-    rec.departureDate = dto.departureDate;
-    rec.returnDate = dto.returnDate;
+    rec.departureDate = new Date(dto.departureDate);
+    rec.returnDate = new Date(dto.returnDate);
     return rec;
   }
 
   private fromMspAccountTransferObject(dto: MspAccountDto): MspAccountApp {
+    console.log('fromMspAccountTransferObject ran');
     const output: MspAccountApp = new MspAccountApp();
 
     output.accountChangeOptions.addressUpdate = dto.addressUpdate;

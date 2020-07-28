@@ -38,6 +38,8 @@ export class PersonDto {
     departureDateDuring6MonthsDate: Date;
     returnDate12MonthsDate: Date;
     returnDate6MonthsDate: Date;
+    returnDateDuring12MonthsDate: Date;
+    returnDateDuring6MonthsDate: Date;
 
     hasBeenReleasedFromArmedForces: boolean;
     movedFromProvinceOrCountry: string;
