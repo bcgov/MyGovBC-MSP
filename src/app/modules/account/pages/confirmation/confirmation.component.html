@@ -24,7 +24,7 @@
 
       <!-- If the user added a spouse or child with NO PREVIOUS MSP, means he/she is a completely new resident
       to BC and needs to go to ICBC to get their picture taken, in this only case is when the 3rd blue box needs to be displayed.-->
-      <div *ngIf="hasAddedSpouseOrChildWithNoPrevMSP" AdditionalInfo>
+      <div *ngIf="isSuccess && hasAddedSpouseOrChildWithNoPrevMSP" AdditionalInfo>
         <br>
         <h2 class="horizontal-line"><strong>Next Steps</strong></h2>
         <common-page-section layout='noTips'>

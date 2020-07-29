@@ -610,8 +610,7 @@
       },
       "required": [
         "name",
-        "birthDate",
-        "phn"
+        "birthDate"
       ]
     },
     "AccountChangeSpousesType":{
@@ -701,8 +700,7 @@
       "required": [
         "name",
         "birthDate",
-        "operationAction",
-        "phn"
+        "operationAction"
       ]
     },
     "AccountChangeChildrenType": {
