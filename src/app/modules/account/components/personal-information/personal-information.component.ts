@@ -123,6 +123,14 @@ export class AccountPersonalInformationComponent<T extends IPersonalInformation>
     this.personChange.emit(this.person);
   }
 
+  get phnLabel() {
+    if (this.requiresPhn) {
+      return 'Personal Health Number (PHN)';
+    } else {
+      return 'Personal Health Number (PHN) (optional)';
+    }
+  }
+
   get dateOfBirth() {
     return this.person.dateOfBirth;
   }

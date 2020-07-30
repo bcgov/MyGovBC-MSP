@@ -39,12 +39,13 @@
   </div>
 
   <!--Display phn if defined in person object-->
-  <div *ngIf="requiresPhn" class="form-group col-sm-6 pl-0">
+  <div class="form-group col-sm-6 pl-0">
     <common-phn
       name="phn_{{objectId}}"
       [(ngModel)]="phn"
       [errorMessage]="phnErrorMsg"
-      required
+      [required]="requiresPhn"
+      [label]="phnLabel"
       commonDuplicateCheck
       [dupList]="phnList">
     </common-phn>
