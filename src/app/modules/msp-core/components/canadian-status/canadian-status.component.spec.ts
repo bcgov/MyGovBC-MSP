@@ -2,6 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CanadianStatusComponent, ICanadianStatus } from './canadian-status.component';
 import { SharedCoreModule } from 'moh-common-lib';
+import { FormsModule } from '@angular/forms';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { Relationship } from '../../../../models/relationship.enum';
 
 describe('CanadianStatusComponent', () => {
   let component: CanadianStatusComponent<ICanadianStatus>;
@@ -10,7 +13,7 @@ describe('CanadianStatusComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CanadianStatusComponent ],
-      imports: [SharedCoreModule]
+      imports: [SharedCoreModule, FormsModule]
     })
     .compileComponents();
   }));
@@ -18,10 +21,11 @@ describe('CanadianStatusComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CanadianStatusComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    component.person = new MspPerson(Relationship.Applicant);
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });

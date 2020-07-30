@@ -186,9 +186,11 @@ export class SupportDocumentsComponent extends Base
     // Change document list if status or reason changes
     this.onChanges.subscribe((changes: SimpleChanges) => {
       if (
-        changes.canadianStatus ||
-        changes.statusReason ||
-        changes.supportDocList
+        changes && (
+          changes.canadianStatus ||
+          changes.statusReason ||
+          changes.supportDocList
+        )
       ) {
         const _list = this.documentList.map(itm => {
           return this._documentOpts[itm];
