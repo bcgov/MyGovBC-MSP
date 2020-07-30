@@ -70,7 +70,7 @@
     [person]="child"
     [phnList]="phnList">
     <div sectionTitleInfo>
-      <h2>Child's Personal Information</h2>
+      <h2><strong>Child's Personal Information</strong></h2>
       <p class="horizontal-line">
         Enter the child's legal name as it appears on their official Canadian identity
         documents, e.g., birth certificate, permanent resident card, passport.
@@ -94,7 +94,8 @@
   <!-- Child's Residency Information -->
   <msp-child-moving-information
     [person]="child">
-    <div sectionTitleInfo>
+    <!-- Don't show the residency header if they have MSP already -->
+    <div *ngIf="hasActiveMedicalCoverage === false" sectionTitleInfo>
       <h2><strong>Child's Residency Information</strong></h2>
       <p class="horizontal-line"></p>
     </div>

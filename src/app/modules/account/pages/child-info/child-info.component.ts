@@ -261,18 +261,6 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
         && this.isSet(addedChild.hasActiveMedicalServicePlan)
         // Ticked "Gender"
         && this.isSet(addedChild.gender)
-        // Ticked "Is this child newly adopted?"
-        && this.isSet(addedChild.newlyAdopted)
-        // Ticked "Is this a permanent move to BC for this child?"
-        && this.isSet(addedChild.madePermanentMoveToBC)
-        // Disable continue if they are going to live in BC permanently
-        && addedChild.madePermanentMoveToBC !== false
-        // Ticked "more than 30 days in the last 12 months"
-        && this.isSet(addedChild.declarationForOutsideOver30Days)
-        // Ticked "more than 30 days in the next 6 months"
-        && this.isSet(addedChild.declarationForOutsideOver60Days)
-        // Ticked "Has this child been released from the Canadian Armed Forces?"
-        && this.isSet(addedChild.hasBeenReleasedFromArmedForces)
 
       // Ticked "19 - 24" under "How old is the child?"
       if (addedChild.relationship === Relationship.Child19To24) {
@@ -302,50 +290,65 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
         valid = valid && this.isSet(addedChild.status)
           && this.isSet(addedChild.updateStatusInCanadaDocType.images)
           && addedChild.updateStatusInCanadaDocType.images.length > 0
-          && this.isSet(addedChild.hasNameChange);
-
-          if (addedChild.hasNameChange === true) {
+          // Ticked "Has this child's name changed?"
+          && this.isSet(addedChild.hasNameChange)
+          // Ticked "Is this child newly adopted?"
+          && this.isSet(addedChild.newlyAdopted)
+          // Ticked "Is this a permanent move to BC for this child?"
+          && this.isSet(addedChild.madePermanentMoveToBC)
+          // Disable continue if they are going to live in BC permanently
+          && addedChild.madePermanentMoveToBC !== false
+          // Ticked "more than 30 days in the last 12 months"
+          && this.isSet(addedChild.declarationForOutsideOver30Days)
+          // Ticked "more than 30 days in the next 6 months"
+          && this.isSet(addedChild.declarationForOutsideOver60Days)
+          // Ticked "Has this child been released from the Canadian Armed Forces?"
+          && this.isSet(addedChild.hasBeenReleasedFromArmedForces)
+          
+        // Yes to name change
+        if (addedChild.hasNameChange === true) {
+          // Check they uploaded at least 1 doc
           valid = valid && addedChild.nameChangeDocs
           && this.isSet(addedChild.nameChangeDocs.images)
           && addedChild.nameChangeDocs.images.length > 0;
         }
-      }
 
-      // No to "lived in BC since birth"
-      if (addedChild.livedInBCSinceBirth === false) {
-        // Check they inputted the province or country they came from and the date
-        valid = valid && this.isSet(addedChild.arrivalToBCDate)
-          && this.isSet(addedChild.movedFromProvinceOrCountry)
-          && typeof addedChild.movedFromProvinceOrCountry === 'string'
-          && addedChild.movedFromProvinceOrCountry.length > 0;
-      }
+        // No to "lived in BC since birth"
+        if (addedChild.livedInBCSinceBirth === false) {
+          // Check they inputted the province or country they came from and the date
+          valid = valid && this.isSet(addedChild.arrivalToBCDate)
+            && this.isSet(addedChild.movedFromProvinceOrCountry)
+            && typeof addedChild.movedFromProvinceOrCountry === 'string'
+            && addedChild.movedFromProvinceOrCountry.length > 0;
+        }
 
-      // Yes to "newly adopted"
-      if (addedChild.newlyAdopted === true) {
-        // Check they inputted the province or country they came from and the date
-        valid = valid && this.isSet(addedChild.adoptedDate)
-      }
+        // Yes to "newly adopted"
+        if (addedChild.newlyAdopted === true) {
+          // Check they inputted the province or country they came from and the date
+          valid = valid && this.isSet(addedChild.adoptedDate)
+        }
 
-      // Yes to "more than 30 days in the last 12 months"
-      if (addedChild.declarationForOutsideOver30Days === true) {
-        valid = valid && this.isSet(addedChild.departureDateDuring12MonthsDate)
-          && this.isSet(addedChild.returnDateDuring12MonthsDate)
-          && this.isSet(addedChild.departureReason12Months)
-          && this.isSet(addedChild.departureDestination12Months)
-      }
+        // Yes to "more than 30 days in the last 12 months"
+        if (addedChild.declarationForOutsideOver30Days === true) {
+          valid = valid && this.isSet(addedChild.departureDateDuring12MonthsDate)
+            && this.isSet(addedChild.returnDateDuring12MonthsDate)
+            && this.isSet(addedChild.departureReason12Months)
+            && this.isSet(addedChild.departureDestination12Months)
+        }
 
-      // Yes to "more than 30 days in the next 6 months"
-      if (addedChild.declarationForOutsideOver60Days === true) {
-        valid = valid && this.isSet(addedChild.departureDateDuring6MonthsDate)
-          && this.isSet(addedChild.returnDateDuring6MonthsDate)
-          && this.isSet(addedChild.departureReason)
-          && this.isSet(addedChild.departureDestination)
-      }
+        // Yes to "more than 30 days in the next 6 months"
+        if (addedChild.declarationForOutsideOver60Days === true) {
+          valid = valid && this.isSet(addedChild.departureDateDuring6MonthsDate)
+            && this.isSet(addedChild.returnDateDuring6MonthsDate)
+            && this.isSet(addedChild.departureReason)
+            && this.isSet(addedChild.departureDestination)
+        }
 
-      // Yes to "released from Canadian Armed Forces"
-      if (addedChild.hasBeenReleasedFromArmedForces === true) {
-        valid = valid && this.isSet(addedChild.dischargeDate)
-          && this.isSet(addedChild.nameOfInstitute)
+        // Yes to "released from Canadian Armed Forces"
+        if (addedChild.hasBeenReleasedFromArmedForces === true) {
+          valid = valid && this.isSet(addedChild.dischargeDate)
+            && this.isSet(addedChild.nameOfInstitute)
+        }
       }
     })
 
