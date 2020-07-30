@@ -30,8 +30,8 @@ export function statusReasonRules(relationship: Relationship,
     case StatusInCanada.CitizenAdult:
     case StatusInCanada.PermanentResident:
       if (relationship === Relationship.Child19To24 ||
-          relationship === Relationship.ChildUnder19 ||
-          relationship === Relationship.ChildUnder24) {
+        relationship === Relationship.ChildUnder19 ||
+        relationship === Relationship.ChildUnder24) {
         return [
           CanadianStatusReason.MovingFromProvince,
           CanadianStatusReason.MovingFromCountry,
@@ -52,6 +52,15 @@ export function statusReasonRules(relationship: Relationship,
           CanadianStatusReason.StudyingInBC,
           CanadianStatusReason.ReligiousWorker,
           CanadianStatusReason.Diplomat];
+        // If it's a child, don't show "Work Permit" as an option
+      } else if (relationship === Relationship.Child19To24
+        || relationship === Relationship.ChildUnder19
+        || relationship === Relationship.Child) { 
+        return [
+          CanadianStatusReason.StudyingInBC,
+          CanadianStatusReason.ReligiousWorker,
+          CanadianStatusReason.Diplomat,
+          CanadianStatusReason.Visiting];
       } else {
         return [
           CanadianStatusReason.WorkingInBC,
