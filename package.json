@@ -81,7 +81,7 @@
     "angular2-template-loader": "^0.6.2",
     "angular2-text-mask": "^9.0.0",
     "angular2-uuid": "^1.1.1",
-    "blueimp-canvas-to-blob": "^3.14.0",
+    "blueimp-canvas-to-blob": "^3.27.0",
     "blueimp-load-image": "^2.19.0",
     "bootstrap": "4.3.1",
     "css-loader": "^1.0.0",
