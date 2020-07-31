@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { SharedCoreModule } from 'moh-common-lib';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AccountContainerComponent } from './account-container.component';
 
 describe('AccountContainerComponent', () => {
@@ -8,7 +9,11 @@ describe('AccountContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccountContainerComponent ]
+      declarations: [ AccountContainerComponent ],
+      imports: [
+        RouterTestingModule,
+        SharedCoreModule
+      ]
     })
     .compileComponents();
   }));

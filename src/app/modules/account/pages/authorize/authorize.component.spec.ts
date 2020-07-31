@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { SharedCoreModule } from 'moh-common-lib';
+import { CaptchaModule } from 'moh-common-lib/captcha';
+import { FormsModule } from '@angular/forms';
+import { LocalStorageModule } from 'angular-2-local-storage';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizeComponent } from './authorize.component';
+import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 
 describe('AuthorizeComponent', () => {
   let component: AuthorizeComponent;
@@ -8,7 +13,20 @@ describe('AuthorizeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthorizeComponent ]
+      declarations: [ AuthorizeComponent ],
+      imports: [
+        CaptchaModule,
+        FormsModule,
+        SharedCoreModule,
+        LocalStorageModule.withConfig({
+          prefix: 'ca.bc.gov.msp',
+          storageType: 'sessionStorage'
+        }),
+        RouterTestingModule
+      ],
+      providers: [
+        MspAccountMaintenanceDataService
+      ]
     })
     .compileComponents();
   }));

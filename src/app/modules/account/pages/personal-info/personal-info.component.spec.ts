@@ -9,6 +9,7 @@ import { ProcessService } from '../../../../services/process.service';
 import { async } from '@angular/core/testing';
 import {TextMaskModule} from 'angular2-text-mask';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
+import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 
 describe('AccountPersonalInfoComponent', () => {
     let fixture: ComponentFixture<AccountPersonalInfoComponent>;
@@ -30,6 +31,7 @@ describe('AccountPersonalInfoComponent', () => {
             })],
             providers: [
                 MspDataService,
+                MspAccountMaintenanceDataService,
                 { provide: ProcessService, useValue: processServiceStub },
             ]
         });
@@ -49,29 +51,4 @@ describe('AccountPersonalInfoComponent', () => {
     it('should have an invalid status by default', () => {
         expect(comp.hasAnyInvalidStatus()).toBe(false, 'should have hasAnyInvalidStatus false on init');
     });
-
-    it('should have a valid status without a status update', () => {
-        const mspAccountApp =  TestBed.get(MspDataService).getMspAccountApp();
-        mspAccountApp.accountChangeOptions.statusUpdate = true;
-        comp.addUpdateSpouse();
-        mspAccountApp.updatedSpouse.status = StatusInCanada.TemporaryResident;
-        mspAccountApp.updatedSpouse.currentActivity =  CanadianStatusReason.Visiting;
-        fixture.detectChanges();
-        expect(comp.hasAnyInvalidStatus()).toBe(true, 'added spouse is just visiting so hasAnyInvalidStatus should be true');
-    });
-
-    it('should be able to add and remove a spouse', () => {
-        expect(comp.hasAnyInvalidStatus()).toBe(false, 'should have hasAnyInvalidStatus false on init');
-
-        const mspAccountApp =  TestBed.get(MspDataService).getMspAccountApp();
-        mspAccountApp.accountChangeOptions.statusUpdate = true;
-        comp.addUpdateSpouse();
-        mspAccountApp.updatedSpouse.status = StatusInCanada.TemporaryResident;
-        mspAccountApp.updatedSpouse.currentActivity =  CanadianStatusReason.Visiting;
-        expect(comp.hasAnyInvalidStatus()).toBe(true, 'should have hasAnyInvalidStatus true after adding new spouse');
-        //comp.removeSpouse();
-
-        expect(comp.hasAnyInvalidStatus()).toBe(false, 'should have hasAnyInvalidStatus false after removing spouse');
-    });
-
 });
