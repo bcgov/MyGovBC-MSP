@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { ReviewCardComponent } from './review-card.component';
 
 describe('ReviewCardComponent', () => {
@@ -8,6 +8,9 @@ describe('ReviewCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule.withRoutes([]),
+      ],
       declarations: [ ReviewCardComponent ]
     })
     .compileComponents();

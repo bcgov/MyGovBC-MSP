@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddressReviewPartComponent } from './address-review-part.component';
+import { ReviewPartComponent } from '../review-part/review-part.component';
 
 describe('AddressReviewPartComponent', () => {
   let component: AddressReviewPartComponent;
@@ -8,7 +9,7 @@ describe('AddressReviewPartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddressReviewPartComponent ]
+      declarations: [ AddressReviewPartComponent, ReviewPartComponent ]
     })
     .compileComponents();
   }));

@@ -33,7 +33,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
     constructor(private _router: Router,
                 private dataService: MspBenefitDataService,
-                private _processService: ProcessService
+                public _processService: ProcessService
                 ) { }
 
     ngOnInit(): void {

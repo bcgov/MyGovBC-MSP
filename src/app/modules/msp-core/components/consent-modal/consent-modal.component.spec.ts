@@ -8,6 +8,7 @@ import {ModalModule} from 'ngx-bootstrap';
 import {MspMaintenanceService} from '../../../../services/msp-maintenance.service';
 import {HttpClientModule} from '@angular/common/http';
 import {MspLogService} from '../../../../services/log.service';
+import { SharedCoreModule } from 'moh-common-lib';
 
 
 describe('MspConsentModalComponent', () => {
@@ -19,7 +20,9 @@ describe('MspConsentModalComponent', () => {
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       }),
-        ModalModule.forRoot()],
+        ModalModule.forRoot(),
+        SharedCoreModule
+      ],
         providers: [MspDataService, MspMaintenanceService, MspLogService]
     });
   });
