@@ -6,6 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ContactInfoComponent } from './contact-info.component';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
+import { ProcessService } from '../../../../services/process.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 
 describe('ContactInfoComponent', () => {
   let component: ContactInfoComponent;
@@ -25,7 +27,9 @@ describe('ContactInfoComponent', () => {
         HttpClientTestingModule
       ],
       providers: [
-        MspAccountMaintenanceDataService
+        MspAccountMaintenanceDataService,
+        ProcessService,
+        MspDataService
       ]
     })
     .compileComponents();
@@ -34,6 +38,7 @@ describe('ContactInfoComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ContactInfoComponent);
     component = fixture.componentInstance;
+    spyOn(component._processService, 'setStep').and.returnValue(null);
     fixture.detectChanges();
   });
 

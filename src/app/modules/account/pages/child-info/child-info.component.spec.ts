@@ -11,6 +11,8 @@ import { MspCoreModule } from '../../../msp-core/msp-core.module';
 import { AccountPersonalInformationComponent } from '../../components/personal-information/personal-information.component';
 import { ChildMovingInformationComponent } from '../../components/moving-information/moving-information.component';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
+import { ProcessService } from '../../../../services/process.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 
 describe('ChildInfoComponent', () => {
   let component: ChildInfoComponent;
@@ -37,7 +39,9 @@ describe('ChildInfoComponent', () => {
         RouterTestingModule
       ],
       providers: [
-        MspAccountMaintenanceDataService
+        MspAccountMaintenanceDataService,
+        ProcessService,
+        MspDataService
       ]
     })
     .compileComponents();
@@ -46,6 +50,7 @@ describe('ChildInfoComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ChildInfoComponent);
     component = fixture.componentInstance;
+    spyOn(component._processService, 'setStep').and.returnValue(null);
     fixture.detectChanges();
   });
 

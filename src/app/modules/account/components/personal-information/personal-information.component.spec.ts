@@ -12,6 +12,8 @@ class Person1 implements IPersonalInformation {
   lastName: string;
   dateOfBirth: Date;
   relationship: Relationship;
+  hasActiveMedicalServicePlan: boolean;
+  immigrationStatusChange: boolean;
 }
 @Component({
   template: ``,

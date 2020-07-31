@@ -26,7 +26,7 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
               private _router: Router,
               protected containerService: ContainerService,
               protected pageStateService: PageStateService,
-              protected _processService: ProcessService) {
+              public _processService: ProcessService) {
       super(_router, containerService, pageStateService, _processService);
       this.mspAccountApp = dataService.getMspAccountApp();
       this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;

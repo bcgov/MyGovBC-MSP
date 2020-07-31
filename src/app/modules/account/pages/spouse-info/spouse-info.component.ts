@@ -31,7 +31,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
               protected router: Router,
               protected containerService: ContainerService,
               protected pageStateService: PageStateService,
-              protected _processService: ProcessService) {
+              public _processService: ProcessService) {
     super(router, containerService, pageStateService, _processService);
     if (this.dataService.getMspAccountApp().hasSpouseAdded) {
       this.showAddSpouse = true;

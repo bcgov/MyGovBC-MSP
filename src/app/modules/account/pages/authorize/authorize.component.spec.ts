@@ -6,6 +6,8 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizeComponent } from './authorize.component';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
+import { ProcessService } from '../../../../services/process.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 
 describe('AuthorizeComponent', () => {
   let component: AuthorizeComponent;
@@ -25,7 +27,9 @@ describe('AuthorizeComponent', () => {
         RouterTestingModule
       ],
       providers: [
-        MspAccountMaintenanceDataService
+        MspAccountMaintenanceDataService,
+        ProcessService,
+        MspDataService
       ]
     })
     .compileComponents();
@@ -34,6 +38,7 @@ describe('AuthorizeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AuthorizeComponent);
     component = fixture.componentInstance;
+    spyOn(component._processService, 'setStep').and.returnValue(null);
     fixture.detectChanges();
   });
 
