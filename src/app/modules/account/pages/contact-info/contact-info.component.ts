@@ -49,7 +49,7 @@ export class ContactInfoComponent extends BaseForm implements OnInit, AfterViewI
                protected router: Router,
                protected containerService: ContainerService,
                protected pageStateService: PageStateService,
-               protected _processService: ProcessService) {
+               public _processService: ProcessService) {
      super(router, containerService, pageStateService, _processService);
      this.mspAccountApp = this.dataService.accountApp;
    }

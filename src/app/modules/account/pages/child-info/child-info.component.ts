@@ -29,7 +29,7 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
               protected router: Router,
               protected containerService: ContainerService,
               protected pageStateService: PageStateService,
-              protected _processService: ProcessService) {
+              public _processService: ProcessService) {
     super(router, containerService, pageStateService, _processService);
   }
   subscriptions: Subscription[];

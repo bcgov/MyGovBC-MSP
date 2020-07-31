@@ -3,18 +3,24 @@ import { FormsModule } from '@angular/forms';
 import { AccountPersonCardComponent } from './person-card.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import {MspAddressCardPartComponent} from '../../../msp-core/components/address-card-part/address-card-part.component';
 import {ModalModule} from 'ngx-bootstrap';
 import {RouterTestingModule} from '@angular/router/testing';
+import { MspCoreModule } from '../../../msp-core/msp-core.module';
 
 describe('MspPersonCardComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AccountPersonCardComponent, MspAddressCardPartComponent],
-      imports: [FormsModule, ModalModule.forRoot(), RouterTestingModule, LocalStorageModule.withConfig({
-        prefix: 'ca.bc.gov.msp',
-        storageType: 'sessionStorage'
-      })],
+      declarations: [AccountPersonCardComponent],
+      imports: [
+        FormsModule,
+        ModalModule.forRoot(),
+        RouterTestingModule,
+        LocalStorageModule.withConfig({
+          prefix: 'ca.bc.gov.msp',
+          storageType: 'sessionStorage'
+        }),
+        MspCoreModule
+      ],
       providers: [MspDataService]
     });
   });
