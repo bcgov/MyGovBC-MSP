@@ -85,7 +85,7 @@
     "blueimp-load-image": "^2.19.0",
     "bootstrap": "4.3.1",
     "css-loader": "^1.0.0",
-    "date-fns": "^2.6.0",
+    "date-fns": "^2.14.0",
     "faker": "^4.1.0",
     "jquery": "^3.3.1",
     "jxon": "git+https://github.com/bcgov/jxon.git",
