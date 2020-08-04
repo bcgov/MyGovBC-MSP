@@ -11,6 +11,7 @@ import { ProcessService } from '../../../../services/process.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientModule} from '@angular/common/http';
 import { EnrolAddressComponent } from './address.component';
+import { SharedCoreModule } from 'moh-common-lib';
 
 describe('Application Address Component Test', () => {
 
@@ -18,18 +19,20 @@ describe('Application Address Component Test', () => {
         TestBed.configureTestingModule({
             declarations: [
                 MspCancelComponent,
-
+                EnrolAddressComponent
             ],
             imports: [
                 FormsModule,
                 TypeaheadModule,
                 ModalModule.forRoot(),
-                 HttpClientModule,
-                 RouterTestingModule,
-                 LocalStorageModule.withConfig({
-                prefix: 'ca.bc.gov.msp',
-                storageType: 'sessionStorage'
-              })],
+                HttpClientModule,
+                RouterTestingModule,
+                LocalStorageModule.withConfig({
+                    prefix: 'ca.bc.gov.msp',
+                    storageType: 'sessionStorage'
+                }),
+                SharedCoreModule
+            ],
             providers: [
                 MspDataService,
                 CompletenessCheckService,
