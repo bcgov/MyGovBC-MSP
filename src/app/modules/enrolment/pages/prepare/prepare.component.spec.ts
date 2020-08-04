@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedCoreModule } from 'moh-common-lib';
 import { PrepareComponent } from './prepare.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
@@ -16,10 +17,17 @@ describe('PrepareComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [PrepareComponent, MspConsentModalComponent, MspCancelComponent],
-      imports: [FormsModule,  HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
-        prefix: 'ca.bc.gov.msp',
-        storageType: 'sessionStorage'
-      }),  ModalModule.forRoot()],
+      imports: [
+        FormsModule,
+        HttpClientModule,
+        RouterTestingModule,
+        LocalStorageModule.withConfig({
+          prefix: 'ca.bc.gov.msp',
+          storageType: 'sessionStorage'
+        }),
+        ModalModule.forRoot(),
+        SharedCoreModule
+      ],
       providers: [MspDataService, MspLogService, ProcessService, MspMaintenanceService]
     });
   });

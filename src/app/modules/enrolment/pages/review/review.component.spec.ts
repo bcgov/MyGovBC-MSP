@@ -12,6 +12,11 @@ import { MspLogService } from '../../../../services/log.service';
 import { ProcessService } from '../../../../services/process.service';
 import { MspAddressCardPartComponent } from '../../../msp-core/components/address-card-part/address-card-part.component';
 import { SharedCoreModule } from 'moh-common-lib';
+import { PersonReviewCardComponent } from '../../components/person-review-card/person-review-card.component';
+import { ContactReviewCardComponent } from '../../../msp-core/components/contact-review-card/contact-review-card.component';
+import { ReviewCardComponent } from '../../../msp-core/components/review-card/review-card.component';
+import { ReviewPartComponent } from '../../../msp-core/components/review-part/review-part.component';
+import { AddressReviewPartComponent } from '../../../msp-core/components/address-review-part/address-review-part.component';
 
 
 
@@ -23,7 +28,12 @@ describe('ReviewComponent', () => {
         ReviewComponent,
         MspPersonCardComponent,
         MspAddressCardPartComponent,
-        MspCancelComponent
+        MspCancelComponent,
+        PersonReviewCardComponent,
+        ContactReviewCardComponent,
+        ReviewCardComponent,
+        ReviewPartComponent,
+        AddressReviewPartComponent
       ],
       imports: [
         FormsModule,
