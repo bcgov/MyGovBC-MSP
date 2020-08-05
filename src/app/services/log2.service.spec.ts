@@ -15,22 +15,38 @@ import {FormsModule} from '@angular/forms';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { environment } from '../../environments/environment';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { EnrolDataService } from '../modules/enrolment/services/enrol-data.service';
 
 describe('MspLog2Service', () => {
     let injector: TestBed;
     let service: MspLog2Service;
     let httpMock: HttpTestingController;
+    const enrolDataServiceStub = () => ({
+        application: {
+            referenceNumber: '123'
+        }
+    });
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, HttpClientModule,
-          RouterTestingModule,
-          FormsModule,
-          LocalStorageModule.withConfig({
-              prefix: 'ca.bc.gov.msp',
-              storageType: 'sessionStorage'
-          }) ],
-        providers: [ BaseRequestOptions, MockBackend, LocalStorageService , MspLog2Service, MspDataService, MspMaintenanceService,
+        imports: [
+            HttpClientTestingModule,
+            HttpClientModule,
+            RouterTestingModule,
+            FormsModule,
+            LocalStorageModule.withConfig({
+                prefix: 'ca.bc.gov.msp',
+                storageType: 'sessionStorage'
+            })
+        ],
+        providers: [
+            BaseRequestOptions,
+            MockBackend,
+            LocalStorageService,
+            MspLog2Service,
+            MspDataService,
+            MspMaintenanceService,
+            { provide: EnrolDataService, useFactory: enrolDataServiceStub },
             {
                 deps: [
                     MockBackend,
@@ -40,7 +56,8 @@ describe('MspLog2Service', () => {
                 useFactory: (backend: XHRBackend, defaultOptions: BaseRequestOptions) => {
                     return new Http(backend, defaultOptions);
                 }
-            }]
+            }
+        ]
       });
       injector = getTestBed();
       const testbed = getTestBed();
