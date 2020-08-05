@@ -9,15 +9,18 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import {MspApiService} from './msp-api.service';
 import {HttpClientModule} from '@angular/common/http';
 import {MspMaintenanceService} from './msp-maintenance.service';
+import { MspLog2Service } from './log2.service';
 
 
 describe('msp-api XML NS', () => {
     let apiService: MspApiService;
+    const log2ServiceStub = () => ({});
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [],
-            imports: [BrowserModule,
+            imports: [
+                BrowserModule,
                 CommonModule,
                 HttpClientModule,
                 RouterTestingModule,
@@ -25,9 +28,15 @@ describe('msp-api XML NS', () => {
                 LocalStorageModule.withConfig({
                     prefix: 'ca.bc.gov.msp',
                     storageType: 'sessionStorage'
-                })],
+                })
+            ],
             providers: [
-                MspApiService, MspDataService, MspLogService, MspMaintenanceService]
+                MspApiService,
+                MspDataService,
+                MspLogService,
+                MspMaintenanceService,
+                { provide: MspLog2Service, useFactory: log2ServiceStub }
+            ]
         });
     });
 
