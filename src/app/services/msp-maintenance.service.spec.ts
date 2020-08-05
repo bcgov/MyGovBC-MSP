@@ -10,6 +10,7 @@ import {
 import {TestBed, getTestBed, inject} from '@angular/core/testing';
 import {MspMaintenanceService} from './msp-maintenance.service';
 import {MspLogService} from './log.service';
+import { MspLog2Service } from './log2.service';
 import {MspDataService} from './msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {HttpClientModule} from '@angular/common/http';
@@ -24,17 +25,27 @@ describe('MspMaintenanceService', () => {
     let service: MspMaintenanceService;
     let httpMock: HttpTestingController;
     let spaEnvRes: ISpaEnvResponse;
+    const log2ServiceStub = () => ({});
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, HttpClientModule,
+        imports: [
+          HttpClientTestingModule,
+          HttpClientModule,
           RouterTestingModule,
           FormsModule,
           LocalStorageModule.withConfig({
-              prefix: 'ca.bc.gov.msp',
-              storageType: 'sessionStorage'
-          }) ],
-        providers: [ LocalStorageService , MspMaintenanceService, MspLogService, MspDataService]
+            prefix: 'ca.bc.gov.msp',
+            storageType: 'sessionStorage'
+          })
+        ],
+        providers: [
+          LocalStorageService,
+          MspMaintenanceService,
+          MspLogService,
+          MspDataService,
+          { provide: MspLog2Service, useFactory: log2ServiceStub }
+        ]
       });
       injector = getTestBed();
       service = injector.get(MspMaintenanceService);
