@@ -1,39 +1,41 @@
-import { TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { SharedCoreModule } from 'moh-common-lib';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
+import { PageStateService } from '../../../../services/page-state.service';
+import { EnrolDataService } from '../../services/enrol-data.service';
+import { FormsModule, NgForm } from '@angular/forms';
 import { PrepareComponent } from './prepare.component';
-import { MspDataService } from '../../../../services/msp-data.service';
-import { LocalStorageModule } from 'angular-2-local-storage';
-import {MspConsentModalComponent} from '../../../msp-core/components/consent-modal/consent-modal.component';
-import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
-import { MspLogService } from '../../../../services/log.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ProcessService } from '../../../../services/process.service';
+import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
+import { ConsentModalComponent } from 'moh-common-lib';
 import { ModalModule } from 'ngx-bootstrap';
-import {MspMaintenanceService} from '../../../../services/msp-maintenance.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 describe('PrepareComponent', () => {
-  beforeEach(() => {
+  let component: PrepareComponent;
+  let fixture: ComponentFixture<PrepareComponent>;
+  beforeEach(async(() => {
+    const routerStub = () => ({});
+    const pageStateServiceStub = () => ({ setPageIncomplete: () => {}} );
+    const enrolDataServiceStub = () => ({ application: {}, saveApplication: () => ({}) });
     TestBed.configureTestingModule({
-      declarations: [PrepareComponent, MspConsentModalComponent, MspCancelComponent],
-      imports: [
-        FormsModule,
-        HttpClientModule,
-        RouterTestingModule,
-        LocalStorageModule.withConfig({
-          prefix: 'ca.bc.gov.msp',
-          storageType: 'sessionStorage'
-        }),
-        ModalModule.forRoot(),
-        SharedCoreModule
-      ],
-      providers: [MspDataService, MspLogService, ProcessService, MspMaintenanceService]
-    });
-  });
-  it ('should work', () => {
-    const fixture = TestBed.createComponent(PrepareComponent);
-    expect(fixture.componentInstance instanceof PrepareComponent).toBe(true, 'should create PrepareComponent');
+      imports: [ModalModule.forRoot(), HttpClientModule],
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [PrepareComponent, MspConsentModalComponent, ConsentModalComponent, NgForm],
+      providers: [
+        { provide: Router, useFactory: routerStub },
+        { provide: PageStateService, useFactory: pageStateServiceStub },
+        { provide: EnrolDataService, useFactory: enrolDataServiceStub }
+      ]
+    }).compileComponents();
+  }));
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(PrepareComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  })
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

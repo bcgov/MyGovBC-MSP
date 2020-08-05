@@ -11,8 +11,8 @@ describe('EnrolAddressComponent', () => {
   let fixture: ComponentFixture<EnrolAddressComponent>;
   beforeEach(() => {
     const routerStub = () => ({});
-    const pageStateServiceStub = () => ({});
-    const enrolDataServiceStub = () => ({});
+    const pageStateServiceStub = () => ({setPageIncomplete: () => {}});
+    const enrolDataServiceStub = () => ({ application: {}});
     TestBed.configureTestingModule({
       imports: [FormsModule],
       schemas: [NO_ERRORS_SCHEMA],
@@ -25,6 +25,7 @@ describe('EnrolAddressComponent', () => {
     });
     fixture = TestBed.createComponent(EnrolAddressComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
