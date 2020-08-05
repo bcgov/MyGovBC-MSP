@@ -10,19 +10,37 @@ import {MspLogService} from '../../../../services/log.service';
 import { TransmissionErrorView } from '../../../../components/msp/common/transmission-error-view/transmission-error-view.component';
 import { ProcessService } from '../../../../services/process.service';
 import { MspMaintenanceService } from '../../../../services/msp-maintenance.service';
+import { MspLog2Service } from '../../../../services/log2.service';
 
 
 describe('AssistanceSendingComponent', () => {
-
+  const mspLog2ServiceStub = () => ({
+    _headers: {}
+  })
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AssistanceSendingComponent, TransmissionErrorView ],
-      imports: [FormsModule, HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
-        prefix: 'ca.bc.gov.msp',
-        storageType: 'sessionStorage'
-      })],
-      providers: [MspDataService, MspApiService, ProcessService , MspLogService, MspMaintenanceService]
+      declarations: [
+        AssistanceSendingComponent,
+        TransmissionErrorView
+      ],
+      imports: [
+        FormsModule,
+        HttpClientModule,
+        RouterTestingModule,
+        LocalStorageModule.withConfig({
+          prefix: 'ca.bc.gov.msp',
+          storageType: 'sessionStorage'
+        })
+      ],
+      providers: [
+        MspDataService,
+        MspApiService,
+        ProcessService,
+        MspLogService,
+        MspMaintenanceService,
+        { provide: MspLog2Service, useFactory: mspLog2ServiceStub }
+      ]
     });
   });
   it ('should work', () => {

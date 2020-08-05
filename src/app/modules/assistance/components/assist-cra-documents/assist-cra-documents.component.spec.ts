@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { SharedCoreModule } from 'moh-common-lib';
 import { AssistCraDocumentsComponent } from './assist-cra-documents.component';
 
 describe('AssistCraDocumentsComponent', () => {
@@ -8,7 +8,10 @@ describe('AssistCraDocumentsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AssistCraDocumentsComponent ]
+      declarations: [ AssistCraDocumentsComponent ],
+      imports: [
+        SharedCoreModule
+      ]
     })
     .compileComponents();
   }));

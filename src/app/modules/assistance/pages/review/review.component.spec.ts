@@ -7,6 +7,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {MspLogService} from '../../../../services/log.service';
 import { ModalModule } from 'ngx-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
+import { MspCoreModule } from '../../../msp-core/msp-core.module';
 
 describe('AssistanceReviewComponent', () => {
 
@@ -21,7 +22,9 @@ describe('AssistanceReviewComponent', () => {
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
         }),
-      ModalModule.forRoot()],
+        ModalModule.forRoot(),
+        MspCoreModule
+      ],
       providers: [
         MspDataService,
         MspLogService

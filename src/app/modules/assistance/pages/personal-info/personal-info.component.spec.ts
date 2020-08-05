@@ -14,11 +14,16 @@ import { MspLogService } from '../../../../services/log.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { TextMaskModule } from 'angular2-text-mask';
+import { AssistCraDocumentsComponent } from '../../components/assist-cra-documents/assist-cra-documents.component';
+import { MspCoreModule } from '../../../msp-core/msp-core.module';
 
 describe('AssistancePersonalInfoComponent Test', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AssistancePersonalInfoComponent],
+      declarations: [
+        AssistancePersonalInfoComponent,
+        AssistCraDocumentsComponent
+      ],
       imports: [
         TextMaskModule,
         FormsModule,
@@ -29,7 +34,8 @@ describe('AssistancePersonalInfoComponent Test', () => {
         LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
-        })
+        }),
+        MspCoreModule
       ],
       providers: [MspDataService, CompletenessCheckService, MspLogService]
     });
