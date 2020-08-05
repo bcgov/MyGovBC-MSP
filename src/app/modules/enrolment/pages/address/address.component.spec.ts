@@ -1,52 +1,33 @@
-import {TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
+import { PageStateService } from '../../../../services/page-state.service';
+import { EnrolDataService } from '../../services/enrol-data.service';
 import { FormsModule } from '@angular/forms';
-import { MspDataService } from '../../../../services/msp-data.service';
-import { CompletenessCheckService } from '../../../../services/completeness-check.service';
-import { LocalStorageModule } from 'angular-2-local-storage';
-import { TypeaheadModule } from 'ngx-bootstrap';
-import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
-import {ModalModule} from 'ngx-bootstrap';
-import { MspLogService } from '../../../../services/log.service';
-import { ProcessService } from '../../../../services/process.service';
-import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientModule} from '@angular/common/http';
 import { EnrolAddressComponent } from './address.component';
-import { SharedCoreModule } from 'moh-common-lib';
 
-describe('Application Address Component Test', () => {
-
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [
-                MspCancelComponent,
-                EnrolAddressComponent
-            ],
-            imports: [
-                FormsModule,
-                TypeaheadModule,
-                ModalModule.forRoot(),
-                HttpClientModule,
-                RouterTestingModule,
-                LocalStorageModule.withConfig({
-                    prefix: 'ca.bc.gov.msp',
-                    storageType: 'sessionStorage'
-                }),
-                SharedCoreModule
-            ],
-            providers: [
-                MspDataService,
-                CompletenessCheckService,
-                MspLogService,
-                ProcessService
-            ]
-        });
+describe('EnrolAddressComponent', () => {
+  let component: EnrolAddressComponent;
+  let fixture: ComponentFixture<EnrolAddressComponent>;
+  beforeEach(() => {
+    const routerStub = () => ({});
+    const pageStateServiceStub = () => ({});
+    const enrolDataServiceStub = () => ({});
+    TestBed.configureTestingModule({
+      imports: [FormsModule],
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [EnrolAddressComponent],
+      providers: [
+        { provide: Router, useFactory: routerStub },
+        { provide: PageStateService, useFactory: pageStateServiceStub },
+        { provide: EnrolDataService, useFactory: enrolDataServiceStub }
+      ]
     });
+    fixture = TestBed.createComponent(EnrolAddressComponent);
+    component = fixture.componentInstance;
+  });
 
-    it ('should work', () => {
-        const fixture = TestBed.createComponent(EnrolAddressComponent);
-
-        //(fixture.componentInstance as EnrolAddressComponent).mspApplication = new MspApplication();
-
-        expect(fixture.componentInstance instanceof EnrolAddressComponent).toBe(true, 'should create AddressComponent');
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

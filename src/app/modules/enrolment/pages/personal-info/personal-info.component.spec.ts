@@ -15,7 +15,7 @@ import { MspCoreModule } from '../../../msp-core/msp-core.module';
 import { ProcessService } from '../../../../services/process.service';
 
 
-describe('PersonalInfoComponent', () => {
+fdescribe('PersonalInfoComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
