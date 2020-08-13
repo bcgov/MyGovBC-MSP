@@ -337,7 +337,7 @@ fdescribe('ChildMovingInformationComponent', () => {
     });
   });
 
-  fdescribe('showFromCountry', () => {
+  describe('showFromCountry', () => {
     it('should return false if is child.', () => {
       component.person.relationship = Relationship.ChildUnder19;
       expect(component.showFromCountry).toBe(false);
@@ -361,5 +361,162 @@ fdescribe('ChildMovingInformationComponent', () => {
     });
   });
 
+  describe('showHealthNumber', () => {
+    it('should return true if is child.', () => {
+      component.person.relationship = Relationship.ChildUnder19;
+      expect(component.showHealthNumber).toBe(true);
+    });
+
+    it('should return true if Canadian citizen and moving from country.', () => {
+      component.person.status = StatusInCanada.CitizenAdult;
+      component.person.currentActivity = CanadianStatusReason.MovingFromProvince;
+      expect(component.showHealthNumber).toBe(true);
+    });
+
+    it('should return true if Canadian citizen and living in BC without MSP.', () => {
+      component.person.status = StatusInCanada.CitizenAdult;
+      component.person.currentActivity = CanadianStatusReason.LivingInBCWithoutMSP;
+      expect(component.showHealthNumber).toBe(true);
+    });
+
+    it('should return true if permanent resident and moving from province.', () => {
+      component.person.status = StatusInCanada.PermanentResident;
+      component.person.currentActivity = CanadianStatusReason.MovingFromProvince;
+      expect(component.showHealthNumber).toBe(true);
+    });
+  });
+
+  describe('hasBeenReleasedFromArmedForces getter', () => {
+    it('should return true if has been released from armed forces.', () => {
+      component.person.hasBeenReleasedFromArmedForces = true;
+      expect(component.hasBeenReleasedFromArmedForces).toBe(true);
+    });
+
+    it('should return false if not has been released from armed forces.', () => {
+      component.person.hasBeenReleasedFromArmedForces = false;
+      expect(component.hasBeenReleasedFromArmedForces).toBe(false);
+    });
+  });
+
+  describe('hasBeenReleasedFromArmedForces setter', () => {
+    it('should set value of `hasBeenReleasedFromArmedForces`.', () => {
+      component.person.hasBeenReleasedFromArmedForces = true;
+      component.hasBeenReleasedFromArmedForces = false;
+      expect(component.person.hasBeenReleasedFromArmedForces).toBe(false);
+    });
+  });
+
+  describe('setDeclarationForOutsideOver60Days', () => {
+    it('should set value of `declarationForOutsideOver60Days`.', () => {
+      component.person.declarationForOutsideOver60Days = false;
+      component.setDeclarationForOutsideOver60Days(true);
+      expect(component.person.declarationForOutsideOver60Days).toBe(true);
+    });
+
+    it('should reset value of `departureReason` and `departureDestination` when false.', () => {
+      component.person.declarationForOutsideOver60Days = true;
+      component.person.departureReason = 'TEST';
+      component.person.departureDestination = 'TEST';
+      component.setDeclarationForOutsideOver60Days(false);
+      expect(component.person.departureReason).toBe(null);
+      expect(component.person.departureDestination).toBe(null);
+    });
+  });
+
+  describe('dob', () => {
+    it('should return the `dob`.', () => {
+      component.person.dob = new Date('2020-04-01');
+      expect(component.dob).toBe(component.person.dob);
+    });
+  });
+
+  describe('adoptedDate', () => {
+    it('should return the `adoptedDate`.', () => {
+      component.person.adoptedDate = new Date('2020-04-01');
+      expect(component.adoptedDate).toBe(component.person.adoptedDate);
+    });
+  });
+
+  describe('arrivalToBCDate', () => {
+    it('should return the `arrivalToBCDate`.', () => {
+      component.person.arrivalToBCDate = new Date('2020-04-01');
+      expect(component.arrivalToBCDate).toBe(component.person.arrivalToBCDate);
+    });
+  });
+
+  describe('departureDateDuring12MonthsDate', () => {
+    it('should return the `departureDateDuring12MonthsDate`.', () => {
+      component.person.departureDateDuring12MonthsDate = new Date('2020-04-01');
+      expect(component.departureDateDuring12MonthsDate).toBe(component.person.departureDateDuring12MonthsDate);
+    });
+  });
+
+  describe('returnDateDuring12MonthsDate', () => {
+    it('should return the `returnDateDuring12MonthsDate`.', () => {
+      component.person.returnDateDuring12MonthsDate = new Date('2020-04-01');
+      expect(component.returnDateDuring12MonthsDate).toBe(component.person.returnDateDuring12MonthsDate);
+    });
+  });
+
+  describe('departureDateDuring6MonthsDate', () => {
+    it('should return the `departureDateDuring6MonthsDate`.', () => {
+      component.person.departureDateDuring6MonthsDate = new Date('2020-04-01');
+      expect(component.departureDateDuring6MonthsDate).toBe(component.person.departureDateDuring6MonthsDate);
+    });
+  });
+
+  describe('returnDateDuring6MonthsDate', () => {
+    it('should return the `returnDateDuring6MonthsDate`.', () => {
+      component.person.returnDateDuring6MonthsDate = new Date('2020-04-01');
+      expect(component.returnDateDuring6MonthsDate).toBe(component.person.returnDateDuring6MonthsDate);
+    });
+  });
+
+  describe('studiesDepartureDate', () => {
+    it('should return the `studiesDepartureDate`.', () => {
+      component.person.studiesDepartureDate = new Date('2020-04-01');
+      expect(component.studiesDepartureDate).toBe(component.person.studiesDepartureDate);
+    });
+  });
+
+  describe('studiesBeginDate', () => {
+    it('should return the `studiesBeginDate`.', () => {
+      component.person.studiesBeginDate = new Date('2020-04-01');
+      expect(component.studiesBeginDate).toBe(component.person.studiesBeginDate);
+    });
+  });
+
+  describe('studiesFinishedDate', () => {
+    it('should return the `studiesFinishedDate`.', () => {
+      component.person.studiesFinishedDate = new Date('2020-04-01');
+      expect(component.studiesFinishedDate).toBe(component.person.studiesFinishedDate);
+    });
+  });
+
+  describe('dischargeDate', () => {
+    it('should return the `dischargeDate`.', () => {
+      component.person.dischargeDate = new Date('2020-04-01');
+      expect(component.dischargeDate).toBe(component.person.dischargeDate);
+    });
+  });
+
+  describe('arrivalToBCStartRange', () => {
+    it('should return the `dob`.', () => {
+      const fakeDate = new Date('2020-04-01');
+      spyOnProperty(component, 'dob').and.returnValue(fakeDate);
+      expect(component.arrivalToBCStartRange).toBe(fakeDate);
+    });
+  });
+
+  describe('arrivalToBCEndRange', () => {
+    it('should return date today when `departureDateDuring12MonthsDate` isn\'t defined', () => {
+      const fakeDate = new Date('2020-04-01');
+      component.dateToday = fakeDate;
+      expect(component.arrivalToBCEndRange).toBe(fakeDate);
+    });
+    
+
+  });
+  
   
 });
