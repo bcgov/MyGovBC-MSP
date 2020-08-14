@@ -8,7 +8,7 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { CanadianStatusReason, StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { isBefore, subDays, addDays, addMonths, parseISO } from 'date-fns';
 
-fdescribe('ChildMovingInformationComponent', () => {
+describe('ChildMovingInformationComponent', () => {
   let component: ChildMovingInformationComponent;
   let fixture: any;
 
@@ -670,5 +670,232 @@ fdescribe('ChildMovingInformationComponent', () => {
     });
   });
   
+  describe('studiesDepartureDateEndRange', () => {
+    it('should return studies begin date when it\'s before date today.', () => {
+      const fakeBeginDate = parseISO('2020-03-01');
+      component.dateToday = parseISO('2020-04-01');
+      spyOnProperty(component, 'studiesBeginDate').and.returnValue(fakeBeginDate);
+      expect(component.studiesDepartureDateEndRange).toBe(fakeBeginDate);
+    });
+
+    it('should return date today minus 1 day when studies begin date is after date today.', () => {
+      const fakeBeginDate = parseISO('2020-05-01');
+      component.dateToday = parseISO('2020-04-01');
+      spyOnProperty(component, 'studiesBeginDate').and.returnValue(fakeBeginDate);
+      expect(component.studiesDepartureDateEndRange).toEqual(parseISO('2020-03-31'));
+    });
+
+    it('should return date today minus 1 day when studies begin date isn\'t defined.', () => {
+      component.dateToday = parseISO('2020-04-01');
+      expect(component.studiesDepartureDateEndRange).toEqual(parseISO('2020-03-31'));
+    });
+  });
+
+  describe('studiesBeginDateStartRange', () => {
+    it('should return departure date when dob is before departure date.', () => {
+      const fakeDepartureDate = parseISO('2020-03-01');
+      const fakeDob = parseISO('2020-02-01');
+      spyOnProperty(component, 'studiesDepartureDate').and.returnValue(fakeDepartureDate);
+      spyOnProperty(component, 'dob').and.returnValue(fakeDob);
+      expect(component.studiesBeginDateStartRange).toBe(fakeDepartureDate);
+    });
+
+    it('should return dob when departure date isn\'t defined.', () => {
+      const fakeDob = parseISO('2020-05-01');
+      spyOnProperty(component, 'dob').and.returnValue(fakeDob);
+      expect(component.studiesBeginDateStartRange).toBe(fakeDob);
+    });
+  });
+
+  describe('studiesBeginDateEndRange', () => {
+    it('should return departure date when dob is before departure date.', () => {
+      const fakeFinishedDate = parseISO('2020-04-01');
+      spyOnProperty(component, 'studiesFinishedDate').and.returnValue(fakeFinishedDate);
+      expect(component.studiesBeginDateEndRange).toBe(fakeFinishedDate);
+    });
+
+    it('should return null when `studiesFinishedDate` isn\'t defined.', () => {
+      expect(component.studiesBeginDateEndRange).toBe(null);
+    });
+  });
+
+  describe('studiesFinishedDateStartRange', () => {
+    it('should return `studiesBeginDate` when is after date today.', () => {
+      const fakeBeginDate = parseISO('2020-04-01');
+      component.dateToday = parseISO('2020-03-01');
+      spyOnProperty(component, 'studiesBeginDate').and.returnValue(fakeBeginDate);
+      expect(component.studiesFinishedDateStartRange).toBe(fakeBeginDate);
+    });
+
+    it('should return date today when `studiesBeginDate` is before date today.', () => {
+      const fakeBeginDate = parseISO('2020-04-01');
+      const fakeToday = parseISO('2020-05-01');
+      component.dateToday = fakeToday;
+      spyOnProperty(component, 'studiesBeginDate').and.returnValue(fakeBeginDate);
+      expect(component.studiesFinishedDateStartRange).toBe(fakeToday);
+    });
+  });
+
+  describe('studiesFinishedDateEndRange', () => {
+    it('should return null.', () => {
+      expect(component.studiesFinishedDateEndRange).toBe(null);
+    });
+  });
+
+  describe('dischargeDateStartRange', () => {
+    it('should return `dob`.', () => {
+      const fakeDob = parseISO('2020-04-01');
+      spyOnProperty(component, 'dob').and.returnValue(fakeDob);
+      expect(component.dischargeDateStartRange).toBe(fakeDob);
+    });
+  });
+
+  describe('dischargeDateEndRange', () => {
+    it('should return null.', () => {
+      expect(component.dischargeDateEndRange).toBe(null);
+    });
+  });
+
+  describe('adoptionDateErrorMessage', () => {
+    it('should return \'Date cannot be in the future\' when adopted date is after date today.', () => {
+      const fakeToday = parseISO('2020-04-01');
+      const fakeAdoptedDate = parseISO('2020-05-01');
+      component.dateToday = fakeToday;
+      spyOnProperty(component, 'adoptedDate').and.returnValue(fakeAdoptedDate);
+      expect(component.adoptionDateErrorMessage).toEqual({
+        invalidRange: 'Date cannot be in the future.'
+      });
+    });
+
+    it('should return \'Date must be after birthdate\' when adopted date is before `dob`.', () => {
+      const fakeAdoptedDate = parseISO('2020-05-01');
+      const fakeDob = parseISO('2020-06-01');
+      spyOnProperty(component, 'adoptedDate').and.returnValue(fakeAdoptedDate);
+      spyOnProperty(component, 'dob').and.returnValue(fakeDob);
+      expect(component.adoptionDateErrorMessage).toEqual({
+        invalidRange: 'Date must be after birthdate.'
+      });
+    });
+
+    it('should return \'Invalid date range\' for all other cases.', () => {
+      expect(component.adoptionDateErrorMessage).toEqual({
+        invalidRange: 'Invalid date range.'
+      });
+    });
+  });
+
+  describe('mostRecentMoveToBCErrorMessage', () => {
+    it('should return \'Date must be before any date of departure from BC\' when departure date is before arrival date.', () => {
+      const fakeArrivalDate = parseISO('2020-04-01');
+      const fakeDepartureDate = parseISO('2020-03-01');
+      spyOnProperty(component, 'departureDateDuring12MonthsDate').and.returnValue(fakeDepartureDate);
+      spyOnProperty(component, 'arrivalToBCDate').and.returnValue(fakeArrivalDate);
+      expect(component.mostRecentMoveToBCErrorMessage).toEqual({
+        invalidRange: 'Date must be before any date of departure from BC.'
+      });
+    });
+
+    it('should return \'Date cannot be in the future\' when arrival date is after date today.', () => {
+      const fakeDateToday = parseISO('2020-04-01');
+      const fakeArrivalDate = parseISO('2020-05-01');
+      component.dateToday = fakeDateToday;
+      spyOnProperty(component, 'arrivalToBCDate').and.returnValue(fakeArrivalDate);
+      expect(component.mostRecentMoveToBCErrorMessage).toEqual({
+        invalidRange: 'Date cannot be in the future.'
+      });
+    });
+
+    it('should return \'Date must be after birthdate\' when arrival date is before dob.', () => {
+      const fakeArrivalDate = parseISO('2020-04-01');
+      const fakeDob = parseISO('2020-05-01');
+      spyOnProperty(component, 'arrivalToBCDate').and.returnValue(fakeArrivalDate);
+      spyOnProperty(component, 'dob').and.returnValue(fakeDob);
+      expect(component.mostRecentMoveToBCErrorMessage).toEqual({
+        invalidRange: 'Date must be after birthdate.'
+      });
+    });
+
+    it('should return \'Invalid date range\' for all other cases.', () => {
+      expect(component.mostRecentMoveToBCErrorMessage).toEqual({
+        invalidRange: 'Invalid date range.'
+      });
+    });
+  });
+
+  describe('departureDate12MonthsErrorMessage', () => {
+    it('should return \'Date must be after arrival in BC\' when departure date is before arrival date.', () => {
+      const fakeArrivalDate = parseISO('2020-04-01');
+      const fakeDepartureDate = parseISO('2020-03-01');
+      spyOnProperty(component, 'departureDateDuring12MonthsDate').and.returnValue(fakeDepartureDate);
+      spyOnProperty(component, 'arrivalToBCDate').and.returnValue(fakeArrivalDate);
+      expect(component.departureDate12MonthsErrorMessage).toEqual({
+        invalidRange: 'Date must be after arrival in BC.'
+      });
+    });
+
+    it('should return \'Date cannot be in the future\' when departure date is after date today.', () => {
+      const fakeDepartureDate = parseISO('2020-05-01');
+      component.dateToday = parseISO('2020-04-01');
+      spyOnProperty(component, 'departureDateDuring12MonthsDate').and.returnValue(fakeDepartureDate);
+      expect(component.departureDate12MonthsErrorMessage).toEqual({
+        invalidRange: 'Date cannot be in the future.'
+      });
+    });
+
+    it('should return \'Date must be after birthdate\' when departure date is before arrival date.', () => {
+      const fakeDob = parseISO('2020-04-01');
+      const fakeDepartureDate = parseISO('2020-03-01');
+      spyOnProperty(component, 'departureDateDuring12MonthsDate').and.returnValue(fakeDepartureDate);
+      spyOnProperty(component, 'dob').and.returnValue(fakeDob);
+      expect(component.departureDate12MonthsErrorMessage).toEqual({
+        invalidRange: 'Date must be after birthdate.'
+      });
+    });
+
+    it('should return \'Invalid date range\' for all other cases.', () => {
+      expect(component.departureDate12MonthsErrorMessage).toEqual({
+        invalidRange: 'Invalid date range.'
+      });
+    });
+  });
+
+  describe('returnDate12MonthsErrorMessage', () => {
+    it('should return \'Date cannot be in the future\' when return date is after date today.', () => {
+      const fakeDateToday = parseISO('2020-04-01');
+      const fakeReturnDate = parseISO('2020-05-01');
+      component.dateToday = fakeDateToday;
+      spyOnProperty(component, 'returnDateDuring12MonthsDate').and.returnValue(fakeReturnDate);
+      expect(component.returnDate12MonthsErrorMessage).toEqual({
+        invalidRange: 'Date cannot be in the future.'
+      });
+    });
+
+    it('should return \'Date must be more than 30 days after departure\' when return date is before 30 days less departure date.', () => {
+      const fakeDepartureDate = parseISO('2020-04-01');
+      const fakeReturnDate = parseISO('2020-03-01');
+      spyOnProperty(component, 'returnDateDuring12MonthsDate').and.returnValue(fakeReturnDate);
+      spyOnProperty(component, 'departureDateDuring12MonthsDate').and.returnValue(fakeDepartureDate);
+      expect(component.returnDate12MonthsErrorMessage).toEqual({
+        invalidRange: 'Date must be more than 30 days after departure.'
+      });
+    });
+
+    it('should return \'Date must be after birthdate\' when return date is before dob.', () => {
+      const fakeDob = parseISO('2020-04-01');
+      const fakeReturnDate = parseISO('2020-03-01');
+      spyOnProperty(component, 'returnDateDuring12MonthsDate').and.returnValue(fakeReturnDate);
+      spyOnProperty(component, 'dob').and.returnValue(fakeDob);
+      expect(component.returnDate12MonthsErrorMessage).toEqual({
+        invalidRange: 'Date must be after birthdate.'
+      });
+    });
+
+    it('should return \'Invalid date range\' for all other cases.', () => {
+      expect(component.returnDate12MonthsErrorMessage).toEqual({
+        invalidRange: 'Invalid date range.'
+      });
+    });
+  });
+
   
 });
