@@ -51,7 +51,7 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
     */
     if (!this.mspAccountApp.hasValidAuthToken) {
       // Send them back to the home screen and reload the app
-      location.assign('/');
+      location.assign('/msp');
     }
   }
 
@@ -60,7 +60,9 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
    * When user use browser back button, the uuid are guaranteed to be unique for API server.
    */
   ngAfterContentInit() {
-    this.transmitRequest();
+    if (this.mspAccountApp.hasValidAuthToken) {
+      this.transmitRequest();
+    }
   }
 
     transmitRequest(){
