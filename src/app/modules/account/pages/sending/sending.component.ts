@@ -1,4 +1,4 @@
-import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef, OnInit} from '@angular/core';
 import {  MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspApiAccountService } from '../../services/msp-api-account.service';
 import {Router} from '@angular/router';
@@ -17,7 +17,7 @@ import { BaseForm } from '../../models/base-form';
   styleUrls: ['./sending.component.scss']
 })
 @Injectable()
-export class AccountSendingComponent extends BaseForm implements AfterContentInit {
+export class AccountSendingComponent extends BaseForm implements AfterContentInit, OnInit {
   lang = require('./i18n');
   static ProcessStepNum = 6;
   mspAccountApp: MspAccountApp;
@@ -41,6 +41,18 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
     this.transmissionInProcess = undefined;
     this.hasError = undefined;
     this.showMoreErrorDetails = undefined;
+  }
+
+  ngOnInit() {
+    /* 
+    If they do not have a valid auth token
+    eg. they have already successfully submitted 
+    and just hit the back button 
+    */
+    if (!this.mspAccountApp.hasValidAuthToken) {
+      // Send them back to the home screen and reload the app
+      location.assign('/');
+    }
   }
 
   /**
