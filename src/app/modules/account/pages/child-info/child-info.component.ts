@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { OperationActionType, MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { scrollTo, ContainerService, PageStateService } from 'moh-common-lib';
+import { scrollTo, ContainerService } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { Relationship } from 'app/models/relationship.enum';
@@ -28,9 +28,8 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   constructor(public dataService: MspAccountMaintenanceDataService,
               protected router: Router,
               protected containerService: ContainerService,
-              protected pageStateService: PageStateService,
               public _processService: ProcessService) {
-    super(router, containerService, pageStateService, _processService);
+    super(router, containerService, _processService);
   }
   subscriptions: Subscription[];
   @ViewChild('formRef') form: NgForm;
@@ -53,7 +52,7 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   ];
 
   ngOnInit() {
-    this.pageStateService.setPageIncomplete(this.router.url);
+   //this.pageStateService.setPageIncomplete(this.router.url);
     //this.children = this.dataService.accountApp.children;
     if (this.dataService.accountApp.addedChildren.length > 0) {
         this.showChild = true;

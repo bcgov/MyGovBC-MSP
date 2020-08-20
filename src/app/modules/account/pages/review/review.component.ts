@@ -24,15 +24,14 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
   constructor(public dataService: MspAccountMaintenanceDataService,
           protected router: Router,
           protected containerService: ContainerService,
-          protected pageStateService: PageStateService,
           protected _processService: ProcessService) {
-    super(router, containerService, pageStateService, _processService);
+    super(router, containerService, _processService);
     this.mspAccountApp = dataService.getMspAccountApp();
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
 
   ngOnInit() {
-    this.pageStateService.setPageIncomplete(this.router.url);
+    //this.pageStateService.setPageIncomplete(this.router.url);
     this.initProcessMembers(AccountReviewComponent.ProcessStepNum, this._processService);
     this._processService.setStep(AccountReviewComponent.ProcessStepNum, false);
   }

@@ -34,9 +34,8 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
               private processService: ProcessService,
               public router: Router,
               private logService: MspLogService,
-              protected containerService: ContainerService,
-              protected pageStateService: PageStateService) {
-    super(router, containerService, pageStateService, processService)
+              protected containerService: ContainerService) {
+    super(router, containerService, processService)
     this.mspAccountApp = this.dataService.accountApp;
     this.transmissionInProcess = undefined;
     this.hasError = undefined;
@@ -121,7 +120,7 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
         //delete the application from storage
         this.dataService.removeMspAccountApp();
 
-        this.pageStateService.setPageComplete();
+        //this.pageStateService.setPageComplete();
         //  go to confirmation
           this.router.navigate(['/deam/confirmation'],
               {queryParams: {confirmationNum: refNumber, showDepMsg: bcServicesCardElgible, status: statusCode,
@@ -166,7 +165,7 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
   }
 
   retrySubmission(){
-    this.pageStateService.setPageComplete();
+    //this.pageStateService.setPageComplete();
     this.router.navigate(['/deam/authorize']);
   }
 }

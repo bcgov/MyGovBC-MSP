@@ -13,12 +13,11 @@ import { ACCOUNT_PAGES } from '../../account.constants';
 export class AccountContainerComponent extends Container implements OnInit {
 
   constructor(public router: Router,
-              private header: HeaderService,
-              private pageStateService: PageStateService) {
+              private header: HeaderService,) {
     super();
     this.setProgressSteps(  accountPageRoutes );
     this.header.setTitle('Account Management');
-    this.pageStateService.setPages(accountPageRoutes, ACCOUNT_PAGES);
+    //this.pageStateService.setPages(accountPageRoutes, ACCOUNT_PAGES);
   }
 
   ngOnInit() {

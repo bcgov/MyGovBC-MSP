@@ -6,7 +6,7 @@ import { MspAccountMaintenanceDataService } from '../../services/msp-account-dat
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { AbstractForm, ContainerService, PageStateService } from 'moh-common-lib';
+import { AbstractForm, ContainerService } from 'moh-common-lib';
 import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../../models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
@@ -42,12 +42,11 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
 
   constructor(public dataService: MspAccountMaintenanceDataService,
               protected router: Router,
-              protected pageStateService: PageStateService,
               protected containerService: ContainerService,
               protected _processService: ProcessService
               // private _processService: ProcessService,
               ) {
-    super(router, containerService, pageStateService, _processService);
+    super(router, containerService, _processService);
   }
 
   onChange($event) {

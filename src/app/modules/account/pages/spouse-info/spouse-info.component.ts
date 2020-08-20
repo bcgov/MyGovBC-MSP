@@ -30,9 +30,8 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   constructor(public dataService: MspAccountMaintenanceDataService,
               protected router: Router,
               protected containerService: ContainerService,
-              protected pageStateService: PageStateService,
               public _processService: ProcessService) {
-    super(router, containerService, pageStateService, _processService);
+    super(router, containerService, _processService);
     if (this.dataService.getMspAccountApp().hasSpouseAdded) {
       this.showAddSpouse = true;
     }
@@ -49,7 +48,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   ngOnInit() {
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
-    this.pageStateService.setPageIncomplete(this.router.url);
+    //this.pageStateService.setPageIncomplete(this.router.url);
     this.initProcessMembers(SpouseInfoComponent.ProcessStepNum, this._processService);
     this._processService.setStep(SpouseInfoComponent.ProcessStepNum, false);
   }

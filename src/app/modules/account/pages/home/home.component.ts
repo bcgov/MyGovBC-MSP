@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, Injectable, ViewChild, ElementRef } from '@angular/core';
-import {ConsentModalComponent, PageStateService} from 'moh-common-lib';
+import {ConsentModalComponent} from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { Router } from '@angular/router';
 import { MspAccountApp } from '../../models/account.model';
@@ -30,12 +30,10 @@ export class HomeComponent implements OnInit {
 
   constructor(private dataService: MspAccountMaintenanceDataService,
               private header: HeaderService,
-              private pageStateService: PageStateService,
               private apiService: MspApiAccountService,
               private router: Router,
               private logService: MspLogService) {
     this.header.setTitle('Account Management');
-    this.pageStateService.setPageComplete();
   }
 
   ngOnInit() {

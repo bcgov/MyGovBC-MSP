@@ -48,9 +48,8 @@ export class ContactInfoComponent extends BaseForm implements OnInit, AfterViewI
    constructor(private dataService: MspAccountMaintenanceDataService,
                protected router: Router,
                protected containerService: ContainerService,
-               protected pageStateService: PageStateService,
                public _processService: ProcessService) {
-     super(router, containerService, pageStateService, _processService);
+     super(router, containerService, _processService);
      this.mspAccountApp = this.dataService.accountApp;
    }
 

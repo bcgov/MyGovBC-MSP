@@ -5,7 +5,7 @@ import {MspDataService} from '../../../../services/msp-data.service';
 import {ProcessService, ProcessUrls} from '../../../../services/process.service';
 import {environment} from '../../../../../environments/environment';
 import { MspAccountApp } from '../../models/account.model';
-import { ContainerService, PageStateService } from 'moh-common-lib';
+import { ContainerService } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspPerson } from '../../../../../app/components/msp/model/msp-person.model';
 import { BaseForm } from '../../models/base-form';
@@ -25,9 +25,8 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
   constructor(private dataService: MspAccountMaintenanceDataService,
               private _router: Router,
               protected containerService: ContainerService,
-              protected pageStateService: PageStateService,
               public _processService: ProcessService) {
-      super(_router, containerService, pageStateService, _processService);
+      super(_router, containerService, _processService);
       this.mspAccountApp = dataService.getMspAccountApp();
       this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
