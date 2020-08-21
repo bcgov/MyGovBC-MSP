@@ -17,7 +17,6 @@ export class AccountContainerComponent extends Container implements OnInit {
     super();
     this.setProgressSteps(  accountPageRoutes );
     this.header.setTitle('Account Management');
-    //this.pageStateService.setPages(accountPageRoutes, ACCOUNT_PAGES);
   }
 
   ngOnInit() {

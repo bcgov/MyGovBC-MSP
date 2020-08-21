@@ -31,7 +31,6 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
   }
 
   ngOnInit() {
-    //this.pageStateService.setPageIncomplete(this.router.url);
     this.initProcessMembers(AccountReviewComponent.ProcessStepNum, this._processService);
     this._processService.setStep(AccountReviewComponent.ProcessStepNum, false);
   }

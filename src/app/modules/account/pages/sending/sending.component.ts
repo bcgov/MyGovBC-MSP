@@ -120,7 +120,6 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
         //delete the application from storage
         this.dataService.removeMspAccountApp();
 
-        //this.pageStateService.setPageComplete();
         //  go to confirmation
           this.router.navigate(['/deam/confirmation'],
               {queryParams: {confirmationNum: refNumber, showDepMsg: bcServicesCardElgible, status: statusCode,
@@ -165,7 +164,6 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
   }
 
   retrySubmission(){
-    //this.pageStateService.setPageComplete();
     this.router.navigate(['/deam/authorize']);
   }
 }

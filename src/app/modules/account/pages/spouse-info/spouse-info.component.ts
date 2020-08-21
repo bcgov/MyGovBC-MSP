@@ -48,7 +48,6 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   ngOnInit() {
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
-    //this.pageStateService.setPageIncomplete(this.router.url);
     this.initProcessMembers(SpouseInfoComponent.ProcessStepNum, this._processService);
     this._processService.setStep(SpouseInfoComponent.ProcessStepNum, false);
   }

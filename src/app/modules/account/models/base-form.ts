@@ -19,9 +19,6 @@ export class BaseForm extends AbstractForm implements OnInit, AfterViewInit, OnD
     // Default behaviour for most pages - override if need different functionality
     this.containerService.setSubmitLabel();
     this.containerService.setUseDefaultColor();
-
-    // Set page incomplete
-    //this.pageStateService.setPageIncomplete();
   }
 
   ngAfterViewInit() {
@@ -52,7 +49,6 @@ export class BaseForm extends AbstractForm implements OnInit, AfterViewInit, OnD
 
   protected navigate( url: string ) {
     // Set page complete before navigating to next URL
-    //this.pageStateService.setPageComplete();
     super.navigate(url);
   }
 }
