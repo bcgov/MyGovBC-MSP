@@ -25,9 +25,8 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
   constructor(private dataService: MspAccountMaintenanceDataService,
               private _router: Router,
               protected containerService: ContainerService,
-              protected pageStateService: PageStateService,
-              public _processService: ProcessService) {
-      super(_router, containerService, pageStateService, _processService);
+              protected pageStateService: PageStateService) {
+      super(_router, containerService, pageStateService);
       this.mspAccountApp = dataService.getMspAccountApp();
       this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
@@ -72,8 +71,7 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
   }
 
   ngOnInit() {
-    this.initProcessMembers(AuthorizeComponent.ProcessStepNum, this._processService);
-    this._processService.setStep(AuthorizeComponent.ProcessStepNum, false);
+    this.initProcessMembers(AuthorizeComponent.ProcessStepNum);
   }
 
   applicantAuthorizeOnChange(event: boolean) {
@@ -104,11 +102,9 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
       console.log('Please fill in all required fields on the form.');
       this.markAllInputsTouched();
       this.showUnauthorizedError = true;
-      this._processService.setStep(AuthorizeComponent.ProcessStepNum, false);
       return;
     }
     this.showUnauthorizedError = false;
-    this._processService.setStep(AuthorizeComponent.ProcessStepNum, true);
     this.navigate('/deam/sending');
   }
 }
