@@ -2,7 +2,6 @@ import { ContainerService, AbstractForm, PageStateService } from 'moh-common-lib
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import {ProcessService} from '../../../services/process.service';
 
 export class BaseForm extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
@@ -11,8 +10,7 @@ export class BaseForm extends AbstractForm implements OnInit, AfterViewInit, OnD
 
   constructor( protected router: Router,
                protected containerService: ContainerService,
-               protected pageStateService: PageStateService,
-               protected _processService: ProcessService ) {
+               protected pageStateService: PageStateService,) {
     super(router);
   }
 
@@ -42,9 +40,8 @@ export class BaseForm extends AbstractForm implements OnInit, AfterViewInit, OnD
     return val !== undefined && val !== null;
   }
 
-  initProcessMembers(processStepNum: number, newProcessService: ProcessService){
+  initProcessMembers(processStepNum: number){
     this.linkedProcessStepNumber = processStepNum;
-    this._processService = newProcessService;
   }
 
   continue() {

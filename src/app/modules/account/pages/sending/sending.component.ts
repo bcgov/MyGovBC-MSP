@@ -4,7 +4,6 @@ import { MspApiAccountService } from '../../services/msp-api-account.service';
 import {Router} from '@angular/router';
 import {ResponseType} from '../../../../modules/msp-core/api-model/responseTypes';
 import {MspLogService} from '../../../../services/log.service';
-import {ProcessService} from '../../../../services/process.service';
 import { MspAccountApp } from '../../models/account.model';
 import { Relationship } from '../../../../models/relationship.enum';
 import { ApiResponse } from 'app/models/api-response.interface';
@@ -31,12 +30,11 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
 
   constructor(private dataService: MspAccountMaintenanceDataService,
               private service: MspApiAccountService,
-              private processService: ProcessService,
               public router: Router,
               private logService: MspLogService,
               protected containerService: ContainerService,
               protected pageStateService: PageStateService) {
-    super(router, containerService, pageStateService, processService)
+    super(router, containerService, pageStateService)
     this.mspAccountApp = this.dataService.accountApp;
     this.transmissionInProcess = undefined;
     this.hasError = undefined;

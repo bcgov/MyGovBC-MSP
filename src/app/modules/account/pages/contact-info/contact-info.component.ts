@@ -4,7 +4,6 @@ import { MspAccountMaintenanceDataService } from '../../services/msp-account-dat
 import { MspAccountApp } from '../../models/account.model';
 import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { PROVINCE_LIST, COUNTRY_LIST, PageStateService, ContainerService } from 'moh-common-lib';
-import {ProcessService} from '../../../../services/process.service';
 
 import {
   CountryList,
@@ -48,15 +47,13 @@ export class ContactInfoComponent extends BaseForm implements OnInit, AfterViewI
    constructor(private dataService: MspAccountMaintenanceDataService,
                protected router: Router,
                protected containerService: ContainerService,
-               protected pageStateService: PageStateService,
-               public _processService: ProcessService) {
-     super(router, containerService, pageStateService, _processService);
+               protected pageStateService: PageStateService) {
+     super(router, containerService, pageStateService);
      this.mspAccountApp = this.dataService.accountApp;
    }
 
    ngOnInit(){
-    this.initProcessMembers(ContactInfoComponent.ProcessStepNum, this._processService);
-    this._processService.setStep(ContactInfoComponent.ProcessStepNum, false);
+    this.initProcessMembers(ContactInfoComponent.ProcessStepNum);
   }
 
    toggleCheckBox(){
@@ -81,11 +78,9 @@ export class ContactInfoComponent extends BaseForm implements OnInit, AfterViewI
   continue(): void {
     if (!this.canContinue()) {
       console.log('Please fill in all required fields on the form.');
-      this._processService.setStep(ContactInfoComponent.ProcessStepNum, false);
       this.markAllInputsTouched();
       return;
     }
-    this._processService.setStep(ContactInfoComponent.ProcessStepNum, true);
     this.navigate('/deam/review');
   }
 }
