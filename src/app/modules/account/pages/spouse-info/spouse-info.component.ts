@@ -10,7 +10,6 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from 'app/models/relationship.enum';
 import { BaseForm } from '../../models/base-form';
 import { CancellationReasons } from '../../../../models/status-activities-documents';
-import {ProcessService} from '../../../../services/process.service';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -30,9 +29,8 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
   constructor(public dataService: MspAccountMaintenanceDataService,
               protected router: Router,
               protected containerService: ContainerService,
-              protected pageStateService: PageStateService,
-              public _processService: ProcessService) {
-    super(router, containerService, pageStateService, _processService);
+              protected pageStateService: PageStateService) {
+    super(router, containerService, pageStateService);
     if (this.dataService.getMspAccountApp().hasSpouseAdded) {
       this.showAddSpouse = true;
     }
@@ -50,8 +48,7 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
     this.pageStateService.setPageIncomplete(this.router.url);
-    this.initProcessMembers(SpouseInfoComponent.ProcessStepNum, this._processService);
-    this._processService.setStep(SpouseInfoComponent.ProcessStepNum, false);
+    this.initProcessMembers(SpouseInfoComponent.ProcessStepNum);
   }
 
   ngOnDestroy() {
@@ -352,9 +349,6 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     if (this.accountApp.hasSpouseUpdated === true) {
       valid = valid && this.checkUpdate();
     }
-    if (valid === false){
-      this._processService.setStep(SpouseInfoComponent.ProcessStepNum, false);
-    }
     return valid;
   }
 
@@ -364,7 +358,6 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
       this.markAllInputsTouched();
       return;
     }
-    this._processService.setStep(SpouseInfoComponent.ProcessStepNum, true);
     this.navigate('/deam/child-info');
   }
 }

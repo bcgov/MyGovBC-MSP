@@ -16,7 +16,6 @@ import { MspLogService } from '../../../../services/log.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  static ProcessStepNum = 0;
   public addressChangeLabel = 'Update Address';
   mspAccountApp: MspAccountApp;
   captchaApiBaseUrl: string = environment.appConstants.captchaApiBaseUrl;

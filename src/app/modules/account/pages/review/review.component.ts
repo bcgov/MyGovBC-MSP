@@ -1,14 +1,13 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { Router} from '@angular/router';
-import {ProcessUrls} from '../../../../services/process.service';
 import {environment} from '../../../../../environments/environment';
 import { MspAccountApp } from '../../models/account.model';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { BaseForm } from '../../models/base-form';
-import {ProcessService} from '../../../../services/process.service';
+import { ROUTES_ACCOUNT } from '../../models/account-route-constants';
 
 @Component({
   templateUrl: './review.component.html',
@@ -21,20 +20,24 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
   captchaApiBaseUrl: string;
   @ViewChild(NgForm) form: NgForm;
 
+  // routes
+  personal_info = ROUTES_ACCOUNT.PERSONAL_INFO.fullpath;
+  spouse_info = ROUTES_ACCOUNT.SPOUSE_INFO.fullpath;
+  address_info = ROUTES_ACCOUNT.CONTACT.fullpath;
+  child_info = ROUTES_ACCOUNT.CHILD_INFO.fullpath;
+
   constructor(public dataService: MspAccountMaintenanceDataService,
           protected router: Router,
           protected containerService: ContainerService,
-          protected pageStateService: PageStateService,
-          protected _processService: ProcessService) {
-    super(router, containerService, pageStateService, _processService);
+          protected pageStateService: PageStateService,) {
+    super(router, containerService, pageStateService);
     this.mspAccountApp = dataService.getMspAccountApp();
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
 
   ngOnInit() {
     this.pageStateService.setPageIncomplete(this.router.url);
-    this.initProcessMembers(AccountReviewComponent.ProcessStepNum, this._processService);
-    this._processService.setStep(AccountReviewComponent.ProcessStepNum, false);
+    this.initProcessMembers(AccountReviewComponent.ProcessStepNum);
   }
 
   get hasSpouse() {
@@ -47,23 +50,23 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
   }
 
   get accountPIUrl() {
-    return ProcessUrls.ACCOUNT_PERSONAL_INFO_URL;
+    return this.personal_info;
   }
 
   get accountSpouseUrl() {
-    return ProcessUrls.ACCOUNT_SPOUSE_INFO_URL;
+    return this.spouse_info;
   }
 
   get accountDependentUrl() {
-    return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
+    return this.child_info;
   }
 
   get accountChildInfoUrl() {
-    return ProcessUrls.ACCOUNT_CHILD_INFO_URL;
+    return this.child_info;
   }
 
   get accountContactInfoUrl() {
-    return ProcessUrls.ACCOUNT_CONTACT_INFO_URL;
+    return this.address_info;
   }
 
   get addChildTitle() {
@@ -131,10 +134,8 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
     if (!this.canContinue()) {
       console.log('Please fill in all required fields on the form.');
       this.markAllInputsTouched();
-      this._processService.setStep(AccountReviewComponent.ProcessStepNum, false);
       return;
     }
-    this._processService.setStep(AccountReviewComponent.ProcessStepNum, true);
     this.navigate('/deam/authorize');
   }
 }
