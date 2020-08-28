@@ -38,6 +38,8 @@ import { environment } from 'environments/environment';
 import { AccountPersonCardComponent } from './components/person-card/person-card.component';
 import { AccountPersonalInformationComponent } from './components/personal-information/personal-information.component';
 import { ProcessService , ProcessStep} from '../../services/process.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TimeoutInterceptor, DEFAULT_TIMEOUT } from 'app/interceptors/timeout.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -83,7 +85,11 @@ import { ProcessService , ProcessStep} from '../../services/process.service';
     { provide: AbstractPageGuardService, useExisting: DefaultPageGuardService },
     LoadPageGuardService,
     MspAccountMaintenanceDataService,
-    MspApiAccountService
+    MspApiAccountService,
+    // Used to adjust the default timeout limit
+    { provide: HTTP_INTERCEPTORS, useClass: TimeoutInterceptor, multi: true },
+    { provide: DEFAULT_TIMEOUT, useValue: 60000 }
+  
   ]
 })
 
