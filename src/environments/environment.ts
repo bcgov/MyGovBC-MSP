@@ -27,6 +27,7 @@ export const environment = {
         attachment: '/submit-attachment/',
         envServerBaseUrl: '/msp/api/env',
         captchaApiBaseUrl: '/msp/api/captcha',
+        addressApiBaseUrl: '/msp/api/address',
         addressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/',
         images: {
             maxImagesPerPerson: 50,
