@@ -226,7 +226,7 @@ export class SupportDocumentsComponent extends Base
     if (sum > 1048576) {
       // Reset the attachments for this upload
       this.documents = [];
-      this.supportDocErrorMsg = 'The upload you are attempting is too large.';
+      this.supportDocErrorMsg = 'The addition of the previous document exceeded the maximum upload size of this supporting document section.';
     } else {
       this.supportDocErrorMsg = '';
     }
