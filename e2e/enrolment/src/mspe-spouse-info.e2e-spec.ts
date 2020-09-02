@@ -22,7 +22,7 @@ describe('MSP Enrolment - Spouse Info', () => {
         });
     });
 
-    it('02. should be able to continue when user has no spouse', () => {
+    it('02. should be able to skip when user has no spouse', () => {
         page.navigateTo();
         page.clickContinue();
         expect(browser.getCurrentUrl()).toContain(CHILD_PAGE_URL, 'should navigate to the next page');

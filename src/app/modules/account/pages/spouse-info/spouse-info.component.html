@@ -132,7 +132,7 @@
 
 <common-form-action-bar
   [defaultColor]="false"
-  [submitLabel]="(this.accountApp.hasSpouseAdded || this.accountApp.hasSpouseRemoved || this.accountApp.hasSpouseUpdated) ? 'Continue':'No Spouse'"
+  [submitLabel]="(this.accountApp.hasSpouseAdded || this.accountApp.hasSpouseRemoved || this.accountApp.hasSpouseUpdated) ? 'Continue':'Skip'"
   [canContinue]="canContinue()"
   (btnClick)="continue()">
 </common-form-action-bar>
