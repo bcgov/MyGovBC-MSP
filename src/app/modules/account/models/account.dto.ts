@@ -10,6 +10,8 @@ export class MspAccountDto {
   residentialAddress: AddressDto = new AddressDto();
   phoneNumber: string;
   outsideBCFor30Days: boolean;
+  liveInBC: boolean; // Currently live in BC
+  plannedAbsence: boolean; // Planned absence from BC
   unUsualCircumstance: boolean;
 
   authorizedByApplicant: boolean;

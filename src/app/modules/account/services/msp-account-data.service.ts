@@ -7,20 +7,49 @@ import {
   OperationActionType,
   MspPerson
 } from '../../../components/msp/model/msp-person.model';
-import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
+import { Address, CANADA, BRITISH_COLUMBIA, Person } from 'moh-common-lib';
 import { PersonDto } from '../../../components/msp/model/msp-person.dto';
 import { OutofBCRecordDto, OutofBCRecord } from '../../../models/outof-bc-record.model';
 import { AddressDto } from '../../../models/address.dto';
 import { Gender } from '../../../models/gender.enum';
+import { BaseMspDataService } from '../../../services/base-msp-data.service';
 
-@Injectable()
-export class MspAccountMaintenanceDataService {
+@Injectable({
+  providedIn: 'root'
+})
+
+export class MspAccountMaintenanceDataService extends BaseMspDataService {
+
+  // should this msp-application or msp-account
+  protected _storageKey: string = 'msp-account';
 
   private _mspAccountApp: MspAccountApp;
+  pageStatus: any[] = [];
+
+  // unused
   private mspAccountStorageKey: string = 'msp-account';
 
-  constructor(public localStorageService: LocalStorageService) {
+  constructor(protected localStorageService: LocalStorageService) {
+    super( localStorageService );
+
+    // Storage key for account pages
+    this._pageStorageKey = 'msp-account-pages';
+
+    this.pageStatus = this.fetchPageStatus();
     this._mspAccountApp = this.fetchMspAccountApplication();
+  }
+
+  // Saving Account data into local storage
+  saveApplication(): void {
+    const dto: MspAccountDto = this.toMspAccountAppTransferObject( this._mspAccountApp );
+    this.localStorageService.set( this._storageKey, dto );
+    this.savePageStatus( this.pageStatus );
+  }
+
+  // Remove Account data from local storage
+  removeApplication(): void {
+    this.destroyAll();
+    this._mspAccountApp = new MspAccountApp();
   }
 
   get accountApp(): MspAccountApp {
@@ -44,7 +73,6 @@ export class MspAccountMaintenanceDataService {
     return this._mspAccountApp;
   }
 
-
   saveMspAccountApp(): void {
     const dto: MspAccountDto = this.toMspAccountAppTransferObject(
       this._mspAccountApp
@@ -54,7 +82,7 @@ export class MspAccountMaintenanceDataService {
 
   private fetchMspAccountApplication(): MspAccountApp {
     const dto: MspAccountDto = this.localStorageService.get<MspAccountDto>(
-      this.mspAccountStorageKey
+      this._storageKey
     );
     if (dto) {
       return this.fromMspAccountTransferObject(dto);
@@ -388,7 +416,16 @@ export class MspAccountMaintenanceDataService {
 
   toMspAccountAppTransferObject(input: MspAccountApp): MspAccountDto {
     const dto: MspAccountDto = new MspAccountDto();
+    dto.liveInBC = input.liveInBC;
+    dto.plannedAbsence = input.plannedAbsence;
+    dto.unUsualCircumstance = input.unUsualCircumstance;
+
     dto.addressUpdate = input.accountChangeOptions.addressUpdate;
+    // Contact information
+    dto.residentialAddress = this.toAddressTransferObject(input.residentialAddress);
+    dto.mailingSameAsResidentialAddress = input.mailingSameAsResidentialAddress;
+    dto.mailingAddress = this.toAddressTransferObject(input.mailingAddress);
+    dto.phoneNumber = input.phoneNumber;
 
     dto.personInfoUpdate = input.accountChangeOptions.personInfoUpdate;
     dto.immigrationStatusChange = input.accountChangeOptions.immigrationStatusChange;
@@ -455,7 +492,6 @@ export class MspAccountMaintenanceDataService {
     return dto;
   }
 
-
   private toOutofBCRecordDto(outofBCRecord: OutofBCRecord) {
     if (outofBCRecord == null) return null;
 
@@ -480,6 +516,15 @@ export class MspAccountMaintenanceDataService {
 
   private fromMspAccountTransferObject(dto: MspAccountDto): MspAccountApp {
     const output: MspAccountApp = new MspAccountApp();
+    output.liveInBC = dto.liveInBC;
+    output.plannedAbsence = dto.plannedAbsence;
+    output.unUsualCircumstance = dto.unUsualCircumstance;
+
+    // contact information
+    output.residentialAddress = this.fromAddressTransferObject( dto.residentialAddress );
+    output.mailingSameAsResidentialAddress = dto.mailingSameAsResidentialAddress;
+    output.mailingAddress = this.fromAddressTransferObject( dto.mailingAddress );
+    output.phoneNumber = dto.phoneNumber;
 
     output.accountChangeOptions.addressUpdate = dto.addressUpdate;
 

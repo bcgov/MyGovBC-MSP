@@ -26,6 +26,10 @@ class MspAccountApp implements ApplicationBase {
 
     pageStatus: any[] = [];
 
+    liveInBC: boolean; // Currently live in BC
+    plannedAbsence: boolean; // Planned absence from BC
+    unUsualCircumstance: boolean;
+
     authorizedByApplicant: boolean;
     authorizedByApplicantDate: Date;
     authorizedBySpouse: boolean;
