@@ -37,7 +37,7 @@ import { ChildMovingInformationComponent } from '../account/components/moving-in
 import { environment } from 'environments/environment';
 import { AccountPersonCardComponent } from './components/person-card/person-card.component';
 import { AccountPersonalInformationComponent } from './components/personal-information/personal-information.component';
-import { ProcessService , ProcessStep} from '../../services/process.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -92,18 +92,5 @@ export class AccountModule {
   //constructor(){
     // window.location.href = window.location.origin + '/msp/deam-interim/';
   //}
-  constructor(private processService: ProcessService) {
-    this.initProcessService();
-  }
-
-  private initProcessService() {
-    this.processService.init([
-        new ProcessStep('/deam/personal-info'),
-        new ProcessStep('/deam/spouse-info'),
-        new ProcessStep('/deam/child-info'),
-        new ProcessStep('/deam/contact-info'),
-        new ProcessStep('/deam/review'),
-        new ProcessStep('/deam/authorize'),
-        new ProcessStep('/deam/sending')]);
-  }
+  constructor() {}
 }

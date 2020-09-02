@@ -1,5 +1,4 @@
 import { ACCOUNT_PAGES } from "./account.constants";
-import { ProcessService } from '../../services/process.service';
 import { AccountPersonalInfoComponent } from "./pages/personal-info/personal-info.component";
 import { SpouseInfoComponent } from "./pages/spouse-info/spouse-info.component";
 import { ChildInfoComponent } from "./pages/child-info/child-info.component";
@@ -7,44 +6,52 @@ import { AccountReviewComponent } from "./pages/review/review.component";
 import { ContactInfoComponent } from "./pages/contact-info/contact-info.component";
 import { AuthorizeComponent } from "./pages/authorize/authorize.component";
 import { Routes } from "@angular/router";
+import { RouteGuardService } from 'moh-common-lib';
+import { AccountSendingComponent } from './pages/sending/sending.component';
 
 
 export const accountPageRoutes: Routes = [
   {
     path: ACCOUNT_PAGES.PERSONAL_INFO.path,
+    canActivate: [RouteGuardService],
     component: AccountPersonalInfoComponent,
-    canActivate: [ProcessService],
     data: { title: ACCOUNT_PAGES.PERSONAL_INFO.title },
   },
   {
     path: ACCOUNT_PAGES.SPOUSE_INFO.path,
+    canActivate: [RouteGuardService],
     component: SpouseInfoComponent,
-    canActivate: [ProcessService],
     data: { title: ACCOUNT_PAGES.SPOUSE_INFO.title },
   },
   {
     path: ACCOUNT_PAGES.CHILD_INFO.path,
+    canActivate: [RouteGuardService],
     component: ChildInfoComponent,
-    canActivate: [ProcessService],
     data: { title: ACCOUNT_PAGES.CHILD_INFO.title },
   },
   {
     path: ACCOUNT_PAGES.CONTACT_INFO.path,
+    canActivate: [RouteGuardService],
     component: ContactInfoComponent,
-    canActivate: [ProcessService],
     data: { title: ACCOUNT_PAGES.CONTACT_INFO.title },
   },
   {
     path: ACCOUNT_PAGES.REVIEW.path,
+    canActivate: [RouteGuardService],
     component: AccountReviewComponent,
-    canActivate: [ProcessService],
     data: { title: ACCOUNT_PAGES.REVIEW.title },
   },
   {
     path: ACCOUNT_PAGES.AUTHORIZE.path,
+    canActivate: [RouteGuardService],
     component: AuthorizeComponent,
-    canActivate: [ProcessService],
     data: { title: ACCOUNT_PAGES.AUTHORIZE.title },
+  },
+  {
+    path: ACCOUNT_PAGES.SENDING.path,
+    canActivate: [RouteGuardService],
+    component: AccountSendingComponent,
+    data: { title: ACCOUNT_PAGES.SENDING.title },
   },
   {
     path: '',

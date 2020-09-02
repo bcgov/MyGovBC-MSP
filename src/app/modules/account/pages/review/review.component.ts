@@ -7,7 +7,7 @@ import { ContainerService, PageStateService } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { BaseForm } from '../../models/base-form';
-import { ROUTES_ACCOUNT } from '../../models/account-route-constants';
+import { ACCOUNT_PAGES } from '../../account.constants';
 
 @Component({
   templateUrl: './review.component.html',
@@ -21,10 +21,10 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
   @ViewChild(NgForm) form: NgForm;
 
   // routes
-  personal_info = ROUTES_ACCOUNT.PERSONAL_INFO.fullpath;
-  spouse_info = ROUTES_ACCOUNT.SPOUSE_INFO.fullpath;
-  address_info = ROUTES_ACCOUNT.CONTACT.fullpath;
-  child_info = ROUTES_ACCOUNT.CHILD_INFO.fullpath;
+  personal_info = ACCOUNT_PAGES.PERSONAL_INFO.fullpath;
+  spouse_info = ACCOUNT_PAGES.SPOUSE_INFO.fullpath;
+  address_info = ACCOUNT_PAGES.CONTACT_INFO.fullpath;
+  child_info = ACCOUNT_PAGES.CHILD_INFO.fullpath;
 
   constructor(public dataService: MspAccountMaintenanceDataService,
           protected router: Router,
@@ -37,7 +37,6 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
 
   ngOnInit() {
     this.pageStateService.setPageIncomplete(this.router.url);
-    this.initProcessMembers(AccountReviewComponent.ProcessStepNum);
   }
 
   get hasSpouse() {
@@ -136,6 +135,6 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
       this.markAllInputsTouched();
       return;
     }
-    this.navigate('/deam/authorize');
+    this.navigate(ACCOUNT_PAGES.AUTHORIZE.fullpath);
   }
 }

@@ -6,7 +6,6 @@ import { OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 export class BaseForm extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
   private _subscription: Subscription;
-  private linkedProcessStepNumber: number;
 
   constructor( protected router: Router,
                protected containerService: ContainerService,
@@ -38,10 +37,6 @@ export class BaseForm extends AbstractForm implements OnInit, AfterViewInit, OnD
 
   isSet(val) {
     return val !== undefined && val !== null;
-  }
-
-  initProcessMembers(processStepNum: number){
-    this.linkedProcessStepNumber = processStepNum;
   }
 
   continue() {

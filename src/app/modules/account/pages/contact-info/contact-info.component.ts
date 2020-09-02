@@ -28,8 +28,6 @@ export class ContactInfoComponent extends BaseForm implements OnInit, AfterViewI
    sameMailingAddress = 'Use this as my mailing address.';
    provideDifferentMailingAddress = 'I want to provide a mailing address that is different from the residential address above.';
 
-   static ProcessStepNum = 3;
-
    @ViewChild('formRef') form: NgForm;
    @ViewChild('address') address: ElementRef;
    @ViewChild('mailingAddress') mailingAddress: ElementRef;
@@ -51,10 +49,6 @@ export class ContactInfoComponent extends BaseForm implements OnInit, AfterViewI
      super(router, containerService, pageStateService);
      this.mspAccountApp = this.dataService.accountApp;
    }
-
-   ngOnInit(){
-    this.initProcessMembers(ContactInfoComponent.ProcessStepNum);
-  }
 
    toggleCheckBox(){
     this.mspAccountApp.mailingSameAsResidentialAddress = !this.mspAccountApp.mailingSameAsResidentialAddress;

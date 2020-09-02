@@ -12,6 +12,7 @@ import { Relationship } from '../../../../models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { BaseForm } from '../../models/base-form';
 import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
+import { ACCOUNT_PAGES } from '../../account.constants';
 
 @Component({
   templateUrl: './personal-info.component.html',
@@ -20,7 +21,6 @@ import { SupportDocuments } from '../../../msp-core/models/support-documents.mod
 
 @Injectable()
 export class AccountPersonalInfoComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
-  static ProcessStepNum = 0;
   lang = require('./i18n');
   docSelected: string ;
   //activitiesOpts: string[] = CanadianStatusReason;
@@ -55,7 +55,6 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
     this.person = this.dataService.accountApp.applicant;
-    this.initProcessMembers(AccountPersonalInfoComponent.ProcessStepNum);
   }
 
   ngOnDestroy() {
@@ -240,6 +239,6 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
       return;
     }
 
-    this.navigate('/deam/spouse-info');
+    this.navigate(ACCOUNT_PAGES.SPOUSE_INFO.fullpath);
   }
 }

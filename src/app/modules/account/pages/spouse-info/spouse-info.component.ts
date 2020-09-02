@@ -10,6 +10,7 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from 'app/models/relationship.enum';
 import { BaseForm } from '../../models/base-form';
 import { CancellationReasons } from '../../../../models/status-activities-documents';
+import { ACCOUNT_PAGES } from '../../account.constants';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -18,7 +19,6 @@ import { CancellationReasons } from '../../../../models/status-activities-docume
 })
 
 export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
-  static ProcessStepNum = 1;
   accountApp: MspAccountApp;
   accountChangeOptions: AccountChangeOptions;
   showAddSpouse: boolean;
@@ -48,7 +48,6 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
     this.pageStateService.setPageIncomplete(this.router.url);
-    this.initProcessMembers(SpouseInfoComponent.ProcessStepNum);
   }
 
   ngOnDestroy() {
@@ -358,6 +357,6 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
       this.markAllInputsTouched();
       return;
     }
-    this.navigate('/deam/child-info');
+    this.navigate(ACCOUNT_PAGES.CHILD_INFO.fullpath);
   }
 }

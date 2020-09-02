@@ -2,13 +2,13 @@ import {Component, ViewChild, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { Router} from '@angular/router';
 import {MspDataService} from '../../../../services/msp-data.service';
-import {ProcessService, ProcessUrls} from '../../../../services/process.service';
 import {environment} from '../../../../../environments/environment';
 import { MspAccountApp } from '../../models/account.model';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspPerson } from '../../../../../app/components/msp/model/msp-person.model';
 import { BaseForm } from '../../models/base-form';
+import { ACCOUNT_PAGES } from '../../account.constants';
 @Component({
   selector: 'msp-authorize',
   templateUrl: './authorize.component.html',
@@ -16,17 +16,16 @@ import { BaseForm } from '../../models/base-form';
 })
 export class AuthorizeComponent extends BaseForm implements OnInit {
   lang = require('./i18n');
-  static ProcessStepNum = 5;
   mspAccountApp: MspAccountApp;
   captchaApiBaseUrl: string;
   @ViewChild(NgForm) form: NgForm;
   _showUnauthorizedError: boolean = false;
 
   constructor(private dataService: MspAccountMaintenanceDataService,
-              private _router: Router,
+              protected router: Router,
               protected containerService: ContainerService,
               protected pageStateService: PageStateService) {
-      super(_router, containerService, pageStateService);
+      super(router, containerService, pageStateService);
       this.mspAccountApp = dataService.getMspAccountApp();
       this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
@@ -44,12 +43,14 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
       return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
   }
 
+  // appears to be unused
   get accountPIUrl() {
-      return ProcessUrls.ACCOUNT_PERSONAL_INFO_URL;
+      return ACCOUNT_PAGES.PERSONAL_INFO.fullpath;
   }
 
+  // appears to be unused
   get accountDependentUrl() {
-      return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
+      return ACCOUNT_PAGES.CHILD_INFO.fullpath;
   }
 
   get spouseForAuthorisation(): MspPerson {
@@ -68,10 +69,6 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
 
   get applicantName() {
     return this.mspAccountApp.applicant.firstName + ' ' + this.mspAccountApp.applicant.lastName;
-  }
-
-  ngOnInit() {
-    this.initProcessMembers(AuthorizeComponent.ProcessStepNum);
   }
 
   applicantAuthorizeOnChange(event: boolean) {
@@ -105,6 +102,6 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
       return;
     }
     this.showUnauthorizedError = false;
-    this.navigate('/deam/sending');
+    this.navigate(ACCOUNT_PAGES.SENDING.fullpath);
   }
 }

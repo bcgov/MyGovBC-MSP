@@ -22,7 +22,6 @@ const DOM_REFRESH_TIMEOUT = 50;
 
 export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
  // children: MspPerson[];
-  static ProcessStepNum = 2;
 
   constructor(public dataService: MspAccountMaintenanceDataService,
               protected router: Router,
@@ -60,7 +59,6 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
     } else if (this.dataService.accountApp.updatedChildren.length > 0) {
         this.showUpdateChild = true;
     }
-    this.initProcessMembers(ChildInfoComponent.ProcessStepNum);
   }
 
   ngOnDestroy() {
