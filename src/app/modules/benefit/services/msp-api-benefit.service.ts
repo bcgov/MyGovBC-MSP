@@ -75,7 +75,7 @@ export class MspApiBenefitService extends AbstractHttpService {
             this.logService.log(
               {
                 text:
-                  'Supplementary Benefit - API validation against schema failed becuase of ' +
+                  'Supplementary Benefit - API validation against schema failed because of ' +
                   errorField +
                   ' field',
                 response: errorMessage

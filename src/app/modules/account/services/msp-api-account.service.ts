@@ -120,7 +120,7 @@ export class MspApiAccountService extends AbstractHttpService {
             this.logService.log(
               {
                 text:
-                  'Account Maintenance - API validation against schema failed becuase of ' +
+                  'Account Maintenance - API validation against schema failed because of ' +
                   errorField +
                   ' field',
                 response: errorMessage,

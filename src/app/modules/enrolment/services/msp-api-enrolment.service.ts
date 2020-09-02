@@ -54,7 +54,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
             this.logService.log(
               {
                 text:
-                  'Enrolment Application  - API validation against schema failed becuase of ' +
+                  'Enrolment Application  - API validation against schema failed because of ' +
                   errorField +
                   ' field',
                 response: errorMessage
