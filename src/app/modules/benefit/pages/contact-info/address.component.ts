@@ -7,6 +7,7 @@ import { ProcessService } from '../../../../services/process.service';
 import { Router } from '@angular/router';
 
 import {  ProvinceList, PROVINCE_LIST, CountryList, CANADA, BRITISH_COLUMBIA, Address, COUNTRY_LIST, CheckCompleteBaseService } from 'moh-common-lib';
+import { environment } from 'environments/environment';
 //import { CountryList,ProvinceList,countryData, provinceData } from '../../../../models/msp-constants';
 
 @Component({
@@ -28,6 +29,7 @@ export class BenefitAddressComponent extends BaseComponent {
   @ViewChild('phone') phone: ElementRef;
 
   mspApplication: BenefitApplication;
+  public readonly addressServiceUrl: string = environment.appConstants.addressApiBaseUrl;
 
   constructor(private dataService: MspBenefitDataService,
               private _router: Router,

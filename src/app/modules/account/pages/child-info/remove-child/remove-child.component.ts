@@ -6,6 +6,7 @@ import { MspAccountApp, AccountChangeOptions } from '../../../models/account.mod
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 import { ErrorMessage } from 'moh-common-lib';
 import { UUID } from 'angular2-uuid';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'msp-remove-child',
@@ -57,6 +58,7 @@ export class RemoveChildComponent implements OnInit {
     invalidRange: 'Date may not be in the future and must be after the child\'s birthday'
   }
   objectId: string = UUID.UUID().toString();
+  public readonly addressServiceUrl: string = environment.appConstants.addressApiBaseUrl;
 
   get dateToday(): Date {
     return new Date();

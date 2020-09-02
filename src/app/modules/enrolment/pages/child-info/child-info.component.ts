@@ -10,6 +10,7 @@ import { BRITISH_COLUMBIA, ErrorMessage } from 'moh-common-lib';
 import { EnrolDataService } from '../../services/enrol-data.service';
 import { Enrollee } from '../../models/enrollee';
 import { startOfToday } from 'date-fns';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'msp-child-info',
@@ -18,6 +19,7 @@ import { startOfToday } from 'date-fns';
 })
 export class ChildInfoComponent extends EnrolForm {
 
+  public readonly addressServiceUrl: string = environment.appConstants.addressApiBaseUrl;
   statusLabel: string = 'Child\'s immigration status in Canada';
   childAgeCategory = [
     {label: '0-18 years', value: Relationship.ChildUnder19},

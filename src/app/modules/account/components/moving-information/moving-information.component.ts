@@ -39,6 +39,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     }
   }).filter(x => x);
   readonly Child19To24: Relationship = Relationship.Child19To24;
+  public readonly addressServiceUrl: string = environment.appConstants.addressApiBaseUrl;
 
   relationship: string = 'you';
   

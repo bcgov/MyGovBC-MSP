@@ -9,10 +9,9 @@
                             (addressChange)="handleAddressUpdate($event)"
                             [labels]="{postalCode: 'Postal Code or ZIP'}"
                             [isRequired]="true"
-                            [allowExtralines]='true'
-                            [disableGeocoder]='true'>
+                            [addressServiceUrl]="addressServiceUrl">
             </common-address>
-            </common-page-section>
+        </common-page-section>
         <h2 class="border-bottom">Phone</h2>
         <div class="row">
             <div class="form-group col-3">

@@ -20,9 +20,9 @@
           (addressChange)="handleAddressUpdate($event)"
           [disabled]="{ province: true, country: true }"
           [allowExtralines]="true"
-          [disableGeocoder]="true"
           [bcOnly]="true"
           [isRequired]="true"
+          [addressServiceUrl]="addressServiceUrl"
         >
         </common-address>
 
@@ -50,8 +50,8 @@
               [defaultProvince]="defaultProvince"
               [provinceList]="provinceList"
               [allowExtralines]="true"
-              [disableGeocoder]="true"
               [isRequired]="true"
+              [addressServiceUrl]="addressServiceUrl"
             >
             </common-address>
           </div>

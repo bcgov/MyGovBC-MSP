@@ -81,8 +81,7 @@
             #address
             [address]="spouse.mailingAddress"
             (addressChange)="handleAddressUpdate($event)"
-            [allowExtralines]="true"
-            [disableGeocoder]="true"
+            [addressServiceUrl]="addressServiceUrl"
             [isRequired]="true">
           </common-address>
         </div>
