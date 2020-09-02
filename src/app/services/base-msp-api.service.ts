@@ -97,18 +97,18 @@ export class BaseMspApiService extends AbstractHttpService  {
           },
           (_error: Response | any) => {
             this.logService.log({
-                text: 'Attachments - Send Error ',
+                text: 'All Attachments - Send Error ',
                 error: _error
-              }, 'Attachments - Send Error ');
+              }, 'All Attachments - Send Error ');
             console.log('error sending attachment: ', _error);
             return reject();
           }
         )
         .catch((_error: Response | any) => {
           this.logService.log({
-              text: 'Attachments - Send Error ',
+              text: 'All Attachments - Send Error ',
               error: _error
-            }, 'Attachments - Send Error '
+            }, 'All Attachments - Send Error '
           );
           console.log('error sending attachment: ', _error );
           return _error;
@@ -281,9 +281,9 @@ export class BaseMspApiService extends AbstractHttpService  {
           (_error: Response | any) => {
             console.log('error response in its origin form: ', _error);
             this.logService.log({
-                text: 'Attachment - Send Error ',
+                text: 'Single Attachment - Send Error ',
                 response: _error
-              }, 'Attachment - Send Error '
+              }, 'Single Attachment - Send Error '
             );
             return reject(_error);
           }
@@ -291,9 +291,9 @@ export class BaseMspApiService extends AbstractHttpService  {
         .catch((_error: Response | any) => {
           console.log('Error in sending individual attachment: ', _error);
           this.logService.log({
-              text: 'Attachment - Send Error ',
+              text: 'Single Attachment - Send Error ',
               response: _error
-            }, 'Attachment - Send Error '
+            }, 'Single Attachment - Send Error '
           );
 
           reject(_error);
