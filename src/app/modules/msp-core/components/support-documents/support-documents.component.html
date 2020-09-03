@@ -51,10 +51,11 @@
       id="docUploader_{{objectId}}"
       [required]="true"
       instructionText="{{uploadInstructions}}"
-      (errorDocument)="handleSupportDocError($event)">
+      (errorDocument)="handleSupportDocError($event)"
+      (imagesChange)="handleImagesChange($event)">
     </common-file-uploader>
     <common-error-container
-      [displayError]="supportDocError !== null">
+      [displayError]="supportDocErrorMsg">
       {{ supportDocErrorMsg }}
     </common-error-container>
     <ng-content select="[requestAdditionInfo]"></ng-content>

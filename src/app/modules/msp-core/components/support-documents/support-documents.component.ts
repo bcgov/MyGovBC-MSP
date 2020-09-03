@@ -212,7 +212,27 @@ export class SupportDocumentsComponent extends Base
     });
   }
 
-  // Set the error obj and appropriate msg
+  // Check the collective size, triggered whenever an image is added or removed
+  handleImagesChange(imgs: Array<CommonImage>) {
+    let sum = 0;
+
+    this.documents.forEach((img) => { 
+      if (typeof img.size === 'number') {
+        sum += img.size;
+      }
+    });
+
+    // Same limit as moh-common-lib
+    if (sum > 1048576) {
+      // Reset the attachments for this upload
+      this.documents = [];
+      this.supportDocErrorMsg = 'The addition of the previous document exceeded the maximum upload size of this supporting document section.';
+    } else {
+      this.supportDocErrorMsg = '';
+    }
+  }
+
+  // Set the error obj and appropriate msg, triggered when component has an error
   handleSupportDocError(error: CommonImage) {
     if (error) {
       switch (error.error) {
@@ -250,7 +270,6 @@ export class SupportDocumentsComponent extends Base
           break;
         default:
           this.supportDocError = null;
-          this.supportDocErrorMsg = '';
           break;
       }
     }
@@ -278,9 +297,7 @@ export class SupportDocumentsComponent extends Base
   }
 
   get supportDocErrorMsg() {
-    // If we have an error object and the enum is defined
-    if (this.supportDocError && this.supportDocError.error !== null && this.supportDocError.error !== undefined) {
-      // return the message
+    if (this._supportDocErrorMsg) {
       return this._supportDocErrorMsg;
     }
     return '';
