@@ -184,10 +184,10 @@ export class MspApiBenefitService extends AbstractHttpService {
           (error: Response | any) => {
             this.logService.log(
               {
-                text: 'Attachments - Send Error ',
+                text: 'Attachments - Send All Error ',
                 error: error
               },
-              'Attachments - Send Error '
+              'Attachments - Send All Error '
             );
             return reject();
           }
@@ -195,10 +195,10 @@ export class MspApiBenefitService extends AbstractHttpService {
         .catch((error: Response | any) => {
           this.logService.log(
             {
-              text: 'Attachments - Send Error ',
+              text: 'Attachments - Send All Error ',
               error: error
             },
-            'Attachments - Send Error '
+            'Attachments - Send All Error '
           );
           return error;
         });
@@ -269,10 +269,10 @@ export class MspApiBenefitService extends AbstractHttpService {
           (error: Response | any) => {
             this.logService.log(
               {
-                text: 'Attachment - Send Error ',
+                text: 'Attachment - Send Individual Error ',
                 response: error
               },
-              'Attachment - Send Error '
+              'Attachment - Send Individual Error '
             );
             return reject(error);
           }
@@ -280,10 +280,10 @@ export class MspApiBenefitService extends AbstractHttpService {
         .catch((error: Response | any) => {
           this.logService.log(
             {
-              text: 'Attachment - Send Error ',
+              text: 'Attachment - Send Individual Error ',
               response: error
             },
-            'Attachment - Send Error '
+            'Attachment - Send Individual Error '
           );
 
           reject(error);

@@ -195,18 +195,18 @@ export class MspApiService {
                 },
                 (error: Response | any) => {
                     this.logService.log({
-                        text: 'Attachments - Send Error ',
+                        text: 'Attachments - Send All Error ',
                         error: error,
-                    }, 'Attachments - Send Error ');
+                    }, 'Attachments - Send All Error ');
                     console.log('error sending attachment: ', error);
                     return reject(error);
                 }
             )
                 .catch((error: Response | any) => {
                     this.logService.log({
-                        text: 'Attachments - Send Error ',
+                        text: 'Attachments - Send All Error ',
                         error: error,
-                    }, 'Attachments - Send Error ');
+                    }, 'Attachments - Send All Error ');
                     console.log('error sending attachment: ', error);
                     return reject(error);
                 });
@@ -266,18 +266,18 @@ export class MspApiService {
                     (error: Response | any) => {
                         console.log('error response in its origin form: ', error);
                         this.logService.log({
-                            text: 'Attachment - Send Error ',
+                            text: 'Attachment - Send Individual Error ',
                             response: error,
-                        }, 'Attachment - Send Error ');
+                        }, 'Attachment - Send Individual Error ');
                         return reject(error);
                     }
                 )
                 .catch((error: Response | any) => {
                     console.log('Error in sending individual attachment: ', error);
                     this.logService.log({
-                        text: 'Attachment - Send Error ',
+                        text: 'Attachment - Send Individual Error ',
                         response: error,
-                    }, 'Attachment - Send Error ');
+                    }, 'Attachment - Send Individual Error ');
                     const response = this.convertResponse(error);
                     reject(response || error);
                 });
