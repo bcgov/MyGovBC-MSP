@@ -2,12 +2,30 @@
 
 ## General
 
-This is MyGovBC MSP AngularJS 2.x app. It provides the following processes:
+This is MyGovBC-MSP, an Angular 6.x app. It provides the following processes:
 
 1.  Enrolment Application
 2.  Premium Assistance Application
+3.  Account Change Application
+4.  Supplementary Benefit Application
+5.  Account Confirmation Letter (ACL) Request
 
-### Browser Compatibility
+## Table of contents
+
+- [Browser Compatibility](#browser-compatibility)
+- [Content Author Prerequisites](#content-author-prerequisites)
+- [Content Authoring](#content-authoring)
+- [Development Prerequisites](#development-prerequisites)
+- [Development](#development)
+- [Environments and Instance-Specific Configuration](#environments-and-instance-specific-configuration)
+- [Unit Testing](#unit-testing)
+- [Production](#production)
+- [i18n and Markdown Support](#i18n-and-markdown-support)
+- [XSD to Typescript Generation](#xsd-to-typescript-generation)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Browser Compatibility
 
 - IE 11
 - Edge (evergreen)
@@ -15,16 +33,16 @@ This is MyGovBC MSP AngularJS 2.x app. It provides the following processes:
 - Chrome (evergreen)
 - Firefox (evergreen)
 
-Recommended minimum width 320px of device.
+Recommended minimum width of device: 320px
 
 See `ACCESSIBILITY.md` for tested screen readers.
 
-### Content Author Prerequisites
+## Content Author Prerequisites
 
 - A GitHub account with 2FA enabled.
 - Write access to this repository.
 
-### Content Authoring
+## Content Authoring
 
 Most of the application text is configurable. General procedure:
 
@@ -66,13 +84,10 @@ I make a comment in the Commit Changes that says 'content change' and click the 
 
 After a make a few more edits, I double check my work at the test site.
 
-# Development
+## Development Prerequisites
 
-## Developer Prerequisites
-
-- node@>=6.9.0 (to satisfy Yarn avoid 7.x.x releases, but 8.x.x are okay)
+- node@>=6.9.0
 - npm@>=3.10.0
-- Yarn>=1.1.0 (`npm install -g yarn`) [Documentation](https://yarnpkg.com/lang/en/docs/install/)
 - AngularCLI (`npm install -g @angular/cli`) [Documentation](https://github.com/angular/angular-cli)
 
 ## Development
@@ -88,36 +103,7 @@ npm run dev
 
 See `ACCESSIBILITY.md` for accessibility implementations patterns.
 
-## Folder Structure
-
-```bash
-MyGovBC-msp/src/
-├── environments/ # from angular-scaffold
-│   ├── environment.ts # used by default
-│   └── environment.prod.ts # used with --prod or --environment prod
-└── app/
-    ├── images/ # assets copied to build folder
-    ├── fonts/ # assets copied to build folder
-    ├── components/ # one component for each page, e.g. contact-info, site-access
-    │   └── core/ # core components used in all sections, i.e. header and footer
-    │   └── msp/ # contains msp module and components
-    │       └── account/ # for the account maintenance section
-    │       └── api-model/ #
-    │       └── application/ # for the new enrolment application section
-    │       └── assistance/ # for premium assistance section
-    │       └── common/ # re-usable components across sections
-    │       └── landing/ # landing page
-    │       └── model/ # models, dtos, interfaces, etc. for all msp sections
-    │       └── service/ # services specific to msp
-    │       └── msp.component.*
-    ├── styles/ # directives for frontend validation, discussed below
-    │   └── variables.scss # app wide scss variables
-    ├── app.component.* # root component, contains app-wide configs and router.
-    ├── app.module.ts
-
-```
-
-### Environments and Instance-specific Configuration
+## Environments and Instance-Specific Configuration
 
 MyGovBC-MSP uses the default AngularCLI approach to environments. [Documentation.](https://github.com/angular/angular-cli/wiki/build). Unlike the previous MyGovBC-MSP environment setup, now environment values do NOT cascade. There is no longer a global environment file. Instead, each environment file must be entirely self-contained and stand on its own.
 
@@ -233,6 +219,9 @@ Running cxsd:
 ```
 cxsd https://raw.githubusercontent.com/bcgov/MyGovBC-MSP/master/src/app/components/msp/api-model/xsd/ResponseTypes.xsd
 ```
+
+## Contributing
+Please see CONTRIBUTING.md for contributing guidelines
 
 ## License
 
