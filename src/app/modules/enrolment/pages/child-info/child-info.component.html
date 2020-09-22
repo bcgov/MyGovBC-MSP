@@ -45,7 +45,7 @@
                                [canadianStatus]="child.status"
                                [statusReason]="child.currentActivity"
                                [supportDoc]="child.documents"
-                               (supportDocChange)="statusDocUpdate">
+                               (supportDocChange)="statusDocUpdate($event, child)">
           <div sectionTitleInfo>
             <h3>Documents</h3>
             <p class="horizontal-line">

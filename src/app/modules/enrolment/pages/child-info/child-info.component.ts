@@ -132,7 +132,7 @@ export class ChildInfoComponent extends EnrolForm {
                   if ( x.relationship === Relationship.Child19To24 ) {
                     childValid = childValid && x.inBCafterStudies;
                   }
-                  return valid;
+                  return childValid;
                 }).filter(itm => itm === true).length === this.children.length;
 
     }
