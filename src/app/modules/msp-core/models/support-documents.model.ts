@@ -1,5 +1,5 @@
 import { CommonImage } from 'moh-common-lib';
-
+import { CommonImageDto } from '../../../models/common-image.dto';
 /**
  * Class used to store documents name changes, residency status, etc
  */
@@ -27,5 +27,5 @@ export class SupportDocuments {
  */
 export class SupportDocumentsDto {
   documentType: string;
-  images: CommonImage[];
+  images: CommonImageDto[];
 }

@@ -4,7 +4,8 @@ import { BasePersonDto, BasePerson } from '../models/base-person';
 import { BaseApplicationDto, BaseApplication } from '../models/base-application';
 import { SupportDocumentsDto, SupportDocuments } from '../modules/msp-core/models/support-documents.model';
 import { AddressDto } from '../models/address.dto';
-import { Address } from 'moh-common-lib';
+import { Address, CommonImage } from 'moh-common-lib';
+import { CommonImageDto } from '../models/common-image.dto';
 
 export class MspPagesDto {
   // page status - complete/ incomplete
@@ -154,7 +155,16 @@ export abstract class BaseMspDataService {
     const dto = new SupportDocumentsDto();
 
     dto.documentType = input.documentType;
-    dto.images = input.images;
+    
+    const transferredImgs: CommonImageDto[] = [];
+    
+    // Convert each CommonImage to storable dto
+    for (const img of input.images) {
+      transferredImgs.push(this.toCommonImageTransferObject(img));
+    }
+    
+    dto.images = transferredImgs;
+
     return dto;
   }
 
@@ -162,7 +172,62 @@ export abstract class BaseMspDataService {
     const output = new SupportDocuments();
 
     output.documentType = dto.documentType;
-    output.images = dto.images;
+
+    const transferredImgs: CommonImage[] = [];
+    
+    // Convert each image from stored dto to CommonImage
+    for (const img of dto.images) {
+      transferredImgs.push(this.fromCommonImageTransferObject(img));
+    }
+
+    output.images = transferredImgs;
+
+    return output;
+  }
+
+  protected toCommonImageTransferObject(input: CommonImage): CommonImageDto {
+    const dto = new CommonImageDto();
+
+    dto.uuid = input.uuid;
+    dto.fileContent = input.fileContent;
+    dto.documentType = input.documentType;
+    dto.contentType = input.contentType;
+    dto.size = input.size;
+    dto.sizeUnit = input.sizeUnit;
+    dto.sizeTxt = input.sizeTxt;
+    dto.naturalHeight = input.naturalHeight;
+    dto.naturalWidth = input.naturalWidth;
+    dto.name = input.name;
+    dto.id = input.id;
+    dto.attachmentOrder = input.attachmentOrder;
+    
+    if (input.error) {
+      dto.error = input.error;
+    }
+
+    return dto;
+  }
+
+  protected fromCommonImageTransferObject(dto: CommonImageDto): CommonImage {
+    const output = new CommonImage();
+
+    output.uuid = dto.uuid;
+    output.fileContent = dto.fileContent;
+    output.documentType = dto.documentType;
+    output.contentType = dto.contentType;
+    output.size = dto.size;
+    output.sizeUnit = dto.sizeUnit;
+    output.sizeTxt = dto.sizeTxt;
+    output.naturalHeight = dto.naturalHeight;
+    output.naturalWidth = dto.naturalWidth;
+    output.name = dto.name;
+    output.id = dto.id;
+    output.attachmentOrder = dto.attachmentOrder;
+    
+    if (dto.error) {
+      output.error = dto.error;
+    }
+
     return output;
   }
 
