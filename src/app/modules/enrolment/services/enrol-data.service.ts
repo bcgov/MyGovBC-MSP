@@ -102,8 +102,10 @@ export class EnrolDataService extends BaseMspDataService {
 
     output.hasNameChange = dto.hasNameChange;
 
-    // SupportDocument
-    output.nameChangeDocs = this.fromSupportDocumentTransferObject( dto.nameChangeDocs );
+    // Support documents for name change
+    if (dto.hasNameChange) {
+      output.nameChangeDocs = this.fromSupportDocumentTransferObject( dto.nameChangeDocs );
+    }
 
     // Moving information
     output.madePermanentMoveToBC = dto.madePermanentMoveToBC;
@@ -152,8 +154,10 @@ export class EnrolDataService extends BaseMspDataService {
 
     dto.hasNameChange = input.hasNameChange;
 
-    // SupportDocuments
-    dto.nameChangeDocs = this.toSupportDocumentTransferObject( input.nameChangeDocs );
+    // Support documents for name change
+    if (input.hasNameChange) {
+      dto.nameChangeDocs = this.toSupportDocumentTransferObject( input.nameChangeDocs );
+    }
 
     // Moving information
     dto.madePermanentMoveToBC = input.madePermanentMoveToBC;

@@ -121,7 +121,7 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
       .catch(error => {
 
         this.loading = false;
-        console.log('autorization errror clause: ', error );
+        console.log('authorization error clause: ', error );
 
         let message = 'This error occurred because the system encountered an unanticipated situation ' +
         'which forced it to stop.';
