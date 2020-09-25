@@ -5,7 +5,8 @@ import { AccountRoutingModule } from './account-routing.module';
 import { AccountContainerComponent } from './components/account-container/account-container.component';
 import { FormsModule } from '@angular/forms';
 import { MspCoreModule } from '../msp-core/msp-core.module';
-import { ModalModule, AccordionModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { AccountPersonalInfoComponent } from './pages/personal-info/personal-info.component';
 //import { AccountDependentChangeComponent } from './pages/dependent-change/dependent-change.component';

@@ -11,7 +11,7 @@ import { MspDataService } from 'app/services/msp-data.service';
 import { NgForm } from '@angular/forms';
 import { PremiumRatesYear } from './home-constants';
 import { debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { AssistanceYear } from '../../models/assistance-year.model';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';

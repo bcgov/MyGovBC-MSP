@@ -4,7 +4,7 @@ import { MspConsentModalComponent } from './consent-modal.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from '@angular/router/testing';
-import {ModalModule} from 'ngx-bootstrap';
+import {ModalModule} from 'ngx-bootstrap/modal';
 import {MspMaintenanceService} from '../../../../services/msp-maintenance.service';
 import {HttpClientModule} from '@angular/common/http';
 import {MspLogService} from '../../../../services/log.service';

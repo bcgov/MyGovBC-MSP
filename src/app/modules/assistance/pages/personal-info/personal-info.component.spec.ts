@@ -8,8 +8,8 @@ import {
   LocalStorageService,
   LocalStorageModule
 } from 'angular-2-local-storage';
-import { TypeaheadModule } from 'ngx-bootstrap';
-import { ModalModule } from 'ngx-bootstrap';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { MspLogService } from '../../../../services/log.service';
 
 import { HttpClientModule } from '@angular/common/http';

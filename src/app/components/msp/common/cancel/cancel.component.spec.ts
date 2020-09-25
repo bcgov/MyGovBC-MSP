@@ -7,7 +7,7 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import {RouterTestingModule} from '@angular/router/testing';
 
 import { MspLogService } from '../../../../services/log.service';
-import {ModalModule} from 'ngx-bootstrap';
+import {ModalModule} from 'ngx-bootstrap/modal';
 import {HttpClientModule} from '@angular/common/http';
 import { MspAddressCardPartComponent } from '../../../../modules/msp-core/components/address-card-part/address-card-part.component';
 describe('MspCancelComponent', () => {

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AccountPersonCardComponent } from './person-card.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import {ModalModule} from 'ngx-bootstrap';
+import {ModalModule} from 'ngx-bootstrap/modal';
 import {RouterTestingModule} from '@angular/router/testing';
 import { MspCoreModule } from '../../../msp-core/msp-core.module';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
