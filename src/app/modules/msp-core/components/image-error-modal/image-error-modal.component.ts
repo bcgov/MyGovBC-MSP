@@ -1,6 +1,6 @@
 import {Component, Input, ViewChild, NgZone, Inject} from '@angular/core';
 import * as moment from 'moment';
-import {ModalDirective} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/modal';
 import { environment } from '../../../../../environments/environment';
 import { CommonImage, CommonImageError } from 'moh-common-lib';
 

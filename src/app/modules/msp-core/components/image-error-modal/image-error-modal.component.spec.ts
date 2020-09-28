@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from '@angular/router/testing';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import {MspImageErrorModalComponent} from './image-error-modal.component';
 
 describe('MspImageErrorModalComponent', () => {

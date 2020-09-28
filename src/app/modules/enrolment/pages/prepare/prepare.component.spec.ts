@@ -7,7 +7,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { PrepareComponent } from './prepare.component';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { ConsentModalComponent } from 'moh-common-lib';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 describe('PrepareComponent', () => {

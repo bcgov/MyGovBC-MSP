@@ -14,7 +14,7 @@ import { MspCoreModule } from '../msp-core/msp-core.module';
 import { BenefitEligibilityCardComponent } from './pages/financial-info/eligibility-card/eligibility-card.component';
 import { TaxYearComponent } from './pages/financial-info/tax-year/tax-year.component';
 import { MspBenefitDataService } from './services/msp-benefit-data.service';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { BenefitSpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { BenefitAddressComponent } from './pages/contact-info/address.component';
 import { ProcessService , ProcessStep} from '../../services/process.service';

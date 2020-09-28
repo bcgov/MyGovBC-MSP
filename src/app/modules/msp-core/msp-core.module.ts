@@ -12,7 +12,9 @@ import { TransmissionErrorView } from '../../components/msp/common/transmission-
 import { MspConsentModalComponent } from './components/consent-modal/consent-modal.component';
 import { MspCancelComponent } from '../../components/msp/common/cancel/cancel.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ModalModule, AccordionModule, TypeaheadModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { RouterModule } from '@angular/router';
 import { MspPersonCardComponent } from './components/person-card/person-card.component';
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { CommonDeductionCalculatorComponent } from './common-deduction-calculator.component';
 import { MspCancelComponent } from '../../../../../app/components/msp/common/cancel/cancel.component';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import { ProcessService } from '../../../../services/process.service';

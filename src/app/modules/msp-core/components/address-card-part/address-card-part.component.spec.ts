@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MspAddressCardPartComponent } from './address-card-part.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import { TypeaheadModule } from 'ngx-bootstrap';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 describe('MspAddressCardPartComponent', () => {
 

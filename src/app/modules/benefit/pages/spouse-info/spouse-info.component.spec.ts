@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { MspBenefitDataService } from '../../services/msp-benefit-data.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Relationship } from '../../../../models/relationship.enum';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 describe('BenefitSpouseInfoComponent', () => {

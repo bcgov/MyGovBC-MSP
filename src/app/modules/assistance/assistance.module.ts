@@ -10,7 +10,7 @@ import { AssistanceSendingComponent } from './pages/sending/sending.component';
 import { AssistanceConfirmationComponent } from './pages/confirmation/confirmation.component';
 import { FormsModule } from '@angular/forms';
 import { MspCoreModule } from '../msp-core/msp-core.module';
-import { ModalModule, BsModalService } from 'ngx-bootstrap';
+import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { AssistContactComponent } from './pages/contact/assist-contact.component';
 import { AssistMailingComponent } from './components/assist-mailing/assist-mailing.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';

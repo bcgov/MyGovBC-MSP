@@ -1,6 +1,6 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import * as moment from 'moment';
-import {ModalDirective} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/modal';
 import {MspDataService} from '../../../../services/msp-data.service';
 
 

@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { BenefitPrepareComponent } from './prepare.component';
 import { MspImageErrorModalComponent } from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import { ConsentModalComponent } from 'moh-common-lib';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 describe('BenefitPrepareComponent', () => {
   let component: BenefitPrepareComponent;

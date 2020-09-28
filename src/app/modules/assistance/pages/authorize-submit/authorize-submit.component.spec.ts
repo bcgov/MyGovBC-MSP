@@ -6,7 +6,7 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { MspLogService } from '../../../../services/log.service';
 import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedCoreModule } from 'moh-common-lib';
 import { MspCoreModule } from '../../../msp-core/msp-core.module';

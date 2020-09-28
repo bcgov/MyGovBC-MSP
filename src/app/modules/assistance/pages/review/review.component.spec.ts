@@ -5,7 +5,7 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MspLogService} from '../../../../services/log.service';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import {HttpClientModule} from '@angular/common/http';
 import { MspCoreModule } from '../../../msp-core/msp-core.module';
 
