@@ -132,6 +132,13 @@ export class ChildInfoComponent extends EnrolForm {
                   if ( x.relationship === Relationship.Child19To24 ) {
                     childValid = childValid && x.inBCafterStudies;
                   }
+
+                  // If they are on a temporary permit
+                  if (x.isTemporaryResident) {
+                    // The province or country they came from is mandatory info
+                    return x.movedFromProvinceOrCountry && x.movedFromProvinceOrCountry.length > 1;
+                  }
+
                   return childValid;
                 }).filter(itm => itm === true).length === this.children.length;
 
