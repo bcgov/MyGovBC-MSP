@@ -24,8 +24,22 @@ export class GeneralAppComponent {
   public constructor(viewContainerRef: ViewContainerRef, private router: Router, private header: HeaderService) {
     // You need this small hack in order to catch application root view container ref
     this.viewContainerRef = viewContainerRef;
+
+    // Specific handling for refresh on DEAM
+    this.handleDEAMRefresh(location.pathname);
   }
 
+  handleDEAMRefresh(url) {
+    if (url.includes('/deam')) {
+      // if on the home page, don't redirect but remove any stored application data
+      if (url.includes('/home')) {
+        window.sessionStorage.clear();
+      // if anywhere else besides confirmation, redirect them to the landing page
+      } else if (!url.includes('/confirmation')) {
+        location.assign('/msp');
+      }
+    }
+  }
 
   ngOnInit() {
     this.routerSubscription = this.router.events
