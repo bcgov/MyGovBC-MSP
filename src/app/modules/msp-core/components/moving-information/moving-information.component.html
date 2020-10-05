@@ -10,14 +10,24 @@
       required>
     </common-radio>
   </div>
-  <div *ngIf="isTemporaryResident" class="form-group col-sm-6 pl-0" >
-    <common-country
-      name="movedFromCountry_{{objectId}}"
-      label="{{countryMoveLabel}}"
-      [countryList]="countryList"
+  <div *ngIf="isTemporaryResident" class="form-group col-sm-6 pl-0">
+    <label for="movedFromProvinceOrCountry">From which province or country?</label>
+    <input
+      #moveFromProvinceorCountryRef="ngModel"
+      type="text"
+      name="movedFromProvinceOrCountry_{{objectId}}"
+      id="movedFromProvinceOrCountry"
+      class="form-control"
       [(ngModel)]="person.movedFromProvinceOrCountry"
-      required>
-    </common-country>
+      [ngModelOptions]="{standalone: true}"
+      maxlength="25"
+      minlength="2"
+      required
+    />
+    <common-error-container
+      [displayError]="moveFromProvinceorCountryRef.touched && (!person.movedFromProvinceOrCountry || person.movedFromProvinceOrCountry.length < 2)">
+      Field is required. 
+    </common-error-container>
   </div>
 
   <div *ngIf="requestPermMoveInfo" class="form-group">

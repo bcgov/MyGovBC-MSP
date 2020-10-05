@@ -102,6 +102,9 @@ export class SpouseInfoComponent extends EnrolForm {
       // If not temporary resident needs to have moved permenently to BC
       if ( !this.spouse.isTemporaryResident ) {
         valid = valid && this.spouse.madePermanentMoveToBC;
+      } else {
+        // If they are, then the province or country they came from is mandatory info
+        valid = valid && this.spouse.movedFromProvinceOrCountry && this.spouse.movedFromProvinceOrCountry.length > 1;
       }
 
       if ( this.spouse.hasNameChange ) {
