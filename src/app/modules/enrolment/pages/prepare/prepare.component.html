@@ -1,7 +1,8 @@
 <msp-consent-modal #mspConsentModal 
                    (onClose)="liveInBCBtn.focus()"
                    [consentProcessName]="'MSP'" 
-                   (accept)="acceptAgreement($event)">
+                   (accept)="acceptAgreement($event)"
+                   [isMaintenanceMode]="false">
 </msp-consent-modal>
 
 <common-page-framework layout="blank">

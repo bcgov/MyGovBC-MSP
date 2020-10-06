@@ -73,7 +73,7 @@
 <msp-consent-modal
   #mspConsentModal
   [consentProcessName]="consentProcessName"
-  [isMaintenanceMode]="true"
+  [isMaintenanceMode]="false"
   (accept)="
     finAssistApp.infoCollectionAgreement = $event;
     this.dataSvc.saveFinAssistApplication()
