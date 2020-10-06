@@ -1,5 +1,5 @@
 export const defaultSchema = {
-  id: 'moh-msp/MSPApplication.schema.json',
+  $id: 'moh-msp/MSPApplication.schema.json',
   $schema: 'http://json-schema.org/draft-07/schema#',
   version: '1.0.2',
   definitions: {

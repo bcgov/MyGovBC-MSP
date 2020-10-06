@@ -9,15 +9,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { AccountPersonalInfoComponent } from './pages/personal-info/personal-info.component';
-//import { AccountDependentChangeComponent } from './pages/dependent-change/dependent-change.component';
 import { AccountPersonalDetailsComponent } from '../account/components/personal-details/personal-details.component';
 
 import { AccountReviewComponent } from './pages/review/review.component';
 import { AccountSendingComponent } from './pages/sending/sending.component';
 import { AccountConfirmationComponent } from './pages/confirmation/confirmation.component';
-//import { RemoveDependentComponent } from './pages/remove-dependents/remove-dependents.component';
-//import { AddNewDependentBeneficiaryComponent } from './pages/add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
-//import { AddDependentComponent } from './pages/add-dependents/add-dependents.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { ChildInfoComponent } from './pages/child-info/child-info.component';
@@ -27,7 +23,6 @@ import { MspAccountMaintenanceDataService } from './services/msp-account-data.se
 import { MspApiAccountService } from './services/msp-api-account.service';
 import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService, BYPASS_GUARDS, DefaultPageGuardService, AbstractPageGuardService, LoadPageGuardService, START_PAGE_URL } from 'moh-common-lib';
 import { UpdateRequestComponent } from '../account/components/update-request/update-request.component';
-import { AccountFileUploaderComponent } from './pages/personal-info/account-file-uploader/account-file-uploader.component';
 import { AddSpouseComponent } from './pages/spouse-info/add-spouse/add-spouse.component';
 import { UpdateSpouseComponent } from './pages/spouse-info/update-spouse/update-spouse.component';
 import { RemoveSpouseComponent } from './pages/spouse-info/remove-spouse/remove-spouse.component';
@@ -63,7 +58,6 @@ import { ProcessService , ProcessStep} from '../../services/process.service';
     AuthorizeComponent,
     ContactInfoComponent,
     UpdateRequestComponent,
-    AccountFileUploaderComponent,
     AddSpouseComponent,
     UpdateSpouseComponent,
     RemoveSpouseComponent,

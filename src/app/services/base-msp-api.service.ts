@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
 import { BasePerson } from '../models/base-person';
 import { format } from 'date-fns';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 interface AttachmentRequestPartial {
   contentType: 'IMAGE_JPEG';
@@ -100,7 +101,7 @@ export class BaseMspApiService extends AbstractHttpService  {
                 text: 'Attachments - Send All Error ',
                 error: _error
               }, 'Attachments - Send All Error ');
-            console.log('error sending attachment: ', _error);
+            devOnlyConsoleLog('Error sending all attachments: ', _error);
             return reject();
           }
         )
@@ -110,7 +111,7 @@ export class BaseMspApiService extends AbstractHttpService  {
               error: _error
             }, 'Attachments - Send All Error '
           );
-          console.log('error sending attachment: ', _error );
+          devOnlyConsoleLog('Error sending all attachments: ', _error );
           return _error;
         });
     });
@@ -279,7 +280,7 @@ export class BaseMspApiService extends AbstractHttpService  {
             return resolve(response);
           },
           (_error: Response | any) => {
-            console.log('error response in its origin form: ', _error);
+            devOnlyConsoleLog('Error sending individual attachment: ', _error);
             this.logService.log({
                 text: 'Attachment - Send Individual Error ',
                 response: _error
@@ -289,7 +290,7 @@ export class BaseMspApiService extends AbstractHttpService  {
           }
         )
         .catch((_error: Response | any) => {
-          console.log('Error in sending individual attachment: ', _error);
+          devOnlyConsoleLog('Error in sending individual attachment: ', _error);
           this.logService.log({
               text: 'Attachment - Send Individual Error ',
               response: _error

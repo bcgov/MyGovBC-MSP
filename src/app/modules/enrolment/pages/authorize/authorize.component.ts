@@ -10,6 +10,7 @@ import { ApiStatusCodes } from 'moh-common-lib';
 import { ApiResponse } from '../../../../models/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EnrolDataService } from '../../services/enrol-data.service';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 @Component({
   selector: 'msp-authorize',
@@ -121,12 +122,11 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
       .catch(error => {
 
         this.loading = false;
-        console.log('authorization error clause: ', error );
+        devOnlyConsoleLog('Error in sending application: ', error);
 
         let message = 'This error occurred because the system encountered an unanticipated situation ' +
         'which forced it to stop.';
 
-        console.log('error in sending application: ', error);
         this.logService.log({
           name: 'Enrolment - Received Failure ',
           error: error._body,

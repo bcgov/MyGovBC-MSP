@@ -36,7 +36,7 @@ export class GeneralAppComponent {
         window.sessionStorage.clear();
       // if anywhere else besides confirmation, redirect them to the landing page
       } else if (!url.includes('/confirmation')) {
-        location.assign('/msp');
+        location.assign('/msp/deam/home');
       }
     }
   }

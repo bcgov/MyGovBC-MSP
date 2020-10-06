@@ -48,7 +48,6 @@ export class LandingComponent {
   ) {}
 
   clearSavedFinAssisApp() {
-    console.log('deleting saved fin assist app.');
     this.mspDataService.removeFinAssistApplication();
     this.router.navigate(['/assistance/home']);
   }
@@ -59,16 +58,8 @@ export class LandingComponent {
   }
 
   clearSavedAccountApp() {
-    // Add link here to DEAM
-    console.log('navigating to DEAM');
     this.mspDataService.removeMspAccountApp();
     this.router.navigate(['/deam/home']);
-    // For DEAM interim only.  Replacing with redirect to other deam interim papplication.
-    // console.log('Redirecting to DEAM interim');
-    // window.location.href = window.location.origin + '/msp/deam-interim/';
-    // After DEAM interim is completed and removed we can revert to old behaviour here.
-    // this.mspDataService.removeMspAccountApp();
-    // this.router.navigate(['/account/home']);
   }
 
   clearSavedBenefitAssisApp() {

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IRateBracket } from '../../pages/home/home-constants';
 import { Observable, of, Subject } from 'rxjs';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 @Component({
   selector: 'msp-assist-rates-helper-modal',
@@ -73,7 +74,7 @@ export class AssistRatesHelperModalComponent implements OnInit {
     }
     opts.sort((a, b) => b - a);
     this.yearOptions$ = of(opts);
-    this.selectedYear$.subscribe(obs => console.log(obs));
+    this.selectedYear$.subscribe(obs => devOnlyConsoleLog(obs));
   }
 
   selectYear(event: any) {

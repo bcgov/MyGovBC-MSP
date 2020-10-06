@@ -7,6 +7,7 @@ import {MspBenefitDataService} from '../../../benefit/services/msp-benefit-data.
 import {BenefitApplication} from '../../../benefit/models/benefit-application.model';
 import { ATTENDANT_CARE_CLAIM_AMT } from '../../../../constants';
 import * as moment from 'moment';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 @Component({
   selector: 'msp-common-deduction-calculator',
@@ -43,7 +44,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     ngDoCheck(): void {
       const valid = this.canContinue;
 
-      console.log('valid ' + valid);
+      devOnlyConsoleLog('Valid: ' + valid);
     }
 
     get ageOver65Amt(): number {

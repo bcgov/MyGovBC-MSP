@@ -9,6 +9,7 @@ import { MspApiAccountService } from '../../services/msp-api-account.service';
 import { ApiResponse } from '../../../../models/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MspLogService } from '../../../../services/log.service';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 @Component({
   selector: 'msp-home',
@@ -84,7 +85,7 @@ export class HomeComponent implements OnInit {
       .then((response: ApiResponse) => {
 
         if (response && response.op_return_code !== 'SUCCESS') {
-          console.log('Submission response: ', response.op_return_code);
+          devOnlyConsoleLog('Submission response: ', response.op_return_code);
         }
 
         if (response instanceof HttpErrorResponse) {
@@ -102,7 +103,7 @@ export class HomeComponent implements OnInit {
         window.open(this.outLinkUrl, '_blank');
 
       }).catch((error: ResponseType | any) => {
-        console.log('error in sending request: ', error);
+        devOnlyConsoleLog('Error in sending request: ', error);
       });
   }
 }

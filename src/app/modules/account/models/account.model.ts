@@ -168,8 +168,6 @@ class MspAccountApp implements ApplicationBase {
         if (!this.updatedSpouse){
             this.updatedSpouse = sp;
             this.updatedSpouse.operationActionType = OperationActionType.Update;
-        } else {
-            console.log('spouse for updating already added to your coverage.');
         }
     }
 
@@ -334,7 +332,7 @@ class MspAccountApp implements ApplicationBase {
         this._addedChildren = tmp;
 
     } else {
-        console.log('No more than 30 children can be added to one application');
+        console.log('No more than 30 children can be added to one application.');
     }
         return c;
   }
@@ -351,7 +349,7 @@ class MspAccountApp implements ApplicationBase {
         this._removedChildren = tmp;
 
     } else {
-        console.log('No more than 30 children can be added to one application');
+        console.log('No more than 30 children can be added to one application.');
     }
     return c;
   }
@@ -373,7 +371,7 @@ class MspAccountApp implements ApplicationBase {
         const tmp = [c, ...this._updatedChildren];
         this._updatedChildren = tmp;
     } else {
-        console.log('No more than 30 children can be added to one application');
+        console.log('No more than 30 children can be added to one application.');
     }
         return c;
   }
