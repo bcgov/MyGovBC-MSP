@@ -7,7 +7,7 @@ import { MSPApplicationSchema } from 'app/modules/msp-core/interfaces/i-api';
   providedIn: 'root'
 })
 export class SchemaService {
-  ajv = new Ajv({ schemaId: 'id', allErrors: true });
+  ajv = new Ajv({ schemaId: '$id', allErrors: true });
   constructor() {}
 
   async validate(app: MSPApplicationSchema) {
