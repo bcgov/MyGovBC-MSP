@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { MspBenefitDataService } from '../modules/benefit/services/msp-benefit-data.service';
 import { EnrolDataService } from '../modules/enrolment/services/enrol-data.service';
 import { APP_ROUTES } from '../models/route-constants';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 
 @Injectable({
@@ -121,14 +122,13 @@ export class MspLog2Service extends AbstractHttpService {
     }
 
     protected handleError(error: HttpErrorResponse) {
-        console.log('logService handleError()', error);
         if (error.error instanceof ErrorEvent) {
             //Client-side / network error occured
-            console.error('An error occured: ', error.error.message);
+            devOnlyConsoleLog('An error occured: ', error.error.message);
         }
         else {
             // The backend returned an unsuccessful response code
-            console.error(`Backend returned error code: ${error.status}.  Error body: ${error.error}`);
+            devOnlyConsoleLog(`Backend returned error code: ${error.status}.  Error body: ${error.error}`);
         }
 
         return throwError(error);

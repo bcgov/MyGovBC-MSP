@@ -7,6 +7,7 @@ import { MspDataService } from 'app/services/msp-data.service';
 import { AssistTransformService } from './assist-transform.service';
 import { ApiSendService } from 'app/modules/assistance/services/api-send.service';
 import { ROUTES_ASSIST } from '../models/assist-route-constants';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 
 @Injectable({
@@ -121,7 +122,7 @@ export class AssistStateService {
         : this.failure$.next(res);
       return res;
     } catch (err) {
-      console.log( 'Error: ', err );
+      devOnlyConsoleLog( 'Error: ', err );
     }
   }
 }

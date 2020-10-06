@@ -11,6 +11,7 @@ import { ApiResponse } from 'app/models/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiStatusCodes, ContainerService, PageStateService } from 'moh-common-lib';
 import { BaseForm } from '../../models/base-form';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 @Component({
   templateUrl: 'sending.component.html',
@@ -76,7 +77,7 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
       .then((response: ApiResponse) => {
 
         if (response && response.op_return_code !== 'SUCCESS') {
-          console.log('Submission response: ', response.op_return_code);
+          devOnlyConsoleLog('Submission response: ', response.op_return_code);
         }
 
         if (response instanceof HttpErrorResponse) {
@@ -134,7 +135,7 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
                 }});
 
       }).catch((error: ResponseType | any) => {
-        console.log('error in sending request: ', error);
+        devOnlyConsoleLog('Error in sending request: ', error);
         this.hasError = true;
         this.rawUrl = error.url;
         this.rawError = error;

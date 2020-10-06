@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 import { environment } from '../../../../../environments/environment';
 import { CommonImage, CommonImageError } from 'moh-common-lib';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 @Component({
   selector: 'common-image-error-modal',
@@ -36,7 +37,7 @@ export class MspImageErrorModalComponent {
    */
   forceRender() {
     this.zone.run(() => {
-      console.log('force render');
+      devOnlyConsoleLog('force render');
     });
   }
 

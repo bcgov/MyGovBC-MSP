@@ -20,6 +20,7 @@ import { environment } from '../../environments/environment';
 import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
 import { Relationship } from '../models/relationship.enum';
 import { format } from 'date-fns';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 const jxon = require('jxon/jxon');
 
@@ -57,7 +58,7 @@ export class MspApiService {
               })
               .catch((error: Response | any) => {
                 // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-                console.log('sent all attachments rejected: ', error);
+                devOnlyConsoleLog('sent all attachments rejected: ', error);
                 this.logService.log(
                   {
                     text: 'Attachment - Send All Rejected ',
@@ -145,7 +146,7 @@ export class MspApiService {
                                 }
                             );
                         }).catch((error: Response | any) => {
-                                console.log('sent all attachments rejected: ', error);
+                                devOnlyConsoleLog('Error sending all attachments: ', error);
                                 this.logService.log({
                                     text: 'Attachment - Send All Rejected ',
                                     response: error,
@@ -160,7 +161,7 @@ export class MspApiService {
                     text: 'Application - Send Failure ',
                     exception: error,
                 }, 'Application - Send Failure ');
-                console.log('error: ', error);
+                devOnlyConsoleLog('Error sending application: ', error);
                 return reject(error);
             }
         });
@@ -198,7 +199,7 @@ export class MspApiService {
                         text: 'Attachments - Send All Error ',
                         error: error,
                     }, 'Attachments - Send All Error ');
-                    console.log('error sending attachment: ', error);
+                    devOnlyConsoleLog('Error sending all attachments: ', error);
                     return reject(error);
                 }
             )
@@ -207,7 +208,7 @@ export class MspApiService {
                         text: 'Attachments - Send All Error ',
                         error: error,
                     }, 'Attachments - Send All Error ');
-                    console.log('error sending attachment: ', error);
+                    devOnlyConsoleLog('Error sending all attachments: ', error);
                     return reject(error);
                 });
         });
@@ -264,7 +265,7 @@ export class MspApiService {
                         return resolve();
                     },
                     (error: Response | any) => {
-                        console.log('error response in its origin form: ', error);
+                        devOnlyConsoleLog('Error sending individual attachment: ', error);
                         this.logService.log({
                             text: 'Attachment - Send Individual Error ',
                             response: error,
@@ -273,7 +274,7 @@ export class MspApiService {
                     }
                 )
                 .catch((error: Response | any) => {
-                    console.log('Error in sending individual attachment: ', error);
+                    devOnlyConsoleLog('Error sending individual attachment: ', error);
                     this.logService.log({
                         text: 'Attachment - Send Individual Error ',
                         response: error,
@@ -325,7 +326,7 @@ export class MspApiService {
                         text: 'Application - XML Send Error ',
                         response: error,
                     }, 'Application - XML Send Error ');
-                    console.log('full error: ', error);
+                    devOnlyConsoleLog('Error sending XML: ', error);
                     return reject(error);
                 });
         });

@@ -54,7 +54,7 @@ export class EnrolApplication extends BaseApplication {
       // Add child to front of array
       this.children.push( c );
     } else {
-      console.log( 'No more than 30 children can be added to one application' );
+      console.log( 'No more than 30 children can be added to one application.' );
     }
     return c;
   }

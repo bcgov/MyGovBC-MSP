@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { format } from 'date-fns';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 @Component({
   selector: 'msp-acl-confirmation',
@@ -26,17 +27,17 @@ export class AclConfirmationComponent implements OnInit {
   ngOnInit(): void {
     this._subscription = this.route.queryParams.subscribe(
       params => {
-        console.log('PARAMS[status]:', params['status'])
+        devOnlyConsoleLog('PARAMS[status]:', params['status'])
         if ( params['status'] ) {
           this.status = params['status'];
         }
         
-        console.log('PARAMS[confirmationNum]:', params['confirmationNum'])
+        devOnlyConsoleLog('PARAMS[confirmationNum]:', params['confirmationNum'])
         if ( params['confirmationNum'] ) {
           this.confirmationNum = params['confirmationNum'];
         }
         
-        console.log('PARAMS[message]:', params['message'])
+        devOnlyConsoleLog('PARAMS[message]:', params['message'])
         if ( params['message'] ) {
           this.message = params['message'];
           this.message = this.message.replace('HIBC',
