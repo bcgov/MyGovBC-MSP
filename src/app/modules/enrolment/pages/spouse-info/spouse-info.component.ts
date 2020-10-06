@@ -104,7 +104,7 @@ export class SpouseInfoComponent extends EnrolForm {
         valid = valid && this.spouse.madePermanentMoveToBC;
       } else {
         // If they are, then the province or country they came from is mandatory info
-        valid = valid && this.spouse.movedFromProvinceOrCountry && this.spouse.movedFromProvinceOrCountry.length > 1;
+        valid = valid && this.spouse.movedFromProvinceOrCountry && this.spouse.movedFromProvinceOrCountry.length > 0;
       }
 
       if ( this.spouse.hasNameChange ) {
