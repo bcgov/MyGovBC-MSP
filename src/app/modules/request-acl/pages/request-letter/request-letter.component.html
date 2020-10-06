@@ -1,8 +1,7 @@
 <msp-consent-modal #mspConsentModal
                    (onClose)="AccountHolder_Phn.focus()"
                    [consentProcessName]="'ACL'" 
-                   (accept)="acceptAgreement($event)"
-                   [isMaintenanceMode]="false">
+                   (accept)="acceptAgreement($event)">
 </msp-consent-modal>
 
 <common-page-framework layout='blank'>

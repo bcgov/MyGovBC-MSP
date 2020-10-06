@@ -13,7 +13,9 @@ import { ConsentModalComponent } from 'moh-common-lib';
 })
 export class MspConsentModalComponent {
     
-    constructor() {}
+    constructor() {
+        this.isMaintenanceMode = true;
+    }
 
     @Input() isMaintenanceMode: boolean = true;
     @Input() consentProcessName: string = 'Unknown Process Name';
