@@ -9,7 +9,7 @@
 
 </div>
 
-<div *ngIf="(this.cutOffYear===currentTaxYear) && this.cutOffYear " class="text-danger">
+<div *ngIf="cutOffYear && cutOffYear === currentTaxYear" class="text-danger">
         <i class="fa fa-exclamation-circle " style="font-size: 15px;"></i>
         Selecting this tax year will allow you to be evaluated for benefits only until the end of this calendar year. You must provide the most recent year’s tax information to be assessed for next calendar year.
 </div>
