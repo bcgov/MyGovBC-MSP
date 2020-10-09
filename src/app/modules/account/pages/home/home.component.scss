@@ -3,14 +3,20 @@
 .cardHeader {
   background-color: #036;
   border-radius: 5px 5px 0px 0px;
-  padding: 0px;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
 }
 
 .cardHeaderText {
   font-size: 22px;
-  font-weight: bold;
-  text-align: center;
   color: white;
+  text-align: center;
+  font-weight: bold;
+  height: 33px;
+  margin: 0;
+  display: inline;
 }
 
 // Container for all content on msp/deam/home page
