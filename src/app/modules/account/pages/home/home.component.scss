@@ -115,10 +115,12 @@
   }
 
   // Wrapper around the alert container
-  &__aside-wrapper {
+  &__container{
       align-self: center;
       justify-self: center;
       width: 100%;
+      background-color : #f2f2f2;
+      padding: 20px 0px 0px 0px;
   }
 }
 
