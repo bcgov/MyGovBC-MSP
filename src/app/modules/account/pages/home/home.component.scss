@@ -9,6 +9,16 @@
   font-weight: bold;
 }
 
+.cardHeaderText {
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  height: 33px;
+  margin: 0;
+  display: inline;
+}
+
 // Container for all content on msp/deam/home page
 .home {
   font-family: Arial;
@@ -105,10 +115,12 @@
   }
 
   // Wrapper around the alert container
-  &__aside-wrapper {
+  &__container{
       align-self: center;
       justify-self: center;
       width: 100%;
+      background-color : #f2f2f2;
+      padding: 20px 0px 0px 0px;
   }
 }
 
