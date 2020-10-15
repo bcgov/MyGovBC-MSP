@@ -20,7 +20,7 @@
     [(person)]="person"
     [hideStatusReasons]="hideStatus">
     <div sectionTitleInfo>
-      <h2>{{relationshipText}}'s status in Canada</h2>
+      <h3><strong>{{relationshipText}}'s status in Canada</strong></h3>
     </div>
   </msp-canadian-status>
 
@@ -31,7 +31,7 @@
     [statusReason]="person.currentActivity"
     [(supportDoc)]="person.updateStatusInCanadaDocType">
     <div sectionTitleInfo>
-      <h2>Documents to support status in Canada</h2>
+      <h3><strong>Documents to support status in Canada</strong></h3>
       <p class="horizontal-line">
         Provide <b>one</b> of the required documents to support {{possessiveRelationshipNoun}} immigration status in Canada.
       </p>
@@ -57,7 +57,7 @@
     <div class="row" sectionTitleInfo>
       <div class="col-12">
         <div>
-          <h2>{{relationshipText}}'s new last name</h2>
+          <h3><strong>{{relationshipText}}'s new last name</strong></h3>
           <p class="horizontal-line">
             This name will be printed on {{possessiveRelationshipNoun}} new BC Services Card.
           </p>
@@ -114,7 +114,7 @@
     [supportDocList]="nameChangeDueToNameChangeDocs"
     [(supportDoc)]="person.updateNameDueToNameChangeDocType">
     <div sectionTitleInfo>
-      <h2><strong>Documents - Update name - due to name change</strong></h2>
+      <h3><strong>Documents - Update name - due to name change</strong></h3>
       <p class="horizontal-line">
         Provide <b>one</b> of the required documents to support {{possessiveRelationshipNoun}} name change.
       </p>
@@ -145,7 +145,7 @@
       </aside>
     </div>
     <div sectionTitleInfo>
-      <h2><strong>Documents - Update gender designation - due to change</strong></h2>
+      <h3><strong>Documents - Update gender designation - due to change</strong></h3>
       <p class="horizontal-line">
         Provide the required document(s) to support {{possessiveRelationshipNoun}} personal information update.
       </p>
@@ -198,7 +198,7 @@
     [supportDocList]="nameChangeDueToErrorDocs"
     [(supportDoc)]="person.updateNameDueToErrorDocType">
     <div sectionTitleInfo>
-      <h2> <strong> Documents - Correct name - due to error</strong> </h2>
+      <h3><strong>Documents - Correct name - due to error</strong></h3>
       <p class="horizontal-line">
         Provide <b>one</b> of the required documents to support {{possessiveRelationshipNoun}} personal information update.
       </p>
@@ -220,7 +220,7 @@
     [supportDocList]="genderBirthdateChangeDocs"
     [(supportDoc)]="person.updateBirthdateDocType">
     <div sectionTitleInfo>
-      <h2> <strong> Documents - Correct birthdate - due to error</strong> </h2>
+      <h3><strong>Documents - Correct birthdate - due to error</strong></h3>
       <p class="horizontal-line">
         Provide <b>one</b> of the required documents to support {{possessiveRelationshipNoun}} personal information update.
       </p>
@@ -242,7 +242,7 @@
     [supportDocList]="genderBirthdateChangeDocs"
     [(supportDoc)]="person.updateGenderDesignationDocType">
     <div sectionTitleInfo>
-      <h2><strong>Documents - Correct gender - due to error</strong></h2>
+      <h3><strong>Documents - Correct gender - due to error</strong></h3>
       <p class="horizontal-line">
         Provide <b>one</b> of the required documents to support {{possessiveRelationshipNoun}} personal information update.
       </p>
