@@ -1,61 +1,49 @@
 import { APP_ROUTES } from "../../models/route-constants";
 
-const PAGE_NAMES = {
-  home: 'home',
-  personalInfo: 'personal-info',
-  spouseInfo: 'spouse-info',
-  childInfo: 'child-info',
-  contactInfo: 'contact-info',
-  review: 'review',
-  authorize: 'authorize',
-  sending: 'sending',
-  confirmation: 'confirmation',
-};
-
 export const ACCOUNT_PAGES = {
   HOME: {
-    path: PAGE_NAMES.home,
-    fullpath: `${APP_ROUTES.ACCOUNT}/${PAGE_NAMES.home}`,
-    title: PAGE_NAMES.home,
+    path: 'home',
+    fullpath: `${APP_ROUTES.ACCOUNT}/home`,
+    title: 'Home - MSP Account Change Request',
   },
   PERSONAL_INFO: {
-    path: PAGE_NAMES.personalInfo,
-    fullpath: `${APP_ROUTES.ACCOUNT}/${PAGE_NAMES.personalInfo}`,
-    title: PAGE_NAMES.personalInfo,
+    path: 'personal-info',
+    fullpath: `${APP_ROUTES.ACCOUNT}/personal-info`,
+    title: 'Personal Info - MSP Account Change Request',
   },
   SPOUSE_INFO: {
-    path: PAGE_NAMES.spouseInfo,
-    fullpath: `${APP_ROUTES.ACCOUNT}/${PAGE_NAMES.spouseInfo}`,
-    title: PAGE_NAMES.spouseInfo,
+    path: 'spouse-info',
+    fullpath: `${APP_ROUTES.ACCOUNT}/spouse-info`,
+    title: 'Spouse Info - MSP Account Change Request',
   },
   CHILD_INFO: {
-    path: PAGE_NAMES.childInfo,
-    fullpath: `${APP_ROUTES.ACCOUNT}/${PAGE_NAMES.childInfo}`,
-    title: PAGE_NAMES.childInfo,
+    path: 'child-info',
+    fullpath: `${APP_ROUTES.ACCOUNT}/child-info`,
+    title: 'Child Info - MSP Account Change Request',
   },
   CONTACT_INFO: {
-    path: PAGE_NAMES.contactInfo,
-    fullpath: `${APP_ROUTES.ACCOUNT}/${PAGE_NAMES.contactInfo}`,
-    title: PAGE_NAMES.contactInfo,
+    path: 'contact-info',
+    fullpath: `${APP_ROUTES.ACCOUNT}/'contact-info'`,
+    title: 'Contact Info - MSP Account Change Request',
   },
   REVIEW: {
-    path: PAGE_NAMES.review,
-    fullpath: `${APP_ROUTES.ACCOUNT}/${PAGE_NAMES.review}`,
-    title: PAGE_NAMES.review,
+    path: 'review',
+    fullpath: `${APP_ROUTES.ACCOUNT}/'review'`,
+    title: 'Review - MSP Account Change Request',
   },
   AUTHORIZE: {
-    path: PAGE_NAMES.authorize,
-    fullpath: `${APP_ROUTES.ACCOUNT}/${PAGE_NAMES.authorize}`,
-    title: PAGE_NAMES.authorize,
+    path: 'authorize',
+    fullpath: `${APP_ROUTES.ACCOUNT}/'authorize'`,
+    title: 'Authorize - MSP Account Change Request',
   },
   SENDING: {
-    path: PAGE_NAMES.sending,
-    fullpath: `${APP_ROUTES.ACCOUNT}/${PAGE_NAMES.sending}`,
-    title: PAGE_NAMES.sending,
+    path: 'sending',
+    fullpath: `${APP_ROUTES.ACCOUNT}/'sending'`,
+    title: 'Sending - MSP Account Change Request',
   },
   CONFIRMATION: {
-    path: PAGE_NAMES.confirmation,
-    fullpath: `${APP_ROUTES.ACCOUNT}/${PAGE_NAMES.confirmation}`,
-    title: PAGE_NAMES.confirmation,
+    path: 'confirmation',
+    fullpath: `${APP_ROUTES.ACCOUNT}/'confirmation'`,
+    title: 'Confirmation - MSP Account Change Request',
   },
 };

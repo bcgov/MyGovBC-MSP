@@ -37,7 +37,8 @@ export const enrolPages: Routes = [
   {
     path: ROUTES_ENROL.CONTACT.path,
     canActivate: [RouteGuardService],
-    component: EnrolAddressComponent
+    component: EnrolAddressComponent,
+    data: { title: ROUTES_ENROL.CONTACT.title }
   },
   {
     path: ROUTES_ENROL.REVIEW.path,

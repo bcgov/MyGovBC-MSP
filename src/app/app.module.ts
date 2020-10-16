@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { GeneralAppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedCoreModule } from 'moh-common-lib';
@@ -28,7 +28,10 @@ const providerList: any = [
 
   // Services used by home page
   AclDataService,
-  EnrolDataService
+  EnrolDataService,
+
+  // Dynamically setting the title
+  Title
 ];
 
 if ( environment.useMockBackend ) {

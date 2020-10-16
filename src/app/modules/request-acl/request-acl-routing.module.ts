@@ -12,11 +12,13 @@ const routes: Routes = [
   },
   {
     path: ROUTES_ACL.REQUEST_ACL.path,
-    component: RequestLetterComponent
+    component: RequestLetterComponent,
+    data: { title: ROUTES_ACL.REQUEST_ACL.title }
   },
   {
     path: ROUTES_ACL.CONFIRMATION.path,
-    component: AclConfirmationComponent
+    component: AclConfirmationComponent,
+    data: { title: ROUTES_ACL.CONFIRMATION.title }
   }
 ];
 
