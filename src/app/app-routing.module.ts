@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: LandingComponent,
-    data: { breadcrumb: 'Home' }
+    data: { title: 'MSP Applications', breadcrumb: 'Home' }
   },
   {
     path: APP_ROUTES.ENROLMENT,

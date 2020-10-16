@@ -1,5 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { environment } from '../environments/environment';
@@ -11,17 +12,23 @@ import { HeaderService } from './services/header.service';
   selector: 'general-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-
 })
 export class GeneralAppComponent {
   private viewContainerRef: ViewContainerRef;
   routerSubscription: Subscription;
   headerSubscription: Subscription;
+  titleSubscription: Subscription;
   // Even though we update this from headerService, we still want to set default value to avoid pop-in.
   public headerName: string = environment.appConstants.serviceName;
 
 
-  public constructor(viewContainerRef: ViewContainerRef, private router: Router, private header: HeaderService) {
+  public constructor(
+    viewContainerRef: ViewContainerRef,
+    private router: Router,
+    private header: HeaderService,
+    private titleService: Title,
+    private activatedRoute: ActivatedRoute
+  ) {
     // You need this small hack in order to catch application root view container ref
     this.viewContainerRef = viewContainerRef;
 
@@ -49,19 +56,36 @@ export class GeneralAppComponent {
         document.body.scrollTop = 0;
       });
 
-      const prefix = environment.appConstants.serviceName;
-      this.headerSubscription = this.header.title.subscribe(title => {
-        this.headerName = title;
-      });
+    const prefix = environment.appConstants.serviceName;
+    this.headerSubscription = this.header.title.subscribe(title => {
+      this.headerName = title;
+    });
 
-      version.success
-            ? console.log('%c' + version.message, 'color: #036; font-size: 20px;')
-            : console.error(version.message);
+    version.success
+          ? console.log('%c' + version.message, 'color: #036; font-size: 20px;')
+      : console.error(version.message);
+    
+    this.titleSubscription = this.router.events.pipe(  
+      filter(event => event instanceof NavigationEnd),  
+    ).subscribe(() => {  
+      const rt = this.getChild(this.activatedRoute);  
+      rt.data.subscribe(data => {  
+        this.titleService.setTitle(data.title)});  
+    });  
   }
 
   ngOnDestroy() {
-    // note - if we add any more subscriptions, refactor to a takeUntil()
     this.routerSubscription.unsubscribe();
     this.headerSubscription.unsubscribe();
+    this.titleSubscription.unsubscribe();
   }
+
+  // Use the title of the most specific route 
+  getChild(activatedRoute: ActivatedRoute) {  
+    if (activatedRoute.firstChild) {  
+      return this.getChild(activatedRoute.firstChild);  
+    } else {  
+      return activatedRoute;  
+    }  
+  }  
 }

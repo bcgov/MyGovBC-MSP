@@ -5,12 +5,12 @@ export const ROUTES_ACL = {
     index: 1,
     path: 'request-acl',
     fullpath: `${APP_ROUTES.ACCOUNT_LETTER}/request-acl`,
-    title: 'Request Account Confirmation Letter',
+    title: 'Request - MSP Account Confirmation Letter Request',
   },
   CONFIRMATION: {
     index: 1,
     path: 'confirmation',
     fullpath: `${APP_ROUTES.ACCOUNT_LETTER}/confirmation`,
-    title: 'Confirmation',
+    title: 'Confirmation - MSP Account Confirmation Letter Request',
   },
 };

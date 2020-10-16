@@ -4,7 +4,6 @@ import { BenefitContainerComponent } from './components/benefit-container/benefi
 import { benefitPages } from './benefit-page-routing.modules';
 import { EligibilityComponent } from './pages/eligibility/eligibility.component';
 import { BenefitConfirmationComponent } from './pages/confirmation/confirmation.component';
-import { ProcessService } from '../../services/process.service';
 
 const routes: Routes = [
   {
@@ -16,12 +15,12 @@ const routes: Routes = [
   {
     path: 'eligibility',
     component: EligibilityComponent,
-    data: {title: 'Eligibility'}
+    data: {title: 'Eligibility - MSP Supplementary Benefits'}
   },
   {
     path: 'confirmation',
     component: BenefitConfirmationComponent,
-    data: {title: 'Confirmation'}
+    data: {title: 'Confirmation - MSP Supplementary Benefits'}
   },
   {
     path: '',
