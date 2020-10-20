@@ -18,6 +18,7 @@
           [label]="'As the Account Holder, are you requesting an update to your personal information or renewing your status in Canada?'"
           [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
           (valueChange)="changeUpdatingPersonalInfo($event)"
+          aria-expanded="applicant.updatingPersonalInfo"
           required>
         </common-radio>
       </div>
