@@ -311,3 +311,13 @@ common-date[label="Date no longer in full time studies"] {
     padding-left: 0;
   }
 }
+
+
+.tipbox {
+  background: $gray;
+  padding: 1em;
+  border-radius: 5px;
+  @include media-breakpoint-up(md){
+    margin-top: 1rem; // Align with the top of the title (for desktop)
+  }
+}
