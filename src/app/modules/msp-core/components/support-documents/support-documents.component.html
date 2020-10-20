@@ -59,7 +59,7 @@
       {{ supportDocErrorMsg }}
     </common-error-container>
     <ng-content select="[requestAdditionInfo]"></ng-content>
-    <aside>
+    <div class="tipbox">
       <div>Tip</div>
       <div *ngIf="hasSampleDoc">
         <a role="button"
@@ -93,6 +93,6 @@
           A JPG, PNG, GIF, BMP or PDF file
         </li>
       </ul>
-    </aside>
+    </div>
   </common-page-section>
 </div>
