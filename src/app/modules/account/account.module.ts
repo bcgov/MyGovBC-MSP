@@ -9,7 +9,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { AccountPersonalInfoComponent } from './pages/personal-info/personal-info.component';
-import { AccountPersonalDetailsComponent } from '../account/components/personal-details/personal-details.component';
 
 import { AccountReviewComponent } from './pages/review/review.component';
 import { AccountSendingComponent } from './pages/sending/sending.component';
@@ -47,7 +46,6 @@ import { ProcessService , ProcessStep} from '../../services/process.service';
     AccountContainerComponent,
     AccountPersonalInfoComponent,
     AccountPersonalInformationComponent,
-    AccountPersonalDetailsComponent,
     AccountPersonCardComponent,
     AccountReviewComponent,
     AccountSendingComponent,

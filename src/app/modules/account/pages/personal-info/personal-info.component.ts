@@ -1,7 +1,6 @@
-import { Component, Injectable , ViewChild, ViewChildren , QueryList, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Injectable , ViewChild, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountPersonalDetailsComponent } from '../../components/personal-details/personal-details.component';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
 import { Subscription } from 'rxjs';
@@ -30,7 +29,6 @@ export class AccountPersonalInfoComponent extends BaseForm implements OnInit, Af
 
   Activities: typeof CanadianStatusReason = CanadianStatusReason;
   @ViewChild('formRef') form: NgForm;
-  @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
   public buttonstyle: string = 'btn btn-default';
   accountApp: MspAccountApp;
   accountChangeOptions: AccountChangeOptions;
