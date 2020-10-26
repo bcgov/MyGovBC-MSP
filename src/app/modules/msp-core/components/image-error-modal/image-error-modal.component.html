@@ -6,7 +6,6 @@
         <button type="button" class="close" (click)="continue()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <!--<h2>{{lang('./en/index.js').errorModelTitle}}</h2>-->
 
       </div>
       <div class="modal-body">
@@ -14,7 +13,6 @@
         <div class="row">
           <div class="col-md-12" style="text-align: center" >
             <h2 *ngIf="imageWithError && imageWithError.error != null">{{getErrorMessage()}}</h2>
-            <!--<h2 *ngIf="imageWithError && imageWithError.error != null">{{getErrorMessage()}}</h2>-->
             <img *ngIf="imageWithError && imageWithError.fileContent && imageWithError.error == 3"
               [src]="imageWithError.fileContent" 
               alt="" 
