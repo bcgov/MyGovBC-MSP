@@ -26,17 +26,27 @@ export class GeneralAppComponent {
     this.viewContainerRef = viewContainerRef;
 
     // Specific handling for refresh on DEAM
-    this.handleDEAMRefresh(location.pathname);
+    this.handleRefresh(location.pathname);
   }
 
-  handleDEAMRefresh(url) {
+  handleRefresh(url) {
+    // Refresh on account change
     if (url.includes('/deam')) {
       // if on the home page, don't redirect but remove any stored application data
       if (url.includes('/home')) {
         window.sessionStorage.clear();
-      // if anywhere else besides confirmation, redirect them to the landing page
+      // if anywhere else besides confirmation, redirect them to the home page
       } else if (!url.includes('/confirmation')) {
         location.assign('/msp/deam/home');
+      }
+    // Refresh on retro assistance
+    } else if (url.includes('/assistance')) {
+      // if on the home page, don't redirect but remove any stored application data
+      if (url.includes('/home')) {
+        window.sessionStorage.clear();
+      // if anywhere else besides confirmation, redirect them to the home page
+      } else if (!url.includes('/confirmation')) {
+        location.assign('/msp/assistance/home');
       }
     }
   }
