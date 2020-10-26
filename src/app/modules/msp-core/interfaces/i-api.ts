@@ -33,34 +33,7 @@ export interface AccountChangeAccountHolderType {
   selectedPersonalInfoChange: string;
   selectedStatusChange: string;
   telephone?: string;
-  // updatingPersonalInfo: boolean;
-  // updatePersonalInfo?: UpdatePersonalInfoType;
-  // updateStatusInCanadaStatus?: StatusInCanadaType;
-  // updateStatusInCanadaDocumentType?: DocumentType;
-  // updateNameDueToMarriageLastName?: string;
-  // updateNameDueToMarraigeDocumentType?: DocumentType;
-  // updateNameDueToNameChange?: DocumentType;
-  // updateGenderDesignationDocumentType1?: DocumentType;
-  // updateGenderDesignationDocumentType2?: DocumentType;
-  // updateGenderDesignationDocumentType3?: DocumentType;
-  // correctNameDueToErrorDocumentType: DocumentType;
-  // correctBirthdateDueToError: DocumentType;
-  // correctGenderDesignationDueToError: DocumentType;
 }
-
-// export interface UpdatePersonalInfoType {
-//   updateStatusInCanadaStatus?: StatusInCanadaType;
-//   updateStatusInCanadaDocumentType?: DocumentType;
-//   updateNameDueToMarriageLastName?: string;
-//   updateNameDueToMarraigeDocumentType?: DocumentType;
-//   updateNameDueToNameChange?: DocumentType;
-//   updateGenderDesignationDocumentType1?: DocumentType;
-//   updateGenderDesignationDocumentType2?: DocumentType;
-//   updateGenderDesignationDocumentType3?: DocumentType;
-//   correctNameDueToErrorDocumentType: DocumentType;
-//   correctBirthdateDueToError: DocumentType;
-//   correctGenderDesignationDueToError: DocumentType;
-// }
 
 export enum StatusInCanadaType {
   CitizenAdult = 'CanadianCitizen',
