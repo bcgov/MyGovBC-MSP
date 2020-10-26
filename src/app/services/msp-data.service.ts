@@ -513,59 +513,6 @@ export class MspDataService {
     return dto;
   }
 
-  /*
-  toMspApplicationTransferObject(input: MspApplication): MspApplicationDto {
-    const dto: MspApplicationDto = new MspApplicationDto();
-
-    dto.authorizedByApplicant = input.authorizedByApplicant;
-    dto.authorizedByApplicantDate = input.authorizedByApplicantDate;
-    dto.authorizedBySpouse = input.authorizedBySpouse;
-
-    dto.infoCollectionAgreement = input.infoCollectionAgreement;
-    dto.unUsualCircumstance = input.unUsualCircumstance;
-    dto.phoneNumber = input.phoneNumber;
-
-    dto.mailingSameAsResidentialAddress = input.mailingSameAsResidentialAddress;
-    dto.applicant = this.toPersonDto(input.applicant);
-    if (input.spouse) {
-      dto.applicant.spouse = this.toPersonDto(input.spouse);
-    }
-
-    input.children.forEach(c => {
-      const c2: PersonDto = this.toPersonDto(c);
-      c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
-
-      this.convertSchoolAddress(c, c2);
-      dto.applicant.children = [...dto.applicant.children, c2];
-    });
-
-    this.convertMailingAddress(input, dto);
-    this.convertResidentialAddress(input, dto);
-
-    dto.applicant.outOfBCRecord = this.toOutofBCRecordDto(
-      input.applicant.outOfBCRecord
-    );
-    if (input.spouse) {
-      dto.applicant.spouse.outOfBCRecord = this.toOutofBCRecordDto(
-        input.spouse.outOfBCRecord
-      );
-    }
-
-    dto.outsideBCFor30Days = input.outsideBCFor30Days;
-
-    dto.pageStatus = input.pageStatus; // page status complete/ incomplete
-
-    // Documents
-    // dto.applicantStatusDoc = input.applicantStatusDoc;
-    // dto.applicantNameDoc = input.applicantNameDoc;
-    // dto.spouseStatusDoc = input.spouseStatusDoc;
-    // dto.spouseNameDoc = input.spouseNameDoc;
-    // dto.childrenStatusDoc = input.childrenStatusDoc;
-    // dto.childrenNameDoc = input.childrenNameDoc;
-
-    return dto;
-  }
-  */
 
   private toOutofBCRecordDto(outofBCRecord: OutofBCRecord) {
     if (outofBCRecord == null) return null;
@@ -680,63 +627,6 @@ export class MspDataService {
 
     return output;
   }
-
-  /*
-  private fromMspApplicationTransferObject(
-    dto: MspApplicationDto
-  ): MspApplication {
-    const output: MspApplication = new MspApplication();
-
-    output.authorizedByApplicant = dto.authorizedByApplicant;
-    output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
-    output.authorizedBySpouse = dto.authorizedBySpouse;
-
-    output.unUsualCircumstance = dto.unUsualCircumstance;
-    output.applicant = this.fromPersonDto(dto.applicant);
-    output.infoCollectionAgreement = dto.infoCollectionAgreement;
-    output.mailingSameAsResidentialAddress =
-      dto.mailingSameAsResidentialAddress;
-
-    output.phoneNumber = dto.phoneNumber;
-
-    if (dto.applicant.spouse) {
-      output.addSpouse(this.fromPersonDto(dto.applicant.spouse));
-    }
-
-    if (dto.applicant.children && dto.applicant.children.length > 0 ) {
-      dto.applicant.children.forEach(c => {
-        const child: MspPerson = this.fromPersonDto(c);
-        child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
-        this.convertSchoolAddress(c, child);
-        output.children = [...output.children, child];
-      });
-    }
-
-    if ( dto.mailingAddress )  {
-      this.convertMailingAddress(dto, output);
-    }
-
-    if ( dto.residentialAddress ) {
-      this.convertResidentialAddress(dto, output);
-    }
-
-    output.applicant.outOfBCRecord = this.toOutofBCRecord(
-      dto.applicant.outOfBCRecord
-    );
-    if (dto.applicant.spouse) {
-      output.spouse.outOfBCRecord = this.toOutofBCRecord(
-        dto.applicant.spouse.outOfBCRecord
-      );
-    }
-
-    output.outsideBCFor30Days = dto.outsideBCFor30Days;
-
-    output.pageStatus = dto.pageStatus; // page status complete/ incomplete
-
-    return output;
-  }
-  */
-
 
   //TODO rewrite and make it proper
   isValidAddress(addressDto: AddressDto): boolean {
