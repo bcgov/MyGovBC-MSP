@@ -70,6 +70,16 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
 
   ngOnInit() {
     this.stateSvc.setPageIncomplete(this.route.snapshot.routeConfig.path);
+    
+    /*
+    If info collection bool has been set false they have already 
+    successfully submitted and have just hit the back button
+    (would have used auth token as the other apps do but assistance app doesn't make use it's auth token property)
+    */
+    if (!this.application.infoCollectionAgreement) {
+      // Send them back to the home screen
+      location.assign('/msp/assistance/home');
+    }
   }
 
   ngAfterViewInit(): void {
