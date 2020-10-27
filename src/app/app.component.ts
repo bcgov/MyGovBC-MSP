@@ -34,19 +34,19 @@ export class GeneralAppComponent {
     if (url.includes('/deam')) {
       // if on the home page, don't redirect but remove any stored application data
       if (url.includes('/home')) {
-        window.sessionStorage.clear();
+        this.clearStorage();
       // if anywhere else besides confirmation, redirect them to the home page
       } else if (!url.includes('/confirmation')) {
-        location.assign('/msp/deam/home');
+        this.hardRedirect('/msp/deam/home');
       }
     // Refresh on retro assistance
     } else if (url.includes('/assistance')) {
       // if on the home page, don't redirect but remove any stored application data
       if (url.includes('/home')) {
-        window.sessionStorage.clear();
+        this.clearStorage();
       // if anywhere else besides confirmation, redirect them to the home page
       } else if (!url.includes('/confirmation')) {
-        location.assign('/msp/assistance/home');
+        this.hardRedirect('/msp/assistance/home');
       }
     }
   }
@@ -73,5 +73,13 @@ export class GeneralAppComponent {
     // note - if we add any more subscriptions, refactor to a takeUntil()
     this.routerSubscription.unsubscribe();
     this.headerSubscription.unsubscribe();
+  }
+
+  clearStorage() {
+    window.sessionStorage.clear();
+  }
+
+  hardRedirect(path) {
+    location.assign(path);
   }
 }

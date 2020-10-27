@@ -70,7 +70,7 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
 
   ngOnInit() {
     this.stateSvc.setPageIncomplete(this.route.snapshot.routeConfig.path);
-    
+
     /*
     If info collection bool has been set false they have already 
     successfully submitted and have just hit the back button
@@ -78,7 +78,7 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
     */
     if (!this.application.infoCollectionAgreement) {
       // Send them back to the home screen
-      location.assign('/msp/assistance/home');
+      this.redirect('/msp/assistance/home');
     }
   }
 
@@ -165,5 +165,9 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
 
   ngOnDestroy() {
     this.subscriptionList.forEach(itm => itm.unsubscribe());
+  }
+
+  redirect(path) {
+    location.assign(path);
   }
 }
