@@ -53,26 +53,5 @@ export class ActivitiesRules {
         CanadianStatusReason.Diplomat,
       ];
     }
-    /* if (relationship === Relationship.Applicant) {
-        return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat];
-      } else {
-        return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat,
-          Activities.Visiting];
-      }
-       /* if (relationship === Relationship.Child19To24 ||
-            relationship === Relationship.ChildUnder19 || relationship === Relationship.ChildUnder24) {
-          return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
-        }
-        else {
-          return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
-        }
-      case StatusInCanada.TemporaryResident:
-        if (relationship === Relationship.Applicant) {
-          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat];
-        } else {
-          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat,
-            Activities.Visiting];
-        }
-    }*/
   }
 }
