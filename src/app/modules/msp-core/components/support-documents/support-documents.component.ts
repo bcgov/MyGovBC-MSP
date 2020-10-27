@@ -215,10 +215,16 @@ export class SupportDocumentsComponent extends Base
   // Check the collective size, triggered whenever an image is added or removed
   handleImagesChange(imgs: Array<CommonImage>) {
     let sum = 0;
+    let tooSmall = false;
 
     this.documents.forEach((img) => { 
       if (typeof img.size === 'number') {
         sum += img.size;
+      }
+
+      if (img.size < 20000) {
+        this.documents.pop();
+        tooSmall = true;
       }
     });
     
@@ -227,6 +233,8 @@ export class SupportDocumentsComponent extends Base
       // Reset the attachments for this upload
       this.documents = [];
       this.supportDocErrorMsg = 'The addition of the previous document exceeded the maximum upload size of this supporting document section.';
+    } else if (tooSmall) {
+      this.supportDocErrorMsg = 'The document you attempted to upload is too small. Please try again with a larger, higher quality file.';
     } else {
       this.supportDocErrorMsg = '';
     }
