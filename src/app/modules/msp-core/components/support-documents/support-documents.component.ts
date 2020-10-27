@@ -217,7 +217,7 @@ export class SupportDocumentsComponent extends Base
     let sum = 0;
     let tooSmall = false;
 
-    this.documents.forEach((img) => { 
+    imgs.forEach(img => { 
       if (typeof img.size === 'number') {
         sum += img.size;
       }
