@@ -38,13 +38,13 @@
 </div>
 
 <div *ngIf="(!btnEnabled || btnEnabled && !displayButton) && hasDocumentType">
-  <h3 class="horizontal-line">{{documentType}}
+  <h4 class="horizontal-line h3-style">{{documentType}}
     <common-xicon-button
       *ngIf="displayButton"
       label="Remove document"
       (click)="removeDocument()">
     </common-xicon-button>
-  </h3>
+  </h4>
   <common-page-section layout="tips">
     <common-file-uploader
       [(images)]="documents"
