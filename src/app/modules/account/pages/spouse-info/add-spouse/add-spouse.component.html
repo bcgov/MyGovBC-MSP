@@ -17,7 +17,7 @@
         [(person)]="spouse"
         label="{{statusLabel}}">
         <div sectionTitleInfo>
-          <h2>Spouse's Status in Canada</h2>
+          <h3 class="h2-style">Spouse's Status in Canada</h3>
         </div>
       </msp-canadian-status>
 
@@ -29,7 +29,7 @@
         [statusReason]="spouse.currentActivity"
         [(supportDoc)]="spouse.updateStatusInCanadaDocType">
         <div sectionTitleInfo>
-          <h2>Documents to support your spouse status in Canada</h2>
+          <h3 class="h2-style">Documents to support your spouse status in Canada</h3>
           <p class="horizontal-line">
             Provide <b>one</b> of the required documents to support your spouse immigration status in Canada.
           </p>
@@ -53,7 +53,7 @@
         [supportDocList]="spouseNameChangeDocList"
         [(supportDoc)]="spouse.nameChangeDocs">
         <div sectionTitleInfo>
-          <h3>Documents - Update name due to name change</h3>
+          <h4 class="h3-style">Documents - Update name due to name change</h4>
           <p class="horizontal-line">
             Provide <strong>one</strong> of the required documents to support your name change.
           </p>
@@ -83,7 +83,7 @@
     [person]="spouse"
     [phnList]="phnList">
     <div sectionTitleInfo>
-      <h2><strong>Spouse's Personal Information</strong></h2>
+      <h3 class="h2-style"><strong>Spouse's Personal Information</strong></h3>
       <p class="horizontal-line">
         Enter your spouse's legal name as it appears on their official Canadian identity documents,
         e.g., birth certificate, permanent resident card, passport.
@@ -137,7 +137,7 @@
       [supportDocList]="nameChangeDueToMarriageDocs"
       [(supportDoc)]="spouse.updateNameDueToMarriageDocType">
       <div sectionTitleInfo>
-        <h2>Spouse's new last name</h2>
+        <h3 class="h2-style">Spouse's new last name</h3>
         <p class="horizontal-line">
           This name will be printed on your spouse's new BC Services Card.
         </p>
@@ -183,7 +183,7 @@
     <msp-child-moving-information
       [person]="spouse">
       <div sectionTitleInfo>
-        <h2><strong>Spouse's Residency Information</strong></h2>
+        <h3 class="h2-style"><strong>Spouse's Residency Information</strong></h3>
         <p class="horizontal-line"></p>
       </div>
     </msp-child-moving-information>

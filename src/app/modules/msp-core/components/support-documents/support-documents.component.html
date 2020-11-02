@@ -38,13 +38,13 @@
 </div>
 
 <div *ngIf="(!btnEnabled || btnEnabled && !displayButton) && hasDocumentType">
-  <h3 class="horizontal-line">{{documentType}}
+  <h4 class="horizontal-line h3-style">{{documentType}}
     <common-xicon-button
       *ngIf="displayButton"
       label="Remove document"
       (click)="removeDocument()">
     </common-xicon-button>
-  </h3>
+  </h4>
   <common-page-section layout="noTips">
     <div class="row">
       <div class="col-md-8">
@@ -70,7 +70,7 @@
                   aria-haspopup="true"
                   href="javascript:void(0)"
                   (click)="docSample.openModal()">{{documentType}} samples</a>
-      
+        
                 <common-sample-modal
                   #docSample
                   [title]="documentType"
@@ -98,7 +98,7 @@
                 </li>
               </ul>
             </div>
-          </div>
         </div>
+      </div>
   </common-page-section>
 </div>
