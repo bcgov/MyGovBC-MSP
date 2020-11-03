@@ -44,6 +44,7 @@
         name="healthNumber_{{objectId}}"
         type="text"
         class="form-control"
+        aria-label="Health Number"
         [(ngModel)]="person.healthNumberFromOtherProvince"
         maxlength="15"/>
     </div>
@@ -113,6 +114,7 @@
         name="departureReason12Months_{{objectId}}"
         type="text"
         class="form-control"
+        aria-label="Departure Reason 12 Months"
         [(ngModel)]= "person.departureReason12Months"
         maxlength="20"
         required/>
@@ -133,6 +135,7 @@
         name="departureDestination12Months_{{objectId}}"
         type="text"
         class="form-control"
+        aria-label="Departure Destination 12 Months"
         [(ngModel)]= "person.departureDestination12Months"
         maxlength="20"
         required/>
@@ -187,6 +190,7 @@
         name="departureReason_{{objectId}}"
         type="text"
         class="form-control"
+        aria-label="Departure Reason"
         [(ngModel)]="person.departureReason"
         maxlength="20"
         required/>
@@ -207,6 +211,7 @@
         name="departureDestination_{{objectId}}"
         type="text"
         class="form-control"
+        aria-label="Departure Destination"
         [(ngModel)]="person.departureDestination"
         maxlength="20"
         required/>
@@ -272,6 +277,7 @@
         name="nameOfInstitute_{{objectId}}"
         type="text"
         class="form-control"
+        aria-label="Name of Institute"
         [(ngModel)]="person.nameOfInstitute"
         maxlength="20"
         required/>
