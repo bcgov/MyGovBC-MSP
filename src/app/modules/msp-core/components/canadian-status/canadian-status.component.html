@@ -8,6 +8,7 @@
     <select class="custom-select"
       #statusInCanadaRef="ngModel"
       id="StatusInCanada_{{objectId}}"
+      aria-label="Status in Canada"
       [(ngModel)]="statusInCanada"
       [ngModelOptions]="{standalone: true}"
       (ngModelChange)="statusInCanada = $event;"
