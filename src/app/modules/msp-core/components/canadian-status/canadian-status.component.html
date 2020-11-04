@@ -5,7 +5,7 @@
     <div *ngIf="label">
       <label for="StatusInCanada_{{objectId}}">{{label}}</label><br/>
     </div>
-    <select class="custom-select"
+    <select class="form-control"
       #statusInCanadaRef="ngModel"
       id="StatusInCanada_{{objectId}}"
       [(ngModel)]="statusInCanada"
