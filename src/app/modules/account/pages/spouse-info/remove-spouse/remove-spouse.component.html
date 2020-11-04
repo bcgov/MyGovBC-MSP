@@ -9,6 +9,7 @@
     <div class="form-group">
       <select class="custom-select"
         [id]="objectId"
+        aria-label="Reason for cancellation"
         [(ngModel)]="spouse.cancellationReason"
         (ngModelChange)="setCancellationStatus($event)">
         <ng-container>
