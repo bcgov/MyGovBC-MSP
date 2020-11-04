@@ -301,3 +301,11 @@ input[type="radio"] + label {
 .horizontal-line {
   border-bottom: 1px solid black;
 }
+
+// Add focus effect to the address line button
+button[aria-label="Add Additional Address Line (optional)"].btn {
+  &:active,
+  &:focus {
+    border: 1px solid #222;
+  }
+}
