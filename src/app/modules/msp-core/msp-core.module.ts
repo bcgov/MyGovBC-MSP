@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MspFullNameComponent } from './components/full-name/full-name.component';
 import { SharedCoreModule } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
 import { FormsModule } from '@angular/forms';
@@ -34,7 +33,6 @@ import { ContactReviewCardComponent } from './components/contact-review-card/con
 import { AddressReviewPartComponent } from './components/address-review-part/address-review-part.component';
 
 const componentList = [
-  MspFullNameComponent,
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,
   MspAddressCardPartComponent,  // TODO: remove

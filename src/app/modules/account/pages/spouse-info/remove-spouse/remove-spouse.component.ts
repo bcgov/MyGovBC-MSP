@@ -2,13 +2,10 @@ import {
   ChangeDetectorRef,
   Component,
   ViewChild,
-  ViewChildren,
-  QueryList,
   Input,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BaseComponent } from '../../.././../../models/base.component';
-import { AccountPersonalDetailsComponent } from '../../../components/personal-details/personal-details.component';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {
   MspAccountApp,
@@ -43,8 +40,6 @@ export class RemoveSpouseComponent extends BaseComponent {
   //langStatus = legalStatus;
 
   @ViewChild('formRef') form: NgForm;
-  @ViewChildren(AccountPersonalDetailsComponent)
-  personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
   public buttonstyle: string = 'btn btn-default';
   accountApp: MspAccountApp;
   accountChangeOptions: AccountChangeOptions;

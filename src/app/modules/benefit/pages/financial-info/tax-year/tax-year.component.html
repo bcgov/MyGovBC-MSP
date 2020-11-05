@@ -1,32 +1,12 @@
-<!--<p id="qTaxYear" class="intro" [innerHtml]="lang('./en/index.js').taxYearTitle"></p>
-<h5 id="txYearSubtitle" class="intro" [innerHtml]="lang('./en/index.js').taxYearSubTitle"></h5> -->
 <label class="intro" id="taxYear" [innerHtml]="lang('./en/index.js').enterTaxYearLabel"></label>
 <div  style="display:inline-block;" *ngFor="let st of assistanceYears;  let i = index">
     <common-radio [value]="currentTaxYear"
         [radioLabels]='[{"label": st.year, "value": st.year}]'
         (valueChange)="setTaxYear(st.year)">
     </common-radio>
-
 </div>
 
-<div *ngIf="(this.cutOffYear===currentTaxYear) && this.cutOffYear " class="text-danger">
+<div *ngIf="cutOffYear && cutOffYear === currentTaxYear" class="text-danger">
         <i class="fa fa-exclamation-circle " style="font-size: 15px;"></i>
-        Selecting this tax year will allow you to be evaluated for benefits only until the end of this calendar year. You must provide the most recent year’s tax information to be assessed for next calendar year.
+        Selecting this Notice of Assessment will allow you to apply for supplementary benefits for the <strong>current</strong> calendar year only. To apply for the <strong>next</strong> calendar year, you must provide a more recent Notice of Assessment.
 </div>
-
-
-<!--
-<div style="display:inline-block;" *ngFor="let st of assistanceYearsList;  let i = index">
-
-    <!--<input [disabled]="st.disabled" class="form-check-input" type="radio" name="st.year-{{i}}" id="st.year-{{i}}"
-           (click)="setTaxYear(st.year)"
-           [checked]="currentTaxYear === st.year" tabindex="0"   >
-    <label class="form-check-label" for="st.year-{{i}}">
-      <b>  {{st.year}} </b>
-    </label>
-    <common-radio [value]="currentTaxYear"
-        [radioLabels]='[{"label": st.year, "value": st.year}]'
-        (valueChange)="setTaxYear(st.year)">
-    </common-radio>
-
-</div> -->

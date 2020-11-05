@@ -28,12 +28,19 @@
       <label for="movedFromProvinceOrCountry" class="control-label">From (province or country)</label>
       <input
         type="text"
+        #movedFromProvinceOrCountryRef="ngModel"
         name="movedFromProvinceOrCountry_{{objectId}}"
         class="form-control"
         id="movedFromProvinceOrCountry"
         [(ngModel)]="person.movedFromProvinceOrCountry"
         [ngModelOptions]="{standalone: true}"
-        maxlength="25"/>
+        maxlength="25"
+        aria-required="true"
+        required/>
+        <common-error-container
+          [displayError]="movedFromProvinceOrCountryRef.touched && !person.movedFromProvinceOrCountry">
+          Province or country is required.
+        </common-error-container>
     </div>
 
     <div *ngIf="person.livedInBCSinceBirth === false" class="form-group col-sm-6 p-sm-2">
@@ -46,7 +53,9 @@
         class="form-control"
         aria-label="Health Number"
         [(ngModel)]="person.healthNumberFromOtherProvince"
-        maxlength="15"/>
+        maxlength="15"
+        aria-required="true"
+        required/>
     </div>
   </div>
 
@@ -117,6 +126,7 @@
         aria-label="Departure Reason 12 Months"
         [(ngModel)]= "person.departureReason12Months"
         maxlength="20"
+        aria-required="true"
         required/>
       <ng-container *ngIf="reasonRef.invalid && (reasonRef.dirty || reasonRef.touched)">
         <common-error-container
@@ -138,6 +148,7 @@
         aria-label="Departure Destination 12 Months"
         [(ngModel)]= "person.departureDestination12Months"
         maxlength="20"
+        aria-required="true"
         required/>
       <ng-container *ngIf="destinationRef.invalid && (destinationRef.dirty || destinationRef.touched)">
         <common-error-container
@@ -195,6 +206,7 @@
         aria-label="Departure Reason"
         [(ngModel)]="person.departureReason"
         maxlength="20"
+        aria-required="true"
         required/>
       <ng-container *ngIf="over60DaysReasonRef.invalid && (over60DaysReasonRef.dirty || over60DaysReasonRef.touched)">
         <common-error-container
@@ -216,6 +228,7 @@
         aria-label="Departure Destination"
         [(ngModel)]="person.departureDestination"
         maxlength="20"
+        aria-required="true"
         required/>
       <ng-container *ngIf="over60DaysDestinationRef.invalid && (over60DaysDestinationRef.dirty || over60DaysDestinationRef.touched)">
         <common-error-container
@@ -284,9 +297,10 @@
         aria-label="Name of Institute"
         [(ngModel)]="person.nameOfInstitute"
         maxlength="20"
+        aria-required="true"
         required/>
       <common-error-container
-        [displayError]="destinationRef.error?.required">
+        [displayError]="destinationRef.touched && !person.nameOfInstitute">
         Name of institution is required.
       </common-error-container>
     </div>
@@ -311,9 +325,10 @@
         class="form-control"
         [(ngModel)]=person.schoolName
         maxlength="50"
+        aria-required="true"
         required/>
       <common-error-container
-        [displayError]="schoolNameRef.error?.required">
+        [displayError]="schoolNameRef.touched && !person.schoolName">
         Name of school is required.
       </common-error-container>
     </div>
@@ -330,6 +345,7 @@
     <div *ngIf="person.schoolOutsideOfBC" >
       <div class="form-group col-sm-6 p-sm-2">
         <common-date
+          #studiesDepartureDateRef="ngModel"
           name="studiesDepartureDate_{{objectId}}"
           label="Departure date from B.C."
           [dateRangeStart]="studiesDepartureDateStartRange"
@@ -337,6 +353,10 @@
           [errorMessage]="studiesDepartureDateErrorMessage"
           [(ngModel)]="person.studiesDepartureDate">
         </common-date>
+        <common-error-container
+        [displayError]="studiesDepartureDateRef.touched && !person.schoolName">
+        Studies departure date is required.
+      </common-error-container>
       </div>
     </div>
 
