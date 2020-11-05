@@ -22,6 +22,7 @@
       [ngModelOptions]="{standalone: true}"
       maxlength="25"
       required
+      aria-required="true"
     />
     <common-error-container
       [displayError]="moveFromProvinceorCountryRef.touched && (!person.movedFromProvinceOrCountry || person.movedFromProvinceOrCountry.length < 1)">
@@ -94,7 +95,8 @@
         type="text"
         class="form-control"
         [(ngModel)]="person.healthNumberFromOtherProvince"
-        maxlength="50">
+        maxlength="50"
+        aria-required="true">
     </div>
 
     <div class="form-group">
@@ -120,7 +122,8 @@
             class="form-control"
             [(ngModel)]=person.departureReason
             maxlength="20"
-            required>
+            required
+            aria-required="true">
           <common-error-container
             [displayError]="(reasonRef.touched || reasonRef.dirty) && reasonRef.errors?.required">
             Reason for departure is required.
@@ -139,7 +142,8 @@
           class="form-control"
           [(ngModel)]=person.departureDestination
           maxlength="20"
-          required>
+          required
+          aria-required="true">
         <common-error-container
           [displayError]="(destinationRef.touched || destinationRef.dirty ) && destinationRef.errors?.required">
           Location is required.
