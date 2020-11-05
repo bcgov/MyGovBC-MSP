@@ -109,31 +109,4 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
     return  false;
   }
 
-  /*get application(): BenefitApplication {
-    return this.dataService.get ;
-  }
-  get applicant(): MspPerson {
-    return this.dataService.getMspApplication().applicant;
-  }
-
-  get spouse(): MspPerson {
-    return this.dataService.getMspApplication().spouse;
-  }
-
-  onChange(values: any){
-    this.dataService.saveMspApplication();
-  }
-
-  documentsReady(): boolean {
-    return this.dataService.getMspApplication().spouseDocumentsReady;
-  }
-
-  checkAnyDependentsIneligible(): boolean {
-    const target = [this.dataService.getMspApplication().applicant, this.dataService.getMspApplication().spouse , ...this.dataService.getMspApplication().children];
-    return target.filter(x => x)
-        .filter(x => x.ineligibleForMSP).length >= 1;
-  }
-
-  */
-
 }

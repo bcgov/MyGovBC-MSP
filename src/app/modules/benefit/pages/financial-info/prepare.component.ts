@@ -482,28 +482,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
-    /*selectNursingOrDisabilityError(): boolean {
-        let currentSelectedProgram;
-        let otherProgram;
-
-        if (this.benefitApp.applicantClaimForAttendantCareExpense) {
-            return true;
-            currentSelectedProgram = 'nursing home expense';
-            otherProgram = 'disability credit';
-        }
-
-        if (this.benefitApp.applicantEligibleForDisabilityCredit) {
-            return true;
-            currentSelectedProgram = 'disability credit';
-            otherProgram = 'nursing home expense';
-        }
-
-        return false;
-
-        // let error =  this.lang('./en/index.js').selectNursingHomeOrDisabilityError.replace('{program}', currentSelectedProgram);
-        // error = this.lang('./en/index.js').selectNursingHomeOrDisabilityError.replace('{otherProgram}', otherProgram);
-        // return error;
-    }*/
 
     get getSpouseFinanialInfoSectionTitle(){
         if (!!this.benefitApp.taxYear){

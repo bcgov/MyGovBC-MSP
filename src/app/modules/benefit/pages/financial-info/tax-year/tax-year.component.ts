@@ -15,7 +15,6 @@ import { parseDate } from 'ngx-bootstrap/chronos';
 /**
  * this is a component to support current year or previous tax year.
  * This component has to grow and fetch the tax year either from RAPID OR some other mechanism.
- *
  */
 export class TaxYearComponent extends BaseComponent {
 
@@ -55,10 +54,6 @@ export class TaxYearComponent extends BaseComponent {
         return this.dataService.benefitApp;
     }
 
-   /* isValid(): boolean {
-        return !!this.currentTaxYear ;
-    }*/
-
     assistanceYearsList(): AssistanceYear[] {
 
         return this.benefitApp.assistYears = this.getTaxYears().reduce(
@@ -68,16 +63,13 @@ export class TaxYearComponent extends BaseComponent {
                 assistYear.year = yearNum;
                 assistYear.docsRequired = true;
                 assistYear.currentYear = this.currentYear;
+                this.cutOffYear = assistYear.year;
+                this.dataService.benefitApp.cutoffYear = assistYear.year;
 
-                // checking the cutoff Date and displaying the message
+                // check whether or not they have selected a cutoff year
                 if (this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && (assistYear.year === this.benefitApp.MostRecentTaxYear - 1) && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
-                    this.cutOffYear = assistYear.year;
-                    this.dataService.benefitApp.cutoffYear = assistYear.year;
                     this.dataService.benefitApp.isCutoffDate = true;
-
-                    //  (assistYear.year == this.benefitApp.MostRecentTaxYear - 1) ? true : false;
                 } else {
-
                     this.dataService.benefitApp.isCutoffDate = false;
                 }
 
@@ -89,7 +81,6 @@ export class TaxYearComponent extends BaseComponent {
                 return tally;
             }, []);
 
-           //return [{docsRequired: false, apply:false, year:2019, currentYear:2019, disabled: false}, {docsRequired: false, apply:false, year:2018, currentYear:2018, disabled: false}]
     }
 
     // Gets the cutoff date time frame from SPA-ENV server
@@ -101,14 +92,6 @@ export class TaxYearComponent extends BaseComponent {
             const endDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END.replace(/-/g, '/'));
             this.cutOffStartDate = new Date(this.currentYear, startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds(), startDate.getMilliseconds());
             this.cutOffEndDate  = new Date(this.currentYear, endDate.getMonth(), endDate.getDate(), endDate.getHours(), endDate.getMinutes(), endDate.getSeconds(), endDate.getMilliseconds());
-
-            //     SPA_ENV_NOW: this.spaEnvResponse.SPA_ENV_NOW,
-            //     SPA_ENV_PACUTOFF_MAINTENANCE_START: this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START,
-            //     SPA_ENV_PACUTOFF_MAINTENANCE_END: this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END,
-            //     today: this.today,
-            //     cutOffStartDate: this.cutOffStartDate,
-            //     cutOffEndDate: this.cutOffEndDate
-            // })
         }
     }
 }

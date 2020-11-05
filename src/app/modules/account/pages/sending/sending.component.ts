@@ -52,7 +52,7 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
     */
     if (!this.mspAccountApp.hasValidAuthToken) {
       // Send them back to the home screen and reload the app
-      location.assign('/msp');
+      location.assign('/msp/deam/home');
     }
   }
 
