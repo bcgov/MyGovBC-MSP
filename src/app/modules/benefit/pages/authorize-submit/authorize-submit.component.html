@@ -11,7 +11,10 @@
              name="authorizedByApplicant"
              [(ngModel)] = "application.authorizedByApplicant"
              (ngModelChange) = "deleteAllDocs($event)"
-             id="firstPersonAuthorize" type="checkbox">
+             id="firstPersonAuthorize" 
+             type="checkbox"
+             aria-required="true"
+             required>
       <label class="form-check-label" for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
     </div>
  
@@ -22,7 +25,10 @@
                name="authorizedBySpouse"
                [(ngModel)] = "application.authorizedBySpouse"
                (ngModelChange) = "deleteAllDocs($event)"
-               id="secondPersonAuthorize" type="checkbox">
+               id="secondPersonAuthorize" 
+               type="checkbox"
+               aria-required="true"
+               required>
         <label class="form-check-label" for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
       </div>
     </div>
@@ -34,7 +40,10 @@
              name="authorizedByAttorney"
              [(ngModel)] = "application.authorizedByAttorney"
              (ngModelChange) = "handleAuthorizedByAttorney($event)"
-             id="authByAttorney" type="checkbox">
+             id="authByAttorney" 
+             type="checkbox"
+             aria-required="true"
+             required>
       <!-- <label class="form-check-label" for="authByAttorney" [innerHTML]="'Yes, I have Power of Attorney or another legal representation agreement'"></label> -->
       <label class="form-check-label" for="authByAttorney">I have Power of Attorney or another legal representation agreement</label>
 

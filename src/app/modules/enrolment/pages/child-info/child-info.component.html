@@ -110,6 +110,7 @@
                        [(ngModel)]=child.schoolName
                        maxlength="50"
                        required
+                       aria-required="true"
                        #schoolNameRef="ngModel">
                 <common-error-container
                   [displayError]="(schoolNameRef.touched || schoolNameRef.dirty) && schoolNameRef.errors?.required">
