@@ -154,7 +154,8 @@
         [(ngModel)]="person.departureDateDuring12MonthsDate"
         [dateRangeStart]='departureDateDuring12MonthsStartRange'
         [dateRangeEnd]='departureDateDuring12MonthsEndRange'
-        [errorMessage]='departureDate12MonthsErrorMessage'>
+        [errorMessage]='departureDate12MonthsErrorMessage'
+        required>
       </common-date>
     </div>
 
@@ -165,7 +166,8 @@
         [(ngModel)]="person.returnDateDuring12MonthsDate"
         [dateRangeStart]='returnDateDuring12MonthsStartRange'
         [dateRangeEnd]='returnDateDuring12MonthsEndRange'
-        [errorMessage]='returnDate12MonthsErrorMessage'>
+        [errorMessage]='returnDate12MonthsErrorMessage'
+        required>
       </common-date>
     </div>
   </div>
@@ -230,7 +232,8 @@
         [(ngModel)]="person.departureDateDuring6MonthsDate"
         [dateRangeStart]='departureDateDuring6MonthsStartRange'
         [dateRangeEnd]='departureDateDuring6MonthsEndRange'
-        [errorMessage]='departureDate6MonthsErrorMessage'>
+        [errorMessage]='departureDate6MonthsErrorMessage'
+        required>
       </common-date>
     </div>
 
@@ -240,7 +243,8 @@
         label="Return date 6 months"
         [(ngModel)]="person.returnDateDuring6MonthsDate"
         [dateRangeStart]='returnDateDuring6MonthsStartRange'
-        [errorMessage]='returnDate6MonthsErrorMessage'>
+        [errorMessage]='returnDate6MonthsErrorMessage'
+        required>
       </common-date>
     </div>
   </div>

@@ -306,7 +306,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
 
   get returnDateDuring6MonthsStartRange() {
     if (this.departureDateDuring6MonthsDate) {
-      return isBefore(addDays(this.dateToday, 30), addDays(this.departureDateDuring6MonthsDate, 30)) ? addDays(this.dateToday, 30) : addDays(this.departureDateDuring6MonthsDate, 30);
+      return addDays(this.departureDateDuring6MonthsDate, 30);
     }
     return addDays(this.dateToday, 30);
   }
