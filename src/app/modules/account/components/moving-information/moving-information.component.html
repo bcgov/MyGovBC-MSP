@@ -25,11 +25,12 @@
     </div>
 
     <div *ngIf="person.livedInBCSinceBirth === false" class="form-group col-sm-6 p-sm-2">
-      <label for="movedFromProvinceOrCountry" class="control-label">From (province or country)</label>
+      <label for="movedFromProvinceOrCountry_{{objectId}}" class="control-label">From (province or country)</label>
       <input
         type="text"
         #movedFromProvinceOrCountryRef="ngModel"
         name="movedFromProvinceOrCountry_{{objectId}}"
+        aria-label="movedFromProvinceOrCountry"
         class="form-control"
         id="movedFromProvinceOrCountry"
         [(ngModel)]="person.movedFromProvinceOrCountry"
@@ -115,7 +116,7 @@
 
   <div *ngIf="person.declarationForOutsideOver30Days" class="add-document">
     <div class="form-group col-sm-6 p-sm-2">
-      <label for="departureReason_{{objectId}}" class="control-label">
+      <label for="departureReason12Months_{{objectId}}" class="control-label">
         Reason for departure
       </label>
       <input
@@ -137,7 +138,7 @@
     </div>
 
     <div class="form-group col-sm-6 p-sm-2">
-       <label for="departureDestination_{{objectId}}" class="">
+       <label for="departureDestination12Months_{{objectId}}">
          Location
        </label>
        <input
@@ -146,7 +147,7 @@
         type="text"
         class="form-control"
         aria-label="Departure Destination 12 Months"
-        [(ngModel)]= "person.departureDestination12Months"
+        [(ngModel)]="person.departureDestination12Months"
         maxlength="20"
         aria-required="true"
         required/>
@@ -321,9 +322,10 @@
       <input
         #schoolNameRef="ngModel"
         name="schoolName_{{objectId}}"
+        aria-label="schoolName"
         type="text"
         class="form-control"
-        [(ngModel)]=person.schoolName
+        [(ngModel)]="person.schoolName"
         maxlength="50"
         aria-required="true"
         required/>
