@@ -123,16 +123,16 @@ header .nav-link {
 }
 
 // Only sibling list items in footer get left border
-footer li + li {
-  @include media-breakpoint-up(lg) {
-    border-left: 1px solid #4b5e73;
+div.navbar {
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
 // Have to ensure footer nav links are white
 footer .nav-link {
   color: white !important;
-  padding-left: 1rem !important;
 }
 
 footer .navbar {
@@ -147,9 +147,9 @@ footer a:hover {
   text-decoration: underline !important;
 }
 
-footer li {
+footer a.nav-link {
   border-left: 1px solid #4b5e73;
-  padding: 2px 17px;
+  padding: 2px 28px;
   margin-top: 10px;
 }
 
