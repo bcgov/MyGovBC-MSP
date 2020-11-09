@@ -1,97 +1,99 @@
-<msp-consent-modal #mspConsentModal
-                   (onClose)="AccountHolder_Phn.focus()"
-                   [consentProcessName]="'ACL'" 
-                   (accept)="acceptAgreement($event)">
-</msp-consent-modal>
-
-<common-page-framework layout='blank'>
-  <form #formRef='ngForm' novalidate>
-
-    <h1>Request Medical Services Plan Account Confirmation Letter</h1>
-    <p>
-      Use this online form to request a Medical Services Plan Account Confirmation letter that
-      will verify enrolment status for one or more individuals on an account.
-    </p>
-    <p class="border-bottom">
-        Please allow two to three weeks for delivery.
-    </p>
-
-    <h2 class="border-bottom">Your Information</h2>
-    <common-page-section layout='tips'>
-      <div class="col-sm-6 pl-0">
-        <div class="form-group">
-          <common-phn #AccountHolder_Phn="ngModel"
-                      name="AccountHolderPhn"
-                      [(ngModel)]="accountHolderPhn"
-                      [errorMessage]="errorMessage"
-                      (blur)="triggerValidation(specificMemberInput)"
-                      required
-                      commonDuplicateCheck
-                      [dupList]="[specificMemberPhn]">
-          </common-phn>
-        </div>
-        <div class="form-group">
-          <common-date name="AccountHolderDob"
-                        label="Birthdate"
-                        [dateRangeEnd]="dobEndRange"
-                        [errorMessage]="dobErrorMsg"
-                        [(ngModel)]="accountHolderDob"
-                        required>
-          </common-date>
-        </div>
-        <div class="form-group">
-          <common-postal-code name="AccountHolderPC"
-                              [(ngModel)]="postalCode"
-                              required
-                              commonValidatePostalcode>
-          </common-postal-code>
-        </div>
-      </div>
-
-      <div class="form-group pt-4">
-        <common-radio name="EnrolmentMembership"
-                      [(ngModel)]="enrolmentMembership"
-                      label="Whose Medical Services Plan enrolment information should be included in the Account Confirmation Letter?"
-                      [radioLabels]="radioBtnLabels"
-                      display="table-row-group"
-                      required>
-        </common-radio>
-      </div>
-    </common-page-section>
-
-    <div *ngIf="isSpecificMember">
-      <h2>Specific Member Information</h2>
-      <p class="border-bottom">
-        Please provide additional information for the specific member.
+<main class="container-fluid" id="content">
+  <msp-consent-modal #mspConsentModal
+                     (onClose)="AccountHolder_Phn.focus()"
+                     [consentProcessName]="'ACL'" 
+                     (accept)="acceptAgreement($event)">
+  </msp-consent-modal>
+  
+  <common-page-framework layout='blank'>
+    <form #formRef='ngForm' novalidate>
+  
+      <h1>Request Medical Services Plan Account Confirmation Letter</h1>
+      <p>
+        Use this online form to request a Medical Services Plan Account Confirmation letter that
+        will verify enrolment status for one or more individuals on an account.
       </p>
-      <common-page-section layout='tips' >
-        <div class="form-group col-sm-6 pl-0">
-          <common-phn name="SpecificMember"
-                      [(ngModel)]="specificMemberPhn"
-                      [errorMessage]="errorMessage"
-                      (blur)="triggerValidation(accountHolderInput)"
-                      required
-                      commonDuplicateCheck
-                      [dupList]="[accountHolderPhn]">
-          </common-phn>
+      <p class="border-bottom">
+          Please allow two to three weeks for delivery.
+      </p>
+  
+      <h2 class="border-bottom">Your Information</h2>
+      <common-page-section layout='tips'>
+        <div class="col-sm-6 pl-0">
+          <div class="form-group">
+            <common-phn #AccountHolder_Phn="ngModel"
+                        name="AccountHolderPhn"
+                        [(ngModel)]="accountHolderPhn"
+                        [errorMessage]="errorMessage"
+                        (blur)="triggerValidation(specificMemberInput)"
+                        required
+                        commonDuplicateCheck
+                        [dupList]="[specificMemberPhn]">
+            </common-phn>
+          </div>
+          <div class="form-group">
+            <common-date name="AccountHolderDob"
+                          label="Birthdate"
+                          [dateRangeEnd]="dobEndRange"
+                          [errorMessage]="dobErrorMsg"
+                          [(ngModel)]="accountHolderDob"
+                          required>
+            </common-date>
+          </div>
+          <div class="form-group">
+            <common-postal-code name="AccountHolderPC"
+                                [(ngModel)]="postalCode"
+                                required
+                                commonValidatePostalcode>
+            </common-postal-code>
+          </div>
+        </div>
+  
+        <div class="form-group pt-4">
+          <common-radio name="EnrolmentMembership"
+                        [(ngModel)]="enrolmentMembership"
+                        label="Whose Medical Services Plan enrolment information should be included in the Account Confirmation Letter?"
+                        [radioLabels]="radioBtnLabels"
+                        display="table-row-group"
+                        required>
+          </common-radio>
         </div>
       </common-page-section>
-    </div>
-
-    <div  class="pt-4" *ngIf="showCaptcha">
-      <common-captcha name="Captcha"
-                      ngModel
-                      required
-                      [apiBaseUrl]="captchaApiBaseUrl"
-                      [nonce]="application.uuid"
-                      (onValidToken)="application.authorizationToken=$event">
-      </common-captcha>
-    </div>
-  </form>
-</common-page-framework>
-<common-form-action-bar (btnClick)="continue()"
-                        widthOption="extra-width-mobile-only"
-                        submitLabel="Request Confirmation"
-                        [defaultColor]="false"
-                        [isLoading]="loading">
-</common-form-action-bar>
+  
+      <div *ngIf="isSpecificMember">
+        <h2>Specific Member Information</h2>
+        <p class="border-bottom">
+          Please provide additional information for the specific member.
+        </p>
+        <common-page-section layout='tips' >
+          <div class="form-group col-sm-6 pl-0">
+            <common-phn name="SpecificMember"
+                        [(ngModel)]="specificMemberPhn"
+                        [errorMessage]="errorMessage"
+                        (blur)="triggerValidation(accountHolderInput)"
+                        required
+                        commonDuplicateCheck
+                        [dupList]="[accountHolderPhn]">
+            </common-phn>
+          </div>
+        </common-page-section>
+      </div>
+  
+      <div  class="pt-4" *ngIf="showCaptcha">
+        <common-captcha name="Captcha"
+                        ngModel
+                        required
+                        [apiBaseUrl]="captchaApiBaseUrl"
+                        [nonce]="application.uuid"
+                        (onValidToken)="application.authorizationToken=$event">
+        </common-captcha>
+      </div>
+    </form>
+  </common-page-framework>
+  <common-form-action-bar (btnClick)="continue()"
+                          widthOption="extra-width-mobile-only"
+                          submitLabel="Request Confirmation"
+                          [defaultColor]="false"
+                          [isLoading]="loading">
+  </common-form-action-bar>
+</main>

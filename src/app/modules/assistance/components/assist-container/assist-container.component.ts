@@ -19,7 +19,9 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
       </common-wizard-progress-bar>
     </common-core-breadcrumb>
     <common-page-framework layout="blank">
-      <router-outlet></router-outlet>
+      <main class="container-fluid" id="content">
+        <router-outlet></router-outlet>
+      </main>
     </common-page-framework>
     <common-form-action-bar
       (btnClick)="continue()"
