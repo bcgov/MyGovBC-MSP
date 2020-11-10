@@ -7,77 +7,84 @@
         an update or correction to the address, please provide the new address
         here.
       </p>
-
-      <common-page-section layout="double">
-        <h2><strong>Residential Address</strong></h2>
-        <p class="horizontal-line address-subtitle">
-          Enter your residential address - that's the address your currently
-          reside at in B.C.
-        </p>
-        <common-address
-          #address
-          [address]="mspAccountApp?.residentialAddress"
-          (addressChange)="handleAddressUpdate($event)"
-          [disabled]="{ province: true, country: true }"
-          [allowExtralines]="true"
-          [disableGeocoder]="true"
-          [bcOnly]="true"
-          [isRequired]="true"
-        >
-        </common-address>
-
-        <common-checkbox
-          [label]="'This is my mailing address.'"
-          (dataChange)="mspAccountApp.mailingSameAsResidentialAddress = $event"
-          [data]="mspAccountApp.mailingSameAsResidentialAddress"
-          class="col-md-4 align-content-start"
-        >
-        </common-checkbox>
-        <aside>
-          <h2><strong>Mailing Address</strong></h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h2><strong>Residential Address</strong></h2>
           <p class="horizontal-line address-subtitle">
-            Enter your mailing address - if it's different
+            Enter your residential address - that's the address your currently
+            reside at in B.C.
           </p>
-          <div
-            *ngIf="
-              !mspAccountApp.mailingSameAsResidentialAddress;
-              else NoMailingAddress
-            "
+          <common-address
+            #address
+            [address]="mspAccountApp?.residentialAddress"
+            (addressChange)="handleAddressUpdate($event)"
+            [disabled]="{ province: true, country: true }"
+            [allowExtralines]="true"
+            [disableGeocoder]="true"
+            [bcOnly]="true"
+            [isRequired]="true"
           >
-            <common-address
-              [address]="mspAccountApp?.mailingAddress"
-              (addressChange)="handleAddressUpdate($event)"
-              [defaultProvince]="defaultProvince"
-              [provinceList]="provinceList"
-              [allowExtralines]="true"
-              [disableGeocoder]="true"
-              [isRequired]="true"
-            >
-            </common-address>
+          </common-address>
+  
+          <common-checkbox
+            [label]="'This is my mailing address.'"
+            (dataChange)="mspAccountApp.mailingSameAsResidentialAddress = $event"
+            [data]="mspAccountApp.mailingSameAsResidentialAddress"
+            class="col-md-4 align-content-start"
+          >
+          </common-checkbox>
+        </div>
+          <div class="col-md-6">
+            <div class="d-block">
+              <h2><strong>Mailing Address</strong></h2>
+              <p class="horizontal-line address-subtitle">
+                Enter your mailing address - if it's different
+              </p>
+              <div
+                *ngIf="
+                  !mspAccountApp.mailingSameAsResidentialAddress;
+                  else NoMailingAddress
+                "
+              >
+                <common-address
+                  [address]="mspAccountApp?.mailingAddress"
+                  (addressChange)="handleAddressUpdate($event)"
+                  [defaultProvince]="defaultProvince"
+                  [provinceList]="provinceList"
+                  [allowExtralines]="true"
+                  [disableGeocoder]="true"
+                  [isRequired]="true"
+                >
+                </common-address>
+              </div>
+            </div>
           </div>
-        </aside>
-      </common-page-section>
+      </div>
       <h2 class="horizontal-line"><strong>Phone</strong></h2>
       <div class="row">
         <div class="form-group col-sm-12">
-          <common-page-section layout="tips">
-            <div class="col-md-6 col-sm-12 pl-0 phone__input">
-              <common-phone-number
-                name="phone_number"
-                [label]="'Phone Number (optional)'"
-                [(ngModel)]="mspAccountApp.phoneNumber"
-                (onChange)="handlePhoneNumberChange($event)"
-              >
-              </common-phone-number>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="col-md-6 col-sm-12 pl-0 phone__input">
+                <common-phone-number
+                  name="phone_number"
+                  [label]="'Phone Number (optional)'"
+                  [(ngModel)]="mspAccountApp.phoneNumber"
+                  (onChange)="handlePhoneNumberChange($event)"
+                >
+                </common-phone-number>
+              </div>
             </div>
-            <aside class="phone__tip">
-              <b>Tip</b>
-              <p>
-                Please provide a phone number so you may be contacted in case of
-                any issues with your application.
-              </p>
-            </aside>
-          </common-page-section>
+            <div class="col-md-4">
+              <div class="phone__tip">
+                <b>Tip</b>
+                <p>
+                  Please provide a phone number so you may be contacted in case of
+                  any issues with your application.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
