@@ -1,100 +1,102 @@
-<common-page-framework layout="blank">
-  <div class="deam-container">
-    <common-confirm-template [displayIcon]="status">
-      <div confirmationTitle *ngIf="isSuccess; else ErrorTitle">
-        <a onclick="window.print();return false;">
-          <strong class="float-right">Print
-            <i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
-          </strong>
-        </a>
-        <h1><strong>Confirmation Message</strong></h1>
-        <p class="horizontal-line">
-          It is important to keep your reference number - write it down, or print this page for your records.
-        </p>
-      </div>
-      <div message *ngIf="isSuccess; else ErrorMsg">
-        <div class="icon--message">
-          Your update request has been submitted
+<main class="container-fluid" id="content">
+  <common-page-framework layout="blank">
+    <div class="deam-container">
+      <common-confirm-template [displayIcon]="status">
+        <div confirmationTitle *ngIf="isSuccess; else ErrorTitle">
+          <a onclick="window.print();return false;">
+            <strong class="float-right">Print
+              <i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
+            </strong>
+          </a>
+          <h1><strong>Confirmation Message</strong></h1>
+          <p class="horizontal-line">
+            It is important to keep your reference number - write it down, or print this page for your records.
+          </p>
         </div>
-
-        <div>
-          {{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
+        <div message *ngIf="isSuccess; else ErrorMsg">
+          <div class="icon--message">
+            Your update request has been submitted
+          </div>
+  
+          <div>
+            {{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
+          </div>
         </div>
-      </div>
-
-      <!-- If the user added a spouse or child with NO PREVIOUS MSP, means he/she is a completely new resident
-      to BC and needs to go to ICBC to get their picture taken, in this only case is when the 3rd blue box needs to be displayed.-->
-      <div *ngIf="isSuccess && hasAddedSpouseOrChildWithNoPrevMSP" AdditionalInfo>
-        <br>
-        <h2 class="horizontal-line"><strong>Next Steps</strong></h2>
-        <common-page-section layout='noTips'>
-          <div class="next-step--container">
-            <p>
-              <i class="fa fa-2x fa-exclamation-circle next-step--color pr-2" aria-label="next steps"></i>
-            </p>
-            <div>
-              To complete MSP enrolment, adult Canadian Citizens and Permanent Residents must obtain a Photo BC
-              Services Card by visiting an Insurance Corporation of BC (ICBC) driver licensing office. To find
-              an ICBC driver licensing office near you, please visit <a href="https://www.icbc.com" target="_blank">
-              icbc.com</a>.<br> <br>
-              If you have already been to an ICBC driver licensing office and requested a Photo BC Services Card,
-              no further action is required.
+  
+        <!-- If the user added a spouse or child with NO PREVIOUS MSP, means he/she is a completely new resident
+        to BC and needs to go to ICBC to get their picture taken, in this only case is when the 3rd blue box needs to be displayed.-->
+        <div *ngIf="isSuccess && hasAddedSpouseOrChildWithNoPrevMSP" AdditionalInfo>
+          <br>
+          <h2 class="horizontal-line"><strong>Next Steps</strong></h2>
+          <common-page-section layout='noTips'>
+            <div class="next-step--container">
+              <p>
+                <i class="fa fa-2x fa-exclamation-circle next-step--color pr-2" aria-label="next steps"></i>
+              </p>
+              <div>
+                To complete MSP enrolment, adult Canadian Citizens and Permanent Residents must obtain a Photo BC
+                Services Card by visiting an Insurance Corporation of BC (ICBC) driver licensing office. To find
+                an ICBC driver licensing office near you, please visit <a href="https://www.icbc.com" target="_blank">
+                icbc.com</a>.<br> <br>
+                If you have already been to an ICBC driver licensing office and requested a Photo BC Services Card,
+                no further action is required.
+              </div>
             </div>
-          </div>
-        </common-page-section>
-      </div>
-
-      <!-- If the user tried to remove a spouse or a child, the first blue box needs to be displayed just below the green box-->
-      <div *ngIf="hasRemovedSpouseOrChild" AdditionalInfo>
-        <br>
-        <common-page-section layout='noTips'>
-          <div class="next-step--container">
-            <p>
-              <i class="fa fa-2x fa-exclamation-circle next-step--color pr-2" aria-label="next steps"></i>
-            </p>
-            <div>
-              To remove a spouse or child from your MSP account due to a move outside B.C.
-              use the <a href="https://www.health.gov.bc.ca/exforms/msp/7063.html" target="_blank">
-              Permanent Move Outside British Columbia</a> form.
+          </common-page-section>
+        </div>
+  
+        <!-- If the user tried to remove a spouse or a child, the first blue box needs to be displayed just below the green box-->
+        <div *ngIf="hasRemovedSpouseOrChild" AdditionalInfo>
+          <br>
+          <common-page-section layout='noTips'>
+            <div class="next-step--container">
+              <p>
+                <i class="fa fa-2x fa-exclamation-circle next-step--color pr-2" aria-label="next steps"></i>
+              </p>
+              <div>
+                To remove a spouse or child from your MSP account due to a move outside B.C.
+                use the <a href="https://www.health.gov.bc.ca/exforms/msp/7063.html" target="_blank">
+                Permanent Move Outside British Columbia</a> form.
+              </div>
             </div>
-          </div>
-        </common-page-section>
-      </div>
-
-      <div *ngIf="isSuccess" AdditionalInfo>
-        <h2 class="horizontal-line"><strong>Important</strong></h2>
-        <common-page-section layout='noTips'>
-          <ul class="info--container">
-            <li>
-              Allow 21 business days for your application to be processed.
-            </li>
-            <li>
-              Living outside the province for more than six months could cause your Medical Services Plan enrolment to be cancelled. Learn more about the
-              <a href="{{links.MSP_ELIGIBILITY}}" target="_blank">eligibility for Medical Services Plan</a>.
-            </li>
-            <li>
-              Review <a href="{{links.FAQ}}" target="_blank">Frequently Asked Questions</a>.
-            </li>
-            <li>
-              If you require additional assistance, contact <a href="{{links.HIBC}}" target="_blank">Health Insurance B.C.</a>
-            </li>
-          </ul>
-        </common-page-section>
-      </div>
-    </common-confirm-template>
-  </div>
-</common-page-framework>
-
-<ng-template #ErrorTitle>
-  <div confirmationTitle>
-    <h1 class="horizontal-line">There was a technical issue with your submission</h1>
-  </div>
-</ng-template>
-
-<ng-template #ErrorMsg>
-  <div message>
-    <div class="icon--message">
-      Your application was not submitted
+          </common-page-section>
+        </div>
+  
+        <div *ngIf="isSuccess" AdditionalInfo>
+          <h2 class="horizontal-line"><strong>Important</strong></h2>
+          <common-page-section layout='noTips'>
+            <ul class="info--container">
+              <li>
+                Allow 21 business days for your application to be processed.
+              </li>
+              <li>
+                Living outside the province for more than six months could cause your Medical Services Plan enrolment to be cancelled. Learn more about the
+                <a href="{{links.MSP_ELIGIBILITY}}" target="_blank">eligibility for Medical Services Plan</a>.
+              </li>
+              <li>
+                Review <a href="{{links.FAQ}}" target="_blank">Frequently Asked Questions</a>.
+              </li>
+              <li>
+                If you require additional assistance, contact <a href="{{links.HIBC}}" target="_blank">Health Insurance B.C.</a>
+              </li>
+            </ul>
+          </common-page-section>
+        </div>
+      </common-confirm-template>
     </div>
-  </div>
-</ng-template>
+  </common-page-framework>
+  
+  <ng-template #ErrorTitle>
+    <div confirmationTitle>
+      <h1 class="horizontal-line">There was a technical issue with your submission</h1>
+    </div>
+  </ng-template>
+  
+  <ng-template #ErrorMsg>
+    <div message>
+      <div class="icon--message">
+        Your application was not submitted
+      </div>
+    </div>
+  </ng-template>
+</main>

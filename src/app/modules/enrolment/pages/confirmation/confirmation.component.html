@@ -1,94 +1,96 @@
-<common-page-framework layout="blank">
-	<common-confirm-template [displayIcon]="status">
-		<div confirmationTitle *ngIf="isSucess; else ErrorTitle;">
-			<a onclick="window.print();return false;">
-				<strong class="float-right">Print
-					<i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
-				</strong>
-			</a>
-			<h1 class="border-bottom">Confirmation Message</h1>
-		</div>
-		<div message *ngIf="isSucess; else IconErrMsg">
-			<p class="icon--message">
-				Your application has been submitted
-			</p>
-			<p>
-				{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
-			</p>
-		</div>
-
-		<div *ngIf="isSucess" AdditionalInfo>
-			<div *ngIf="nextSteps">
-				<h2 class="border-bottom">Next Steps</h2>
-				<common-page-section layout='noTips'>
-					<div class="next-step--container">
-						<p>
-							<i class="fa fa-2x fa-exclamation-circle next-step--color pr-2" aria-label="next steps"></i>
-						</p>
-						<div>
+<main class="container-fluid" id="content">
+	<common-page-framework layout="blank">
+		<common-confirm-template [displayIcon]="status">
+			<div confirmationTitle *ngIf="isSucess; else ErrorTitle;">
+				<a onclick="window.print();return false;">
+					<strong class="float-right">Print
+						<i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
+					</strong>
+				</a>
+				<h1 class="border-bottom">Confirmation Message</h1>
+			</div>
+			<div message *ngIf="isSucess; else IconErrMsg">
+				<p class="icon--message">
+					Your application has been submitted
+				</p>
+				<p>
+					{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
+				</p>
+			</div>
+	
+			<div *ngIf="isSucess" AdditionalInfo>
+				<div *ngIf="nextSteps">
+					<h2 class="border-bottom">Next Steps</h2>
+					<common-page-section layout='noTips'>
+						<div class="next-step--container">
 							<p>
-								To complete Medical Services Plan enrolment, adult Canadian Citizens and Permanent Residents must 
-								obtain a Photo BC Services Card by visiting an Insurance Corporation of BC (ICBC) 
-								driver licensing office. To find an ICBC driver licensing office near you, please 
-								visit <a href="{{links.ICBC}}" target="_blank">icbc.com</a>.
+								<i class="fa fa-2x fa-exclamation-circle next-step--color pr-2" aria-label="next steps"></i>
 							</p>
-							<p>
-								If you have already been to an ICBC driver licensing office and requested a Photo 
-								BC Services Card, no further action is required.
-							</p>
+							<div>
+								<p>
+									To complete Medical Services Plan enrolment, adult Canadian Citizens and Permanent Residents must 
+									obtain a Photo BC Services Card by visiting an Insurance Corporation of BC (ICBC) 
+									driver licensing office. To find an ICBC driver licensing office near you, please 
+									visit <a href="{{links.ICBC}}" target="_blank">icbc.com</a>.
+								</p>
+								<p>
+									If you have already been to an ICBC driver licensing office and requested a Photo 
+									BC Services Card, no further action is required.
+								</p>
+							</div>
 						</div>
-					</div>
+					</common-page-section>
+				</div>
+	
+				<h2 class="border-bottom">Information</h2>
+				<common-page-section layout='noTips'>
+					<ul class="info--container">
+						<li>
+							<strong>Important:</strong> Keep your reference number - write it down, or print this page for your records
+						</li>
+						<li>
+							Allow 21 business days for your application to be processed.
+						</li>
+						<li>
+							<strong>After your application is processed,</strong> Health Insurance BC will mail a letter to confirm your Medical Services Plan 
+							enrolment status. You may have a <a href="{{links.MSP_WAIT_PERIOD}}" target="_blank">wait period</a>.
+						</li>
+						<li>
+							When you get your BC Services Card, register for the <a href="{{links.FPCARE}}" target="_blank">Fair Pharmacare plan</a>. It can help 
+							with the cost of prescription drugs and some medical supplies. Registration is free.
+						</li>
+						<li>
+							Keep your personal information up to date. <a href="{{links.BCSC_UPDATE}}" target="_blank">Change your name, address or gender</a>.
+						</li>	
+						<li>
+							Living outside the province for more than six months could cause your Medical Services Plan enrolment to be cancelled. 
+							<a href="{{links.MSP_ELIGIBILITY}}" target="_blank">Learn more about eligibility for Medical Services Plan</a>.
+						</li>
+						<li>
+							If you have questions, contact <a href="{{links.HIBC}}" target="_blank">Health Insurance BC</a>.
+						</li>
+					</ul>
 				</common-page-section>
 			</div>
-
-			<h2 class="border-bottom">Information</h2>
-			<common-page-section layout='noTips'>
-				<ul class="info--container">
-          <li>
-            <strong>Important:</strong> Keep your reference number - write it down, or print this page for your records
-          </li>
-					<li>
-						Allow 21 business days for your application to be processed.
-					</li>
-				  <li>
-						<strong>After your application is processed,</strong> Health Insurance BC will mail a letter to confirm your Medical Services Plan 
-						enrolment status. You may have a <a href="{{links.MSP_WAIT_PERIOD}}" target="_blank">wait period</a>.
-					</li>
-					<li>
-						When you get your BC Services Card, register for the <a href="{{links.FPCARE}}" target="_blank">Fair Pharmacare plan</a>. It can help 
-						with the cost of prescription drugs and some medical supplies. Registration is free.
-					</li>
-					<li>
-						Keep your personal information up to date. <a href="{{links.BCSC_UPDATE}}" target="_blank">Change your name, address or gender</a>.
-					</li>	
-					<li>
-						Living outside the province for more than six months could cause your Medical Services Plan enrolment to be cancelled. 
-						<a href="{{links.MSP_ELIGIBILITY}}" target="_blank">Learn more about eligibility for Medical Services Plan</a>.
-					</li>
-					<li>
-						If you have questions, contact <a href="{{links.HIBC}}" target="_blank">Health Insurance BC</a>.
-					</li>
-				</ul>
-			</common-page-section>
+		</common-confirm-template>
+	</common-page-framework>
+	
+	
+	<ng-template #ErrorTitle>
+		<div confirmationTitle>
+				<h1 class="border-bottom">There was a technical issue with your submission</h1>
 		</div>
-	</common-confirm-template>
-</common-page-framework>
-
-
-<ng-template #ErrorTitle>
-	<div confirmationTitle>
-			<h1 class="border-bottom">There was a technical issue with your submission</h1>
-	</div>
-</ng-template>
-
-
-<ng-template #IconErrMsg>
-	<div message>
-		<p class="icon--message">
-				Your application was not submitted
-		</p>
-		<p>
-			{{message}}
-		</p>
-	</div>
-</ng-template>
+	</ng-template>
+	
+	
+	<ng-template #IconErrMsg>
+		<div message>
+			<p class="icon--message">
+					Your application was not submitted
+			</p>
+			<p>
+				{{message}}
+			</p>
+		</div>
+	</ng-template>
+</main>

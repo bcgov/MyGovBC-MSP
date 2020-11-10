@@ -1,78 +1,77 @@
-<common-page-framework layout="blank">
-  <div *ngIf="benefitApp.isEligible != false">  
-        
-    <a onclick="window.print();return false;" >   
-    <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
-        aria-hidden="true"></i>
-    </b>
-    </a>
-    <h1>Confirmation Message</h1>
-    <hr>
-
-      <div class="row" style="border-style: solid; color:#83D31D" >
-          <div class="col-sm-.5" style="font-size: 50px; margin-top: 10px;margin-left: 15px" ><i class="fa fa-check-circle" aria-hidden="true"></i></div>
-          <div class="col-10">
-              <h2>
-                  Your application has been submitted
-              </h2>
-              <p class="font-weight-normal h4">{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}</p>
-              <div class="row font-weight-normal h3" style="margin-left: 0px;">
-                <div style="font-size: 30px; margin-top: -8px;">
-                    &middot;
-                </div>
-                <div class="col-11">
-                    {{noticeOfAssessment}} 
-                </div>
-
-              </div>
-              
-          </div>
-      </div>
-    
-    <h2>Next Steps</h2>
-    <hr>
-    
-        <ul>
-            <li>
-              <h3 [innerHTML]="lang('./en/index.js').printEmailInstructions" onclick="window.print();" class="pointer"></h3>
-            </li>
-            <li>
-              <h3 [innerHTML]="lang('./en/index.js').generalInstructions1"></h3>
-            </li>
-            <li>
-              <h3 [innerHTML]="lang('./en/index.js').generalInstructions2"></h3>
-            </li>
-            <li>
-              <h3 [innerHTML]="lang('./en/index.js').generalInstructions3"></h3>
-            </li>
-            <li>
-              <h3 [innerHTML]="lang('./en/index.js').generalInstructions4"></h3>
-            </li>
-            <li>
-              <h3 [innerHTML]="lang('./en/index.js').generalInstructions5"></h3>
-            </li>
-          </ul>
-      </div>
-      
-      <!-- Not Eligible Section -->
-      <div *ngIf="benefitApp.isEligible == false"> 
-          <h1>Eligibility Message</h1>
-          <hr>
-          <div style="border-style: solid; color:rgba(0, 0, 191, 1);" >
-            <div class="container">
-                <h2> <i class="fa fa-exclamation-circle" aria-hidden="true"></i> You are not eligible to apply at this time 
+<main class="container-fluid" id="content">
+  <common-page-framework layout="blank">
+    <div *ngIf="benefitApp.isEligible != false">  
+          
+      <a onclick="window.print();return false;" >   
+      <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
+          aria-hidden="true"></i>
+      </b>
+      </a>
+      <h1>Confirmation Message</h1>
+      <hr>
+  
+        <div class="row" style="border-style: solid; color:#83D31D" >
+            <div class="col-sm-.5" style="font-size: 50px; margin-top: 10px;margin-left: 15px" ><i class="fa fa-check-circle" aria-hidden="true"></i></div>
+            <div class="col-10">
+                <h2>
+                    Your application has been submitted
                 </h2>
-                <h3>
-                  Please make a new application when you meet the residency requirements. For assistance please contact <a href="https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Health Insurance BC.</a> 
-                </h3>
-                <h3>
-                  For more information on eligibility requirements visit <a href="https://gov.bc.ca/MSP/supplementarybenefits" target="_blank">Applying for Supplementary Benefit.</a>
-                </h3>
+                <p class="font-weight-normal h4">{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}</p>
+                <div class="row font-weight-normal h3" style="margin-left: 0px;">
+                  <div style="font-size: 30px; margin-top: -8px;">
+                      &middot;
+                  </div>
+                  <div class="col-11">
+                      {{noticeOfAssessment}} 
+                  </div>
+  
+                </div>
+                
             </div>
-          </div>
-      </div>
-    
-</common-page-framework>
-
-
-
+        </div>
+      
+      <h2>Next Steps</h2>
+      <hr>
+      
+          <ul>
+              <li>
+                <h3 [innerHTML]="lang('./en/index.js').printEmailInstructions" onclick="window.print();" class="pointer"></h3>
+              </li>
+              <li>
+                <h3 [innerHTML]="lang('./en/index.js').generalInstructions1"></h3>
+              </li>
+              <li>
+                <h3 [innerHTML]="lang('./en/index.js').generalInstructions2"></h3>
+              </li>
+              <li>
+                <h3 [innerHTML]="lang('./en/index.js').generalInstructions3"></h3>
+              </li>
+              <li>
+                <h3 [innerHTML]="lang('./en/index.js').generalInstructions4"></h3>
+              </li>
+              <li>
+                <h3 [innerHTML]="lang('./en/index.js').generalInstructions5"></h3>
+              </li>
+            </ul>
+        </div>
+        
+        <!-- Not Eligible Section -->
+        <div *ngIf="benefitApp.isEligible == false"> 
+            <h1>Eligibility Message</h1>
+            <hr>
+            <div style="border-style: solid; color:rgba(0, 0, 191, 1);" >
+              <div class="container">
+                  <h2> <i class="fa fa-exclamation-circle" aria-hidden="true"></i> You are not eligible to apply at this time 
+                  </h2>
+                  <h3>
+                    Please make a new application when you meet the residency requirements. For assistance please contact <a href="https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Health Insurance BC.</a> 
+                  </h3>
+                  <h3>
+                    For more information on eligibility requirements visit <a href="https://gov.bc.ca/MSP/supplementarybenefits" target="_blank">Applying for Supplementary Benefit.</a>
+                  </h3>
+              </div>
+            </div>
+        </div>
+      
+  </common-page-framework>
+</main>  

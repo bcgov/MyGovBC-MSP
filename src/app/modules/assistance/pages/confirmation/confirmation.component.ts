@@ -6,7 +6,8 @@ import { tap, map } from 'rxjs/operators';
 
 @Component({
   template: `
-  <common-page-framework layout="blank">
+  <main class="container-fluid" id="content">
+    <common-page-framework layout="blank">
 
       <ng-container *ngIf="success">
         <!-- SUCCESS: {{ success$ | async | json }} -->
@@ -39,6 +40,7 @@ import { tap, map } from 'rxjs/operators';
           </msp-confirmation>
       </ng-container>
     </common-page-framework>
+  </main>
   `,
   styleUrls: ['./confirmation.component.scss']
 })
