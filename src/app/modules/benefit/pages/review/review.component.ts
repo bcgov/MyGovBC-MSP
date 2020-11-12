@@ -30,7 +30,6 @@ export class BenefitReviewComponent extends BaseComponent {
 
     continue() {
         this._processService.setStep(BenefitReviewComponent.ProcessStepNum, true);
-        // this.logService.log({name: "PA - Review Page after CAPTCHA"},"PA - Captcha Success")
         this._router.navigate(['/benefit/authorize']);
     }
 }

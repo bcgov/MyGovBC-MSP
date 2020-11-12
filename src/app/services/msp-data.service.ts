@@ -62,7 +62,6 @@ export class MspDataService {
     return this._finAssistApp;
   }
 
-
   // return the application or assistance uuid  - do not appear to be used
   getMspUuid(): string {
     let uuid = '';
@@ -111,7 +110,6 @@ export class MspDataService {
     }
   }
 
-
   saveFinAssistApplication(): void {
     const dto: FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(
       this._finAssistApp
@@ -146,11 +144,11 @@ export class MspDataService {
     mspAccountApp.applicant.dob = new Date( 2000, 1, 1 );
     mspAccountApp.applicant.previous_phn = '1234567890';
     mspAccountApp.phoneNumber = '2501234567';
-    const dumyAddress: Address = new Address();
-    dumyAddress.street = 'NA';
+    const dummyAddress: Address = new Address();
+    dummyAddress.street = 'NA';
     mspAccountApp.authorizedByApplicant = true;
     mspAccountApp.authorizedByApplicantDate = new Date();
-    // mspAccountApp.applicant.residentialAddress = dumyAddress;
+    // mspAccountApp.applicant.residentialAddress = dummyAddress;
     return mspAccountApp;
   }
 
@@ -513,7 +511,6 @@ export class MspDataService {
     return dto;
   }
 
-
   private toOutofBCRecordDto(outofBCRecord: OutofBCRecord) {
     if (outofBCRecord == null) return null;
 
@@ -553,15 +550,15 @@ export class MspDataService {
     output.infoCollectionAgreement = dto.infoCollectionAgreement;
 
     /*
-        output.phoneNumber = dto.phoneNumber;
+      output.phoneNumber = dto.phoneNumber;
 
-        this.convertMailingAddress(dto, output);
-        this.convertResidentialAddress(dto, output);
-*/
+      this.convertMailingAddress(dto, output);
+      this.convertResidentialAddress(dto, output);
+     */
 
     output.applicant = this.fromPersonDtoForAccount(dto.applicant);
 
-    //if page is refreshed before filling address, the province and country is lost..so initialising..
+    //if page is refreshed before filling address, the province and country is lost..so initializing..
     if (!output.applicant.residentialAddress.province) {
       output.applicant.residentialAddress.province = BRITISH_COLUMBIA;
     }
@@ -791,7 +788,7 @@ export class MspDataService {
   }
 
   // TODO: Temporary - this is cut & paste from base-msp-data service
-  // msp-data service will be removed when all benefit, assistence & account
+  // msp-data service will be removed when all benefit, assistance & account
   // are refactored to extend base-msp-data service similar to enrolment
   protected toAddressTransferObject( input: Address ): AddressDto {
     const dto = new AddressDto();

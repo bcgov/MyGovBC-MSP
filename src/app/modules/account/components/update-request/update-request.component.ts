@@ -118,8 +118,7 @@ export class UpdateRequestComponent extends Base {
   getDocList() {
     if (this.person.status === StatusInCanada.CitizenAdult){
       return this.canadianCitizenDocList;
-    }
-    else if (this.person.status === StatusInCanada.PermanentResident){
+    } else if (this.person.status === StatusInCanada.PermanentResident){
       return this.permanentResidentDocList;
     }
   }

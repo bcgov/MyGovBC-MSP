@@ -31,16 +31,20 @@ export class  MspMaintenanceService extends AbstractHttpService {
 
     protected handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
-            //Client-side / network error occured
+            //Client-side / network error occurred
             console.error('MspMaintenanceService error: ', error.error.message);
-        }
-        else {
+        } else {
             // The backend returned an unsuccessful response code
             console.error(`MspMaintenanceService Backend returned error code: ${error.status}.  Error body: ${error.error}`);
         }
-        this.logService.log({event: 'error', key: 'Cannot get maintenance flag from spa-env-server'});
+        this.logService.log(
+            {
+                event: 'error',
+                key: 'MspMaintenanceService - Cannot get maintenance flag from spa-env-server'
+            }
+        );
 
-        // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
+        // A user facing error message /could/ go here; we shouldn't log dev info through the throwError observable
         return of([]);
     }
 

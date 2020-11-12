@@ -217,7 +217,7 @@ export class SupportDocumentsComponent extends Base
     let sum = 0;
     let tooSmall = false;
 
-    imgs.forEach(img => { 
+    imgs.forEach(img => {
       if (typeof img.size === 'number') {
         sum += img.size;
       }
@@ -227,7 +227,7 @@ export class SupportDocumentsComponent extends Base
         tooSmall = true;
       }
     });
-    
+
     // Same limit as moh-common-lib
     if (sum > 1048576) {
       // Reset the attachments for this upload
@@ -296,7 +296,6 @@ export class SupportDocumentsComponent extends Base
     if (error && error.error !== undefined && error.error !== null) {
       this._supportDocError = error;
       // TODO: Confirm Splunk usage is ok for this, and how the log should be structured
-      // this.logService.log({ date: new Date(), error}, 'Request method here');
     } else {
       // Remove both the error object and the current message, as there is no longer an error
       this._supportDocError = null;

@@ -122,8 +122,7 @@ export class AccountPersonCardComponent {
     if (this.person.status === StatusInCanada.TemporaryResident ||
       this.person.currentActivity === CanadianStatusReason.MovingFromCountry) {
       return 'Moved from country';
-    }
-    else {
+    } else {
       return 'Moved from province';
     }
   }

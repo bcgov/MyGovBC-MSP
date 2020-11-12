@@ -101,7 +101,7 @@ export class MspPerson implements ICanadianStatus {
     cancellationReason: CancellationReasons;
     public removedSpouseDueToDivorceDoc: SupportDocuments = new SupportDocuments();
 
-    
+
     get newlyAdopted(): boolean {
         return this._newlyAdopted;
     }
@@ -159,8 +159,7 @@ export class MspPerson implements ICanadianStatus {
         this._declarationForOutsideOver30Days = val;
         if (val){
             this.outOfBCRecord = new OutofBCRecord();
-        }
-        else {
+        } else {
             this.outOfBCRecord = null;
         }
     }
@@ -181,8 +180,7 @@ export class MspPerson implements ICanadianStatus {
         this._declarationForOutsideOver60Days = val;
         if (val){
             this.outOfBCRecord = new OutofBCRecord();
-        }
-        else {
+        } else {
             this.outOfBCRecord = null;
         }
     }
@@ -354,8 +352,7 @@ export class MspPerson implements ICanadianStatus {
         this._plannedAbsence = val;
         if (val){
             this.planOnBeingOutOfBCRecord = new OutofBCRecord();
-        }
-        else {
+        } else {
             this.planOnBeingOutOfBCRecord = null;
         }
     }
@@ -671,6 +668,6 @@ export class MspPerson implements ICanadianStatus {
             ...this.updateGenderDocType3.images,
             ...this.updateGenderDesignationDocType.images,
             ...this.removedSpouseDueToDivorceDoc.images
-        ];        
+        ];
     }
 }

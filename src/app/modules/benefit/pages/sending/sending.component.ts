@@ -37,7 +37,6 @@ export class BenefitSendingComponent implements AfterContentInit  {
         // After view inits, begin sending the application
         this.transmissionInProcess = true;
         this.hasError = false;
-        // this.logService.log({name: 'PA - application submitting request'},"PA : Submission Request");
         // After view inits, begin sending the application
         this.service
           .sendRequest(this.application)
@@ -45,11 +44,13 @@ export class BenefitSendingComponent implements AfterContentInit  {
             // probable network errors..middleware could be down
 
             if (response instanceof HttpErrorResponse) {
-                this.logService.log({
-                    name: 'Supplementary Benefit - System Error',
-                    confirmationNumber: this.application.uuid,
-                    url: this.router.url
-                }, 'Supplementary Benefit - Submission Response Error' + response.message);
+                this.logService.log(
+                    {
+                        name: 'Supplementary Benefit - System Error',
+                        confirmationNumber: this.application.uuid,
+                        url: this.router.url
+                    }, 'Supplementary Benefit - Submission Response Error' + response.message
+                );
                 this.processErrorResponse(false);
                 return;
             }
@@ -58,11 +59,14 @@ export class BenefitSendingComponent implements AfterContentInit  {
             this.suppBenefitResponse = <ApiResponse> response;
 
             if (this.isFailure(this.suppBenefitResponse)) {
-                this.logService.log({
-                    name: 'Supplementary Benefit - DB Error',
-                    confirmationNumber: this.application.uuid,
-                    url: this.router.url
-                }, 'Supplementary Benefit - Submission Response Error' + JSON.stringify(this.suppBenefitResponse));
+                this.logService.log(
+                    {
+                        name: 'Supplementary Benefit - DB Error',
+                        confirmationNumber: this.application.uuid,
+                        url: this.router.url
+                    },
+                    'Supplementary Benefit - Submission Response Error' + JSON.stringify(this.suppBenefitResponse)
+                );
                 this.processErrorResponse(false);
                 return;
             }
@@ -70,11 +74,13 @@ export class BenefitSendingComponent implements AfterContentInit  {
             const isCutOffDate = this.dataService.benefitApp.isCutoffDate;
             const hasCutoffYear =  (this.dataService.benefitApp.cutoffYear === this.dataService.benefitApp.taxYear) ? true : false;
 
-            this.logService.log({
-                name: 'Supplementary Benefit - Received refNo ',
-                confirmationNumber: refNumber,
-                url: this.router.url
-            }, 'Supplementary Benefit - Submission Response Success');
+            this.logService.log(
+                {
+                    name: 'Supplementary Benefit - Received refNo ',
+                    confirmationNumber: refNumber,
+                    url: this.router.url
+                }, 'Supplementary Benefit - Submission Response Success'
+            );
             this.dataService.removeMspBenefitApp();
 
             this.router.navigate(['/benefit/confirmation'],

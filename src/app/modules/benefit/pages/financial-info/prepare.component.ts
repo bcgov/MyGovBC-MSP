@@ -157,7 +157,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
                     (value) => {
                         if (!value.netIncome || value.netIncome.trim().length === 0){
                             this.benefitApp.netIncomelastYear = null;
-                        }else{
+                        } else {
                             this.benefitApp.netIncomelastYear = value.netIncome;
                         }
                         if (!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
@@ -477,7 +477,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         if (!!this.benefitApp.taxYear){
             return this.lang('./en/index.js').checkEligibilityScreenTitle.replace('{userSelectedMostRecentTaxYear}',
                 this.benefitApp.taxYear);
-        }else{
+        } else {
             return this.lang('./en/index.js').checkEligibilityScreenTitleDefault;
         }
     }
@@ -492,7 +492,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
                     '{userSelectedMostRecentTaxYear}',
                     this.benefitApp.taxYear
                 );
-        }else{
+        } else {
             return this.lang('./en/index.js').whatIsYourSpouseOrPartnerIncome;
         }
     }

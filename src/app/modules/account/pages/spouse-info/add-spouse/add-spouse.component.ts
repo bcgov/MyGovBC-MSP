@@ -60,8 +60,7 @@ export class AddSpouseComponent extends Base implements OnInit {
   getDocList() {
     if (this.spouse.status === StatusInCanada.CitizenAdult){
       return this.supportDocList;
-    }
-    else if (this.spouse.status === StatusInCanada.PermanentResident){
+    } else if (this.spouse.status === StatusInCanada.PermanentResident){
       return this.permanentResidentDocList;
     }
   }

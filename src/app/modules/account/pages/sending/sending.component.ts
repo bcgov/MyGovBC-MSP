@@ -45,10 +45,10 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
   }
 
   ngOnInit() {
-    /* 
+    /*
     If they do not have a valid auth token
-    eg. they have already successfully submitted 
-    and just hit the back button 
+    eg. they have already successfully submitted
+    and just hit the back button
     */
     if (!this.mspAccountApp.hasValidAuthToken) {
       // Send them back to the home screen and reload the app
@@ -66,91 +66,101 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
     }
   }
 
-    transmitRequest(){
+  transmitRequest(){
 
-    // After view inits, begin sending the application
-    this.transmissionInProcess = true;
-    this.hasError = undefined;
+  // After view inits, begin sending the application
+  this.transmissionInProcess = true;
+  this.hasError = undefined;
 
-      this.service
-      .sendRequest(this.mspAccountApp)
-      .then((response: ApiResponse) => {
+    this.service
+    .sendRequest(this.mspAccountApp)
+    .then((response: ApiResponse) => {
 
-        if (response && response.op_return_code !== 'SUCCESS') {
-          devOnlyConsoleLog('Submission response: ', response.op_return_code);
-        }
+      if (response && response.op_return_code !== 'SUCCESS') {
+        devOnlyConsoleLog('Submission response: ', response.op_return_code);
+      }
 
-        if (response instanceof HttpErrorResponse) {
-          this.logService.log({
-              name: 'DEAM - System Error',
-              confirmationNumber: this.mspAccountApp.referenceNumber,
-              url: this.router.url
-          }, 'DEAM - Submission Response Error' + response.message);
-          this.processErrorResponse(false);
-          return;
+      if (response instanceof HttpErrorResponse) {
+        this.logService.log(
+          {
+            name: 'Account - System Error',
+            confirmationNumber: this.mspAccountApp.referenceNumber,
+            url: this.router.url
+          },
+          'Account - Submission Response Error' + response.message
+        );
+        this.processErrorResponse(false);
+        return;
       }
 
       const refNumber = response.op_reference_number;
 
       const statusCode = (response.op_return_code === 'SUCCESS' ? ApiStatusCodes.SUCCESS : ApiStatusCodes.ERROR);
 
-        let bcServicesCardElgible = false;
-        let hasPrevMSPForChild = true;
-        const hasChildAdded = (this.mspAccountApp.addedChildren.length > 0);
-        const hasChildRemoved = (this.mspAccountApp.removedChildren.length > 0);
+      let bcServicesCardEligible = false;
+      let hasPrevMSPForChild = true;
+      const hasChildAdded = (this.mspAccountApp.addedChildren.length > 0);
+      const hasChildRemoved = (this.mspAccountApp.removedChildren.length > 0);
 
-          //check if there is status in canada selected
-          if (this.mspAccountApp.accountChangeOptions && this.mspAccountApp.accountChangeOptions.statusUpdate) {
-              bcServicesCardElgible = true ;
-          }
+      //check if there is status in canada selected
+      if (this.mspAccountApp.accountChangeOptions && this.mspAccountApp.accountChangeOptions.statusUpdate) {
+        bcServicesCardEligible = true ;
+      }
 
-        //check any new beneficiary is added
-          if (!bcServicesCardElgible && this.mspAccountApp.accountChangeOptions && this.mspAccountApp.accountChangeOptions.dependentChange) {
-              if (this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary && this.mspAccountApp.addedSpouse.bcServiceCardShowStatus ) {
-                  bcServicesCardElgible = true;
-              }
-            if (this.mspAccountApp.getAllChildren().filter( child => (child.relationship === Relationship.Child19To24 && !child.isExistingBeneficiary) ).length > 0) {
-                bcServicesCardElgible = true;
-            }
-          }
+      //check any new beneficiary is added
+      if (!bcServicesCardEligible && this.mspAccountApp.accountChangeOptions && this.mspAccountApp.accountChangeOptions.dependentChange) {
+        if (this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary && this.mspAccountApp.addedSpouse.bcServiceCardShowStatus ) {
+            bcServicesCardEligible = true;
+        }
+        if (this.mspAccountApp.getAllChildren().filter( child => (child.relationship === Relationship.Child19To24 && !child.isExistingBeneficiary) ).length > 0) {
+            bcServicesCardEligible = true;
+        }
+      }
 
-        // Checks if at least one of the children has NO previous MSP coverage
-          if (this.mspAccountApp.getAllChildren().filter( child => (!child.immigrationStatusChange) )){
-            hasPrevMSPForChild = false;
-          }
+      // Checks if at least one of the children has NO previous MSP coverage
+      if (this.mspAccountApp.getAllChildren().filter( child => (!child.immigrationStatusChange) )){
+        hasPrevMSPForChild = false;
+      }
 
-        //delete the application from storage
-        this.dataService.removeMspAccountApp();
+      //delete the application from storage
+      this.dataService.removeMspAccountApp();
 
-        this.pageStateService.setPageComplete();
-        //  go to confirmation
-          this.router.navigate(['/deam/confirmation'],
-              {queryParams: {confirmationNum: refNumber, showDepMsg: bcServicesCardElgible, status: statusCode,
-                hasSpouseAdded: this.mspAccountApp.hasSpouseAdded,
-                hasSpouseRemoved: this.mspAccountApp.hasSpouseRemoved,
-                hasPrevMSPForSpouse: this.mspAccountApp.addedSpouse.immigrationStatusChange,
-                hasChildAdded: hasChildAdded,
-                hasChildRemoved: hasChildRemoved,
-                hasPrevMSPForChild: hasPrevMSPForChild
-                }});
+      this.pageStateService.setPageComplete();
+      //  go to confirmation
+      this.router.navigate(['/deam/confirmation'], {
+        queryParams: {
+          confirmationNum: refNumber, showDepMsg: bcServicesCardEligible, status: statusCode,
+          hasSpouseAdded: this.mspAccountApp.hasSpouseAdded,
+          hasSpouseRemoved: this.mspAccountApp.hasSpouseRemoved,
+          hasPrevMSPForSpouse: this.mspAccountApp.addedSpouse.immigrationStatusChange,
+          hasChildAdded: hasChildAdded,
+          hasChildRemoved: hasChildRemoved,
+          hasPrevMSPForChild: hasPrevMSPForChild
+        }
+      }
+    );
 
-      }).catch((error: ResponseType | any) => {
-        devOnlyConsoleLog('Error in sending request: ', error);
-        this.hasError = true;
-        this.rawUrl = error.url;
-        this.rawError = error;
-        this.rawRequest = error._requestBody;
-        this.logService.log({name: 'Account - Received Failure ',
+    }).catch((error: ResponseType | any) => {
+      devOnlyConsoleLog('Error in sending request: ', error);
+      this.hasError = true;
+      this.rawUrl = error.url;
+      this.rawError = error;
+      this.rawRequest = error._requestBody;
+      this.logService.log({
+          name: 'Account - Received Failure ',
           error: error._body,
-          request: error._requestBody}, 'Account - Submission Response Failure');
-        this.transmissionInProcess = false;
+          request: error._requestBody
+        },
+        'Account - Submission Response Failure'
+      );
+      this.transmissionInProcess = false;
 
-        const oldUUID = this.mspAccountApp.uuid;
-       this.mspAccountApp.regenUUID();
+      const oldUUID = this.mspAccountApp.uuid;
+      this.mspAccountApp.regenUUID();
 
-        this.mspAccountApp.authorizationToken = null;
-        this.dataService.saveMspAccountApp();
-      });
+      this.mspAccountApp.authorizationToken = null;
+      this.dataService.saveMspAccountApp();
+    });
   }
 
   processErrorResponse(transmissionInProcess: boolean) {

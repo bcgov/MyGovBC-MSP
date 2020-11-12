@@ -66,8 +66,7 @@ export class CanadianStatusRules {
         if (relationship === Relationship.Child19To24 ||
             relationship === Relationship.ChildUnder19 || relationship === Relationship.ChildUnder24) {
           return [CanadianStatusReason.MovingFromProvince, CanadianStatusReason.MovingFromCountry, CanadianStatusReason.LivingInBCWithoutMSP];
-        }
-        else {
+        } else {
           return [CanadianStatusReason.MovingFromProvince, CanadianStatusReason.MovingFromCountry, CanadianStatusReason.LivingInBCWithoutMSP];
         }
       case StatusInCanada.TemporaryResident:

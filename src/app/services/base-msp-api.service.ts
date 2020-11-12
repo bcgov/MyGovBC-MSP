@@ -89,29 +89,36 @@ export class BaseMspApiService extends AbstractHttpService  {
       return Promise.all(attachmentPromises)
         .then(
           (responses: string[]) => {
-            this.logService.log({
-                text: 'Send All Attachments - Success',
+            this.logService.log(
+              {
+                text: 'Base - Send All Attachments - Success',
                 response: responses,
-              }, 'Send All Attachments - Success'
+              },
+              'Base - Send All Attachments - Success'
             );
             return resolve(responses);
           },
           (_error: Response | any) => {
-            this.logService.log({
-                text: 'Attachments - Send All Error ',
+            this.logService.log(
+              {
+                text: 'Base - Attachments - Send All Error ',
                 error: _error
-              }, 'Attachments - Send All Error ');
+              },
+              'Base - Attachments - Send All Error '
+            );
             devOnlyConsoleLog('Error sending all attachments: ', _error);
             return reject();
           }
         )
         .catch((_error: Response | any) => {
-          this.logService.log({
-              text: 'Attachments - Send All Error ',
+          this.logService.log(
+            {
+              text: 'Base - Attachments - Send All Error ',
               error: _error
-            }, 'Attachments - Send All Error '
+            },
+            'Base - Attachments - Send All Error '
           );
-          devOnlyConsoleLog('Error sending all attachments: ', _error );
+          devOnlyConsoleLog('Error sending all attachments: ', _error);
           return _error;
         });
     });
@@ -206,19 +213,22 @@ export class BaseMspApiService extends AbstractHttpService  {
   protected handleError( _error: HttpErrorResponse ) {
 
     if (_error.error instanceof ErrorEvent) {
-      //Client-side / network error occured
-      console.error('MSP ' + this._application + ' API error: ', _error.error.message);
+      //Client-side / network error occurred
+      console.error(`Base - ${this._application} API error: ${_error.error.message}`);
     } else {
       // The backend returned an unsuccessful response code
-      console.error(`MSP ${this._application} Backend returned error code: ${_error.status}.  Error body: ${_error.error}`);
+      console.error(`Base - ${this._application} Backend returned error code: ${_error.status}. Error body: ${_error.error}`);
     }
 
-    this.logService.log({
-        text: `Cannot get ${this._application} API response`,
+    this.logService.log(
+      {
+        text: `Base - Cannot get ${this._application} API response`,
         response: _error
-      }, `Cannot get ${this._application} API response`);
+      },
+      `Base - Cannot get ${this._application} API response`
+    );
 
-    // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
+    // A user facing error message /could/ go here; we shouldn't log dev info through the throwError observable
     return of(_error);
   }
 
@@ -273,28 +283,35 @@ export class BaseMspApiService extends AbstractHttpService  {
         .toPromise()
         .then(
           response => {
-            // this.logService.log({
-            //     text: "Send Individual Attachment - Success",
-            //     response: response,
-            // }, "Send Individual Attachment - Success")
+            this.logService.log(
+              {
+                  text: "Base - Send Individual Attachment - Success",
+                  response: response,
+              },
+              "Base - Send Individual Attachment - Success"
+            )
             return resolve(response);
           },
           (_error: Response | any) => {
-            devOnlyConsoleLog('Error sending individual attachment: ', _error);
-            this.logService.log({
-                text: 'Attachment - Send Individual Error ',
+            devOnlyConsoleLog('Base - Error sending individual attachment: ', _error);
+            this.logService.log(
+              {
+                text: 'Base - Attachment - Send Individual Error ',
                 response: _error
-              }, 'Attachment - Send Individual Error '
+              },
+              'Base - Attachment - Send Individual Error '
             );
             return reject(_error);
           }
         )
         .catch((_error: Response | any) => {
           devOnlyConsoleLog('Error in sending individual attachment: ', _error);
-          this.logService.log({
+          this.logService.log(
+            {
               text: 'Attachment - Send Individual Error ',
               response: _error
-            }, 'Attachment - Send Individual Error '
+            },
+            'Attachment - Send Individual Error '
           );
 
           reject(_error);

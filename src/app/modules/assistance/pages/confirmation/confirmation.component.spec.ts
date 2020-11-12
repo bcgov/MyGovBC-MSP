@@ -29,17 +29,6 @@ describe('AssistanceConfirmationComponent', () => {
                 path: '',
                 component: LandingComponent
               },
-            /*  {
-                path: 'assistance',
-                component: AssistanceComponent,
-                children: [
-                  {
-                    path: 'confirmation',
-                    canActivate: [],
-                    component: AssistanceConfirmationComponent
-                  }
-                ]
-              }*/
             ]
           }
         ]

@@ -89,11 +89,14 @@ export class HomeComponent implements OnInit {
         }
 
         if (response instanceof HttpErrorResponse) {
-          this.logService.log({
-              name: 'DEAM - System Error',
+          this.logService.log(
+            {
+              name: 'Account - System Error',
               confirmationNumber: this.mspAccountApp.referenceNumber,
               url: this.router.url
-          }, 'DEAM - Submission Response Error' + response.message);
+            },
+            'Account - Submission Response Error' + response.message
+          );
           return;
         }
 
@@ -103,7 +106,7 @@ export class HomeComponent implements OnInit {
         window.open(this.outLinkUrl, '_blank');
 
       }).catch((error: ResponseType | any) => {
-        devOnlyConsoleLog('Error in sending request: ', error);
+        devOnlyConsoleLog('Account - Error in sending request: ', error);
       });
   }
 }

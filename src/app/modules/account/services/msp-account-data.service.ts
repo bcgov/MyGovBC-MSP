@@ -39,11 +39,9 @@ export class MspAccountMaintenanceDataService {
     this.localStorageService.set(this.mspAccountStorageKey, process);
   }
 
-
   getMspAccountApp(): MspAccountApp {
     return this._mspAccountApp;
   }
-
 
   saveMspAccountApp(): void {
     const dto: MspAccountDto = this.toMspAccountAppTransferObject(
@@ -72,11 +70,11 @@ export class MspAccountMaintenanceDataService {
     mspAccountApp.applicant.dob = new Date( 2000, 1, 1);
     mspAccountApp.applicant.previous_phn = '1234567890';
     mspAccountApp.phoneNumber = '2501234567';
-    const dumyAddress: Address = new Address();
-    dumyAddress.street = 'NA';
+    const dummyAddress: Address = new Address();
+    dummyAddress.street = 'NA';
     mspAccountApp.authorizedByApplicant = true;
     mspAccountApp.authorizedByApplicantDate = new Date();
-    // mspAccountApp.applicant.residentialAddress = dumyAddress;
+    // mspAccountApp.applicant.residentialAddress = dummyAddress;
     return mspAccountApp;
   }
 
@@ -132,9 +130,7 @@ export class MspAccountMaintenanceDataService {
     dto.hasNameChange = input.hasNameChange;
     dto.hasNameChangeAdditional = input.hasNameChangeAdditional;
 
-
     //= input.updateNameDueToMarriageDoc;
-
 
     dto.arrivalToCanadaDate = input.arrivalToCanadaDate;
     dto.arrivalToBCDate = input.arrivalToBCDate;
@@ -168,8 +164,7 @@ export class MspAccountMaintenanceDataService {
     dto.adoptedDate = input.adoptedDate;
 
     dto.marriageDate  = input.marriageDate;
-   // dto.relationship = input.relationship;
-
+    // dto.relationship = input.relationship;
 
     dto.phoneNumber = input.phoneNumber;
     if (input.mailingAddress.isValid) {
@@ -182,7 +177,7 @@ export class MspAccountMaintenanceDataService {
     if (input.gender) {
       dto.gender = input.gender;
     }
-   // dto.docType = input.docType;
+    // dto.docType = input.docType;
     dto.status = input.status;
 
     dto.currentActivity = input.currentActivity;
@@ -307,7 +302,7 @@ export class MspAccountMaintenanceDataService {
     output.declarationForOutsideOver30Days =
       dto.declarationForOutsideOver30Days;
 
-      output.declarationForOutsideOver60Days =
+    output.declarationForOutsideOver60Days =
       dto.declarationForOutsideOver60Days;
 
     output.newlyAdopted = dto.newlyAdopted;
@@ -317,9 +312,6 @@ export class MspAccountMaintenanceDataService {
     output.prevLastName = dto.prevLastName;
     output.isExistingBeneficiary = dto.isExistingBeneficiary;
     output.knownMailingAddress = dto.knownMailingAddress;
-
-
-
 
     output.phoneNumber = dto.phoneNumber;
 
@@ -333,9 +325,6 @@ export class MspAccountMaintenanceDataService {
 
     output.returnDate6MonthsDate = dto.returnDate6MonthsDate ;
     output.nameOfInstitute = dto.nameOfInstitute;
-
-
-
 
     output.cancellationDate = dto.cancellationDate;
     if (dto.gender) {
@@ -381,7 +370,6 @@ export class MspAccountMaintenanceDataService {
     output.updateGenderDesignationDoc = dto.updateGenderDesignationDoc;
 
     output.updateStatusInCanadaDoc = dto.updateStatusInCanadaDoc;
-
 
     return output;
   }
@@ -455,7 +443,6 @@ export class MspAccountMaintenanceDataService {
     return dto;
   }
 
-
   private toOutofBCRecordDto(outofBCRecord: OutofBCRecord) {
     if (outofBCRecord == null) return null;
 
@@ -505,16 +492,15 @@ export class MspAccountMaintenanceDataService {
     output.hasChildUpdated = dto.hasChildUpdated;
 
     /*
-        output.phoneNumber = dto.phoneNumber;
+      output.phoneNumber = dto.phoneNumber;
 
-        this.convertMailingAddress(dto, output);
-        this.convertResidentialAddress(dto, output);
-*/
+      this.convertMailingAddress(dto, output);
+      this.convertResidentialAddress(dto, output);
+     */
 
     output.applicant = this.fromPersonDtoForAccount(dto.applicant);
 
-
-    //if page is refreshed before filling address, the province and country is lost..so initialising..
+    //if page is refreshed before filling address, the province and country is lost. Re-initializing.
     if (!output.applicant.residentialAddress.province) {
       output.applicant.residentialAddress.province = BRITISH_COLUMBIA;
     }

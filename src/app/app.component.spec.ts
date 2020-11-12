@@ -38,13 +38,13 @@ fdescribe('GeneralAppComponent', () => {
       component.handleRefresh('/deam/home');
       expect(spy).toHaveBeenCalled();
     });
-    
+
     it('should clear storage if route is /assistance/home', () => {
       const spy = spyOn(component, 'clearStorage').and.stub();
       component.handleRefresh('/assistance/home');
       expect(spy).toHaveBeenCalled();
     });
-    
+
     it('should do nothing if route is /deam/confirmation', () => {
       const spyRedirect = spyOn(component, 'hardRedirect').and.stub();
       const spyStorage = spyOn(component, 'clearStorage').and.stub();
@@ -52,7 +52,7 @@ fdescribe('GeneralAppComponent', () => {
       expect(spyRedirect).not.toHaveBeenCalled();
       expect(spyStorage).not.toHaveBeenCalled();
     });
-    
+
     it('should do nothing if route is /assistance/confirmation', () => {
       const spyRedirect = spyOn(component, 'hardRedirect').and.stub();
       const spyStorage = spyOn(component, 'clearStorage').and.stub();
@@ -66,11 +66,11 @@ fdescribe('GeneralAppComponent', () => {
       component.handleRefresh('/deam/personal-info');
       expect(spy).toHaveBeenCalled();
     });
-    
+
     it('should hard redirect if route is /assistance/*, where * is anything other than home or confirmation', () => {
       const spy = spyOn(component, 'hardRedirect').and.stub();
       component.handleRefresh('/assistance/personal-info');
       expect(spy).toHaveBeenCalled();
     });
-  });   
+  });
 });

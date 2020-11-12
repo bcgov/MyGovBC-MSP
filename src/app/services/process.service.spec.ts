@@ -3,11 +3,9 @@ import { MspDataService } from './msp-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, TestBed, getTestBed } from '@angular/core/testing';
 import { LocalStorageModule, LocalStorageService } from 'angular-2-local-storage';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {MspLogService} from './log.service';
+import { MspLogService } from './log.service';
 import { HttpClientModule} from '@angular/common/http';
-
 
 describe('ProcessService', () => {
     let processService: ProcessService;
@@ -34,7 +32,6 @@ describe('ProcessService', () => {
             schemas: [NO_ERRORS_SCHEMA]
         });
 
-
         getTestBed().get(LocalStorageService).clearAll();
         processService = getTestBed().get(ProcessService);
     }));
@@ -60,7 +57,7 @@ describe('ProcessService', () => {
 /*    it('should be configured by AccountComponent on init', () => {
         const fixture = TestBed.createComponent(AccountComponent);
         const comp = fixture.componentInstance;
-        expect(processService.process).toBeTruthy('process should be configured by AccountComponent.initProcessSerivce()');
+        expect(processService.process).toBeTruthy('process should be configured by AccountComponent.initProcessService()');
         //[prepare, documents, review, and sending] should always exist.
         expect(processService.process.processSteps.length).toBeGreaterThanOrEqual(4, 'insufficient processSteps by default');
     });*/

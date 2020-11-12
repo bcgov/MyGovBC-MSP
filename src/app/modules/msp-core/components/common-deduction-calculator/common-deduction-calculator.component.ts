@@ -218,8 +218,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         if (this.application.netIncomelastYear === null || this.application.netIncomelastYear === undefined) {
 
           netIncomeValid = false;
-        }
-        else {
+        } else {
             const pm = this.application.netIncomelastYear.toString().match(patt);
             if (pm && !(pm === null) && pm[0] && ! (pm[0] === null)) {
               netIncomeValid = this.application.netIncomelastYear.toString() === pm[0];
@@ -412,7 +411,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     get currentCalendarYear(): string {
         if (this.application.taxYear) {
             return this.application.taxYear.toString();
-        }    else return '';
+        } else return '';
     }
     get nextCalendarYear(): Number {
         return moment().year() + 1;

@@ -18,9 +18,7 @@ describe('Component Test', () => {
         storageType: 'sessionStorage'
       })
     ],
-      providers: [MspDataService, MspLogService, ActivatedRoute,
-
-      ]
+      providers: [MspDataService, MspLogService, ActivatedRoute]
     });
   });
   // it ('should work', () => {

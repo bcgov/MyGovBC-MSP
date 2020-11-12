@@ -18,16 +18,16 @@ module.exports = function (config) {
       /*  captureConsole: true */
       },
       files: [
-        
+
       ],
       preprocessors: {
-        
+
       },
       mime: {
         'text/x-typescript': ['ts','tsx']
       },
       coverageIstanbulReporter: {
-        dir: require('path').join(__dirname, 'coverage'), reports: [ 'html', 'lcovonly' ],
+        dir: require('path').join(__dirname, 'coverage'), reports: ['html', 'lcovonly'],
         fixWebpackSourcePaths: true
       },
       angularCli: {
@@ -40,7 +40,7 @@ module.exports = function (config) {
       specReporter: {
         suppressSkipped: true,      // do not print information about skipped tests
         showSpecTiming: true,      // print the time elapsed for each spec
-        failFast: config.angularCli && config.angularCli.singleRun              // test would finish with error when a first fail occurs. 
+        failFast: config.angularCli && config.angularCli.singleRun              // test would finish with error when a first fail occurs.
       },
     /*  browserConsoleLogOptions: {
         level: 'LOG',
@@ -53,11 +53,10 @@ module.exports = function (config) {
       browsers: ['ChromeHeadless'],
       singleRun: false,
 
-      /** * maximum number of tries a browser will attempt in the case of a disconnection */ 
+      /** * maximum number of tries a browser will attempt in the case of a disconnection */
       browserDisconnectTolerance: 3,
       /** * How long will Karma wait for a message from a browser before disconnecting from it (in ms). */
       browserNoActivityTimeout: 30000,
 
     });
   };
-  
