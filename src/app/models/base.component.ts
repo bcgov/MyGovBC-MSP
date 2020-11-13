@@ -147,8 +147,7 @@ export class BaseComponent implements DoCheck {
     // the workaround is to put the emit on the next event cycle in order for the input to get set before testing
     if (defer) {
       setTimeout(() => { this._emitIsFormValid(); }, 0);
-    }
-    else {
+    } else {
       this._emitIsFormValid();
     }
   }

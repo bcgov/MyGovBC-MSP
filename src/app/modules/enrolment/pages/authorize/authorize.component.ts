@@ -79,19 +79,20 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
     this.pageStateService.setPageComplete( this.router.url, this.enrolDataService.pageStatus );
 
     this.loading = true;
-    this.logService.log({ name: 'Enrolment application submitting request' },
-                        'Enrolment : Submission Request');
 
     this.apiService.sendRequest( this.mspApplication )
       .then((response: ApiResponse) => {
         this.loading = false;
 
         if (response instanceof HttpErrorResponse) {
-          this.logService.log({
-              name: 'Enrolment - System Error',
-              confirmationNumber: this.mspApplication.uuid,
-              url: this.router.url
-          }, 'Enrolment - Submission Response Error' + response.message);
+          this.logService.log(
+            {
+                name: 'Enrolment - System Error',
+                confirmationNumber: this.mspApplication.uuid,
+                url: this.router.url
+            },
+            'Enrolment - Submission Response Error' + response.message
+          );
 
           this.mspApplication.regenUUID();
           this.mspApplication.authorizationToken = null;
@@ -101,11 +102,13 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
 
         const statusCode = (response.op_return_code === 'SUCCESS' ? ApiStatusCodes.SUCCESS : ApiStatusCodes.ERROR);
 
-        this.logService.log({
-          name: 'Enrolment - Received refNo ',
-          confirmationNumber: response.op_reference_number
-        }, 'Enrolment - Submission Response Success');
-
+        this.logService.log(
+          {
+            name: 'Enrolment - Received refNo ',
+            confirmationNumber: response.op_reference_number
+          },
+          'Enrolment - Submission Response Success'
+        );
 
         //delete the application from storage
         this.enrolDataService.removeApplication();
@@ -127,11 +130,14 @@ export class AuthorizeComponent extends EnrolForm implements OnInit {
         let message = 'This error occurred because the system encountered an unanticipated situation ' +
         'which forced it to stop.';
 
-        this.logService.log({
-          name: 'Enrolment - Received Failure ',
-          error: error._body,
-          request: error._requestBody
-        }, 'Enrolment - Submission Response Error');
+        this.logService.log(
+          {
+            name: 'Enrolment - Received Failure ',
+            error: error._body,
+            request: error._requestBody
+          },
+          'Enrolment - Submission Response Error'
+        );
 
         this.mspApplication.regenUUID();
         this.mspApplication.authorizationToken = null;

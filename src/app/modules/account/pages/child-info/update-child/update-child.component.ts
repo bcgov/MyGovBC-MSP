@@ -60,8 +60,7 @@ export class UpdateChildComponent implements OnInit {
     getDocList() {
       if (this.child.status === StatusInCanada.CitizenAdult){
       return this.canadianCitizenDocList;
-    }
-    else if (this.child.status === StatusInCanada.PermanentResident){
+    } else if (this.child.status === StatusInCanada.PermanentResident) {
       return this.permanentResidentDocList;
     }
   }

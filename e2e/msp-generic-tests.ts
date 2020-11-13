@@ -22,7 +22,6 @@ export function testGenericAllPages(PageClass: typeof BaseMSPTestPage, PAGE_URL:
     });
 }
 
-
 export function testGenericFirstPage(PageClass: typeof BaseMSPTestPage, nextLink: string, urls: {PAGE_URL: string, NEXT_PAGE_URL?: string}){
     let page;
 
@@ -39,7 +38,7 @@ export function testGenericFirstPage(PageClass: typeof BaseMSPTestPage, nextLink
             });
             expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL, 'should still be on the same page');
         });
-    
+
         it('GENERIC TEST 03. should let the user to proceed if the user has agreeed to the info collection notice', () => {
             this.fillConsentModal(urls.PAGE_URL);
             page.checkConsentModal().then(val => {
@@ -77,7 +76,7 @@ export function testGenericSubsequentPage(PageClass: typeof BaseMSPTestPage, lin
             page.clickLink('span', links.prevLink);
             expect(browser.getCurrentUrl()).toContain(urls.PREV_PAGE_URL, 'should navigate to the previous page');
         });
-    
+
         it('GENERIC TEST 03. should NOT let user continue by clicking the stepper', () => {
             page.navigateToURL(urls.PAGE_URL);
             page.clickLink('span', links.nextLink);
@@ -158,7 +157,6 @@ export function fillConsentModal(PAGE_URL: string){
     page.agreeConsentModal();
     page.clickConsentModalContinue();
 }
-
 
 export function testClickConsentModal(PAGE_URL: string) {
     it('GENERIC TEST 06. should NOT let the user to proceed if the user has not agreeed to the info collection notice', () => {

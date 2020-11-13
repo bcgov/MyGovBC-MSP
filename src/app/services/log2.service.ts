@@ -63,10 +63,12 @@ export class MspLog2Service extends AbstractHttpService {
      *
      * Example:
      * ```
-     this.logService.log({
-       event: 'submission',
-       dateObj: new Date()
-    });
+     this.logService.log(
+        {
+            event: 'submission',
+            dateObj: new Date()
+        }
+    );
      ```
      * @param message A JavaScript object, nesting is fine, with `event` property
      * set.
@@ -125,8 +127,7 @@ export class MspLog2Service extends AbstractHttpService {
         if (error.error instanceof ErrorEvent) {
             //Client-side / network error occured
             devOnlyConsoleLog('An error occured: ', error.error.message);
-        }
-        else {
+        } else {
             // The backend returned an unsuccessful response code
             devOnlyConsoleLog(`Backend returned error code: ${error.status}.  Error body: ${error.error}`);
         }

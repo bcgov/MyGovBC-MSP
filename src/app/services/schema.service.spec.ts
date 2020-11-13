@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { SchemaService } from './schema.service';
 
 describe('SchemaService', () => {

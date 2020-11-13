@@ -25,8 +25,15 @@ export let AddressType: { new(): AddressType };
 export class AddressTypeFactory {
 	static make(): AddressType {
 		const instance = <AddressType>{};
-		instance._sequence = ['addressLine1', 'addressLine2', 'addressLine3', 'city', 'postalCode', 'provinceOrState',
-			'country'];
+		instance._sequence = [
+			'addressLine1',
+			'addressLine2',
+			'addressLine3',
+			'city',
+			'postalCode',
+			'provinceOrState',
+			'country'
+		];
 		return instance;
 	}
 }

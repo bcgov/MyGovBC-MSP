@@ -74,10 +74,8 @@ export class MspApiBenefitService extends AbstractHttpService {
           if (errorField && errorMessage) {
             this.logService.log(
               {
-                text:
-                  'Supplementary Benefit - API validation against schema failed because of ' +
-                  errorField +
-                  ' field',
+                text: 'Supplementary Benefit - API validation against schema failed because of ' +
+                errorField + ' field',
                 response: errorMessage
               },
               'Supplementary Benefit -  API validation against schema failed'
@@ -98,7 +96,7 @@ export class MspApiBenefitService extends AbstractHttpService {
           app.getAllImages()
         )
           .then(attachmentResponse => {
-            // TODO - Likely have to store all the responses for image uploads, so we can use those UUIDs with our application puload
+            // TODO - Likely have to store all the responses for image uploads, so we can use those UUIDs with our application upload
             // unless we can just use our pre-uploaded ones? though that has potential for missing records.
             // once all attachments are done we can sendApplication in the data
             return this.sendApplication(
@@ -118,10 +116,10 @@ export class MspApiBenefitService extends AbstractHttpService {
             // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
             this.logService.log(
               {
-                text: 'Attachment - Send All Rejected ',
+                text: 'Supplementary Benefits - Attachment - Send All Rejected ',
                 response: error
               },
-              'Attachment - Send All Rejected '
+              'Supplementary Benefits - Attachment - Send All Rejected '
             );
             return resolve(error);
           });
@@ -166,28 +164,28 @@ export class MspApiBenefitService extends AbstractHttpService {
           this.sendAttachment(token, applicationUUID, attachment)
         );
       }
-      // this.logService.log({
-      //    text: "Send All Attachments - Before Sending",
-      //     numberOfAttachments: attachmentPromises.length
-      // }, "Send Attachments - Before Sending")
 
       // Execute all promises are waiting for results
       return Promise.all(attachmentPromises)
         .then(
           (responses: string[]) => {
-            // this.logService.log({
-            //     text: "Send All Attachments - Success",
-            //     response: responses,
-            // }, "Send All Attachments - Success")
+            this.logService.log(
+              {
+
+                  text: "Supplementary Benefits - Send All Attachments - Success",
+                  response: responses,
+              },
+              "Send All Attachments - Success"
+            )
             return resolve(responses);
           },
           (error: Response | any) => {
             this.logService.log(
               {
-                text: 'Attachments - Send All Error ',
+                text: 'Supplementary Benefits - Attachments - Send All Error ',
                 error: error
               },
-              'Attachments - Send All Error '
+              'Supplementary Benefits Attachments - Send All Error '
             );
             return reject();
           }
@@ -195,10 +193,10 @@ export class MspApiBenefitService extends AbstractHttpService {
         .catch((error: Response | any) => {
           this.logService.log(
             {
-              text: 'Attachments - Send All Error ',
+              text: 'Supplementary Benefits - Attachments - Send All Error ',
               error: error
             },
-            'Attachments - Send All Error '
+            'Supplementary Benefits - Attachments - Send All Error '
           );
           return error;
         });
@@ -260,19 +258,21 @@ export class MspApiBenefitService extends AbstractHttpService {
         .toPromise()
         .then(
           response => {
-            // this.logService.log({
-            //     text: "Send Individual Attachment - Success",
-            //     response: response,
-            // }, "Send Individual Attachment - Success")
+            this.logService.log(
+              {
+                  text: "Supplementary Benefits - Send Individual Attachment - Success",
+                  response: response,
+              }, "Supplementary Benefits - Send Individual Attachment - Success"
+            )
             return resolve(response);
           },
           (error: Response | any) => {
             this.logService.log(
               {
-                text: 'Attachment - Send Individual Error ',
+                text: 'Supplementary Benefits - Attachment - Send Individual Error ',
                 response: error
               },
-              'Attachment - Send Individual Error '
+              'Supplementary Benefits - Attachment - Send Individual Error '
             );
             return reject(error);
           }
@@ -280,10 +280,10 @@ export class MspApiBenefitService extends AbstractHttpService {
         .catch((error: Response | any) => {
           this.logService.log(
             {
-              text: 'Attachment - Send Individual Error ',
+              text: 'Supplementary Benefits - Attachment - Send Individual Error ',
               response: error
             },
-            'Attachment - Send Individual Error '
+            'Supplementary Benefits - Attachment - Send Individual Error '
           );
 
           reject(error);
@@ -293,7 +293,7 @@ export class MspApiBenefitService extends AbstractHttpService {
 
   protected handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      //Client-side / network error occured
+      //Client-side / network error occurred
       console.error('MSP Supp Benefit API error: ', error.error.message);
     } else {
       // The backend returned an unsuccessful response code
@@ -306,13 +306,13 @@ export class MspApiBenefitService extends AbstractHttpService {
 
     this.logService.log(
       {
-        text: 'Cannot get Suppbenefit API response',
+        text: 'Supplementary Benefit - Cannot get API response',
         response: error
       },
-      'Cannot get Suppbenefit API response'
+      'Supplementary Benefit - Cannot get API response'
     );
 
-    // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
+    // A user facing error message /could/ go here; we shouldn't log dev info through the throwError observable
     return of(error);
     // return of([]);
   }

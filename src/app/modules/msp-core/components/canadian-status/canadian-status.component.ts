@@ -37,8 +37,7 @@ export function statusReasonRules(relationship: Relationship,
           CanadianStatusReason.MovingFromCountry,
           CanadianStatusReason.LivingInBCWithoutMSP
         ];
-      }
-      else {
+      } else {
         return [
           CanadianStatusReason.MovingFromProvince,
           CanadianStatusReason.MovingFromCountry,

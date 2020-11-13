@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { PageStateService } from './page-state.service';
 
 describe('PageStateService', () => {

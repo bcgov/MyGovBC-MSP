@@ -107,10 +107,7 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
     this.application.specificMemberPhn = phn;
   }
 
-  ngOnInit() {
-    this.logService.log( { name: 'ACL - Loaded Page', url: this.router.url},
-                         'ACL - Loaded Page');
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     // Display consent modal if no agreement
@@ -165,9 +162,6 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
       return;
     }
 
-    this.logService.log( {name: 'ACL application submitting request'},
-                         'ACL : Submission Request');
-
     this.loading = true;
 
     // Setup the request
@@ -187,10 +181,13 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
         this.application.authorizationToken = null;
         this.dataService.saveApplication(); // save changes
 
-        this.logService.log({
-          name: 'ACL - System Error',
-          confirmationNumber: this.application.uuid
-        }, 'ACL - Submission Response Error' + response );
+        this.logService.log(
+          {
+            name: 'Account Confirmation Letter - Submission Response Error',
+            confirmationNumber: this.application.uuid
+          },
+          'Account Confirmation Letter - Submission Response Error' + response
+        );
 
         this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
         {
@@ -207,10 +204,13 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
 
         // Successfully submitted request
         this.dataService.removeApplication();  // clear storage for application
-        this.logService.log({
-          name: 'ACL - Received refNo ',
-          confirmationNumber: payload.referenceNumber
-        }, 'ACL - Submission Response Success');
+        this.logService.log(
+          {
+              name: 'Account Confirmation Letter - Received refNo ',
+              confirmationNumber: payload.referenceNumber
+            },
+            'Account Confirmation Letter - Submission Response Success'
+        );
 
         this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
           {
@@ -220,10 +220,13 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
         return;
       }
 
-      this.logService.log( {
-        name: 'ACL - RAPID/DB Error',
-        confirmationNumber: this.application.uuid
-      }, 'ACL - Submission Response Error' + JSON.stringify( payload ) );
+      this.logService.log(
+        {
+          name: 'Account Confirmation Letter - RAPID/DB Error',
+          confirmationNumber: this.application.uuid
+        },
+        'Account Confirmation Letter - Submission Response Error' + JSON.stringify(payload)
+      );
 
       // Get error repsonse messages from ENV server
       this.aclApiService
@@ -232,10 +235,13 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
               this.loading = false;
 
               if (spaResponse instanceof HttpErrorResponse) { // probable network errors..Spa Env server could be down
-                  this.logService.log({
+                this.logService.log(
+                  {
                       name: 'account-letter - SPA Env System Error',
                       url: this.router.url
-                  }, 'account-letter - SPA Env Rapid Response Error' + spaResponse.message);
+                  },
+                  'account-letter - SPA Env Rapid Response Error' + spaResponse.message
+                );
 
                 this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
                   {
@@ -267,10 +273,13 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
         this.application.authorizationToken = null;
         this.dataService.saveApplication(); // save changes
 
-        this.logService.log({
-          name: 'ACL - System Error',
-          confirmationNumber: this.application.uuid
-        }, 'ACL - Submission Response Error' + responseError.message );
+        this.logService.log(
+          {
+            name: 'Account Confirmation Letter - System Error',
+            confirmationNumber: this.application.uuid
+          },
+          'Account Confirmation Letter - Submission Response Error' + responseError.message
+        );
       }
       this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
         {

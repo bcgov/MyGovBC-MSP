@@ -128,8 +128,7 @@ export class MspPersonCardComponent {
     if (this.person.status === StatusInCanada.TemporaryResident ||
       this.person.currentActivity === CanadianStatusReason.MovingFromCountry) {
       return 'Moved from country';
-    }
-    else {
+    } else {
       return 'Moved from province';
     }
   }

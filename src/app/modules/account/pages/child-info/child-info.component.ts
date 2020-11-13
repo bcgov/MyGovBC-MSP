@@ -116,10 +116,9 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   }
 
   getDocList() {
-    if (this.child.status === StatusInCanada.CitizenAdult){
+    if (this.child.status === StatusInCanada.CitizenAdult) {
       return this.canadianCitizenDocList;
-    }
-    else if (this.child.status === StatusInCanada.PermanentResident){
+    } else if (this.child.status === StatusInCanada.PermanentResident) {
       return this.permanentResidentDocList;
     }
   }
@@ -304,7 +303,7 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
           && this.isSet(addedChild.declarationForOutsideOver60Days)
           // Ticked "Has this child been released from the Canadian Armed Forces?"
           && this.isSet(addedChild.hasBeenReleasedFromArmedForces)
-          
+
         // Yes to name change
         if (addedChild.hasNameChange === true) {
           // Check they uploaded at least 1 doc

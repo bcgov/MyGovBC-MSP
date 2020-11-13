@@ -119,13 +119,11 @@ export class MspApiAccountService extends AbstractHttpService {
           if (errorField && errorMessage) {
             this.logService.log(
               {
-                text:
-                  'Account Maintenance - API validation against schema failed because of ' +
-                  errorField +
-                  ' field',
-                response: errorMessage,
+                text: 'Account - API validation against schema failed because of ' +
+                errorField + ' field',
+                response: errorMessage
               },
-              'Account Maintenance -  API validation against schema failed'
+              'Account - API validation against schema failed'
             );
 
             /* const mapper = new FieldPageMap();
@@ -143,7 +141,7 @@ export class MspApiAccountService extends AbstractHttpService {
           app.getAllImages()
         )
           .then(attachmentResponse => {
-            // TODO - Likely have to store all the responses for image uploads, so we can use those UUIDs with our application puload
+            // TODO - Likely have to store all the responses for image uploads, so we can use those UUIDs with our application upload
             // unless we can just use our pre-uploaded ones? though that has potential for missing records.
             // once all attachments are done we can sendApplication in the data
 
@@ -164,10 +162,10 @@ export class MspApiAccountService extends AbstractHttpService {
             // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
             this.logService.log(
               {
-                text: 'Attachment - Send All Rejected ',
+                text: 'Account - Attachment - Send All Rejected ',
                 response: error,
               },
-              'Attachment - Send All Rejected '
+              'Account - Attachment - Send All Rejected'
             );
             return resolve(error);
           });
@@ -266,28 +264,27 @@ export class MspApiAccountService extends AbstractHttpService {
           this.sendAttachment(token, applicationUUID, attachment)
         );
       }
-      // this.logService.log({
-      //    text: "Send All Attachments - Before Sending",
-      //     numberOfAttachments: attachmentPromises.length
-      // }, "Send Attachments - Before Sending")
 
       // Execute all promises are waiting for results
       return Promise.all(attachmentPromises)
         .then(
           (responses: string[]) => {
-            // this.logService.log({
-            //     text: "Send All Attachments - Success",
-            //     response: responses,
-            // }, "Send All Attachments - Success")
+            this.logService.log(
+              {
+                text: "Account - Send All Attachments - Success",
+                response: responses,
+              },
+              "Account - Send All Attachments - Success"
+            )
             return resolve(responses);
           },
           (error: Response | any) => {
             this.logService.log(
               {
-                text: 'Attachments - Send All Error ',
+                text: 'Account - Attachments - Send All Error ',
                 error: error,
               },
-              'Attachments - Send All Error '
+              'Account - Attachments - Send All Error '
             );
             return reject();
           }
@@ -295,10 +292,10 @@ export class MspApiAccountService extends AbstractHttpService {
         .catch((error: Response | any) => {
           this.logService.log(
             {
-              text: 'Attachments - Send All Error ',
+              text: 'Account - Attachments - Send All Error ',
               error: error,
             },
-            'Attachments - Send All Error '
+            'Account - Attachments - Send All Error '
           );
           return error;
         });
@@ -312,9 +309,9 @@ export class MspApiAccountService extends AbstractHttpService {
   ): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       /*
-             Create URL
-             /{applicationUUID}/attachment/{attachmentUUID}
-             */
+       Create URL
+       /{applicationUUID}/attachment/{attachmentUUID}
+       */
       let url =
         environment.appConstants['apiBaseUrl'] +
         environment.appConstants['attachment'] +
@@ -360,19 +357,21 @@ export class MspApiAccountService extends AbstractHttpService {
         .toPromise()
         .then(
           response => {
-            // this.logService.log({
-            //     text: "Send Individual Attachment - Success",
-            //     response: response,
-            // }, "Send Individual Attachment - Success")
+            this.logService.log(
+              {
+                text: "Send Individual Attachment - Success",
+                response: response,
+            },
+            "Send Individual Attachment - Success")
             return resolve(response);
           },
           (error: Response | any) => {
             this.logService.log(
               {
-                text: 'Attachment - Send Individual Error ',
+                text: 'Account - Attachment - Send Individual Error ',
                 response: error,
               },
-              'Attachment - Send Individual Error '
+              'Account - Attachment - Send Individual Error '
             );
             return reject(error);
           }
@@ -380,10 +379,10 @@ export class MspApiAccountService extends AbstractHttpService {
         .catch((error: Response | any) => {
           this.logService.log(
             {
-              text: 'Attachment - Send Individual Error ',
+              text: 'Account - Attachment - Send Individual Error ',
               response: error,
             },
-            'Attachment - Send Individual Error '
+            'Account - Attachment - Send Individual Error '
           );
 
           reject(error);
@@ -393,7 +392,7 @@ export class MspApiAccountService extends AbstractHttpService {
 
   protected handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      //Client-side / network error occured
+      //Client-side / network error occurred
       console.error('MSP Supp Benefit API error: ', error.error.message);
     } else {
       // The backend returned an unsuccessful response code
@@ -404,25 +403,19 @@ export class MspApiAccountService extends AbstractHttpService {
 
     this.logService.log(
       {
-        text: 'Cannot get Suppbenefit API response',
+        text: 'Account - Cannot get API response',
         response: error,
       },
-      'Cannot get Suppbenefit API response'
+      'Account - Cannot get API response'
     );
 
-    // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
+    // A user facing error message /could/ go here; we shouldn't log dev info through the throwError observable
     return of(error);
-    // return of([]);
   }
-
 
   // This method is used to convert the response from user into a JSON object
   convertMspAccountApp(from: MspAccountApp): AccountChangeApplicationType {
     const to: any = {};
-
-    // to.application.uuid = from.uuid;
-    // to.application.accountChangeApplication = AccountChangeApplicationTypeFactory.make();
-    // to.application.accountChangeApplication.accountHolder = this.convertAccountHolderFromAccountChange(from);
 
     // Create Account Holder
     to.accountHolder = this.convertAccountHolderFromAccountChange(from);
@@ -433,9 +426,9 @@ export class MspApiAccountService extends AbstractHttpService {
     /** the account change option check is added so that only data belonging to current selection is sent..
      *  this avoids uncleared data being sent
      *  so only if PI or Update status is selected ; send updated spouse and children
-     *  send add/remove only if depdent option is selected
+     *  send add/remove only if dependent option is selected
      *
-     *  The same login shhould in be in review screen as well
+     *  The same login should in be in review screen as well
      */
 
     // Add Spouse
@@ -859,7 +852,7 @@ export class MspApiAccountService extends AbstractHttpService {
 
   /**
    * Creates the array of attachments from applicant, spouse and all children
-   * used with both assistance and DEAM
+   * used with both assistance and Account Management
    * @param {CommonImage[]} from
    * @returns {AttachmentsType}
    */
@@ -1286,7 +1279,7 @@ export class MspApiAccountService extends AbstractHttpService {
       );
     }
 
-    // Birthdate
+    // Birth Date
     if (from.applicant.hasDob) {
       accountHolder.birthDate = format(
         from.applicant.dob,
@@ -1322,12 +1315,10 @@ export class MspApiAccountService extends AbstractHttpService {
     }
 
     if (from.residentialAddress) {
-      accountHolder.residenceAddress = this.convertAddress(
-        from.residentialAddress
-      );
+      accountHolder.residenceAddress = this.convertAddress(from.residentialAddress);
     }
 
-    // If mailing is same as residential address, use residential address as the mailing adress.
+    // If mailing is same as residential address, use residential address as the mailing address.
     // Otherwise, use a different address as the mailing address.
     if (from.mailingSameAsResidentialAddress === true) {
       accountHolder.mailingAddress = this.convertAddress(

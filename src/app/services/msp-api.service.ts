@@ -86,20 +86,26 @@ export class MspApiService {
                             );
                         }).catch((error: Response | any) => {
                                 devOnlyConsoleLog('Error sending all attachments: ', error);
-                                this.logService.log({
-                                    text: 'Attachment - Send All Rejected ',
-                                    response: error,
-                                }, 'Attachment - Send All Rejected ');
+                                this.logService.log(
+                                    {
+                                        text: 'API - Attachment - Send All Rejected ',
+                                        response: error,
+                                    },
+                                    'API - Attachment - Send All Rejected '
+                                );
                                 return reject(error);
                             });
                     } // end of else
 
                 }); // end of the return maintenance api
             } catch (error) {
-                this.logService.log({
-                    text: 'Application - Send Failure ',
-                    exception: error,
-                }, 'Application - Send Failure ');
+                this.logService.log(
+                    {
+                        text: 'API - Application - Send Failure ',
+                        exception: error,
+                    },
+                    'API - Application - Send Failure '
+                );
                 devOnlyConsoleLog('Error sending application: ', error);
                 return reject(error);
             }
@@ -119,37 +125,41 @@ export class MspApiService {
             for (const attachment of attachments) {
                 attachmentPromises.push(this.sendAttachment(token, applicationUUID, attachment));
             }
-            // this.logService.log({
-            //    text: "Send All Attachments - Before Sending",
-            //     numberOfAttachments: attachmentPromises.length
-            // }, "Send Attachments - Before Sending")
 
             // Execute all promises are waiting for results
             return Promise.all(attachmentPromises).then(
                 () => {
-                    // this.logService.log({
-                    //     text: "Send All Attachments - Success",
-                    //     response: responses,
-                    // }, "Send All Attachments - Success")
+                    this.logService.log(
+                        {
+                            text: "API - Send All Attachments - Success",
+                        },
+                        "API - Send All Attachments - Success"
+                    )
                     return resolve();
                 },
                 (error: Response | any) => {
-                    this.logService.log({
-                        text: 'Attachments - Send All Error ',
-                        error: error,
-                    }, 'Attachments - Send All Error ');
+                    this.logService.log(
+                        {
+                            text: 'API - Attachments - Send All Error ',
+                            error: error,
+                        },
+                        'API - Attachments - Send All Error '
+                    );
                     devOnlyConsoleLog('Error sending all attachments: ', error);
                     return reject(error);
                 }
             )
-                .catch((error: Response | any) => {
-                    this.logService.log({
-                        text: 'Attachments - Send All Error ',
+            .catch((error: Response | any) => {
+                this.logService.log(
+                    {
+                        text: 'API - Attachments - Send All Error ',
                         error: error,
-                    }, 'Attachments - Send All Error ');
-                    devOnlyConsoleLog('Error sending all attachments: ', error);
-                    return reject(error);
-                });
+                    },
+                    'API - Attachments - Send All Error '
+                );
+                devOnlyConsoleLog('Error sending all attachments: ', error);
+                return reject(error);
+            });
         });
     }
 
@@ -197,27 +207,35 @@ export class MspApiService {
                 .post(url, blob, options)
                 .toPromise()
                 .then(() => {
-                        // this.logService.log({
-                        //     text: "Send Individual Attachment - Success",
-                        //     response: response,
-                        // }, "Send Individual Attachment - Success")
+                        this.logService.log(
+                            {
+                                text: "API - Send Individual Attachment - Success",
+                            },
+                            "API - Send Individual Attachment - Success"
+                        )
                         return resolve();
                     },
                     (error: Response | any) => {
                         devOnlyConsoleLog('Error sending individual attachment: ', error);
-                        this.logService.log({
-                            text: 'Attachment - Send Individual Error ',
-                            response: error,
-                        }, 'Attachment - Send Individual Error ');
+                        this.logService.log(
+                            {
+                                text: 'API - Attachment - Send Individual Error ',
+                                response: error,
+                            },
+                            'API - Attachment - Send Individual Error '
+                        );
                         return reject(error);
                     }
                 )
                 .catch((error: Response | any) => {
                     devOnlyConsoleLog('Error sending individual attachment: ', error);
-                    this.logService.log({
-                        text: 'Attachment - Send Individual Error ',
-                        response: error,
-                    }, 'Attachment - Send Individual Error ');
+                    this.logService.log(
+                        {
+                            text: 'API - Attachment - Send Individual Error ',
+                            response: error,
+                        },
+                        'API - Attachment - Send Individual Error '
+                    );
                     const response = this.convertResponse(error);
                     reject(response || error);
                 });
@@ -254,17 +272,23 @@ export class MspApiService {
             return this.http.post(url, documentXmlString, options)
                 .toPromise()
                 .then((response: string) => {
-                    // this.logService.log({
-                    //    text: "Send Document XML - Success",
-                    //    response: response,
-                    // }, "Send Document XML - Success")
+                    this.logService.log(
+                        {
+                            text: "API - Send Document XML - Success",
+                            response: response,
+                        },
+                        "API - Send Document XML - Success"
+                    )
                     return resolve(this.convertResponse(response));
                 })
                 .catch((error) => {
-                    this.logService.log({
-                        text: 'Application - XML Send Error ',
-                        response: error,
-                    }, 'Application - XML Send Error ');
+                    this.logService.log(
+                        {
+                            text: 'API - Application - XML Send Error ',
+                            response: error,
+                        },
+                        'API - Application - XML Send Error '
+                    );
                     devOnlyConsoleLog('Error sending XML: ', error);
                     return reject(error);
                 });
@@ -376,9 +400,9 @@ export class MspApiService {
         if (from.applicant.previous_phn) {
             to.application.assistanceApplication.applicant.phn = Number(from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
         }
-        if (from.hasPowerOfAttorney)
+        if (from.hasPowerOfAttorney) {
             to.application.assistanceApplication.applicant.powerOfAttorney = 'Y';
-        else {
+        } else {
             to.application.assistanceApplication.applicant.powerOfAttorney = 'N';
         }
 
@@ -400,14 +424,12 @@ export class MspApiService {
         if (from.authorizedByApplicant) {
             to.application.assistanceApplication.authorizedByApplicant = 'Y';
 
-        }
-        else {
+        } else {
             to.application.assistanceApplication.authorizedByApplicant = 'N';
         }
         if (from.authorizedBySpouse) {
             to.application.assistanceApplication.authorizedBySpouse = 'Y';
-        }
-        else {
+        } else {
             to.application.assistanceApplication.authorizedBySpouse = 'N';
         }
 
@@ -656,8 +678,7 @@ export class MspApiService {
             to.livedInBC = LivedInBCTypeFactory.make();
             if (from.livedInBCSinceBirth === true) {
                 to.livedInBC.hasLivedInBC = 'Y';
-            }
-            else {
+            } else {
                 to.livedInBC.hasLivedInBC = 'N';
             }
 
@@ -734,8 +755,7 @@ export class MspApiService {
             to.livedInBC = LivedInBCTypeFactory.make();
             if (from.livedInBCSinceBirth === true) {
                 to.livedInBC.hasLivedInBC = 'Y';
-            }
-            else {
+            } else {
                 to.livedInBC.hasLivedInBC = 'N';
             }
 
@@ -855,8 +875,7 @@ export class MspApiService {
         if (from.applicant.gender != null) {
             accountHolder.gender = <GenderType>{};
             accountHolder.gender = <GenderType> from.applicant.gender.toString();
-        }
-        else {
+        } else {
             accountHolder.gender = 'M';
         }
         if (from.authorizedByApplicant != null) {
@@ -1078,9 +1097,7 @@ export class MspApiService {
             }
             if (beginIndex === xmlString.length)
                 beginIndex = 0;
-        }
-        // not the simple case, check to see the NS case, ie <xx:application>
-        else {
+        } else { // not the simple case, check to see the NS case, ie <xx:application>
             beginIndex = xmlString.indexOf(MspApiService.XmlRootNS);
             if (beginIndex > 0) {
                 for (let i = beginIndex; i < xmlString.length; i++) {
@@ -1091,14 +1108,15 @@ export class MspApiService {
                 }
                 if (beginIndex === xmlString.length)
                     beginIndex = 0;
-            }
-            // cannot find the element <xx:applicationxx> or <applicationxx>
-            else {
+            } else { // cannot find the element <xx:applicationxx> or <applicationxx>
                 const endHeader = xmlString.indexOf('Application>');
-                const headerns = 'Header after jxon : ' + xmlString.substring(0, endHeader);
-                this.logService.log({
-                    text: headerns
-                }, 'Application - Header Info');
+                const headers = 'Header after jxon : ' + xmlString.substring(0, endHeader);
+                this.logService.log(
+                    {
+                        text: headers
+                    },
+                    'API - Application - Header Info'
+                );
             }
         }
 
@@ -1110,9 +1128,9 @@ export class MspApiService {
             endIndex = xmlString.search(endre);
         }
 
-        if (beginIndex < 0 || endIndex <= 0)
+        if (beginIndex < 0 || endIndex <= 0) {
             return xmlString;
-        else {
+        } else {
             return MspApiService.XmlDocumentHeader + xmlString.substring(beginIndex, endIndex) + MspApiService.XmlDocumentFooter;
         }
     }

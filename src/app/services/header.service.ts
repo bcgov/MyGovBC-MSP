@@ -15,8 +15,7 @@ export class HeaderService {
   setTitle(newTitle: string){
     if (newTitle.length){
       this._title.next(`${this.PREFIX} - ${newTitle}`);
-    }
-    else {
+    } else {
       this._title.next(this.PREFIX);
     }
 
