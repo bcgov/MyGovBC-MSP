@@ -91,7 +91,7 @@
     "jxon": "git+https://github.com/bcgov/jxon.git",
     "lodash": "^4.17.15",
     "moh-common-lib": "^3.2.4",
-    "moment": "^2.22.2",
+    "moment": "^2.29.1",
     "ngx-bootstrap": "^5.1.2",
     "ngx-mydatepicker": "^2.4.9",
     "popper.js": "^1.14.4",
