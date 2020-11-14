@@ -96,7 +96,7 @@
     "ngx-mydatepicker": "^2.4.9",
     "popper.js": "^1.14.4",
     "rx-dom": "^7.0.3",
-    "rxjs": "^6.5.2",
+    "rxjs": "^6.6.3",
     "sha1": "^1.1.1",
     "typescript": "2.9.1",
     "url": "^0.11.0",
