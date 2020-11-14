@@ -87,7 +87,7 @@
     "css-loader": "^1.0.0",
     "date-fns": "^2.6.0",
     "faker": "^4.1.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.1",
     "jxon": "git+https://github.com/bcgov/jxon.git",
     "lodash": "^4.17.15",
     "moh-common-lib": "^3.2.4",
