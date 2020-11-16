@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AssistanceRoutingModule } from './assistance-routing.module';
 import { AssistContainerComponent } from './components/assist-container/assist-container.component';
 import { AssistancePersonalInfoComponent } from './pages/personal-info/personal-info.component';
@@ -15,7 +14,7 @@ import { AssistContactComponent } from './pages/contact/assist-contact.component
 import { AssistMailingComponent } from './components/assist-mailing/assist-mailing.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';
 import { AssistRatesHelperModalComponent } from './components/assist-rates-helper-modal/assist-rates-helper-modal.component';
-import { AssistCraDocumentsComponent } from './components/assist-cra-documents/assist-cra-documents.component';
+import { AssistCraDocumentComponent } from './components/assist-cra-document/assist-cra-document.component';
 import { SpouseComponent } from './pages/spouse/spouse.component';
 import { RouteGuardService , AbstractPgCheckService } from 'moh-common-lib';
 import { AssistGuard } from './guards/assist.guard';
@@ -40,7 +39,7 @@ import { AssistRatesModalComponent } from './components/assist-rates-modal/assis
     AssistMailingComponent,
     AssistanceHomeComponent,
     AssistRatesHelperModalComponent,
-    AssistCraDocumentsComponent,
+    AssistCraDocumentComponent,
     SpouseComponent,
     AssistRatesModalComponent
   ],

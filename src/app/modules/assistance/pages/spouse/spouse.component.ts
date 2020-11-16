@@ -122,10 +122,22 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     );
   }
 
+  // Ensure at least one document has been uploaded for every spouse assistance year
+  hasFiles() {
+    let hasAllFiles = true;
+    this.finAssistApp.assistYears.forEach(yr => {
+      if (yr.spouseFiles && yr.spouseFiles.length < 1) {
+        hasAllFiles = false;
+      }
+    })
+    
+    return hasAllFiles;
+  }
+
   setPageStatus() {
     let valid = true;
     if ( this.finAssistApp.hasSpouseOrCommonLaw  ) {
-      valid = this.spouseInfoForm.valid && this.validSelection;
+      valid = this.spouseInfoForm.valid && this.validSelection && this.hasFiles();
     }
     this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, valid );
   }

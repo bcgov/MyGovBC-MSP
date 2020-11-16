@@ -8,6 +8,7 @@ import { AssistTransformService } from './assist-transform.service';
 import { ApiSendService } from 'app/modules/assistance/services/api-send.service';
 import { ROUTES_ASSIST } from '../models/assist-route-constants';
 import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
+import { MspLogService } from 'app/services/log.service';
 
 
 @Injectable({
@@ -30,7 +31,8 @@ export class AssistStateService {
     private router: Router,
     public dataSvc: MspDataService,
     private xformSvc: AssistTransformService,
-    private api: ApiSendService
+    private api: ApiSendService,
+    private logService: MspLogService
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
@@ -122,7 +124,12 @@ export class AssistStateService {
         : this.failure$.next(res);
       return res;
     } catch (err) {
-      devOnlyConsoleLog( 'Error: ', err );
+      devOnlyConsoleLog('Error: ', err);
+      this.logService.log({
+        name: 'PA - Error in submitApplication',
+        confirmationNumber: this.finAssistApp.referenceNumber,
+        url: this.router.url
+      }, 'PA - Error in submitApplication:' + err);
     }
   }
 }

@@ -11,6 +11,8 @@ import { MspApiService } from 'app/services/msp-api.service';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AbstractHttpService, CommonImage } from 'moh-common-lib';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
+import { MspLogService } from 'app/services/log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,7 @@ export class ApiSendService extends AbstractHttpService {
   protected handleError(error: HttpErrorResponse) {
     throw new Error('Method not implemented.');
   }
-  constructor(private schemaSvc: SchemaService, http: HttpClient) {
+  constructor(private schemaSvc: SchemaService, http: HttpClient, private logService: MspLogService) {
     super(http);
   }
 
@@ -41,16 +43,17 @@ export class ApiSendService extends AbstractHttpService {
   ) {
     const appUrl = this.setAppUrl(applicationUUID);
     this._headers = this.setHeaders('application/json', token);
-    await this.sendFiles(token, applicationUUID, attachments);
 
-    // return files$
-    // .pipe(mergeMap(q => forkJoin(from(q))))
-    // .pipe(() => from(
-    return this.post<MSPApplicationSchema>(appUrl, app).pipe(
-      //catchError(err => of(err))
-    );
-
-    // ));
+    try {
+      await this.sendFiles(token, applicationUUID, attachments);
+      return this.post<MSPApplicationSchema>(appUrl, app).pipe();
+    } catch (err) {
+      devOnlyConsoleLog(err);
+      this.logService.log({
+        name: 'PA - Error in sendApp',
+        applicationUUID,
+      }, 'PA - Error in sendApp:' + err);
+    }
   }
 
   async sendFiles(
@@ -63,13 +66,18 @@ export class ApiSendService extends AbstractHttpService {
       attachmentPromises.push(
         this.sendFile(token, applicationUUID, attachment).toPromise()
       );
-      // this.httpSvc.post()
     }
 
-    const res = await Promise.all(attachmentPromises);
-    return;
-    // return attachmentPromises
-    // return from(attachmentPromises);
+    try {
+      const res = await Promise.all(attachmentPromises);
+      return
+    } catch (err) {
+      devOnlyConsoleLog(err);
+      this.logService.log({
+        name: 'PA - Error in sendFiles',
+        applicationUUID
+      }, 'PA - Error in sendFiles:' + err);
+    }
   }
 
   sendFile(token: string, applicationUUID: string, attachment) {

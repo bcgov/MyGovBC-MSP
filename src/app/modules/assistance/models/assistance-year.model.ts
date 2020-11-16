@@ -9,4 +9,5 @@ export class AssistanceYear {
   hasSpouse?: boolean;
   files?: any[];
   spouseFiles?: any[];
+  fileError: string = '';
 }
