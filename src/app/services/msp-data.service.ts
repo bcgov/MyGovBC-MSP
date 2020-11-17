@@ -141,9 +141,9 @@ export class MspDataService {
     mspAccountApp.applicant.firstName = 'NA';
     mspAccountApp.applicant.lastName = 'NA';
     mspAccountApp.applicant.gender = Gender.Male;
-    mspAccountApp.applicant.dob = new Date( 2000, 1, 1 );
+    mspAccountApp.applicant.dob = new Date(2000, 1, 1 );
     mspAccountApp.applicant.previous_phn = '1234567890';
-    mspAccountApp.phoneNumber = '2501234567';
+    mspAccountApp.phoneNumber = '2502345678';
     const dummyAddress: Address = new Address();
     dummyAddress.street = 'NA';
     mspAccountApp.authorizedByApplicant = true;

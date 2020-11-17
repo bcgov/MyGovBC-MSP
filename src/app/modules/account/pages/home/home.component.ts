@@ -77,36 +77,4 @@ export class HomeComponent implements OnInit {
       this.showMoveCaptcha = true;
     }, 50);
   }
-
-  continue() {
-    this.continueButtonLoading = true;
-
-    this.apiService.sendChangeAddressApplication(this.mspAccountApp)
-      .then((response: ApiResponse) => {
-
-        if (response && response.op_return_code !== 'SUCCESS') {
-          devOnlyConsoleLog('Submission response: ', response.op_return_code);
-        }
-
-        if (response instanceof HttpErrorResponse) {
-          this.logService.log(
-            {
-              name: 'Account - System Error',
-              confirmationNumber: this.mspAccountApp.referenceNumber,
-              url: this.router.url
-            },
-            'Account - Submission Response Error' + response.message
-          );
-          return;
-        }
-
-        this.continueButtonLoading = false;
-
-        // Open new window.
-        window.open(this.outLinkUrl, '_blank');
-
-      }).catch((error: ResponseType | any) => {
-        devOnlyConsoleLog('Account - Error in sending request: ', error);
-      });
-  }
 }
