@@ -1,0 +1,31 @@
+<form #formRef="ngForm" novalidate>
+  <common-page-section layout="noTips">
+    <h1>{{ title }}</h1>
+    <p>{{ subtitle }}</p>
+    <h2>{{ mailTitle }}</h2>
+    <p class="border-bottom" innerHTML="{{ mailSubtitle }}"></p>
+  </common-page-section>
+  <common-page-section layout="double">
+    <common-address
+      [(address)]="address"
+      isRequired="true"
+      allowExtralines="true"
+      disableGeocoder="true"
+    ></common-address>
+  </common-page-section>
+  <h2 class="border-bottom">{{ phoneTitle }}</h2>
+  <common-page-section layout="tips">
+    <common-phone-number
+      name="phoneNumber"
+      [label]="phoneLabel"
+      [(ngModel)]="phone"
+      (valueChange)="savePhone($event)"
+      maxlen="25"
+      required="false"
+    ></common-phone-number>
+    <aside>
+      <h3>Tip</h3>
+      <p>{{ phoneTip }}</p>
+    </aside>
+  </common-page-section>
+</form>

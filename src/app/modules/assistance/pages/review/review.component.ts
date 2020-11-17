@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
-//import {ProcessService} from '../../service/process.service';
 import {
   ApplicantInformation,
   IApplicantInformation
@@ -17,105 +16,7 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
 export interface IContactInformation {}
 
 @Component({
-  template: `
-    <div class="row">
-      <h1 tabindex="0" class="col-11">{{ title }}</h1>
-      <button
-        class="btn btn-transparent col-1"
-        onclick="window.print();return false;">
-        Print
-
-        <i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
-      </button>
-    </div>
-    <common-page-section layout="double">
-      <msp-review-card
-        [title]="applicantTitle"
-        [editRouterLink]="applicantLink">
-        <msp-review-part
-          label="Years Selected"
-          [value]="appYears">
-        </msp-review-part>
-        <msp-review-part
-          label="Name"
-          [value]="applicantInfo.name">
-        </msp-review-part>
-        <msp-review-part
-          label="Birthdate"
-          [value]="applicantInfo.birthDate">
-        </msp-review-part>
-        <msp-review-part
-          label="Personal Health Number"
-          [value]="applicantInfo.phn">
-        </msp-review-part>
-        <msp-review-part
-          label="Social Insurance Number"
-          [value]="applicantInfo.sin">
-        </msp-review-part>
-        <msp-review-part
-          label="Documents"
-          [value]="applicantInfo.appDocuments">
-        </msp-review-part>
-      </msp-review-card>
-      <msp-review-card
-        [title]="contactTitle"
-        [editRouterLink]="contactLink">
-          <h4 class="link-text">Mailing Address</h4>
-          <msp-review-part
-            label="Street Address"
-            [value]="address.addressLine1">
-          </msp-review-part>
-          <msp-review-part
-            *ngIf="address.addressLine2"
-            label="Address Line 2"
-            [value]="address.addressLine2">
-          </msp-review-part>
-          <msp-review-part
-            *ngIf="address.addressLine3"
-            label="Address Line 3"
-            [value]="address.addressLine3">
-          </msp-review-part>
-          <msp-review-part
-            label="City"
-            [value]="address.city">
-          </msp-review-part>
-          <msp-review-part
-            label="Province"
-            [value]="province">
-          </msp-review-part>
-          <msp-review-part
-            label="Postal Code"
-            [value]="address.postal">
-          </msp-review-part>
-          <msp-review-part
-            label="Country"
-            [value]="country">
-          </msp-review-part>
-          <h4 class="mt-4 link-text">Contact</h4>
-          <msp-review-part
-            label="Phone Number"
-            [value]="phone">
-          </msp-review-part>
-      </msp-review-card>
-      <aside>
-        <msp-review-card
-          [title]="spouseTitle"
-          [editRouterLink]="spouseLink"
-          *ngIf="hasSpouse">
-            <msp-review-part
-              label="Years selected"
-              [value]="spouseYears">
-            </msp-review-part>
-            <msp-review-part
-              label="Documents"
-              [value]="spouseInfo.documents">
-            </msp-review-part>
-          </msp-review-card>
-      </aside>
-    </common-page-section>
-
-    <hr />
-  `,
+  templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss']
 })
 export class AssistanceReviewComponent {
