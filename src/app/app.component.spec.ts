@@ -6,7 +6,7 @@ import { HeaderService } from './services/header.service';
 import { GeneralAppComponent } from './app.component';
 import { Observable } from 'rxjs';
 
-fdescribe('GeneralAppComponent', () => {
+describe('GeneralAppComponent', () => {
   let component: GeneralAppComponent;
   let fixture: ComponentFixture<GeneralAppComponent>;
 

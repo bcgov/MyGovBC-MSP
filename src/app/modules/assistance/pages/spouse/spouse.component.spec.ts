@@ -6,8 +6,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SpouseComponent } from './spouse.component';
-import { AssistCraDocumentsComponent } from '../../components/assist-cra-documents/assist-cra-documents.component';
+import { AssistCraDocumentComponent } from '../../components/assist-cra-document/assist-cra-document.component';
 import { MspDataService } from '../../../../services/msp-data.service';
+import { MspLogService } from 'app/services/log.service';
 
 describe('SpouseComponent', () => {
   let component: SpouseComponent;
@@ -24,7 +25,7 @@ describe('SpouseComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SpouseComponent,
-        AssistCraDocumentsComponent
+        AssistCraDocumentComponent
       ],
       imports: [
         SharedCoreModule,
@@ -38,6 +39,7 @@ describe('SpouseComponent', () => {
       ],
       providers: [
         MspDataService,
+        MspLogService,
         { provide: ActivatedRoute, useValue: fakeActivatedRoute }
       ]
     })
