@@ -23,9 +23,9 @@ import { AssistStateService } from '../../services/assist-state.service';
       </common-page-section>
       <h3>{{ documentsTitle }}</h3>
       <p class="border-bottom">{{ documentsDescription }}</p>
-      <msp-assist-cra-documents
-        [assistanceYears]="assistanceYears"
-      ></msp-assist-cra-documents>
+      <ng-container *ngFor="let year of assistanceYears">
+        <assist-cra-document [year]="year" [isSpouse]="false"></assist-cra-document>
+      </ng-container>
     </form>
   `
 })
@@ -61,7 +61,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
           distinctUntilChanged()
         )
         .subscribe(() => {
-          this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
+          this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid && this.hasFiles() );
           this.dataService.saveFinAssistApplication();
         })
     );
@@ -107,6 +107,18 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
 
   ngOnDestroy() {
     this.subscriptionList.forEach(itm => itm.unsubscribe());
+  }
+
+  // Ensure at least one document has been uploaded per assist year
+  hasFiles() {
+    let hasAllFiles = true;
+    this.financialAssistApplication.assistYears.forEach(yr => {
+      if (yr.files && yr.files.length < 1) {
+        hasAllFiles = false;
+      }
+    });
+
+    return hasAllFiles;
   }
 
   createDocumentDesc(years: any[]) {

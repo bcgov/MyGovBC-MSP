@@ -5,16 +5,14 @@ import { AssistancePersonalInfoComponent } from './personal-info.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 import {
-  LocalStorageService,
   LocalStorageModule
 } from 'angular-2-local-storage';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MspLogService } from '../../../../services/log.service';
-
 import { HttpClientModule } from '@angular/common/http';
 import { TextMaskModule } from 'angular2-text-mask';
-import { AssistCraDocumentsComponent } from '../../components/assist-cra-documents/assist-cra-documents.component';
+import { AssistCraDocumentComponent } from '../../components/assist-cra-document/assist-cra-document.component';
 import { MspCoreModule } from '../../../msp-core/msp-core.module';
 
 describe('AssistancePersonalInfoComponent Test', () => {
@@ -22,7 +20,7 @@ describe('AssistancePersonalInfoComponent Test', () => {
     TestBed.configureTestingModule({
       declarations: [
         AssistancePersonalInfoComponent,
-        AssistCraDocumentsComponent
+        AssistCraDocumentComponent
       ],
       imports: [
         TextMaskModule,

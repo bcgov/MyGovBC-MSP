@@ -4,6 +4,7 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AssistStateService } from './assist-state.service';
 import { MspDataService } from '../../../services/msp-data.service';
+import { MspLogService } from 'app/services/log.service';
 
 describe('AssistStateService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -16,7 +17,8 @@ describe('AssistStateService', () => {
       HttpClientTestingModule
     ],
     providers: [
-      MspDataService
+      MspDataService,
+      MspLogService
     ]
   }));
 

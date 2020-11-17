@@ -4,6 +4,7 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { AssistGuard } from './assist.guard';
 import { MspDataService } from '../../../services/msp-data.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MspLogService } from 'app/services/log.service';
 
 describe('AssistGuard', () => {
   beforeEach(() => {
@@ -18,7 +19,8 @@ describe('AssistGuard', () => {
       ],
       providers: [
         AssistGuard,
-        MspDataService
+        MspDataService,
+        MspLogService
       ]
     });
   });

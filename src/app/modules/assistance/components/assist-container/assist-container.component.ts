@@ -10,6 +10,8 @@ import { AssistTransformService } from '../../services/assist-transform.service'
 import { AssistMapping } from '../../models/assist-mapping';
 import { HeaderService } from '../../../../services/header.service';
 import { ROUTES_ASSIST } from '../../models/assist-route-constants';
+import { MspLogService } from 'app/services/log.service';
+import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 @Component({
   selector: 'msp-assist-container',
@@ -47,7 +49,8 @@ export class AssistContainerComponent extends Container implements OnInit {
     private dataSvc: MspDataService,
     private schemaSvc: SchemaService,
     private xformSvc: AssistTransformService,
-    private header: HeaderService
+    private header: HeaderService,
+    private logService: MspLogService
   ) {
     super();
     this.setProgressSteps(assistPages);
@@ -125,9 +128,11 @@ export class AssistContainerComponent extends Container implements OnInit {
       ]);
       }
     } catch (err) {
-      console.error(err);
-    } finally {
-      // Should there be some code in here??
+      devOnlyConsoleLog(err);
+      this.logService.log({
+        name: 'PA - Error in submit',
+        url: this.router.url
+      }, 'PA error in submit:' + err);
     }
   }
 }

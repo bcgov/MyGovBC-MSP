@@ -1,0 +1,33 @@
+<common-page-section layout="tips">
+  <ng-container>
+    <label>{{ year.year }}</label>
+    <common-file-uploader
+      instructionText="Click add or drag and drop documents"
+      [images]="files"
+      id="{{ year }}"
+      (imagesChange)="handleImagesChange($event)"
+      [errorMessages]="errorMessage"
+      (errorDocument)="handleSupportDocError($event)"
+      [required]="true"
+    >
+    </common-file-uploader>
+    <common-error-container
+      [displayError]="year.fileError">
+      {{ year.fileError }}
+    </common-error-container>
+  </ng-container>
+  <aside>
+    <div class="row">
+      <div class="col-2">
+        <i class="fa fa-exclamation-triangle " style="font-size: 40px;"></i>
+      </div>
+      <p class="col-10">{{ tip }}</p>
+    </div>
+
+    <ul class="col-10 offset-2">
+      <li class="col-12" *ngFor="let item of tipList">
+        {{ item }}
+      </li>
+    </ul>
+  </aside>
+</common-page-section>

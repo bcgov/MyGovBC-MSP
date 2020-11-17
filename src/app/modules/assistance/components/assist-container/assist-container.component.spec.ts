@@ -5,6 +5,7 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AssistContainerComponent } from './assist-container.component';
 import { MspDataService } from '../../../../services/msp-data.service';
+import { MspLogService } from 'app/services/log.service';
 
 describe('AssistContainerComponent', () => {
   let component: AssistContainerComponent;
@@ -23,7 +24,8 @@ describe('AssistContainerComponent', () => {
         HttpClientTestingModule
       ],
       providers: [
-        MspDataService
+        MspDataService,
+        MspLogService
       ]
     })
     .compileComponents();
