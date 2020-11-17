@@ -4,6 +4,7 @@ import { Gender } from './gender.enum';
 import { SupportDocumentsDto, SupportDocuments } from '../modules/msp-core/models/support-documents.model';
 import { IPersonalInformation } from '../modules/msp-core/components/personal-information/personal-information.component';
 import { Relationship } from './relationship.enum';
+import { BaseDto } from './base.dto';
 
 export class BasePerson extends Person implements IPersonalInformation {
 
@@ -27,18 +28,12 @@ export class BasePerson extends Person implements IPersonalInformation {
 /**
  * Storage definition
  */
-export class BasePersonDto {
-
-  // Names
+export class BasePersonDto extends BaseDto {
   firstName: string;
   middleName: string;
   lastName: string;
-
   dateOfBirth: number;
-
   gender: Gender;
   relationship: Relationship;
-
-  // SupportDocuments
   documents: SupportDocumentsDto;
 }

@@ -1,7 +1,8 @@
+import { BaseDto } from './base.dto';
 import { CommonImageJSON } from './common-image-json.interface';
 
 // moh-common-lib class, refer to moh-common-styles for additional documentation
-export class CommonImageDto<T = any> {
+export class CommonImageDto<T = any> extends BaseDto {
   uuid: string;
   fileContent: string;
   documentType: T;

@@ -5,11 +5,12 @@ import { PersonStatusChange } from './person-status-change';
 import { CommonImage } from 'moh-common-lib';
 import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
 import { Gender } from '../../../models/gender.enum';
+import { BaseDto } from 'app/models/base.dto';
 
 
 
 // TODO: Class makes reference to self within definition - This should be reviewed
-export class PersonDto {
+export class PersonDto extends BaseDto {
     relationship: number;
     firstName: string;
     middleName: string;
