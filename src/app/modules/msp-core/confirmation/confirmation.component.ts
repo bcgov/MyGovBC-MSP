@@ -2,50 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 //TODO: remove after convert files that use msp-confirmation to common-confirm-template
 @Component({
   selector: 'msp-confirmation',
-  template: `
-    <common-page-section>
-    <div>
-      <ng-content select='[afterTitleSlot]'></ng-content>
-      <h2>{{ title }}</h2>
-    </div>
-      <div [ngClass]="{ success: success, failure: !success }">
-        <div class="container">
-          <h3>
-            <i
-              class="fa fa-check-circle"
-              aria-hidden="true"
-              *ngIf="success"
-            ></i>
-            <i class="fa fa-times ecks" aria-hidden="true" *ngIf="!success"></i>
-
-            {{ message }}
-          </h3>
-          <p class="font-weight-normal h4">
-            {{ month }} {{ day }}, {{ year }} - Reference #
-            {{ confirmationNum ? confirmationNum : 'N/A' }}
-          </p>
-        </div>
-      </div>
-    </common-page-section>
-    <common-page-section *ngIf="success">
-      <h2>Next steps</h2>
-      <hr />
-
-      <ul>
-        <!--     <li>
-          <h3
-            [innerHTML]="lang('./en/index.js').printEmailInstructions"
-            onclick="window.print();"
-            class="pointer"
-          ></h3>
-        </li>
-        -->
-        <li *ngFor="let instruction of generalInstructions">
-          <span>{{ instruction }}</span>
-        </li>
-      </ul>
-    </common-page-section>
-  `,
+  templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.scss']
 })
 export class ConfirmationComponent implements OnInit {

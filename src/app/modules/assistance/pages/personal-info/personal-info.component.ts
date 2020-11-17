@@ -9,25 +9,7 @@ import { AssistanceYear } from '../../models/assistance-year.model';
 import { AssistStateService } from '../../services/assist-state.service';
 
 @Component({
-  // templateUrl: './personal-info.component.html'
-  template: `
-    <h1>{{ title }}</h1>
-    <h2>{{ subtitle }}</h2>
-    <p class="border-bottom">{{ description }}</p>
-    <form #formRef="ngForm" novalidate>
-      <common-page-section layout="noTips">
-        <msp-personal-information
-          [person]="financialAssistApplication.applicant"
-          (personChange)="saveAccountHolder()"
-        ></msp-personal-information>
-      </common-page-section>
-      <h3>{{ documentsTitle }}</h3>
-      <p class="border-bottom">{{ documentsDescription }}</p>
-      <ng-container *ngFor="let year of assistanceYears">
-        <assist-cra-document [year]="year" [isSpouse]="false"></assist-cra-document>
-      </ng-container>
-    </form>
-  `
+  templateUrl: './personal-info.component.html'
 })
 export class AssistancePersonalInfoComponent extends BaseComponent {
 
