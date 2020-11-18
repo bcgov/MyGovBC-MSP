@@ -1,10 +1,10 @@
-import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef, OnInit} from '@angular/core';
+import { Component, Injectable, AfterContentInit, OnInit } from '@angular/core';
 import {  MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspApiAccountService } from '../../services/msp-api-account.service';
-import {Router} from '@angular/router';
-import {ResponseType} from '../../../../modules/msp-core/api-model/responseTypes';
-import {MspLogService} from '../../../../services/log.service';
-import {ProcessService} from '../../../../services/process.service';
+import { Router } from '@angular/router';
+import { ResponseType } from '../../../../modules/msp-core/api-model/responseTypes';
+import { MspLogService } from '../../../../services/log.service';
+import { ProcessService } from '../../../../services/process.service';
 import { MspAccountApp } from '../../models/account.model';
 import { Relationship } from '../../../../models/relationship.enum';
 import { ApiResponse } from 'app/models/api-response.interface';
@@ -54,10 +54,19 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
       // Send them back to the home screen and reload the app
       location.assign('/msp/deam/home');
     }
+
+    this.logService.log(
+      {
+        name: 'Account - mspAccountApp',
+        residentialAddress: this.mspAccountApp.residentialAddress,
+        applicant: this.mspAccountApp.applicant
+      },
+      'Account - mspAccountApp'
+    );
   }
 
   /**
-   * always regnerate uuid for application and its images
+   * always regenerate uuid for application and its images
    * When user use browser back button, the uuid are guaranteed to be unique for API server.
    */
   ngAfterContentInit() {
@@ -146,7 +155,8 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
       this.rawUrl = error.url;
       this.rawError = error;
       this.rawRequest = error._requestBody;
-      this.logService.log({
+      this.logService.log(
+        {
           name: 'Account - Received Failure ',
           error: error._body,
           request: error._requestBody

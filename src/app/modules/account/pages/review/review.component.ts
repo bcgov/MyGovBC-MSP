@@ -78,7 +78,7 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
     return 'Update Child Information #';
   }
 
-  get spouseForAuthorisation(): MspPerson {
+  get spouseForAuthorization(): MspPerson {
     if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.addedSpouse) {
       return this.mspAccountApp.addedSpouse;
     }
@@ -114,7 +114,7 @@ export class AccountReviewComponent extends BaseForm implements OnInit {
   }
 
   spouseName() {
-    return this.spouseForAuthorisation.firstName + ' ' + this.spouseForAuthorisation.lastName;
+    return this.spouseForAuthorization.firstName + ' ' + this.spouseForAuthorization.lastName;
   }
 
   printPage() {

@@ -129,10 +129,13 @@ export class AssistContainerComponent extends Container implements OnInit {
       }
     } catch (err) {
       devOnlyConsoleLog(err);
-      this.logService.log({
-        name: 'PA - Error in submit',
-        url: this.router.url
-      }, 'PA error in submit:' + err);
+      this.logService.log(
+        {
+          name: 'PA - Error in submit',
+          url: this.router.url
+        },
+        'PA error in submit:' + err
+      );
     }
   }
 }

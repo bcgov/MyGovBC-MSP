@@ -49,7 +49,8 @@ export class BenefitSendingComponent implements AfterContentInit  {
                         name: 'Supplementary Benefit - System Error',
                         confirmationNumber: this.application.uuid,
                         url: this.router.url
-                    }, 'Supplementary Benefit - Submission Response Error' + response.message
+                    },
+                    'Supplementary Benefit - Submission Response Error' + response.message
                 );
                 this.processErrorResponse(false);
                 return;
@@ -79,7 +80,8 @@ export class BenefitSendingComponent implements AfterContentInit  {
                     name: 'Supplementary Benefit - Received refNo ',
                     confirmationNumber: refNumber,
                     url: this.router.url
-                }, 'Supplementary Benefit - Submission Response Success'
+                },
+                'Supplementary Benefit - Submission Response Success'
             );
             this.dataService.removeMspBenefitApp();
 

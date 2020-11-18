@@ -1,14 +1,15 @@
-import {Component, ViewChild, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import { Router} from '@angular/router';
-import {MspDataService} from '../../../../services/msp-data.service';
-import {ProcessService, ProcessUrls} from '../../../../services/process.service';
-import {environment} from '../../../../../environments/environment';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ProcessService, ProcessUrls } from '../../../../services/process.service';
+import { environment } from '../../../../../environments/environment';
 import { MspAccountApp } from '../../models/account.model';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspPerson } from '../../../../../app/components/msp/model/msp-person.model';
 import { BaseForm } from '../../models/base-form';
+import { MspLogService } from '../../../../services/log.service';
+
 @Component({
   selector: 'msp-authorize',
   templateUrl: './authorize.component.html',
@@ -24,12 +25,13 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
 
   constructor(private dataService: MspAccountMaintenanceDataService,
               private _router: Router,
+              private logService: MspLogService,
               protected containerService: ContainerService,
               protected pageStateService: PageStateService,
               public _processService: ProcessService) {
-      super(_router, containerService, pageStateService, _processService);
-      this.mspAccountApp = dataService.getMspAccountApp();
-      this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
+    super(_router, containerService, pageStateService, _processService);
+    this.mspAccountApp = dataService.getMspAccountApp();
+    this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
 
   get showUnauthorizedError() {
@@ -41,19 +43,19 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
   }
 
   // unused.. logic changed
-  get spousesForAuthorisation(): MspPerson[] {
-      return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
+  get spousesForAuthorization(): MspPerson[] {
+    return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
   }
 
   get accountPIUrl() {
-      return ProcessUrls.ACCOUNT_PERSONAL_INFO_URL;
+    return ProcessUrls.ACCOUNT_PERSONAL_INFO_URL;
   }
 
   get accountDependentUrl() {
-      return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
+    return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
   }
 
-  get spouseForAuthorisation(): MspPerson {
+  get spouseForAuthorization(): MspPerson {
     if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.addedSpouse) {
       return this.mspAccountApp.addedSpouse;
     }
@@ -94,7 +96,7 @@ export class AuthorizeComponent extends BaseForm implements OnInit {
   }
 
   spouseName() {
-    return this.spouseForAuthorisation.firstName + ' ' + this.spouseForAuthorisation.lastName;
+    return this.spouseForAuthorization.firstName + ' ' + this.spouseForAuthorization.lastName;
   }
 
   handleFormSubmission($event) {}

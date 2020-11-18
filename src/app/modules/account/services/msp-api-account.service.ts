@@ -67,11 +67,7 @@ import {
 import { Relationship } from '../../../models/relationship.enum';
 import { ApiResponse } from 'app/models/api-response.interface';
 import { format } from 'date-fns';
-import {
-  SupportDocumentList,
-  SupportDocumentTypes,
-} from '../../msp-core/models/support-documents.enum';
-import { ɵINTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS } from '@angular/platform-browser-dynamic';
+import { SupportDocumentList } from '../../msp-core/models/support-documents.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -301,10 +297,11 @@ export class MspApiAccountService extends AbstractHttpService {
           response => {
             this.logService.log(
               {
-                text: "Send Individual Attachment - Success",
+                text: "Account - Send Individual Attachment - Success",
                 response: response,
-            },
-            "Send Individual Attachment - Success")
+              },
+              "Account - Send Individual Attachment - Success"
+            )
             return resolve(response);
           },
           (error: Response | any) => {
