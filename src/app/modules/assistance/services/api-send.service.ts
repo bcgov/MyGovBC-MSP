@@ -49,10 +49,13 @@ export class ApiSendService extends AbstractHttpService {
       return this.post<MSPApplicationSchema>(appUrl, app).pipe();
     } catch (err) {
       devOnlyConsoleLog(err);
-      this.logService.log({
-        name: 'PA - Error in sendApp',
-        applicationUUID,
-      }, 'PA - Error in sendApp:' + err);
+      this.logService.log(
+        {
+          name: 'PA - Error in sendApp',
+          applicationUUID,
+        },
+        'PA - Error in sendApp:' + err
+      );
     }
   }
 
@@ -73,10 +76,13 @@ export class ApiSendService extends AbstractHttpService {
       return
     } catch (err) {
       devOnlyConsoleLog(err);
-      this.logService.log({
-        name: 'PA - Error in sendFiles',
-        applicationUUID
-      }, 'PA - Error in sendFiles:' + err);
+      this.logService.log(
+        {
+          name: 'PA - Error in sendFiles',
+          applicationUUID
+        },
+        'PA - Error in sendFiles:' + err
+      );
     }
   }
 

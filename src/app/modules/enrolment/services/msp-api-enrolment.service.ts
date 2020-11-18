@@ -88,12 +88,12 @@ export class MspApiEnrolmentService extends BaseMspApiService {
           })
           .catch((err: Response | any) => {
             // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-              this.logService.log(
-                {
+            this.logService.log(
+              {
                 text: 'Enrolment - Attachment - Send All Rejected ',
                 response: err
-                },
-                'Enrolment - Attachment - Send All Rejected '
+              },
+              'Enrolment - Attachment - Send All Rejected '
             );
             return resolve(err);
           });

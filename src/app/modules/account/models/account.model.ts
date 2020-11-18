@@ -1,7 +1,7 @@
-import {UUID} from 'angular2-uuid';
-import {ApplicationBase} from '../../../models/application-base.model';
-import {MspPerson, OperationActionType} from '../../../components/msp/model/msp-person.model';
-import {PhoneNumber} from '../../../components/msp/model/phone.model';
+import { UUID } from 'angular2-uuid';
+import { ApplicationBase } from '../../../models/application-base.model';
+import { MspPerson, OperationActionType } from '../../../components/msp/model/msp-person.model';
+import { PhoneNumber } from '../../../components/msp/model/phone.model';
 import { Address, CommonImage } from 'moh-common-lib';
 import { StatusInCanada } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
@@ -86,10 +86,10 @@ class MspAccountApp implements ApplicationBase {
             this.addedSpouse,
             this.removedSpouse,
         ]
-        .filter(x => x); //no 'undefined's
+        .filter(x => x); //no undefineds
     }
     /*
-        for phn valdation purpose
+        for phn validation purpose
      */
     get allPersonsInPI(): Array<MspPerson> {
         return [
@@ -97,11 +97,11 @@ class MspAccountApp implements ApplicationBase {
             ...this.updatedChildren,
             this.updatedSpouse,
         ]
-        .filter(x => x); //no 'undefined's
+        .filter(x => x); //no undefineds
     }
 
     /*
-       for phn valdation purpose.. Applicatn , ADD/Update/Remove children , Add/Remove Spouse
+       for phn validation purpose.. Applicant , ADD/Update/Remove children , Add/Remove Spouse
         Update spouse can have same phn as added/remove spouse
      */
     get allPersonsInDep(): Array<MspPerson> {
@@ -113,7 +113,7 @@ class MspAccountApp implements ApplicationBase {
             this.removedSpouse,
             ...this.updatedChildren,
         ]
-        .filter(x => x); //no 'undefined's
+        .filter(x => x); //no undefineds
     }
 
     public isMembersPresentWithStatus(personList: Array<MspPerson>, statusInCanada: StatusInCanada): boolean {
@@ -122,7 +122,7 @@ class MspAccountApp implements ApplicationBase {
     public isAnyPRinPersonalInfoPage (): boolean  {
         return this.isMembersPresentWithStatus(this.allPersonsInPI , StatusInCanada.PermanentResident) ;
     }
-    public isAnyCanadianCitizeinPersonalInfoPage (): boolean  {
+    public isAnyCanadianCitizenPersonalInfoPage (): boolean  {
         return this.isMembersPresentWithStatus(this.allPersonsInPI , StatusInCanada.CitizenAdult) ;
     }
     public isAnyTempPersonalInfoPage (): boolean  {
@@ -155,7 +155,7 @@ class MspAccountApp implements ApplicationBase {
 
     private _addedSpouse: MspPerson = new MspPerson(Relationship.Spouse);
     private _updatedSpouse: MspPerson = new MspPerson(Relationship.Spouse);
-    //DEAM doesnt use chidren as such..its either updated/removed/added children
+    //DEAM doesn't use children as such..its either updated/removed/added children
     private _children: Array<MspPerson>  = [];
 
     private _accountChangeOptions: AccountChangeOptions = new AccountChangeOptions ();

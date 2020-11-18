@@ -125,11 +125,14 @@ export class AssistStateService {
       return res;
     } catch (err) {
       devOnlyConsoleLog('Error: ', err);
-      this.logService.log({
-        name: 'PA - Error in submitApplication',
-        confirmationNumber: this.finAssistApp.referenceNumber,
-        url: this.router.url
-      }, 'PA - Error in submitApplication:' + err);
+      this.logService.log(
+        {
+          name: 'PA - Error in submitApplication',
+          confirmationNumber: this.finAssistApp.referenceNumber,
+          url: this.router.url
+        },
+        'PA - Error in submitApplication:' + err
+      );
     }
   }
 }
