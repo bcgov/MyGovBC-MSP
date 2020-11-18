@@ -59,7 +59,8 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
       this.markAllInputsTouched();
       return;
     }
-    this.pageStateService.setPageComplete( this.router.url, this.enrolDataService.pageStatus);
+    this.pageStateService.setPageComplete(this.router.url, this.enrolDataService.pageStatus);
+    this.enrolDataService.saveApplication();
     this.navigate( this._nextUrl );
   }
 }
