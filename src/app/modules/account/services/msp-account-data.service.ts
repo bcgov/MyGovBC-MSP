@@ -61,23 +61,6 @@ export class MspAccountMaintenanceDataService {
     }
   }
 
-  public getFakeAccountChangeApplication(): MspAccountApp {
-    const mspAccountApp: MspAccountApp = this._mspAccountApp;
-    mspAccountApp.accountChangeOptions.addressUpdate = true;
-    mspAccountApp.applicant.firstName = 'NA';
-    mspAccountApp.applicant.lastName = 'NA';
-    mspAccountApp.applicant.gender = Gender.Male;
-    mspAccountApp.applicant.dob = new Date(2000, 1, 1);
-    mspAccountApp.applicant.previous_phn = '1234567890';
-    mspAccountApp.phoneNumber = '2503456789';
-    const dummyAddress: Address = new Address();
-    dummyAddress.street = 'NA';
-    mspAccountApp.authorizedByApplicant = true;
-    mspAccountApp.authorizedByApplicantDate = new Date();
-    // mspAccountApp.applicant.residentialAddress = dummyAddress;
-    return mspAccountApp;
-  }
-
   convertMailingAddress(input: any, output: any) {
     this.convertAddress(input, output, 'mailingAddress');
   }
