@@ -126,10 +126,6 @@ export class MspApiAccountService extends AbstractHttpService {
               'Account - API validation against schema failed'
             );
 
-            /* const mapper = new FieldPageMap();
-            const index = mapper.findStep(errorField);
-            const urls = this.dataSvc.getMspProcess().processSteps;
-            this.router.navigate([urls[index].route]); */
             return reject(errorMessage);
           }
         }
@@ -170,60 +166,6 @@ export class MspApiAccountService extends AbstractHttpService {
             return resolve(error);
           });
       });
-    });
-  }
-
-  sendChangeAddressApplication(
-    mspAccountApp: MspAccountApp
-  ): Promise<ApiResponse> {
-    const app: MSPApplicationSchema = {
-      accountChangeApplication: {
-        accountHolder: {
-          selectedAddressChange: 'Y',
-          selectedAddRemove: 'N',
-          selectedPersonalInfoChange: 'N',
-          selectedStatusChange: 'N',
-          authorizedByApplicant: mspAccountApp.authorizedByApplicant
-            ? 'Y'
-            : 'N',
-          authorizedByApplicantDate: format(new Date(), this.ISO8601DateFormat),
-          birthDate: '2000-01-01',
-          name: {
-            firstName: 'NA',
-            lastName: 'NA',
-          },
-          phn: '1234567890',
-          residenceAddress: {
-            addressLine1: 'UNKNOWN',
-            city: 'UNKNOWN',
-            provinceOrState: 'UNKNOWN',
-            country: 'UNKNOWN',
-            postalCode: 'UNKNOWN',
-          },
-          gender: 'M',
-        },
-      },
-      attachments: [],
-      uuid: mspAccountApp.uuid,
-    };
-    return new Promise<ApiResponse>((resolve, reject) => {
-      this.sendApplication(
-        app,
-        mspAccountApp.uuid,
-        mspAccountApp.authorizationToken
-      ).subscribe(
-        response => {
-          // Add reference number
-          if (response && response.op_reference_number) {
-            mspAccountApp.referenceNumber = response.op_reference_number.toString();
-          }
-          // Let our caller know were done passing back the application
-          return resolve(response);
-        },
-        error => {
-          return reject(error);
-        }
-      );
     });
   }
 

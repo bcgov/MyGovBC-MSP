@@ -66,7 +66,7 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
     }
   }
 
-  transmitRequest(){
+  transmitRequest() {
 
   // After view inits, begin sending the application
   this.transmissionInProcess = true;
@@ -118,7 +118,7 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
       }
 
       // Checks if at least one of the children has NO previous MSP coverage
-      if (this.mspAccountApp.getAllChildren().filter( child => (!child.immigrationStatusChange) )){
+      if (this.mspAccountApp.getAllChildren().filter(child => (!child.immigrationStatusChange))) {
         hasPrevMSPForChild = false;
       }
 

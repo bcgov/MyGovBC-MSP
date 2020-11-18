@@ -277,7 +277,7 @@ class MspAccountApp implements ApplicationBase {
     }
 
     /**
-     * logic to get only children with the correspondin options..
+     * logic to get only children with the corresponding options..
      * never send Updated children if PI is not selected
      *
      * @returns {Person[]}
