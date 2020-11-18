@@ -7,20 +7,7 @@ export interface ColumnClass {
 
 @Component({
   selector: 'msp-review-part',
-  template: `
-    <div class="row">
-      <div class="{{_defaultColumnClass.label}} {{underlineLabel ? 'underline' : ''}}">
-        <span>{{ label }}</span>
-      </div>
-      <div class="{{_defaultColumnClass.value}}">
-        <span *ngIf="value; else ValueHtml;">{{ value }}</span>
-      </div>
-    </div>
-
-    <ng-template #ValueHtml>
-      <ng-content></ng-content>
-    </ng-template>
-  `,
+  templateUrl: './review-part.component.html',
   styleUrls: ['./review-part.component.scss']
 })
 export class ReviewPartComponent implements OnInit {

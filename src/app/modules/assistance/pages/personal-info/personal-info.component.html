@@ -1,0 +1,16 @@
+<h1>{{ title }}</h1>
+<h2>{{ subtitle }}</h2>
+<p class="border-bottom">{{ description }}</p>
+<form #formRef="ngForm" novalidate>
+  <common-page-section layout="noTips">
+    <msp-personal-information
+      [person]="financialAssistApplication.applicant"
+      (personChange)="saveAccountHolder()"
+    ></msp-personal-information>
+  </common-page-section>
+  <h3>{{ documentsTitle }}</h3>
+  <p class="border-bottom">{{ documentsDescription }}</p>
+  <msp-assist-cra-documents
+    [assistanceYears]="assistanceYears"
+  ></msp-assist-cra-documents>
+</form>

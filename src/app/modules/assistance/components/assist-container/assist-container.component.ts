@@ -15,21 +15,7 @@ import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 @Component({
   selector: 'msp-assist-container',
-  template: `
-    <common-core-breadcrumb>
-      <common-wizard-progress-bar center [progressSteps]="progressSteps">
-      </common-wizard-progress-bar>
-    </common-core-breadcrumb>
-    <common-page-framework layout="blank">
-      <router-outlet></router-outlet>
-    </common-page-framework>
-    <common-form-action-bar
-      (btnClick)="continue()"
-      [submitLabel]="submitLabelRPA"
-      [isLoading]="isLoading"
-      [defaultColor]="useDefaultColorRPA"
-    ></common-form-action-bar>
-  `,
+  templateUrl: './assist-container.component.html',
   styleUrls: ['./assist-container.component.scss']
 })
 export class AssistContainerComponent extends Container implements OnInit {
