@@ -35,18 +35,26 @@ export class GeneralAppComponent {
       // if on the home page, don't redirect but remove any stored application data
       if (url.includes('/home')) {
         this.clearStorage();
-      // if anywhere else besides confirmation, redirect them to the home page
+        // if anywhere else besides confirmation, redirect them to the home page
       } else if (!url.includes('/confirmation')) {
         this.hardRedirect('/msp/deam/home');
       }
-    // Refresh on retro assistance
+      // Refresh on retro assistance
     } else if (url.includes('/assistance')) {
       // if on the home page, don't redirect but remove any stored application data
       if (url.includes('/home')) {
         this.clearStorage();
-      // if anywhere else besides confirmation, redirect them to the home page
+        // if anywhere else besides confirmation, redirect them to the home page
       } else if (!url.includes('/confirmation')) {
         this.hardRedirect('/msp/assistance/home');
+      }
+    } else if (url.includes('/benefit')) {
+      // if on the home page, don't redirect but remove any stored application data
+      if (url.includes('/eligibility')) {
+        this.clearStorage();
+        // if anywhere else besides confirmation, redirect them to the home page
+      } else if (!url.includes('/confirmation')) {
+        this.hardRedirect('/msp/benefit/eligibility');
       }
     }
   }
