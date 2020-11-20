@@ -26,11 +26,15 @@
     <div class="col-8" style="margin-bottom: 15px;">      
       <common-file-uploader 
           [images]="person.assistYearDocs"
-          (imagesChange)="addDocument($event)"
+          (imagesChange)="handleImagesChange($event)"
           [id]='benefitApp.id'
           (errorDocument)="errorDoc($event)" 
           instructionText="Click add, or drag and drop file into this box">
       </common-file-uploader>
+      <common-error-container
+        [displayError]="supportDocErrorMsg">
+        {{ supportDocErrorMsg }}
+      </common-error-container>
     </div>
     <!-- TIP -->
     <div  style="background-color : #f2f2f2; height: 240px; width: 396px;">
