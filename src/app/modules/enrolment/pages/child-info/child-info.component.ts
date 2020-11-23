@@ -136,7 +136,7 @@ export class ChildInfoComponent extends EnrolForm {
                   // If they are on a temporary permit
                   if (x.isTemporaryResident) {
                     // The province or country they came from is mandatory info
-                    return x.movedFromProvinceOrCountry && x.movedFromProvinceOrCountry.length > 0;
+                    childValid = childValid && x.movedFromProvinceOrCountry && x.movedFromProvinceOrCountry.length > 0;
                   }
 
                   return childValid;
