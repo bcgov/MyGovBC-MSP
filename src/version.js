@@ -27,7 +27,7 @@ require('child_process').exec('git rev-parse --short HEAD', function(err, stdout
     }
 
     if (success) {
-    // Unindent so the generated file is unindented too.
+    // Unindent so the generated file is unintended too.
 content = `// DO NOT DELETE OR APP WILL FAIL TO COMPILE! Generated from version.js
 export const gitCommit = '${trimmed}';
 export const buildTime = '${ buildTime }';
