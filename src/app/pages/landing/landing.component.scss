@@ -1,3 +1,16 @@
 .btn-continue{
     background-color: #ddd;
 }
+
+
+@media (min-width: 768px) {
+    .hr-separator {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .br-separator {
+        display: none;
+    }
+}
