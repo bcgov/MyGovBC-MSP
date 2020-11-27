@@ -5,7 +5,7 @@
     [(ngModel)]="spouse.immigrationStatusChange"
     [label]="'Does your spouse currently have active Medical Services Plan coverage?'"
     [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
-    required>
+    [required]="true">
   </common-radio>
 </div>
 
@@ -43,7 +43,7 @@
         name="nameChangeQuestion__{{objectId}}"
         [(ngModel)]="spouse.hasNameChange"
         label="Has your spouse's name changed since their ID was issued due to a legal name change?"
-        required>
+        [required]="true">
       </common-radio>
     </div>
 
@@ -98,7 +98,8 @@
         [value]="spouse.gender"
         label='Gender'
         [radioLabels]='[{"label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
-        (valueChange)="setGender($event)">
+        (valueChange)="setGender($event)"
+        [required]="true">
       </common-radio>
     </div>
   </div>
@@ -127,7 +128,8 @@
       [value]="spouse.updateNameDueToMarriage"
       label="Has your spouse's name changed due to marriage?"
       [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
-      (valueChange)="setUpdateNameDueToMarriage($event)">
+      (valueChange)="setUpdateNameDueToMarriage($event)"
+      [required]="true">
     </common-radio>
   </div>
 
@@ -150,7 +152,7 @@
                 [disabled]="disabled"
                 [(ngModel)]="spouse.updateNameDueToMarriageRequestedLastName"
                 maxlength="30"
-                required
+                [required]="true"
                 commonValidateName>
               </common-name>
             </div>

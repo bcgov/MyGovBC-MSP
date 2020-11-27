@@ -6,7 +6,7 @@
       name="livedInBCSinceBirth_{{objectId}}"
       [(ngModel)]="person.livedInBCSinceBirth"
       label="Has {{possessiveRelationshipNoun}} lived in B.C. since birth?"
-      required>
+      [required]="true">
     </common-radio>
   </div>
 
@@ -20,7 +20,7 @@
         [dateRangeStart]='arrivalToBCStartRange'
         [dateRangeEnd]='arrivalToBCEndRange'
         [errorMessage]='mostRecentMoveToBCErrorMessage'
-        required>
+        [required]="true">
       </common-date>
     </div>
 
@@ -66,7 +66,7 @@
       name="adopted_{{objectId}}"
       [(ngModel)]="person.newlyAdopted"
       label="Is this child newly adopted?"
-      required>
+      [required]="true">
     </common-radio>
   </div>
 
@@ -79,7 +79,7 @@
         [dateRangeStart]='person.dateOfBirth'
         [dateRangeEnd]='dateToday'
         [errorMessage]='adoptionDateErrorMessage'
-        required>
+        [required]="true">
       </common-date>
     </div>
   </div>
@@ -90,7 +90,7 @@
       name="madePermanentMoveToBC_{{objectId}}"
       [(ngModel)]="person.madePermanentMoveToBC"
       label="Is this a permanent move to B.C. for {{possessiveRelationshipNoun}}?"
-      required>
+      [required]="true">
     </common-radio>
   </div>
 
@@ -110,7 +110,7 @@
       name="outsideOver30Days_{{objectId}}"
       [(ngModel)]="person.declarationForOutsideOver30Days"
       label="Has {{possessiveRelationshipNoun}} been outside B.C. for more than a total of 30 days during the past 12 months?"
-      required>
+      [required]="true">
     </common-radio>
   </div>
 
@@ -167,7 +167,7 @@
         [dateRangeStart]='departureDateDuring12MonthsStartRange'
         [dateRangeEnd]='departureDateDuring12MonthsEndRange'
         [errorMessage]='departureDate12MonthsErrorMessage'
-        required>
+        [required]="true">
       </common-date>
     </div>
 
@@ -179,7 +179,7 @@
         [dateRangeStart]='returnDateDuring12MonthsStartRange'
         [dateRangeEnd]='returnDateDuring12MonthsEndRange'
         [errorMessage]='returnDate12MonthsErrorMessage'
-        required>
+        [required]="true">
       </common-date>
     </div>
   </div>
@@ -190,7 +190,7 @@
       [value]="person.declarationForOutsideOver60Days"
       (valueChange)="person.declarationForOutsideOver60Days = $event;"
       label="Will {{possessiveRelationshipNoun}} be outside B.C. for more than a total of 30 days during the next 6 months?"
-      required>
+      [required]="true">
     </common-radio>
   </div>
 
@@ -247,7 +247,7 @@
         [dateRangeStart]='departureDateDuring6MonthsStartRange'
         [dateRangeEnd]='departureDateDuring6MonthsEndRange'
         [errorMessage]='departureDate6MonthsErrorMessage'
-        required>
+        [required]="true">
       </common-date>
     </div>
 
@@ -258,7 +258,7 @@
         [(ngModel)]="person.returnDateDuring6MonthsDate"
         [dateRangeStart]='returnDateDuring6MonthsStartRange'
         [errorMessage]='returnDate6MonthsErrorMessage'
-        required>
+        [required]="true">
       </common-date>
     </div>
   </div>
@@ -269,7 +269,7 @@
       name="releasedFromArmedForces_{{objectId}}"
       [(ngModel)]="hasBeenReleasedFromArmedForces"
       label="Has {{possessiveRelationshipNoun}} been released from the Canadian Armed Forces or an institution?"
-      required>
+      [required]="true">
     </common-radio>
   </div>
 
@@ -282,7 +282,7 @@
         [dateRangeEnd]="dischargeDateEndRange"
         [errorMessage]="dischargeDateErrorMessage"
         [(ngModel)]="person.dischargeDate"
-        required>
+        [required]="true">
       </common-date>
     </div>
 
@@ -340,7 +340,7 @@
         name="schoolOutsideOfBC_{{objectId}}"
         [(ngModel)]="person.schoolOutsideOfBC"
         label="Is this school located outside British Columbia?"
-        required>
+        [required]="true">
       </common-radio>
     </div>
 
@@ -353,6 +353,7 @@
           [dateRangeStart]="studiesDepartureDateStartRange"
           [dateRangeEnd]="studiesDepartureDateEndRange"
           [errorMessage]="studiesDepartureDateErrorMessage"
+          [required]="true"
           [(ngModel)]="person.studiesDepartureDate">
         </common-date>
         <common-error-container
@@ -382,7 +383,7 @@
         [dateRangeStart]="studiesBeginDateStartRange"
         [dateRangeEnd]="studiesBeginDateEndRange"
         [errorMessage]="studiesBeginDateErrorMessage"
-        required>
+        [required]="true">
       </common-date>
     </div>
 
@@ -394,7 +395,7 @@
         [dateRangeStart]="studiesFinishedDateStartRange"
         [dateRangeEnd]="studiesFinishedDateEndRange"
         [errorMessage]="studiesFinishedDateErrorMessage"
-        required>
+        [required]="true">
       </common-date>
     </div>
 
@@ -403,7 +404,7 @@
         name="inBCafterStudiesOA_{{objectId}}"
         [(ngModel)]="person.inBCafterStudies"
         label="Will this child reside in B.C. after completing study in this school?"
-        required>
+        [required]="true">
       </common-radio>
       <common-error-container
         [displayError]="person.inBCafterStudies == false && !isTemporaryResident">

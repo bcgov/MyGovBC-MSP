@@ -11,7 +11,9 @@
         [id]="objectId"
         aria-label="Reason for cancellation"
         [(ngModel)]="spouse.cancellationReason"
-        (ngModelChange)="setCancellationStatus($event)">
+        (ngModelChange)="setCancellationStatus($event)"
+        aria-required="true"
+        required>
         <ng-container>
           <option selected value="null" disabled="true">Please select</option>
           <option *ngFor="let item of cancellationReasons"
@@ -34,7 +36,8 @@
         [dateRangeEnd]="yesterday"
         [(ngModel)]="spouse.cancellationDate"
         (ngModelChange)="this.dataService.saveMspAccountApp();"
-        [errorMessage]='cancellationDateErrorMessage'>
+        [errorMessage]='cancellationDateErrorMessage'
+        [required]="true">
       </common-date>
     </div>
   </div>
@@ -68,7 +71,8 @@
         [value]="spouse.hasCurrentMailingAddress"
         label="Do you know your spouse's current mailing address?"
         [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
-        (valueChange)="spouse.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
+        (valueChange)="spouse.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();"
+        [required]="true">
       </common-radio>
     </div>
   </div>
@@ -99,7 +103,8 @@
       [restrictDate]="'past'"
       [(ngModel)]="spouse.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();"
-      [errorMessage]='dateErrorMessage'>
+      [errorMessage]='dateErrorMessage'
+      [required]="true">
     </common-date>
   </div>
 </div>
@@ -111,7 +116,8 @@
       [restrictDate]="'past'"
       [(ngModel)]="spouse.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();"
-      [errorMessage]='dateErrorMessage'>
+      [errorMessage]='dateErrorMessage'
+      [required]="true">
     </common-date>
   </div>
 </div>
@@ -129,7 +135,8 @@
       [restrictDate]="'past'"
       [(ngModel)]="spouse.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();"
-      [errorMessage]='dateErrorMessage'>
+      [errorMessage]='dateErrorMessage'
+      [required]="true">
     </common-date>
   </div>
 </div>
@@ -141,7 +148,8 @@
       [restrictDate]="'past'"
       [(ngModel)]="spouse.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();"
-      [errorMessage]='dateErrorMessage'>
+      [errorMessage]='dateErrorMessage'
+      [required]="true">
     </common-date>
   </div>
 </div>
