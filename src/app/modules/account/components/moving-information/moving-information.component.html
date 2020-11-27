@@ -124,7 +124,7 @@
         name="departureReason12Months_{{objectId}}"
         type="text"
         class="form-control"
-        aria-label="Departure reason past 12 months"
+        aria-label="Reason for departure"
         [(ngModel)]= "person.departureReason12Months"
         maxlength="20"
         aria-required="true"
@@ -146,7 +146,7 @@
         name="departureDestination12Months_{{objectId}}"
         type="text"
         class="form-control"
-        aria-label="Departure destination past 12 months"
+        aria-label="Location"
         [(ngModel)]="person.departureDestination12Months"
         maxlength="20"
         aria-required="true"
@@ -162,7 +162,7 @@
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
         name="departureDate12Months_{{objectId}}"
-        label="Departure date during the next 12 months"
+        label="Departure date"
         [(ngModel)]="person.departureDateDuring12MonthsDate"
         [dateRangeStart]='departureDateDuring12MonthsStartRange'
         [dateRangeEnd]='departureDateDuring12MonthsEndRange'
@@ -174,7 +174,7 @@
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
         name="returnDate12Months_{{objectId}}"
-        label="Return date during the next 12 months"
+        label="Return date"
         [(ngModel)]="person.returnDateDuring12MonthsDate"
         [dateRangeStart]='returnDateDuring12MonthsStartRange'
         [dateRangeEnd]='returnDateDuring12MonthsEndRange'
@@ -204,7 +204,7 @@
         name="departureReason_{{objectId}}"
         type="text"
         class="form-control"
-        aria-label="Departure reason next 6 months"
+        aria-label="Reason for departure"
         [(ngModel)]="person.departureReason"
         maxlength="20"
         aria-required="true"
@@ -226,7 +226,7 @@
         name="departureDestination_{{objectId}}"
         type="text"
         class="form-control"
-        aria-label="Departure destination next 6 months"
+        aria-label="Location"
         [(ngModel)]="person.departureDestination"
         maxlength="20"
         aria-required="true"
@@ -242,7 +242,7 @@
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
         name="departureDate6Months_{{objectId}}"
-        label="Departure date during the next 6 months"
+        label="Departure date"
         [(ngModel)]="person.departureDateDuring6MonthsDate"
         [dateRangeStart]='departureDateDuring6MonthsStartRange'
         [dateRangeEnd]='departureDateDuring6MonthsEndRange'
@@ -254,7 +254,7 @@
     <div class="form-group col-sm-6 p-sm-2">
       <common-date
         name="returnDate6Months_{{objectId}}"
-        label="Return date during the next 6 months"
+        label="Return date"
         [(ngModel)]="person.returnDateDuring6MonthsDate"
         [dateRangeStart]='returnDateDuring6MonthsStartRange'
         [errorMessage]='returnDate6MonthsErrorMessage'
@@ -295,7 +295,7 @@
         name="nameOfInstitute_{{objectId}}"
         type="text"
         class="form-control"
-        aria-label="Name of institute"
+        aria-label="Name of institution"
         [(ngModel)]="person.nameOfInstitute"
         maxlength="20"
         aria-required="true"
