@@ -48,7 +48,7 @@
             [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
             (onValidToken)="mspAccountApp.authorizationToken = $event"
             ngModel
-            [required]="true">
+            required>
           </common-captcha>
         </div>
       </div>
