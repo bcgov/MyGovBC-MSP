@@ -5,14 +5,14 @@
     [(ngModel)]="childRelationship"
     label="How old is the child?"
     [radioLabels]="childAgeCategory"
-    [required]="true">
+    required>
   </common-radio>
   <common-radio
       name="activeCoverage_{{objectId}}"
       [(ngModel)]="hasActiveMedicalCoverage"
       label="Does the child currently have active Medical Services Plan coverage?"
       [radioLabels]='[{"label": "No", "value": false }, {"label": "Yes", "value": true}]'
-      [required]="true">
+      required>
   </common-radio>
 </div>
 
@@ -46,7 +46,7 @@
       [(ngModel)]="child.hasNameChange"
       label="Has the child's name changed since their ID was issued due to a legal name change?"
       (valuehange)="this.personChange.emit(child);"
-      [required]="true">
+      required>
     </common-radio>
 
     <!-- Documents - Update name due to name change -->
@@ -86,7 +86,7 @@
         label='Gender'
         [radioLabels]='[{"label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
         (valueChange)="setGender($event)"
-        [required]="true">
+        required>
       </common-radio>
     </div>
   </div>

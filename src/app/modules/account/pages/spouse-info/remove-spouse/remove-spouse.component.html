@@ -37,7 +37,7 @@
         [(ngModel)]="spouse.cancellationDate"
         (ngModelChange)="this.dataService.saveMspAccountApp();"
         [errorMessage]='cancellationDateErrorMessage'
-        [required]="true">
+        required>
       </common-date>
     </div>
   </div>
@@ -72,7 +72,7 @@
         label="Do you know your spouse's current mailing address?"
         [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
         (valueChange)="spouse.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();"
-        [required]="true">
+        required>
       </common-radio>
     </div>
   </div>
@@ -104,7 +104,7 @@
       [(ngModel)]="spouse.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();"
       [errorMessage]='dateErrorMessage'
-      [required]="true">
+      required>
     </common-date>
   </div>
 </div>
@@ -117,7 +117,7 @@
       [(ngModel)]="spouse.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();"
       [errorMessage]='dateErrorMessage'
-      [required]="true">
+      required>
     </common-date>
   </div>
 </div>
@@ -136,7 +136,7 @@
       [(ngModel)]="spouse.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();"
       [errorMessage]='dateErrorMessage'
-      [required]="true">
+      required>
     </common-date>
   </div>
 </div>
@@ -149,7 +149,7 @@
       [(ngModel)]="spouse.cancellationDate"
       (ngModelChange)="this.dataService.saveMspAccountApp();"
       [errorMessage]='dateErrorMessage'
-      [required]="true">
+      required>
     </common-date>
   </div>
 </div>

@@ -5,7 +5,7 @@
     [(ngModel)]="spouse.immigrationStatusChange"
     [label]="'Does your spouse currently have active Medical Services Plan coverage?'"
     [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
-    [required]="true">
+    required>
   </common-radio>
 </div>
 
@@ -43,7 +43,7 @@
         name="nameChangeQuestion__{{objectId}}"
         [(ngModel)]="spouse.hasNameChange"
         label="Has your spouse's name changed since their ID was issued due to a legal name change?"
-        [required]="true">
+        required>
       </common-radio>
     </div>
 
@@ -99,7 +99,7 @@
         label='Gender'
         [radioLabels]='[{"label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
         (valueChange)="setGender($event)"
-        [required]="true">
+        required>
       </common-radio>
     </div>
   </div>
@@ -129,7 +129,7 @@
       label="Has your spouse's name changed due to marriage?"
       [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
       (valueChange)="setUpdateNameDueToMarriage($event)"
-      [required]="true">
+      required>
     </common-radio>
   </div>
 
@@ -152,7 +152,7 @@
                 [disabled]="disabled"
                 [(ngModel)]="spouse.updateNameDueToMarriageRequestedLastName"
                 maxlength="30"
-                [required]="true"
+                required
                 commonValidateName>
               </common-name>
             </div>

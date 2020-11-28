@@ -10,7 +10,7 @@
       [disabled]="disabled"
       [(ngModel)]="firstName"
       maxlength="30"
-      [required]="true"
+      required
       commonValidateName>
     </common-name>
   </div>
@@ -33,7 +33,7 @@
       [disabled]="disabled"
       [(ngModel)]="lastName"
       maxlength="30"
-      [required]="true"
+      required
       commonValidateName>
     </common-name>
   </div>
@@ -60,7 +60,7 @@
       [errorMessage]="dobErrorMsg"
       [disabled]="disabled"
       [(ngModel)]="dateOfBirth"
-      [required]="true">
+      required>
     </common-date>
   </div>
 </common-page-section>
