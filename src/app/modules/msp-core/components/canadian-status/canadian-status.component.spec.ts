@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CanadianStatusComponent, ICanadianStatus } from './canadian-status.component';
 import { SharedCoreModule } from 'moh-common-lib';
 import { FormsModule } from '@angular/forms';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 
 describe('CanadianStatusComponent', () => {
   let component: CanadianStatusComponent<ICanadianStatus>;

@@ -3,7 +3,7 @@ import { MspLogService } from '../../../services/log.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonImage } from 'moh-common-lib';
 import { Response } from '@angular/http';
-import { ApiResponse } from '../../../models/api-response.interface';
+import { ApiResponse } from '../../../interfaces/api-response.interface';
 import {
  MSPApplicationSchema,
  EnrolmentApplicationType,
@@ -12,7 +12,7 @@ import {
  DependentType,
  EnrolmentApplicantType
 } from '../../../modules/msp-core/interfaces/i-api';
-import { Relationship } from '../../../models/relationship.enum';
+import { Relationship } from '../../../enums/relationship.enum';
 import { SchemaService } from '../../../services/schema.service';
 import { BaseMspApiService } from '../../../services/base-msp-api.service';
 import { EnrolApplication } from '../models/enrol-application';

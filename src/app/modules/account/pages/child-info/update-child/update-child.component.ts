@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
-import { Relationship } from '../../../../../models/relationship.enum';
+import { Relationship } from '../../../../../enums/relationship.enum';
 import { StatusInCanada } from '../../../../msp-core/models/canadian-status.enum';
 import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import {

@@ -13,7 +13,7 @@ import { Base } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 import { SupportDocumentList } from '../../../msp-core/models/support-documents.enum';
 
 @Component({

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MovingInformationComponent, IMovingInfo } from './moving-information.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { SharedCoreModule } from 'moh-common-lib';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';

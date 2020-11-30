@@ -64,8 +64,8 @@ import {
   StatusInCanada,
   CanadianStatusReason,
 } from '../../msp-core/models/canadian-status.enum';
-import { Relationship } from '../../../models/relationship.enum';
-import { ApiResponse } from 'app/models/api-response.interface';
+import { Relationship } from '../../../enums/relationship.enum';
+import { ApiResponse } from 'app/interfaces/api-response.interface';
 import { format } from 'date-fns';
 import { SupportDocumentList } from '../../msp-core/models/support-documents.enum';
 

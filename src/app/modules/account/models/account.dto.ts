@@ -1,7 +1,7 @@
 import { PersonDto } from '../../../components/msp/model/msp-person.dto';
-import { AddressDto } from '../../../models/address.dto';
+import { AddressDto } from '../../../dtos/address.dto';
 import { CommonImage } from 'moh-common-lib';
-import { BaseDto } from 'app/models/base.dto';
+import { BaseDto } from 'app/dtos/base.dto';
 
 export class MspAccountDto extends BaseDto {
   infoCollectionAgreement: boolean;

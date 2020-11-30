@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { NgForm, ControlContainer} from '@angular/forms';
-import { CancellationReasons, CancellationReasonsStrings } from '../../../../../models/status-activities-documents';
+import { CancellationReasons, CancellationReasonsStrings } from '../../../../../enums/status-activities-documents.enum';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions } from '../../../models/account.model';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';

@@ -1,13 +1,13 @@
 import { Component, Injectable, AfterContentInit, OnInit } from '@angular/core';
-import {  MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
+import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspApiAccountService } from '../../services/msp-api-account.service';
 import { Router } from '@angular/router';
 import { ResponseType } from '../../../../modules/msp-core/api-model/responseTypes';
 import { MspLogService } from '../../../../services/log.service';
 import { ProcessService } from '../../../../services/process.service';
 import { MspAccountApp } from '../../models/account.model';
-import { Relationship } from '../../../../models/relationship.enum';
-import { ApiResponse } from 'app/models/api-response.interface';
+import { Relationship } from '../../../../enums/relationship.enum';
+import { ApiResponse } from 'app/interfaces/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiStatusCodes, ContainerService, PageStateService } from 'moh-common-lib';
 import { BaseForm } from '../../models/base-form';
@@ -191,3 +191,4 @@ export class AccountSendingComponent extends BaseForm implements AfterContentIni
     this.router.navigate(['/deam/authorize']);
   }
 }
+

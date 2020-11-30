@@ -1,7 +1,6 @@
-import {UUID} from 'angular2-uuid';
+import { UUID } from 'angular2-uuid';
 import * as _ from 'lodash';
 import { compareAsc } from 'date-fns';
-import { BaseDto } from './base.dto';
 
 export class OutofBCRecord {
   readonly id: string;
@@ -56,16 +55,4 @@ export class OutofBCRecord {
     return this.returnDate !== null || this.returnDate !== undefined;
   }
 
-}
-
-
-/**
- * Storage definition
- */
-export class OutofBCRecordDto extends BaseDto {
-  id: string;
-  reason: string;
-  location: string;
-  departureDate: Date;
-  returnDate: Date;
 }

@@ -3,7 +3,7 @@ import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST, ErrorMessage } fro
 import { ControlContainer, NgForm } from '@angular/forms';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { environment } from '../../../../../environments/environment';
-import { Relationship } from 'app/models/relationship.enum';
+import { Relationship } from 'app/enums/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { formatDateField } from '../../helpers/date';
 import { isBefore, subDays, addDays, addMonths } from 'date-fns';

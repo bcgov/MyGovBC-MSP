@@ -7,7 +7,7 @@ import { AccountPersonalInformationComponent } from '../../../components/persona
 import { MspCoreModule } from '../../../../msp-core/msp-core.module';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
-import { Relationship } from '../../../../../models/relationship.enum';
+import { Relationship } from '../../../../../enums/relationship.enum';
 
 describe('UpdateChildComponent', () => {
   let component: UpdateChildComponent;

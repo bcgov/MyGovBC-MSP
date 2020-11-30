@@ -1,6 +1,6 @@
 import { PersonalInformationComponent, IPersonalInformation } from './personal-information.component';
-import { Gender } from '../../../../models/gender.enum';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Gender } from '../../../../enums/gender.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { createTestingModule } from '../../../../_developmentHelpers/test-helpers';
 import { ComponentFixture, fakeAsync } from '@angular/core/testing';

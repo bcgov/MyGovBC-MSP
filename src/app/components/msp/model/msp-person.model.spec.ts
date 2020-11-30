@@ -1,5 +1,5 @@
 import { MspPerson } from './msp-person.model';
-import { Relationship } from '../../../models/relationship.enum';
+import { Relationship } from '../../../enums/relationship.enum';
 
 describe('Person Model', () => {
     let applicant: MspPerson;

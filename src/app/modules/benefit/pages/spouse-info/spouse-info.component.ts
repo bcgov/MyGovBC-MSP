@@ -1,15 +1,14 @@
-import {ChangeDetectorRef, Component, QueryList, EventEmitter, Input, OnInit, Output, ViewChild, ViewChildren} from '@angular/core';
-import {ProcessService} from '../../../../services/process.service';
-import {BaseComponent} from '../../../../models/base.component';
+import { ChangeDetectorRef, Component, QueryList, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { ProcessService } from '../../../../services/process.service';
+import { BaseComponent } from '../../../../models/base.component';
 import { Router } from '@angular/router';
-import {BenefitApplication} from '../../models/benefit-application.model';
-import {PersonalDetailsRetroSuppbenComponent} from '../../components/personal-details-retro-suppben/personal-details-retro-suppben.component';
+import { BenefitApplication } from '../../models/benefit-application.model';
+import { PersonalDetailsRetroSuppbenComponent } from '../../components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import { MspBenefitDataService } from '../../services/msp-benefit-data.service';
-import {NgForm} from '@angular/forms';
-import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
-//import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
+import { NgForm } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CANADA } from 'moh-common-lib';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 
 @Component({
   selector: 'msp-spouse-info',

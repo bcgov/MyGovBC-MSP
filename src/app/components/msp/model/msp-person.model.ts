@@ -1,14 +1,14 @@
-import {OutofBCRecord} from '../../../models/outof-bc-record.model';
-import {UUID} from 'angular2-uuid';
+import { OutofBCRecord } from '../../../models/out-of-bc-record.model';
+import { UUID } from 'angular2-uuid';
 import * as _ from 'lodash';
-import {PhoneNumber} from './phone.model';
+import { PhoneNumber } from './phone.model';
 import { PersonStatusChange } from './person-status-change';
 import { Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 import { CanadianStatusReason, StatusInCanada } from '../../../modules/msp-core/models/canadian-status.enum';
-import { Relationship } from '../../../models/relationship.enum';
-import { CancellationReasons } from 'app/models/status-activities-documents';
+import { Relationship } from '../../../enums/relationship.enum';
+import { CancellationReasons } from 'app/enums/status-activities-documents.enum';
 import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
-import { Gender } from '../../../models/gender.enum';
+import { Gender } from '../../../enums/gender.enum';
 import { ICanadianStatus } from '../../../modules/msp-core/components/canadian-status/canadian-status.component';
 import { compareAsc, isBefore, startOfToday, isAfter, subYears } from 'date-fns';
 

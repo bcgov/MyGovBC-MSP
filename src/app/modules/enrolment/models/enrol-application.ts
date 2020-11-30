@@ -1,8 +1,9 @@
-import { BaseApplicationDto, BaseApplication } from '../../../models/base-application';
+import { BaseApplication } from '../../../models/base-application.model';
+import { BaseApplicationDto } from '../../../dtos/base-application.dto'
 import { EnrolleeDto, Enrollee } from './enrollee';
-import { Relationship } from '../../../models/relationship.enum';
+import { Relationship } from '../../../enums/relationship.enum';
 import { CommonImage, Address } from 'moh-common-lib';
-import { AddressDto } from '../../../models/address.dto';
+import { AddressDto } from '../../../dtos/address.dto';
 import { UUID } from 'angular2-uuid';
 
 export class EnrolApplication extends BaseApplication {

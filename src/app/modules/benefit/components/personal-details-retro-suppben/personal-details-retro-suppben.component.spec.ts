@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA, ChangeDetectorRef } from '@angular/core';
 import { MspBenefitDataService } from '../../services/msp-benefit-data.service';
 import { CommonImage } from 'moh-common-lib';
 import { FormsModule } from '@angular/forms';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 import { PersonalDetailsRetroSuppbenComponent } from './personal-details-retro-suppben.component';
 
 describe('PersonalDetailsRetroSuppbenComponent', () => {

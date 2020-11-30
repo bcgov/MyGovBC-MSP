@@ -3,11 +3,11 @@ import { Address, AbstractHttpService, CommonImage } from 'moh-common-lib';
 import { AddressType, MSPApplicationSchema, CitizenshipType, NameType } from '../modules/msp-core/interfaces/i-api';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { MspLogService } from './log.service';
-import { of, Observable } from 'rxjs';
-import { ApiResponse } from '../models/api-response.interface';
+import { of } from 'rxjs';
+import { ApiResponse } from '../interfaces/api-response.interface';
 import { environment } from '../../environments/environment';
 import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
-import { BasePerson } from '../models/base-person';
+import { BasePerson } from '../models/base-person.model';
 import { format } from 'date-fns';
 import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 

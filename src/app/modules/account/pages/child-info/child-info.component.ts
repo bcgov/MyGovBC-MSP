@@ -6,12 +6,12 @@ import { OperationActionType, MspPerson } from '../../../../components/msp/model
 import { scrollTo, ContainerService, PageStateService } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { Relationship } from 'app/models/relationship.enum';
+import { Relationship } from 'app/enums/relationship.enum';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { BaseForm } from '../../models/base-form';
-import { CancellationReasons } from '../../../../models/status-activities-documents';
-import {ProcessService} from '../../../../services/process.service';
+import { CancellationReasons } from '../../../../enums/status-activities-documents.enum';
+import { ProcessService } from '../../../../services/process.service';
 
 const DOM_REFRESH_TIMEOUT = 50;
 

@@ -2,12 +2,12 @@ import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { Eligibility } from './eligibility.model';
 import { UUID } from 'angular2-uuid';
 import * as moment from 'moment';
-import { ApplicationBase } from '../../../models/application-base.model';
+import { ApplicationBase } from '../../../interfaces/application-base.interface';
 import { AssistanceYear } from './assistance-year.model';
 import * as _ from 'lodash';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';
 import { Address, CommonImage } from 'moh-common-lib';
-import { Relationship } from '../../../models/relationship.enum';
+import { Relationship } from '../../../enums/relationship.enum';
 
 export enum AssistanceApplicationType {
   CurrentYear,

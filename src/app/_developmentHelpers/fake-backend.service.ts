@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest } from '@angular/common/http';
 import { AclApiPayLoad } from '../modules/request-acl/model/acl-api.model';
-import { ApiResponse } from '../models/api-response.interface';
+import { ApiResponse } from '../interfaces/api-response.interface';
 
 
 @Injectable({

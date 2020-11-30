@@ -1,11 +1,11 @@
-import { AddressDto } from '../../../models/address.dto';
-import { OutofBCRecordDto } from '../../../models/outof-bc-record.model';
-import { CancellationReasons} from '../../../models/status-activities-documents';
+import { AddressDto } from '../../../dtos/address.dto';
+import { OutofBCRecordDto } from '../../../dtos/out-of-bc-record.dto';
+import { CancellationReasons} from '../../../enums/status-activities-documents.enum';
 import { PersonStatusChange } from './person-status-change';
 import { CommonImage } from 'moh-common-lib';
 import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
-import { Gender } from '../../../models/gender.enum';
-import { BaseDto } from 'app/models/base.dto';
+import { Gender } from '../../../enums/gender.enum';
+import { BaseDto } from 'app/dtos/base.dto';
 
 
 

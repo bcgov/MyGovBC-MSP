@@ -4,7 +4,7 @@ import { UpdateRequestComponent } from './update-request.component';
 import { MspCoreModule } from '../../../msp-core/msp-core.module';
 import { FormsModule } from '@angular/forms';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 
 describe('UpdateRequestComponent', () => {
   let component: UpdateRequestComponent;

@@ -1,4 +1,4 @@
-import { BaseApplication } from '../../../models/base-application';
+import { BaseApplication } from '../../../models/base-application.model';
 import { EnrolmentMembership } from './enrolment-membership.enum';
 
 
