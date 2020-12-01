@@ -307,9 +307,12 @@ export class MspDataService {
     if (this.isValidAddress(dto.residentialAddress)) {
       this.convertResidentialAddress(dto, output);
     }
-    dto.images.forEach(img => {
-      output.documents.images = [...output.documents.images, img];
-    });
+
+    if (dto.images && dto.images.length > 0) {
+      dto.images.forEach(img => {
+        output.documents.images = [...output.documents.images, img];
+      });
+    }
 
     return output;
   }
