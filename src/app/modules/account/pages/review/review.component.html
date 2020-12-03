@@ -2,8 +2,8 @@
 <form #formRef="ngForm" novalidate>
   <div class="deam-container">
     <h1 class="horizontal-line"><strong>Review your request</strong>
-      <i class="fa fa-print print--icon" aria-hidden="true" (click)="printPage()">
-        <span class="print--word">Print </span>
+      <i class="fa fa-print print--icon" aria-hidden="true" (keypress)="keyPress($event)" (click)="printPage()" tabindex="0" aria-label="print">
+        <span class="print--word">Print</span>
       </i>
     </h1>
 
