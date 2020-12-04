@@ -30,3 +30,20 @@ $next-step--color: #00F;
   padding-top: .25rem;
 }
 
+.print--icon {
+  cursor: pointer;
+  float: right;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row-reverse;
+  padding-top: 6px;
+}
+
+.print--word {
+  font-size: 1.25rem;
+  padding-right: 0.25rem;
+  float: left;
+  font-family: Myriad-Pro, Calibri, Arial, sans-serif;
+}
+

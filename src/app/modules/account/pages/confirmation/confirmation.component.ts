@@ -96,4 +96,15 @@ export class AccountConfirmationComponent implements OnDestroy {
   get dateStamp(): string {
     return format(new Date(), 'MMMM dd, yyyy');
   }
+
+  printPage() {
+    window.print();
+    return false;
+  }
+
+  keyPress(event){
+    if (event.keyCode === 13){ // code for Enter key
+      this.printPage();
+    }
+  }
 }
