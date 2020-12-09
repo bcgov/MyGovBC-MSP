@@ -25,4 +25,10 @@ export class ReviewCardComponent {
       this._router.navigate([this.editRouterLink]);
     }
   }
+
+  keyPress(event){
+    if (event.keyCode === 13){ // code for Enter key
+      this.editPersonalInfo();
+    }
+  }
 }
