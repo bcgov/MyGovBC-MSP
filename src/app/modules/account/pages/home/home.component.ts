@@ -77,4 +77,10 @@ export class HomeComponent implements OnInit {
       this.showMoveCaptcha = true;
     }, 50);
   }
+
+  continue() {
+    this.continueButtonLoading = true;
+    window.open(this.outLinkUrl, '_blank');
+    this.continueButtonLoading = false;
+  }
 }
