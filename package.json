@@ -18,10 +18,11 @@
     "prebuild": "node src/version.js",
     "build": "ng build --prod",
     "test": "ng test",
-    "e2e": "ng e2e",
-    "e2e-protractor": "npx protractor",
+    "pree2e": "npx webdriver-manager update --versions.chrome 86.0.4240.198",
+    "e2e": "ng e2e --no-webdriver-update",
     "e2e:all": "npm run e2e -- --protractorConfig=e2e/protractor.full-tests.conf.js",
     "e2e:chrome": "npm run e2e -- --protractorConfig=e2e/protractor.conf.js",
+    "e2e:account": "npm run e2e -- --protractorConfig=e2e/protractor.account.conf.js",
     "e2e:enrolment": "npm run e2e -- --protractorConfig=e2e/protractor.enrolment.conf.js",
     "e2e:supp-benefits": "npm run e2e-protractor -- e2e/protractor.supp-benefits.conf.js",
     "e2e:retro-pa": "npm run e2e-protractor -- e2e/protractor.retro-pa.conf.js"
