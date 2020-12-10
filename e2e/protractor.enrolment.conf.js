@@ -6,7 +6,7 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    './enrolment/src/mspe-happy-path.e2e-spec.ts'
+    './enrolment/src/**/*.e2e-spec.ts'
   ],
   multiCapabilities: [{
     'browserName': 'firefox'
@@ -14,7 +14,7 @@ exports.config = {
     'browserName': 'chrome'
   }],
   directConnect: true,
-  baseUrl: 'https://msp-supp-benefit-dev.pathfinder.gov.bc.ca/msp/',
+  baseUrl: 'http://localhost:4200/',
   framework: 'jasmine2',
   jasmineNodeOpts: {
     showColors: true,

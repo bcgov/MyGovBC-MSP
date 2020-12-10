@@ -26,5 +26,4 @@ describe('MSP Enrolment - Authorize', () => {
         // Missing method to write captcha using e2e here
         expect(browser.getCurrentUrl()).toContain(AUTHORIZE_PAGE_URL);
     });
-
 });

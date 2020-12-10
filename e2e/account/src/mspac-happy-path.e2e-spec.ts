@@ -49,8 +49,8 @@ describe("MSP AccountChange - End-to-End", () => {
     homePage.clickModalContinue();
     element(by.cssContainingText("span", "Manage Account")).click();
     expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, "should navigate to the next page");
-    // personalPage.fillPersonalInfo(personalData);
-    personalPage.clickRadioButton("As the Account Holder, are you requesting an update to your personal information or renewing your status in Canada?", "No");
+    personalPage.fillPersonalInfo(personalData);
+    element(by.cssContainingText('label', 'No')).click();
     personalPage.clickContinue();
     expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, "should navigate to the next page");
     spousePage.clickContinue();

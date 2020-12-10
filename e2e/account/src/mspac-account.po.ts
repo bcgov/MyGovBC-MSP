@@ -90,12 +90,12 @@ export class PersonalInfoPage extends BaseMSPAccountChangeTestPage {
   }
 
   fillPersonalInfo(data: PersonalInfoPageTest) {
-    element(by.css('common-name[label="First name"]')).sendKeys(data.firstName);
-    element(by.css('common-name[label="Last name"]')).sendKeys(data.lastName);
-    element(by.css('common-phn')).sendKeys(data.healthNum);
-    this.clickOption(this.monthNames[data.birthDate.getMonth()]);
-    element(by.css('input[placeholder="day"]')).sendKeys(data.birthDate.getDay());
-    element(by.css('input[placeholder="year"]')).sendKeys(data.birthDate.getFullYear());
+    element(by.css('common-name[label="First name"]')).element(by.css('input')).sendKeys(data.firstName);
+    element(by.css('common-name[label="Last name"]')).element(by.css('input')).sendKeys(data.lastName);
+    element(by.css('common-phn')).element(by.css('input')).sendKeys(data.healthNum);
+    element(by.css(`option[value="${data.birthDate.getMonth()}"]`)).click();
+    element(by.css('input[placeholder="Day"]')).sendKeys(data.birthDate.getDate());
+    element(by.css('input[placeholder="Year"]')).sendKeys(data.birthDate.getFullYear());
   }
 
   typeOption(status: string) {
@@ -154,9 +154,9 @@ export class ContactInfoPage extends BaseMSPAccountChangeTestPage {
   }
 
   fillMailingAddress(data: ContactPageTest) {
-    element(by.css('common-address:nth-child(1) [id^="street"]')).sendKeys(data.address);
-    element(by.css('common-address:nth-child(1) [id^="city"]')).sendKeys(data.city);
-    element(by.css('common-address:nth-child(1) [id^="postal"]')).sendKeys(data.postal);
+    element(by.css('common-street')).element(by.css('input')).sendKeys(data.address);
+    element(by.css('common-city')).element(by.css('input')).sendKeys(data.city);
+    element(by.css('common-postal-code')).element(by.css('input')).sendKeys(data.postal);
   }
 
   fillContactNumber(data: ContactPageTest) {

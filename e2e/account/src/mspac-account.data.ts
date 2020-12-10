@@ -8,7 +8,7 @@ export class FakeDataAccountChange {
       country: faker.address.country(),
       address: faker.address.streetAddress(),
       city: faker.address.city(),
-      postal: faker.address.zipCode("?#? #?#"),
+      postal: 'V7V7V7',
       mobile: faker.phone.phoneNumberFormat(2),
     };
   }
@@ -17,11 +17,11 @@ export class FakeDataAccountChange {
     return {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
-      birthDate: faker.date.past(),
+      birthDate: new Date("1990-03-25T12:00:00-06:30"),
       province: faker.address.state(),
-      arrivalDateBC: faker.date.past(),
-      arrivalDateCAN: Math.random() > 0.5 ? faker.date.past() : undefined,
-      healthNum: faker.random.number(),
+      arrivalDateBC: new Date("2008-05-11T12:00:00-06:30"),
+      arrivalDateCAN: new Date("2008-05-11T12:00:00-06:30"),
+      healthNum: '9999999998',
     };
   }
 
@@ -51,5 +51,5 @@ export interface PersonalInfoPageTest {
   province?: string;
   arrivalDateBC: Date;
   arrivalDateCAN: Date;
-  healthNum: number;
+  healthNum: string;
 }
