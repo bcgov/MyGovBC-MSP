@@ -98,7 +98,8 @@
         [value]="spouse.gender"
         label='Gender'
         [radioLabels]='[{"label": "Female", "value": "F"}, {"label": "Male", "value": "M"}]'
-        (valueChange)="setGender($event)">
+        (valueChange)="setGender($event)"
+        required>
       </common-radio>
     </div>
   </div>
@@ -127,7 +128,8 @@
       [value]="spouse.updateNameDueToMarriage"
       label="Has your spouse's name changed due to marriage?"
       [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
-      (valueChange)="setUpdateNameDueToMarriage($event)">
+      (valueChange)="setUpdateNameDueToMarriage($event)"
+      required>
     </common-radio>
   </div>
 

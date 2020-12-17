@@ -13,7 +13,8 @@
       id="cancellationReason_{{objectId}}"
       [(ngModel)]="child.cancellationReason"
       [ngModelOptions]="{standalone: true}"
-      (ngModelChange)="setCancellationStatus($event)">
+      (ngModelChange)="setCancellationStatus($event)"
+      required>
       <option selected value="null" disabled="true">Please select</option>
       <option *ngFor="let item of cancellationReasons"
         [ngValue]="item.value">
@@ -35,7 +36,8 @@
           [dateRangeEnd]="dateToday"
           [errorMessage]="cancellationDateErrorMessage"
           [(ngModel)]="child.cancellationDate"
-          (ngModelChange)="this.dataService.saveMspAccountApp();">
+          (ngModelChange)="this.dataService.saveMspAccountApp();"
+          required>
         </common-date>
       </div>
     </div>
@@ -57,7 +59,8 @@
     [value]="child.hasCurrentMailingAddress"
     label="Do you know the child's current mailing address?"
     [radioLabels]='[{"label": "No", "value": false}, {"label": "Yes", "value": true}]'
-    (valueChange)="child.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
+    (valueChange)="child.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();"
+    required>
   </common-radio>
 
   <common-page-section layout='noTips'>
@@ -89,7 +92,8 @@
       [dateRangeEnd]="dateToday"
       [errorMessage]="cancellationDateErrorMessage"
       [(ngModel)]="child.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();">
+      (ngModelChange)="this.dataService.saveMspAccountApp();"
+      required>
     </common-date>
   </div>
 </div>
@@ -109,7 +113,8 @@
       [dateRangeEnd]="dateToday"
       [errorMessage]="cancellationDateErrorMessage"
       [(ngModel)]="child.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();">
+      (ngModelChange)="this.dataService.saveMspAccountApp();"
+      required>
     </common-date>
   </div>
 </div>
@@ -123,7 +128,8 @@
       [dateRangeEnd]="dateToday"
       [errorMessage]="cancellationDateErrorMessage"
       [(ngModel)]="child.cancellationDate"
-      (ngModelChange)="this.dataService.saveMspAccountApp();">
+      (ngModelChange)="this.dataService.saveMspAccountApp();"
+      required>
     </common-date>
   </div>
 </div>
