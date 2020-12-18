@@ -1,53 +1,49 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SharedCoreModule } from 'moh-common-lib';
-import { CaptchaModule } from 'moh-common-lib/captcha';
-import { FormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { LocalStorageModule } from 'angular-2-local-storage';
-import { AuthorizeComponent } from './authorize.component';
-import { MspLogService } from '../../../../services/log.service';
-import { MspDataService } from '../../../../services/msp-data.service';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
 import { PageStateService } from '../../../../services/page-state.service';
+import { MspLogService } from '../../../../services/log.service';
+import { MspApiEnrolmentService } from '../../services/msp-api-enrolment.service';
 import { EnrolDataService } from '../../services/enrol-data.service';
-import { EnrolApplication } from '../../models/enrol-application';
+import { FormsModule } from '@angular/forms';
+import { AuthorizeComponent } from './authorize.component';
 
-describe('AuthorizeComponent', () => {
+describe('Enrolment AuthorizeComponent', () => {
   let component: AuthorizeComponent;
   let fixture: ComponentFixture<AuthorizeComponent>;
-  const pageStateServiceStub = () => ({
-    setPageIncomplete: (str, arr) => ({})
-  });
-  const enrolDataServiceStub = () => ({
-    application: new EnrolApplication()
-  });
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AuthorizeComponent ],
-      imports: [
-        SharedCoreModule,
-        FormsModule,
-        CaptchaModule,
-        LocalStorageModule.withConfig({
-          prefix: 'ca.bc.gov.msp',
-          storageType: 'sessionStorage'
-        }),
-        RouterTestingModule
-      ],
-      providers: [
-        MspLogService,
-        MspDataService,
-        { provide: PageStateService, useFactory: pageStateServiceStub },
-        { provide: EnrolDataService, useFactory: enrolDataServiceStub }
-      ]
-    })
-    .compileComponents();
-  }));
 
   beforeEach(() => {
+    const routerStub = () => ({ url: {}, navigate: (array, object) => ({}) });
+    const pageStateServiceStub = () => ({
+      setPageComplete: (url, pageStatus) => ({}),
+      clearCompletePages: pageStatus => ({})
+    });
+    const mspLogServiceStub = () => ({ log: (object, arg) => ({}) });
+    const mspApiEnrolmentServiceStub = () => ({
+      sendRequest: mspApplication => ({ then: () => ({ catch: () => ({}) }) })
+    });
+    const enrolDataServiceStub = () => ({
+      pageStatus: {},
+      saveApplication: () => ({}),
+      removeApplication: () => ({})
+    });
+    TestBed.configureTestingModule({
+      imports: [FormsModule],
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [AuthorizeComponent],
+      providers: [
+        { provide: Router, useFactory: routerStub },
+        { provide: PageStateService, useFactory: pageStateServiceStub },
+        { provide: MspLogService, useFactory: mspLogServiceStub },
+        {
+          provide: MspApiEnrolmentService,
+          useFactory: mspApiEnrolmentServiceStub
+        },
+        { provide: EnrolDataService, useFactory: enrolDataServiceStub }
+      ]
+    });
     fixture = TestBed.createComponent(AuthorizeComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

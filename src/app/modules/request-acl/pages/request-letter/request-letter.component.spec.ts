@@ -8,7 +8,6 @@ import { MspLogService } from '../../../../services/log.service';
 import { AclApiService } from '../../services/acl-api.service';
 import { FormsModule } from '@angular/forms';
 import { RequestLetterComponent } from './request-letter.component';
-import { environment } from '../../../../../environments/environment';
 
 describe('RequestLetterComponent', () => {
   let component: RequestLetterComponent;
@@ -58,24 +57,7 @@ describe('RequestLetterComponent', () => {
     expect(component.loading).toEqual(false);
   });
 
-  it(`should have the default captchaApiBaseUrl value`, () => {
-    expect(component.captchaApiBaseUrl).toEqual(
-      environment.appConstants.captchaApiBaseUrl
-    );
-  });
-
   it(`should have the default showCaptcha value`, () => {
     expect(component.showCaptcha).toEqual(false);
-  });
-
-  describe('ngOnInit', () => {
-    it('makes expected call', () => {
-      const mspLogServiceStub: MspLogService = fixture.debugElement.injector.get(
-        MspLogService
-      );
-      spyOn(mspLogServiceStub, 'log').and.callThrough();
-      component.ngOnInit();
-      expect(mspLogServiceStub.log).toHaveBeenCalled();
-    });
   });
 });
