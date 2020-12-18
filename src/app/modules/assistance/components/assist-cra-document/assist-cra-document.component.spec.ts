@@ -4,7 +4,7 @@ import { AssistCraDocumentComponent } from './assist-cra-document.component';
 import { CommonImage } from 'moh-common-lib';
 import { AssistanceYear } from '../../models/assistance-year.model';
 
-fdescribe('AssistCraDocumentComponent', () => {
+describe('AssistCraDocumentComponent', () => {
   let component: AssistCraDocumentComponent;
   let fixture: ComponentFixture<AssistCraDocumentComponent>;
 
