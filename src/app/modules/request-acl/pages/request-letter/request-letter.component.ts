@@ -20,7 +20,7 @@ import { subYears, startOfToday } from 'date-fns';
   templateUrl: './request-letter.component.html',
   styleUrls: ['./request-letter.component.scss']
 })
-export class RequestLetterComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
+export class RequestLetterComponent extends AbstractForm implements AfterViewInit, OnDestroy {
 
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
@@ -106,8 +106,6 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
   set specificMemberPhn( phn: string ) {
     this.application.specificMemberPhn = phn;
   }
-
-  ngOnInit() {}
 
   ngAfterViewInit() {
     // Display consent modal if no agreement

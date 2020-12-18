@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   outLinkTitle: string;
   outLinkUrl: string;
   continueButtonLoading: boolean = false;
+  addressAppSent: boolean = false;
 
   constructor(private dataService: MspAccountMaintenanceDataService,
               private header: HeaderService,
@@ -80,35 +81,33 @@ export class HomeComponent implements OnInit {
 
   continue() {
     this.continueButtonLoading = true;
-
-    this.apiService.sendChangeAddressApplication(this.mspAccountApp)
-      .then((response: ApiResponse) => {
-
-        if (response && response.op_return_code !== 'SUCCESS') {
-          devOnlyConsoleLog('Submission response: ', response.op_return_code);
-        } else {
-          devOnlyConsoleLog('Success');
-        }
-
-        if (response instanceof HttpErrorResponse) {
-          this.logService.log(
-            {
-              name: 'Account - System Error',
-              confirmationNumber: this.mspAccountApp.referenceNumber,
-              url: this.router.url
-            },
-            'Account - Submission Response Error' + response.message
-          );
-          return;
-        }
-
-        this.continueButtonLoading = false;
-
-        // Open new window.
-        window.open(this.outLinkUrl, '_blank');
-
-      }).catch((error: ResponseType | any) => {
-        devOnlyConsoleLog('Account - Error in sending request: ', error);
-      });
+    // On users first address change request, send notice
+    if (!this.addressAppSent) {
+      this.apiService.sendChangeAddressApplication(this.mspAccountApp)
+        .then((response: ApiResponse) => {
+  
+          if (response) {
+            devOnlyConsoleLog('Submission response: ', response.op_return_code);
+          }
+  
+          if (response instanceof HttpErrorResponse) {
+            this.logService.log(
+              {
+                name: 'Account - System Error',
+                confirmationNumber: this.mspAccountApp.referenceNumber,
+                url: this.router.url
+              },
+              'Account - Submission Response Error' + response.message
+            );
+          }
+  
+          this.addressAppSent = true;
+          
+        }).catch((error: ResponseType | any) => {
+          devOnlyConsoleLog('Account - Error in sending request: ', error);
+        });
+      }
+    this.continueButtonLoading = false;
+    window.open(this.outLinkUrl, '_blank');
   }
 }
