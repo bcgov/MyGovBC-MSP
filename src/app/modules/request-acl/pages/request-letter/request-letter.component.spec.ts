@@ -52,12 +52,4 @@ describe('RequestLetterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it(`should have the default loading value`, () => {
-    expect(component.loading).toEqual(false);
-  });
-
-  it(`should have the default showCaptcha value`, () => {
-    expect(component.showCaptcha).toEqual(false);
-  });
 });

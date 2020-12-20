@@ -74,24 +74,15 @@ describe('AssistanceAuthorizeSubmitComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('makes calls to page state service', () => {
-      const assistStateServiceStub: AssistStateService = fixture.debugElement.injector.get(
-        AssistStateService
-      );
-      spyOn(assistStateServiceStub, 'setPageIncomplete').and.callThrough();
-      component.ngOnInit();
-      expect(assistStateServiceStub.setPageIncomplete).toHaveBeenCalled();
-    });
-    
     it('redirects if infoCollectionAgreement is false', () => {
-      const redirectSpy = spyOn(component, 'redirect').and.stub();
+      const redirectSpy = spyOn(component, 'redirect').and.callFake(() => {});
       component.application.infoCollectionAgreement = false;
       component.ngOnInit();
       expect(redirectSpy).toHaveBeenCalled();
     });
     
     it('does not redirect if infoCollectionAgreement is true', () => {
-      const redirectSpy = spyOn(component, 'redirect').and.stub();
+      const redirectSpy = spyOn(component, 'redirect').and.callFake(() => {});
       component.application.infoCollectionAgreement = true;
       component.ngOnInit();
       expect(redirectSpy).not.toHaveBeenCalled();
