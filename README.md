@@ -1,5 +1,5 @@
 # MyGovBC-MSP
-![img](https://img.shields.io/badge/Lifecycle-Experimental-339999)
+![img](https://img.shields.io/badge/Lifecycle-Stable-97ca00)
 ## General
 
 This is MyGovBC-MSP, an Angular 6.x app. It provides the following processes:
