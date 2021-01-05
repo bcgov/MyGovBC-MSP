@@ -4,13 +4,15 @@ import { MspAccountMaintenanceDataService } from '../../services/msp-account-dat
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
-import { ContainerService, PageStateService } from 'moh-common-lib';
+import { ContainerService, PageStateService, scrollTo } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from 'app/models/relationship.enum';
 import { BaseForm } from '../../models/base-form';
 import { CancellationReasons } from '../../../../models/status-activities-documents';
 import {ProcessService} from '../../../../services/process.service';
+
+const DOM_REFRESH_TIMEOUT = 50;
 
 @Component({
   selector: 'msp-spouse-info',
@@ -76,6 +78,11 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     this.accountChangeOptions.dependentChange = true;
     this.showAddSpouse = true;
     this.showUpdateSpouse = false;
+        
+    setTimeout(() => {
+      this.scrollToSpouse('.add-spouse');
+    }, DOM_REFRESH_TIMEOUT);
+
     return this.showAddSpouse;
   }
 
@@ -85,6 +92,11 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     this.accountChangeOptions.dependentChange = true;
     this.showRemoveSpouse = true;
     this.showUpdateSpouse = false;
+        
+    setTimeout(() => {
+      this.scrollToSpouse('.remove-spouse');
+    }, DOM_REFRESH_TIMEOUT);
+
     return this.showRemoveSpouse;
   }
 
@@ -95,7 +107,22 @@ export class SpouseInfoComponent extends BaseForm implements OnInit, AfterViewIn
     this.showRemoveSpouse = false;
     this.showAddSpouse = false;
     this.showUpdateSpouse = true;
+
+    setTimeout(() => {
+      this.scrollToSpouse('.update-spouse');
+    }, DOM_REFRESH_TIMEOUT);
+
     return this.showUpdateSpouse;
+  }
+
+  scrollToSpouse(section: string) {
+    const el = <HTMLElement>document.querySelector(section);
+    if (el) {
+      const top: number = el.getBoundingClientRect().top + window.pageYOffset - 75;
+      scrollTo(top);
+      // Focus first input of section
+      el.querySelector('input').focus();
+    }
   }
 
   removedAddedSpouse() {
