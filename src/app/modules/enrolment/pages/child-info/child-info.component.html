@@ -120,8 +120,7 @@
               <div class="form-group col-sm-8 pl-0">
                 <common-address [(address)]="child.schoolAddress"
                                 [isRequired]="true"
-                                [allowExtralines]='true'
-                                [disableGeocoder]='true'>
+                                [addressServiceUrl]="addressServiceUrl">
                 </common-address>
               </div>
 

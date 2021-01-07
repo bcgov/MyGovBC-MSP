@@ -24,6 +24,7 @@ import {
 import { ErrorMessage } from 'moh-common-lib';
 import { formatDateField } from '../../../../../modules/account/helpers/date';
 import { subDays } from 'date-fns';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'msp-remove-spouse',
@@ -55,6 +56,7 @@ export class RemoveSpouseComponent extends BaseComponent {
   spouseRemoveDocs = spouseRemovedDueToDivorceDocuments();
   dateToday: Date = new Date();
   yesterday = subDays(this.dateToday, 1);
+  public readonly addressServiceUrl: string = environment.appConstants.addressApiBaseUrl;
 
   listofCancellationReasons = [
     {

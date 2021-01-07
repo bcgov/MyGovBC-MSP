@@ -12,8 +12,7 @@
       <common-address [address]="residentialAddress"
                       [isRequired]="true"
                       [disabled]="{province: true, country: true}"
-                      [allowExtralines]="true"
-                      [disableGeocoder]="true"
+                      [addressServiceUrl]="addressServiceUrl"
                       [bcOnly]="true">
       </common-address>
       <div class="custom-control custom-checkbox">
@@ -31,8 +30,7 @@
         <div *ngIf="!mailingSameAsResidentialAddress; else NoMailingAddress">
           <common-address [address]="mailingAddress"
                           [isRequired]="true"
-                          [allowExtralines]="true"
-                          [disableGeocoder]="true">
+                          [addressServiceUrl]="addressServiceUrl">
           </common-address>
         </div>
       </aside>

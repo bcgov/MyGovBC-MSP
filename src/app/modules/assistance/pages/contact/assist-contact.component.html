@@ -9,8 +9,7 @@
     <common-address
       [(address)]="address"
       isRequired="true"
-      allowExtralines="true"
-      disableGeocoder="true"
+      [addressServiceUrl]="addressServiceUrl"
     ></common-address>
   </common-page-section>
   <h2 class="border-bottom">{{ phoneTitle }}</h2>

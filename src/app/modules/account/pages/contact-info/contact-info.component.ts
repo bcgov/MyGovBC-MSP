@@ -15,6 +15,7 @@ import {
 
 import { Subscription } from 'rxjs';
 import { BaseForm } from '../../models/base-form';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'msp-contact-info',
@@ -44,6 +45,8 @@ export class ContactInfoComponent extends BaseForm implements OnInit, AfterViewI
 
    mspAccountApp: MspAccountApp;
    subscriptions: Subscription[];
+
+   public readonly addressServiceUrl: string = environment.appConstants.addressApiBaseUrl;
 
    constructor(private dataService: MspAccountMaintenanceDataService,
                protected router: Router,

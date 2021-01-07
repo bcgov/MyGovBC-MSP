@@ -6,7 +6,6 @@ import { AccountContainerComponent } from './components/account-container/accoun
 import { FormsModule } from '@angular/forms';
 import { MspCoreModule } from '../msp-core/msp-core.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { AccountPersonalInfoComponent } from './pages/personal-info/personal-info.component';
 
