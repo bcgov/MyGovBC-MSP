@@ -12,7 +12,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { MspLogService } from '../../../../services/log.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TextMaskModule } from 'angular2-text-mask';
-import { AssistCraDocumentComponent } from '../../components/assist-cra-document/assist-cra-document.component';
+import { AssistCraDocumentsComponent } from '../../components/assist-cra-documents/assist-cra-documents.component';
 import { MspCoreModule } from '../../../msp-core/msp-core.module';
 
 describe('AssistancePersonalInfoComponent Test', () => {
@@ -20,7 +20,7 @@ describe('AssistancePersonalInfoComponent Test', () => {
     TestBed.configureTestingModule({
       declarations: [
         AssistancePersonalInfoComponent,
-        AssistCraDocumentComponent
+        AssistCraDocumentsComponent
       ],
       imports: [
         TextMaskModule,

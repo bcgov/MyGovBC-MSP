@@ -40,10 +40,8 @@
         <h2>{{ documentsTitle }}</h2>
         <p class="border-bottom">{{ documentsDescription }}</p>
         <ng-container>
-          <ng-container *ngFor="let year of selectedYears">
-            <assist-cra-document [year]="year" [isSpouse]="true">
-            </assist-cra-document>
-          </ng-container>
+          <assist-cra-documents [selectedYears]="selectedYears" [isSpouse]="true">
+          </assist-cra-documents>
         </ng-container>
       </ng-container>
     </ng-container>
