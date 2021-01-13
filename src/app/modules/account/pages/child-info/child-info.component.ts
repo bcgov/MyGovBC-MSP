@@ -172,11 +172,12 @@ export class ChildInfoComponent extends BaseForm implements OnInit, AfterViewIni
   }
 
   scrollToChild(section: string) {
-    const elements = document.querySelectorAll(section);
-    if (elements.length > 0) {
-      const el: Element = elements[0];
+    const el = <HTMLElement>document.querySelector(section);
+    if (el) {
       const top: number = el.getBoundingClientRect().top + window.pageYOffset - 75;
       scrollTo(top);
+      // Focus first input of section
+      el.querySelector('input').focus();
     }
   }
 

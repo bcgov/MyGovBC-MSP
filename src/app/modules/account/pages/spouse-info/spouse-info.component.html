@@ -42,7 +42,7 @@
       <br>
 
       <!-- Add Spouse Section -->
-      <div *ngIf="showAddSpouse">
+      <div *ngIf="showAddSpouse" class="add-spouse">
         <h2><strong>Add Spouse</strong></h2>
         <common-xicon-button
           label='Remove'
@@ -60,7 +60,7 @@
       </div>
 
       <!-- Remove Spouse Section -->
-      <div *ngIf="showRemoveSpouse">
+      <div *ngIf="showRemoveSpouse" class="remove-spouse">
         <h2><strong>Remove Spouse</strong></h2>
         <common-xicon-button
           label='Remove'
@@ -77,7 +77,7 @@
       </div>
 
       <!-- Update Spouse Section -->
-      <div *ngIf="showUpdateSpouse">
+      <div *ngIf="showUpdateSpouse" class="update-spouse">
         <h2><strong>Update Spouse's Information</strong></h2>
         <common-xicon-button
           label='Remove'
@@ -96,7 +96,7 @@
         </msp-update-spouse>
       </div>
 
-      <!-- Add/Remove/Update Buttons-->
+      <!-- Add/Remove/Update Buttons -->
       <div *ngIf="((showAddSpouse && showAddedSpouseBottomButtons) || showUpdateSpouse || showRemoveSpouse)">
         <p class="horizontal-line"></p>
         <div class="row aru-buttons">
