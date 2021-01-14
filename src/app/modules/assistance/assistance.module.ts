@@ -12,7 +12,7 @@ import { MspCoreModule } from '../msp-core/msp-core.module';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { AssistContactComponent } from './pages/contact/assist-contact.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';
-import { AssistCraDocumentComponent } from './components/assist-cra-document/assist-cra-document.component';
+import { AssistCraDocumentsComponent } from './components/assist-cra-documents/assist-cra-documents.component';
 import { SpouseComponent } from './pages/spouse/spouse.component';
 import { RouteGuardService , AbstractPgCheckService } from 'moh-common-lib';
 import { AssistGuard } from './guards/assist.guard';
@@ -35,7 +35,7 @@ import { AssistRatesModalComponent } from './components/assist-rates-modal/assis
     AssistanceConfirmationComponent,
     AssistContactComponent,
     AssistanceHomeComponent,
-    AssistCraDocumentComponent,
+    AssistCraDocumentsComponent,
     SpouseComponent,
     AssistRatesModalComponent
   ],

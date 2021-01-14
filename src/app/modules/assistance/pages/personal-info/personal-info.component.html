@@ -10,7 +10,5 @@
   </common-page-section>
   <h3>{{ documentsTitle }}</h3>
   <p class="border-bottom">{{ documentsDescription }}</p>
-  <ng-container *ngFor="let year of assistanceYears">
-    <assist-cra-document [year]="year" [isSpouse]="false"></assist-cra-document>
-  </ng-container>
+  <assist-cra-documents [selectedYears]="assistanceYears" [isSpouse]="false"></assist-cra-documents>
 </form>
