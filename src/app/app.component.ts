@@ -79,6 +79,8 @@ export class GeneralAppComponent {
       version.success
             ? console.log('%c' + version.message, 'color: #036; font-size: 20px;')
             : console.error(version.message);
+      
+      this.spaEnvService.loadEnvs().subscribe(response => this.spaEnvService._values.next(response));
   }
 
   ngOnDestroy() {

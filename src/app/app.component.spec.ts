@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { HeaderService } from './services/header.service';
 import { GeneralAppComponent } from './app.component';
 import { Observable } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MspLogService } from './services/log.service';
 
 describe('GeneralAppComponent', () => {
   let component: GeneralAppComponent;
@@ -14,13 +16,16 @@ describe('GeneralAppComponent', () => {
     const viewContainerRefStub = () => ({});
     const routerStub = () => ({ events: new Observable() });
     const headerServiceStub = () => ({ title: new Observable() });
+    const mspLogServiceStub = () => ({ log: () => {} });
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [GeneralAppComponent],
+      imports: [HttpClientTestingModule],
       providers: [
         { provide: ViewContainerRef, useFactory: viewContainerRefStub },
         { provide: Router, useFactory: routerStub },
-        { provide: HeaderService, useFactory: headerServiceStub }
+        { provide: HeaderService, useFactory: headerServiceStub },
+        { provide: MspLogService, useFactory: mspLogServiceStub }
       ]
     });
     fixture = TestBed.createComponent(GeneralAppComponent);

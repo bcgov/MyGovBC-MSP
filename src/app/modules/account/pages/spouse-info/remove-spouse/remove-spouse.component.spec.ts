@@ -8,12 +8,14 @@ import { MspCoreModule } from '../../../../msp-core/msp-core.module';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../../../models/relationship.enum';
+import { MspLogService } from '../../../../../services/log.service';
 
 describe('RemoveSpouseComponent', () => {
   let component: RemoveSpouseComponent;
   let fixture: ComponentFixture<RemoveSpouseComponent>;
 
   beforeEach(async(() => {
+    const mspLogServiceStub = () => ({ log: () => {} });
     TestBed.configureTestingModule({
       declarations: [
         RemoveSpouseComponent,
@@ -29,7 +31,8 @@ describe('RemoveSpouseComponent', () => {
         })
       ],
       providers: [
-        MspAccountMaintenanceDataService
+        MspAccountMaintenanceDataService,
+        { provide: MspLogService, useFactory: mspLogServiceStub }
       ]
     })
     .compileComponents();

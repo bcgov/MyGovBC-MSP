@@ -5,6 +5,8 @@ import { PageStateService } from '../../../../services/page-state.service';
 import { EnrolDataService } from '../../services/enrol-data.service';
 import { FormsModule } from '@angular/forms';
 import { EnrolAddressComponent } from './address.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MspLogService } from '../../../../services/log.service';
 
 describe('EnrolAddressComponent', () => {
   let component: EnrolAddressComponent;
@@ -13,14 +15,19 @@ describe('EnrolAddressComponent', () => {
     const routerStub = () => ({});
     const pageStateServiceStub = () => ({setPageIncomplete: () => {}});
     const enrolDataServiceStub = () => ({ application: {}});
+    const mspLogServiceStub = () => ({ log: () => {} });
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [
+        FormsModule,
+        HttpClientTestingModule
+      ],
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [EnrolAddressComponent],
       providers: [
         { provide: Router, useFactory: routerStub },
         { provide: PageStateService, useFactory: pageStateServiceStub },
-        { provide: EnrolDataService, useFactory: enrolDataServiceStub }
+        { provide: EnrolDataService, useFactory: enrolDataServiceStub },
+        { provide: MspLogService, useFactory: mspLogServiceStub }
       ]
     });
     fixture = TestBed.createComponent(EnrolAddressComponent);

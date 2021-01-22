@@ -45,22 +45,20 @@ export class SpaEnvService extends AbstractHttpService {
     SPA_ENV_NAME: stringifiedEnvs,
   });
 
-  private _values = new BehaviorSubject<SpaEnvResponse>( null );
+  public _values = new BehaviorSubject<SpaEnvResponse>( null );
   /** The values retrieved from the SpaEnv server. */
   public values: Observable<SpaEnvResponse> = this._values.asObservable()
     .pipe(filter(x => !!x)); // filter null response out, init value
 
   constructor(protected http: HttpClient, private logService: MspLogService) {
     super(http);
-
-    this.loadEnvs().subscribe(response => this._values.next(response));
   }
 
   public getValues(): SpaEnvResponse {
     return this._values.getValue();
   }
 
-  private loadEnvs(){
+  public loadEnvs(){
     const url = environment.appConstants.envServerBaseUrl;
 
     // When the SpaEnv server is being deployed it can return an HTML error
