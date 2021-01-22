@@ -8,6 +8,7 @@ import { Address } from 'moh-common-lib';
 import { ActivatedRoute } from '@angular/router';
 import { AssistStateService } from '../../services/assist-state.service';
 import { environment } from 'environments/environment';
+import { SpaEnvService } from '../../../../services/spa-env.service';
 
 @Component({
   selector: 'msp-assist-contact',
@@ -44,7 +45,8 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     cd: ChangeDetectorRef,
     private dataService: MspDataService,
     private stateSvc: AssistStateService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spaEnvService: SpaEnvService
   ) {
     super(cd);
     this.financialAssistApplication = this.dataService.finAssistApp;
@@ -108,5 +110,10 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
 
   savePhone(evt: any) {
     this.financialAssistApplication.phoneNumber = evt;
+  }
+
+  get isAddressValidatorEnabled(): boolean {
+    const envs = this.spaEnvService.getValues();
+    return envs && envs.SPA_ENV_ENABLE_ADDRESS_VALIDATOR === 'true';
   }
 }
