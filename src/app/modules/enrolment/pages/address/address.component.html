@@ -9,7 +9,16 @@
       <p class="border-bottom">
         Enter your residential address - that's the address you currently live at in B.C. 
       </p>
-      <common-address [address]="residentialAddress"
+      <common-address *ngIf='!isAddressValidatorEnabled'
+                      [address]="residentialAddress"
+                      [isRequired]="true"
+                      [disabled]="{province: true, country: true}"
+                      [allowExtralines]="true"
+                      [disableGeocoder]="true"
+                      [bcOnly]="true">
+      </common-address>
+      <common-address *ngIf='isAddressValidatorEnabled'
+                      [address]="residentialAddress"
                       [isRequired]="true"
                       [disabled]="{province: true, country: true}"
                       [addressServiceUrl]="addressServiceUrl"
@@ -28,7 +37,14 @@
           Enter your mailing address - if it's different
         </p>
         <div *ngIf="!mailingSameAsResidentialAddress; else NoMailingAddress">
-          <common-address [address]="mailingAddress"
+          <common-address *ngIf='!isAddressValidatorEnabled'
+                          [address]="mailingAddress"
+                          [isRequired]="true"
+                          [allowExtralines]="true"
+                          [disableGeocoder]="true">
+          </common-address>
+          <common-address *ngIf='isAddressValidatorEnabled'
+                          [address]="mailingAddress"
                           [isRequired]="true"
                           [addressServiceUrl]="addressServiceUrl">
           </common-address>

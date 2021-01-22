@@ -8,12 +8,14 @@ import { ContactInfoComponent } from './contact-info.component';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { ProcessService } from '../../../../services/process.service';
 import { MspDataService } from '../../../../services/msp-data.service';
+import { MspLogService } from '../../../../services/log.service';
 
 describe('ContactInfoComponent', () => {
   let component: ContactInfoComponent;
   let fixture: ComponentFixture<ContactInfoComponent>;
 
   beforeEach(async(() => {
+    const mspLogServiceStub = () => ({ log: () => {} });
     TestBed.configureTestingModule({
       declarations: [ ContactInfoComponent ],
       imports: [
@@ -29,7 +31,8 @@ describe('ContactInfoComponent', () => {
       providers: [
         MspAccountMaintenanceDataService,
         ProcessService,
-        MspDataService
+        MspDataService,
+        { provide: MspLogService, useFactory: mspLogServiceStub }
       ]
     })
     .compileComponents();

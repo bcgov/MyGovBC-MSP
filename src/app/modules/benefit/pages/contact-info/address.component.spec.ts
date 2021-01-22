@@ -6,6 +6,8 @@ import { ProcessService } from '../../../../services/process.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BenefitAddressComponent } from './address.component';
+import { MspLogService } from '../../../../services/log.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('BenefitAddressComponent', () => {
   let component: BenefitAddressComponent;
@@ -20,8 +22,12 @@ describe('BenefitAddressComponent', () => {
       setStep: (processStepNum, arg) => ({})
     });
     const routerStub = () => ({ navigate: array => ({}) });
+    const mspLogServiceStub = () => ({ log: () => {} });
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [
+        FormsModule,
+        HttpClientTestingModule
+      ],
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [BenefitAddressComponent],
       providers: [
@@ -31,7 +37,8 @@ describe('BenefitAddressComponent', () => {
           useFactory: mspBenefitDataServiceStub
         },
         { provide: ProcessService, useFactory: processServiceStub },
-        { provide: Router, useFactory: routerStub }
+        { provide: Router, useFactory: routerStub },
+        { provide: MspLogService, useFactory: mspLogServiceStub }
       ]
     });
     fixture = TestBed.createComponent(BenefitAddressComponent);

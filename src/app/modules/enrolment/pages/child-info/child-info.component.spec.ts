@@ -8,6 +8,8 @@ import { MspCoreModule } from '../../../msp-core/msp-core.module';
 import { PageStateService } from '../../../../services/page-state.service';
 import { EnrolDataService } from '../../services/enrol-data.service';
 import { EnrolApplication } from '../../models/enrol-application';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MspLogService } from '../../../../services/log.service';
 
 describe('ChildInfoComponent', () => {
   let component: ChildInfoComponent;
@@ -20,6 +22,7 @@ describe('ChildInfoComponent', () => {
   });
 
   beforeEach(async(() => {
+    const mspLogServiceStub = () => ({ log: () => {} });
     TestBed.configureTestingModule({
       declarations: [ ChildInfoComponent ],
       imports: [
@@ -30,11 +33,13 @@ describe('ChildInfoComponent', () => {
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
         }),
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientTestingModule
       ],
       providers: [
         { provide: PageStateService, useFactory: pageStateServiceStub },
-        { provide: EnrolDataService, useFactory: enrolDataServiceStub }
+        { provide: EnrolDataService, useFactory: enrolDataServiceStub },
+        { provide: MspLogService, useFactory: mspLogServiceStub }
       ]
     })
     .compileComponents();

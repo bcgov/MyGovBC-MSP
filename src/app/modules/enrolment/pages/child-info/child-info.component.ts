@@ -11,6 +11,7 @@ import { EnrolDataService } from '../../services/enrol-data.service';
 import { Enrollee } from '../../models/enrollee';
 import { startOfToday } from 'date-fns';
 import { environment } from 'environments/environment';
+import { SpaEnvService } from '../../../../services/spa-env.service';
 
 @Component({
   selector: 'msp-child-info',
@@ -52,7 +53,8 @@ export class ChildInfoComponent extends EnrolForm {
 
   constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
-               protected router: Router ) {
+               protected router: Router,
+               private spaEnvService: SpaEnvService) {
     super( enrolDataService, pageStateService, router );
   }
 
@@ -164,5 +166,10 @@ export class ChildInfoComponent extends EnrolForm {
 
   completionDateRange( child: Enrollee ){
     return child.departureDateForSchool ? child.departureDateForSchool : this._today;
+  }
+
+  get isAddressValidatorEnabled(): boolean {
+    const envs = this.spaEnvService.getValues();
+    return envs && envs.SPA_ENV_ENABLE_ADDRESS_VALIDATOR === 'true';
   }
 }

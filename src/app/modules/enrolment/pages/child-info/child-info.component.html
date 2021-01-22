@@ -118,7 +118,14 @@
               </div>
 
               <div class="form-group col-sm-8 pl-0">
-                <common-address [(address)]="child.schoolAddress"
+                <common-address *ngIf='!isAddressValidatorEnabled'
+                                [(address)]="child.schoolAddress"
+                                [isRequired]="true"
+                                [allowExtralines]='true'
+                                [disableGeocoder]='true'>
+                </common-address>
+                <common-address *ngIf='isAddressValidatorEnabled'
+                                [(address)]="child.schoolAddress"
                                 [isRequired]="true"
                                 [addressServiceUrl]="addressServiceUrl">
                 </common-address>

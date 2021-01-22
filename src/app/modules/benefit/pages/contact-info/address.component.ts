@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 import {  ProvinceList, PROVINCE_LIST, CountryList, CANADA, BRITISH_COLUMBIA, Address, COUNTRY_LIST, CheckCompleteBaseService } from 'moh-common-lib';
 import { environment } from 'environments/environment';
+import { SpaEnvService } from '../../../../services/spa-env.service';
 //import { CountryList,ProvinceList,countryData, provinceData } from '../../../../models/msp-constants';
 
 @Component({
@@ -34,7 +35,8 @@ export class BenefitAddressComponent extends BaseComponent {
   constructor(private dataService: MspBenefitDataService,
               private _router: Router,
               private _processService: ProcessService,
-              private cd: ChangeDetectorRef) {
+              private cd: ChangeDetectorRef,
+              private spaEnvService: SpaEnvService) {
     super(cd);
     this.mspApplication = this.dataService.benefitApp;
   }
@@ -65,6 +67,11 @@ export class BenefitAddressComponent extends BaseComponent {
 
   handleAddressUpdate(evt: any){
     this.dataService.saveBenefitApplication();
+  }
+
+  get isAddressValidatorEnabled(): boolean {
+    const envs = this.spaEnvService.getValues();
+    return envs && envs.SPA_ENV_ENABLE_ADDRESS_VALIDATOR === 'true';
   }
 
   canContinue() {
