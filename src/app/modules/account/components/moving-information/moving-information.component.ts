@@ -7,6 +7,7 @@ import { Relationship } from 'app/models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { formatDateField } from '../../helpers/date';
 import { isBefore, subDays, addDays, addMonths } from 'date-fns';
+import { SpaEnvService } from '../../../../services/spa-env.service';
 
 // TO BE removed - differenece need to be added to msp-core moving-info so that it will work with account
 @Component({
@@ -45,7 +46,7 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
   
   dateToday: Date = new Date();
 
-  constructor() {
+  constructor(public spaEnvService: SpaEnvService) {
     super();
   }
 
@@ -502,5 +503,10 @@ export class ChildMovingInformationComponent extends Base implements OnInit {
     } else {
       return { invalidRange: 'Invalid date range.' };
     }
+  }
+
+  get isAddressValidatorEnabled(): boolean {
+    const envs = this.spaEnvService.getValues();
+    return envs && envs.SPA_ENV_ENABLE_ADDRESS_VALIDATOR === 'true';
   }
 }

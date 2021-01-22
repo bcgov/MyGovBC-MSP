@@ -7,6 +7,7 @@ import { MspPerson } from '../../../../../components/msp/model/msp-person.model'
 import { ErrorMessage } from 'moh-common-lib';
 import { UUID } from 'angular2-uuid';
 import { environment } from 'environments/environment';
+import { SpaEnvService } from '../../../../../services/spa-env.service';
 
 @Component({
   selector: 'msp-remove-child',
@@ -21,7 +22,8 @@ import { environment } from 'environments/environment';
 })
 
 export class RemoveChildComponent implements OnInit {
-  constructor( public dataService: MspAccountMaintenanceDataService) { }
+  constructor( public dataService: MspAccountMaintenanceDataService,
+               public spaEnvService: SpaEnvService) { }
 
   ngOnInit() {
   }
@@ -86,5 +88,10 @@ export class RemoveChildComponent implements OnInit {
     const cp = [...this.phns];
     cp.splice(cp.indexOf(this.child.phn), 1);
     return cp;
+  }
+
+  get isAddressValidatorEnabled(): boolean {
+    const envs = this.spaEnvService.getValues();
+    return envs && envs.SPA_ENV_ENABLE_ADDRESS_VALIDATOR === 'true';
   }
 }

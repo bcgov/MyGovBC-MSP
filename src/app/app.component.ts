@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import * as version from '../version.GENERATED';
 import { HeaderService } from './services/header.service';
+import { SpaEnvService } from './services/spa-env.service';
 // import { } from '../version.GENERATED';
 
 @Component({
@@ -21,7 +22,10 @@ export class GeneralAppComponent {
   public headerName: string = environment.appConstants.serviceName;
 
 
-  public constructor(viewContainerRef: ViewContainerRef, private router: Router, private header: HeaderService) {
+  public constructor(viewContainerRef: ViewContainerRef,
+                     private router: Router,
+                     private header: HeaderService,
+                     private spaEnvService: SpaEnvService) {
     // You need this small hack in order to catch application root view container ref
     this.viewContainerRef = viewContainerRef;
 

@@ -334,7 +334,13 @@
     <p class="horizontal-line"></p>
 
     <div class="form-group col-sm-7 p-sm-2">
-      <common-address
+      <common-address *ngIf='!isAddressValidatorEnabled'
+        [(address)]="person.schoolAddress"
+        [isRequired]="true"
+        [allowExtralines]="true"
+        [disableGeocoder]="true">
+      </common-address>
+      <common-address *ngIf='isAddressValidatorEnabled'
         [(address)]="person.schoolAddress"
         [isRequired]="true"
         [addressServiceUrl]="addressServiceUrl">
