@@ -1,5 +1,5 @@
 import { CommonImage } from 'moh-common-lib';
-import { CommonImageDto } from '../../../models/common-image.dto';
+import { CommonImageDto } from '../../../dtos/common-image.dto';
 /**
  * Class used to store documents name changes, residency status, etc
  */

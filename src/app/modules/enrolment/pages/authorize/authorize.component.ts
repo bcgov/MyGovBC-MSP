@@ -7,7 +7,7 @@ import { EnrolForm } from '../../models/enrol-form';
 import { MspLogService } from '../../../../services/log.service';
 import { MspApiEnrolmentService } from '../../services/msp-api-enrolment.service';
 import { ApiStatusCodes } from 'moh-common-lib';
-import { ApiResponse } from '../../../../models/api-response.interface';
+import { ApiResponse } from '../../../../interfaces/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EnrolDataService } from '../../services/enrol-data.service';
 import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';

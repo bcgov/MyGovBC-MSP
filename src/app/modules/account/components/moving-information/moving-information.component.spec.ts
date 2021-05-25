@@ -1,7 +1,7 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ChildMovingInformationComponent } from './moving-information.component';
 import { Enrollee } from '../../../enrolment/models/enrollee';
-import { Relationship } from 'app/models/relationship.enum';
+import { Relationship } from 'app/enums/relationship.enum';
 import { SharedCoreModule } from 'moh-common-lib';
 import { FormsModule } from '@angular/forms';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';

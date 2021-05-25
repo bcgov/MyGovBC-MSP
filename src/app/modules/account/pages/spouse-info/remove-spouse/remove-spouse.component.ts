@@ -16,7 +16,7 @@ import { spouseRemovedDueToDivorceDocuments } from 'app/modules/msp-core/compone
 import {
   CancellationReasons,
   CancellationReasonsStrings,
-} from '../../../../../models/status-activities-documents';
+} from '../../../../../enums/status-activities-documents.enum';
 import {
   MspPerson,
   OperationActionType,

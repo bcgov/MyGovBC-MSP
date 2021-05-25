@@ -1,10 +1,11 @@
 import { ICanadianStatus } from '../../msp-core/components/canadian-status/canadian-status.component';
-import { BasePersonDto, BasePerson } from '../../../models/base-person';
+import { BasePerson } from '../../../models/base-person.model';
+import { BasePersonDto } from '../../../dtos/base-person.dto';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
-import { Relationship } from '../../../models/relationship.enum';
+import { Relationship } from '../../../enums/relationship.enum';
 import { Address } from 'moh-common-lib';
 import { SupportDocumentsDto, SupportDocuments } from '../../msp-core/models/support-documents.model';
-import { AddressDto } from '../../../models/address.dto';
+import { AddressDto } from '../../../dtos/address.dto';
 
 export class Enrollee extends BasePerson implements ICanadianStatus {
   // Flag to indicate gender to be displayed in personal-information component

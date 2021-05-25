@@ -1,15 +1,12 @@
-import { Component, OnInit, ChangeDetectorRef, Injectable, ViewChild, ElementRef } from '@angular/core';
-import {ConsentModalComponent, PageStateService} from 'moh-common-lib';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConsentModalComponent, PageStateService } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { Router } from '@angular/router';
 import { MspAccountApp } from '../../models/account.model';
 import { HeaderService } from '../../../../services/header.service';
 import { environment } from 'environments/environment';
 import { MspApiAccountService } from '../../services/msp-api-account.service';
-import { ApiResponse } from '../../../../models/api-response.interface';
-import { HttpErrorResponse } from '@angular/common/http';
 import { MspLogService } from '../../../../services/log.service';
-import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 
 @Component({
   selector: 'msp-home',

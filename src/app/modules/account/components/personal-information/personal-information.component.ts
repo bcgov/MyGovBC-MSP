@@ -1,8 +1,8 @@
 import { Component, forwardRef, Input, Output, EventEmitter, OnInit, DoCheck } from '@angular/core';
 import { Base, ErrorMessage } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { Gender } from '../../../../models/gender.enum';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Gender } from '../../../../enums/gender.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 import { subYears, startOfToday } from 'date-fns';
 
 export interface IPersonalInformation {

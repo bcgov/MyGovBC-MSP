@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
-import { ApiResponse } from '../../../models/api-response.interface';
+import { ApiResponse } from '../../../interfaces/api-response.interface';
 import { SchemaService } from 'app/services/schema.service';
 import { Router } from '@angular/router';
 import { MspBenefitDataService } from './msp-benefit-data.service';

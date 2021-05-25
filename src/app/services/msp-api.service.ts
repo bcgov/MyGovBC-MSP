@@ -8,17 +8,17 @@ import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTy
 import { LivedInBCTypeFactory, OutsideBCTypeFactory, WillBeAwayTypeFactory } from '../modules/msp-core/api-model/enrolmentTypes';
 import { ResponseType } from '../modules/msp-core/api-model/responseTypes';
 import { MspAccountApp } from '../modules/account/models/account.model';
-import { ApplicationBase } from '../models/application-base.model';
+import { ApplicationBase } from '../interfaces/application-base.interface';
 import { AssistanceApplicationType, FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
 import { Address, CommonImage } from 'moh-common-lib';
 import { MspLogService } from './log.service';
 import { MspMaintenanceService } from './msp-maintenance.service';
 import { Response } from '@angular/http';
-import {ISpaEnvResponse} from '../components/msp/model/spa-env-response.interface';
+import { ISpaEnvResponse } from '../components/msp/model/spa-env-response.interface';
 import { environment } from '../../environments/environment';
 import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
-import { Relationship } from '../models/relationship.enum';
+import { Relationship } from '../enums/relationship.enum';
 import { format } from 'date-fns';
 import devOnlyConsoleLog from 'app/_developmentHelpers/dev-only-console-log';
 

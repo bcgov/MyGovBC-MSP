@@ -8,7 +8,7 @@ import { AccountPersonalInformationComponent } from '../../../components/persona
 import { ChildMovingInformationComponent } from '../../../components/moving-information/moving-information.component';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
-import { Relationship } from '../../../../../models/relationship.enum';
+import { Relationship } from '../../../../../enums/relationship.enum';
 
 describe('AddSpouseComponent', () => {
   let component: AddSpouseComponent;

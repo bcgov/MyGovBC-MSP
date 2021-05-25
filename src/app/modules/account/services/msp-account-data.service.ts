@@ -9,9 +9,10 @@ import {
 } from '../../../components/msp/model/msp-person.model';
 import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
 import { PersonDto } from '../../../components/msp/model/msp-person.dto';
-import { OutofBCRecordDto, OutofBCRecord } from '../../../models/outof-bc-record.model';
-import { AddressDto } from '../../../models/address.dto';
-import { Gender } from '../../../models/gender.enum';
+import { OutofBCRecord } from '../../../models/out-of-bc-record.model';
+import { OutofBCRecordDto } from '../../../dtos/out-of-bc-record.dto';
+import { AddressDto } from '../../../dtos/address.dto';
+import { Gender } from '../../../enums/gender.enum';
 
 @Injectable()
 export class MspAccountMaintenanceDataService {

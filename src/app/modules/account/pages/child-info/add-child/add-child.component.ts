@@ -3,7 +3,7 @@ import { nameChangeSupportDocs } from '../../../../msp-core/components/support-d
 import { NgForm, ControlContainer } from '@angular/forms';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { Base } from 'moh-common-lib';
-import { Relationship } from 'app/models/relationship.enum';
+import { Relationship } from 'app/enums/relationship.enum';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 import { SupportDocumentTypes } from '../../../../msp-core/models/support-documents.enum';

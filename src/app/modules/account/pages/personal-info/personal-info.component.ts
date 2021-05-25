@@ -7,11 +7,11 @@ import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { AbstractForm, ContainerService, PageStateService } from 'moh-common-lib';
 import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../msp-core/models/canadian-status.enum';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { BaseForm } from '../../models/base-form';
 import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
-import {ProcessService} from '../../../../services/process.service';
+import { ProcessService } from '../../../../services/process.service';
 
 @Component({
   templateUrl: './personal-info.component.html',

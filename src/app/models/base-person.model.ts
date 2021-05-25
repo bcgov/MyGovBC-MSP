@@ -1,10 +1,9 @@
 import { Person } from 'moh-common-lib';
 import { UUID } from 'angular2-uuid';
-import { Gender } from './gender.enum';
-import { SupportDocumentsDto, SupportDocuments } from '../modules/msp-core/models/support-documents.model';
+import { Gender } from '../enums/gender.enum';
+import { SupportDocuments } from '../modules/msp-core/models/support-documents.model';
 import { IPersonalInformation } from '../modules/msp-core/components/personal-information/personal-information.component';
-import { Relationship } from './relationship.enum';
-import { BaseDto } from './base.dto';
+import { Relationship } from '../enums/relationship.enum';
 
 export class BasePerson extends Person implements IPersonalInformation {
 
@@ -23,17 +22,4 @@ export class BasePerson extends Person implements IPersonalInformation {
       this.relationship = rel;
     }
   }
-}
-
-/**
- * Storage definition
- */
-export class BasePersonDto extends BaseDto {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  dateOfBirth: number;
-  gender: Gender;
-  relationship: Relationship;
-  documents: SupportDocumentsDto;
 }

@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { PersonReviewCardComponent, IPersonReviewCard } from './person-review-card.component';
 import { MspCoreModule } from '../../../msp-core/msp-core.module';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 
 describe('PersonReviewCardComponent', () => {
   let component: PersonReviewCardComponent<IPersonReviewCard>;

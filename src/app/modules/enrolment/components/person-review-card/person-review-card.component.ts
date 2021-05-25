@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Address, getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import { ColumnClass } from '../../../msp-core/components/review-part/review-part.component';
-import { Gender, GenderStrings } from '../../../../models/gender.enum';
+import { Gender, GenderStrings } from '../../../../enums/gender.enum';
 import { format } from 'date-fns';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { getStatusStrings, getStatusReasonStrings } from '../../../msp-core/components/canadian-status/canadian-status.component';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 
 export interface IPersonReviewCard {
   // Personal Information

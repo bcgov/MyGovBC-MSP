@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { StatusInCanada, CanadianStatusReason, statusInCanadaStrings, CanadianStatusReasonStrings } from '../../../msp-core/models/canadian-status.enum';
 import { getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import { getStatusStrings, getStatusReasonStrings } from '../../../msp-core/components/canadian-status/canadian-status.component';
-import { Relationship } from '../../../../models/relationship.enum';
+import { Relationship } from '../../../../enums/relationship.enum';
 import { format } from 'date-fns';
 
 /* TO BE REPLACED when remaining apps are refactored to have own application  model definitions

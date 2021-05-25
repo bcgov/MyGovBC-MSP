@@ -7,10 +7,10 @@ import { NgForm } from '@angular/forms';
 import { ContainerService, PageStateService } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { Relationship } from 'app/models/relationship.enum';
+import { Relationship } from 'app/enums/relationship.enum';
 import { BaseForm } from '../../models/base-form';
-import { CancellationReasons } from '../../../../models/status-activities-documents';
-import {ProcessService} from '../../../../services/process.service';
+import { CancellationReasons } from '../../../../enums/status-activities-documents.enum';
+import { ProcessService } from '../../../../services/process.service';
 
 @Component({
   selector: 'msp-spouse-info',

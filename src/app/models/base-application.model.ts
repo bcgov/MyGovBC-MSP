@@ -35,14 +35,3 @@ export class BaseApplication extends Base {
     return [];
   }
 }
-
-export class BaseApplicationDto {
-
-  // Flag to indicate whether individual has read the collection agreement
-  infoCollectionAgreement: boolean;
-
-  // Authorization
-  authorizedByApplicant: boolean;
-  authorizedBySpouse: boolean;
-  authorizedByApplicantDate: number;
-}
