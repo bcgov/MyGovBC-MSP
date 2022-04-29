@@ -35,7 +35,7 @@
     "@types/lodash": "^4.14.117",
     "@types/node": "^10.11.5",
     "@types/pdfjs-dist": "^0.1.2",
-    "async": "^2.6.1",
+    "async": "^2.6.4",
     "autoprefixer": "^6.0.0",
     "codelyzer": "~4.2.1",
     "core-js": "^2.5.7",
